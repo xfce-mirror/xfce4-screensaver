@@ -47,9 +47,7 @@ DBUS_REQUIRED_VERSION=0.30
 GLIB_REQUIRED_VERSION=2.50.0
 GTK_REQUIRED_VERSION=3.22.0
 X11_REQUIRED_VERSION=1.0
-LIBMATE_MENU_REQUIRED_VERSION=1.10.0
-MATE_DESKTOP_REQUIRED_VERSION=1.17.0
-LIBMATEKBDUI_REQUIRED_VERSION=1.17.0
+LIBXKLAVIER_REQUIRED=5.2
 
 AC_CHECK_HEADERS(unistd.h)
 AC_CHECK_HEADERS(crypt.h sys/select.h)
@@ -65,24 +63,21 @@ PKG_CHECK_MODULES(MATE_SCREENSAVER,
         gtk+-3.0 >= $GTK_REQUIRED_VERSION
         dbus-glib-1 >= $DBUS_REQUIRED_VERSION
         gio-2.0 >= $GLIB_REQUIRED_VERSION
-        mate-desktop-2.0 >= $MATE_DESKTOP_REQUIRED_VERSION
-        libmate-menu >= $LIBMATE_MENU_REQUIRED_VERSION)
+        libxklavier >= $LIBXKLAVIER_REQUIRED)
 AC_SUBST(MATE_SCREENSAVER_CFLAGS)
 AC_SUBST(MATE_SCREENSAVER_LIBS)
 
 PKG_CHECK_MODULES(MATE_SCREENSAVER_DIALOG,
         gio-2.0 >= $GLIB_REQUIRED_VERSION
         gthread-2.0
-        gtk+-3.0 >= $GTK_REQUIRED_VERSION
-        mate-desktop-2.0 >= $MATE_DESKTOP_REQUIRED_VERSION)
+        gtk+-3.0 >= $GTK_REQUIRED_VERSION)
 AC_SUBST(MATE_SCREENSAVER_DIALOG_CFLAGS)
 AC_SUBST(MATE_SCREENSAVER_DIALOG_LIBS)
 
 PKG_CHECK_MODULES(MATE_SCREENSAVER_CAPPLET,
         gio-2.0 >= $GLIB_REQUIRED_VERSION
         gtk+-3.0 >= $GTK_REQUIRED_VERSION
-        mate-desktop-2.0 >= $MATE_DESKTOP_REQUIRED_VERSION
-        libmate-menu >= $LIBMATE_MENU_REQUIRED_VERSION)
+        libxklavier >= $LIBXKLAVIER_REQUIRED)
 AC_SUBST(MATE_SCREENSAVER_CAPPLET_CFLAGS)
 AC_SUBST(MATE_SCREENSAVER_CAPPLET_LIBS)
 
@@ -946,18 +941,13 @@ AC_SUBST(SYSTEMD_CFLAGS)
 AC_SUBST(SYSTEMD_LIBS)
 
 dnl ---------------------------------------------------------------------------
-dnl libmatekbd
+dnl libxfcekbd
 dnl ---------------------------------------------------------------------------
 
-have_libmatekbdui=no
+have_libxfcekbdui=no
 AC_ARG_WITH(kbd-layout-indicator,[  --without-kbd-layout-indicator         disable keyboard layout indicator],
             [with_kbd_layout_indicator="$withval"],[with_kbd_layout_indicator=yes])
 if test x$with_kbd_layout_indicator != xno; then
-  PKG_CHECK_MODULES(LIBMATEKBDUI, libmatekbdui >= $LIBMATEKBDUI_REQUIRED_VERSION, have_libmatekbdui=yes, have_libmatekbdui=no)
-fi
-if test "x$have_libmatekbdui" = "xyes"; then
-  AC_SUBST(LIBMATEKBDUI_CFLAGS)
-  AC_SUBST(LIBMATEKBDUI_LIBS)
   AC_DEFINE(WITH_KBD_LAYOUT_INDICATOR, 1, [Define if keyboard layout indicator should be built])
 fi
 
@@ -1086,6 +1076,7 @@ fi
 AC_SUBST(DEBUG_CFLAGS)
 
 # Flags
+CFLAGS="$CFLAGS -lm"
 
 AC_SUBST(CFLAGS)
 AC_SUBST(CPPFLAGS)

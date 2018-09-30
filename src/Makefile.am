@@ -31,6 +31,7 @@ AM_CPPFLAGS =							\
 	$(DBUS_CFLAGS)						\
 	$(LIBMATEKBDUI_CFLAGS)					\
 	$(LIBNOTIFY_CFLAGS)					\
+	$(LIBXKLAVIER_CFLAGS)				\
 	$(SYSTEMD_CFLAGS)					\
 	$(NULL)
 
@@ -76,6 +77,8 @@ test_fade_SOURCES = 			\
 	gs-fade.h	 		\
 	gs-debug.c			\
 	gs-debug.h			\
+	xfce-rr.c			\
+	xfce-rr.h			\
 	$(NULL)
 
 test_fade_LDADD =			\
@@ -141,6 +144,31 @@ mate_screensaver_dialog_SOURCES = 	\
 	setuid.h			\
 	subprocs.c			\
 	subprocs.h			\
+	xfce-desktop-utils.c		\
+	xfce-desktop-utils.h		\
+	xfcekbd-indicator.c		\
+	xfcekbd-indicator.h		\
+	xfcekbd-indicator-config.c		\
+	xfcekbd-indicator-config.h		\
+	xfcekbd-config-private.h		\
+	xfcekbd-desktop-config.c \
+	xfcekbd-desktop-config.h \
+	xfcekbd-keyboard-config.c \
+	xfcekbd-keyboard-config.h \
+	xfcekbd-util.c \
+	xfcekbd-util.h \
+	desktop-entries.c \
+	desktop-entries.h \
+	menu-layout.c \
+	menu-layout.h \
+	menu-util.c \
+	menu-util.h \
+	menu-monitor.c \
+	menu-monitor.h \
+	canonicalize.c \
+	canonicalize.h \
+	entry-directories.c \
+	entry-directories.h \
 	$(AUTH_SOURCES)			\
 	$(NULL)
 
@@ -149,10 +177,36 @@ EXTRA_mate_screensaver_dialog_SOURCES = \
 	gs-auth-helper.c	\
 	gs-auth-pwent.c		\
 	gs-auth-bsdauth.c	\
+	xfce-desktop-utils.c		\
+	xfce-desktop-utils.h		\
+	xfcekbd-indicator.c		\
+	xfcekbd-indicator.h		\
+	xfcekbd-indicator-config.c		\
+	xfcekbd-indicator-config.h		\
+	xfcekbd-config-private.h		\
+	xfcekbd-desktop-config.c \
+	xfcekbd-desktop-config.h \
+	xfcekbd-keyboard-config.c \
+	xfcekbd-keyboard-config.h \
+	xfcekbd-util.c \
+	xfcekbd-util.h \
+	desktop-entries.c \
+	desktop-entries.h \
+	menu-layout.c \
+	menu-layout.h \
+	menu-util.c \
+	menu-util.h \
+	menu-monitor.c \
+	menu-monitor.h \
+	canonicalize.c \
+	canonicalize.h \
+	entry-directories.c \
+	entry-directories.h \
 	$(NULL)
 
 mate_screensaver_dialog_LDADD =	\
 	$(MATE_SCREENSAVER_DIALOG_LIBS)\
+	$(MATE_SCREENSAVER_LIBS)\
 	$(SAVER_LIBS)			\
 	$(AUTH_LIBS)			\
 	$(LIBMATEKBDUI_LIBS)		\
@@ -162,6 +216,7 @@ mate_screensaver_dialog_LDADD =	\
 BUILT_SOURCES = 		\
 	gs-marshal.c 		\
 	gs-marshal.h		\
+	xfcekbd-indicator-marshal.h \
 	$(NULL)
 
 gs-marshal.c: gs-marshal.list
@@ -198,6 +253,42 @@ mate_screensaver_SOURCES =	\
 	gs-grab.h		\
 	gs-fade.c		\
 	gs-fade.h		\
+	xfce-rr.c		\
+	xfce-rr.h		\
+	xfce-bg.c		\
+	xfce-bg.h		\
+	xfce-bg-crossfade.c		\
+	xfce-bg-crossfade.h		\
+	xfce-desktop-thumbnail.c		\
+	xfce-desktop-thumbnail.h		\
+	xfce-desktop-utils.c		\
+	xfce-desktop-utils.h		\
+	xfcekbd-indicator.c		\
+	xfcekbd-indicator.h		\
+	xfcekbd-indicator-config.c		\
+	xfcekbd-indicator-config.h		\
+	xfcekbd-config-private.h		\
+	xfcekbd-desktop-config.c \
+	xfcekbd-desktop-config.h \
+	xfcekbd-keyboard-config.c \
+	xfcekbd-keyboard-config.h \
+	xfcekbd-util.c \
+	xfcekbd-util.h \
+	xfcemenu-tree.c \
+	xfcemenu-tree.h \
+	desktop-entries.c \
+	desktop-entries.h \
+	menu-layout.c \
+	menu-layout.h \
+	menu-util.c \
+	menu-util.h \
+	menu-monitor.c \
+	menu-monitor.h \
+	canonicalize.c \
+	canonicalize.h \
+	entry-directories.c \
+	entry-directories.h \
+	private.h		\
 	$(BUILT_SOURCES)	\
 	$(NULL)
 
@@ -232,6 +323,33 @@ mate_screensaver_preferences_SOURCES =	\
 	gs-debug.h			\
 	subprocs.c			\
 	subprocs.h			\
+	xfce-desktop-utils.c		\
+	xfce-desktop-utils.h		\
+	xfcekbd-indicator.c		\
+	xfcekbd-indicator.h		\
+	xfcekbd-indicator-config.c		\
+	xfcekbd-indicator-config.h		\
+	xfcekbd-config-private.h		\
+	xfcekbd-desktop-config.c \
+	xfcekbd-desktop-config.h \
+	xfcekbd-keyboard-config.c \
+	xfcekbd-keyboard-config.h \
+	xfcekbd-util.c \
+	xfcekbd-util.h \
+	xfcemenu-tree.c \
+	xfcemenu-tree.h \
+	canonicalize.c \
+	canonicalize.h \
+	entry-directories.c \
+	entry-directories.h \
+	menu-util.c \
+	menu-util.h \
+	menu-layout.c \
+	menu-layout.h \
+	menu-monitor.c \
+	menu-monitor.h \
+	desktop-entries.c \
+	desktop-entries.h \
 	$(NULL)
 
 mate_screensaver_preferences_LDADD =	\
@@ -243,6 +361,14 @@ EXTRA_DIST =				\
 	gs-marshal.list			\
 	mate-screensaver.desktop.in	\
 	$(NULL)
+
+GLIB_GENMARSHAL = $(shell pkg-config --variable=glib_genmarshal glib-2.0)
+
+xfcekbd-indicator-marshal.h: xfcekbd-indicator-marshal.list
+	$(AM_V_GEN)$(GLIB_GENMARSHAL) --prefix=xfcekbd_indicator $(srcdir)/xfcekbd-indicator-marshal.list --header > $@
+
+xfcekbd-indicator-marshal.c: xfcekbd-indicator-marshal.h
+	$(AM_V_GEN)$(GLIB_GENMARSHAL) --prefix=xfcekbd_indicator $(srcdir)/xfcekbd-indicator-marshal.list --body > $@
 
 CLEANFILES = 				\
 	$(desktop_DATA) 		\

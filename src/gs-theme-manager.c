@@ -31,7 +31,7 @@
 #endif /* HAVE_UNISTD_H */
 
 #include <glib-object.h>
-#include <matemenu-tree.h>
+#include <xfcemenu-tree.h>
 
 #include "gs-theme-manager.h"
 #include "gs-debug.h"
@@ -52,7 +52,7 @@ struct _GSThemeInfo
 
 struct GSThemeManagerPrivate
 {
-	MateMenuTree *menu_tree;
+	XfceMenuTree *menu_tree;
 };
 
 G_DEFINE_TYPE (GSThemeManager, gs_theme_manager, G_TYPE_OBJECT)
@@ -232,7 +232,7 @@ gs_theme_info_get_exec (GSThemeInfo *info)
 }
 
 static GSThemeInfo *
-gs_theme_info_new_from_matemenu_tree_entry (MateMenuTreeEntry *entry)
+gs_theme_info_new_from_xfcemenu_tree_entry (XfceMenuTreeEntry *entry)
 {
 	GSThemeInfo *info;
 	const char     *str;
@@ -241,11 +241,11 @@ gs_theme_info_new_from_matemenu_tree_entry (MateMenuTreeEntry *entry)
 	info = g_new0 (GSThemeInfo, 1);
 
 	info->refcount = 1;
-	info->name     = g_strdup (matemenu_tree_entry_get_name (entry));
-	info->exec     = g_strdup (matemenu_tree_entry_get_exec (entry));
+	info->name     = g_strdup (xfcemenu_tree_entry_get_name (entry));
+	info->exec     = g_strdup (xfcemenu_tree_entry_get_exec (entry));
 
 	/* remove the .desktop suffix */
-	str = matemenu_tree_entry_get_desktop_file_id (entry);
+	str = xfcemenu_tree_entry_get_desktop_file_id (entry);
 	pos = g_strrstr (str, ".desktop");
 	if (pos)
 	{
@@ -260,44 +260,44 @@ gs_theme_info_new_from_matemenu_tree_entry (MateMenuTreeEntry *entry)
 }
 
 static GSThemeInfo *
-find_info_for_id (MateMenuTree  *tree,
+find_info_for_id (XfceMenuTree  *tree,
                   const char *id)
 {
 	GSThemeInfo     *info;
-	MateMenuTreeDirectory *root;
+	XfceMenuTreeDirectory *root;
 	GSList             *items;
 	GSList             *l;
 
-	root = matemenu_tree_get_root_directory (tree);
+	root = xfcemenu_tree_get_root_directory (tree);
 	if (root == NULL)
 	{
 		return NULL;
 	}
 
-	items = matemenu_tree_directory_get_contents (root);
+	items = xfcemenu_tree_directory_get_contents (root);
 
 	info = NULL;
 
 	for (l = items; l; l = l->next)
 	{
 		if (info == NULL
-		        && matemenu_tree_item_get_type (l->data) == MATEMENU_TREE_ITEM_ENTRY)
+		        && xfcemenu_tree_item_get_type (l->data) == MATEMENU_TREE_ITEM_ENTRY)
 		{
-			MateMenuTreeEntry *entry = l->data;
+			XfceMenuTreeEntry *entry = l->data;
 			const char     *file_id;
 
-			file_id = matemenu_tree_entry_get_desktop_file_id (entry);
+			file_id = xfcemenu_tree_entry_get_desktop_file_id (entry);
 			if (file_id && id && strcmp (file_id, id) == 0)
 			{
-				info = gs_theme_info_new_from_matemenu_tree_entry (entry);
+				info = gs_theme_info_new_from_xfcemenu_tree_entry (entry);
 			}
 		}
 
-		matemenu_tree_item_unref (l->data);
+		xfcemenu_tree_item_unref (l->data);
 	}
 
 	g_slist_free (items);
-	matemenu_tree_item_unref (root);
+	xfcemenu_tree_item_unref (root);
 
 	return info;
 }
@@ -321,29 +321,29 @@ gs_theme_manager_lookup_theme_info (GSThemeManager *theme_manager,
 
 static void
 theme_prepend_entry (GSList         **parent_list,
-                     MateMenuTreeEntry  *entry,
+                     XfceMenuTreeEntry  *entry,
                      const char      *filename)
 {
 	GSThemeInfo *info;
 
-	info = gs_theme_info_new_from_matemenu_tree_entry (entry);
+	info = gs_theme_info_new_from_xfcemenu_tree_entry (entry);
 
 	*parent_list = g_slist_prepend (*parent_list, info);
 }
 
 static void
 make_theme_list (GSList             **parent_list,
-                 MateMenuTreeDirectory  *directory,
+                 XfceMenuTreeDirectory  *directory,
                  const char          *filename)
 {
 	GSList *items;
 	GSList *l;
 
-	items = matemenu_tree_directory_get_contents (directory);
+	items = xfcemenu_tree_directory_get_contents (directory);
 
 	for (l = items; l; l = l->next)
 	{
-		switch (matemenu_tree_item_get_type (l->data))
+		switch (xfcemenu_tree_item_get_type (l->data))
 		{
 
 		case MATEMENU_TREE_ITEM_ENTRY:
@@ -356,7 +356,7 @@ make_theme_list (GSList             **parent_list,
 			break;
 		}
 
-		matemenu_tree_item_unref (l->data);
+		xfcemenu_tree_item_unref (l->data);
 	}
 
 	g_slist_free (items);
@@ -368,16 +368,16 @@ GSList *
 gs_theme_manager_get_info_list (GSThemeManager *theme_manager)
 {
 	GSList             *l = NULL;
-	MateMenuTreeDirectory *root;
+	XfceMenuTreeDirectory *root;
 
 	g_return_val_if_fail (GS_IS_THEME_MANAGER (theme_manager), NULL);
 
-	root = matemenu_tree_get_root_directory (theme_manager->priv->menu_tree);
+	root = xfcemenu_tree_get_root_directory (theme_manager->priv->menu_tree);
 
 	if (root != NULL)
 	{
 		make_theme_list (&l, root, "mate-screensavers.menu");
-		matemenu_tree_item_unref (root);
+		xfcemenu_tree_item_unref (root);
 	}
 
 	return l;
@@ -393,16 +393,16 @@ gs_theme_manager_class_init (GSThemeManagerClass *klass)
 	g_type_class_add_private (klass, sizeof (GSThemeManagerPrivate));
 }
 
-static MateMenuTree *
+static XfceMenuTree *
 get_themes_tree (void)
 {
-	MateMenuTree *themes_tree = NULL;
+	XfceMenuTree *themes_tree = NULL;
 
 	/* we only need to add the locations to the path once
 	   and since this is only run once we'll do it here */
 	add_known_engine_locations_to_path ();
 
-	themes_tree = matemenu_tree_lookup ("mate-screensavers.menu", MATEMENU_TREE_FLAGS_NONE);
+	themes_tree = xfcemenu_tree_lookup ("mate-screensavers.menu", MATEMENU_TREE_FLAGS_NONE);
 
 	return themes_tree;
 }
@@ -429,7 +429,7 @@ gs_theme_manager_finalize (GObject *object)
 
 	if (theme_manager->priv->menu_tree != NULL)
 	{
-		matemenu_tree_unref (theme_manager->priv->menu_tree);
+		xfcemenu_tree_unref (theme_manager->priv->menu_tree);
 	}
 
 	G_OBJECT_CLASS (gs_theme_manager_parent_class)->finalize (object);

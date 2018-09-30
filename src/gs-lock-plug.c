@@ -39,11 +39,11 @@
 #include <gtk/gtkx.h>
 #include <gio/gio.h>
 
-#define MATE_DESKTOP_USE_UNSTABLE_API
-#include <libmate-desktop/mate-desktop-utils.h>
+
+#include "xfce-desktop-utils.h"
 
 #ifdef WITH_KBD_LAYOUT_INDICATOR
-#include <libmatekbd/matekbd-indicator.h>
+#include "xfcekbd-indicator.h"
 #endif
 
 #ifdef WITH_LIBNOTIFY
@@ -215,7 +215,7 @@ do_user_switch (GSLockPlug *plug)
 								   MDM_FLEXISERVER_ARGS);
 
 		error = NULL;
-		res = mate_gdk_spawn_command_line_on_screen (gdk_screen_get_default (),
+		res = xfce_gdk_spawn_command_line_on_screen (gdk_screen_get_default (),
 												command,
 												&error);
 
@@ -235,7 +235,7 @@ do_user_switch (GSLockPlug *plug)
 								   GDM_FLEXISERVER_ARGS);
 
 		error = NULL;
-		res = mate_gdk_spawn_command_line_on_screen (gdk_screen_get_default (),
+		res = xfce_gdk_spawn_command_line_on_screen (gdk_screen_get_default (),
 												command,
 												&error);
 
@@ -2148,8 +2148,8 @@ gs_lock_plug_init (GSLockPlug *plug)
 		{
 			GtkWidget *layout_indicator;
 
-			layout_indicator = matekbd_indicator_new ();
-			matekbd_indicator_set_parent_tooltips (MATEKBD_INDICATOR (layout_indicator), TRUE);
+			layout_indicator = xfcekbd_indicator_new ();
+			xfcekbd_indicator_set_parent_tooltips (XFCEKBD_INDICATOR (layout_indicator), TRUE);
 			gtk_box_pack_start (GTK_BOX (plug->priv->auth_prompt_kbd_layout_indicator),
 			                    layout_indicator,
 			                    FALSE,

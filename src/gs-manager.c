@@ -28,8 +28,8 @@
 
 #include <gio/gio.h>
 
-#define MATE_DESKTOP_USE_UNSTABLE_API
-#include <libmate-desktop/mate-bg.h>
+
+#include "xfce-bg.h"
 
 #include "gs-prefs.h"        /* for GSSaverMode */
 
@@ -53,7 +53,7 @@ struct GSManagerPrivate
 	GHashTable  *jobs;
 
 	GSThemeManager *theme_manager;
-	MateBG        *bg;
+	XfceBG        *bg;
 
 	/* Policy */
 	glong        lock_timeout;
@@ -1032,7 +1032,7 @@ gs_manager_class_init (GSManagerClass *klass)
 }
 
 static void
-on_bg_changed (MateBG   *bg,
+on_bg_changed (XfceBG   *bg,
                GSManager *manager)
 {
 	gs_debug ("background changed");
@@ -1047,14 +1047,14 @@ gs_manager_init (GSManager *manager)
 	manager->priv->grab = gs_grab_new ();
 	manager->priv->theme_manager = gs_theme_manager_new ();
 
-	manager->priv->bg = mate_bg_new ();
+	manager->priv->bg = xfce_bg_new ();
 
 	g_signal_connect (manager->priv->bg,
 					  "changed",
 					  G_CALLBACK (on_bg_changed),
 					  manager);
 
-	mate_bg_load_from_preferences (manager->priv->bg);
+	xfce_bg_load_from_preferences (manager->priv->bg);
 }
 
 static void
@@ -1274,7 +1274,7 @@ apply_background_to_window (GSManager *manager,
 	int              height;
 	gint             scale;
 
-        mate_bg_load_from_preferences (manager->priv->bg);
+        xfce_bg_load_from_preferences (manager->priv->bg);
 
 	if (manager->priv->bg == NULL)
 	{
@@ -1288,7 +1288,7 @@ apply_background_to_window (GSManager *manager,
 	width = WidthOfScreen (gdk_x11_screen_get_xscreen (screen)) / scale;
 	height = HeightOfScreen (gdk_x11_screen_get_xscreen (screen)) / scale;
 	gs_debug ("Creating background w:%d h:%d", width, height);
-	surface = mate_bg_create_surface (manager->priv->bg,
+	surface = xfce_bg_create_surface (manager->priv->bg,
 	                                  gs_window_get_gdk_window (window),
 	                                  width,
 	                                  height,

@@ -36,8 +36,7 @@
 
 #include <gio/gio.h>
 
-#define MATE_DESKTOP_USE_UNSTABLE_API
-#include <libmate-desktop/mate-desktop-utils.h>
+#include "xfce-desktop-utils.h"
 
 #include "gs-debug.h"
 
@@ -423,7 +422,7 @@ response_cb (GtkWidget *widget,
 
 		error = NULL;
 
-		res = mate_gdk_spawn_command_line_on_screen (gdk_screen_get_default (),
+		res = xfce_gdk_spawn_command_line_on_screen (gdk_screen_get_default (),
 		                                        GPM_COMMAND,
 		                                        &error);
 		if (! res)

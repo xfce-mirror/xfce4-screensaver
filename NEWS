@@ -34,7 +34,7 @@
   * NEWS: use consistent, project wide, markdown-like formatting to make
     generating release announcements easier
   * Build: require libmate-menu >= 1.10
-  * Build: require libmatekbd and libmate-desktop >= 1.17
+  * Build: require libxfcekbd and libmate-desktop >= 1.17
   * Move to GTK+3 (require GTK+ >= 3.14), drop GTK+2 code and --with-gtk
     build option
   * Lock screen: load user's background instead of system one
@@ -92,7 +92,7 @@
 
 ### mate-screensaver 1.10.0
 
-  * Update to api changes for MateRR* in mate-desktop (thanks monsta for testing)
+  * Update to api changes for XfceRR* in mate-desktop (thanks monsta for testing)
 
 ### mate-screensaver 1.8.0
 
