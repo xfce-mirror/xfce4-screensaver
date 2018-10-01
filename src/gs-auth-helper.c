@@ -12,7 +12,7 @@
  * implied warranty.
  */
 
-/* The idea here is to be able to run mate-screensaver-dialog without any setuid bits.
+/* The idea here is to be able to run xfce4-screensaver-dialog without any setuid bits.
  * Password verification happens through an external program that you feed
  * your password to on stdin.  The external command is invoked with a user
  * name argument.
@@ -113,7 +113,7 @@ ext_run (const char *user,
 		}
 
 		/* Helper is invoked as helper service-name [user] */
-		execlp (PASSWD_HELPER_PROGRAM, PASSWD_HELPER_PROGRAM, "mate-screensaver", user, NULL);
+		execlp (PASSWD_HELPER_PROGRAM, PASSWD_HELPER_PROGRAM, "xfce4-screensaver", user, NULL);
 		if (verbose)
 		{
 			g_message ("%s: %s", PASSWD_HELPER_PROGRAM, g_strerror (errno));

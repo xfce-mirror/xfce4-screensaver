@@ -30,13 +30,13 @@ fi
 export G_DEBUG=fatal_criticals
 
 # kill the existing daemon
-mate-screensaver-command --exit
+xfce4-screensaver-command --exit
 
 # run the daemon in the debugger
-#gdb --args mate-screensaver --no-daemon --debug --sync
+#gdb --args xfce4-screensaver --no-daemon --debug --sync
 
 # or if that isn't helpful just get the debug output
-#mate-screensaver --no-daemon --debug > /tmp/gs-debug-log.txt 2>&1
+#xfce4-screensaver --no-daemon --debug > /tmp/gs-debug-log.txt 2>&1
 
 # or just run it with debugging on
-mate-screensaver --no-daemon --debug
+xfce4-screensaver --no-daemon --debug

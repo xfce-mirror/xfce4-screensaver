@@ -95,7 +95,7 @@ gs_debug_init (gboolean debug,
 
 	if (debug && to_file)
 	{
-		const char path [50] = "mate_screensaver_debug_XXXXXX";
+		const char path [50] = "xfce4_screensaver_debug_XXXXXX";
 		int        fd;
 
 		fd = g_file_open_tmp (path, NULL, NULL);

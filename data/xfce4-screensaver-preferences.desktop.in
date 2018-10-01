@@ -2,12 +2,12 @@
 _Name=Screensaver
 _Comment=Set your screensaver preferences
 Icon=preferences-desktop-screensaver
-Exec=mate-screensaver-preferences
+Exec=xfce4-screensaver-preferences
 Terminal=false
 Type=Application
 Categories=GTK;Settings;DesktopSettings;
 OnlyShowIn=MATE;
 StartupNotify=true
 X-MATE-Bugzilla-Bugzilla=MATE
-X-MATE-Bugzilla-Product=mate-screensaver
+X-MATE-Bugzilla-Product=xfce4-screensaver
 X-MATE-Bugzilla-Component=general

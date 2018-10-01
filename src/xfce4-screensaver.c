@@ -33,11 +33,11 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 
-#include "mate-screensaver.h"
+#include "xfce4-screensaver.h"
 #include "gs-monitor.h"
 #include "gs-debug.h"
 
-void mate_screensaver_quit(void)
+void xfce4_screensaver_quit(void)
 {
 	gtk_main_quit();
 }
@@ -89,7 +89,7 @@ int main(int argc, char **argv)
 
 	/* debug to a file if in deamon mode */
 	gs_debug_init(debug, FALSE);
-	gs_debug("initializing mate-screensaver %s", VERSION);
+	gs_debug("initializing xfce4-screensaver %s", VERSION);
 
 	monitor = gs_monitor_new();
 
@@ -119,7 +119,7 @@ int main(int argc, char **argv)
 
 	g_object_unref(monitor);
 
-	gs_debug("mate-screensaver finished");
+	gs_debug("xfce4-screensaver finished");
 
 	gs_debug_shutdown();
 

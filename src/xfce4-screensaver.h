@@ -27,7 +27,7 @@
 
 G_BEGIN_DECLS
 
-void mate_screensaver_quit(void);
+void xfce4_screensaver_quit(void);
 
 G_END_DECLS
 

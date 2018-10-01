@@ -4,7 +4,7 @@
 <Menu>
 
   <Name>Screensavers</Name>
-  <Directory>mate-screensaver.directory</Directory>
+  <Directory>xfce4-screensaver.directory</Directory>
 
   <!-- Read standard .directory and .desktop file locations -->
   <DefaultAppDirs/>

@@ -4,38 +4,38 @@ SUBDIRS =			\
 NULL =
 
 man_MANS = 				\
-	mate-screensaver.1		\
-	mate-screensaver-command.1	\
-	mate-screensaver-preferences.1	\
+	xfce4-screensaver.1		\
+	xfce4-screensaver-command.1	\
+	xfce4-screensaver-preferences.1	\
 	$(NULL)
 
 @INTLTOOL_DESKTOP_RULE@
 
 desktopdir = $(datadir)/applications
-desktop_in_files = mate-screensaver-preferences.desktop.in
+desktop_in_files = xfce4-screensaver-preferences.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
 @INTLTOOL_DIRECTORY_RULE@
 
 directorydir = $(datadir)/desktop-directories
 directory_in_files =                            \
-	mate-screensaver.directory.in		\
+	xfce4-screensaver.directory.in		\
 	$(NULL)
 directory_DATA = $(directory_in_files:.directory.in=.directory)
 
 menudir = $(sysconfdir)/xdg/menus
 menu_DATA =					\
-	mate-screensavers.menu			\
+	xfce4-screensavers.menu			\
 	$(NULL)
 
 gtkbuilderdir = $(pkgdatadir)
 gtkbuilder_DATA = 					\
-	mate-screensaver-preferences.ui	\
+	xfce4-screensaver-preferences.ui	\
 	lock-dialog-default.ui		\
 	$(NULL)
 
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = mate-screensaver.pc
+pkgconfig_DATA = xfce4-screensaver.pc
 
 dbussessionservicedir = $(DBUS_SESSION_SERVICE_DIR)
 dbussessionservice_DATA = org.mate.ScreenSaver.service
@@ -52,8 +52,8 @@ EXTRA_DIST = 				\
 	$(directory_in_files)		\
 	$(gtkbuilder_DATA)		\
 	$(man_MANS)			\
-	mate-screensaver		\
-	mate-screensaver.pc.in		\
+	xfce4-screensaver		\
+	xfce4-screensaver.pc.in		\
 	org.mate.ScreenSaver.service.in\
 	xscreensaver-config.xsl		\
 	migrate-xscreensaver-config.sh	\
@@ -78,15 +78,15 @@ install-data-hook:
 		chmod 755 $(DESTDIR)$(PAM_PREFIX)/pam.d; \
 	   fi; \
 	   if test $$system = Linux; then \
-		if test '!' -f $(DESTDIR)$(PAM_PREFIX)/pam.d/mate-screensaver; then \
-		     $(INSTALL_DATA) mate-screensaver $(DESTDIR)$(PAM_PREFIX)/pam.d/mate-screensaver; \
+		if test '!' -f $(DESTDIR)$(PAM_PREFIX)/pam.d/xfce4-screensaver; then \
+		     $(INSTALL_DATA) xfce4-screensaver $(DESTDIR)$(PAM_PREFIX)/pam.d/xfce4-screensaver; \
 		fi; \
 		if test "x$(PAM_PREFIX)" != "x/etc/pam.d"; then \
 	             echo "***" ; \
-	             echo "***  Warning: mate-screensaver has been compiled with support for" ; \
+	             echo "***  Warning: xfce4-screensaver has been compiled with support for" ; \
 	             echo "***           Pluggable Authentication Modules (PAM).  However, you may need to" ; \
-	             echo "***           manually install $(PAM_PREFIX)/pam.d/mate-screensaver" ; \
-	             echo "***           to /etc/pam.d/mate-screensaver.  Otherwise, unlocking might" ; \
+	             echo "***           manually install $(PAM_PREFIX)/pam.d/xfce4-screensaver" ; \
+	             echo "***           to /etc/pam.d/xfce4-screensaver.  Otherwise, unlocking might" ; \
 	             echo "***           not work." ; \
 	             echo "***" ; \
 	             echo "***           Note: If you are using SuSE/Novell you may have to modify this file." ; \
@@ -95,9 +95,9 @@ install-data-hook:
 	   fi; \
 	   if test $$system = SunOS; then \
 	        echo "***" ; \
-	        echo "***  Warning: mate-screensaver has been compiled with support for" ; \
+	        echo "***  Warning: xfce4-screensaver has been compiled with support for" ; \
 	        echo "***           Pluggable Authentication Modules (PAM).  However, you" ; \
-	        echo "***           need to manually add authentication for mate-screensaver in" ; \
+	        echo "***           need to manually add authentication for xfce4-screensaver in" ; \
 	        echo "***           $(PAM_PREFIX)/pam.conf or /etc/pam.conf." ; \
 	        echo "***           Otherwise, unlocking might not work." ; \
 	        echo "***" ; \

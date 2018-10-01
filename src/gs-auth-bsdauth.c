@@ -85,7 +85,7 @@ gs_auth_verify_user (const char       *username,
 	}
 
 	/* authenticate */
-	res = auth_userokay((char *)username, NULL, "auth-mate-screensaver", password);
+	res = auth_userokay((char *)username, NULL, "auth-xfce4-screensaver", password);
 
 	return res;
 }

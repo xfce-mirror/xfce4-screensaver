@@ -3,7 +3,7 @@ AUTOMAKE_OPTIONS = 1.7
 
 NULL =
 
-saverdir = $(libexecdir)/mate-screensaver
+saverdir = $(libexecdir)/xfce4-screensaver
 themesdir = $(pkgdatadir)/themes
 
 AM_CPPFLAGS =							\
@@ -24,7 +24,7 @@ AM_CPPFLAGS =							\
 	-DSAVERDIR=\""$(saverdir)"\"				\
 	-DTHEMESDIR=\""$(themesdir)"\"				\
 	-DGTKBUILDERDIR=\"$(pkgdatadir)\"			\
-	-DPAM_SERVICE_NAME=\""mate-screensaver"\"		\
+	-DPAM_SERVICE_NAME=\""xfce4-screensaver"\"		\
 	$(WARN_CFLAGS)						\
 	$(AUTH_CFLAGS)						\
 	$(DEBUG_CFLAGS)						\
@@ -36,14 +36,14 @@ AM_CPPFLAGS =							\
 	$(NULL)
 
 bin_PROGRAMS = \
-	mate-screensaver		\
-	mate-screensaver-command	\
-	mate-screensaver-preferences	\
+	xfce4-screensaver		\
+	xfce4-screensaver-command	\
+	xfce4-screensaver-preferences	\
 	$(NULL)
 
 libexec_PROGRAMS = \
-	mate-screensaver-dialog	\
-	mate-screensaver-gl-helper	\
+	xfce4-screensaver-dialog	\
+	xfce4-screensaver-gl-helper	\
 	$(NULL)
 
 noinst_PROGRAMS = 	\
@@ -54,15 +54,15 @@ noinst_PROGRAMS = 	\
 	$(NULL)
 
 desktopdir = $(sysconfdir)/xdg/autostart
-desktop_in_files = mate-screensaver.desktop.in
+desktop_in_files = xfce4-screensaver.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 @INTLTOOL_DESKTOP_RULE@
 
-mate_screensaver_command_SOURCES = 	\
-	mate-screensaver-command.c	\
+xfce4_screensaver_command_SOURCES = 	\
+	xfce4-screensaver-command.c	\
 	$(NULL)
 
-mate_screensaver_command_LDADD =	\
+xfce4_screensaver_command_LDADD =	\
 	$(MATE_SCREENSAVER_COMMAND_LIBS)	\
 	$(NULL)
 
@@ -134,8 +134,8 @@ test_window_LDADD =			\
 	$(SAVER_LIBS)			\
 	$(NULL)
 
-mate_screensaver_dialog_SOURCES = 	\
-	mate-screensaver-dialog.c	\
+xfce4_screensaver_dialog_SOURCES = 	\
+	xfce4-screensaver-dialog.c	\
 	gs-lock-plug.c			\
 	gs-lock-plug.h			\
 	gs-debug.c			\
@@ -172,7 +172,7 @@ mate_screensaver_dialog_SOURCES = 	\
 	$(AUTH_SOURCES)			\
 	$(NULL)
 
-EXTRA_mate_screensaver_dialog_SOURCES = \
+EXTRA_xfce4_screensaver_dialog_SOURCES = \
 	gs-auth-pam.c		\
 	gs-auth-helper.c	\
 	gs-auth-pwent.c		\
@@ -204,7 +204,7 @@ EXTRA_mate_screensaver_dialog_SOURCES = \
 	entry-directories.h \
 	$(NULL)
 
-mate_screensaver_dialog_LDADD =	\
+xfce4_screensaver_dialog_LDADD =	\
 	$(MATE_SCREENSAVER_DIALOG_LIBS)\
 	$(MATE_SCREENSAVER_LIBS)\
 	$(SAVER_LIBS)			\
@@ -226,9 +226,9 @@ gs-marshal.c: gs-marshal.list
 gs-marshal.h: gs-marshal.list
 	@GLIB_GENMARSHAL@ $< --prefix=gs_marshal --header > $@
 
-mate_screensaver_SOURCES =	\
-	mate-screensaver.c	\
-	mate-screensaver.h	\
+xfce4_screensaver_SOURCES =	\
+	xfce4-screensaver.c	\
+	xfce4-screensaver.h	\
 	gs-monitor.c		\
 	gs-monitor.h		\
 	gs-watcher-x11.c	\
@@ -292,27 +292,27 @@ mate_screensaver_SOURCES =	\
 	$(BUILT_SOURCES)	\
 	$(NULL)
 
-mate_screensaver_gl_helper_LDADD =	\
+xfce4_screensaver_gl_helper_LDADD =	\
 	$(MATE_SCREENSAVER_LIBS)	\
 	$(GL_LIBS)			\
 	$(NULL)
 
-mate_screensaver_gl_helper_SOURCES =	\
-	mate-screensaver-gl-helper.c	\
+xfce4_screensaver_gl_helper_SOURCES =	\
+	xfce4-screensaver-gl-helper.c	\
 	gs-visual-gl.c			\
 	gs-visual-gl.h			\
 	$(NULL)
 
-mate_screensaver_LDADD =		\
+xfce4_screensaver_LDADD =		\
 	$(MATE_SCREENSAVER_LIBS)	\
 	$(SAVER_LIBS)			\
 	$(SYSTEMD_LIBS)			\
 	$(NULL)
 
-mate_screensaver_LDFLAGS = -export-dynamic
+xfce4_screensaver_LDFLAGS = -export-dynamic
 
-mate_screensaver_preferences_SOURCES =	\
-	mate-screensaver-preferences.c	\
+xfce4_screensaver_preferences_SOURCES =	\
+	xfce4-screensaver-preferences.c	\
 	copy-theme-dialog.c		\
 	copy-theme-dialog.h		\
 	gs-theme-manager.c		\
@@ -352,14 +352,14 @@ mate_screensaver_preferences_SOURCES =	\
 	desktop-entries.h \
 	$(NULL)
 
-mate_screensaver_preferences_LDADD =	\
+xfce4_screensaver_preferences_LDADD =	\
 	$(MATE_SCREENSAVER_CAPPLET_LIBS)	\
 	$(NULL)
 
 EXTRA_DIST =				\
 	debug-screensaver.sh		\
 	gs-marshal.list			\
-	mate-screensaver.desktop.in	\
+	xfce4-screensaver.desktop.in	\
 	$(NULL)
 
 GLIB_GENMARSHAL = $(shell pkg-config --variable=glib_genmarshal glib-2.0)
@@ -372,7 +372,7 @@ xfcekbd-indicator-marshal.c: xfcekbd-indicator-marshal.h
 
 CLEANFILES = 				\
 	$(desktop_DATA) 		\
-	mate-screensaver.desktop.in	\
+	xfce4-screensaver.desktop.in	\
 	$(BUILT_SOURCES)
 
 MAINTAINERCLEANFILES =			\
@@ -382,7 +382,7 @@ MAINTAINERCLEANFILES =			\
 install-exec-hook:
 	@if [ "x@NEED_SETUID@" = "xyes" ]; then \
 	    echo "***" ; \
-	    echo "***  Warning: mate-screensaver has been compiled with support for" ; \
+	    echo "***  Warning: xfce4-screensaver has been compiled with support for" ; \
 	    if [ "x@AUTH_SCHEME@" = "xbsdauth" ]; then \
 		echo "***           bsd_auth(3) and must be installed as a setuid root" ; \
 	    else \
@@ -392,8 +392,8 @@ install-exec-hook:
 	    echo "***           program in order for locking to work. To do this, you" ; \
 	    echo "***           must run:" ; \
 	    echo "***" ; \
-	    echo "***           chown root $(DESTDIR)$(libexecdir)/mate-screensaver-dialog" ; \
-	    echo "***           chmod +s $(DESTDIR)$(libexecdir)/mate-screensaver-dialog" ; \
+	    echo "***           chown root $(DESTDIR)$(libexecdir)/xfce4-screensaver-dialog" ; \
+	    echo "***           chmod +s $(DESTDIR)$(libexecdir)/xfce4-screensaver-dialog" ; \
 	    echo "***" ; \
 	    echo "***           For now, it will be installed non-setuid, which" ; \
 	    echo "***           means that locking might not work." ; \

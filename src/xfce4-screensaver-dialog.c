@@ -360,7 +360,7 @@ static gboolean auth_check_idle(GSLockPlug* plug)
 		{
 			gs_debug ("Authentication failed, quitting (max failures)");
 			again = FALSE;
-			/* Don't quit immediately, but rather request that mate-screensaver
+			/* Don't quit immediately, but rather request that xfce4-screensaver
 			 * terminates us after it has finished the dialog shake. Time out
 			 * after 5 seconds and quit anyway if this doesn't happen though */
 			g_idle_add((GSourceFunc) response_request_quit, NULL);

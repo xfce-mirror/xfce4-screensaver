@@ -22,60 +22,60 @@ msgstr ""
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../data/mate-screensaver-preferences.desktop.in.h:1
-#: ../src/mate-screensaver.desktop.in.in.h:1
+#: ../data/xfce4-screensaver-preferences.desktop.in.h:1
+#: ../src/xfce4-screensaver.desktop.in.in.h:1
 msgid "Screensaver"
 msgstr "Képernyővédő"
 
-#: ../data/mate-screensaver-preferences.desktop.in.h:2
+#: ../data/xfce4-screensaver-preferences.desktop.in.h:2
 msgid "Set your screensaver preferences"
 msgstr "A képernyővédő tulajdonságainak beállítása"
 
-#: ../data/mate-screensaver-preferences.ui.h:1
+#: ../data/xfce4-screensaver-preferences.ui.h:1
 msgid "Screensaver Preview"
 msgstr "Képernyővédő előnézete"
 
-#: ../data/mate-screensaver-preferences.ui.h:2
+#: ../data/xfce4-screensaver-preferences.ui.h:2
 msgid "<b>Screensaver preview</b>"
 msgstr "<b>Képernyővédő előnézete</b>"
 
-#: ../data/mate-screensaver-preferences.ui.h:3
+#: ../data/xfce4-screensaver-preferences.ui.h:3
 msgid "Screensaver Preferences"
 msgstr "Képernyővédő tulajdonságai"
 
-#: ../data/mate-screensaver-preferences.ui.h:4
+#: ../data/xfce4-screensaver-preferences.ui.h:4
 msgid "Power _Management"
 msgstr "_Energiakezelés"
 
-#: ../data/mate-screensaver-preferences.ui.h:5
+#: ../data/xfce4-screensaver-preferences.ui.h:5
 msgid "_Preview"
 msgstr "_Előnézet"
 
-#: ../data/mate-screensaver-preferences.ui.h:6
+#: ../data/xfce4-screensaver-preferences.ui.h:6
 msgid "_Screensaver theme:"
 msgstr "Képernyő_védő-téma:"
 
-#: ../data/mate-screensaver-preferences.ui.h:7
+#: ../data/xfce4-screensaver-preferences.ui.h:7
 msgid "Regard the computer as _idle after:"
 msgstr "A számítógé_p üresjáratba kerül:"
 
-#: ../data/mate-screensaver-preferences.ui.h:8
+#: ../data/xfce4-screensaver-preferences.ui.h:8
 msgid "_Activate screensaver when computer is idle"
 msgstr "_Képernyővédő aktiválása üresjáratban"
 
-#: ../data/mate-screensaver-preferences.ui.h:9
+#: ../data/xfce4-screensaver-preferences.ui.h:9
 msgid "_Lock screen when screensaver is active"
 msgstr "Képernyő _zárolása, ha a képernyővédő aktív"
 
-#: ../data/mate-screensaver-preferences.ui.h:10
+#: ../data/xfce4-screensaver-preferences.ui.h:10
 msgid "<b>Warning: the screen will not be locked for the root user.</b>"
 msgstr "<b>Figyelmeztetés: a képernyő nem kerül zárolásra a rendszergazda számára.</b>"
 
-#: ../data/mate-screensaver.directory.in.h:1
+#: ../data/xfce4-screensaver.directory.in.h:1
 msgid "Screensavers"
 msgstr "Képernyővédők"
 
-#: ../data/mate-screensaver.directory.in.h:2
+#: ../data/xfce4-screensaver.directory.in.h:2
 #: ../data/org.mate.screensaver.gschema.xml.in.h:7
 msgid "Screensaver themes"
 msgstr "Képernyővédő-témák"
@@ -398,224 +398,224 @@ msgstr "A fájl (%s) nem tűnik érvényes képernyővédő témának."
 msgid "Copying file: %u of %u"
 msgstr "Fájl másolása: %u/%u"
 
-#: ../src/mate-screensaver-command.c:59
+#: ../src/xfce4-screensaver-command.c:59
 msgid "Causes the screensaver to exit gracefully"
 msgstr "A képernyővédő „elegáns” bezárása"
 
-#: ../src/mate-screensaver-command.c:63
+#: ../src/xfce4-screensaver-command.c:63
 msgid "Query the state of the screensaver"
 msgstr "A képernyővédő állapotának lekérdezése"
 
-#: ../src/mate-screensaver-command.c:67
+#: ../src/xfce4-screensaver-command.c:67
 msgid "Query the length of time the screensaver has been active"
 msgstr "Azon időtartam lekérdezése, amíg a képernyővédő aktív volt"
 
-#: ../src/mate-screensaver-command.c:71
+#: ../src/xfce4-screensaver-command.c:71
 msgid "Tells the running screensaver process to lock the screen immediately"
 msgstr "A futó képernyővédő-folyamatot kéri a képernyő azonnali zárolására"
 
-#: ../src/mate-screensaver-command.c:75
+#: ../src/xfce4-screensaver-command.c:75
 msgid "If the screensaver is active then switch to another graphics demo"
 msgstr "Ha a képernyővédő aktív, akkor egy másik grafikus demóba váltson"
 
-#: ../src/mate-screensaver-command.c:79
+#: ../src/xfce4-screensaver-command.c:79
 msgid "Turn the screensaver on (blank the screen)"
 msgstr "Képernyővédő bekapcsolása (képernyő elsötétítése)"
 
-#: ../src/mate-screensaver-command.c:83
+#: ../src/xfce4-screensaver-command.c:83
 msgid "If the screensaver is active then deactivate it (un-blank the screen)"
 msgstr "Ha a képernyővédő aktív, akkor deaktiválja (képernyő visszaállítása)"
 
-#: ../src/mate-screensaver-command.c:87
+#: ../src/xfce4-screensaver-command.c:87
 msgid "Poke the running screensaver to simulate user activity"
 msgstr "A futó képernyőkímélő szimuláljon felhasználói aktivitást"
 
-#: ../src/mate-screensaver-command.c:91
+#: ../src/xfce4-screensaver-command.c:91
 msgid ""
 "Inhibit the screensaver from activating.  Command blocks while inhibit is "
 "active."
 msgstr "A képernyővédő aktiválásának felfüggesztése. A parancs blokkolásra kerül, amíg a felfüggesztés aktív."
 
-#: ../src/mate-screensaver-command.c:95
+#: ../src/xfce4-screensaver-command.c:95
 msgid "The calling application that is inhibiting the screensaver"
 msgstr "A képernyővédőt felfüggesztő hívó alkalmazás"
 
-#: ../src/mate-screensaver-command.c:99
+#: ../src/xfce4-screensaver-command.c:99
 msgid "The reason for inhibiting the screensaver"
 msgstr "A képernyővédő felfüggesztésének oka"
 
-#: ../src/mate-screensaver-command.c:103 ../src/mate-screensaver-dialog.c:58
-#: ../src/mate-screensaver.c:55
+#: ../src/xfce4-screensaver-command.c:103 ../src/xfce4-screensaver-dialog.c:58
+#: ../src/xfce4-screensaver.c:55
 msgid "Version of this application"
 msgstr "Ezen alkalmazás verziója"
 
-#: ../src/mate-screensaver-command.c:352
+#: ../src/xfce4-screensaver-command.c:352
 #, c-format
 msgid "The screensaver is %s\n"
 msgstr "A képernyővédő %s\n"
 
-#: ../src/mate-screensaver-command.c:352
+#: ../src/xfce4-screensaver-command.c:352
 msgid "active"
 msgstr "aktív"
 
-#: ../src/mate-screensaver-command.c:352
+#: ../src/xfce4-screensaver-command.c:352
 msgid "inactive"
 msgstr "inaktív"
 
-#: ../src/mate-screensaver-command.c:368
+#: ../src/xfce4-screensaver-command.c:368
 #, c-format
 msgid "The screensaver is not inhibited\n"
 msgstr "A képernyővédő nincs korlátozva\n"
 
-#: ../src/mate-screensaver-command.c:376
+#: ../src/xfce4-screensaver-command.c:376
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
 msgstr "A képernyővédőt korlátozza:\n"
 
-#: ../src/mate-screensaver-command.c:411
+#: ../src/xfce4-screensaver-command.c:411
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "A képernyővédő %d másodpercig volt aktív.\n"
 
-#: ../src/mate-screensaver-command.c:417
+#: ../src/xfce4-screensaver-command.c:417
 #, c-format
 msgid "The screensaver is not currently active.\n"
 msgstr "A képernyővédő jelenleg nem aktív.\n"
 
-#: ../src/mate-screensaver-dialog.c:57
+#: ../src/xfce4-screensaver-dialog.c:57
 msgid "Show debugging output"
 msgstr "Hibakeresési kimenet megjelenítése"
 
-#: ../src/mate-screensaver-dialog.c:59
+#: ../src/xfce4-screensaver-dialog.c:59
 msgid "Show the logout button"
 msgstr "Kijelentkezés gomb megjelenítése"
 
-#: ../src/mate-screensaver-dialog.c:60
+#: ../src/xfce4-screensaver-dialog.c:60
 msgid "Command to invoke from the logout button"
 msgstr "A kijelentkezés gomb által meghívandó parancs"
 
-#: ../src/mate-screensaver-dialog.c:61
+#: ../src/xfce4-screensaver-dialog.c:61
 msgid "Show the switch user button"
 msgstr "Felhasználóváltás gomb megjelenítése"
 
-#: ../src/mate-screensaver-dialog.c:62
+#: ../src/xfce4-screensaver-dialog.c:62
 msgid "Message to show in the dialog"
 msgstr "A párbeszédablakban megjelenítendő üzenet"
 
-#: ../src/mate-screensaver-dialog.c:62 ../src/mate-screensaver-dialog.c:63
+#: ../src/xfce4-screensaver-dialog.c:62 ../src/xfce4-screensaver-dialog.c:63
 msgid "MESSAGE"
 msgstr "ÜZENET"
 
-#: ../src/mate-screensaver-dialog.c:63
+#: ../src/xfce4-screensaver-dialog.c:63
 msgid "Not used"
 msgstr "Nincs használatban"
 
 #. login: is whacked always translate to Username:
-#: ../src/mate-screensaver-dialog.c:165 ../src/mate-screensaver-dialog.c:166
-#: ../src/mate-screensaver-dialog.c:167 ../src/gs-auth-pam.c:745
+#: ../src/xfce4-screensaver-dialog.c:165 ../src/xfce4-screensaver-dialog.c:166
+#: ../src/xfce4-screensaver-dialog.c:167 ../src/gs-auth-pam.c:745
 msgid "Username:"
 msgstr "Felhasználónév:"
 
-#: ../src/mate-screensaver-dialog.c:168 ../src/mate-screensaver-dialog.c:169
+#: ../src/xfce4-screensaver-dialog.c:168 ../src/xfce4-screensaver-dialog.c:169
 #: ../src/gs-auth-pam.c:171
 msgid "Password:"
 msgstr "Jelszó:"
 
-#: ../src/mate-screensaver-dialog.c:170
+#: ../src/xfce4-screensaver-dialog.c:170
 msgid "You are required to change your password immediately (password aged)"
 msgstr "Azonnal meg kell változtatnia a jelszavát (a régi jelszó lejárt)"
 
-#: ../src/mate-screensaver-dialog.c:171
+#: ../src/xfce4-screensaver-dialog.c:171
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "Azonnal meg kell változtatnia a jelszavát (a rendszergazda kérése)"
 
-#: ../src/mate-screensaver-dialog.c:172
+#: ../src/xfce4-screensaver-dialog.c:172
 msgid "Your account has expired; please contact your system administrator"
 msgstr "Az Ön felhasználói fiókja lejárt; lépjen kapcsolatba a rendszergazdával"
 
-#: ../src/mate-screensaver-dialog.c:173
+#: ../src/xfce4-screensaver-dialog.c:173
 msgid "No password supplied"
 msgstr "Nincs jelszó megadva"
 
-#: ../src/mate-screensaver-dialog.c:174
+#: ../src/xfce4-screensaver-dialog.c:174
 msgid "Password unchanged"
 msgstr "A jelszó nem változott"
 
-#: ../src/mate-screensaver-dialog.c:175
+#: ../src/xfce4-screensaver-dialog.c:175
 msgid "Can not get username"
 msgstr "A felhasználónév nem található"
 
-#: ../src/mate-screensaver-dialog.c:176
+#: ../src/xfce4-screensaver-dialog.c:176
 msgid "Retype new UNIX password:"
 msgstr "Adja meg ismét az új UNIX jelszót:"
 
-#: ../src/mate-screensaver-dialog.c:177
+#: ../src/xfce4-screensaver-dialog.c:177
 msgid "Enter new UNIX password:"
 msgstr "Adja meg az új UNIX jelszót:"
 
-#: ../src/mate-screensaver-dialog.c:178
+#: ../src/xfce4-screensaver-dialog.c:178
 msgid "(current) UNIX password:"
 msgstr "(jelenlegi) UNIX jelszó:"
 
-#: ../src/mate-screensaver-dialog.c:179
+#: ../src/xfce4-screensaver-dialog.c:179
 msgid "Error while changing NIS password."
 msgstr "Hiba a NIS jelszó módosítása közben."
 
-#: ../src/mate-screensaver-dialog.c:180
+#: ../src/xfce4-screensaver-dialog.c:180
 msgid "You must choose a longer password"
 msgstr "Válasszon hosszabb jelszót"
 
-#: ../src/mate-screensaver-dialog.c:181
+#: ../src/xfce4-screensaver-dialog.c:181
 msgid "Password has been already used. Choose another."
 msgstr "A megadott jelszót már használta. Adjon meg egy másikat."
 
-#: ../src/mate-screensaver-dialog.c:182
+#: ../src/xfce4-screensaver-dialog.c:182
 msgid "You must wait longer to change your password"
 msgstr "Még várnia kell a jelszó megváltoztatásával"
 
-#: ../src/mate-screensaver-dialog.c:183
+#: ../src/xfce4-screensaver-dialog.c:183
 msgid "Sorry, passwords do not match"
 msgstr "Sajnálom, a megadott jelszavak nem egyeznek meg"
 
-#: ../src/mate-screensaver-dialog.c:254
+#: ../src/xfce4-screensaver-dialog.c:254
 msgid "Checking..."
 msgstr "Ellenőrzés…"
 
-#: ../src/mate-screensaver-dialog.c:300 ../src/gs-auth-pam.c:483
+#: ../src/xfce4-screensaver-dialog.c:300 ../src/gs-auth-pam.c:483
 msgid "Authentication failed."
 msgstr "A hitelesítés meghiúsult."
 
-#: ../src/mate-screensaver-preferences.c:461
+#: ../src/xfce4-screensaver-preferences.c:461
 msgid "Blank screen"
 msgstr "Üres képernyő"
 
-#: ../src/mate-screensaver-preferences.c:467
+#: ../src/xfce4-screensaver-preferences.c:467
 msgid "Random"
 msgstr "Véletlen"
 
-#: ../src/mate-screensaver-preferences.c:953
-#: ../src/mate-screensaver-preferences.c:963
+#: ../src/xfce4-screensaver-preferences.c:953
+#: ../src/xfce4-screensaver-preferences.c:963
 #, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d óra"
 msgstr[1] "%d óra"
 
-#: ../src/mate-screensaver-preferences.c:956
-#: ../src/mate-screensaver-preferences.c:965
-#: ../src/mate-screensaver-preferences.c:974
-#: ../src/mate-screensaver-preferences.c:977
-#: ../src/mate-screensaver-preferences.c:982
-#: ../src/mate-screensaver-preferences.c:985
-#: ../src/mate-screensaver-preferences.c:990
-#: ../src/mate-screensaver-preferences.c:993
+#: ../src/xfce4-screensaver-preferences.c:956
+#: ../src/xfce4-screensaver-preferences.c:965
+#: ../src/xfce4-screensaver-preferences.c:974
+#: ../src/xfce4-screensaver-preferences.c:977
+#: ../src/xfce4-screensaver-preferences.c:982
+#: ../src/xfce4-screensaver-preferences.c:985
+#: ../src/xfce4-screensaver-preferences.c:990
+#: ../src/xfce4-screensaver-preferences.c:993
 #, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d perc"
 msgstr[1] "%d perc"
 
-#: ../src/mate-screensaver-preferences.c:959
+#: ../src/xfce4-screensaver-preferences.c:959
 #, c-format
 msgid "%d second"
 msgid_plural "%d seconds"
@@ -624,15 +624,15 @@ msgstr[1] "%d másodperc"
 
 #. hour:minutes
 #. minutes:seconds
-#: ../src/mate-screensaver-preferences.c:962
-#: ../src/mate-screensaver-preferences.c:1009
-#: ../src/mate-screensaver-preferences.c:1022
+#: ../src/xfce4-screensaver-preferences.c:962
+#: ../src/xfce4-screensaver-preferences.c:1009
+#: ../src/xfce4-screensaver-preferences.c:1022
 #, c-format
 msgid "%s %s"
 msgstr "%s.%s"
 
 #. hour:minutes:seconds
-#: ../src/mate-screensaver-preferences.c:1004
+#: ../src/xfce4-screensaver-preferences.c:1004
 #, c-format
 msgid "%s %s %s"
 msgstr "%s.%s.%s"
@@ -640,35 +640,35 @@ msgstr "%s.%s.%s"
 #. hour
 #. minutes
 #. seconds
-#: ../src/mate-screensaver-preferences.c:1014
-#: ../src/mate-screensaver-preferences.c:1027
-#: ../src/mate-screensaver-preferences.c:1063
+#: ../src/xfce4-screensaver-preferences.c:1014
+#: ../src/xfce4-screensaver-preferences.c:1027
+#: ../src/xfce4-screensaver-preferences.c:1063
 #, c-format
 msgid "%s"
 msgstr "%s"
 
-#: ../src/mate-screensaver-preferences.c:1078
+#: ../src/xfce4-screensaver-preferences.c:1078
 #, c-format
 msgid "Never"
 msgstr "Soha"
 
-#: ../src/mate-screensaver-preferences.c:1567
+#: ../src/xfce4-screensaver-preferences.c:1567
 msgid "Could not load the main interface"
 msgstr "A fő kezelőfelület nem tölthető be"
 
-#: ../src/mate-screensaver-preferences.c:1569
+#: ../src/xfce4-screensaver-preferences.c:1569
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "Kérem győződjön meg arról, hogy a képernyővédő megfelelően telepítve van-e"
 
-#: ../src/mate-screensaver.c:56
+#: ../src/xfce4-screensaver.c:56
 msgid "Don't become a daemon"
 msgstr "Ne démonként fusson"
 
-#: ../src/mate-screensaver.c:57
+#: ../src/xfce4-screensaver.c:57
 msgid "Enable debugging code"
 msgstr "Hibakeresési kód engedélyezése"
 
-#: ../src/mate-screensaver.desktop.in.in.h:2
+#: ../src/xfce4-screensaver.desktop.in.in.h:2
 msgid "Launch screensaver and locker program"
 msgstr "Képernyővédő és zároló program indítása"
 

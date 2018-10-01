@@ -1,11 +1,11 @@
 dnl -*- mode: m4 -*-
 
 AC_PREREQ(2.60)
-AC_INIT([mate-screensaver],
+AC_INIT([xfce4-screensaver],
         [1.20.0],
-        [http://www.mate-desktop.org/])
+        [http://www.xfce.org/])
 
-AC_CONFIG_SRCDIR(src/mate-screensaver.c)
+AC_CONFIG_SRCDIR(src/xfce4-screensaver.c)
 AC_CONFIG_MACRO_DIR([m4])
 
 AM_INIT_AUTOMAKE([1.9 no-dist-gzip dist-xz check-news])
@@ -29,7 +29,7 @@ AC_SUBST(VERSION)
 # Save flags to aclocal
 ACLOCAL="$ACLOCAL $ACLOCAL_FLAGS"
 
-GETTEXT_PACKAGE=mate-screensaver
+GETTEXT_PACKAGE=xfce4-screensaver
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Name of default gettext domain])
 
@@ -148,9 +148,9 @@ AC_ARG_WITH(doc-dir,
               [AC_HELP_STRING([--with-doc-dir=<dir>],
               [directory to install documentation])])
 if ! test -z "$with_doc_dir"; then
-   DOCDIR="$with_doc_dir/mate-screensaver-$VERSION"
+   DOCDIR="$with_doc_dir/xfce4-screensaver-$VERSION"
 else
-   DOCDIR="$datadir/doc/mate-screensaver-$VERSION"
+   DOCDIR="$datadir/doc/xfce4-screensaver-$VERSION"
 fi
 AC_SUBST(DOCDIR)
 
@@ -1100,10 +1100,10 @@ AC_SUBST(MATE_SCREENSAVER_THEMES_DIR)
 # Special directories
 # Used for .pc.in file
 
-privlibexecdir='${libexecdir}'/mate-screensaver
+privlibexecdir='${libexecdir}'/xfce4-screensaver
 AC_SUBST(privlibexecdir)
 
-privdatadir='${datadir}'/mate-screensaver
+privdatadir='${datadir}'/xfce4-screensaver
 AC_SUBST(privdatadir)
 
 themesdir='${datadir}'/applications/screensavers
@@ -1116,21 +1116,21 @@ AC_OUTPUT([
 Makefile
 po/Makefile.in
 src/Makefile
-src/mate-screensaver.desktop.in
+src/xfce4-screensaver.desktop.in
 data/Makefile
-data/mate-screensavers.menu
-data/mate-screensaver.pc
+data/xfce4-screensavers.menu
+data/xfce4-screensaver.pc
 data/org.mate.ScreenSaver.service
 data/org.mate.screensaver.gschema.xml
 data/images/Makefile
 data/images/cosmos/Makefile
 savers/Makefile
 doc/Makefile
-doc/mate-screensaver.xml
+doc/xfce4-screensaver.xml
 ])
 
 echo "
-                    mate-screensaver $VERSION
+                    xfce4-screensaver $VERSION
                     ========================
 
         prefix:                   ${prefix}

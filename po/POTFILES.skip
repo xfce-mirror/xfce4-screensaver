@@ -4,4 +4,4 @@ savers/footlogo-floaters.desktop.in
 savers/gnomelogo-floaters.desktop.in
 savers/personal-slideshow.desktop.in
 savers/popsquares.desktop.in
-src/mate-screensaver.desktop.in
+src/xfce4-screensaver.desktop.in

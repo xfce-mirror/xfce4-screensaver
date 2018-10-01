@@ -20,60 +20,60 @@ msgstr ""
 "Language: pa\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../data/mate-screensaver-preferences.desktop.in.h:1
-#: ../src/mate-screensaver.desktop.in.in.h:1
+#: ../data/xfce4-screensaver-preferences.desktop.in.h:1
+#: ../src/xfce4-screensaver.desktop.in.in.h:1
 msgid "Screensaver"
 msgstr "ਸਕਰੀਨ-ਸੇਵਰ"
 
-#: ../data/mate-screensaver-preferences.desktop.in.h:2
+#: ../data/xfce4-screensaver-preferences.desktop.in.h:2
 msgid "Set your screensaver preferences"
 msgstr "ਸਕਰੀਨ-ਸੇਵਰ ਲਈ ਆਪਣੀ ਪਸੰਦ ਦਿਓ"
 
-#: ../data/mate-screensaver-preferences.ui.h:1
+#: ../data/xfce4-screensaver-preferences.ui.h:1
 msgid "Screensaver Preview"
 msgstr "ਸਕਰੀਨ-ਸੇਵਰ ਝਲਕ"
 
-#: ../data/mate-screensaver-preferences.ui.h:2
+#: ../data/xfce4-screensaver-preferences.ui.h:2
 msgid "<b>Screensaver preview</b>"
 msgstr "<b>ਸਕਰੀਨ-ਸੇਵਰ ਝਲਕ</b>"
 
-#: ../data/mate-screensaver-preferences.ui.h:3
+#: ../data/xfce4-screensaver-preferences.ui.h:3
 msgid "Screensaver Preferences"
 msgstr "ਸਕਰੀਨ-ਸੇਵਰ ਪਸੰਦ"
 
-#: ../data/mate-screensaver-preferences.ui.h:4
+#: ../data/xfce4-screensaver-preferences.ui.h:4
 msgid "Power _Management"
 msgstr "ਊਰਜਾ ਪਰਬੰਧ(_M)"
 
-#: ../data/mate-screensaver-preferences.ui.h:5
+#: ../data/xfce4-screensaver-preferences.ui.h:5
 msgid "_Preview"
 msgstr "ਝਲਕ(_P)"
 
-#: ../data/mate-screensaver-preferences.ui.h:6
+#: ../data/xfce4-screensaver-preferences.ui.h:6
 msgid "_Screensaver theme:"
 msgstr "ਸਕਰੀਨ-ਸੇਵਰ ਥੀਮ(_S):"
 
-#: ../data/mate-screensaver-preferences.ui.h:7
+#: ../data/xfce4-screensaver-preferences.ui.h:7
 msgid "Regard the computer as _idle after:"
 msgstr "ਕੰਪਿਊਟਰ ਨੂੰ ਇੰਨੇ ਸਮੇਂ ਬਾਅਦ ਵੇਹਲਾ ਮੰਨੋ(_i):"
 
-#: ../data/mate-screensaver-preferences.ui.h:8
+#: ../data/xfce4-screensaver-preferences.ui.h:8
 msgid "_Activate screensaver when computer is idle"
 msgstr "ਜਦੋਂ ਕੰਪਿਊਟਰ ਵੇਹਲਾ ਹੋਵੇ ਤਾਂ ਸਕਰੀਨ-ਸੇਵਰ ਸਰਗਰਮ ਕਰੋ(_A)"
 
-#: ../data/mate-screensaver-preferences.ui.h:9
+#: ../data/xfce4-screensaver-preferences.ui.h:9
 msgid "_Lock screen when screensaver is active"
 msgstr "ਜਦੋਂ ਸਕਰੀਨ-ਸੇਵਰ ਸਰਗਰਮ ਹੋਵੇ ਤਾਂ ਸਕਰੀਨ ਲਾਕ ਕਰੋ(_L)"
 
-#: ../data/mate-screensaver-preferences.ui.h:10
+#: ../data/xfce4-screensaver-preferences.ui.h:10
 msgid "<b>Warning: the screen will not be locked for the root user.</b>"
 msgstr "<b>ਚੇਤਾਵਨੀ: ਸਕਰੀਨ root ਯੂਜ਼ਰ ਲਈ ਤਾਲਾਬੰਦ ਨਹੀਂ ਹੋਵੇਗੀ।</b>"
 
-#: ../data/mate-screensaver.directory.in.h:1
+#: ../data/xfce4-screensaver.directory.in.h:1
 msgid "Screensavers"
 msgstr "ਸਕਰੀਨ-ਸੇਵਰ"
 
-#: ../data/mate-screensaver.directory.in.h:2
+#: ../data/xfce4-screensaver.directory.in.h:2
 #: ../data/org.mate.screensaver.gschema.xml.in.h:7
 msgid "Screensaver themes"
 msgstr "ਸਕਰੀਨ-ਸੇਵਰ ਥੀਮ"
@@ -396,224 +396,224 @@ msgstr "%s ਫਾਇਲ ਇੱਕ ਠੀਕ ਸਕਰੀਨ-ਸੇਵਰ ਥੀ�
 msgid "Copying file: %u of %u"
 msgstr "ਫਾਇਲ ਕਾਪੀ ਜਾਰੀ: %2$u ਵਿੱਚੋਂ %1$u"
 
-#: ../src/mate-screensaver-command.c:59
+#: ../src/xfce4-screensaver-command.c:59
 msgid "Causes the screensaver to exit gracefully"
 msgstr "ਸਕਰੀਨ-ਸੇਵਰ ਨੂੰ ਮਾਣ ਨਾਲ ਬੰਦ ਕਰਨ ਦਾ ਕਾਰਨ ਬਣਦਾ ਹੈ"
 
-#: ../src/mate-screensaver-command.c:63
+#: ../src/xfce4-screensaver-command.c:63
 msgid "Query the state of the screensaver"
 msgstr "ਸਕਰੀਨ-ਸੇਵਰ ਦੀ ਹਾਲਤ ਬਾਰੇ ਸਵਾਲ"
 
-#: ../src/mate-screensaver-command.c:67
+#: ../src/xfce4-screensaver-command.c:67
 msgid "Query the length of time the screensaver has been active"
 msgstr "ਸਕਰੀਨ-ਸੇਵਰ ਸਰਗਰਮ ਹੋਣ ਦੇ ਸਮੇਂ ਦੀ ਲੰਬਾਈ ਬਾਰੇ ਸਵਾਲ"
 
-#: ../src/mate-screensaver-command.c:71
+#: ../src/xfce4-screensaver-command.c:71
 msgid "Tells the running screensaver process to lock the screen immediately"
 msgstr "ਚੱਲਦੇ ਸਕਰੀਨ-ਸੇਵਰ ਕਾਰਵਾਈ ਨੂੰ ਸਕਰੀਨ ਨੂੰ ਤੁਰੰਤ ਲਾਕ ਕਰਨ ਦਾ ਸੰਕੇਤ ਦਿਓ"
 
-#: ../src/mate-screensaver-command.c:75
+#: ../src/xfce4-screensaver-command.c:75
 msgid "If the screensaver is active then switch to another graphics demo"
 msgstr "ਜੇਕਰ ਸਕਰੀਨ-ਸੇਵਰ ਸਰਗਰਮ ਹੋਵੇ ਤਾਂ ਹੋਰ ਗਰਾਫਿਕਸ ਡੈਮੋ ਲਈ ਤਬਦੀਲ ਕਰੋ"
 
-#: ../src/mate-screensaver-command.c:79
+#: ../src/xfce4-screensaver-command.c:79
 msgid "Turn the screensaver on (blank the screen)"
 msgstr "ਸਕਰੀਨ-ਸੇਵਰ ਚਾਲੂ ਕਰੋ (ਖਾਲੀ ਸਕਰੀਨ ਹੀ)"
 
-#: ../src/mate-screensaver-command.c:83
+#: ../src/xfce4-screensaver-command.c:83
 msgid "If the screensaver is active then deactivate it (un-blank the screen)"
 msgstr "ਜੇਕਰ ਸਕਰੀਨ-ਸੇਵਰ ਸਰਗਰਮ ਹੋਵੇ ਤਾਂ ਉਸ ਨੂੰ ਨਾ-ਸਰਗਰਮ ਕਰੋ (ਨਾ-ਖਾਲੀ ਸਕਰੀਨ)"
 
-#: ../src/mate-screensaver-command.c:87
+#: ../src/xfce4-screensaver-command.c:87
 msgid "Poke the running screensaver to simulate user activity"
 msgstr "ਸਕਰੀਨ-ਸੇਵਰ ਨੂੰ ਯੂਜ਼ਰ ਕਾਰਵਾਈਆਂ ਮੁਤਾਬਕ ਨਕਲ ਕਰਨ ਲਈ ਤਿਆਰ ਕਰੋ"
 
-#: ../src/mate-screensaver-command.c:91
+#: ../src/xfce4-screensaver-command.c:91
 msgid ""
 "Inhibit the screensaver from activating.  Command blocks while inhibit is "
 "active."
 msgstr "ਸਕਰੀਨ-ਸੇਵਰ ਨੂੰ ਸਰਗਰਮ ਹੋਣ ਤੋਂ ਰੋਕਿਆ ਗਿਆ।  ਕਮਾਂਡਾਂ ਉੱਤੇ ਰੋਕ ਹੈ, ਜਦੋਂ ਕਿ ਰੋਕਣਾ ਸਰਗਰਮ ਹੈ।"
 
-#: ../src/mate-screensaver-command.c:95
+#: ../src/xfce4-screensaver-command.c:95
 msgid "The calling application that is inhibiting the screensaver"
 msgstr "ਸਕਰੀਨ-ਸੇਵਰ ਨੂੰ ਰੋਕਣ ਵਾਲੇ ਕਾਰਜ ਬਾਰੇ ਜਾਣਕਾਰੀ ਲਈ ਜਾ ਰਹੀ ਹੈ"
 
-#: ../src/mate-screensaver-command.c:99
+#: ../src/xfce4-screensaver-command.c:99
 msgid "The reason for inhibiting the screensaver"
 msgstr "ਸਕਰੀਨ-ਸੇਵਰ ਰੋਕਣ ਲਈ ਕਾਰਨ"
 
-#: ../src/mate-screensaver-command.c:103 ../src/mate-screensaver-dialog.c:58
-#: ../src/mate-screensaver.c:55
+#: ../src/xfce4-screensaver-command.c:103 ../src/xfce4-screensaver-dialog.c:58
+#: ../src/xfce4-screensaver.c:55
 msgid "Version of this application"
 msgstr "ਇਹ ਐਪਲੀਕੇਸ਼ਨ ਦਾ ਵਰਜਨ"
 
-#: ../src/mate-screensaver-command.c:352
+#: ../src/xfce4-screensaver-command.c:352
 #, c-format
 msgid "The screensaver is %s\n"
 msgstr "ਸਕਰੀਨ-ਸੇਵਰ %s ਹੈ।\n"
 
-#: ../src/mate-screensaver-command.c:352
+#: ../src/xfce4-screensaver-command.c:352
 msgid "active"
 msgstr "ਸਰਗਰਮ"
 
-#: ../src/mate-screensaver-command.c:352
+#: ../src/xfce4-screensaver-command.c:352
 msgid "inactive"
 msgstr "ਨਾ-ਸਰਗਰਮ"
 
-#: ../src/mate-screensaver-command.c:368
+#: ../src/xfce4-screensaver-command.c:368
 #, c-format
 msgid "The screensaver is not inhibited\n"
 msgstr "ਸਕਰੀਨ-ਸੇਵਰ ਇੰਹੈਬਿਟ ਨਹੀਂ ਹੈ\n"
 
-#: ../src/mate-screensaver-command.c:376
+#: ../src/xfce4-screensaver-command.c:376
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
 msgstr "ਸਕਰੀਨ-ਸੇਵਰ ਇੰਹੈਬਿਟ ਕੀਤਾ ਹੈ:\n"
 
-#: ../src/mate-screensaver-command.c:411
+#: ../src/xfce4-screensaver-command.c:411
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "ਸਕਰੀਨ-ਸੇਵਰ %d ਸਕਿੰਟਾਂ ਤੋਂ ਸਰਗਰਮ ਹੈ।\n"
 
-#: ../src/mate-screensaver-command.c:417
+#: ../src/xfce4-screensaver-command.c:417
 #, c-format
 msgid "The screensaver is not currently active.\n"
 msgstr "ਸਕਰੀਨ-ਸੇਵਰ ਹਾਲੇ ਐਕਟਿਵ ਨਹੀਂ ਹੈ।\n"
 
-#: ../src/mate-screensaver-dialog.c:57
+#: ../src/xfce4-screensaver-dialog.c:57
 msgid "Show debugging output"
 msgstr "ਡੀਬੱਗ ਆਉਟਪੁੱਟ ਵੇਖਾਓ"
 
-#: ../src/mate-screensaver-dialog.c:59
+#: ../src/xfce4-screensaver-dialog.c:59
 msgid "Show the logout button"
 msgstr "ਲਾਗਆਉਟ ਬਟਨ ਵੇਖਾਓ"
 
-#: ../src/mate-screensaver-dialog.c:60
+#: ../src/xfce4-screensaver-dialog.c:60
 msgid "Command to invoke from the logout button"
 msgstr "ਲਾਗਆਉਟ ਬਟਨ ਲਈ ਕੰਮ ਕਰਨ ਵਾਲੀ ਕਮਾਂਡ"
 
-#: ../src/mate-screensaver-dialog.c:61
+#: ../src/xfce4-screensaver-dialog.c:61
 msgid "Show the switch user button"
 msgstr "ਯੂਜ਼ਰ ਬਦਲਣ ਵਾਲਾ ਬਟਨ ਵੇਖਾਓ"
 
-#: ../src/mate-screensaver-dialog.c:62
+#: ../src/xfce4-screensaver-dialog.c:62
 msgid "Message to show in the dialog"
 msgstr "ਡਾਈਲਾਗ ਵਿੱਚ ਸੁਨੇਹਾ ਵੇਖਾਓ"
 
-#: ../src/mate-screensaver-dialog.c:62 ../src/mate-screensaver-dialog.c:63
+#: ../src/xfce4-screensaver-dialog.c:62 ../src/xfce4-screensaver-dialog.c:63
 msgid "MESSAGE"
 msgstr "ਸੁਨੇਹਾ"
 
-#: ../src/mate-screensaver-dialog.c:63
+#: ../src/xfce4-screensaver-dialog.c:63
 msgid "Not used"
 msgstr "ਨਹੀਂ ਵਰਤਿਆ"
 
 #. login: is whacked always translate to Username:
-#: ../src/mate-screensaver-dialog.c:165 ../src/mate-screensaver-dialog.c:166
-#: ../src/mate-screensaver-dialog.c:167 ../src/gs-auth-pam.c:745
+#: ../src/xfce4-screensaver-dialog.c:165 ../src/xfce4-screensaver-dialog.c:166
+#: ../src/xfce4-screensaver-dialog.c:167 ../src/gs-auth-pam.c:745
 msgid "Username:"
 msgstr "ਯੂਜ਼ਰ-ਨਾਂ:"
 
-#: ../src/mate-screensaver-dialog.c:168 ../src/mate-screensaver-dialog.c:169
+#: ../src/xfce4-screensaver-dialog.c:168 ../src/xfce4-screensaver-dialog.c:169
 #: ../src/gs-auth-pam.c:171
 msgid "Password:"
 msgstr "ਪਾਸਵਰਡ:"
 
-#: ../src/mate-screensaver-dialog.c:170
+#: ../src/xfce4-screensaver-dialog.c:170
 msgid "You are required to change your password immediately (password aged)"
 msgstr "ਤੁਹਾਨੂੰ ਆਪਣਾ ਪਾਸਵਰਡ ਹੁਣੇ ਬਦਲਣਾ ਪਵੇਗਾ (ਪਾਸਵਰਡ ਦੀ ਮਿਆਦ ਪੁੱਗੀ)"
 
-#: ../src/mate-screensaver-dialog.c:171
+#: ../src/xfce4-screensaver-dialog.c:171
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "ਤੁਹਾਨੂੰ ਆਪਣਾ ਪਾਸਵਰਡ ਹੁਣੇ ਬਦਲਣਾ ਪਵੇਗਾ (root ਵਲੋਂ ਮਜਬੂਰ ਕੀਤਾ ਗਿਆ ਹੈ)"
 
-#: ../src/mate-screensaver-dialog.c:172
+#: ../src/xfce4-screensaver-dialog.c:172
 msgid "Your account has expired; please contact your system administrator"
 msgstr "ਤੁਹਾਡੇ ਅਕਾਊਂਟ ਦੀ ਮਿਆਦ ਖਤਮ ਹੋ ਗਈ ਹੈ; ਆਪਣੇ ਸਿਸਟਮ ਪਰਸ਼ਾਸ਼ਕ ਨਾਲ ਸੰਪਰਕ ਕਰੋ ਜੀ।"
 
-#: ../src/mate-screensaver-dialog.c:173
+#: ../src/xfce4-screensaver-dialog.c:173
 msgid "No password supplied"
 msgstr "ਕੋਈ ਪਾਸਵਰਡ ਨਹੀਂ ਦਿੱਤਾ ਗਿਆ"
 
-#: ../src/mate-screensaver-dialog.c:174
+#: ../src/xfce4-screensaver-dialog.c:174
 msgid "Password unchanged"
 msgstr "ਪਾਸਵਰਡ ਬਦਲਿਆ ਗਿਆ"
 
-#: ../src/mate-screensaver-dialog.c:175
+#: ../src/xfce4-screensaver-dialog.c:175
 msgid "Can not get username"
 msgstr "ਯੂਜ਼ਰ ਨਾਂ ਲਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ"
 
-#: ../src/mate-screensaver-dialog.c:176
+#: ../src/xfce4-screensaver-dialog.c:176
 msgid "Retype new UNIX password:"
 msgstr "ਨਵਾਂ UNIX ਪਾਸਵਰਡ ਮੁੜ-ਲਿਖੋ:"
 
-#: ../src/mate-screensaver-dialog.c:177
+#: ../src/xfce4-screensaver-dialog.c:177
 msgid "Enter new UNIX password:"
 msgstr "ਨਵਾਂ UNIX ਪਾਸਵਰਡ ਦਿਓ:"
 
-#: ../src/mate-screensaver-dialog.c:178
+#: ../src/xfce4-screensaver-dialog.c:178
 msgid "(current) UNIX password:"
 msgstr "(ਮੌਜੂਦਾ) UNIX ਪਾਸਵਰਡ:"
 
-#: ../src/mate-screensaver-dialog.c:179
+#: ../src/xfce4-screensaver-dialog.c:179
 msgid "Error while changing NIS password."
 msgstr "NIS ਪਾਸਵਰਡ ਬਦਲਣ ਦੌਰਾਨ ਗਲਤੀ ਆਈ ਹੈ।"
 
-#: ../src/mate-screensaver-dialog.c:180
+#: ../src/xfce4-screensaver-dialog.c:180
 msgid "You must choose a longer password"
 msgstr "ਤੁਹਾਨੂੰ ਇੱਕ ਲੰਮਾ ਪਾਸਵਰਡ ਚੁਣਨਾ ਚਾਹੀਦਾ ਹੈ"
 
-#: ../src/mate-screensaver-dialog.c:181
+#: ../src/xfce4-screensaver-dialog.c:181
 msgid "Password has been already used. Choose another."
 msgstr "ਪਾਸਵਰਡ ਪਹਿਲਾਂ ਹੀ ਬਦਲਿਆ ਗਿਆ ਹੈ। ਹੋਰ ਚੁਣੋ ਜੀ।"
 
-#: ../src/mate-screensaver-dialog.c:182
+#: ../src/xfce4-screensaver-dialog.c:182
 msgid "You must wait longer to change your password"
 msgstr "ਤੁਹਾਨੂੰ ਆਪਣਾ ਪਾਸਵਰਡ ਬਦਲਣ ਲਈ ਹੋਰ ਵੱਧ ਉਡੀਕ ਕਰਨੀ ਪਵੇਗੀ।"
 
-#: ../src/mate-screensaver-dialog.c:183
+#: ../src/xfce4-screensaver-dialog.c:183
 msgid "Sorry, passwords do not match"
 msgstr "ਅਫ਼ਸੋਸ ਹੈ ਕਿ ਪਾਸਵਰਡ ਮਿਲਦਾ ਨਹੀਂ ਹੈ"
 
-#: ../src/mate-screensaver-dialog.c:254
+#: ../src/xfce4-screensaver-dialog.c:254
 msgid "Checking..."
 msgstr "ਚੈੱਕ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ..."
 
-#: ../src/mate-screensaver-dialog.c:300 ../src/gs-auth-pam.c:483
+#: ../src/xfce4-screensaver-dialog.c:300 ../src/gs-auth-pam.c:483
 msgid "Authentication failed."
 msgstr "ਪਰਮਾਣਕਿਤਾ ਫ਼ੇਲ੍ਹ ਹੋ ਗਈ ਹੈ।"
 
-#: ../src/mate-screensaver-preferences.c:461
+#: ../src/xfce4-screensaver-preferences.c:461
 msgid "Blank screen"
 msgstr "ਖਾਲੀ ਸਕਰੀਨ"
 
-#: ../src/mate-screensaver-preferences.c:467
+#: ../src/xfce4-screensaver-preferences.c:467
 msgid "Random"
 msgstr "ਰਲਵੇਂ"
 
-#: ../src/mate-screensaver-preferences.c:953
-#: ../src/mate-screensaver-preferences.c:963
+#: ../src/xfce4-screensaver-preferences.c:953
+#: ../src/xfce4-screensaver-preferences.c:963
 #, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d ਘੰਟਾ"
 msgstr[1] "%d ਘੰਟੇ"
 
-#: ../src/mate-screensaver-preferences.c:956
-#: ../src/mate-screensaver-preferences.c:965
-#: ../src/mate-screensaver-preferences.c:974
-#: ../src/mate-screensaver-preferences.c:977
-#: ../src/mate-screensaver-preferences.c:982
-#: ../src/mate-screensaver-preferences.c:985
-#: ../src/mate-screensaver-preferences.c:990
-#: ../src/mate-screensaver-preferences.c:993
+#: ../src/xfce4-screensaver-preferences.c:956
+#: ../src/xfce4-screensaver-preferences.c:965
+#: ../src/xfce4-screensaver-preferences.c:974
+#: ../src/xfce4-screensaver-preferences.c:977
+#: ../src/xfce4-screensaver-preferences.c:982
+#: ../src/xfce4-screensaver-preferences.c:985
+#: ../src/xfce4-screensaver-preferences.c:990
+#: ../src/xfce4-screensaver-preferences.c:993
 #, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d ਮਿੰਟ"
 msgstr[1] "%d ਮਿੰਟ"
 
-#: ../src/mate-screensaver-preferences.c:959
+#: ../src/xfce4-screensaver-preferences.c:959
 #, c-format
 msgid "%d second"
 msgid_plural "%d seconds"
@@ -622,15 +622,15 @@ msgstr[1] "%d ਸਕਿੰਟ"
 
 #. hour:minutes
 #. minutes:seconds
-#: ../src/mate-screensaver-preferences.c:962
-#: ../src/mate-screensaver-preferences.c:1009
-#: ../src/mate-screensaver-preferences.c:1022
+#: ../src/xfce4-screensaver-preferences.c:962
+#: ../src/xfce4-screensaver-preferences.c:1009
+#: ../src/xfce4-screensaver-preferences.c:1022
 #, c-format
 msgid "%s %s"
 msgstr "%s %s"
 
 #. hour:minutes:seconds
-#: ../src/mate-screensaver-preferences.c:1004
+#: ../src/xfce4-screensaver-preferences.c:1004
 #, c-format
 msgid "%s %s %s"
 msgstr "%s %s %s"
@@ -638,35 +638,35 @@ msgstr "%s %s %s"
 #. hour
 #. minutes
 #. seconds
-#: ../src/mate-screensaver-preferences.c:1014
-#: ../src/mate-screensaver-preferences.c:1027
-#: ../src/mate-screensaver-preferences.c:1063
+#: ../src/xfce4-screensaver-preferences.c:1014
+#: ../src/xfce4-screensaver-preferences.c:1027
+#: ../src/xfce4-screensaver-preferences.c:1063
 #, c-format
 msgid "%s"
 msgstr "%s"
 
-#: ../src/mate-screensaver-preferences.c:1078
+#: ../src/xfce4-screensaver-preferences.c:1078
 #, c-format
 msgid "Never"
 msgstr "ਕਦੇ ਨਹੀਂ"
 
-#: ../src/mate-screensaver-preferences.c:1567
+#: ../src/xfce4-screensaver-preferences.c:1567
 msgid "Could not load the main interface"
 msgstr "ਮੁੱਖ ਇੰਟਰਫੇਸ ਲੋਡ ਨਹੀਂ ਹੋ ਸਕਿਆ ਹੈ।"
 
-#: ../src/mate-screensaver-preferences.c:1569
+#: ../src/xfce4-screensaver-preferences.c:1569
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "ਜਾਂਚ ਕਰੋ ਕਿ ਸਕਰੀਨ-ਸੇਵਰ ਠੀਕ ਤਰ੍ਹਾਂ ਇੰਸਟਾਲ ਹੈ ਜੀ"
 
-#: ../src/mate-screensaver.c:56
+#: ../src/xfce4-screensaver.c:56
 msgid "Don't become a daemon"
 msgstr "ਇੱਕ ਡੈਮਨ ਨਾ ਬਣਾਓ"
 
-#: ../src/mate-screensaver.c:57
+#: ../src/xfce4-screensaver.c:57
 msgid "Enable debugging code"
 msgstr "ਡੀਬੱਗ ਕੋਡ ਨੂੰ ਯੋਗ"
 
-#: ../src/mate-screensaver.desktop.in.in.h:2
+#: ../src/xfce4-screensaver.desktop.in.in.h:2
 msgid "Launch screensaver and locker program"
 msgstr ""
 

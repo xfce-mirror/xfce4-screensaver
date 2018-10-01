@@ -376,7 +376,7 @@ gs_theme_manager_get_info_list (GSThemeManager *theme_manager)
 
 	if (root != NULL)
 	{
-		make_theme_list (&l, root, "mate-screensavers.menu");
+		make_theme_list (&l, root, "xfce4-screensavers.menu");
 		xfcemenu_tree_item_unref (root);
 	}
 
@@ -402,7 +402,7 @@ get_themes_tree (void)
 	   and since this is only run once we'll do it here */
 	add_known_engine_locations_to_path ();
 
-	themes_tree = xfcemenu_tree_lookup ("mate-screensavers.menu", MATEMENU_TREE_FLAGS_NONE);
+	themes_tree = xfcemenu_tree_lookup ("xfce4-screensavers.menu", MATEMENU_TREE_FLAGS_NONE);
 
 	return themes_tree;
 }

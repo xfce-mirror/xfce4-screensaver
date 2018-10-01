@@ -46,7 +46,7 @@
 #include "gs-job.h"
 #include "gs-prefs.h" /* for GS_MODE enum */
 
-#define GTK_BUILDER_FILE "mate-screensaver-preferences.ui"
+#define GTK_BUILDER_FILE "xfce4-screensaver-preferences.ui"
 
 #define LOCKDOWN_SETTINGS_SCHEMA "org.mate.lockdown"
 #define KEY_LOCK_DISABLE "disable-lock-screen"
@@ -1429,7 +1429,7 @@ get_best_visual_for_display (GdkDisplay *display)
 	visual = NULL;
 	screen = gdk_display_get_default_screen (display);
 
-	command = g_build_filename (LIBEXECDIR, "mate-screensaver-gl-helper", NULL);
+	command = g_build_filename (LIBEXECDIR, "xfce4-screensaver-gl-helper", NULL);
 
 	error = NULL;
 	std_output = NULL;

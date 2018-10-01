@@ -2096,7 +2096,7 @@ gs_lock_plug_init (GSLockPlug *plug)
 	clear_clipboards (plug);
 
 #ifdef WITH_LIBNOTIFY
-	notify_init ("mate-screensaver-dialog");
+	notify_init ("xfce4-screensaver-dialog");
 	plug->priv->leave_note_enabled = TRUE;
 #else
 	plug->priv->leave_note_enabled = FALSE;

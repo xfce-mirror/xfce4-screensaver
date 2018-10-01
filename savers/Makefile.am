@@ -79,7 +79,7 @@ libgs_theme_engine_a_SOURCES =		\
 	gs-theme-engine.h		\
 	$(NULL)
 
-saverdir = $(libexecdir)/mate-screensaver
+saverdir = $(libexecdir)/xfce4-screensaver
 saver_PROGRAMS = 	\
 	floaters	\
 	popsquares	\

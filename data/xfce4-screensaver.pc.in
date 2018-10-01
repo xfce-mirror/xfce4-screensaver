@@ -10,7 +10,7 @@ privlibexecdir=@privlibexecdir@
 privdatadir=@privdatadir@
 themesdir=@themesdir@
 
-Name: mate-screensaver
+Name: xfce4-screensaver
 Description: MATE Screensaver
 Version: @VERSION@
 Requires:

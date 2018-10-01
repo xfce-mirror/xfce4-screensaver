@@ -1,5 +1,5 @@
 ========== ar.po ==========
-# translation of mate-screensaver.HEAD.ar.po to Arabic
+# translation of xfce4-screensaver.HEAD.ar.po to Arabic
 # Djihed Afifi <djihed@gmail.com>, 2006.
 # Khaled Hosny <khaledhosny@eglug.org>, 2006, 2008, 2009.
 # Anas Husseini <linux.anas@gmail.com>, 2007.
@@ -18,10 +18,10 @@
 
 
 ========== ast.po ==========
-# translation of mate-screensaver.po to Asturian
-# Asturian translation for mate-screensaver
+# translation of xfce4-screensaver.po to Asturian
+# Asturian translation for xfce4-screensaver
 # Copyright (c) 2007 Rosetta Contributors and Canonical Ltd 2007
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 #
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
 # Xose S. Puente <xspuente@gmail.com>, 2007.
@@ -30,9 +30,9 @@
 
 
 ========== be.po ==========
-# Belarusian translation for mate-screensaver
+# Belarusian translation for xfce4-screensaver
 # Copyright (c) (c) 2006 Canonical Ltd, and Rosetta Contributors 2006
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
 #
 
@@ -40,8 +40,8 @@
 
 
 ========== be@latin.po ==========
-# Biełaruski pierakład mate-screensaver.
-# Copyright (C) 2007 THE mate-screensaver'S COPYRIGHT HOLDER
+# Biełaruski pierakład xfce4-screensaver.
+# Copyright (C) 2007 THE xfce4-screensaver'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the marco.mate package.
 # Alaksandar Navicki <zolak@lacinka.org> & Łacinka.org 2007.
 #
@@ -50,9 +50,9 @@
 
 
 ========== bg.po ==========
-# Bulgarian translation of mate-screensaver po-file.
+# Bulgarian translation of xfce4-screensaver po-file.
 # Copyright (C) 2005, 2006, 2007, 2008, 2009 Free Software Foundation, Inc.
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 # Rostislav "zbrox" Raykov <zbrox@i-space.org>, 2005, 2006.
 # Alexander Shopov <ash@contact.bg>, 2005, 2006, 2007, 2008, 2009.
 # Yavor Doganov <yavor@gnu.org>, 2008.
@@ -62,7 +62,7 @@
 
 
 ========== bn.po ==========
-# Bengali translation for mate-screensaver
+# Bengali translation for xfce4-screensaver
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
@@ -89,9 +89,9 @@
 
 
 ========== br.po ==========
-# Breton translation for mate-screensaver
+# Breton translation for xfce4-screensaver
 # Copyright (c) (c) 2006 Canonical Ltd, and Rosetta Contributors 2006
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 # Giulia Fraboulet <djoulia@gmail.com>, 2006.
 #
 #
@@ -100,10 +100,10 @@
 
 
 ========== ca.po ==========
-# Catalan translations for mate-screensaver package
-# Traduccions al català del paquet «mate-screensaver».
+# Catalan translations for xfce4-screensaver package
+# Traduccions al català del paquet «xfce4-screensaver».
 # Copyright (C) 2006 The Free Software Foundation, Inc.
-# This file is distributed under the same license as the mate-screensaver
+# This file is distributed under the same license as the xfce4-screensaver
 # package.
 # Josep Puigdemont i Casamajó <josep.puigdemont@gmail.com>, 2006.
 # Gil Forcada <gilforcada@guifi.net>, 2006, 2007, 2008, 2009.
@@ -114,10 +114,10 @@
 
 
 ========== ca@valencia.po ==========
-# Catalan translations for mate-screensaver package
-# Traduccions al català del paquet «mate-screensaver».
+# Catalan translations for xfce4-screensaver package
+# Traduccions al català del paquet «xfce4-screensaver».
 # Copyright (C) 2006 The Free Software Foundation, Inc.
-# This file is distributed under the same license as the mate-screensaver
+# This file is distributed under the same license as the xfce4-screensaver
 # package.
 # Josep Puigdemont i Casamajó <josep.puigdemont@gmail.com>, 2006.
 # Gil Forcada <gilforcada@guifi.net>, 2006, 2007, 2008, 2009.
@@ -128,8 +128,8 @@
 
 
 ========== crh.po ==========
-# Qırımtatarca mate-screensaver.
-# This file is distributed under the same license as the mate-screensaver package.
+# Qırımtatarca xfce4-screensaver.
+# This file is distributed under the same license as the xfce4-screensaver package.
 #
 #  Reşat SABIQ <tilde.birlik@gmail.com>, 2009.
 
@@ -137,11 +137,11 @@
 
 
 ========== cs.po ==========
-# Czech translation of mate-screensaver.
-# Copyright (C) 2005, 2007, 2008, 2009 the author(s) of mate-screensaver.
+# Czech translation of xfce4-screensaver.
+# Copyright (C) 2005, 2007, 2008, 2009 the author(s) of xfce4-screensaver.
 # Copyright (C) 2005 Miloslav Trmac <mitr@volny.cz>.
 # Copyright (C) 2006 Lukas Novotny <lukasnov@cvs.gnome.org>.
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 # Miloslav Trmac <mitr@volny.cz>, 2005.
 # Lukas Novotny <lukasnov@cvs.gnome.org>, 2006.
 # Petr Tomeš <ptomes@gmail.com>, 2006.
@@ -161,9 +161,9 @@
 
 
 ========== da.po ==========
-# Danish translation of mate-screensaver.
+# Danish translation of xfce4-screensaver.
 # Copyright (C) 2006-2008
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 # David Nielsen <david@lovesunix.net>, 2006.
 # Kenneth Nielsen <k.nielsen@gmail.com>, 2007-08.
 #
@@ -172,9 +172,9 @@
 
 
 ========== de.po ==========
-# German translation of mate-screensaver.
+# German translation of xfce4-screensaver.
 # Copyright (C) 2005 William Jon McCann <mccann@jhu.edu>
-# This file is distributed under the same license as the mate-screensaver
+# This file is distributed under the same license as the xfce4-screensaver
 # package.
 # Frank Arnold <frank@scirocco-5v-turbo.de>, 2005.
 # Hendrik Richter <hendrikr@gnome.org>, 2005, 2006, 2007, 2008.
@@ -192,7 +192,7 @@
 
 
 ========== dz.po ==========
-# Dzongkha translation of mate-screensaver.
+# Dzongkha translation of xfce4-screensaver.
 # Copyright @ 2006 Free Software Foundation, Inc.
 # Mindu Dorji
 #
@@ -214,7 +214,7 @@
 
 
 ========== en@shaw.po ==========
-# Shavian translation for mate-screensaver.
+# Shavian translation for xfce4-screensaver.
 # Copyright (C) 2009 The Mate Foundation.
 # Thomas Thurman <tthurman@gnome.org>, 2009.
 
@@ -222,9 +222,9 @@
 
 
 ========== en_CA.po ==========
-# Canadian English translation for mate-screensaver
+# Canadian English translation for xfce4-screensaver
 # Copyright (C) 2005-2006 Adam Weinberger and the MATE Foundation
-# This file is distributed under the same licence as the mate-screensaver package.
+# This file is distributed under the same licence as the xfce4-screensaver package.
 # Adam Weinberger <adamw@gnome.org>, 2005, 2006.
 #
 #
@@ -234,7 +234,7 @@
 
 ========== en_GB.po ==========
 # English (British) translation.
-# Copyright (C) 2005 THE mate-screensaver'S COPYRIGHT HOLDER
+# Copyright (C) 2005 THE xfce4-screensaver'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Abigail Brady <morwen@evilmagic.org>, Bastien Nocera <hadess@hadess.net>, 2005.
 # Philip Withnall <philip@tecnocode.co.uk>, 2009.
@@ -244,9 +244,9 @@
 
 
 ========== es.po ==========
-# translation of mate-screensaver.HEAD.po to Español
-# translation of mate-screensaver to Spanish
-# This file is distributed under the same license as the mate-screensaver package.
+# translation of xfce4-screensaver.HEAD.po to Español
+# translation of xfce4-screensaver to Spanish
+# This file is distributed under the same license as the xfce4-screensaver package.
 # Copyright (C) 2005 The MATE Foundation, 2005.
 #
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2005, 2006.
@@ -260,7 +260,7 @@
 # Estonian translation of MATE screensaver.
 #
 # Copyright (C) 2006-2008, The MATE Project.
-# This file is distributed under the same license as the mate-screensaver
+# This file is distributed under the same license as the xfce4-screensaver
 # package.
 #
 # Ivar Smolin <okul@linux.ee>, 2006-2008.
@@ -282,7 +282,7 @@
 
 
 ========== fa.po ==========
-# Persain translation of mate-screensaver
+# Persain translation of xfce4-screensaver
 # Copyright (C) 2006 Sharif FarsiWeb, Inc.
 # This file is distributed under the same license as the PACKAGE package.
 # Elnaz Sarbar <elnaz@farsiweb.info>, 2006.
@@ -292,9 +292,9 @@
 
 
 ========== fi.po ==========
-# Finnish messages for mate-screensaver package.
+# Finnish messages for xfce4-screensaver package.
 # Copyright (C) 2005-2009 Free Software Foundation, Inc.
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 #
 # Tommi Vainikainen <Tommi.Vainikainen@iki.fi>, 2005, 2009.
 # Ilkka Tuohela <hile@iki.fi>, 2005-2009.
@@ -305,9 +305,9 @@
 
 
 ========== fr.po ==========
-# French translation of mate-screensaver.
+# French translation of xfce4-screensaver.
 # Copyright (C) 2005-2009 The Free Software Foundation, Inc.
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 #
 # Eric Maeker <eric.maeker@free.fr>, 2005.
 # Davy Defaud <davy.defaud@posteasy.com>, 2005.
@@ -322,9 +322,9 @@
 
 
 ========== ga.po ==========
-# Irish translations for mate-screensaver package.
+# Irish translations for xfce4-screensaver package.
 # Copyright (C) 2007-2009 Free Software Foundation, Inc.
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 # Seán de Búrca <leftmostcat@gmail.com>, 2007, 2008, 2009.
 #
 
@@ -332,8 +332,8 @@
 
 
 ========== gl.po ==========
-# translation of mate-screensaver.master.po to Galician
-# translation of mate-screensaver.gl.po to
+# translation of xfce4-screensaver.master.po to Galician
+# translation of xfce4-screensaver.gl.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER, 2005.
 #
@@ -349,7 +349,7 @@
 
 
 ========== gu.po ==========
-# translation of mate-screensaver.mate-2-28.gu.po to Gujarati
+# translation of xfce4-screensaver.mate-2-28.gu.po to Gujarati
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
@@ -371,7 +371,7 @@
 
 
 ========== hi.po ==========
-# translation of mate-screensaver.master.po to Hindi
+# translation of xfce4-screensaver.master.po to Hindi
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
@@ -382,9 +382,9 @@
 
 
 ========== hr.po ==========
-# Croatian translation for mate-screensaver
+# Croatian translation for xfce4-screensaver
 # Copyright (c) (c) 2006 Canonical Ltd, and Rosetta Contributors 2006
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2006.
 #
 
@@ -392,9 +392,9 @@
 
 
 ========== hu.po ==========
-# Hungarian translation for mate-screensaver
+# Hungarian translation for xfce4-screensaver
 # Copyright (c) (c) 2005 Canonical Ltd, and Rosetta Contributors 2005
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 #
 # Szilveszter Farkas <szilveszter.farkas at gmail dot com>, 2005.
 # Gabor Kelemen <kelemeng at mate dot hu>, 2005, 2006, 2007, 2008, 2009, 2010.
@@ -404,9 +404,9 @@
 
 
 ========== id.po ==========
-# Indonesian translation of mate-screensaver.
-# Copyright (C) 2006 THE mate-screensaver'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the mate-screensaver package.
+# Indonesian translation of xfce4-screensaver.
+# Copyright (C) 2006 THE xfce4-screensaver'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the xfce4-screensaver package.
 # ahmad riza h nst <rizahnst@id.gnome.org>, 2006.
 # 
 # 
@@ -424,9 +424,9 @@
 
 
 ========== it.po ==========
-# Italian Translation of mate-screensaver
+# Italian Translation of xfce4-screensaver
 # Copyright (C) 2005, 2006, 2007, 2008, 2009 Free Software Foundation Inc.
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 #
 #   idle -> inattivo/a
 #   activate --> avvia (per evitare attiva quando inattivo)
@@ -441,9 +441,9 @@
 
 
 ========== ja.po ==========
-# mate-screensaver ja.po.
+# xfce4-screensaver ja.po.
 # Copyright (C) 2004-2009 Free Software Foundation, Inc.
-# This file is distributed under the same license as the 'mate-screensaver' package.
+# This file is distributed under the same license as the 'xfce4-screensaver' package.
 # Takeshi AIHANA <takeshi.aihana@gmail.com>, 2004-2009.
 # Satoru SATOH <ss@gnome.gr.jp>, 2006.
 # Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>, 2009.
@@ -457,7 +457,7 @@
 # Vladimer Sichinava ვლადიმერ სიჭინავა <vsichi@gnome.org>, 2007.
 # Georgian translation for Mate Screensaver.
 # Copyright © 2006 Ubuntu Georgian Translators.
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 # Malkhaz Barkalaya <malxaz@gmail.com>
 # Vladimer Sichinava  <vlsichinava@gmail.com>
 
@@ -465,7 +465,7 @@
 
 
 ========== kn.po ==========
-# translation of mate-screensaver.master.kn.po to Kannada
+# translation of xfce4-screensaver.master.kn.po to Kannada
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
@@ -475,8 +475,8 @@
 
 
 ========== ko.po ==========
-# mate-screensaver Korean message translation.
-# This file is distributed under the same license as the mate-screensaver package.
+# xfce4-screensaver Korean message translation.
+# This file is distributed under the same license as the xfce4-screensaver package.
 # Young-Ho Cha <ganadist@gmail.com>, 2006.
 # Changwoo Ryu <cwryu@debian.org>, 2006, 2007, 2008, 2009, 2010.
 #
@@ -486,9 +486,9 @@
 
 ========== ku.po ==========
 # translation of ku.po to
-# translation of mate-screensaver
-# Copyright (C) 2006 THE mate-screensaver'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the mate-screensaver package.
+# translation of xfce4-screensaver
+# Copyright (C) 2006 THE xfce4-screensaver'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the xfce4-screensaver package.
 # <>, 2006.
 # , 2006.
 # 
@@ -498,10 +498,10 @@
 
 
 ========== lt.po ==========
-# translation of mate-screensaver.HEAD.po to Lithuanian
-# Lithuanian translation for mate-screensaver.
+# translation of xfce4-screensaver.HEAD.po to Lithuanian
+# Lithuanian translation for xfce4-screensaver.
 # Copyright (C) 2005-2006, 2007, 2008 Free Software Foundation, Inc.
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 #
 # Žygimantas Beručka <zygis@gnome.org>, 2005-2006.
 # Gintautas Miliauskas <gintas@akl.lt>, 2006, 2007, 2008.
@@ -522,7 +522,7 @@
 
 
 ========== mai.po ==========
-# translation of mate-screensaver.master.po to Maithili
+# translation of xfce4-screensaver.master.po to Maithili
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
@@ -554,9 +554,9 @@
 
 
 ========== ml.po ==========
-# translation of mate-screensaver.master.ml.po to
-# This file is distributed under the same license as the mate-screensaver package.
-# Copyright (C) 2006-2009 mate-screensaver'S COPYRIGHT HOLDER.
+# translation of xfce4-screensaver.master.ml.po to
+# This file is distributed under the same license as the xfce4-screensaver package.
+# Copyright (C) 2006-2009 xfce4-screensaver'S COPYRIGHT HOLDER.
 # Reviewed by Santhosh Thottingal <santhosh00@gmail.com>
 # Ani Peter <apeter@redhat.com>, 2006.
 # Praveen|പ്രവീണ്‍ A|എ <pravi.a@gmail.com>, 2007, 2008‌.
@@ -590,7 +590,7 @@
 
 
 ========== nb.po ==========
-# Norwegian bokmål translation of mate-screensaver.
+# Norwegian bokmål translation of xfce4-screensaver.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Kjartan Maraas  <kmaraas@gnome.org>, 2005-2009.
@@ -601,9 +601,9 @@
 
 
 ========== nds.po ==========
-# Low German translation for mate-screensaver.
-# Copyright (C) 2009 mate-screensaver's COPYRIGHT HOLDER
-# This file is distributed under the same license as the mate-screensaver package.
+# Low German translation for xfce4-screensaver.
+# Copyright (C) 2009 xfce4-screensaver's COPYRIGHT HOLDER
+# This file is distributed under the same license as the xfce4-screensaver package.
 # NILS-CHRISTOPH FIEDLER <LINUX@MEDIENKOMPANIE.DE>, 2009.
 #
 
@@ -611,7 +611,7 @@
 
 
 ========== ne.po ==========
-# translation of mate-screensaver.HEAD.ne.po to Nepali
+# translation of xfce4-screensaver.HEAD.ne.po to Nepali
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
@@ -624,9 +624,9 @@
 
 
 ========== nl.po ==========
-# Dutch translation of mate-screensaver
+# Dutch translation of xfce4-screensaver
 #
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 #
 # Tino Meinen <a.t.meinen@chello.nl>, 2005–2006
 # Wouter Bolsterlee <wbolster@gnome.org>, 2007–2010
@@ -643,9 +643,9 @@
 
 
 ========== nn.po ==========
-# Norwegian nynorsk translation of mate-screensaver.
+# Norwegian nynorsk translation of xfce4-screensaver.
 # Copyright (C) 2008 The Free Software Foundation Inc.
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 # Kjartan Maraas  <kmaraas@gnome.org>, 2005-2006.
 # Eskild Hustvedt <i18n@zerodogg.org>, 2007, 2008
 
@@ -654,9 +654,9 @@
 
 ========== oc.po ==========
 # Translation of oc.po to Occitan
-# Occitan translation of mate-screensaver.
+# Occitan translation of xfce4-screensaver.
 # Copyright (C) 2005-2006, 2007 The Free Software Foundation, Inc.
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 #
 # Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>, 2006-2008
 
@@ -676,7 +676,7 @@
 
 
 ========== pa.po ==========
-# translation of mate-screensaver.HEAD.po to Punjabi
+# translation of xfce4-screensaver.HEAD.po to Punjabi
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
@@ -712,9 +712,9 @@
 
 
 ========== pt.po ==========
-# mate-screensaver's Portuguese translation.
-# Copyright © 2006, 2007, 2008, 2009 mate-screensaver
-# This file is distributed under the same license as the mate-screensaver package.
+# xfce4-screensaver's Portuguese translation.
+# Copyright © 2006, 2007, 2008, 2009 xfce4-screensaver
+# This file is distributed under the same license as the xfce4-screensaver package.
 # Duarte Loreto <happyguy_pt@hotmail.com>, 2006, 2007, 2008, 2009.
 #
 
@@ -722,9 +722,9 @@
 
 
 ========== pt_BR.po ==========
-# Brazilian Portuguese translation of mate-screensaver.
+# Brazilian Portuguese translation of xfce4-screensaver.
 # Copyright (C) 2005-2006 Free Software Foundation, Inc.
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 # Raphael Higino <raphaelh@uai.com.br>, 2005-2006.
 # Henrique Grolli Bassotto <henrique.grolli@gmail.com>, 2006.
 # Leonardo Ferreira Fontenelle <leo.fontenelle@gmail.com>, 2006.
@@ -738,9 +738,9 @@
 
 
 ========== ro.po ==========
-# Romanian translation of mate-screensaver.
+# Romanian translation of xfce4-screensaver.
 # Copyright (C) 2007 - 2008 Free Software Foundation
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 # Alexandru Szasz <alexxed@gmail.com>, 2007.
 # Mișu Moldovan <dumol@mate.ro>, 2008.
 # Lucian Adrian Grijincu <lucian.grijincu@gmail.com>, 2009
@@ -749,9 +749,9 @@
 
 
 ========== ru.po ==========
-# Russian translation of mate-screensaver.
+# Russian translation of xfce4-screensaver.
 # Copyright (C) 2006 Free Software Foundation
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 #
 # Sergio Kvantos <kvantos@plotinka.ru>, 2006.
 # Leonid Kanter <leon@asplinux.ru>, 2006.
@@ -771,9 +771,9 @@
 
 
 ========== sk.po ==========
-# Slovak translation for mate-screensaver.
+# Slovak translation for xfce4-screensaver.
 # Copyright (C) 2005, 2007, 2008, 2010 Free Software Foundation, Inc.
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 # Peter Tuharsky <tuharsky@misbb.sk>, 2007.
 # Marcel Telka <marcel@telka.sk>, 2005, 2008, 2010.
 #
@@ -783,7 +783,7 @@
 
 ========== sl.po ==========
 # Copyright (C) 2006-2007 Free Software Foundation, Inc.
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 #
 # Matic Žgur <mr.zgur@gmail.com>, 2006.
 # Matjaž Horvat <m@owca.info>, 2006.
@@ -794,9 +794,9 @@
 
 
 ========== sq.po ==========
-# Përkthimi i mesazheve të mate-screensaver në shqip
+# Përkthimi i mesazheve të xfce4-screensaver në shqip
 # Copyright (C) 2006 Free Software Foundation, Inc.
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 #
 # Laurent Dhima <laurenti@alblinux.net>, 2006.
 
@@ -804,10 +804,10 @@
 
 
 ========== sr.po ==========
-# Serbian translation of mate-screensaver
+# Serbian translation of xfce4-screensaver
 # Courtesy of Prevod.org team (http://prevod.org/) -- 2006 -2009.
 #
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 #
 # Maintainer: Слободан Д. Средојевић <ssl@uns.ns.ac.yu>
 #
@@ -816,10 +816,10 @@
 
 
 ========== sr@latin.po ==========
-# Serbian translation of mate-screensaver
+# Serbian translation of xfce4-screensaver
 # Courtesy of Prevod.org team (http://prevod.org/) -- 2006 -2009.
 #
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 #
 # Maintainer: Slobodan D. Sredojević <ssl@uns.ns.ac.yu>
 #
@@ -828,7 +828,7 @@
 
 
 ========== sv.po ==========
-# Swedish messages for mate-screensaver.
+# Swedish messages for xfce4-screensaver.
 # Copyright (C) 2005, 2006, 2007, 2008, 2009 Free Software Foundation, Inc.
 # Christian Rose <menthos@menthos.com>, 2005.
 # Daniel Nylander <po@danielnylander.se>, 2006, 2007, 2008, 2009.
@@ -838,7 +838,7 @@
 
 
 ========== ta.po ==========
-# translation of mate-screensaver.master.ta.po to Tamil
+# translation of xfce4-screensaver.master.ta.po to Tamil
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
@@ -850,10 +850,10 @@
 
 
 ========== te.po ==========
-# translation of mate-screensaver.master.te.po to Telugu
-# Telugu translation of mate-screensaver.
+# translation of xfce4-screensaver.master.te.po to Telugu
+# Telugu translation of xfce4-screensaver.
 # Copyright (C) 2007 Swecha Telugu Localisation Team <localisation@swecha.org>
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 #
 # Srinivas Chary <srinu.kolpur@gmail.com>, 2007.
 # Krishna Babu K <kkrothap@redhat.com>, 2008, 2009.
@@ -862,9 +862,9 @@
 
 
 ========== th.po ==========
-# Thai translation of mate-screensaver.
+# Thai translation of xfce4-screensaver.
 # Copyright (C) 2005-2009 Free Software Foundation, Inc.
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 # Theppitak Karoonboonyanan <thep@linux.thai.net>, 2005-2009.
 #
 
@@ -872,9 +872,9 @@
 
 
 ========== tr.po ==========
-# Turkish translation of mate-screensaver.
+# Turkish translation of xfce4-screensaver.
 # Copyright (C) 2008
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 #
 # Baris Cicek <baris@teamforce.name.tr>, 2008, 2009.
 
@@ -882,9 +882,9 @@
 
 
 ========== uk.po ==========
-# Ukrainian translation of mate-screensaver
+# Ukrainian translation of xfce4-screensaver
 # Copyright (C) 2005 Free Software Foundation
-# This file is distributed under the same license as the mate-screensaver package.
+# This file is distributed under the same license as the xfce4-screensaver package.
 # Maxim Dziumanenko <dziumanenko@gmail.com>, 2005-2008.
 #
 # wanderlust <wanderlust@ukr.net>, 2009.
@@ -902,9 +902,9 @@
 
 
 ========== zh_CN.po ==========
-# zh_CN translation of mate-screensaver.
-# Copyright (C) 2009 THE mate-screensaver'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the mate-screensaver package.
+# zh_CN translation of xfce4-screensaver.
+# Copyright (C) 2009 THE xfce4-screensaver'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the xfce4-screensaver package.
 # Funda Wang <fundawang@linux.net.cn>, 2005.
 # Yang Zhang <zyangmath@gmail.com>, 2009.
 #
@@ -914,7 +914,7 @@
 
 
 ========== zh_HK.po ==========
-# Chinese (Hong Kong) translation of mate-screensaver.
+# Chinese (Hong Kong) translation of xfce4-screensaver.
 # Copyright (C) 2005, 06, 07 Free Software Foundation, Inc.
 # Abel Cheung <abel@oaka.org>, 2005.
 # Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>, 2006.
@@ -926,7 +926,7 @@
 
 
 ========== zh_TW.po ==========
-# Chinese (Taiwan) translation of mate-screensaver.
+# Chinese (Taiwan) translation of xfce4-screensaver.
 # Copyright (C) 2005, 06, 07 Free Software Foundation, Inc.
 # Abel Cheung <abel@oaka.org>, 2005.
 # Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>, 2006.
