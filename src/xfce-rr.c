@@ -892,38 +892,6 @@ xfce_rr_screen_get_ranges (XfceRRScreen *screen,
 	*max_height = priv->info->max_height;
 }
 
-/**
- * xfce_rr_screen_get_timestamps:
- * @screen: a #XfceRRScreen
- * @change_timestamp_ret: (out): Location in which to store the timestamp at which the RANDR configuration was last changed
- * @config_timestamp_ret: (out): Location in which to store the timestamp at which the RANDR configuration was last obtained
- *
- * Queries the two timestamps that the X RANDR extension maintains.  The X
- * server will prevent change requests for stale configurations, those whose
- * timestamp is not equal to that of the latest request for configuration.  The
- * X server will also prevent change requests that have an older timestamp to
- * the latest change request.
- */
-void
-xfce_rr_screen_get_timestamps (XfceRRScreen *screen,
-				guint32       *change_timestamp_ret,
-				guint32       *config_timestamp_ret)
-{
-    XfceRRScreenPrivate *priv;
-
-    g_return_if_fail (XFCE_IS_RR_SCREEN (screen));
-
-    priv = screen->priv;
-
-#ifdef HAVE_RANDR
-    if (change_timestamp_ret)
-	*change_timestamp_ret = priv->info->resources->timestamp;
-
-    if (config_timestamp_ret)
-	*config_timestamp_ret = priv->info->resources->configTimestamp;
-#endif
-}
-
 static gboolean
 force_timestamp_update (XfceRRScreen *screen)
 {
@@ -1009,38 +977,6 @@ xfce_rr_screen_refresh (XfceRRScreen *screen,
 }
 
 /**
- * xfce_rr_screen_list_modes:
- *
- * List available XRandR modes
- *
- * Returns: (array zero-terminated=1) (transfer none):
- */
-XfceRRMode **
-xfce_rr_screen_list_modes (XfceRRScreen *screen)
-{
-    g_return_val_if_fail (XFCE_IS_RR_SCREEN (screen), NULL);
-    g_return_val_if_fail (screen->priv->info != NULL, NULL);
-    
-    return screen->priv->info->modes;
-}
-
-/**
- * xfce_rr_screen_list_clone_modes:
- *
- * List available XRandR clone modes
- *
- * Returns: (array zero-terminated=1) (transfer none):
- */
-XfceRRMode **
-xfce_rr_screen_list_clone_modes   (XfceRRScreen *screen)
-{
-    g_return_val_if_fail (XFCE_IS_RR_SCREEN (screen), NULL);
-    g_return_val_if_fail (screen->priv->info != NULL, NULL);
-
-    return screen->priv->info->clone_modes;
-}
-
-/**
  * xfce_rr_screen_list_crtcs:
  *
  * List all CRTCs
@@ -1070,58 +1006,6 @@ xfce_rr_screen_list_outputs (XfceRRScreen *screen)
     g_return_val_if_fail (screen->priv->info != NULL, NULL);
     
     return screen->priv->info->outputs;
-}
-
-/**
- * xfce_rr_screen_get_crtc_by_id:
- *
- * Returns: (transfer none): the CRTC identified by @id
- */
-XfceRRCrtc *
-xfce_rr_screen_get_crtc_by_id (XfceRRScreen *screen,
-				guint32        id)
-{
-    XfceRRCrtc **crtcs;
-    int i;
-    
-    g_return_val_if_fail (XFCE_IS_RR_SCREEN (screen), NULL);
-    g_return_val_if_fail (screen->priv->info != NULL, NULL);
-
-    crtcs = screen->priv->info->crtcs;
-    
-    for (i = 0; crtcs[i] != NULL; ++i)
-    {
-	if (crtcs[i]->id == id)
-	    return crtcs[i];
-    }
-    
-    return NULL;
-}
-
-/**
- * xfce_rr_screen_get_output_by_id:
- *
- * Returns: (transfer none): the output identified by @id
- */
-XfceRROutput *
-xfce_rr_screen_get_output_by_id (XfceRRScreen *screen,
-				  guint32        id)
-{
-    XfceRROutput **outputs;
-    int i;
-    
-    g_return_val_if_fail (XFCE_IS_RR_SCREEN (screen), NULL);
-    g_return_val_if_fail (screen->priv->info != NULL, NULL);
-
-    outputs = screen->priv->info->outputs;
-
-    for (i = 0; outputs[i] != NULL; ++i)
-    {
-	if (outputs[i]->id == id)
-	    return outputs[i];
-    }
-    
-    return NULL;
 }
 
 /* XfceRROutput */
@@ -1380,14 +1264,6 @@ output_free (XfceRROutput *output)
     g_slice_free (XfceRROutput, output);
 }
 
-guint32
-xfce_rr_output_get_id (XfceRROutput *output)
-{
-    g_assert(output != NULL);
-    
-    return output->id;
-}
-
 const guint8 *
 xfce_rr_output_get_edid_data (XfceRROutput *output)
 {
@@ -1434,28 +1310,6 @@ xfce_rr_output_get_crtc (XfceRROutput *output)
     return output->current_crtc;
 }
 
-/**
- * xfce_rr_output_get_possible_crtcs:
- * @output: a #XfceRROutput
- * Returns: (array zero-terminated=1) (transfer none):
- */
-XfceRRCrtc **
-xfce_rr_output_get_possible_crtcs (XfceRROutput *output)
-{
-    g_return_val_if_fail (output != NULL, NULL);
-
-    return output->possible_crtcs;
-}
-
-/* Returns NULL if the ConnectorType property is not available */
-const char *
-xfce_rr_output_get_connector_type (XfceRROutput *output)
-{
-    g_return_val_if_fail (output != NULL, NULL);
-
-    return output->connector_type;
-}
-
 gboolean
 _xfce_rr_output_name_is_laptop (const char *name)
 {
@@ -1487,62 +1341,11 @@ xfce_rr_output_is_laptop (XfceRROutput *output)
     return _xfce_rr_output_name_is_laptop (output->name);
 }
 
-/**
- * xfce_rr_output_get_current_mode:
- * @output: a #XfceRROutput
- * Returns: (transfer none): the current mode of this output
- */
-XfceRRMode *
-xfce_rr_output_get_current_mode (XfceRROutput *output)
-{
-    XfceRRCrtc *crtc;
-    
-    g_return_val_if_fail (output != NULL, NULL);
-    
-    if ((crtc = xfce_rr_output_get_crtc (output)))
-	return xfce_rr_crtc_get_current_mode (crtc);
-    
-    return NULL;
-}
-
-/**
- * xfce_rr_output_get_position:
- * @output: a #XfceRROutput
- * @x: (out) (allow-none):
- * @y: (out) (allow-none):
- */
-void
-xfce_rr_output_get_position (XfceRROutput   *output,
-			      int             *x,
-			      int             *y)
-{
-    XfceRRCrtc *crtc;
-    
-    g_return_if_fail (output != NULL);
-    
-    if ((crtc = xfce_rr_output_get_crtc (output)))
-	xfce_rr_crtc_get_position (crtc, x, y);
-}
-
 const char *
 xfce_rr_output_get_name (XfceRROutput *output)
 {
     g_assert (output != NULL);
     return output->name;
-}
-
-int
-xfce_rr_output_get_width_mm (XfceRROutput *output)
-{
-    g_assert (output != NULL);
-    return output->width_mm;
-}
-
-int
-xfce_rr_output_get_height_mm (XfceRROutput *output)
-{
-    g_assert (output != NULL);
-    return output->height_mm;
 }
 
 /**
@@ -1859,13 +1662,6 @@ xfce_rr_crtc_get_current_rotation (XfceRRCrtc *crtc)
 {
     g_assert(crtc != NULL);
     return crtc->current_rotation;
-}
-
-XfceRRRotation
-xfce_rr_crtc_get_rotations (XfceRRCrtc *crtc)
-{
-    g_assert(crtc != NULL);
-    return crtc->rotations;
 }
 
 gboolean
