@@ -48,6 +48,7 @@ GLIB_REQUIRED_VERSION=2.50.0
 GTK_REQUIRED_VERSION=3.22.0
 X11_REQUIRED_VERSION=1.0
 LIBXKLAVIER_REQUIRED=5.2
+XRANDR_REQUIRED=1.3
 
 AC_CHECK_HEADERS(unistd.h)
 AC_CHECK_HEADERS(crypt.h sys/select.h)
@@ -56,6 +57,23 @@ AC_CHECK_FUNCS(sigaction syslog realpath setrlimit)
 AC_CHECK_FUNCS(getresuid)
 AC_TYPE_UID_T
 
+dnl Checks for X is RANDR extension
+
+AC_MSG_CHECKING(for xrandr)
+if $PKG_CONFIG --atleast-version $XRANDR_REQUIRED xrandr; then
+  AC_MSG_RESULT(yes)
+  AC_DEFINE(HAVE_RANDR, 1,
+            [Define if the xrandr-$XRANDR_REQUIRED library is present])
+  have_randr=yes
+  RANDR_PACKAGE=xrandr
+else
+  AC_MSG_RESULT(no)
+  have_randr=no
+  RANDR_PACKAGE=
+fi
+
+AC_SUBST(RANDR_PACKAGE)
+
 AC_CHECK_FUNCS([setresuid setenv unsetenv clearenv])
 PKG_CHECK_MODULES(MATE_SCREENSAVER,
         x11 >= $X11_REQUIRED_VERSION
@@ -63,7 +81,8 @@ PKG_CHECK_MODULES(MATE_SCREENSAVER,
         gtk+-3.0 >= $GTK_REQUIRED_VERSION
         dbus-glib-1 >= $DBUS_REQUIRED_VERSION
         gio-2.0 >= $GLIB_REQUIRED_VERSION
-        libxklavier >= $LIBXKLAVIER_REQUIRED)
+        libxklavier >= $LIBXKLAVIER_REQUIRED
+        $RANDR_PACKAGE)
 AC_SUBST(MATE_SCREENSAVER_CFLAGS)
 AC_SUBST(MATE_SCREENSAVER_LIBS)
 
