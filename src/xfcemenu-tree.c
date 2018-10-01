@@ -162,7 +162,10 @@ static void      xfcemenu_tree_resolve_files        (XfceMenuTree       *tree,
 static void      xfcemenu_tree_force_recanonicalize (XfceMenuTree       *tree);
 static void      xfcemenu_tree_invoke_monitors      (XfceMenuTree       *tree);
 
-static void xfcemenu_tree_item_unref_and_unset_parent (gpointer itemp);
+static XfceMenuTree *xfcemenu_tree_ref              (XfceMenuTree       *tree);
+gpointer         xfcemenu_tree_item_ref             (gpointer            itemp);
+
+static void xfcemenu_tree_item_unref_and_unset_parent(gpointer itemp);
 
 /*
  * The idea is that we cache the menu tree for either a given
@@ -709,58 +712,6 @@ xfcemenu_tree_unref (XfceMenuTree *tree)
   g_free (tree);
 }
 
-void
-xfcemenu_tree_set_user_data (XfceMenuTree       *tree,
-			  gpointer        user_data,
-			  GDestroyNotify  dnotify)
-{
-  g_return_if_fail (tree != NULL);
-
-  if (tree->dnotify != NULL)
-    tree->dnotify (tree->user_data);
-
-  tree->dnotify   = dnotify;
-  tree->user_data = user_data;
-}
-
-gpointer
-xfcemenu_tree_get_user_data (XfceMenuTree *tree)
-{
-  g_return_val_if_fail (tree != NULL, NULL);
-
-  return tree->user_data;
-}
-
-const char *
-xfcemenu_tree_get_menu_file (XfceMenuTree *tree)
-{
-  /* FIXME: this is horribly ugly. But it's done to keep the API. Would be bad
-   * to break the API only for a "const char *" => "char *" change. The other
-   * alternative is to leak the memory, which is bad too. */
-  static char *ugly_result_cache = NULL;
-
-  g_return_val_if_fail (tree != NULL, NULL);
-
-  /* we need to canonicalize the path so we actually find out the real menu
-   * file that is being used -- and take into account XDG_MENU_PREFIX */
-  if (!xfcemenu_tree_canonicalize_path (tree))
-    return NULL;
-
-  if (ugly_result_cache != NULL)
-    {
-      g_free (ugly_result_cache);
-      ugly_result_cache = NULL;
-    }
-
-  if (tree->type == MATEMENU_TREE_BASENAME)
-    {
-      ugly_result_cache = g_path_get_basename (tree->canonical_path);
-      return ugly_result_cache;
-    }
-  else
-    return tree->absolute_path;
-}
-
 XfceMenuTreeDirectory *
 xfcemenu_tree_get_root_directory (XfceMenuTree *tree)
 {
@@ -775,171 +726,6 @@ xfcemenu_tree_get_root_directory (XfceMenuTree *tree)
     }
 
   return xfcemenu_tree_item_ref (tree->root);
-}
-
-static XfceMenuTreeDirectory *
-find_path (XfceMenuTreeDirectory *directory,
-	   const char         *path)
-{
-  const char *name;
-  char       *slash;
-  char       *freeme;
-  GSList     *tmp;
-
-  while (path[0] == G_DIR_SEPARATOR) path++;
-
-  if (path[0] == '\0')
-    return directory;
-
-  freeme = NULL;
-  slash = strchr (path, G_DIR_SEPARATOR);
-  if (slash)
-    {
-      name = freeme = g_strndup (path, slash - path);
-      path = slash + 1;
-    }
-  else
-    {
-      name = path;
-      path = NULL;
-    }
-
-  tmp = directory->contents;
-  while (tmp != NULL)
-    {
-      XfceMenuTreeItem *item = tmp->data;
-
-      if (xfcemenu_tree_item_get_type (item) != MATEMENU_TREE_ITEM_DIRECTORY)
-        {
-          tmp = tmp->next;
-          continue;
-        }
-
-      if (!strcmp (name, MATEMENU_TREE_DIRECTORY (item)->name))
-	{
-	  g_free (freeme);
-
-	  if (path)
-	    return find_path (MATEMENU_TREE_DIRECTORY (item), path);
-	  else
-	    return MATEMENU_TREE_DIRECTORY (item);
-	}
-
-      tmp = tmp->next;
-    }
-
-  g_free (freeme);
-
-  return NULL;
-}
-
-XfceMenuTreeDirectory *
-xfcemenu_tree_get_directory_from_path (XfceMenuTree  *tree,
-				    const char *path)
-{
-  XfceMenuTreeDirectory *root;
-  XfceMenuTreeDirectory *directory;
-
-  g_return_val_if_fail (tree != NULL, NULL);
-  g_return_val_if_fail (path != NULL, NULL);
-
-  if (path[0] != G_DIR_SEPARATOR)
-    return NULL;
-
-  if (!(root = xfcemenu_tree_get_root_directory (tree)))
-    return NULL;
-
-  directory = find_path (root, path);
-
-  xfcemenu_tree_item_unref (root);
-
-  return directory ? xfcemenu_tree_item_ref (directory) : NULL;
-}
-
-XfceMenuTreeSortKey
-xfcemenu_tree_get_sort_key (XfceMenuTree *tree)
-{
-  g_return_val_if_fail (tree != NULL, MATEMENU_TREE_SORT_NAME);
-  g_return_val_if_fail (tree->refcount > 0, MATEMENU_TREE_SORT_NAME);
-
-  return tree->sort_key;
-}
-
-void
-xfcemenu_tree_set_sort_key (XfceMenuTree        *tree,
-			 XfceMenuTreeSortKey  sort_key)
-{
-  g_return_if_fail (tree != NULL);
-  g_return_if_fail (tree->refcount > 0);
-  g_return_if_fail (sort_key >= MATEMENU_TREE_SORT_FIRST);
-  g_return_if_fail (sort_key <= MATEMENU_TREE_SORT_LAST);
-
-  if (sort_key == tree->sort_key)
-    return;
-
-  tree->sort_key = sort_key;
-  xfcemenu_tree_force_rebuild (tree);
-}
-
-void
-xfcemenu_tree_add_monitor (XfceMenuTree            *tree,
-                       XfceMenuTreeChangedFunc   callback,
-                       gpointer               user_data)
-{
-  XfceMenuTreeMonitor *monitor;
-  GSList           *tmp;
-
-  g_return_if_fail (tree != NULL);
-  g_return_if_fail (callback != NULL);
-
-  tmp = tree->monitors;
-  while (tmp != NULL)
-    {
-      monitor = tmp->data;
-
-      if (monitor->callback  == callback &&
-          monitor->user_data == user_data)
-        break;
-
-      tmp = tmp->next;
-    }
-
-  if (tmp == NULL)
-    {
-      monitor = g_new0 (XfceMenuTreeMonitor, 1);
-
-      monitor->callback  = callback;
-      monitor->user_data = user_data;
-
-      tree->monitors = g_slist_append (tree->monitors, monitor);
-    }
-}
-
-void
-xfcemenu_tree_remove_monitor (XfceMenuTree            *tree,
-			   XfceMenuTreeChangedFunc  callback,
-			   gpointer              user_data)
-{
-  GSList *tmp;
-
-  g_return_if_fail (tree != NULL);
-  g_return_if_fail (callback != NULL);
-
-  tmp = tree->monitors;
-  while (tmp != NULL)
-    {
-      XfceMenuTreeMonitor *monitor = tmp->data;
-      GSList          *next = tmp->next;
-
-      if (monitor->callback  == callback &&
-          monitor->user_data == user_data)
-        {
-          tree->monitors = g_slist_delete_link (tree->monitors, tmp);
-          g_free (monitor);
-        }
-
-      tmp = next;
-    }
 }
 
 static void
@@ -965,14 +751,6 @@ xfcemenu_tree_item_get_type (XfceMenuTreeItem *item)
   g_return_val_if_fail (item != NULL, 0);
 
   return item->type;
-}
-
-XfceMenuTreeDirectory *
-xfcemenu_tree_item_get_parent (XfceMenuTreeItem *item)
-{
-  g_return_val_if_fail (item != NULL, NULL);
-
-  return item->parent ? xfcemenu_tree_item_ref (item->parent) : NULL;
 }
 
 static void
@@ -1006,7 +784,7 @@ xfcemenu_tree_directory_get_contents (XfceMenuTreeDirectory *directory)
   return g_slist_reverse (retval);
 }
 
-const char *
+static const char *
 xfcemenu_tree_directory_get_name (XfceMenuTreeDirectory *directory)
 {
   g_return_val_if_fail (directory != NULL, NULL);
@@ -1015,46 +793,6 @@ xfcemenu_tree_directory_get_name (XfceMenuTreeDirectory *directory)
     return directory->name;
 
   return desktop_entry_get_name (directory->directory_entry);
-}
-
-const char *
-xfcemenu_tree_directory_get_comment (XfceMenuTreeDirectory *directory)
-{
-  g_return_val_if_fail (directory != NULL, NULL);
-
-  if (!directory->directory_entry)
-    return NULL;
-
-  return desktop_entry_get_comment (directory->directory_entry);
-}
-
-const char* xfcemenu_tree_directory_get_icon(XfceMenuTreeDirectory* directory)
-{
-	g_return_val_if_fail(directory != NULL, NULL);
-
-	if (!directory->directory_entry)
-		return NULL;
-
-	return desktop_entry_get_icon(directory->directory_entry);
-}
-
-const char *
-xfcemenu_tree_directory_get_desktop_file_path (XfceMenuTreeDirectory *directory)
-{
-  g_return_val_if_fail (directory != NULL, NULL);
-
-  if (!directory->directory_entry)
-    return NULL;
-
-  return desktop_entry_get_path (directory->directory_entry);
-}
-
-const char *
-xfcemenu_tree_directory_get_menu_id (XfceMenuTreeDirectory *directory)
-{
-  g_return_val_if_fail (directory != NULL, NULL);
-
-  return directory->name;
 }
 
 static void
@@ -1071,71 +809,6 @@ xfcemenu_tree_directory_set_tree (XfceMenuTreeDirectory *directory,
   root->tree = tree;
 }
 
-XfceMenuTree *
-xfcemenu_tree_directory_get_tree (XfceMenuTreeDirectory *directory)
-{
-  XfceMenuTreeDirectoryRoot *root;
-
-  g_return_val_if_fail (directory != NULL, NULL);
-
-  while (MATEMENU_TREE_ITEM (directory)->parent != NULL)
-    directory = MATEMENU_TREE_DIRECTORY (MATEMENU_TREE_ITEM (directory)->parent);
-
-  if (!directory->is_root)
-    return NULL;
-
-  root = (XfceMenuTreeDirectoryRoot *) directory;
-
-  if (root->tree)
-    xfcemenu_tree_ref (root->tree);
-
-  return root->tree;
-}
-
-gboolean
-xfcemenu_tree_directory_get_is_nodisplay (XfceMenuTreeDirectory *directory)
-{
-  g_return_val_if_fail (directory != NULL, FALSE);
-
-  return directory->is_nodisplay;
-}
-
-static void
-append_directory_path (XfceMenuTreeDirectory *directory,
-		       GString            *path)
-{
-
-  if (!directory->item.parent)
-    {
-      g_string_append_c (path, G_DIR_SEPARATOR);
-      return;
-    }
-
-  append_directory_path (directory->item.parent, path);
-
-  g_string_append (path, directory->name);
-  g_string_append_c (path, G_DIR_SEPARATOR);
-}
-
-char *
-xfcemenu_tree_directory_make_path (XfceMenuTreeDirectory *directory,
-				XfceMenuTreeEntry     *entry)
-{
-  GString *path;
-
-  g_return_val_if_fail (directory != NULL, NULL);
-
-  path = g_string_new (NULL);
-
-  append_directory_path (directory, path);
-
-  if (entry != NULL)
-    g_string_append (path,
-		     desktop_entry_get_basename (entry->desktop_entry));
-
-  return g_string_free (path, FALSE);
-}
-
 const char *
 xfcemenu_tree_entry_get_name (XfceMenuTreeEntry *entry)
 {
@@ -1144,15 +817,7 @@ xfcemenu_tree_entry_get_name (XfceMenuTreeEntry *entry)
   return desktop_entry_get_name (entry->desktop_entry);
 }
 
-const char *
-xfcemenu_tree_entry_get_generic_name (XfceMenuTreeEntry *entry)
-{
-  g_return_val_if_fail (entry != NULL, NULL);
-
-  return desktop_entry_get_generic_name (entry->desktop_entry);
-}
-
-const char *
+static const char *
 xfcemenu_tree_entry_get_display_name (XfceMenuTreeEntry *entry)
 {
   const char *display_name;
@@ -1166,40 +831,11 @@ xfcemenu_tree_entry_get_display_name (XfceMenuTreeEntry *entry)
   return display_name;
 }
 
-const char *
-xfcemenu_tree_entry_get_comment (XfceMenuTreeEntry *entry)
-{
-  g_return_val_if_fail (entry != NULL, NULL);
-
-  return desktop_entry_get_comment (entry->desktop_entry);
-}
-
-const char* xfcemenu_tree_entry_get_icon(XfceMenuTreeEntry *entry)
-{
-	g_return_val_if_fail (entry != NULL, NULL);
-
-	return desktop_entry_get_icon(entry->desktop_entry);
-}
-
 const char* xfcemenu_tree_entry_get_exec(XfceMenuTreeEntry* entry)
 {
 	g_return_val_if_fail(entry != NULL, NULL);
 
 	return desktop_entry_get_exec(entry->desktop_entry);
-}
-
-gboolean xfcemenu_tree_entry_get_launch_in_terminal(XfceMenuTreeEntry* entry)
-{
-  g_return_val_if_fail(entry != NULL, FALSE);
-
-  return desktop_entry_get_launch_in_terminal(entry->desktop_entry);
-}
-
-const char* xfcemenu_tree_entry_get_desktop_file_path(XfceMenuTreeEntry* entry)
-{
-	g_return_val_if_fail(entry != NULL, NULL);
-
-	return desktop_entry_get_path(entry->desktop_entry);
 }
 
 const char* xfcemenu_tree_entry_get_desktop_file_id(XfceMenuTreeEntry* entry)
@@ -1209,35 +845,7 @@ const char* xfcemenu_tree_entry_get_desktop_file_id(XfceMenuTreeEntry* entry)
 	return entry->desktop_file_id;
 }
 
-gboolean xfcemenu_tree_entry_get_is_excluded(XfceMenuTreeEntry* entry)
-{
-	g_return_val_if_fail(entry != NULL, FALSE);
-
-	return entry->is_excluded;
-}
-
-gboolean xfcemenu_tree_entry_get_is_nodisplay(XfceMenuTreeEntry* entry)
-{
-	g_return_val_if_fail(entry != NULL, FALSE);
-
-	return entry->is_nodisplay;
-}
-
-XfceMenuTreeDirectory* xfcemenu_tree_header_get_directory(XfceMenuTreeHeader* header)
-{
-	g_return_val_if_fail (header != NULL, NULL);
-
-	return xfcemenu_tree_item_ref(header->directory);
-}
-
-XfceMenuTreeDirectory* xfcemenu_tree_alias_get_directory(XfceMenuTreeAlias* alias)
-{
-	g_return_val_if_fail (alias != NULL, NULL);
-
-	return xfcemenu_tree_item_ref(alias->directory);
-}
-
-XfceMenuTreeItem *
+static XfceMenuTreeItem *
 xfcemenu_tree_alias_get_item (XfceMenuTreeAlias *alias)
 {
   g_return_val_if_fail (alias != NULL, NULL);
@@ -1542,28 +1150,6 @@ xfcemenu_tree_item_unref_and_unset_parent (gpointer itemp)
 
   xfcemenu_tree_item_set_parent (item, NULL);
   xfcemenu_tree_item_unref (item);
-}
-
-void
-xfcemenu_tree_item_set_user_data (XfceMenuTreeItem  *item,
-			       gpointer        user_data,
-			       GDestroyNotify  dnotify)
-{
-  g_return_if_fail (item != NULL);
-
-  if (item->dnotify != NULL)
-    item->dnotify (item->user_data);
-
-  item->dnotify   = dnotify;
-  item->user_data = user_data;
-}
-
-gpointer
-xfcemenu_tree_item_get_user_data (XfceMenuTreeItem *item)
-{
-  g_return_val_if_fail (item != NULL, NULL);
-
-  return item->user_data;
 }
 
 static inline const char *
