@@ -25,11 +25,6 @@
 
 #define XFCEKBD_CONFIG_SCHEMA "org.mate.peripherals-keyboard-xkb"
 
-extern const gchar MATEKBD_PREVIEW_CONFIG_KEY_X[];
-extern const gchar MATEKBD_PREVIEW_CONFIG_KEY_Y[];
-extern const gchar MATEKBD_PREVIEW_CONFIG_KEY_WIDTH[];
-extern const gchar MATEKBD_PREVIEW_CONFIG_KEY_HEIGHT[];
-
 /**
  * General config functions (private)
  */

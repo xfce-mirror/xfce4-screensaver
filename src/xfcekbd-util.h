@@ -23,12 +23,6 @@
 #include <glib.h>
 #include <gdk/gdk.h>
 
-extern void xfcekbd_install_glib_log_appender (void);
-
-extern GdkRectangle *xfcekbd_preview_load_position (void);
-
-extern void xfcekbd_preview_save_position (GdkRectangle * rect);
-
 /* Missing in glib */
 extern gchar **xfcekbd_strv_append (gchar ** arr, gchar * element);
 
