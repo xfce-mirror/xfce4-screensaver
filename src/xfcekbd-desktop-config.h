@@ -57,8 +57,6 @@ extern void xfcekbd_desktop_config_term (XfcekbdDesktopConfig * config);
 extern void xfcekbd_desktop_config_load_from_gsettings (XfcekbdDesktopConfig *
 						 config);
 
-extern void xfcekbd_desktop_config_save_to_gsettings (XfcekbdDesktopConfig * config);
-
 extern gboolean xfcekbd_desktop_config_activate (XfcekbdDesktopConfig * config);
 
 extern gboolean
@@ -76,11 +74,6 @@ xfcekbd_desktop_config_load_group_descriptions (XfcekbdDesktopConfig
 
 extern void xfcekbd_desktop_config_lock_next_group (XfcekbdDesktopConfig *
 						 config);
-
-extern void xfcekbd_desktop_config_lock_prev_group (XfcekbdDesktopConfig *
-						 config);
-
-extern void xfcekbd_desktop_config_restore_group (XfcekbdDesktopConfig * config);
 
 extern void xfcekbd_desktop_config_start_listen (XfcekbdDesktopConfig * config,
 					      GCallback func,

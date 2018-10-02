@@ -179,30 +179,6 @@ xfcekbd_desktop_config_load_from_gsettings (XfcekbdDesktopConfig * config)
 	xkl_debug (150, "default_group: %d\n", config->default_group);
 }
 
-void
-xfcekbd_desktop_config_save_to_gsettings (XfcekbdDesktopConfig * config)
-{
-	g_settings_delay (config->settings);
-
-	g_settings_set_boolean (config->settings,
-			     XFCEKBD_DESKTOP_CONFIG_KEY_GROUP_PER_WINDOW,
-			     config->group_per_app);
-	g_settings_set_boolean (config->settings,
-			     XFCEKBD_DESKTOP_CONFIG_KEY_HANDLE_INDICATORS,
-			     config->handle_indicators);
-	g_settings_set_boolean (config->settings,
-			     XFCEKBD_DESKTOP_CONFIG_KEY_LAYOUT_NAMES_AS_GROUP_NAMES,
-			     config->layout_names_as_group_names);
-	g_settings_set_boolean (config->settings,
-			     XFCEKBD_DESKTOP_CONFIG_KEY_LOAD_EXTRA_ITEMS,
-			     config->load_extra_items);
-	g_settings_set_int (config->settings,
-			    XFCEKBD_DESKTOP_CONFIG_KEY_DEFAULT_GROUP,
-			    config->default_group);
-
-	g_settings_apply (config->settings);
-}
-
 gboolean
 xfcekbd_desktop_config_activate (XfcekbdDesktopConfig * config)
 {
@@ -222,20 +198,6 @@ void
 xfcekbd_desktop_config_lock_next_group (XfcekbdDesktopConfig * config)
 {
 	int group = xkl_engine_get_next_group (config->engine);
-	xkl_engine_lock_group (config->engine, group);
-}
-
-void
-xfcekbd_desktop_config_lock_prev_group (XfcekbdDesktopConfig * config)
-{
-	int group = xkl_engine_get_prev_group (config->engine);
-	xkl_engine_lock_group (config->engine, group);
-}
-
-void
-xfcekbd_desktop_config_restore_group (XfcekbdDesktopConfig * config)
-{
-	int group = xkl_engine_get_current_window_group (config->engine);
 	xkl_engine_lock_group (config->engine, group);
 }
 
