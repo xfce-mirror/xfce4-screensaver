@@ -37,7 +37,6 @@
 #include <gdk/gdkx.h>
 #include <X11/Xatom.h>
 
-#undef MATE_DISABLE_DEPRECATED
 #include "xfce-rr.h"
 
 #include "xfce-rr-private.h"
@@ -1496,21 +1495,6 @@ xrotation_from_rotation (XfceRRRotation r)
     
     return result;
 }
-
-#ifndef MATE_DISABLE_DEPRECATED_SOURCE
-gboolean
-xfce_rr_crtc_set_config (XfceRRCrtc      *crtc,
-			  int               x,
-			  int               y,
-			  XfceRRMode      *mode,
-			  XfceRRRotation   rotation,
-			  XfceRROutput   **outputs,
-			  int               n_outputs,
-			  GError          **error)
-{
-    return xfce_rr_crtc_set_config_with_time (crtc, GDK_CURRENT_TIME, x, y, mode, rotation, outputs, n_outputs, error);
-}
-#endif
 
 gboolean
 xfce_rr_crtc_set_config_with_time (XfceRRCrtc      *crtc,

@@ -133,17 +133,6 @@ int             xfce_rr_mode_get_freq             (XfceRRMode           *mode);
 /* XfceRRCrtc */
 guint32         xfce_rr_crtc_get_id               (XfceRRCrtc           *crtc);
 
-#ifndef MATE_DISABLE_DEPRECATED
-gboolean        xfce_rr_crtc_set_config           (XfceRRCrtc           *crtc,
-						    int                    x,
-						    int                    y,
-						    XfceRRMode           *mode,
-						    XfceRRRotation        rotation,
-						    XfceRROutput        **outputs,
-						    int                    n_outputs,
-						    GError               **error);
-#endif
-
 gboolean        xfce_rr_crtc_set_config_with_time (XfceRRCrtc           *crtc,
 						    guint32                timestamp,
 						    int                    x,
