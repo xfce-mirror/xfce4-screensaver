@@ -54,25 +54,9 @@ extern "C" {
 
 	extern GtkWidget *xfcekbd_indicator_new (void);
 
-	extern void xfcekbd_indicator_reinit_ui (XfcekbdIndicator * gki);
-
-	extern void xfcekbd_indicator_set_angle (XfcekbdIndicator * gki,
-					      gdouble angle);
-
-	extern XklEngine *xfcekbd_indicator_get_xkl_engine (void);
-
-	extern gchar **xfcekbd_indicator_get_group_names (void);
-
-	extern gchar *xfcekbd_indicator_get_image_filename (guint group);
-
-	extern gdouble xfcekbd_indicator_get_max_width_height_ratio (void);
-
 	extern void
 	 xfcekbd_indicator_set_parent_tooltips (XfcekbdIndicator *
 					     gki, gboolean ifset);
-
-	extern void
-	 xfcekbd_indicator_set_tooltips_format (const gchar str[]);
 
 #ifdef __cplusplus
 }

@@ -451,7 +451,7 @@ xfcekbd_indicator_parent_set (GtkWidget * gki, GtkWidget * previous_parent)
 }
 
 
-void
+static void
 xfcekbd_indicator_reinit_ui (XfcekbdIndicator * gki)
 {
 	xfcekbd_indicator_cleanup (gki);
@@ -849,70 +849,4 @@ xfcekbd_indicator_set_parent_tooltips (XfcekbdIndicator * gki, gboolean spt)
 {
 	gki->priv->set_parent_tooltips = spt;
 	xfcekbd_indicator_update_tooltips (gki);
-}
-
-void
-xfcekbd_indicator_set_tooltips_format (const gchar format[])
-{
-	globals.tooltips_format = format;
-	ForAllIndicators ()
-	    xfcekbd_indicator_update_tooltips (gki);
-	NextIndicator ()
-}
-
-/**
- * xfcekbd_indicator_get_xkl_engine:
- *
- * Returns: (transfer none): The engine shared by all XfcekbdIndicator objects
- */
-XklEngine *
-xfcekbd_indicator_get_xkl_engine ()
-{
-	return globals.engine;
-}
-
-/**
- * xfcekbd_indicator_get_group_names:
- *
- * Returns: (transfer none) (array zero-terminated=1): List of group names
- */
-gchar **
-xfcekbd_indicator_get_group_names ()
-{
-	return globals.full_group_names;
-}
-
-gchar *
-xfcekbd_indicator_get_image_filename (guint group)
-{
-	if (!globals.ind_cfg.show_flags)
-		return NULL;
-	return xfcekbd_indicator_config_get_images_file (&globals.ind_cfg,
-						      &globals.kbd_cfg,
-						      group);
-}
-
-gdouble
-xfcekbd_indicator_get_max_width_height_ratio (void)
-{
-	gdouble rv = 0.0;
-	GSList *ip = globals.images;
-	if (!globals.ind_cfg.show_flags)
-		return 0;
-	while (ip != NULL) {
-		GdkPixbuf *img = GDK_PIXBUF (ip->data);
-		gdouble r =
-		    1.0 * gdk_pixbuf_get_width (img) /
-		    gdk_pixbuf_get_height (img);
-		if (r > rv)
-			rv = r;
-		ip = ip->next;
-	}
-	return rv;
-}
-
-void
-xfcekbd_indicator_set_angle (XfcekbdIndicator * gki, gdouble angle)
-{
-	gki->priv->angle = angle;
 }
