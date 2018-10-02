@@ -51,73 +51,18 @@ extern void xfcekbd_keyboard_config_init (XfcekbdKeyboardConfig * kbd_config,
 				       XklEngine * engine);
 extern void xfcekbd_keyboard_config_term (XfcekbdKeyboardConfig * kbd_config);
 
-extern void xfcekbd_keyboard_config_load_from_gsettings (XfcekbdKeyboardConfig *
-						  kbd_config,
-						  XfcekbdKeyboardConfig *
-						  kbd_config_default);
-
-extern void xfcekbd_keyboard_config_save_to_gsettings (XfcekbdKeyboardConfig *
-						kbd_config);
-
-extern void xfcekbd_keyboard_config_load_from_x_initial (XfcekbdKeyboardConfig *
-						      kbd_config,
-						      XklConfigRec * buf);
-
 extern void xfcekbd_keyboard_config_load_from_x_current (XfcekbdKeyboardConfig *
 						      kbd_config,
 						      XklConfigRec * buf);
 
-extern void xfcekbd_keyboard_config_start_listen (XfcekbdKeyboardConfig *
-					       kbd_config,
-					       GCallback func,
-					       gpointer user_data);
-
-extern void xfcekbd_keyboard_config_stop_listen (XfcekbdKeyboardConfig *
-					      kbd_config);
-
-extern gboolean xfcekbd_keyboard_config_equals (XfcekbdKeyboardConfig *
-					     kbd_config1,
-					     XfcekbdKeyboardConfig *
-					     kbd_config2);
-
-extern gboolean xfcekbd_keyboard_config_activate (XfcekbdKeyboardConfig *
-					       kbd_config);
-
-extern const gchar *xfcekbd_keyboard_config_merge_items (const gchar * parent,
-						      const gchar * child);
-
 extern gboolean xfcekbd_keyboard_config_split_items (const gchar * merged,
 						  gchar ** parent,
 						  gchar ** child);
-
-extern gboolean xfcekbd_keyboard_config_get_descriptions (XklConfigRegistry *
-						       config_registry,
-						       const gchar * name,
-						       gchar **
-						       layout_short_descr,
-						       gchar **
-						       layout_descr,
-						       gchar **
-						       variant_short_descr,
-						       gchar **
-						       variant_descr);
 
 extern const gchar *xfcekbd_keyboard_config_format_full_layout (const gchar
 							     *
 							     layout_descr,
 							     const gchar *
 							     variant_descr);
-
-extern gchar *xfcekbd_keyboard_config_to_string (const XfcekbdKeyboardConfig *
-					      config);
-
-extern gchar
-    **xfcekbd_keyboard_config_add_default_switch_option_if_necessary (gchar **
-								  layouts_list,
-								  gchar **
-								  options_list,
-								  gboolean
-								  *
-								  was_appended);
 
 #endif

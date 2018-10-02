@@ -48,14 +48,6 @@ extern gboolean xfcekbd_keyboard_config_dump_settings (XfcekbdKeyboardConfig *
 						    kbd_config,
 						    const char *file_name);
 
-extern void xfcekbd_keyboard_config_start_listen (XfcekbdKeyboardConfig *
-					       kbd_config,
-					       GCallback func,
-					       gpointer user_data);
-
-extern void xfcekbd_keyboard_config_stop_listen (XfcekbdKeyboardConfig *
-					      kbd_config);
-
 extern gboolean xfcekbd_keyboard_config_get_lv_descriptions (XklConfigRegistry
 							  *
 							  config_registry,
