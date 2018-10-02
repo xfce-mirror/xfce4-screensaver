@@ -44,7 +44,6 @@ Authors: Soren Sandmann <sandmann@redhat.com>
 #include <cairo.h>
 
 #include <xfce-bg.h>
-#include <xfce-bg-crossfade.h>
 
 # include <cairo-xlib.h>
 

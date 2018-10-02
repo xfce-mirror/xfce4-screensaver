@@ -257,8 +257,6 @@ xfce4_screensaver_SOURCES =	\
 	xfce-rr.h		\
 	xfce-bg.c		\
 	xfce-bg.h		\
-	xfce-bg-crossfade.c		\
-	xfce-bg-crossfade.h		\
 	xfce-desktop-thumbnail.c		\
 	xfce-desktop-thumbnail.h		\
 	xfce-desktop-utils.c		\

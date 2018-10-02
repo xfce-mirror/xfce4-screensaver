@@ -31,7 +31,6 @@
 #include <gdk/gdk.h>
 #include <gio/gio.h>
 #include "xfce-desktop-thumbnail.h"
-#include "xfce-bg-crossfade.h"
 
 G_BEGIN_DECLS
 
