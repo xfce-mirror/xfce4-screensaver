@@ -66,15 +66,20 @@ static const char *appname = "mate-thumbnail-factory";
 static void xfce_desktop_thumbnail_factory_init          (XfceDesktopThumbnailFactory      *factory);
 static void xfce_desktop_thumbnail_factory_class_init    (XfceDesktopThumbnailFactoryClass *class);
 
-G_DEFINE_TYPE (XfceDesktopThumbnailFactory,
-	       xfce_desktop_thumbnail_factory,
-	       G_TYPE_OBJECT)
+static gboolean
+xfce_desktop_thumbnail_is_valid(GdkPixbuf *pixbuf,
+                                const char *uri,
+                                time_t mtime);
+
+    G_DEFINE_TYPE(XfceDesktopThumbnailFactory,
+                  xfce_desktop_thumbnail_factory,
+                  G_TYPE_OBJECT)
 #define parent_class xfce_desktop_thumbnail_factory_parent_class
 
 #define XFCE_DESKTOP_THUMBNAIL_FACTORY_GET_PRIVATE(object) \
   (G_TYPE_INSTANCE_GET_PRIVATE ((object), XFCE_DESKTOP_TYPE_THUMBNAIL_FACTORY, XfceDesktopThumbnailFactoryPrivate))
 
-typedef struct {
+        typedef struct {
     gint width;
     gint height;
     gint input_width;
@@ -204,28 +209,6 @@ thumbnailer_new (const gchar *path)
   return thumbnailer_load (thumb);
 }
 
-static gboolean
-thumbnailer_try_exec (Thumbnailer *thumb)
-{
-  gchar *path;
-  gboolean retval;
-
-  if (G_UNLIKELY (!thumb))
-    return FALSE;
-
-  /* TryExec is optinal, but Exec isn't, so we assume
-   * the thumbnailer can be run when TryExec is not present
-   */
-  if (!thumb->try_exec)
-    return TRUE;
-
-  path = g_find_program_in_path (thumb->try_exec);
-  retval = path != NULL;
-  g_free (path);
-
-  return retval;
-}
-
 static gpointer
 init_thumbnailers_dirs (gpointer data)
 {
@@ -323,28 +306,6 @@ xfce_desktop_thumbnail_factory_add_thumbnailer (XfceDesktopThumbnailFactory *fac
 
   xfce_desktop_thumbnail_factory_register_mime_types (factory, thumb);
   priv->thumbnailers = g_list_prepend (priv->thumbnailers, thumb);
-}
-
-static gboolean
-xfce_desktop_thumbnail_factory_is_disabled (XfceDesktopThumbnailFactory *factory,
-                                             const gchar                  *mime_type)
-{
-  XfceDesktopThumbnailFactoryPrivate *priv = factory->priv;
-  guint i;
-
-  if (priv->disabled)
-    return TRUE;
-
-  if (!priv->disabled_types)
-    return FALSE;
-
-  for (i = 0; priv->disabled_types[i]; i++)
-    {
-      if (g_strcmp0 (priv->disabled_types[i], mime_type) == 0)
-        return TRUE;
-    }
-
-  return FALSE;
 }
 
 static gboolean
@@ -608,30 +569,6 @@ xfce_desktop_thumbnail_factory_class_init (XfceDesktopThumbnailFactoryClass *cla
 }
 
 /**
- * xfce_desktop_thumbnail_factory_new:
- * @size: The thumbnail size to use
- *
- * Creates a new #XfceDesktopThumbnailFactory.
- *
- * This function must be called on the main thread.
- * 
- * Return value: a new #XfceDesktopThumbnailFactory
- *
- * Since: 2.2
- **/
-XfceDesktopThumbnailFactory *
-xfce_desktop_thumbnail_factory_new (XfceDesktopThumbnailSize size)
-{
-  XfceDesktopThumbnailFactory *factory;
-  
-  factory = g_object_new (XFCE_DESKTOP_TYPE_THUMBNAIL_FACTORY, NULL);
-  
-  factory->priv->size = size;
-  
-  return factory;
-}
-
-/**
  * xfce_desktop_thumbnail_factory_lookup:
  * @factory: a #XfceDesktopThumbnailFactory
  * @uri: the uri of a file
@@ -693,188 +630,8 @@ xfce_desktop_thumbnail_factory_lookup (XfceDesktopThumbnailFactory *factory,
   return FALSE;
 }
 
-/**
- * xfce_desktop_thumbnail_factory_has_valid_failed_thumbnail:
- * @factory: a #XfceDesktopThumbnailFactory
- * @uri: the uri of a file
- * @mtime: the mtime of the file
- *
- * Tries to locate an failed thumbnail for the file specified. Writing
- * and looking for failed thumbnails is important to avoid to try to
- * thumbnail e.g. broken images several times.
- *
- * Usage of this function is threadsafe.
- *
- * Return value: TRUE if there is a failed thumbnail for the file.
- *
- * Since: 2.2
- **/
-gboolean
-xfce_desktop_thumbnail_factory_has_valid_failed_thumbnail (XfceDesktopThumbnailFactory *factory,
-							    const char            *uri,
-							    time_t                 mtime)
-{
-  char *path, *file;
-  GdkPixbuf *pixbuf;
-  gboolean res;
-  GChecksum *checksum;
-  guint8 digest[16];
-  gsize digest_len = sizeof (digest);
-
-  checksum = g_checksum_new (G_CHECKSUM_MD5);
-  g_checksum_update (checksum, (const guchar *) uri, strlen (uri));
-
-  g_checksum_get_digest (checksum, digest, &digest_len);
-  g_assert (digest_len == 16);
-
-  res = FALSE;
-
-  file = g_strconcat (g_checksum_get_string (checksum), ".png", NULL);
-
-  path = g_build_filename (g_get_user_cache_dir (),
-                           "thumbnails/fail",
-                           appname,
-                           file,
-                           NULL);
-  g_free (file);
-
-  pixbuf = gdk_pixbuf_new_from_file (path, NULL);
-  g_free (path);
-
-  if (pixbuf)
-    {
-      res = xfce_desktop_thumbnail_is_valid (pixbuf, uri, mtime);
-      g_object_unref (pixbuf);
-    }
-
-  g_checksum_free (checksum);
-
-  return res;
-}
-
 /* forbidden/buggy GdkPixbufFormat names */
 const char *forbidden[] = { "tga", "icns", "jpeg2000" };
-
-static gboolean
-type_is_forbidden (const gchar *name)
-{
-    gint i = 0;
-    for (i = 0; i < G_N_ELEMENTS (forbidden); i++) {
-        if (g_strcmp0 (forbidden[i], name) == 0) {
-            return TRUE;
-        }
-    }
-    return FALSE;
-}
-
-static gboolean
-mimetype_supported_by_gdk_pixbuf (const char *mime_type)
-{
-    guint i;
-    static gsize formats_hash = 0;
-    gchar *key;
-    gboolean result;
-
-    if (g_once_init_enter (&formats_hash)) {
-        GSList *formats, *list;
-        GHashTable *hash;
-
-        hash = g_hash_table_new_full (g_str_hash,
-                                      (GEqualFunc) g_content_type_equals,
-                                      g_free, NULL);
-
-        formats = gdk_pixbuf_get_formats ();
-        list = formats;
-
-        while (list) {
-            GdkPixbufFormat *format = list->data;
-            gchar **mime_types;
-
-            if (type_is_forbidden (format->name)) {
-                gdk_pixbuf_format_set_disabled (format, TRUE);
-                list = list->next;
-                continue;
-            }
-
-            mime_types = gdk_pixbuf_format_get_mime_types (format);
-
-            for (i = 0; mime_types[i] != NULL; i++)
-                g_hash_table_insert (hash,
-                                     (gpointer) g_content_type_from_mime_type (mime_types[i]),
-                                     GUINT_TO_POINTER (1));
-
-            g_strfreev (mime_types);
-            list = list->next;
-        }
-
-        g_slist_free (formats);
-
-        g_once_init_leave (&formats_hash, (gsize) hash);
-    }
-
-    key = g_content_type_from_mime_type (mime_type);
-    if (g_hash_table_lookup ((void*)formats_hash, key))
-            result = TRUE;
-    else
-            result = FALSE;
-    g_free (key);
-
-    return result;
-}
-
-/**
- * xfce_desktop_thumbnail_factory_can_thumbnail:
- * @factory: a #XfceDesktopThumbnailFactory
- * @uri: the uri of a file
- * @mime_type: the mime type of the file
- * @mtime: the mtime of the file
- *
- * Returns TRUE if this MateIconFactory can (at least try) to thumbnail
- * this file. Thumbnails or files with failed thumbnails won't be thumbnailed.
- *
- * Usage of this function is threadsafe.
- *
- * Return value: TRUE if the file can be thumbnailed.
- *
- * Since: 2.2
- **/
-gboolean
-xfce_desktop_thumbnail_factory_can_thumbnail (XfceDesktopThumbnailFactory *factory,
-					       const char            *uri,
-					       const char            *mime_type,
-					       time_t                 mtime)
-{
-  gboolean have_script = FALSE;
-
-  /* Don't thumbnail thumbnails */
-  if (uri &&
-      strncmp (uri, "file:/", 6) == 0 &&
-      (strstr (uri, "/.thumbnails/") != NULL ||
-      strstr (uri, "/.cache/thumbnails/") != NULL))
-    return FALSE;
-  
-  if (!mime_type)
-    return FALSE;
-
-  g_mutex_lock (&factory->priv->lock);
-  if (!xfce_desktop_thumbnail_factory_is_disabled (factory, mime_type))
-    {
-      Thumbnailer *thumb;
-
-      thumb = g_hash_table_lookup (factory->priv->mime_types_map, mime_type);
-      have_script = thumbnailer_try_exec (thumb);
-    }
-  g_mutex_unlock (&factory->priv->lock);
-
-  if (have_script || mimetype_supported_by_gdk_pixbuf (mime_type))
-    {
-      return !xfce_desktop_thumbnail_factory_has_valid_failed_thumbnail (factory,
-                                                                          uri,
-                                                                          mtime);
-    }
-  
-  return FALSE;
-}
 
 static gboolean
 make_thumbnail_dirs (XfceDesktopThumbnailFactory *factory)
@@ -1151,84 +908,6 @@ xfce_desktop_thumbnail_factory_create_failed_thumbnail (XfceDesktopThumbnailFact
 }
 
 /**
- * xfce_desktop_thumbnail_md5:
- * @uri: an uri
- *
- * Calculates the MD5 checksum of the uri. This can be useful
- * if you want to manually handle thumbnail files.
- *
- * Return value: A string with the MD5 digest of the uri string.
- *
- * Since: 2.2
- * Deprecated: 2.22: Use #GChecksum instead
- **/
-char *
-xfce_desktop_thumbnail_md5 (const char *uri)
-{
-  return g_compute_checksum_for_data (G_CHECKSUM_MD5,
-                                      (const guchar *) uri,
-                                      strlen (uri));
-}
-
-/**
- * xfce_desktop_thumbnail_path_for_uri:
- * @uri: an uri
- * @size: a thumbnail size
- *
- * Returns the filename that a thumbnail of size @size for @uri would have.
- *
- * Return value: an absolute filename
- *
- * Since: 2.2
- **/
-char *
-xfce_desktop_thumbnail_path_for_uri (const char         *uri,
-				      XfceDesktopThumbnailSize  size)
-{
-  char *md5;
-  char *file;
-  char *path;
-
-  md5 = xfce_desktop_thumbnail_md5 (uri);
-  file = g_strconcat (md5, ".png", NULL);
-  g_free (md5);
-  
-  path = g_build_filename (g_get_user_cache_dir (),
-                           "thumbnails",
-                           (size == XFCE_DESKTOP_THUMBNAIL_SIZE_NORMAL)?"normal":"large",
-                           file,
-                           NULL);
-  g_free (file);
-
-  return path;
-}
-
-/**
- * xfce_desktop_thumbnail_has_uri:
- * @pixbuf: an loaded thumbnail pixbuf
- * @uri: a uri
- *
- * Returns whether the thumbnail has the correct uri embedded in the
- * Thumb::URI option in the png.
- *
- * Return value: TRUE if the thumbnail is for @uri
- *
- * Since: 2.2
- **/
-gboolean
-xfce_desktop_thumbnail_has_uri (GdkPixbuf          *pixbuf,
-				 const char         *uri)
-{
-  const char *thumb_uri;
-  
-  thumb_uri = gdk_pixbuf_get_option (pixbuf, "tEXt::Thumb::URI");
-  if (!thumb_uri)
-    return FALSE;
-
-  return strcmp (uri, thumb_uri) == 0;
-}
-
-/**
  * xfce_desktop_thumbnail_is_valid:
  * @pixbuf: an loaded thumbnail #GdkPixbuf
  * @uri: a uri
@@ -1241,7 +920,7 @@ xfce_desktop_thumbnail_has_uri (GdkPixbuf          *pixbuf,
  *
  * Since: 2.2
  **/
-gboolean
+static gboolean
 xfce_desktop_thumbnail_is_valid (GdkPixbuf          *pixbuf,
 				  const char         *uri,
 				  time_t              mtime)

@@ -59,22 +59,11 @@ struct _XfceDesktopThumbnailFactoryClass {
 };
 
 GType                  xfce_desktop_thumbnail_factory_get_type (void);
-XfceDesktopThumbnailFactory *xfce_desktop_thumbnail_factory_new      (XfceDesktopThumbnailSize     size);
 
 char *                 xfce_desktop_thumbnail_factory_lookup   (XfceDesktopThumbnailFactory *factory,
 								 const char            *uri,
 								 time_t                 mtime);
 
-gboolean               xfce_desktop_thumbnail_factory_has_valid_failed_thumbnail (XfceDesktopThumbnailFactory *factory,
-										   const char            *uri,
-										   time_t                 mtime);
-gboolean               xfce_desktop_thumbnail_factory_can_thumbnail (XfceDesktopThumbnailFactory *factory,
-								      const char            *uri,
-								      const char            *mime_type,
-								      time_t                 mtime);
-GdkPixbuf *            xfce_desktop_thumbnail_factory_generate_thumbnail (XfceDesktopThumbnailFactory *factory,
-									   const char            *uri,
-									   const char            *mime_type);
 void                   xfce_desktop_thumbnail_factory_save_thumbnail (XfceDesktopThumbnailFactory *factory,
 								       GdkPixbuf             *thumbnail,
 								       const char            *uri,
@@ -82,17 +71,6 @@ void                   xfce_desktop_thumbnail_factory_save_thumbnail (XfceDeskto
 void                   xfce_desktop_thumbnail_factory_create_failed_thumbnail (XfceDesktopThumbnailFactory *factory,
 										const char            *uri,
 										time_t                 mtime);
-
-
-/* Thumbnailing utils: */
-gboolean   xfce_desktop_thumbnail_has_uri           (GdkPixbuf          *pixbuf,
-						      const char         *uri);
-gboolean   xfce_desktop_thumbnail_is_valid          (GdkPixbuf          *pixbuf,
-						      const char         *uri,
-						      time_t              mtime);
-char *     xfce_desktop_thumbnail_md5               (const char         *uri);
-char *     xfce_desktop_thumbnail_path_for_uri      (const char         *uri,
-						      XfceDesktopThumbnailSize  size);
 
 G_END_DECLS
 
