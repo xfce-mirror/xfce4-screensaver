@@ -39,7 +39,6 @@
 
 #undef MATE_DISABLE_DEPRECATED
 #include "xfce-rr.h"
-#include "xfce-rr-config.h"
 
 #include "xfce-rr-private.h"
 

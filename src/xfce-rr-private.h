@@ -72,13 +72,6 @@ struct XfceRROutputInfoPrivate
     gboolean            primary;
 };
 
-struct XfceRRConfigPrivate
-{
-  gboolean clone;
-  XfceRRScreen *screen;
-  XfceRROutputInfo **outputs;
-};
-
 gboolean _xfce_rr_output_name_is_laptop (const char *name);
 
 #endif
