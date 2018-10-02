@@ -28,7 +28,6 @@
 
 #include "xfcekbd-keyboard-config.h"
 #include "xfcekbd-config-private.h"
-#include "xfcekbd-util.h"
 
 /*
  * XfcekbdKeyboardConfig
