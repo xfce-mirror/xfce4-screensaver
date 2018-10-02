@@ -127,8 +127,6 @@ static cairo_surface_t *make_root_pixmap     (GdkWindow  *window,
                                               gint        height);
 
 /* Pixbuf utils */
-static void       pixbuf_average_value (GdkPixbuf  *pixbuf,
-                                        GdkRGBA    *result);
 static GdkPixbuf *pixbuf_scale_to_fit  (GdkPixbuf  *src,
 					int         max_width,
 					int         max_height);
@@ -154,13 +152,6 @@ static void       pixbuf_blend         (GdkPixbuf  *src,
 					int         dest_y,
 					double      alpha);
 
-/* Thumbnail utilities */
-static GdkPixbuf *create_thumbnail_for_filename (XfceDesktopThumbnailFactory *factory,
-						 const char            *filename);
-static gboolean   get_thumb_annotations (GdkPixbuf             *thumb,
-					 int                   *orig_width,
-					 int                   *orig_height);
-
 /* Cache */
 static GdkPixbuf *get_pixbuf_for_size  (XfceBG               *bg,
 					gint                  num_monitor,
@@ -170,17 +161,10 @@ static void       clear_cache          (XfceBG               *bg);
 static gboolean   is_different         (XfceBG               *bg,
 					const char            *filename);
 static time_t     get_mtime            (const char            *filename);
-static GdkPixbuf *create_img_thumbnail (XfceBG               *bg,
-					XfceDesktopThumbnailFactory *factory,
-					GdkScreen             *screen,
-					int                    dest_width,
-					int                    dest_height,
-					int		       frame_num);
 static SlideShow * get_as_slideshow    (XfceBG               *bg,
 					const char 	      *filename);
 static Slide *     get_current_slide   (SlideShow 	      *show,
 		   			double    	      *alpha);
-static gboolean    slideshow_has_multiple_sizes (SlideShow *show);
 
 static SlideShow *read_slideshow_file (const char *filename,
 				       GError     **err);
@@ -191,9 +175,29 @@ static FileSize   *find_best_size      (GSList                *sizes,
 					gint                   width,
 					gint                   height);
 
-static void
-color_from_string (const char *string,
-		   GdkRGBA   *colorp)
+static void xfce_bg_set_color(XfceBG *bg,
+				  XfceBGColorType type,
+				  GdkRGBA *primary,
+				  GdkRGBA *secondary);
+
+static void xfce_bg_load_from_gsettings (XfceBG    *bg,
+			     			GSettings *settings);
+
+static cairo_surface_t * xfce_bg_create_surface_scale (XfceBG      *bg,
+			      GdkWindow   *window,
+			      int          width,
+			      int          height,
+			      int          scale,
+			      gboolean     root);
+
+static void xfce_bg_set_placement (XfceBG		*bg,
+		       XfceBGPlacement	 placement);
+
+static void xfce_bg_set_filename (XfceBG	 *bg,
+		      const char *filename);
+
+static void color_from_string(const char *string,
+							  GdkRGBA *colorp)
 {
 	/* If all else fails use black */
 	gdk_rgba_parse (colorp, "#000000");
@@ -202,15 +206,6 @@ color_from_string (const char *string,
 		return;
 
 	gdk_rgba_parse (colorp, string);
-}
-
-static char *
-color_to_string (const GdkRGBA *color)
-{
-	return g_strdup_printf ("#%02x%02x%02x",
-				((guint) (color->red * 65535)) >> 8,
-				((guint) (color->green * 65535)) >> 8,
-				((guint) (color->blue * 65535)) >> 8);
 }
 
 static gboolean
@@ -280,53 +275,7 @@ xfce_bg_load_from_preferences (XfceBG *bg)
 	queue_changed (bg);
 }
 
-/* This function loads default system settings */
-void
-xfce_bg_load_from_system_preferences (XfceBG *bg)
-{
-	GSettings *settings;
-
-	/* FIXME: we need to bind system settings instead of user but
-	* that's currently impossible, not implemented yet.
-	* Hence, reset to system default values.
-	*/
-	settings = g_settings_new (XFCE_BG_SCHEMA);
-
-	xfce_bg_load_from_system_gsettings (bg, settings, FALSE);
-
-	g_object_unref (settings);
-}
-
-/* This function loads (and optionally resets to) default system settings */
-void
-xfce_bg_load_from_system_gsettings (XfceBG    *bg,
-				    GSettings *settings,
-				    gboolean   reset_apply)
-{
-	gchar **keys;
-	gchar **k;
-
-	g_return_if_fail (XFCE_IS_BG (bg));
-	g_return_if_fail (G_IS_SETTINGS (settings));
-
-	g_settings_delay (settings);
-
-	keys = g_settings_list_keys (settings);
-		for (k = keys; *k; k++) {
-			g_settings_reset (settings, *k);
-	}
-	g_strfreev (keys);
-
-	if (reset_apply) {
-		/* Apply changes atomically. */
-		g_settings_apply (settings);
-	} else {
-		xfce_bg_load_from_gsettings (bg, settings);
-		g_settings_revert (settings);
-	}
-}
-
-void
+static void
 xfce_bg_load_from_gsettings (XfceBG    *bg,
 			     GSettings *settings)
 {
@@ -400,46 +349,6 @@ xfce_bg_load_from_gsettings (XfceBG    *bg,
 	if (filename != NULL)
 		g_free (filename);
 }
-
-void
-xfce_bg_save_to_preferences (XfceBG *bg)
-{
-	GSettings *settings;
-	settings = g_settings_new (XFCE_BG_SCHEMA);
-
-	xfce_bg_save_to_gsettings (bg, settings);
-	g_object_unref (settings);
-}
-
-void
-xfce_bg_save_to_gsettings (XfceBG    *bg,
-			   GSettings *settings)
-{
-	gchar *primary;
-	gchar *secondary;
-
-	g_return_if_fail (XFCE_IS_BG (bg));
-	g_return_if_fail (G_IS_SETTINGS (settings));
-
-	primary = color_to_string (&bg->primary);
-	secondary = color_to_string (&bg->secondary);
-
-	g_settings_delay (settings);
-
-	g_settings_set_boolean (settings, XFCE_BG_KEY_DRAW_BACKGROUND, bg->is_enabled);
-	g_settings_set_string (settings, XFCE_BG_KEY_PICTURE_FILENAME, bg->filename);
-	g_settings_set_enum (settings, XFCE_BG_KEY_PICTURE_PLACEMENT, bg->placement);
-	g_settings_set_string (settings, XFCE_BG_KEY_PRIMARY_COLOR, primary);
-	g_settings_set_string (settings, XFCE_BG_KEY_SECONDARY_COLOR, secondary);
-	g_settings_set_enum (settings, XFCE_BG_KEY_COLOR_TYPE, bg->color_type);
-
-	/* Apply changes atomically. */
-	g_settings_apply (settings);
-
-	g_free (primary);
-	g_free (secondary);
-}
-
 
 static void
 xfce_bg_init (XfceBG *bg)
@@ -518,7 +427,7 @@ xfce_bg_new (void)
 	return g_object_new (XFCE_TYPE_BG, NULL);
 }
 
-void
+static void
 xfce_bg_set_color (XfceBG *bg,
 		    XfceBGColorType type,
 		    GdkRGBA *primary,
@@ -540,7 +449,7 @@ xfce_bg_set_color (XfceBG *bg,
 	}
 }
 
-void
+static void
 xfce_bg_set_placement (XfceBG		*bg,
 		       XfceBGPlacement	 placement)
 {
@@ -551,61 +460,6 @@ xfce_bg_set_placement (XfceBG		*bg,
 
 		queue_changed (bg);
 	}
-}
-
-XfceBGPlacement
-xfce_bg_get_placement (XfceBG *bg)
-{
-	g_return_val_if_fail (bg != NULL, -1);
-
-	return bg->placement;
-}
-
-void
-xfce_bg_get_color (XfceBG		*bg,
-		   XfceBGColorType	*type,
-		   GdkRGBA		*primary,
-		   GdkRGBA		*secondary)
-{
-	g_return_if_fail (bg != NULL);
-
-	if (type)
-		*type = bg->color_type;
-
-	if (primary)
-		*primary = bg->primary;
-
-	if (secondary)
-		*secondary = bg->secondary;
-}
-
-void
-xfce_bg_set_draw_background (XfceBG	*bg,
-			     gboolean	 draw_background)
-{
-	g_return_if_fail (bg != NULL);
-
-	if (bg->is_enabled != draw_background) {
-		bg->is_enabled = draw_background;
-
-		queue_changed (bg);
-	}
-}
-
-gboolean
-xfce_bg_get_draw_background (XfceBG *bg)
-{
-	g_return_val_if_fail (bg != NULL, FALSE);
-
-	return bg->is_enabled;
-}
-
-const gchar *
-xfce_bg_get_filename (XfceBG *bg)
-{
-	g_return_val_if_fail (bg != NULL, NULL);
-
-	return bg->filename;
 }
 
 static inline gchar *
@@ -756,7 +610,7 @@ file_changed (GFileMonitor     *file_monitor,
 	queue_changed (bg);
 }
 
-void
+static void
 xfce_bg_set_filename (XfceBG	 *bg,
 		      const char *filename)
 {
@@ -981,21 +835,6 @@ draw_image_area (XfceBG        *bg,
 }
 
 static void
-draw_image_for_thumb (XfceBG     *bg,
-		      GdkPixbuf  *pixbuf,
-		      GdkPixbuf  *dest)
-{
-	GdkRectangle rect;
-
-	rect.x = 0;
-	rect.y = 0;
-	rect.width = gdk_pixbuf_get_width (dest);
-	rect.height = gdk_pixbuf_get_height (dest);
-
-	draw_image_area (bg, -1, pixbuf, dest, &rect);
-}
-
-static void
 draw_once (XfceBG    *bg,
 	   GdkPixbuf *dest,
 	   gboolean   is_root)
@@ -1046,7 +885,7 @@ draw_each_monitor (XfceBG    *bg,
 	}
 }
 
-void
+static void
 xfce_bg_draw (XfceBG     *bg,
 	       GdkPixbuf *dest,
 	       GdkScreen *screen,
@@ -1066,25 +905,6 @@ xfce_bg_draw (XfceBG     *bg,
 			draw_once (bg, dest, is_root);
 		}
 	}
-}
-
-gboolean
-xfce_bg_has_multiple_sizes (XfceBG *bg)
-{
-	SlideShow *show;
-	gboolean ret;
-
-	g_return_val_if_fail (bg != NULL, FALSE);
-
-	ret = FALSE;
-
-	show = get_as_slideshow (bg, bg->filename);
-	if (show) {
-		ret = slideshow_has_multiple_sizes (show);
-		slideshow_unref (show);
-	}
-
-	return ret;
 }
 
 static void
@@ -1162,7 +982,7 @@ xfce_bg_create_surface (XfceBG      *bg,
  * so that if someone calls XKillClient on it, it won't affect the application
  * who created it.
  **/
-cairo_surface_t *
+static cairo_surface_t *
 xfce_bg_create_surface_scale (XfceBG      *bg,
 			      GdkWindow   *window,
 			      int          width,
@@ -1222,52 +1042,6 @@ xfce_bg_create_surface_scale (XfceBG      *bg,
 	return surface;
 }
 
-
-/* determine if a background is darker or lighter than average, to help
- * clients know what colors to draw on top with
- */
-gboolean
-xfce_bg_is_dark (XfceBG *bg,
-		  int      width,
-		  int      height)
-{
-	GdkRGBA color;
-	int intensity;
-	GdkPixbuf *pixbuf;
-
-	g_return_val_if_fail (bg != NULL, FALSE);
-
-	if (bg->color_type == XFCE_BG_COLOR_SOLID) {
-		color = bg->primary;
-	} else {
-		color.red = (bg->primary.red + bg->secondary.red) / 2;
-		color.green = (bg->primary.green + bg->secondary.green) / 2;
-		color.blue = (bg->primary.blue + bg->secondary.blue) / 2;
-	}
-	pixbuf = get_pixbuf_for_size (bg, -1, width, height);
-	if (pixbuf) {
-		GdkRGBA argb;
-		guchar a, r, g, b;
-
-		pixbuf_average_value (pixbuf, &argb);
-		a = argb.alpha * 0xff;
-		r = argb.red * 0xff;
-		g = argb.green * 0xff;
-		b = argb.blue * 0xff;
-
-		color.red = (color.red * (0xFF - a) + r * 0x101 * a) / 0xFF;
-		color.green = (color.green * (0xFF - a) + g * 0x101 * a) / 0xFF;
-		color.blue = (color.blue * (0xFF - a) + b * 0x101 * a) / 0xFF;
-		g_object_unref (pixbuf);
-	}
-
-	intensity = ((guint) (color.red * 65535) * 77 +
-		     (guint) (color.green * 65535) * 150 +
-		     (guint) (color.blue * 65535) * 28) >> 16;
-
-	return intensity < 160; /* biased slightly to be dark */
-}
-
 /*
  * Create a persistent pixmap. We create a separate display
  * and set the closedown mode on it to RetainPermanent.
@@ -1305,385 +1079,6 @@ make_root_pixmap (GdkWindow *window, gint width, gint height)
         				     width, height);
 
 	return surface;
-}
-
-static gboolean
-get_original_size (const char *filename,
-		   int        *orig_width,
-		   int        *orig_height)
-{
-	gboolean result;
-
-        if (gdk_pixbuf_get_file_info (filename, orig_width, orig_height))
-		result = TRUE;
-	else
-		result = FALSE;
-
-	return result;
-}
-
-static const char *
-get_filename_for_size (XfceBG *bg, gint best_width, gint best_height)
-{
-	SlideShow *show;
-	Slide *slide;
-	FileSize *size;
-
-	if (!bg->filename)
-		return NULL;
-
-	show = get_as_slideshow (bg, bg->filename);
-	if (!show) {
-		return bg->filename;
-	}
-
-	slide = get_current_slide (show, NULL);
-	slideshow_unref (show);
-	size = find_best_size (slide->file1, best_width, best_height);
-	return size->file;
-}
-
-gboolean
-xfce_bg_get_image_size (XfceBG	       *bg,
-			 XfceDesktopThumbnailFactory *factory,
-			 int                    best_width,
-			 int                    best_height,
-			 int		       *width,
-			 int		       *height)
-{
-	GdkPixbuf *thumb;
-	gboolean result = FALSE;
-	const gchar *filename;
-
-	g_return_val_if_fail (bg != NULL, FALSE);
-	g_return_val_if_fail (factory != NULL, FALSE);
-
-	if (!bg->filename)
-		return FALSE;
-
-	filename = get_filename_for_size (bg, best_width, best_height);
-	thumb = create_thumbnail_for_filename (factory, filename);
-	if (thumb) {
-		if (get_thumb_annotations (thumb, width, height))
-			result = TRUE;
-
-		g_object_unref (thumb);
-	}
-
-	if (!result) {
-		if (get_original_size (filename, width, height))
-			result = TRUE;
-	}
-
-	return result;
-}
-
-static double
-fit_factor (int from_width, int from_height,
-	    int to_width,   int to_height)
-{
-	return MIN (to_width  / (double) from_width, to_height / (double) from_height);
-}
-
-/**
- * xfce_bg_create_thumbnail:
- *
- * Returns: (transfer full): a #GdkPixbuf showing the background as a thumbnail
- */
-GdkPixbuf *
-xfce_bg_create_thumbnail (XfceBG               *bg,
-		           XfceDesktopThumbnailFactory *factory,
-			   GdkScreen             *screen,
-			   int                    dest_width,
-			   int                    dest_height)
-{
-	GdkPixbuf *result;
-	GdkPixbuf *thumb;
-
-	g_return_val_if_fail (bg != NULL, NULL);
-
-	result = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE, 8, dest_width, dest_height);
-
-	draw_color (bg, result);
-
-	if (bg->filename) {
-		thumb = create_img_thumbnail (bg, factory, screen, dest_width, dest_height, -1);
-
-		if (thumb) {
-			draw_image_for_thumb (bg, thumb, result);
-			g_object_unref (thumb);
-		}
-	}
-
-	return result;
-}
-
-/**
- * xfce_bg_get_surface_from_root:
- * @screen: a #GdkScreen
- *
- * This function queries the _XROOTPMAP_ID property from
- * the root window associated with @screen to determine
- * the current root window background surface and returns
- * a copy of it. If the _XROOTPMAP_ID is not set, then
- * a black surface is returned.
- *
- * Return value: a #cairo_surface_t if successful or %NULL
- **/
-cairo_surface_t *
-xfce_bg_get_surface_from_root (GdkScreen *screen)
-{
-	int result;
-	gint format;
-	gulong nitems;
-	gulong bytes_after;
-	guchar *data;
-	Atom type;
-	Display *display;
-	int screen_num;
-	cairo_surface_t *surface;
-	cairo_surface_t *source_pixmap;
-	GdkDisplay *gdkdisplay;
-	int width, height;
-	cairo_t *cr;
-
-	display = GDK_DISPLAY_XDISPLAY (gdk_screen_get_display (screen));
-	screen_num = gdk_x11_screen_get_screen_number (screen);
-
-	result = XGetWindowProperty (display,
-				     RootWindow (display, screen_num),
-				     gdk_x11_get_xatom_by_name ("_XROOTPMAP_ID"),
-				     0L, 1L, False, XA_PIXMAP,
-				     &type, &format, &nitems, &bytes_after,
-				     &data);
-	surface = NULL;
-	source_pixmap = NULL;
-
-	if (result != Success || type != XA_PIXMAP ||
-	    format != 32 || nitems != 1) {
-		XFree (data);
-		data = NULL;
-	}
-
-	if (data != NULL) {
-		gdkdisplay = gdk_screen_get_display (screen);
-		gdk_x11_display_error_trap_push (gdkdisplay);
-
-		Pixmap xpixmap = *(Pixmap *) data;
-		Window root_return;
-		int x_ret, y_ret;
-		unsigned int w_ret, h_ret, bw_ret, depth_ret;
-
-		if (XGetGeometry (GDK_SCREEN_XDISPLAY (screen),
-				  xpixmap,
-				  &root_return,
-				  &x_ret, &y_ret, &w_ret, &h_ret, &bw_ret, &depth_ret))
-		{
-			source_pixmap = cairo_xlib_surface_create (GDK_SCREEN_XDISPLAY (screen),
-								   xpixmap,
-								   GDK_VISUAL_XVISUAL (gdk_screen_get_system_visual (screen)),
-								   w_ret, h_ret);
-		}
-
-		gdk_x11_display_error_trap_pop_ignored (gdkdisplay);
-	}
-
-	width = WidthOfScreen (gdk_x11_screen_get_xscreen (screen));
-	height = HeightOfScreen (gdk_x11_screen_get_xscreen (screen));
-
-	if (source_pixmap) {
-		surface = cairo_surface_create_similar (source_pixmap,
-							CAIRO_CONTENT_COLOR,
-							width, height);
-
-		cr = cairo_create (surface);
-		cairo_set_source_surface (cr, source_pixmap, 0, 0);
-		cairo_paint (cr);
-
-		if (cairo_status (cr) != CAIRO_STATUS_SUCCESS) {
-			cairo_surface_destroy (surface);
-			surface = NULL;
-		}
-
-		cairo_destroy (cr);
-	}
-
-	if (surface == NULL) {
-		surface = gdk_window_create_similar_surface (gdk_screen_get_root_window (screen),
-							     CAIRO_CONTENT_COLOR,
-							     width, height);
-	}
-
-	if (source_pixmap != NULL)
-		cairo_surface_destroy (source_pixmap);
-
-	if (data != NULL)
-		XFree (data);
-
-	return surface;
-}
-
-/* Sets the "ESETROOT_PMAP_ID" property to later be used to free the pixmap,
- */
-static void
-xfce_bg_set_root_pixmap_id (GdkScreen       *screen,
-			    Display         *display,
-			    Pixmap           xpixmap)
-{
-	Window   xroot   = RootWindow (display, gdk_x11_screen_get_screen_number (screen));
-	char    *atom_names[] = {"_XROOTPMAP_ID", "ESETROOT_PMAP_ID"};
-	Atom     atoms[G_N_ELEMENTS(atom_names)] = {0};
-
-	Atom     type;
-	int      format, result;
-	unsigned long nitems, after;
-	unsigned char *data_root, *data_esetroot;
-	GdkDisplay *gdkdisplay;
-
-	/* Get atoms for both properties in an array, only if they exist.
-	 * This method is to avoid multiple round-trips to Xserver
-	 */
-	if (XInternAtoms (display, atom_names, G_N_ELEMENTS(atom_names), True, atoms) &&
-	    atoms[0] != None && atoms[1] != None) {
-		result = XGetWindowProperty (display, xroot, atoms[0], 0L, 1L,
-		                             False, AnyPropertyType,
-		                             &type, &format, &nitems, &after,
-		                             &data_root);
-
-		if (data_root != NULL && result == Success &&
-		    type == XA_PIXMAP && format == 32 && nitems == 1) {
-			result = XGetWindowProperty (display, xroot, atoms[1],
-			                             0L, 1L, False,
-			                             AnyPropertyType,
-			                             &type, &format, &nitems,
-			                             &after, &data_esetroot);
-
-			if (data_esetroot != NULL && result == Success &&
-			    type == XA_PIXMAP && format == 32 && nitems == 1) {
-				Pixmap xrootpmap = *((Pixmap *) data_root);
-				Pixmap esetrootpmap = *((Pixmap *) data_esetroot);
-
-				gdkdisplay = gdk_screen_get_display (screen);
-				gdk_x11_display_error_trap_push (gdkdisplay);
-				if (xrootpmap && xrootpmap == esetrootpmap) {
-					XKillClient (display, xrootpmap);
-				}
-				if (esetrootpmap && esetrootpmap != xrootpmap) {
-					XKillClient (display, esetrootpmap);
-				}
-				gdk_x11_display_error_trap_pop_ignored (gdkdisplay);
-			}
-			if (data_esetroot != NULL) {
-				XFree (data_esetroot);
-			}
-		}
-		if (data_root != NULL) {
-			XFree (data_root);
-		}
-	}
-
-	/* Get atoms for both properties in an array, create them if needed.
-	 * This method is to avoid multiple round-trips to Xserver
-	 */
-	if (!XInternAtoms (display, atom_names, G_N_ELEMENTS(atom_names), False, atoms) ||
-	    atoms[0] == None || atoms[1] == None) {
-	    g_warning ("Could not create atoms needed to set root pixmap id/properties.\n");
-	    return;
-	}
-
-	/* Set new _XROOTMAP_ID and ESETROOT_PMAP_ID properties */
-	XChangeProperty (display, xroot, atoms[0], XA_PIXMAP, 32,
-			 PropModeReplace, (unsigned char *) &xpixmap, 1);
-
-	XChangeProperty (display, xroot, atoms[1], XA_PIXMAP, 32,
-			 PropModeReplace, (unsigned char *) &xpixmap, 1);
-}
-
-/**
- * xfce_bg_set_surface_as_root:
- * @screen: the #GdkScreen to change root background on
- * @surface: the #cairo_surface_t to set root background from.
- *   Must be an xlib surface backing a pixmap.
- *
- * Set the root pixmap, and properties pointing to it. We
- * do this atomically with a server grab to make sure that
- * we won't leak the pixmap if somebody else it setting
- * it at the same time. (This assumes that they follow the
- * same conventions we do).  @surface should come from a call
- * to xfce_bg_create_surface().
- **/
-void
-xfce_bg_set_surface_as_root (GdkScreen *screen, cairo_surface_t *surface)
-{
-	g_return_if_fail (screen != NULL);
-	g_return_if_fail (cairo_surface_get_type (surface) == CAIRO_SURFACE_TYPE_XLIB);
-
-	/* Desktop background pixmap should be created from dummy X client since most
-	 * applications will try to kill it with XKillClient later when changing pixmap
-	 */
-	Display    *display      = GDK_DISPLAY_XDISPLAY (gdk_screen_get_display (screen));
-	Pixmap      pixmap_id    = cairo_xlib_surface_get_drawable (surface);
-	Window      xroot        = RootWindow (display, gdk_x11_screen_get_screen_number (screen));
-
-	XGrabServer (display);
-	xfce_bg_set_root_pixmap_id (screen, display, pixmap_id);
-
-	XSetWindowBackgroundPixmap (display, xroot, pixmap_id);
-	XClearWindow (display, xroot);
-
-	XFlush (display);
-	XUngrabServer (display);
-}
-
-/**
- * xfce_bg_set_surface_as_root_with_crossfade:
- * @screen: the #GdkScreen to change root background on
- * @surface: the cairo xlib surface to set root background from
- *
- * Set the root pixmap, and properties pointing to it.
- * This function differs from xfce_bg_set_surface_as_root()
- * in that it adds a subtle crossfade animation from the
- * current root pixmap to the new one.
- *
- * Return value: (transfer full): a #XfceBGCrossfade object
- **/
-XfceBGCrossfade *
-xfce_bg_set_surface_as_root_with_crossfade (GdkScreen       *screen,
-		 			    cairo_surface_t *surface)
-{
-	GdkWindow       *root_window;
-	int              width, height;
-	XfceBGCrossfade *fade;
-	cairo_t         *cr;
-	cairo_surface_t *old_surface;
-
-	g_return_val_if_fail (screen != NULL, NULL);
-	g_return_val_if_fail (surface != NULL, NULL);
-
-	root_window = gdk_screen_get_root_window (screen);
-	width       = gdk_window_get_width (root_window);
-	height      = gdk_window_get_height (root_window);
-	fade        = xfce_bg_crossfade_new (width, height);
-	old_surface = xfce_bg_get_surface_from_root (screen);
-
-	xfce_bg_crossfade_set_start_surface (fade, old_surface);
-	xfce_bg_crossfade_set_end_surface (fade, surface);
-
-	/* Before setting the surface as a root pixmap, let's have it draw
-	 * the old stuff, just so it won't be noticable
-	 * (crossfade will later get it back)
-	 */
-	cr = cairo_create (surface);
-	cairo_set_source_surface (cr, old_surface, 0, 0);
-	cairo_pattern_set_extend (cairo_get_source (cr), CAIRO_EXTEND_REPEAT);
-	cairo_paint (cr);
-	cairo_destroy (cr);
-	cairo_surface_destroy (old_surface);
-
-	xfce_bg_set_surface_as_root (screen, surface);
-	xfce_bg_crossfade_start (fade, root_window);
-
-	return fade;
 }
 
 /* Implementation of the pixbuf cache */
@@ -1870,15 +1265,6 @@ file_cache_add_pixbuf (XfceBG *bg,
 }
 
 static void
-file_cache_add_thumbnail (XfceBG *bg,
-			  const char *filename,
-			  GdkPixbuf *pixbuf)
-{
-	FileCacheEntry *ent = file_cache_entry_new (bg, THUMBNAIL, filename);
-	ent->u.thumbnail = g_object_ref (pixbuf);
-}
-
-static void
 file_cache_add_slide_show (XfceBG *bg,
 			   const char *filename,
 			   SlideShow *show)
@@ -1977,23 +1363,6 @@ get_as_slideshow (XfceBG *bg, const char *filename)
 			file_cache_add_slide_show (bg, filename, show);
 
 		return show;
-	}
-}
-
-static GdkPixbuf *
-get_as_thumbnail (XfceBG *bg, XfceDesktopThumbnailFactory *factory, const char *filename)
-{
-	const FileCacheEntry *ent;
-	if ((ent = file_cache_lookup (bg, THUMBNAIL, filename))) {
-		return g_object_ref (ent->u.thumbnail);
-	}
-	else {
-		GdkPixbuf *thumb = create_thumbnail_for_filename (factory, filename);
-
-		if (thumb)
-			file_cache_add_thumbnail (bg, filename, thumb);
-
-		return thumb;
 	}
 }
 
@@ -2111,171 +1480,6 @@ get_mtime (const char *filename)
 	}
 
 	return mtime;
-}
-
-static GdkPixbuf *
-scale_thumbnail (XfceBGPlacement placement,
-		 const char *filename,
-		 GdkPixbuf *thumb,
-		 GdkScreen *screen,
-		 int	    dest_width,
-		 int	    dest_height)
-{
-	int o_width;
-	int o_height;
-
-	if (placement != XFCE_BG_PLACEMENT_TILED &&
-	    placement != XFCE_BG_PLACEMENT_CENTERED) {
-
-		/* In this case, the pixbuf will be scaled to fit the screen anyway,
-		 * so just return the pixbuf here
-		 */
-		return g_object_ref (thumb);
-	}
-
-	if (get_thumb_annotations (thumb, &o_width, &o_height)		||
-	    (filename && get_original_size (filename, &o_width, &o_height))) {
-
-		int scr_height = HeightOfScreen (gdk_x11_screen_get_xscreen (screen));
-		int scr_width = WidthOfScreen (gdk_x11_screen_get_xscreen (screen));
-		int thumb_width = gdk_pixbuf_get_width (thumb);
-		int thumb_height = gdk_pixbuf_get_height (thumb);
-		double screen_to_dest = fit_factor (scr_width, scr_height,
-						    dest_width, dest_height);
-		double thumb_to_orig  = fit_factor (thumb_width, thumb_height,
-						    o_width, o_height);
-		double f = thumb_to_orig * screen_to_dest;
-		int new_width, new_height;
-
-		new_width = floor (thumb_width * f + 0.5);
-		new_height = floor (thumb_height * f + 0.5);
-
-		if (placement == XFCE_BG_PLACEMENT_TILED) {
-			/* Heuristic to make sure tiles don't become so small that
-			 * they turn into a blur.
-			 *
-			 * This is strictly speaking incorrect, but the resulting
-			 * thumbnail gives a much better idea what the background
-			 * will actually look like.
-			 */
-
-			if ((new_width < 32 || new_height < 32) &&
-			    (new_width < o_width / 4 || new_height < o_height / 4)) {
-				new_width = o_width / 4;
-				new_height = o_height / 4;
-			}
-		}
-
-		thumb = gdk_pixbuf_scale_simple (thumb, new_width, new_height,
-						 GDK_INTERP_BILINEAR);
-	}
-	else
-		g_object_ref (thumb);
-
-	return thumb;
-}
-
-/* frame_num determines which slide to thumbnail.
- * -1 means 'current slide'.
- */
-static GdkPixbuf *
-create_img_thumbnail (XfceBG                      *bg,
-		      XfceDesktopThumbnailFactory *factory,
-		      GdkScreen                    *screen,
-		      int                           dest_width,
-		      int                           dest_height,
-		      int                           frame_num)
-{
-	if (bg->filename) {
-		GdkPixbuf *thumb;
-
-		thumb = get_as_thumbnail (bg, factory, bg->filename);
-
-		if (thumb) {
-			GdkPixbuf *result;
-			result = scale_thumbnail (bg->placement,
-						  bg->filename,
-						  thumb,
-						  screen,
-						  dest_width,
-						  dest_height);
-			g_object_unref (thumb);
-			return result;
-		}
-		else {
-			SlideShow *show = get_as_slideshow (bg, bg->filename);
-
-			if (show) {
-				double alpha;
-				Slide *slide;
-
-				if (frame_num == -1)
-					slide = get_current_slide (show, &alpha);
-				else
-					slide = g_queue_peek_nth (show->slides, frame_num);
-
-				if (slide->fixed) {
-					GdkPixbuf *tmp;
-					FileSize *fs;
-					fs = find_best_size (slide->file1, dest_width, dest_height);
-					tmp = get_as_thumbnail (bg, factory, fs->file);
-					if (tmp) {
-						thumb = scale_thumbnail (bg->placement,
-									 fs->file,
-									 tmp,
-									 screen,
-									 dest_width,
-									 dest_height);
-						g_object_unref (tmp);
-					}
-				}
-				else {
-					FileSize *fs1, *fs2;
-					GdkPixbuf *p1, *p2;
-					fs1 = find_best_size (slide->file1, dest_width, dest_height);
-					p1 = get_as_thumbnail (bg, factory, fs1->file);
-
-					fs2 = find_best_size (slide->file2, dest_width, dest_height);
-					p2 = get_as_thumbnail (bg, factory, fs2->file);
-
-					if (p1 && p2) {
-						GdkPixbuf *thumb1, *thumb2;
-
-						thumb1 = scale_thumbnail (bg->placement,
-									  fs1->file,
-									  p1,
-									  screen,
-									  dest_width,
-									  dest_height);
-
-						thumb2 = scale_thumbnail (bg->placement,
-									  fs2->file,
-									  p2,
-									  screen,
-									  dest_width,
-									  dest_height);
-
-						thumb = blend (thumb1, thumb2, alpha);
-
-						g_object_unref (thumb1);
-						g_object_unref (thumb2);
-					}
-					if (p1)
-						g_object_unref (p1);
-					if (p2)
-						g_object_unref (p2);
-				}
-
-				ensure_timeout (bg, slide);
-
-				slideshow_unref (show);
-			}
-		}
-
-		return thumb;
-	}
-
-	return NULL;
 }
 
 /*
@@ -2460,72 +1664,6 @@ clear_cache (XfceBG *bg)
 
 		bg->timeout_id = 0;
 	}
-}
-
-/* Pixbuf utilities */
-static void
-pixbuf_average_value (GdkPixbuf *pixbuf,
-                      GdkRGBA   *result)
-{
-	guint64 a_total, r_total, g_total, b_total;
-	guint row, column;
-	int row_stride;
-	const guchar *pixels, *p;
-	int r, g, b, a;
-	guint64 dividend;
-	guint width, height;
-	gdouble dd;
-
-	width = gdk_pixbuf_get_width (pixbuf);
-	height = gdk_pixbuf_get_height (pixbuf);
-	row_stride = gdk_pixbuf_get_rowstride (pixbuf);
-	pixels = gdk_pixbuf_get_pixels (pixbuf);
-
-	/* iterate through the pixbuf, counting up each component */
-	a_total = 0;
-	r_total = 0;
-	g_total = 0;
-	b_total = 0;
-
-	if (gdk_pixbuf_get_has_alpha (pixbuf)) {
-		for (row = 0; row < height; row++) {
-			p = pixels + (row * row_stride);
-			for (column = 0; column < width; column++) {
-				r = *p++;
-				g = *p++;
-				b = *p++;
-				a = *p++;
-
-				a_total += a;
-				r_total += r * a;
-				g_total += g * a;
-				b_total += b * a;
-			}
-		}
-		dividend = height * width * 0xFF;
-		a_total *= 0xFF;
-	} else {
-		for (row = 0; row < height; row++) {
-			p = pixels + (row * row_stride);
-			for (column = 0; column < width; column++) {
-				r = *p++;
-				g = *p++;
-				b = *p++;
-
-				r_total += r;
-				g_total += g;
-				b_total += b;
-			}
-		}
-		dividend = height * width;
-		a_total = dividend * 0xFF;
-	}
-
-	dd = dividend * 0xFF;
-	result->alpha = a_total / dd;
-	result->red = r_total / dd;
-	result->green = g_total / dd;
-	result->blue = b_total / dd;
 }
 
 static GdkPixbuf *
@@ -3081,182 +2219,3 @@ read_slideshow_file (const char *filename,
 
 	return show;
 }
-
-/* Thumbnail utilities */
-static GdkPixbuf *
-create_thumbnail_for_filename (XfceDesktopThumbnailFactory *factory,
-			       const char            *filename)
-{
-	char *thumb;
-	time_t mtime;
-	GdkPixbuf *orig, *result = NULL;
-	char *uri;
-
-	mtime = get_mtime (filename);
-
-	if (mtime == (time_t)-1)
-		return NULL;
-
-	uri = g_filename_to_uri (filename, NULL, NULL);
-
-	if (uri == NULL)
-		return NULL;
-
-	thumb = xfce_desktop_thumbnail_factory_lookup (factory, uri, mtime);
-
-	if (thumb) {
-		result = gdk_pixbuf_new_from_file (thumb, NULL);
-		g_free (thumb);
-	}
-	else {
-		orig = gdk_pixbuf_new_from_file (filename, NULL);
-		if (orig) {
-			int orig_width = gdk_pixbuf_get_width (orig);
-			int orig_height = gdk_pixbuf_get_height (orig);
-
-			result = pixbuf_scale_to_fit (orig, 128, 128);
-
-			g_object_set_data_full (G_OBJECT (result), "mate-thumbnail-height",
-						g_strdup_printf ("%d", orig_height), g_free);
-			g_object_set_data_full (G_OBJECT (result), "mate-thumbnail-width",
-						g_strdup_printf ("%d", orig_width), g_free);
-
-			g_object_unref (orig);
-
-			xfce_desktop_thumbnail_factory_save_thumbnail (factory, result, uri, mtime);
-		}
-		else {
-			xfce_desktop_thumbnail_factory_create_failed_thumbnail (factory, uri, mtime);
-		}
-	}
-
-	g_free (uri);
-
-	return result;
-}
-
-static gboolean
-get_thumb_annotations (GdkPixbuf *thumb,
-		       int	 *orig_width,
-		       int	 *orig_height)
-{
-	char *end;
-	const char *wstr, *hstr;
-
-	wstr = gdk_pixbuf_get_option (thumb, "tEXt::Thumb::Image::Width");
-	hstr = gdk_pixbuf_get_option (thumb, "tEXt::Thumb::Image::Height");
-
-	if (hstr && wstr) {
-		*orig_width = strtol (wstr, &end, 10);
-		if (*end != 0)
-			return FALSE;
-
-		*orig_height = strtol (hstr, &end, 10);
-		if (*end != 0)
-			return FALSE;
-
-		return TRUE;
-	}
-
-	return FALSE;
-}
-
-static gboolean
-slideshow_has_multiple_sizes (SlideShow *show)
-{
-	return show->has_multiple_sizes;
-}
-
-/*
- * Returns whether the background is a slideshow.
- */
-gboolean
-xfce_bg_changes_with_time (XfceBG *bg)
-{
-	SlideShow *show;
-
-	g_return_val_if_fail (bg != NULL, FALSE);
-
-	if (!bg->filename)
-		return FALSE;
-
-	show = get_as_slideshow (bg, bg->filename);
-	if (show)
-		return g_queue_get_length (show->slides) > 1;
-
-	return FALSE;
-}
-
-/**
- * xfce_bg_create_frame_thumbnail:
- *
- * Creates a thumbnail for a certain frame, where 'frame' is somewhat
- * vaguely defined as 'suitable point to show while single-stepping
- * through the slideshow'.
- *
- * Returns: (transfer full): the newly created thumbnail or
- * or NULL if frame_num is out of bounds.
- */
-GdkPixbuf *
-xfce_bg_create_frame_thumbnail (XfceBG			*bg,
-				 XfceDesktopThumbnailFactory	*factory,
-				 GdkScreen			*screen,
-				 int				 dest_width,
-				 int				 dest_height,
-				 int				 frame_num)
-{
-	SlideShow *show;
-	GdkPixbuf *result;
-	GdkPixbuf *thumb;
-        GList *l;
-        int i, skipped;
-        gboolean found;
-
-	g_return_val_if_fail (bg != NULL, FALSE);
-
-	show = get_as_slideshow (bg, bg->filename);
-
-	if (!show)
-		return NULL;
-
-
-	if (frame_num < 0 || frame_num >= g_queue_get_length (show->slides))
-		return NULL;
-
-	i = 0;
-	skipped = 0;
-	found = FALSE;
-	for (l = show->slides->head; l; l = l->next) {
-		Slide *slide = l->data;
-		if (!slide->fixed) {
-			skipped++;
-			continue;
-		}
-		if (i == frame_num) {
-			found = TRUE;
-			break;
-		}
-		i++;
-	}
-	if (!found)
-		return NULL;
-
-
-	result = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE, 8, dest_width, dest_height);
-
-	draw_color (bg, result);
-
-	if (bg->filename) {
-		thumb = create_img_thumbnail (bg, factory, screen,
-					      dest_width, dest_height,
-					      frame_num + skipped);
-
-		if (thumb) {
-			draw_image_for_thumb (bg, thumb, result);
-			g_object_unref (thumb);
-		}
-	}
-
-	return result;
-}
-

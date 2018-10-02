@@ -81,87 +81,13 @@ typedef enum {
 GType            xfce_bg_get_type              (void);
 XfceBG *         xfce_bg_new                   (void);
 void             xfce_bg_load_from_preferences (XfceBG               *bg);
-void             xfce_bg_load_from_system_preferences  (XfceBG       *bg);
-void             xfce_bg_load_from_system_gsettings    (XfceBG       *bg,
-							GSettings    *settings,
-							gboolean      reset_apply);
-void             xfce_bg_load_from_gsettings   (XfceBG               *bg,
-						GSettings            *settings);
-void             xfce_bg_save_to_preferences   (XfceBG               *bg);
-void             xfce_bg_save_to_gsettings     (XfceBG               *bg,
-						GSettings            *settings);
-
-/* Setters */
-void             xfce_bg_set_filename          (XfceBG               *bg,
-						 const char            *filename);
-void             xfce_bg_set_placement         (XfceBG               *bg,
-						 XfceBGPlacement       placement);
-void             xfce_bg_set_color             (XfceBG               *bg,
-						 XfceBGColorType       type,
-						 GdkRGBA              *primary,
-						 GdkRGBA              *secondary);
-void		 xfce_bg_set_draw_background   (XfceBG		     *bg,
-						gboolean	      draw_background);
-/* Getters */
-gboolean	 xfce_bg_get_draw_background   (XfceBG		     *bg);
-XfceBGPlacement  xfce_bg_get_placement         (XfceBG               *bg);
-void		 xfce_bg_get_color             (XfceBG               *bg,
-						 XfceBGColorType      *type,
-						 GdkRGBA              *primary,
-						 GdkRGBA              *secondary);
-const gchar *    xfce_bg_get_filename          (XfceBG               *bg);
 
 /* Drawing and thumbnailing */
-void             xfce_bg_draw                  (XfceBG               *bg,
-						 GdkPixbuf             *dest,
-						 GdkScreen	       *screen,
-                                                 gboolean               is_root);
-
 cairo_surface_t *xfce_bg_create_surface        (XfceBG               *bg,
 						GdkWindow            *window,
 						int                   width,
 						int                   height,
 						gboolean              root);
-
-cairo_surface_t *xfce_bg_create_surface_scale  (XfceBG               *bg,
-						GdkWindow            *window,
-						int                   width,
-						int                   height,
-						int                   scale,
-						gboolean              root);
-
-gboolean         xfce_bg_get_image_size        (XfceBG               *bg,
-						 XfceDesktopThumbnailFactory *factory,
-                                                 int                    best_width,
-                                                 int                    best_height,
-						 int                   *width,
-						 int                   *height);
-GdkPixbuf *      xfce_bg_create_thumbnail      (XfceBG               *bg,
-						 XfceDesktopThumbnailFactory *factory,
-						 GdkScreen             *screen,
-						 int                    dest_width,
-						 int                    dest_height);
-gboolean         xfce_bg_is_dark               (XfceBG               *bg,
-                                                 int                    dest_width,
-						 int                    dest_height);
-gboolean         xfce_bg_has_multiple_sizes    (XfceBG               *bg);
-gboolean         xfce_bg_changes_with_time     (XfceBG               *bg);
-GdkPixbuf *      xfce_bg_create_frame_thumbnail (XfceBG              *bg,
-						 XfceDesktopThumbnailFactory *factory,
-						 GdkScreen             *screen,
-						 int                    dest_width,
-						 int                    dest_height,
-						 int                    frame_num);
-
-/* Set a surface as root - not a XfceBG method. At some point
- * if we decide to stabilize the API then we may want to make
- * these object methods, drop xfce_bg_create_surface, etc.
- */
-void             xfce_bg_set_surface_as_root   (GdkScreen            *screen,
-						cairo_surface_t    *surface);
-XfceBGCrossfade *xfce_bg_set_surface_as_root_with_crossfade (GdkScreen       *screen,
-							     cairo_surface_t *surface);
-cairo_surface_t *xfce_bg_get_surface_from_root (GdkScreen *screen);
 
 G_END_DECLS
 
