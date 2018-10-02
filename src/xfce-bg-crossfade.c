@@ -34,7 +34,6 @@
 #include <cairo.h>
 #include <cairo-xlib.h>
 
-#define MATE_DESKTOP_USE_UNSTABLE_API
 #include <xfce-bg.h>
 #include "xfce-bg-crossfade.h"
 

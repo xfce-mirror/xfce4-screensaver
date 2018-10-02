@@ -31,7 +31,6 @@
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
 
-#define MATE_DESKTOP_USE_UNSTABLE_API
 #include <xfce-desktop-utils.h>
 
 #include "private.h"
