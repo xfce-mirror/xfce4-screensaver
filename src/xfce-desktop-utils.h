@@ -33,21 +33,8 @@
 
 G_BEGIN_DECLS
 
-/* prepend the terminal command to a vector */
-void xfce_desktop_prepend_terminal_to_vector (int *argc, char ***argv);
-
 /* replace gdk_spawn_command_line_on_screen, not available in GTK3 */
 gboolean xfce_gdk_spawn_command_line_on_screen (GdkScreen *screen, const gchar *command, GError **error);
-
-void
-xfce_desktop_gtk_style_get_light_color (GtkStyleContext *style,
-                                        GtkStateFlags    state,
-                                        GdkRGBA         *color);
-
-void
-xfce_desktop_gtk_style_get_dark_color (GtkStyleContext *style,
-                                       GtkStateFlags    state,
-                                       GdkRGBA         *color);
 
 G_END_DECLS
 
