@@ -129,17 +129,7 @@ xfcekbd_indicator_config_load_colors (XfcekbdIndicatorConfig * ind_config)
 				     XFCEKBD_INDICATOR_CONFIG_KEY_BACKGROUND_COLOR);
 }
 
-void
-xfcekbd_indicator_config_refresh_style (XfcekbdIndicatorConfig * ind_config)
-{
-	g_free (ind_config->font_family);
-	g_free (ind_config->foreground_color);
-	g_free (ind_config->background_color);
-	xfcekbd_indicator_config_load_font (ind_config);
-	xfcekbd_indicator_config_load_colors (ind_config);
-}
-
-gchar *
+static gchar *
 xfcekbd_indicator_config_get_images_file (XfcekbdIndicatorConfig *
 				       ind_config,
 				       XfcekbdKeyboardConfig *
@@ -293,21 +283,6 @@ xfcekbd_indicator_config_load_from_gsettings (XfcekbdIndicatorConfig * ind_confi
 	xfcekbd_indicator_config_load_font (ind_config);
 	xfcekbd_indicator_config_load_colors (ind_config);
 
-}
-
-void
-xfcekbd_indicator_config_save_to_gsettings (XfcekbdIndicatorConfig * ind_config)
-{
-	g_settings_delay (ind_config->settings);
-
-	g_settings_set_int (ind_config->settings,
-				  XFCEKBD_INDICATOR_CONFIG_KEY_SECONDARIES,
-				  ind_config->secondary_groups_mask);
-	g_settings_set_boolean (ind_config->settings,
-				   XFCEKBD_INDICATOR_CONFIG_KEY_SHOW_FLAGS,
-				   ind_config->show_flags);
-
-	g_settings_apply (ind_config->settings);
 }
 
 void

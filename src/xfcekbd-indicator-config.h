@@ -57,16 +57,6 @@ void xfcekbd_indicator_config_term (XfcekbdIndicatorConfig *
 
 void xfcekbd_indicator_config_load_from_gsettings (XfcekbdIndicatorConfig
 						   * applet_config);
-void xfcekbd_indicator_config_save_to_gsettings (XfcekbdIndicatorConfig *
-						 applet_config);
-
-void xfcekbd_indicator_config_refresh_style (XfcekbdIndicatorConfig *
-						 applet_config);
-
-gchar* xfcekbd_indicator_config_get_images_file (XfcekbdIndicatorConfig *
-					     applet_config,
-					     XfcekbdKeyboardConfig *
-					     kbd_config, int group);
 
 void xfcekbd_indicator_config_load_image_filenames (XfcekbdIndicatorConfig
 							* applet_config,
