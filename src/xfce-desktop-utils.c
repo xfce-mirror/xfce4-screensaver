@@ -33,8 +33,6 @@
 
 #include <xfce-desktop-utils.h>
 
-#include "private.h"
-
 /**
  * xfce_gdk_spawn_command_line_on_screen:
  * @screen: a GdkScreen
@@ -73,17 +71,4 @@ xfce_gdk_spawn_command_line_on_screen (GdkScreen *screen, const gchar *command, 
 	}
 
 	return res;
-}
-
-void
-_mate_desktop_init_i18n (void) {
-	static gboolean initialized = FALSE;
-
-	if (!initialized) {
-		bindtextdomain (GETTEXT_PACKAGE, MATELOCALEDIR);
-#ifdef HAVE_BIND_TEXTDOMAIN_CODESET
-		bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-#endif
-		initialized = TRUE;
-	}
 }

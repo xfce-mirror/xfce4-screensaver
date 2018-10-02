@@ -286,7 +286,6 @@ xfce4_screensaver_SOURCES =	\
 	canonicalize.h \
 	entry-directories.c \
 	entry-directories.h \
-	private.h		\
 	$(BUILT_SOURCES)	\
 	$(NULL)
 
