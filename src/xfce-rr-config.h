@@ -55,34 +55,6 @@ typedef struct
 
 GType xfce_rr_output_info_get_type (void);
 
-char *xfce_rr_output_info_get_name (XfceRROutputInfo *self);
-
-gboolean xfce_rr_output_info_is_active  (XfceRROutputInfo *self);
-void     xfce_rr_output_info_set_active (XfceRROutputInfo *self, gboolean active);
-
-
-void xfce_rr_output_info_get_geometry (XfceRROutputInfo *self, int *x, int *y, int *width, int *height);
-void xfce_rr_output_info_set_geometry (XfceRROutputInfo *self, int  x, int  y, int  width, int  height);
-
-int  xfce_rr_output_info_get_refresh_rate (XfceRROutputInfo *self);
-void xfce_rr_output_info_set_refresh_rate (XfceRROutputInfo *self, int rate);
-
-XfceRRRotation xfce_rr_output_info_get_rotation (XfceRROutputInfo *self);
-void            xfce_rr_output_info_set_rotation (XfceRROutputInfo *self, XfceRRRotation rotation);
-
-gboolean xfce_rr_output_info_is_connected     (XfceRROutputInfo *self);
-void     xfce_rr_output_info_get_vendor       (XfceRROutputInfo *self, gchar* vendor);
-guint    xfce_rr_output_info_get_product      (XfceRROutputInfo *self);
-guint    xfce_rr_output_info_get_serial       (XfceRROutputInfo *self);
-double   xfce_rr_output_info_get_aspect_ratio (XfceRROutputInfo *self);
-char    *xfce_rr_output_info_get_display_name (XfceRROutputInfo *self);
-
-gboolean xfce_rr_output_info_get_primary (XfceRROutputInfo *self);
-void     xfce_rr_output_info_set_primary (XfceRROutputInfo *self, gboolean primary);
-
-int xfce_rr_output_info_get_preferred_width  (XfceRROutputInfo *self);
-int xfce_rr_output_info_get_preferred_height (XfceRROutputInfo *self);
-
 typedef struct
 {
     GObject parent;
@@ -104,44 +76,5 @@ typedef struct
 #define XFCE_RR_CONFIG_GET_CLASS(obj)        (G_TYPE_INSTANCE_GET_CLASS ((obj), XFCE_TYPE_RR_CONFIG, XfceRRConfigClass))
 
 GType               xfce_rr_config_get_type     (void);
-
-XfceRRConfig      *xfce_rr_config_new_current  (XfceRRScreen  *screen,
-						  GError        **error);
-XfceRRConfig      *xfce_rr_config_new_stored   (XfceRRScreen  *screen,
-						  GError        **error);
-gboolean                xfce_rr_config_load_current (XfceRRConfig  *self,
-						      GError        **error);
-gboolean                xfce_rr_config_load_filename (XfceRRConfig  *self,
-						       const gchar    *filename,
-						       GError        **error);
-gboolean            xfce_rr_config_match        (XfceRRConfig  *config1,
-						  XfceRRConfig  *config2);
-gboolean            xfce_rr_config_equal	 (XfceRRConfig  *config1,
-						  XfceRRConfig  *config2);
-gboolean            xfce_rr_config_save         (XfceRRConfig  *configuration,
-						  GError        **error);
-void                xfce_rr_config_sanitize     (XfceRRConfig  *configuration);
-gboolean            xfce_rr_config_ensure_primary (XfceRRConfig  *configuration);
-
-gboolean	    xfce_rr_config_apply_with_time (XfceRRConfig  *configuration,
-						     XfceRRScreen  *screen,
-						     guint32         timestamp,
-						     GError        **error);
-
-gboolean            xfce_rr_config_apply_from_filename_with_time (XfceRRScreen  *screen,
-								   const char     *filename,
-								   guint32         timestamp,
-								   GError        **error);
-
-gboolean            xfce_rr_config_applicable   (XfceRRConfig  *configuration,
-						  XfceRRScreen  *screen,
-						  GError        **error);
-
-gboolean            xfce_rr_config_get_clone    (XfceRRConfig  *configuration);
-void                xfce_rr_config_set_clone    (XfceRRConfig  *configuration, gboolean clone);
-XfceRROutputInfo **xfce_rr_config_get_outputs  (XfceRRConfig  *configuration);
-
-char *xfce_rr_config_get_backup_filename (void);
-char *xfce_rr_config_get_intended_filename (void);
 
 #endif

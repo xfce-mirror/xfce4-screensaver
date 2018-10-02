@@ -84,12 +84,17 @@ static CrtcAssignment  *crtc_assignment_new   (XfceRRScreen      *screen,
 					       XfceRROutputInfo **outputs,
 					       GError            **error);
 static void             crtc_assignment_free  (CrtcAssignment   *assign);
+static XfceRRConfig *   xfce_rr_config_new_current(XfceRRScreen *screen,
+                                                   GError **error);
+static gboolean         xfce_rr_config_match  (XfceRRConfig *c1, 
+											   XfceRRConfig *c2);
+static char *			xfce_rr_config_get_intended_filename(void);
 
-enum {
-  PROP_0,
-  PROP_SCREEN,
-  PROP_LAST
-};
+	enum {
+		PROP_0,
+		PROP_SCREEN,
+		PROP_LAST
+	};
 
 G_DEFINE_TYPE (XfceRRConfig, xfce_rr_config, G_TYPE_OBJECT)
 
@@ -491,7 +496,7 @@ xfce_rr_config_finalize (GObject *gobject)
     G_OBJECT_CLASS (xfce_rr_config_parent_class)->finalize (gobject);
 }
 
-gboolean
+static gboolean
 xfce_rr_config_load_current (XfceRRConfig *config, GError **error)
 {
     GPtrArray *a;
@@ -663,7 +668,7 @@ xfce_rr_config_load_current (XfceRRConfig *config, GError **error)
     return TRUE;
 }
 
-gboolean
+static gboolean
 xfce_rr_config_load_filename (XfceRRConfig *result, const char *filename, GError **error)
 {
     XfceRRConfig *current;
@@ -732,34 +737,12 @@ xfce_rr_config_class_init (XfceRRConfigClass *klass)
 							  G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_NICK | G_PARAM_STATIC_BLURB));
 }
 
-XfceRRConfig *
+static XfceRRConfig *
 xfce_rr_config_new_current (XfceRRScreen *screen, GError **error)
 {
     XfceRRConfig *self = g_object_new (XFCE_TYPE_RR_CONFIG, "screen", screen, NULL);
 
     if (xfce_rr_config_load_current (self, error))
-      return self;
-    else
-      {
-	g_object_unref (self);
-	return NULL;
-      }
-}
-
-XfceRRConfig *
-xfce_rr_config_new_stored (XfceRRScreen *screen, GError **error)
-{
-    XfceRRConfig *self = g_object_new (XFCE_TYPE_RR_CONFIG, "screen", screen, NULL);
-    char *filename;
-    gboolean success;
-
-    filename = xfce_rr_config_get_intended_filename ();
-
-    success = xfce_rr_config_load_filename (self, filename, error);
-
-    g_free (filename);
-
-    if (success)
       return self;
     else
       {
@@ -888,7 +871,7 @@ find_output (XfceRRConfig *config, const char *name)
 /* Match means "these configurations apply to the same hardware
  * setups"
  */
-gboolean
+static gboolean
 xfce_rr_config_match (XfceRRConfig *c1, XfceRRConfig *c2)
 {
     int i;
@@ -902,30 +885,6 @@ xfce_rr_config_match (XfceRRConfig *c1, XfceRRConfig *c2)
 
 	output2 = find_output (c2, output1->priv->name);
 	if (!output2 || !output_match (output1, output2))
-	    return FALSE;
-    }
-    
-    return TRUE;
-}
-
-/* Equal means "the configurations will result in the same
- * modes being set on the outputs"
- */
-gboolean
-xfce_rr_config_equal (XfceRRConfig  *c1,
-		       XfceRRConfig  *c2)
-{
-    int i;
-    g_return_val_if_fail (XFCE_IS_RR_CONFIG (c1), FALSE);
-    g_return_val_if_fail (XFCE_IS_RR_CONFIG (c2), FALSE);
-
-    for (i = 0; c1->priv->outputs[i] != NULL; ++i)
-    {
-	XfceRROutputInfo *output1 = c1->priv->outputs[i];
-	XfceRROutputInfo *output2;
-
-	output2 = find_output (c2, output1->priv->name);
-	if (!output2 || !output_equal (output1, output2))
 	    return FALSE;
     }
     
@@ -975,40 +934,6 @@ make_outputs (XfceRRConfig *config)
     return (XfceRROutputInfo **)g_ptr_array_free (outputs, FALSE);
 }
 
-gboolean
-xfce_rr_config_applicable (XfceRRConfig  *configuration,
-			    XfceRRScreen  *screen,
-			    GError        **error)
-{
-    XfceRROutputInfo **outputs;
-    CrtcAssignment *assign;
-    gboolean result;
-    int i;
-
-    g_return_val_if_fail (XFCE_IS_RR_CONFIG (configuration), FALSE);
-    g_return_val_if_fail (XFCE_IS_RR_SCREEN (screen), FALSE);
-    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
-
-    outputs = make_outputs (configuration);
-    assign = crtc_assignment_new (screen, outputs, error);
-
-    if (assign)
-    {
-	result = TRUE;
-	crtc_assignment_free (assign);
-    }
-    else
-    {
-	result = FALSE;
-    }
-
-    for (i = 0; outputs[i] != NULL; i++) {
-	 g_object_unref (outputs[i]);
-    }
-
-    return result;
-}
-
 /* Database management */
 
 static void
@@ -1017,14 +942,14 @@ ensure_config_directory (void)
     g_mkdir_with_parents (g_get_user_config_dir (), 0700);
 }
 
-char *
+static char *
 xfce_rr_config_get_backup_filename (void)
 {
     ensure_config_directory ();
     return g_build_filename (g_get_user_config_dir (), CONFIG_BACKUP_BASENAME, NULL);
 }
 
-char *
+static char *
 xfce_rr_config_get_intended_filename (void)
 {
     ensure_config_directory ();
@@ -1120,58 +1045,7 @@ emit_configuration (XfceRRConfig *config,
     g_string_append_printf (string, "  </configuration>\n");
 }
 
-void
-xfce_rr_config_sanitize (XfceRRConfig *config)
-{
-    int i;
-    int x_offset, y_offset;
-    gboolean found;
-
-    /* Offset everything by the top/left-most coordinate to
-     * make sure the configuration starts at (0, 0)
-     */
-    x_offset = y_offset = G_MAXINT;
-    for (i = 0; config->priv->outputs[i]; ++i)
-    {
-	XfceRROutputInfo *output = config->priv->outputs[i];
-
-	if (output->priv->on)
-	{
-	    x_offset = MIN (x_offset, output->priv->x);
-	    y_offset = MIN (y_offset, output->priv->y);
-	}
-    }
-
-    for (i = 0; config->priv->outputs[i]; ++i)
-    {
-	XfceRROutputInfo *output = config->priv->outputs[i];
-	
-	if (output->priv->on)
-	{
-	    output->priv->x -= x_offset;
-	    output->priv->y -= y_offset;
-	}
-    }
-
-    /* Only one primary, please */
-    found = FALSE;
-    for (i = 0; config->priv->outputs[i]; ++i)
-    {
-        if (config->priv->outputs[i]->priv->primary)
-        {
-            if (found)
-            {
-                config->priv->outputs[i]->priv->primary = FALSE;
-            }
-            else
-            {
-                found = TRUE;
-            }
-        }
-    }
-}
-
-gboolean
+static gboolean
 xfce_rr_config_ensure_primary (XfceRRConfig *configuration)
 {
         int              i;
@@ -1227,60 +1101,7 @@ xfce_rr_config_ensure_primary (XfceRRConfig *configuration)
         return !found;
 }
 
-gboolean
-xfce_rr_config_save (XfceRRConfig *configuration, GError **error)
-{
-    XfceRRConfig **configurations;
-    GString *output;
-    int i;
-    gchar *intended_filename;
-    gchar *backup_filename;
-    gboolean result;
-
-    g_return_val_if_fail (XFCE_IS_RR_CONFIG (configuration), FALSE);
-    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
-
-    output = g_string_new ("");
-
-    backup_filename = xfce_rr_config_get_backup_filename ();
-    intended_filename = xfce_rr_config_get_intended_filename ();
-
-    configurations = configurations_read_from_file (intended_filename, NULL); /* NULL-GError */
-    
-    g_string_append_printf (output, "<monitors version=\"1\">\n");
-
-    if (configurations)
-    {
-	for (i = 0; configurations[i] != NULL; ++i)
-	{
-	    if (!xfce_rr_config_match (configurations[i], configuration))
-		emit_configuration (configurations[i], output);
-	    g_object_unref (configurations[i]);
-	}
-
-	g_free (configurations);
-    }
-
-    emit_configuration (configuration, output);
-
-    g_string_append_printf (output, "</monitors>\n");
-
-    /* backup the file first */
-    rename (intended_filename, backup_filename); /* no error checking because the intended file may not even exist */
-
-    result = g_file_set_contents (intended_filename, output->str, -1, error);
-
-    if (!result)
-	rename (backup_filename, intended_filename); /* no error checking because the backup may not even exist */
-
-    g_free (backup_filename);
-    g_free (intended_filename);
-    g_string_free (output, TRUE);
-
-    return result;
-}
-
-gboolean
+static gboolean
 xfce_rr_config_apply_with_time (XfceRRConfig *config,
 				 XfceRRScreen *screen,
 				 guint32        timestamp,
@@ -1316,115 +1137,6 @@ xfce_rr_config_apply_with_time (XfceRRConfig *config,
 
     return result;
 }
-
-/* xfce_rr_config_apply_from_filename_with_time:
- * @screen: A #XfceRRScreen
- * @filename: Path of the file to look in for stored RANDR configurations.
- * @timestamp: X server timestamp from the event that causes the screen configuration to change (a user's button press, for example)
- * @error: Location to store error, or %NULL
- *
- * First, this function refreshes the @screen to match the current RANDR
- * configuration from the X server.  Then, it tries to load the file in
- * @filename and looks for suitable matching RANDR configurations in the file;
- * if one is found, that configuration will be applied to the current set of
- * RANDR outputs.
- *
- * Typically, @filename is the result of xfce_rr_config_get_intended_filename() or
- * xfce_rr_config_get_backup_filename().
- *
- * Returns: TRUE if the RANDR configuration was loaded and applied from
- * $(XDG_CONFIG_HOME)/monitors.xml, or FALSE otherwise:
- *
- * If the current RANDR configuration could not be refreshed, the @error will
- * have a domain of #XFCE_RR_ERROR and a corresponding error code.
- *
- * If the file in question is loaded successfully but the configuration cannot
- * be applied, the @error will have a domain of #XFCE_RR_ERROR.  Note that an
- * error code of #XFCE_RR_ERROR_NO_MATCHING_CONFIG is not a real error; it
- * simply means that there were no stored configurations that match the current
- * set of RANDR outputs.
- *
- * If the file in question cannot be loaded, the @error will have a domain of
- * #G_FILE_ERROR.  Note that an error code of G_FILE_ERROR_NOENT is not really
- * an error, either; it means that there was no stored configuration file and so
- * nothing is changed.
- */
-gboolean
-xfce_rr_config_apply_from_filename_with_time (XfceRRScreen *screen, const char *filename, guint32 timestamp, GError **error)
-{
-    XfceRRConfig *stored;
-    GError *my_error;
-
-    g_return_val_if_fail (XFCE_IS_RR_SCREEN (screen), FALSE);
-    g_return_val_if_fail (filename != NULL, FALSE);
-    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
-
-    my_error = NULL;
-    if (!xfce_rr_screen_refresh (screen, &my_error)) {
-	    if (my_error) {
-		    g_propagate_error (error, my_error);
-		    return FALSE; /* This is a genuine error */
-	    }
-
-	    /* This means the screen didn't change, so just proceed */
-    }
-
-    stored = g_object_new (XFCE_TYPE_RR_CONFIG, "screen", screen, NULL);
-
-    if (xfce_rr_config_load_filename (stored, filename, error))
-    {
-	gboolean result;
-
-	xfce_rr_config_ensure_primary (stored);
-	result = xfce_rr_config_apply_with_time (stored, screen, timestamp, error);
-
-	g_object_unref (stored);
-	
-	return result;
-    }
-    else
-    {
-        g_object_unref (stored);
-	return FALSE;
-    }
-}
-
-/**
- * xfce_rr_config_get_outputs:
- *
- * Returns: (array zero-terminated=1) (element-type MateDesktop.RROutputInfo) (transfer none): the output configuration for this #XfceRRConfig
- */
-XfceRROutputInfo **
-xfce_rr_config_get_outputs (XfceRRConfig *self)
-{
-    g_return_val_if_fail (XFCE_IS_RR_CONFIG (self), NULL);
-
-    return self->priv->outputs;
-}
-
-/**
- * xfce_rr_config_get_clone:
- *
- * Returns: whether at least two outputs are at (0, 0) offset and they
- * have the same width/height.  Those outputs are of course connected and on
- * (i.e. they have a CRTC assigned).
- */
-gboolean
-xfce_rr_config_get_clone (XfceRRConfig *self)
-{
-    g_return_val_if_fail (XFCE_IS_RR_CONFIG (self), FALSE);
-
-    return self->priv->clone;
-}
-
-void
-xfce_rr_config_set_clone (XfceRRConfig *self, gboolean clone)
-{
-    g_return_if_fail (XFCE_IS_RR_CONFIG (self));
-
-    self->priv->clone = clone;
-}
-
 
 /*
  * CRTC assignment
