@@ -48,57 +48,6 @@ const gchar *XFCEKBD_KEYBOARD_CONFIG_ACTIVE[] = {
 };
 
 /*
- * static common functions
- */
-
-gboolean
-xfcekbd_keyboard_config_get_lv_descriptions (XklConfigRegistry *
-					  config_registry,
-					  const gchar * layout_name,
-					  const gchar * variant_name,
-					  gchar ** layout_short_descr,
-					  gchar ** layout_descr,
-					  gchar ** variant_short_descr,
-					  gchar ** variant_descr)
-{
-	/* TODO make it not static */
-	static XklConfigItem *litem = NULL;
-	static XklConfigItem *vitem = NULL;
-
-	if (litem == NULL)
-		litem = xkl_config_item_new ();
-	if (vitem == NULL)
-		vitem = xkl_config_item_new ();
-
-	layout_name = g_strdup (layout_name);
-
-	g_snprintf (litem->name, sizeof litem->name, "%s", layout_name);
-	if (xkl_config_registry_find_layout (config_registry, litem)) {
-		*layout_short_descr = litem->short_description;
-		*layout_descr = litem->description;
-	} else
-		*layout_short_descr = *layout_descr = NULL;
-
-	if (variant_name != NULL) {
-		variant_name = g_strdup (variant_name);
-		g_snprintf (vitem->name, sizeof vitem->name, "%s",
-			    variant_name);
-		if (xkl_config_registry_find_variant
-		    (config_registry, layout_name, vitem)) {
-			*variant_short_descr = vitem->short_description;
-			*variant_descr = vitem->description;
-		} else
-			*variant_short_descr = *variant_descr = NULL;
-
-		g_free ((char *) variant_name);
-	} else
-		*variant_descr = NULL;
-
-	g_free ((char *) layout_name);
-	return *layout_descr != NULL;
-}
-
-/*
  * extern common functions
  */
 static const gchar *
@@ -288,24 +237,6 @@ xfcekbd_keyboard_config_options_set (XfcekbdKeyboardConfig * kbd_config,
 	if (merged == NULL)
 		return;
 	kbd_config->options[idx] = g_strdup (merged);
-}
-
-gboolean
-xfcekbd_keyboard_config_options_is_set (XfcekbdKeyboardConfig * kbd_config,
-				     const gchar * group_name,
-				     const gchar * option_name)
-{
-	gchar **p = kbd_config->options;
-	const gchar *merged =
-	    xfcekbd_keyboard_config_merge_items (group_name, option_name);
-	if (merged == NULL)
-		return FALSE;
-
-	while (p && *p) {
-		if (!g_ascii_strcasecmp (merged, *p++))
-			return TRUE;
-	}
-	return FALSE;
 }
 
 const gchar *

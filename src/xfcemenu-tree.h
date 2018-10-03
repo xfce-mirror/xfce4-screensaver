@@ -73,33 +73,17 @@ XfceMenuTree* xfcemenu_tree_lookup(const char* menu_file, XfceMenuTreeFlags flag
 void xfcemenu_tree_unref(XfceMenuTree* tree);
 
 XfceMenuTreeDirectory* xfcemenu_tree_get_root_directory(XfceMenuTree* tree);
-XfceMenuTreeDirectory* xfcemenu_tree_get_directory_from_path(XfceMenuTree* tree, const char* path);
-
-XfceMenuTreeSortKey xfcemenu_tree_get_sort_key(XfceMenuTree* tree);
 
 void xfcemenu_tree_item_unref(gpointer item);
 
 XfceMenuTreeItemType xfcemenu_tree_item_get_type(XfceMenuTreeItem* item);
-XfceMenuTreeDirectory* xfcemenu_tree_item_get_parent(XfceMenuTreeItem* item);
 
 
 GSList* xfcemenu_tree_directory_get_contents(XfceMenuTreeDirectory* directory);
-const char* xfcemenu_tree_directory_get_comment(XfceMenuTreeDirectory* directory);
-const char* xfcemenu_tree_directory_get_icon(XfceMenuTreeDirectory* directory);
-const char* xfcemenu_tree_directory_get_desktop_file_path(XfceMenuTreeDirectory* directory);
-const char* xfcemenu_tree_directory_get_menu_id(XfceMenuTreeDirectory* directory);
-XfceMenuTree* xfcemenu_tree_directory_get_tree(XfceMenuTreeDirectory* directory);
-
-char* xfcemenu_tree_directory_make_path(XfceMenuTreeDirectory* directory, XfceMenuTreeEntry* entry);
-
 
 const char* xfcemenu_tree_entry_get_name(XfceMenuTreeEntry* entry);
 const char* xfcemenu_tree_entry_get_exec(XfceMenuTreeEntry* entry);
 const char* xfcemenu_tree_entry_get_desktop_file_id(XfceMenuTreeEntry* entry);
-
-XfceMenuTreeDirectory* xfcemenu_tree_header_get_directory(XfceMenuTreeHeader* header);
-
-XfceMenuTreeDirectory* xfcemenu_tree_alias_get_directory(XfceMenuTreeAlias* alias);
 
 #ifdef __cplusplus
 }

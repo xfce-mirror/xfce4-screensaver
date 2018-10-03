@@ -157,6 +157,16 @@ static void           mode_initialize   (XfceRRMode        *mode,
 static XfceRRMode *  mode_copy         (const XfceRRMode  *from);
 static void           mode_free         (XfceRRMode        *mode);
 
+static guint         xfce_rr_mode_get_width  (XfceRRMode *mode);
+static guint         xfce_rr_mode_get_height (XfceRRMode *mode);
+
+static XfceRRMode  **xfce_rr_output_list_modes (XfceRROutput *output);
+
+static void          xfce_rr_screen_get_ranges (XfceRRScreen *screen,
+                                                int *min_width,
+                                                int *max_width,
+                                                int *min_height,
+                                                int *max_height);
 
 static void xfce_rr_screen_finalize (GObject*);
 static void xfce_rr_screen_set_property (GObject*, guint, const GValue*, GParamSpec*);
@@ -834,26 +844,6 @@ xfce_rr_screen_new (GdkScreen *screen,
     return g_initable_new (XFCE_TYPE_RR_SCREEN, NULL, error, "gdk-screen", screen, NULL);
 }
 
-void
-xfce_rr_screen_set_size (XfceRRScreen *screen,
-			  int	      width,
-			  int       height,
-			  int       mm_width,
-			  int       mm_height)
-{
-    g_return_if_fail (XFCE_IS_RR_SCREEN (screen));
-
-#ifdef HAVE_RANDR
-	GdkDisplay *display;
-
-	display = gdk_display_get_default ();
-    gdk_x11_display_error_trap_push (display);
-    XRRSetScreenSize (screen->priv->xdisplay, screen->priv->xroot,
-		      width, height, mm_width, mm_height);
-    gdk_x11_display_error_trap_pop_ignored (display);
-#endif
-}
-
 /**
  * xfce_rr_screen_get_ranges:
  * @screen: a #XfceRRScreen
@@ -864,7 +854,7 @@ xfce_rr_screen_set_size (XfceRRScreen *screen,
  *
  * Get the ranges of the screen
  */
-void
+static void
 xfce_rr_screen_get_ranges (XfceRRScreen *screen,
 			    int	          *min_width,
 			    int	          *max_width,
@@ -988,22 +978,6 @@ xfce_rr_screen_list_crtcs (XfceRRScreen *screen)
     g_return_val_if_fail (screen->priv->info != NULL, NULL);
     
     return screen->priv->info->crtcs;
-}
-
-/**
- * xfce_rr_screen_list_outputs:
- *
- * List all outputs
- *
- * Returns: (array zero-terminated=1) (transfer none):
- */
-XfceRROutput **
-xfce_rr_screen_list_outputs (XfceRRScreen *screen)
-{
-    g_return_val_if_fail (XFCE_IS_RR_SCREEN (screen), NULL);
-    g_return_val_if_fail (screen->priv->info != NULL, NULL);
-    
-    return screen->priv->info->outputs;
 }
 
 /* XfceRROutput */
@@ -1262,52 +1236,6 @@ output_free (XfceRROutput *output)
     g_slice_free (XfceRROutput, output);
 }
 
-const guint8 *
-xfce_rr_output_get_edid_data (XfceRROutput *output)
-{
-    g_return_val_if_fail (output != NULL, NULL);
-    
-    return output->edid_data;
-}
-
-/**
- * xfce_rr_screen_get_output_by_name:
- *
- * Returns: (transfer none): the output identified by @name
- */
-XfceRROutput *
-xfce_rr_screen_get_output_by_name (XfceRRScreen *screen,
-				    const char    *name)
-{
-    int i;
-    
-    g_return_val_if_fail (XFCE_IS_RR_SCREEN (screen), NULL);
-    g_return_val_if_fail (screen->priv->info != NULL, NULL);
-    
-    for (i = 0; screen->priv->info->outputs[i] != NULL; ++i)
-    {
-	XfceRROutput *output = screen->priv->info->outputs[i];
-	
-	if (strcmp (output->name, name) == 0)
-	    return output;
-    }
-    
-    return NULL;
-}
-
-/**
- * xfce_rr_output_get_crtc:
- * @output: a #XfceRROutput
- * Returns: (transfer none):
- */
-XfceRRCrtc *
-xfce_rr_output_get_crtc (XfceRROutput *output)
-{
-    g_return_val_if_fail (output != NULL, NULL);
-    
-    return output->current_crtc;
-}
-
 gboolean
 _xfce_rr_output_name_is_laptop (const char *name)
 {
@@ -1324,129 +1252,17 @@ _xfce_rr_output_name_is_laptop (const char *name)
     return FALSE;
 }
 
-gboolean
-xfce_rr_output_is_laptop (XfceRROutput *output)
-{
-    g_return_val_if_fail (output != NULL, FALSE);
-
-    if (!output->connected)
-        return FALSE;
-
-    if (g_strcmp0 (output->connector_type, XFCE_RR_CONNECTOR_TYPE_PANEL) == 0)
-        return TRUE;
-
-    /* Fallback (see https://bugs.freedesktop.org/show_bug.cgi?id=26736) */
-    return _xfce_rr_output_name_is_laptop (output->name);
-}
-
-const char *
-xfce_rr_output_get_name (XfceRROutput *output)
-{
-    g_assert (output != NULL);
-    return output->name;
-}
-
-/**
- * xfce_rr_output_get_preferred_mode:
- * @output: a #XfceRROutput
- * Returns: (transfer none):
- */
-XfceRRMode *
-xfce_rr_output_get_preferred_mode (XfceRROutput *output)
-{
-    g_return_val_if_fail (output != NULL, NULL);
-    if (output->n_preferred)
-	return output->modes[0];
-    
-    return NULL;
-}
-
 /**
  * xfce_rr_output_list_modes:
  * @output: a #XfceRROutput
  * Returns: (array zero-terminated=1) (transfer none):
  */
 
-XfceRRMode **
+static XfceRRMode **
 xfce_rr_output_list_modes (XfceRROutput *output)
 {
     g_return_val_if_fail (output != NULL, NULL);
     return output->modes;
-}
-
-gboolean
-xfce_rr_output_is_connected (XfceRROutput *output)
-{
-    g_return_val_if_fail (output != NULL, FALSE);
-    return output->connected;
-}
-
-gboolean
-xfce_rr_output_supports_mode (XfceRROutput *output,
-			       XfceRRMode   *mode)
-{
-    int i;
-    
-    g_return_val_if_fail (output != NULL, FALSE);
-    g_return_val_if_fail (mode != NULL, FALSE);
-    
-    for (i = 0; output->modes[i] != NULL; ++i)
-    {
-	if (output->modes[i] == mode)
-	    return TRUE;
-    }
-    
-    return FALSE;
-}
-
-gboolean
-xfce_rr_output_can_clone (XfceRROutput *output,
-			   XfceRROutput *clone)
-{
-    int i;
-    
-    g_return_val_if_fail (output != NULL, FALSE);
-    g_return_val_if_fail (clone != NULL, FALSE);
-    
-    for (i = 0; output->clones[i] != NULL; ++i)
-    {
-	if (output->clones[i] == clone)
-	    return TRUE;
-    }
-    
-    return FALSE;
-}
-
-gboolean
-xfce_rr_output_get_is_primary (XfceRROutput *output)
-{
-#ifdef HAVE_RANDR
-    return output->info->primary == output->id;
-#else
-    return FALSE;
-#endif
-}
-
-void
-xfce_rr_screen_set_primary_output (XfceRRScreen *screen,
-                                    XfceRROutput *output)
-{
-#ifdef HAVE_RANDR
-    XfceRRScreenPrivate *priv;
-
-    g_return_if_fail (XFCE_IS_RR_SCREEN (screen));
-
-    priv = screen->priv;
-
-    RROutput id;
-
-    if (output)
-        id = output->id;
-    else
-        id = None;
-
-    XRRSetOutputPrimary (priv->xdisplay, priv->xroot, id);
-#endif
 }
 
 /* XfceRRCrtc */
@@ -1481,103 +1297,6 @@ xfce_rr_rotation_from_xrotation (Rotation r)
     return result;
 }
 
-static Rotation
-xrotation_from_rotation (XfceRRRotation r)
-{
-    int i;
-    Rotation result = 0;
-    
-    for (i = 0; i < G_N_ELEMENTS (rotation_map); ++i)
-    {
-	if (r & rotation_map[i].rot)
-	    result |= rotation_map[i].xrot;
-    }
-    
-    return result;
-}
-
-gboolean
-xfce_rr_crtc_set_config_with_time (XfceRRCrtc      *crtc,
-				    guint32           timestamp,
-				    int               x,
-				    int               y,
-				    XfceRRMode      *mode,
-				    XfceRRRotation   rotation,
-				    XfceRROutput   **outputs,
-				    int               n_outputs,
-				    GError          **error)
-{
-#ifdef HAVE_RANDR
-    ScreenInfo *info;
-    GArray *output_ids;
-	GdkDisplay *display;
-    Status status;
-    gboolean result;
-    int i;
-    
-    g_return_val_if_fail (crtc != NULL, FALSE);
-    g_return_val_if_fail (mode != NULL || outputs == NULL || n_outputs == 0, FALSE);
-    g_return_val_if_fail (error == NULL || *error == NULL, FALSE);
-    
-    info = crtc->info;
-    
-    if (mode)
-    {
-	if (x + mode->width > info->max_width
-	    || y + mode->height > info->max_height)
-	{
-	    g_set_error (error, XFCE_RR_ERROR, XFCE_RR_ERROR_BOUNDS_ERROR,
-			 /* Translators: the "position", "size", and "maximum"
-			  * words here are not keywords; please translate them
-			  * as usual.  A CRTC is a CRT Controller (this is X terminology) */
-			 _("requested position/size for CRTC %d is outside the allowed limit: "
-			   "position=(%d, %d), size=(%d, %d), maximum=(%d, %d)"),
-			 (int) crtc->id,
-			 x, y,
-			 mode->width, mode->height,
-			 info->max_width, info->max_height);
-	    return FALSE;
-	}
-    }
-    
-    output_ids = g_array_new (FALSE, FALSE, sizeof (RROutput));
-    
-    if (outputs)
-    {
-	for (i = 0; i < n_outputs; ++i)
-	    g_array_append_val (output_ids, outputs[i]->id);
-    }
-
-	display = gdk_display_get_default ();
-    gdk_x11_display_error_trap_push (display);
-    status = XRRSetCrtcConfig (DISPLAY (crtc), info->resources, crtc->id,
-			       timestamp, 
-			       x, y,
-			       mode ? mode->id : None,
-			       xrotation_from_rotation (rotation),
-			       (RROutput *)output_ids->data,
-			       output_ids->len);
-    
-    g_array_free (output_ids, TRUE);
-
-    if (gdk_x11_display_error_trap_pop (display) || status != RRSetConfigSuccess) {
-        /* Translators: CRTC is a CRT Controller (this is X terminology).
-         * It is *very* unlikely that you'll ever get this error, so it is
-         * only listed for completeness. */
-        g_set_error (error, XFCE_RR_ERROR, XFCE_RR_ERROR_RANDR_ERROR,
-                     _("could not set the configuration for CRTC %d"),
-                     (int) crtc->id);
-        return FALSE;
-    } else {
-        result = TRUE;
-    }
-    
-    return result;
-#else
-    return FALSE;
-#endif /* HAVE_RANDR */
-}
-
 /**
  * xfce_rr_crtc_get_current_mode:
  * @crtc: a #XfceRRCrtc
@@ -1589,70 +1308,6 @@ xfce_rr_crtc_get_current_mode (XfceRRCrtc *crtc)
     g_return_val_if_fail (crtc != NULL, NULL);
     
     return crtc->current_mode;
-}
-
-guint32
-xfce_rr_crtc_get_id (XfceRRCrtc *crtc)
-{
-    g_return_val_if_fail (crtc != NULL, 0);
-    
-    return crtc->id;
-}
-
-gboolean
-xfce_rr_crtc_can_drive_output (XfceRRCrtc   *crtc,
-				XfceRROutput *output)
-{
-    int i;
-    
-    g_return_val_if_fail (crtc != NULL, FALSE);
-    g_return_val_if_fail (output != NULL, FALSE);
-    
-    for (i = 0; crtc->possible_outputs[i] != NULL; ++i)
-    {
-	if (crtc->possible_outputs[i] == output)
-	    return TRUE;
-    }
-    
-    return FALSE;
-}
-
-/* FIXME: merge with get_mode()? */
-
-/**
- * xfce_rr_crtc_get_position:
- * @crtc: a #XfceRRCrtc
- * @x: (out) (allow-none):
- * @y: (out) (allow-none):
- */
-void
-xfce_rr_crtc_get_position (XfceRRCrtc *crtc,
-			    int         *x,
-			    int         *y)
-{
-    g_return_if_fail (crtc != NULL);
-    
-    if (x)
-	*x = crtc->x;
-    
-    if (y)
-	*y = crtc->y;
-}
-
-/* FIXME: merge with get_mode()? */
-XfceRRRotation
-xfce_rr_crtc_get_current_rotation (XfceRRCrtc *crtc)
-{
-    g_assert(crtc != NULL);
-    return crtc->current_rotation;
-}
-
-gboolean
-xfce_rr_crtc_supports_rotation (XfceRRCrtc *   crtc,
-				 XfceRRRotation rotation)
-{
-    g_return_val_if_fail (crtc != NULL, FALSE);
-    return (crtc->rotations & rotation);
 }
 
 static XfceRRCrtc *
@@ -1790,28 +1445,14 @@ mode_new (ScreenInfo *info, RRMode id)
     return mode;
 }
 
-guint32
-xfce_rr_mode_get_id (XfceRRMode *mode)
-{
-    g_return_val_if_fail (mode != NULL, 0);
-    return mode->id;
-}
-
-guint
+static guint
 xfce_rr_mode_get_width (XfceRRMode *mode)
 {
     g_return_val_if_fail (mode != NULL, 0);
     return mode->width;
 }
 
-int
-xfce_rr_mode_get_freq (XfceRRMode *mode)
-{
-    g_return_val_if_fail (mode != NULL, 0);
-    return (mode->freq) / 1000;
-}
-
-guint
+static guint
 xfce_rr_mode_get_height (XfceRRMode *mode)
 {
     g_return_val_if_fail (mode != NULL, 0);

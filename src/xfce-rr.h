@@ -90,67 +90,12 @@ GType xfce_rr_mode_get_type (void);
 /* XfceRRScreen */
 XfceRRScreen * xfce_rr_screen_new                (GdkScreen             *screen,
 						    GError               **error);
-XfceRROutput **xfce_rr_screen_list_outputs       (XfceRRScreen         *screen);
 XfceRRCrtc **  xfce_rr_screen_list_crtcs         (XfceRRScreen         *screen);
-void            xfce_rr_screen_set_size           (XfceRRScreen         *screen,
-						    int                    width,
-						    int                    height,
-						    int                    mm_width,
-						    int                    mm_height);
 gboolean        xfce_rr_screen_refresh            (XfceRRScreen         *screen,
 						    GError               **error);
-XfceRROutput * xfce_rr_screen_get_output_by_name (XfceRRScreen         *screen,
-						    const char            *name);
-void            xfce_rr_screen_get_ranges         (XfceRRScreen         *screen,
-						    int                   *min_width,
-						    int                   *max_width,
-						    int                   *min_height,
-						    int                   *max_height);
-
-void            xfce_rr_screen_set_primary_output (XfceRRScreen         *screen,
-                                                    XfceRROutput         *output);
-
-/* XfceRROutput */
-const char *    xfce_rr_output_get_name           (XfceRROutput         *output);
-gboolean        xfce_rr_output_is_connected       (XfceRROutput         *output);
-const guint8 *  xfce_rr_output_get_edid_data      (XfceRROutput         *output);
-XfceRRCrtc *   xfce_rr_output_get_crtc           (XfceRROutput         *output);
-gboolean        xfce_rr_output_is_laptop          (XfceRROutput         *output);
-gboolean        xfce_rr_output_can_clone          (XfceRROutput         *output,
-						    XfceRROutput         *clone);
-XfceRRMode **  xfce_rr_output_list_modes         (XfceRROutput         *output);
-XfceRRMode *   xfce_rr_output_get_preferred_mode (XfceRROutput         *output);
-gboolean        xfce_rr_output_supports_mode      (XfceRROutput         *output,
-						    XfceRRMode           *mode);
-gboolean        xfce_rr_output_get_is_primary     (XfceRROutput         *output);
-
-/* XfceRRMode */
-guint32         xfce_rr_mode_get_id               (XfceRRMode           *mode);
-guint           xfce_rr_mode_get_width            (XfceRRMode           *mode);
-guint           xfce_rr_mode_get_height           (XfceRRMode           *mode);
-int             xfce_rr_mode_get_freq             (XfceRRMode           *mode);
 
 /* XfceRRCrtc */
-guint32         xfce_rr_crtc_get_id               (XfceRRCrtc           *crtc);
-
-gboolean        xfce_rr_crtc_set_config_with_time (XfceRRCrtc           *crtc,
-						    guint32                timestamp,
-						    int                    x,
-						    int                    y,
-						    XfceRRMode           *mode,
-						    XfceRRRotation        rotation,
-						    XfceRROutput        **outputs,
-						    int                    n_outputs,
-						    GError               **error);
-gboolean        xfce_rr_crtc_can_drive_output     (XfceRRCrtc           *crtc,
-						    XfceRROutput         *output);
 XfceRRMode *   xfce_rr_crtc_get_current_mode     (XfceRRCrtc           *crtc);
-void            xfce_rr_crtc_get_position         (XfceRRCrtc           *crtc,
-						    int                   *x,
-						    int                   *y);
-XfceRRRotation xfce_rr_crtc_get_current_rotation (XfceRRCrtc           *crtc);
-gboolean        xfce_rr_crtc_supports_rotation    (XfceRRCrtc           *crtc,
-						    XfceRRRotation        rotation);
 
 gboolean        xfce_rr_crtc_get_gamma            (XfceRRCrtc           *crtc,
 						    int                   *size,
