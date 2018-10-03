@@ -1236,22 +1236,6 @@ output_free (XfceRROutput *output)
     g_slice_free (XfceRROutput, output);
 }
 
-gboolean
-_xfce_rr_output_name_is_laptop (const char *name)
-{
-    if (!name)
-        return FALSE;
-
-    if (strstr (name, "lvds") || /* Most drivers use an "LVDS" prefix... */
-        strstr (name, "LVDS") ||
-        strstr (name, "Lvds") ||
-        strstr (name, "LCD")  || /* ... but fglrx uses "LCD" in some versions.  Shoot me now, kthxbye. */
-        strstr (name, "eDP"))    /* eDP is for internal laptop panel connections */
-        return TRUE;
-
-    return FALSE;
-}
-
 /**
  * xfce_rr_output_list_modes:
  * @output: a #XfceRROutput
