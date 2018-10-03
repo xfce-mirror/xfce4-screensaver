@@ -46,12 +46,8 @@ const char* desktop_entry_get_path(DesktopEntry* entry);
 const char* desktop_entry_get_basename(DesktopEntry* entry);
 
 const char* desktop_entry_get_name(DesktopEntry* entry);
-const char* desktop_entry_get_generic_name(DesktopEntry* entry);
 const char* desktop_entry_get_full_name(DesktopEntry* entry);
-const char* desktop_entry_get_comment(DesktopEntry* entry);
-const char* desktop_entry_get_icon(DesktopEntry* entry);
 const char* desktop_entry_get_exec(DesktopEntry* entry);
-gboolean desktop_entry_get_launch_in_terminal(DesktopEntry* entry);
 
 gboolean desktop_entry_get_hidden(DesktopEntry* entry);
 gboolean desktop_entry_get_no_display(DesktopEntry* entry);
@@ -77,7 +73,6 @@ int desktop_entry_set_get_count(DesktopEntrySet* set);
 void desktop_entry_set_union(DesktopEntrySet* set, DesktopEntrySet* with);
 void desktop_entry_set_intersection(DesktopEntrySet* set, DesktopEntrySet* with);
 void desktop_entry_set_subtract(DesktopEntrySet* set, DesktopEntrySet* other);
-void desktop_entry_set_swap_contents(DesktopEntrySet* a, DesktopEntrySet* b);
 
 typedef void (*DesktopEntrySetForeachFunc) (const char* file_id, DesktopEntry* entry, gpointer user_data);
 

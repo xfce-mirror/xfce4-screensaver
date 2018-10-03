@@ -488,34 +488,14 @@ const char* desktop_entry_get_name(DesktopEntry* entry)
 	return entry->name;
 }
 
-const char* desktop_entry_get_generic_name(DesktopEntry* entry)
-{
-	return entry->generic_name;
-}
-
 const char* desktop_entry_get_full_name(DesktopEntry* entry)
 {
   return entry->full_name;
 }
 
-const char* desktop_entry_get_comment(DesktopEntry* entry)
-{
-	return entry->comment;
-}
-
-const char* desktop_entry_get_icon(DesktopEntry* entry)
-{
-	return entry->icon;
-}
-
 const char* desktop_entry_get_exec(DesktopEntry* entry)
 {
 	return entry->exec;
-}
-
-gboolean desktop_entry_get_launch_in_terminal(DesktopEntry* entry)
-{
-	return entry->terminal;
 }
 
 gboolean desktop_entry_get_hidden(DesktopEntry* entry)
@@ -802,15 +782,4 @@ void desktop_entry_set_subtract(DesktopEntrySet* set, DesktopEntrySet* other)
   g_hash_table_foreach_remove (set->hash,
                                (GHRFunc) subtract_foreach_remove,
                                &sd);
-}
-
-void desktop_entry_set_swap_contents(DesktopEntrySet* a, DesktopEntrySet* b)
-{
-	GHashTable *tmp;
-
-	menu_verbose (" Swap contents of %p and %p\n", a, b);
-
-	tmp = a->hash;
-	 a->hash = b->hash;
-	b->hash = tmp;
 }
