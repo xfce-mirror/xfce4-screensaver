@@ -30,7 +30,6 @@
 #include <glib.h>
 #include <gdk/gdk.h>
 #include <gio/gio.h>
-#include "xfce-desktop-thumbnail.h"
 
 G_BEGIN_DECLS
 

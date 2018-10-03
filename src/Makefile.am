@@ -253,8 +253,6 @@ xfce4_screensaver_SOURCES =	\
 	xfce-rr.h		\
 	xfce-bg.c		\
 	xfce-bg.h		\
-	xfce-desktop-thumbnail.c		\
-	xfce-desktop-thumbnail.h		\
 	xfce-desktop-utils.c		\
 	xfce-desktop-utils.h		\
 	xfcekbd-indicator.c		\
