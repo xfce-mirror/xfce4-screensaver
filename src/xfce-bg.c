@@ -1,6 +1,6 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*-
 
-matebg.c: Object for the desktop background.
+xfcebg.c: Object for the desktop background.
 
 Copyright (C) 2000 Eazel, Inc.
 Copyright (C) 2007-2008 Red Hat, Inc.
@@ -47,7 +47,7 @@ Authors: Soren Sandmann <sandmann@redhat.com>
 
 # include <cairo-xlib.h>
 
-#define XFCE_BG_CACHE_DIR "mate/background"
+#define XFCE_BG_CACHE_DIR "xfce/background"
 
 /* We keep the large pixbufs around if the next update
    in the slideshow is less than 60 seconds away */

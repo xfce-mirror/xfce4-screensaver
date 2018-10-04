@@ -547,7 +547,7 @@ int main(int argc, char** argv)
 	char* nolock_reason = NULL;
 
 	#ifdef ENABLE_NLS
-		bindtextdomain(GETTEXT_PACKAGE, MATELOCALEDIR);
+		bindtextdomain(GETTEXT_PACKAGE, XFCELOCALEDIR);
 		#ifdef HAVE_BIND_TEXTDOMAIN_CODESET
 			bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
 		#endif

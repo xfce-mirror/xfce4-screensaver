@@ -712,7 +712,7 @@ xfcekbd_indicator_finalize (GObject * obj)
 {
 	XfcekbdIndicator *gki = XFCEKBD_INDICATOR (obj);
 	xkl_debug (100,
-		   "Starting the mate-kbd-indicator widget shutdown process for %p\n",
+		   "Starting the xfce-kbd-indicator widget shutdown process for %p\n",
 		   gki);
 
 	/* remove BEFORE all termination work is finished */
@@ -722,7 +722,7 @@ xfcekbd_indicator_finalize (GObject * obj)
 	xfcekbd_indicator_cleanup (gki);
 
 	xkl_debug (100,
-		   "The instance of mate-kbd-indicator successfully finalized\n");
+		   "The instance of xfce-kbd-indicator successfully finalized\n");
 
 	g_free (gki->priv);
 

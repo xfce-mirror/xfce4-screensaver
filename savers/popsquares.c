@@ -38,7 +38,7 @@ main (int argc, char **argv)
 	GtkWidget     *window;
 	GError        *error;
 
-	bindtextdomain (GETTEXT_PACKAGE, MATELOCALEDIR);
+	bindtextdomain (GETTEXT_PACKAGE, XFCELOCALEDIR);
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 	textdomain (GETTEXT_PACKAGE);
 

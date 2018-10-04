@@ -75,7 +75,7 @@ fi
 AC_SUBST(RANDR_PACKAGE)
 
 AC_CHECK_FUNCS([setresuid setenv unsetenv clearenv])
-PKG_CHECK_MODULES(MATE_SCREENSAVER,
+PKG_CHECK_MODULES(XFCE_SCREENSAVER,
         x11 >= $X11_REQUIRED_VERSION
         xscrnsaver
         gtk+-3.0 >= $GTK_REQUIRED_VERSION
@@ -83,28 +83,28 @@ PKG_CHECK_MODULES(MATE_SCREENSAVER,
         gio-2.0 >= $GLIB_REQUIRED_VERSION
         libxklavier >= $LIBXKLAVIER_REQUIRED
         $RANDR_PACKAGE)
-AC_SUBST(MATE_SCREENSAVER_CFLAGS)
-AC_SUBST(MATE_SCREENSAVER_LIBS)
+AC_SUBST(XFCE_SCREENSAVER_CFLAGS)
+AC_SUBST(XFCE_SCREENSAVER_LIBS)
 
-PKG_CHECK_MODULES(MATE_SCREENSAVER_DIALOG,
+PKG_CHECK_MODULES(XFCE_SCREENSAVER_DIALOG,
         gio-2.0 >= $GLIB_REQUIRED_VERSION
         gthread-2.0
         gtk+-3.0 >= $GTK_REQUIRED_VERSION)
-AC_SUBST(MATE_SCREENSAVER_DIALOG_CFLAGS)
-AC_SUBST(MATE_SCREENSAVER_DIALOG_LIBS)
+AC_SUBST(XFCE_SCREENSAVER_DIALOG_CFLAGS)
+AC_SUBST(XFCE_SCREENSAVER_DIALOG_LIBS)
 
-PKG_CHECK_MODULES(MATE_SCREENSAVER_CAPPLET,
+PKG_CHECK_MODULES(XFCE_SCREENSAVER_CAPPLET,
         gio-2.0 >= $GLIB_REQUIRED_VERSION
         gtk+-3.0 >= $GTK_REQUIRED_VERSION
         libxklavier >= $LIBXKLAVIER_REQUIRED)
-AC_SUBST(MATE_SCREENSAVER_CAPPLET_CFLAGS)
-AC_SUBST(MATE_SCREENSAVER_CAPPLET_LIBS)
+AC_SUBST(XFCE_SCREENSAVER_CAPPLET_CFLAGS)
+AC_SUBST(XFCE_SCREENSAVER_CAPPLET_LIBS)
 
-PKG_CHECK_MODULES(MATE_SCREENSAVER_COMMAND,
+PKG_CHECK_MODULES(XFCE_SCREENSAVER_COMMAND,
         gobject-2.0 >= $GLIB_REQUIRED_VERSION
         dbus-glib-1 >= $DBUS_REQUIRED_VERSION)
-AC_SUBST(MATE_SCREENSAVER_COMMAND_CFLAGS)
-AC_SUBST(MATE_SCREENSAVER_COMMAND_LIBS)
+AC_SUBST(XFCE_SCREENSAVER_COMMAND_CFLAGS)
+AC_SUBST(XFCE_SCREENSAVER_COMMAND_LIBS)
 
 AC_PATH_XTRA
 
@@ -119,7 +119,7 @@ MATE_COMPILE_WARNINGS(yes)
 # Solaris requires libresolv for daemon()
 case "$host" in
 	*-*-solaris*)
-		AC_CHECK_LIB(resolv, daemon, [MATE_SCREENSAVER_LIBS="$MATE_SCREENSAVER_LIBS -lresolv"])
+		AC_CHECK_LIB(resolv, daemon, [XFCE_SCREENSAVER_LIBS="$XFCE_SCREENSAVER_LIBS -lresolv"])
 	;;
 esac
 
@@ -127,9 +127,9 @@ esac
 
 SAVER_MODULES="gthread-2.0 gtk+-3.0 >= $GTK_REQUIRED_VERSION gobject-2.0 >= $GLIB_REQUIRED_VERSION"
 
-PKG_CHECK_MODULES(MATE_SCREENSAVER_SAVER, $SAVER_MODULES)
-AC_SUBST(MATE_SCREENSAVER_SAVER_CFLAGS)
-AC_SUBST(MATE_SCREENSAVER_SAVER_LIBS)
+PKG_CHECK_MODULES(XFCE_SCREENSAVER_SAVER, $SAVER_MODULES)
+AC_SUBST(XFCE_SCREENSAVER_SAVER_CFLAGS)
+AC_SUBST(XFCE_SCREENSAVER_SAVER_LIBS)
 
 # Find out where the session service file goes
 # The sad sed hack is recomended by section 27.10 of the automake manual.
@@ -154,11 +154,11 @@ AC_SUBST(PAM_PREFIX)
 
 # Desktop entry handling
 
-PKG_CHECK_MODULES(LIB_MATE_MENU,
+PKG_CHECK_MODULES(LIB_XFCE_MENU,
         gtk+-3.0 >= $GTK_REQUIRED_VERSION)
 
-AC_SUBST(LIB_MATE_MENU_CFLAGS)
-AC_SUBST(LIB_MATE_MENU_LIBS)
+AC_SUBST(LIB_XFCE_MENU_CFLAGS)
+AC_SUBST(LIB_XFCE_MENU_LIBS)
 
 dnl ---------------------------------------------------------------------------
 dnl - Where should we put documentation ?
@@ -1113,8 +1113,8 @@ AC_SUBST(FLOATERS_FOOT_GNOME_LOGO_IMAGE)
 
 # Menu stuff
 
-MATE_SCREENSAVER_THEMES_DIR="${EXPANDED_DATADIR}/applications/screensavers"
-AC_SUBST(MATE_SCREENSAVER_THEMES_DIR)
+XFCE_SCREENSAVER_THEMES_DIR="${EXPANDED_DATADIR}/applications/screensavers"
+AC_SUBST(XFCE_SCREENSAVER_THEMES_DIR)
 
 # Special directories
 # Used for .pc.in file
@@ -1139,8 +1139,8 @@ src/xfce4-screensaver.desktop.in
 data/Makefile
 data/xfce4-screensavers.menu
 data/xfce4-screensaver.pc
-data/org.mate.ScreenSaver.service
-data/org.mate.screensaver.gschema.xml
+data/org.xfce.ScreenSaver.service
+data/org.xfce.screensaver.gschema.xml
 data/images/Makefile
 data/images/cosmos/Makefile
 savers/Makefile
@@ -1163,7 +1163,7 @@ echo "
         source code location:     ${srcdir}
         compiler:                 ${CC}
         cflags:                   ${CFLAGS}
-        Base libs:                ${MATE_SCREENSAVER_LIBS}
+        Base libs:                ${XFCE_SCREENSAVER_LIBS}
         Extension libs:           ${SAVER_LIBS}
         Maintainer mode:          ${USE_MAINTAINER_MODE}
         Docs enabled:             ${enable_docbook_docs}

@@ -38,12 +38,12 @@ pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = xfce4-screensaver.pc
 
 dbussessionservicedir = $(DBUS_SESSION_SERVICE_DIR)
-dbussessionservice_DATA = org.mate.ScreenSaver.service
+dbussessionservice_DATA = org.xfce.ScreenSaver.service
 
 @GSETTINGS_RULES@
 @INTLTOOL_XML_NOMERGE_RULE@
 
-gsettingsschema_in_files = org.mate.screensaver.gschema.xml.in
+gsettingsschema_in_files = org.xfce.screensaver.gschema.xml.in org.xfce.lockdown.gschema.xml.in org.xfce.session.gschema.xml.in org.xfce.background.gschema.xml.in
 gsettings_SCHEMAS = $(gsettingsschema_in_files:.xml.in=.xml)
 
 EXTRA_DIST = 				\
@@ -54,7 +54,7 @@ EXTRA_DIST = 				\
 	$(man_MANS)			\
 	xfce4-screensaver		\
 	xfce4-screensaver.pc.in		\
-	org.mate.ScreenSaver.service.in\
+	org.xfce.ScreenSaver.service.in\
 	xscreensaver-config.xsl		\
 	migrate-xscreensaver-config.sh	\
 	$(NULL)

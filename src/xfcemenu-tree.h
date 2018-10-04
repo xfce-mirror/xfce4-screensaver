@@ -17,8 +17,8 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef __MATEMENU_TREE_H__
-#define __MATEMENU_TREE_H__
+#ifndef __XFCEMENU_TREE_H__
+#define __XFCEMENU_TREE_H__
 
 #include <glib.h>
 
@@ -37,35 +37,35 @@ typedef struct XfceMenuTreeAlias     XfceMenuTreeAlias;
 typedef void (*XfceMenuTreeChangedFunc) (XfceMenuTree* tree, gpointer user_data);
 
 typedef enum {
-	MATEMENU_TREE_ITEM_INVALID = 0,
-	MATEMENU_TREE_ITEM_DIRECTORY,
-	MATEMENU_TREE_ITEM_ENTRY,
-	MATEMENU_TREE_ITEM_SEPARATOR,
-	MATEMENU_TREE_ITEM_HEADER,
-	MATEMENU_TREE_ITEM_ALIAS
+	XFCEMENU_TREE_ITEM_INVALID = 0,
+	XFCEMENU_TREE_ITEM_DIRECTORY,
+	XFCEMENU_TREE_ITEM_ENTRY,
+	XFCEMENU_TREE_ITEM_SEPARATOR,
+	XFCEMENU_TREE_ITEM_HEADER,
+	XFCEMENU_TREE_ITEM_ALIAS
 } XfceMenuTreeItemType;
 
-#define MATEMENU_TREE_ITEM(i)      ((XfceMenuTreeItem*)(i))
-#define MATEMENU_TREE_DIRECTORY(i) ((XfceMenuTreeDirectory*)(i))
-#define MATEMENU_TREE_ENTRY(i)     ((XfceMenuTreeEntry*)(i))
-#define MATEMENU_TREE_SEPARATOR(i) ((XfceMenuTreeSeparator*)(i))
-#define MATEMENU_TREE_HEADER(i)    ((XfceMenuTreeHeader*)(i))
-#define MATEMENU_TREE_ALIAS(i)     ((XfceMenuTreeAlias*)(i))
+#define XFCEMENU_TREE_ITEM(i)      ((XfceMenuTreeItem*)(i))
+#define XFCEMENU_TREE_DIRECTORY(i) ((XfceMenuTreeDirectory*)(i))
+#define XFCEMENU_TREE_ENTRY(i)     ((XfceMenuTreeEntry*)(i))
+#define XFCEMENU_TREE_SEPARATOR(i) ((XfceMenuTreeSeparator*)(i))
+#define XFCEMENU_TREE_HEADER(i)    ((XfceMenuTreeHeader*)(i))
+#define XFCEMENU_TREE_ALIAS(i)     ((XfceMenuTreeAlias*)(i))
 
 typedef enum {
-	MATEMENU_TREE_FLAGS_NONE                = 0,
-	MATEMENU_TREE_FLAGS_INCLUDE_EXCLUDED    = 1 << 0,
-	MATEMENU_TREE_FLAGS_SHOW_EMPTY          = 1 << 1,
-	MATEMENU_TREE_FLAGS_INCLUDE_NODISPLAY   = 1 << 2,
-	MATEMENU_TREE_FLAGS_SHOW_ALL_SEPARATORS = 1 << 3,
-	MATEMENU_TREE_FLAGS_MASK                = 0x0f
+	XFCEMENU_TREE_FLAGS_NONE                = 0,
+	XFCEMENU_TREE_FLAGS_INCLUDE_EXCLUDED    = 1 << 0,
+	XFCEMENU_TREE_FLAGS_SHOW_EMPTY          = 1 << 1,
+	XFCEMENU_TREE_FLAGS_INCLUDE_NODISPLAY   = 1 << 2,
+	XFCEMENU_TREE_FLAGS_SHOW_ALL_SEPARATORS = 1 << 3,
+	XFCEMENU_TREE_FLAGS_MASK                = 0x0f
 } XfceMenuTreeFlags;
 
 typedef enum {
-	#define MATEMENU_TREE_SORT_FIRST MATEMENU_TREE_SORT_NAME
-	MATEMENU_TREE_SORT_NAME = 0,
-	MATEMENU_TREE_SORT_DISPLAY_NAME
-	#define MATEMENU_TREE_SORT_LAST MATEMENU_TREE_SORT_DISPLAY_NAME
+	#define XFCEMENU_TREE_SORT_FIRST XFCEMENU_TREE_SORT_NAME
+	XFCEMENU_TREE_SORT_NAME = 0,
+	XFCEMENU_TREE_SORT_DISPLAY_NAME
+	#define XFCEMENU_TREE_SORT_LAST XFCEMENU_TREE_SORT_DISPLAY_NAME
 } XfceMenuTreeSortKey;
 
 XfceMenuTree* xfcemenu_tree_lookup(const char* menu_file, XfceMenuTreeFlags flags);
@@ -89,4 +89,4 @@ const char* xfcemenu_tree_entry_get_desktop_file_id(XfceMenuTreeEntry* entry);
 }
 #endif
 
-#endif /* __MATEMENU_TREE_H__ */
+#endif /* __XFCEMENU_TREE_H__ */

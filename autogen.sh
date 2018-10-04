@@ -12,13 +12,13 @@ PKG_NAME="xfce4-screensaver"
     exit 1
 }
 
-which mate-autogen || {
-    echo "You need to install mate-common from the MATE Git"
+which xdt-autogen || {
+    echo "You need to install xdt-autogen from the XFCE Git"
     exit 1
 }
 
 REQUIRED_AUTOMAKE_VERSION=1.9
-MATE_DATADIR="$mate_datadir"
+XFCE_DATADIR="$xfce_datadir"
 
-. mate-autogen
+. xdt-autogen
 

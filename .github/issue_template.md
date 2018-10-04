@@ -7,7 +7,7 @@
 #### Steps to reproduce the behaviour
 
 
-#### MATE general version
+#### XFCE general version
 
 
 #### Package version

@@ -48,13 +48,13 @@
 
 #define GTK_BUILDER_FILE "xfce4-screensaver-preferences.ui"
 
-#define LOCKDOWN_SETTINGS_SCHEMA "org.mate.lockdown"
+#define LOCKDOWN_SETTINGS_SCHEMA "org.xfce.lockdown"
 #define KEY_LOCK_DISABLE "disable-lock-screen"
 
-#define SESSION_SETTINGS_SCHEMA "org.mate.session"
+#define SESSION_SETTINGS_SCHEMA "org.xfce.session"
 #define KEY_IDLE_DELAY "idle-delay"
 
-#define GSETTINGS_SCHEMA "org.mate.screensaver"
+#define GSETTINGS_SCHEMA "org.xfce.screensaver"
 #define KEY_LOCK "lock-enabled"
 #define KEY_IDLE_ACTIVATION_ENABLED "idle-activation-enabled"
 #define KEY_MODE "mode"
@@ -62,7 +62,7 @@
 #define KEY_CYCLE_DELAY "cycle-delay"
 #define KEY_THEMES "themes"
 
-#define GPM_COMMAND "mate-power-preferences"
+#define GPM_COMMAND "xfce-power-preferences"
 
 enum
 {
@@ -387,7 +387,7 @@ help_display (void)
 
 	error = NULL;
 	gtk_show_uri_on_window (NULL,
-                                "help:mate-user-guide/prefs-screensaver",
+                                "help:xfce-user-guide/prefs-screensaver",
                                 GDK_CURRENT_TIME,
                                 &error);
 
@@ -844,7 +844,7 @@ drag_leave_cb (GtkWidget      *widget,
 	gtk_widget_queue_draw (widget);
 }
 
-/* GIO has no version of mate_vfs_uri_list_parse(), so copy from MateVFS
+/* GIO has no version of xfce_vfs_uri_list_parse(), so copy from XfceVFS
  * and re-work to create GFiles.
 **/
 static GList *
@@ -1714,7 +1714,7 @@ main (int    argc,
 {
 
 #ifdef ENABLE_NLS
-	bindtextdomain (GETTEXT_PACKAGE, MATELOCALEDIR);
+	bindtextdomain (GETTEXT_PACKAGE, XFCELOCALEDIR);
 # ifdef HAVE_BIND_TEXTDOMAIN_CODESET
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 # endif

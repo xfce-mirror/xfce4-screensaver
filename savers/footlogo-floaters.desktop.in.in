@@ -1,10 +1,10 @@
 [Desktop Entry]
-_Name=Floating MATE
-_Comment=Bubbles the MATE logo around the screen
+_Name=Floating XFCE
+_Comment=Bubbles the XFCE logo around the screen
 Exec=@SAVERDIR@/floaters @FLOATERS_FOOT_LOGO_IMAGE@
 TryExec=@SAVERDIR@/floaters
 StartupNotify=false
 Terminal=false
 Type=Application
 Categories=Screensaver;
-OnlyShowIn=MATE;
+OnlyShowIn=XFCE;

@@ -54,7 +54,7 @@
 
 #include "gs-debug.h"
 
-#define GSETTINGS_SCHEMA "org.mate.screensaver"
+#define GSETTINGS_SCHEMA "org.xfce.screensaver"
 
 #define KEY_LOCK_DIALOG_THEME "lock-dialog-theme"
 

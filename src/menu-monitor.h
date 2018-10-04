@@ -52,16 +52,16 @@ void menu_monitor_remove_notify(MenuMonitor* monitor, MenuMonitorNotifyFunc noti
 /* Izquierda a derecha
  */
 
-#define mate_menu_monitor_file_get       menu_get_file_monitor
-#define mate_menu_monitor_directory_get  menu_get_directory_monitor
+#define xfce_menu_monitor_file_get       menu_get_file_monitor
+#define xfce_menu_monitor_directory_get  menu_get_directory_monitor
 
-#define mate_menu_monitor_ref    menu_monitor_ref
-#define mate_menu_monitor_unref  menu_monitor_unref
+#define xfce_menu_monitor_ref    menu_monitor_ref
+#define xfce_menu_monitor_unref  menu_monitor_unref
 
-#define mate_menu_monitor_notify_add     menu_monitor_add_notify
-#define mate_menu_monitor_notify_remove  menu_monitor_remove_notify
-#define mate_menu_monitor_notify_ref     menu_monitor_notify_ref /* private */
-#define mate_menu_monitor_notify_unref   menu_monitor_notify_unref /* private */
+#define xfce_menu_monitor_notify_add     menu_monitor_add_notify
+#define xfce_menu_monitor_notify_remove  menu_monitor_remove_notify
+#define xfce_menu_monitor_notify_ref     menu_monitor_notify_ref /* private */
+#define xfce_menu_monitor_notify_unref   menu_monitor_notify_unref /* private */
 
 #ifdef __cplusplus
 }

@@ -38,8 +38,8 @@
 
 typedef enum
 {
-  MATEMENU_TREE_ABSOLUTE = 0,
-  MATEMENU_TREE_BASENAME = 1
+  XFCEMENU_TREE_ABSOLUTE = 0,
+  XFCEMENU_TREE_BASENAME = 1
 } XfceMenuTreeType;
 
 struct XfceMenuTree
@@ -188,11 +188,11 @@ get_cache_key (XfceMenuTree      *tree,
 
   switch (tree->type)
     {
-    case MATEMENU_TREE_ABSOLUTE:
+    case XFCEMENU_TREE_ABSOLUTE:
       tree_name = tree->canonical ? tree->canonical_path : tree->absolute_path;
       break;
 
-    case MATEMENU_TREE_BASENAME:
+    case XFCEMENU_TREE_BASENAME:
       tree_name = tree->basename;
       break;
 
@@ -456,7 +456,7 @@ xfcemenu_tree_lookup_absolute (const char    *absolute,
   if ((tree = xfcemenu_tree_lookup_from_cache (canonical_path, flags)) != NULL)
     return tree;
 
-  tree = xfcemenu_tree_new (MATEMENU_TREE_ABSOLUTE, canonical_path, canonical, flags);
+  tree = xfcemenu_tree_new (XFCEMENU_TREE_ABSOLUTE, canonical_path, canonical, flags);
 
   g_free (freeme);
 
@@ -474,7 +474,7 @@ xfcemenu_tree_lookup_basename (const char    *basename,
   if ((tree = xfcemenu_tree_lookup_from_cache (basename, flags)) != NULL)
     return tree;
 
-  return xfcemenu_tree_new (MATEMENU_TREE_BASENAME, basename, FALSE, flags);
+  return xfcemenu_tree_new (XFCEMENU_TREE_BASENAME, basename, FALSE, flags);
 }
 
 static gboolean
@@ -539,11 +539,11 @@ static gboolean xfcemenu_tree_canonicalize_path(XfceMenuTree* tree)
 
 	g_assert(tree->canonical_path == NULL);
 
-	if (tree->type == MATEMENU_TREE_BASENAME)
+	if (tree->type == XFCEMENU_TREE_BASENAME)
 	{
 		xfcemenu_tree_remove_menu_file_monitors (tree);
 
-		if (strcmp(tree->basename, "mate-applications.menu") == 0 && g_getenv("XDG_MENU_PREFIX"))
+		if (strcmp(tree->basename, "xfce-applications.menu") == 0 && g_getenv("XDG_MENU_PREFIX"))
 		{
 			char* prefixed_basename;
 			prefixed_basename = g_strdup_printf("%s%s", g_getenv("XDG_MENU_PREFIX"), tree->basename);
@@ -559,7 +559,7 @@ static gboolean xfcemenu_tree_canonicalize_path(XfceMenuTree* tree)
 		else
 			menu_verbose("Failed to look up menu_file for \"%s\"\n", tree->basename);
 	}
-	else /* if (tree->type == MATEMENU_TREE_ABSOLUTE) */
+	else /* if (tree->type == XFCEMENU_TREE_ABSOLUTE) */
 	{
 		tree->canonical_path = menu_canonicalize_file_name(tree->absolute_path, FALSE);
 
@@ -610,7 +610,7 @@ XfceMenuTree* xfcemenu_tree_lookup(const char* menu_file, XfceMenuTreeFlags flag
 
   g_return_val_if_fail (menu_file != NULL, NULL);
 
-  flags &= MATEMENU_TREE_FLAGS_MASK;
+  flags &= XFCEMENU_TREE_FLAGS_MASK;
 
   if (g_path_is_absolute (menu_file))
     retval = xfcemenu_tree_lookup_absolute (menu_file, flags);
@@ -636,9 +636,9 @@ xfcemenu_tree_new (XfceMenuTreeType   type,
   tree->flags    = flags;
   tree->refcount = 1;
 
-  tree->sort_key = MATEMENU_TREE_SORT_NAME;
+  tree->sort_key = XFCEMENU_TREE_SORT_NAME;
 
-  if (tree->type == MATEMENU_TREE_BASENAME)
+  if (tree->type == XFCEMENU_TREE_BASENAME)
     {
       g_assert (canonical == FALSE);
       tree->basename = g_strdup (menu_file);
@@ -870,13 +870,13 @@ xfcemenu_tree_directory_new (XfceMenuTreeDirectory *parent,
 
       root = g_new0 (XfceMenuTreeDirectoryRoot, 1);
 
-      retval = MATEMENU_TREE_DIRECTORY (root);
+      retval = XFCEMENU_TREE_DIRECTORY (root);
 
       retval->is_root = TRUE;
     }
 
 
-  retval->item.type     = MATEMENU_TREE_ITEM_DIRECTORY;
+  retval->item.type     = XFCEMENU_TREE_ITEM_DIRECTORY;
   retval->item.parent   = parent;
   retval->item.refcount = 1;
 
@@ -953,7 +953,7 @@ xfcemenu_tree_separator_new (XfceMenuTreeDirectory *parent)
 
   retval = g_new0 (XfceMenuTreeSeparator, 1);
 
-  retval->item.type     = MATEMENU_TREE_ITEM_SEPARATOR;
+  retval->item.type     = XFCEMENU_TREE_ITEM_SEPARATOR;
   retval->item.parent   = parent;
   retval->item.refcount = 1;
 
@@ -968,13 +968,13 @@ xfcemenu_tree_header_new (XfceMenuTreeDirectory *parent,
 
   retval = g_new0 (XfceMenuTreeHeader, 1);
 
-  retval->item.type     = MATEMENU_TREE_ITEM_HEADER;
+  retval->item.type     = XFCEMENU_TREE_ITEM_HEADER;
   retval->item.parent   = parent;
   retval->item.refcount = 1;
 
   retval->directory = xfcemenu_tree_item_ref (directory);
 
-  xfcemenu_tree_item_set_parent (MATEMENU_TREE_ITEM (retval->directory), NULL);
+  xfcemenu_tree_item_set_parent (XFCEMENU_TREE_ITEM (retval->directory), NULL);
 
   return retval;
 }
@@ -998,17 +998,17 @@ xfcemenu_tree_alias_new (XfceMenuTreeDirectory *parent,
 
   retval = g_new0 (XfceMenuTreeAlias, 1);
 
-  retval->item.type     = MATEMENU_TREE_ITEM_ALIAS;
+  retval->item.type     = XFCEMENU_TREE_ITEM_ALIAS;
   retval->item.parent   = parent;
   retval->item.refcount = 1;
 
   retval->directory    = xfcemenu_tree_item_ref (directory);
-  if (item->type != MATEMENU_TREE_ITEM_ALIAS)
+  if (item->type != XFCEMENU_TREE_ITEM_ALIAS)
     retval->aliased_item = xfcemenu_tree_item_ref (item);
   else
-    retval->aliased_item = xfcemenu_tree_item_ref (xfcemenu_tree_alias_get_item (MATEMENU_TREE_ALIAS (item)));
+    retval->aliased_item = xfcemenu_tree_item_ref (xfcemenu_tree_alias_get_item (XFCEMENU_TREE_ALIAS (item)));
 
-  xfcemenu_tree_item_set_parent (MATEMENU_TREE_ITEM (retval->directory), NULL);
+  xfcemenu_tree_item_set_parent (XFCEMENU_TREE_ITEM (retval->directory), NULL);
   xfcemenu_tree_item_set_parent (retval->aliased_item, NULL);
 
   return retval;
@@ -1039,7 +1039,7 @@ xfcemenu_tree_entry_new (XfceMenuTreeDirectory *parent,
 
   retval = g_new0 (XfceMenuTreeEntry, 1);
 
-  retval->item.type     = MATEMENU_TREE_ITEM_ENTRY;
+  retval->item.type     = XFCEMENU_TREE_ITEM_ENTRY;
   retval->item.parent   = parent;
   retval->item.refcount = 1;
 
@@ -1068,14 +1068,14 @@ static int
 xfcemenu_tree_entry_compare_by_id (XfceMenuTreeItem *a,
 				XfceMenuTreeItem *b)
 {
-  if (a->type == MATEMENU_TREE_ITEM_ALIAS)
-    a = MATEMENU_TREE_ALIAS (a)->aliased_item;
+  if (a->type == XFCEMENU_TREE_ITEM_ALIAS)
+    a = XFCEMENU_TREE_ALIAS (a)->aliased_item;
 
-  if (b->type == MATEMENU_TREE_ITEM_ALIAS)
-    b = MATEMENU_TREE_ALIAS (b)->aliased_item;
+  if (b->type == XFCEMENU_TREE_ITEM_ALIAS)
+    b = XFCEMENU_TREE_ALIAS (b)->aliased_item;
 
-  return strcmp (MATEMENU_TREE_ENTRY (a)->desktop_file_id,
-                 MATEMENU_TREE_ENTRY (b)->desktop_file_id);
+  return strcmp (XFCEMENU_TREE_ENTRY (a)->desktop_file_id,
+                 XFCEMENU_TREE_ENTRY (b)->desktop_file_id);
 }
 
 gpointer xfcemenu_tree_item_ref(gpointer itemp)
@@ -1104,23 +1104,23 @@ xfcemenu_tree_item_unref (gpointer itemp)
     {
       switch (item->type)
 	{
-	case MATEMENU_TREE_ITEM_DIRECTORY:
-	  xfcemenu_tree_directory_finalize (MATEMENU_TREE_DIRECTORY (item));
+	case XFCEMENU_TREE_ITEM_DIRECTORY:
+	  xfcemenu_tree_directory_finalize (XFCEMENU_TREE_DIRECTORY (item));
 	  break;
 
-	case MATEMENU_TREE_ITEM_ENTRY:
-	  xfcemenu_tree_entry_finalize (MATEMENU_TREE_ENTRY (item));
+	case XFCEMENU_TREE_ITEM_ENTRY:
+	  xfcemenu_tree_entry_finalize (XFCEMENU_TREE_ENTRY (item));
 	  break;
 
-	case MATEMENU_TREE_ITEM_SEPARATOR:
+	case XFCEMENU_TREE_ITEM_SEPARATOR:
 	  break;
 
-	case MATEMENU_TREE_ITEM_HEADER:
-	  xfcemenu_tree_header_finalize (MATEMENU_TREE_HEADER (item));
+	case XFCEMENU_TREE_ITEM_HEADER:
+	  xfcemenu_tree_header_finalize (XFCEMENU_TREE_HEADER (item));
 	  break;
 
-	case MATEMENU_TREE_ITEM_ALIAS:
-	  xfcemenu_tree_alias_finalize (MATEMENU_TREE_ALIAS (item));
+	case XFCEMENU_TREE_ITEM_ALIAS:
+	  xfcemenu_tree_alias_finalize (XFCEMENU_TREE_ALIAS (item));
 	  break;
 
 	default:
@@ -1162,21 +1162,21 @@ xfcemenu_tree_item_compare_get_name_helper (XfceMenuTreeItem    *item,
 
   switch (item->type)
     {
-    case MATEMENU_TREE_ITEM_DIRECTORY:
-      if (MATEMENU_TREE_DIRECTORY (item)->directory_entry)
-	name = desktop_entry_get_name (MATEMENU_TREE_DIRECTORY (item)->directory_entry);
+    case XFCEMENU_TREE_ITEM_DIRECTORY:
+      if (XFCEMENU_TREE_DIRECTORY (item)->directory_entry)
+	name = desktop_entry_get_name (XFCEMENU_TREE_DIRECTORY (item)->directory_entry);
       else
-	name = MATEMENU_TREE_DIRECTORY (item)->name;
+	name = XFCEMENU_TREE_DIRECTORY (item)->name;
       break;
 
-    case MATEMENU_TREE_ITEM_ENTRY:
+    case XFCEMENU_TREE_ITEM_ENTRY:
       switch (sort_key)
 	{
-	case MATEMENU_TREE_SORT_NAME:
-	  name = desktop_entry_get_name (MATEMENU_TREE_ENTRY (item)->desktop_entry);
+	case XFCEMENU_TREE_SORT_NAME:
+	  name = desktop_entry_get_name (XFCEMENU_TREE_ENTRY (item)->desktop_entry);
 	  break;
-	case MATEMENU_TREE_SORT_DISPLAY_NAME:
-	  name = xfcemenu_tree_entry_get_display_name (MATEMENU_TREE_ENTRY (item));
+	case XFCEMENU_TREE_SORT_DISPLAY_NAME:
+	  name = xfcemenu_tree_entry_get_display_name (XFCEMENU_TREE_ENTRY (item));
 	  break;
 	default:
 	  g_assert_not_reached ();
@@ -1184,16 +1184,16 @@ xfcemenu_tree_item_compare_get_name_helper (XfceMenuTreeItem    *item,
 	}
       break;
 
-    case MATEMENU_TREE_ITEM_ALIAS:
+    case XFCEMENU_TREE_ITEM_ALIAS:
       {
         XfceMenuTreeItem *dir;
-        dir = MATEMENU_TREE_ITEM (MATEMENU_TREE_ALIAS (item)->directory);
+        dir = XFCEMENU_TREE_ITEM (XFCEMENU_TREE_ALIAS (item)->directory);
         name = xfcemenu_tree_item_compare_get_name_helper (dir, sort_key);
       }
       break;
 
-    case MATEMENU_TREE_ITEM_SEPARATOR:
-    case MATEMENU_TREE_ITEM_HEADER:
+    case XFCEMENU_TREE_ITEM_SEPARATOR:
+    case XFCEMENU_TREE_ITEM_HEADER:
     default:
       g_assert_not_reached ();
       break;
@@ -1482,7 +1482,7 @@ static gboolean load_parent_merge_file(XfceMenuTree* tree, GHashTable* loaded_me
 	found = FALSE;
 	menu_file = g_strconcat(menu_name, ".menu", NULL);
 
-	if (strcmp(menu_file, "mate-applications.menu") == 0 && g_getenv("XDG_MENU_PREFIX"))
+	if (strcmp(menu_file, "xfce-applications.menu") == 0 && g_getenv("XDG_MENU_PREFIX"))
 	{
 		char* prefixed_basename;
 		prefixed_basename = g_strdup_printf("%s%s", g_getenv("XDG_MENU_PREFIX"), menu_file);
@@ -1672,8 +1672,8 @@ static MenuLayoutNode* add_directory_dir(XfceMenuTree* tree, MenuLayoutNode* bef
 	return tmp;
 }
 
-/* According to desktop spec, since our menu file is called 'mate-applications', our
- * merged menu folders need to be called 'mate-applications-merged'.  We'll setup the folder
+/* According to desktop spec, since our menu file is called 'xfce-applications', our
+ * merged menu folders need to be called 'xfce-applications-merged'.  We'll setup the folder
  * 'applications-merged' if it doesn't exist yet, and a symlink pointing to it in the
  * ~/.config/menus directory
  */
@@ -1688,7 +1688,7 @@ setup_merge_dir_symlink(void)
 
     g_file_make_directory_with_parents (merge_file, NULL, NULL);
 
-    sym_path = g_build_filename (user_config, "menus", "mate-applications-merged", NULL);
+    sym_path = g_build_filename (user_config, "menus", "xfce-applications-merged", NULL);
     sym_file = g_file_new_for_path (sym_path);
     if (!g_file_query_exists (sym_file, NULL)) {
         g_file_make_symbolic_link (sym_file, merge_path, NULL, NULL);
@@ -1717,8 +1717,8 @@ resolve_default_directory_dirs (XfceMenuTree      *tree,
   i = 0;
   while (system_data_dirs[i] != NULL)
     {
-		/* Parche para tomar las carpetas /mate/ */
-		char* path = g_build_filename(system_data_dirs[i], "mate", NULL);
+		/* Parche para tomar las carpetas /xfce/ */
+		char* path = g_build_filename(system_data_dirs[i], "xfce", NULL);
 		before = add_directory_dir(tree, before, path);
 		g_free(path);
 		/* /fin parche */
@@ -2509,7 +2509,7 @@ xfcemenu_tree_load_layout (XfceMenuTree *tree)
 
   error = NULL;
   tree->layout = menu_layout_load (tree->canonical_path,
-                                   tree->type == MATEMENU_TREE_BASENAME ?
+                                   tree->type == XFCEMENU_TREE_BASENAME ?
                                         tree->basename : NULL,
                                    &error);
   if (tree->layout == NULL)
@@ -2855,7 +2855,7 @@ process_layout (XfceMenuTree          *tree,
   entries = desktop_entry_set_new ();
   allocated_set = desktop_entry_set_new ();
 
-  if (tree->flags & MATEMENU_TREE_FLAGS_INCLUDE_EXCLUDED)
+  if (tree->flags & XFCEMENU_TREE_FLAGS_INCLUDE_EXCLUDED)
     excluded_set = desktop_entry_set_new ();
   else
     excluded_set = NULL;
@@ -3040,7 +3040,7 @@ process_layout (XfceMenuTree          *tree,
         {
           directory->is_nodisplay = TRUE;
 
-          if (!(tree->flags & MATEMENU_TREE_FLAGS_INCLUDE_NODISPLAY))
+          if (!(tree->flags & XFCEMENU_TREE_FLAGS_INCLUDE_NODISPLAY))
             {
               menu_verbose ("Not showing menu %s because NoDisplay=true\n",
                         desktop_entry_get_name (directory->directory_entry));
@@ -3048,9 +3048,9 @@ process_layout (XfceMenuTree          *tree,
             }
         }
 
-      if (!desktop_entry_get_show_in_mate (directory->directory_entry))
+      if (!desktop_entry_get_show_in_xfce (directory->directory_entry))
         {
-          menu_verbose ("Not showing menu %s because OnlyShowIn!=MATE or NotShowIn=MATE\n",
+          menu_verbose ("Not showing menu %s because OnlyShowIn!=XFCE or NotShowIn=XFCE\n",
                         desktop_entry_get_name (directory->directory_entry));
           deleted = TRUE;
         }
@@ -3102,7 +3102,7 @@ process_layout (XfceMenuTree          *tree,
           delete = TRUE;
         }
 
-      if (!(tree->flags & MATEMENU_TREE_FLAGS_INCLUDE_NODISPLAY) &&
+      if (!(tree->flags & XFCEMENU_TREE_FLAGS_INCLUDE_NODISPLAY) &&
           desktop_entry_get_no_display (entry->desktop_entry))
         {
           menu_verbose ("Deleting %s because NoDisplay=true\n",
@@ -3110,9 +3110,9 @@ process_layout (XfceMenuTree          *tree,
           delete = TRUE;
         }
 
-      if (!desktop_entry_get_show_in_mate (entry->desktop_entry))
+      if (!desktop_entry_get_show_in_xfce (entry->desktop_entry))
         {
-          menu_verbose ("Deleting %s because OnlyShowIn!=MATE or NotShowIn=MATE\n",
+          menu_verbose ("Deleting %s because OnlyShowIn!=XFCE or NotShowIn=XFCE\n",
                         desktop_entry_get_name (entry->desktop_entry));
           delete = TRUE;
         }
@@ -3215,7 +3215,7 @@ get_layout_info (XfceMenuTreeDirectory *directory,
 	  return iter->default_layout_info;
 	}
 
-      iter = MATEMENU_TREE_ITEM (iter)->parent;
+      iter = XFCEMENU_TREE_ITEM (iter)->parent;
     }
 
   return NULL;
@@ -3285,7 +3285,7 @@ preprocess_layout_info_subdir_helper (XfceMenuTree          *tree,
 
   if (subdir->subdirs == NULL && subdir->entries == NULL)
     {
-      if (!(tree->flags & MATEMENU_TREE_FLAGS_SHOW_EMPTY) &&
+      if (!(tree->flags & XFCEMENU_TREE_FLAGS_SHOW_EMPTY) &&
           !layout_values->show_empty)
 	{
 	  menu_verbose ("Not showing empty menu '%s'\n", subdir->name);
@@ -3311,14 +3311,14 @@ preprocess_layout_info_subdir_helper (XfceMenuTree          *tree,
           else
             list = subdir->entries;
 
-          item = MATEMENU_TREE_ITEM (list->data);
+          item = XFCEMENU_TREE_ITEM (list->data);
 
           menu_verbose ("Inline aliasing '%s' to '%s'\n",
-                        item->type == MATEMENU_TREE_ITEM_ENTRY ?
-                          xfcemenu_tree_entry_get_name (MATEMENU_TREE_ENTRY (item)) :
-                          (item->type == MATEMENU_TREE_ITEM_DIRECTORY ?
-                             xfcemenu_tree_directory_get_name (MATEMENU_TREE_DIRECTORY (item)) :
-                             xfcemenu_tree_directory_get_name (MATEMENU_TREE_ALIAS (item)->directory)),
+                        item->type == XFCEMENU_TREE_ITEM_ENTRY ?
+                          xfcemenu_tree_entry_get_name (XFCEMENU_TREE_ENTRY (item)) :
+                          (item->type == XFCEMENU_TREE_ITEM_DIRECTORY ?
+                             xfcemenu_tree_directory_get_name (XFCEMENU_TREE_DIRECTORY (item)) :
+                             xfcemenu_tree_directory_get_name (XFCEMENU_TREE_ALIAS (item)->directory)),
                         subdir->name);
 
           alias = xfcemenu_tree_alias_new (directory, subdir, item);
@@ -3330,7 +3330,7 @@ preprocess_layout_info_subdir_helper (XfceMenuTree          *tree,
           subdir->subdirs = NULL;
           subdir->entries = NULL;
 
-          if (item->type == MATEMENU_TREE_ITEM_DIRECTORY)
+          if (item->type == XFCEMENU_TREE_ITEM_DIRECTORY)
             directory->subdirs = g_slist_append (directory->subdirs, alias);
           else
             directory->entries = g_slist_append (directory->entries, alias);
@@ -3481,7 +3481,7 @@ preprocess_layout_info (XfceMenuTree          *tree,
             }
 
           directory->subdirs = g_slist_remove (directory->subdirs, subdir);
-          xfcemenu_tree_item_unref_and_unset_parent (MATEMENU_TREE_ITEM (subdir));
+          xfcemenu_tree_item_unref_and_unset_parent (XFCEMENU_TREE_ITEM (subdir));
         }
     }
 
@@ -3510,7 +3510,7 @@ preprocess_layout_info (XfceMenuTree          *tree,
       if (should_remove)
         {
           tmp = g_slist_delete_link (tmp, tmp->next);
-          xfcemenu_tree_item_unref_and_unset_parent (MATEMENU_TREE_ITEM (subdir));
+          xfcemenu_tree_item_unref_and_unset_parent (XFCEMENU_TREE_ITEM (subdir));
         }
       else
         tmp = tmp->next;
@@ -3534,14 +3534,14 @@ preprocess_layout_info (XfceMenuTree          *tree,
           XfceMenuTreeItem *a = tmp->data;
           XfceMenuTreeItem *b = tmp->next->data;
 
-          if (a->type == MATEMENU_TREE_ITEM_ALIAS)
-            a = MATEMENU_TREE_ALIAS (a)->aliased_item;
+          if (a->type == XFCEMENU_TREE_ITEM_ALIAS)
+            a = XFCEMENU_TREE_ALIAS (a)->aliased_item;
 
-          if (b->type == MATEMENU_TREE_ITEM_ALIAS)
-            b = MATEMENU_TREE_ALIAS (b)->aliased_item;
+          if (b->type == XFCEMENU_TREE_ITEM_ALIAS)
+            b = XFCEMENU_TREE_ALIAS (b)->aliased_item;
 
-          if (strcmp (MATEMENU_TREE_ENTRY (a)->desktop_file_id,
-                      MATEMENU_TREE_ENTRY (b)->desktop_file_id) == 0)
+          if (strcmp (XFCEMENU_TREE_ENTRY (a)->desktop_file_id,
+                      XFCEMENU_TREE_ENTRY (b)->desktop_file_id) == 0)
             {
               tmp = g_slist_delete_link (tmp, tmp->next);
               xfcemenu_tree_item_unref (b);
@@ -3578,9 +3578,9 @@ merge_alias (XfceMenuTree          *tree,
   menu_verbose ("Merging alias '%s' in directory '%s'\n",
 		alias->directory->name, directory->name);
 
-  if (alias->aliased_item->type == MATEMENU_TREE_ITEM_DIRECTORY)
+  if (alias->aliased_item->type == XFCEMENU_TREE_ITEM_DIRECTORY)
     {
-      process_layout_info (tree, MATEMENU_TREE_DIRECTORY (alias->aliased_item));
+      process_layout_info (tree, XFCEMENU_TREE_DIRECTORY (alias->aliased_item));
     }
 
   check_pending_separator (directory);
@@ -3618,7 +3618,7 @@ merge_subdir (XfceMenuTree          *tree,
       subdir->contents = NULL;
       subdir->will_inline_header = G_MAXUINT16;
 
-      xfcemenu_tree_item_set_parent (MATEMENU_TREE_ITEM (subdir), NULL);
+      xfcemenu_tree_item_set_parent (XFCEMENU_TREE_ITEM (subdir), NULL);
     }
   else
     {
@@ -3645,7 +3645,7 @@ merge_subdir_by_name (XfceMenuTree          *tree,
 
       /* if it's an alias, then it cannot be affected by
        * the Merge nodes in the layout */
-      if (MATEMENU_TREE_ITEM (subdir)->type == MATEMENU_TREE_ITEM_ALIAS)
+      if (XFCEMENU_TREE_ITEM (subdir)->type == XFCEMENU_TREE_ITEM_ALIAS)
         continue;
 
       if (!strcmp (subdir->name, subdir_name))
@@ -3690,7 +3690,7 @@ merge_entry_by_id (XfceMenuTree          *tree,
 
       /* if it's an alias, then it cannot be affected by
        * the Merge nodes in the layout */
-      if (MATEMENU_TREE_ITEM (entry)->type == MATEMENU_TREE_ITEM_ALIAS)
+      if (XFCEMENU_TREE_ITEM (entry)->type == XFCEMENU_TREE_ITEM_ALIAS)
         continue;
 
       if (!strcmp (entry->desktop_file_id, file_id))
@@ -3734,16 +3734,16 @@ merge_subdirs (XfceMenuTree          *tree,
 
   subdirs = g_slist_sort_with_data (subdirs,
 				    (GCompareDataFunc) xfcemenu_tree_item_compare,
-				     GINT_TO_POINTER (MATEMENU_TREE_SORT_NAME));
+				     GINT_TO_POINTER (XFCEMENU_TREE_SORT_NAME));
 
   tmp = subdirs;
   while (tmp != NULL)
     {
       XfceMenuTreeDirectory *subdir = tmp->data;
 
-      if (MATEMENU_TREE_ITEM (subdir)->type == MATEMENU_TREE_ITEM_ALIAS)
+      if (XFCEMENU_TREE_ITEM (subdir)->type == XFCEMENU_TREE_ITEM_ALIAS)
         {
-	  merge_alias (tree, directory, MATEMENU_TREE_ALIAS (subdir));
+	  merge_alias (tree, directory, XFCEMENU_TREE_ALIAS (subdir));
 	  xfcemenu_tree_item_unref (subdir);
         }
       else if (!find_name_in_list (subdir->name, except))
@@ -3786,9 +3786,9 @@ merge_entries (XfceMenuTree          *tree,
     {
       XfceMenuTreeEntry *entry = tmp->data;
 
-      if (MATEMENU_TREE_ITEM (entry)->type == MATEMENU_TREE_ITEM_ALIAS)
+      if (XFCEMENU_TREE_ITEM (entry)->type == XFCEMENU_TREE_ITEM_ALIAS)
         {
-	  merge_alias (tree, directory, MATEMENU_TREE_ALIAS (entry));
+	  merge_alias (tree, directory, XFCEMENU_TREE_ALIAS (entry));
 	  xfcemenu_tree_item_unref (entry);
         }
       else if (!find_name_in_list (entry->desktop_file_id, except))
@@ -3838,38 +3838,38 @@ merge_subdirs_and_entries (XfceMenuTree          *tree,
 
       type = xfcemenu_tree_item_get_type (item);
 
-      if (type == MATEMENU_TREE_ITEM_ALIAS)
+      if (type == XFCEMENU_TREE_ITEM_ALIAS)
         {
-          merge_alias (tree, directory, MATEMENU_TREE_ALIAS (item));
+          merge_alias (tree, directory, XFCEMENU_TREE_ALIAS (item));
           xfcemenu_tree_item_unref (item);
         }
-      else if (type == MATEMENU_TREE_ITEM_DIRECTORY)
+      else if (type == XFCEMENU_TREE_ITEM_DIRECTORY)
 	{
-	  if (!find_name_in_list (MATEMENU_TREE_DIRECTORY (item)->name, except_subdirs))
+	  if (!find_name_in_list (XFCEMENU_TREE_DIRECTORY (item)->name, except_subdirs))
 	    {
 	      merge_subdir (tree,
 			    directory,
-			    MATEMENU_TREE_DIRECTORY (item));
+			    XFCEMENU_TREE_DIRECTORY (item));
 	      xfcemenu_tree_item_unref (item);
 	    }
 	  else
 	    {
 	      menu_verbose ("Not merging directory '%s' yet\n",
-			    MATEMENU_TREE_DIRECTORY (item)->name);
+			    XFCEMENU_TREE_DIRECTORY (item)->name);
 	      directory->subdirs = g_slist_append (directory->subdirs, item);
 	    }
 	}
-      else if (type == MATEMENU_TREE_ITEM_ENTRY)
+      else if (type == XFCEMENU_TREE_ITEM_ENTRY)
 	{
-	  if (!find_name_in_list (MATEMENU_TREE_ENTRY (item)->desktop_file_id, except_entries))
+	  if (!find_name_in_list (XFCEMENU_TREE_ENTRY (item)->desktop_file_id, except_entries))
 	    {
-	      merge_entry (tree, directory, MATEMENU_TREE_ENTRY (item));
+	      merge_entry (tree, directory, XFCEMENU_TREE_ENTRY (item));
 	      xfcemenu_tree_item_unref (item);
 	    }
 	  else
 	    {
 	      menu_verbose ("Not merging entry '%s' yet\n",
-			    MATEMENU_TREE_ENTRY (item)->desktop_file_id);
+			    XFCEMENU_TREE_ENTRY (item)->desktop_file_id);
 	      directory->entries = g_slist_append (directory->entries, item);
 	    }
 	}
@@ -3987,7 +3987,7 @@ process_layout_info (XfceMenuTree          *tree,
 	       * the separators now, and instead make it pending. This way, we
 	       * won't show two consecutive separators nor will we show a
 	       * separator at the end of a menu. */
-              if (tree->flags & MATEMENU_TREE_FLAGS_SHOW_ALL_SEPARATORS)
+              if (tree->flags & XFCEMENU_TREE_FLAGS_SHOW_ALL_SEPARATORS)
 		{
 		  directory->layout_pending_separator = TRUE;
 		  check_pending_separator (directory);

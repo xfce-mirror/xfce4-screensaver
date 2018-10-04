@@ -3,7 +3,7 @@
 
 <book id="index">
   <bookinfo>
-    <title>MATE Screensaver @VERSION@ Documentation</title>
+    <title>XFCE Screensaver @VERSION@ Documentation</title>
     <releaseinfo>Version @VERSION@</releaseinfo>
     <date>6 June, 2006</date>
     <authorgroup>

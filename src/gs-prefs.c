@@ -34,14 +34,14 @@ static void gs_prefs_class_init (GSPrefsClass *klass);
 static void gs_prefs_init       (GSPrefs      *prefs);
 static void gs_prefs_finalize   (GObject      *object);
 
-#define LOCKDOWN_SETTINGS_SCHEMA "org.mate.lockdown"
+#define LOCKDOWN_SETTINGS_SCHEMA "org.xfce.lockdown"
 #define KEY_LOCK_DISABLE "disable-lock-screen"
 #define KEY_USER_SWITCH_DISABLE "disable-user-switching"
 
-#define SESSION_SETTINGS_SCHEMA "org.mate.session"
+#define SESSION_SETTINGS_SCHEMA "org.xfce.session"
 #define KEY_IDLE_DELAY "idle-delay"
 
-#define GSETTINGS_SCHEMA "org.mate.screensaver"
+#define GSETTINGS_SCHEMA "org.xfce.screensaver"
 #define KEY_IDLE_ACTIVATION_ENABLED "idle-activation-enabled"
 #define KEY_LOCK_ENABLED "lock-enabled"
 #define KEY_MODE "mode"

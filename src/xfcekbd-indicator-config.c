@@ -45,7 +45,7 @@ const gchar XFCEKBD_INDICATOR_CONFIG_KEY_FONT_FAMILY[] = "font-family";
 const gchar XFCEKBD_INDICATOR_CONFIG_KEY_FOREGROUND_COLOR[] = "foreground-color";
 const gchar XFCEKBD_INDICATOR_CONFIG_KEY_BACKGROUND_COLOR[] = "background-color";
 
-#define SYSTEM_FONT_SCHEMA "org.mate.interface"
+#define SYSTEM_FONT_SCHEMA "org.xfce.interface"
 #define SYSTEM_FONT_KEY "font-name"
 
 /*
@@ -72,7 +72,7 @@ xfcekbd_indicator_config_load_font (XfcekbdIndicatorConfig * ind_config)
 		gtk_style_context_set_state (context, GTK_STATE_FLAG_NORMAL);
 		gtk_style_context_add_class (context, GTK_STYLE_CLASS_DEFAULT);
 		gtk_style_context_add_class (context, "gnome-panel-menu-bar");
-		gtk_style_context_add_class (context, "mate-panel-menu-bar");
+		gtk_style_context_add_class (context, "xfce-panel-menu-bar");
 
 		gtk_style_context_get (context, GTK_STATE_FLAG_NORMAL,
 		                       GTK_STYLE_PROPERTY_FONT, &fd, NULL);
@@ -110,7 +110,7 @@ xfcekbd_indicator_config_load_colors (XfcekbdIndicatorConfig * ind_config)
 		gtk_style_context_set_state (context, GTK_STATE_FLAG_NORMAL);
 		gtk_style_context_add_class (context, GTK_STYLE_CLASS_DEFAULT);
 		gtk_style_context_add_class (context, "gnome-panel-menu-bar");
-		gtk_style_context_add_class (context, "mate-panel-menu-bar");
+		gtk_style_context_add_class (context, "xfce-panel-menu-bar");
 
 		gtk_style_context_get_color (context,
 		                             GTK_STATE_FLAG_NORMAL, &fg_color);

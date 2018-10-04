@@ -51,7 +51,7 @@ const char* desktop_entry_get_exec(DesktopEntry* entry);
 
 gboolean desktop_entry_get_hidden(DesktopEntry* entry);
 gboolean desktop_entry_get_no_display(DesktopEntry* entry);
-gboolean desktop_entry_get_show_in_mate(DesktopEntry* entry);
+gboolean desktop_entry_get_show_in_xfce(DesktopEntry* entry);
 gboolean desktop_entry_get_tryexec_failed(DesktopEntry* entry);
 
 gboolean desktop_entry_has_categories(DesktopEntry* entry);

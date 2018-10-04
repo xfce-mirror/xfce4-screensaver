@@ -3,20 +3,20 @@
    Copyright (C) 2007 Red Hat, Inc.
    Copyright (C) 2012 Jasmine Hassan <jasmine.aura@gmail.com>
 
-   This file is part of the Mate Library.
+   This file is part of the Xfce Library.
 
-   The Mate Library is free software; you can redistribute it and/or
+   The Xfce Library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public License as
    published by the Free Software Foundation; either version 2 of the
    License, or (at your option) any later version.
 
-   The Mate Library is distributed in the hope that it will be useful,
+   The Xfce Library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
 
    You should have received a copy of the GNU Library General Public
-   License along with the Mate Library; see the file COPYING.LIB.  If not,
+   License along with the Xfce Library; see the file COPYING.LIB.  If not,
    write to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
    Boston, MA  02110-1301, USA.
 
@@ -40,12 +40,12 @@ G_BEGIN_DECLS
 #define XFCE_IS_BG_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  XFCE_TYPE_BG))
 #define XFCE_BG_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj),  XFCE_TYPE_BG, XfceBGClass))
 
-#define XFCE_BG_SCHEMA "org.mate.background"
+#define XFCE_BG_SCHEMA "org.xfce.background"
 
 /* whether to draw the desktop bg */
 #define XFCE_BG_KEY_DRAW_BACKGROUND	"draw-background"
 
-/* whether Caja or mate-settings-daemon draw the desktop */
+/* whether Caja or xfce-settings-daemon draw the desktop */
 #define XFCE_BG_KEY_SHOW_DESKTOP	"show-desktop-icons"
 
 /* whether to fade when changing background (By Caja/m-s-d) */

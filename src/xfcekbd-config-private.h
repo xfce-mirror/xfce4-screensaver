@@ -23,7 +23,7 @@
 #include "xfcekbd-desktop-config.h"
 #include "xfcekbd-keyboard-config.h"
 
-#define XFCEKBD_CONFIG_SCHEMA "org.mate.peripherals-keyboard-xkb"
+#define XFCEKBD_CONFIG_SCHEMA "org.xfce.peripherals-keyboard-xkb"
 
 /**
  * General config functions (private)

@@ -281,7 +281,7 @@ find_info_for_id (XfceMenuTree  *tree,
 	for (l = items; l; l = l->next)
 	{
 		if (info == NULL
-		        && xfcemenu_tree_item_get_type (l->data) == MATEMENU_TREE_ITEM_ENTRY)
+		        && xfcemenu_tree_item_get_type (l->data) == XFCEMENU_TREE_ITEM_ENTRY)
 		{
 			XfceMenuTreeEntry *entry = l->data;
 			const char     *file_id;
@@ -346,12 +346,12 @@ make_theme_list (GSList             **parent_list,
 		switch (xfcemenu_tree_item_get_type (l->data))
 		{
 
-		case MATEMENU_TREE_ITEM_ENTRY:
+		case XFCEMENU_TREE_ITEM_ENTRY:
 			theme_prepend_entry (parent_list, l->data, filename);
 			break;
 
-		case MATEMENU_TREE_ITEM_ALIAS:
-		case MATEMENU_TREE_ITEM_DIRECTORY:
+		case XFCEMENU_TREE_ITEM_ALIAS:
+		case XFCEMENU_TREE_ITEM_DIRECTORY:
 		default:
 			break;
 		}
@@ -402,7 +402,7 @@ get_themes_tree (void)
 	   and since this is only run once we'll do it here */
 	add_known_engine_locations_to_path ();
 
-	themes_tree = xfcemenu_tree_lookup ("xfce4-screensavers.menu", MATEMENU_TREE_FLAGS_NONE);
+	themes_tree = xfcemenu_tree_lookup ("xfce4-screensavers.menu", XFCEMENU_TREE_FLAGS_NONE);
 
 	return themes_tree;
 }

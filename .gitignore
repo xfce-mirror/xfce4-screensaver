@@ -37,9 +37,9 @@ data/images/cosmos/Makefile
 data/images/cosmos/background-1.xml
 data/images/cosmos/cosmos.xml
 data/images/cosmos/cosmos.xml.in
-data/org.mate.ScreenSaver.service
-data/org.mate.screensaver.gschema.valid
-data/org.mate.screensaver.gschema.xml
+data/org.xfce.ScreenSaver.service
+*.gschema.valid
+*.gschema.xml
 data/xfce4-screensaver-preferences.desktop
 data/xfce4-screensaver.directory
 data/xfce4-screensaver.pc

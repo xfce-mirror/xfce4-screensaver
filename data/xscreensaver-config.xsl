@@ -21,7 +21,7 @@ StartupNotify=false
 Terminal=false
 Type=Application
 Categories=Screensaver;
-OnlyShowIn=MATE;
+OnlyShowIn=XFCE;
 </xsl:template>
 
 </xsl:stylesheet>

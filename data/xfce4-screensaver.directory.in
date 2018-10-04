@@ -4,5 +4,5 @@ _Name=Screensavers
 _Comment=Screensaver themes
 Icon=screensaver
 Type=Directory
-OnlyShowIn=MATE;
+OnlyShowIn=XFCE;
 NoDisplay=false

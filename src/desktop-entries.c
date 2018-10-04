@@ -31,7 +31,7 @@
 enum {
 	DESKTOP_ENTRY_NO_DISPLAY     = 1 << 0,
 	DESKTOP_ENTRY_HIDDEN         = 1 << 1,
-	DESKTOP_ENTRY_SHOW_IN_MATE   = 1 << 2,
+	DESKTOP_ENTRY_SHOW_IN_XFCE   = 1 << 2,
 	DESKTOP_ENTRY_TRYEXEC_FAILED = 1 << 3
 };
 
@@ -69,7 +69,7 @@ static guint get_flags_from_key_file(DesktopEntry* entry, GKeyFile* key_file, co
   char     **strv;
   gboolean   no_display;
   gboolean   hidden;
-  gboolean   show_in_mate;
+  gboolean   show_in_xfce;
   gboolean   tryexec_failed;
   char      *tryexec;
   guint      flags;
@@ -97,7 +97,7 @@ static guint get_flags_from_key_file(DesktopEntry* entry, GKeyFile* key_file, co
       g_error_free (error);
     }
 
-  show_in_mate = TRUE;
+  show_in_xfce = TRUE;
   strv = g_key_file_get_string_list (key_file,
                                      desktop_entry_group,
                                      "OnlyShowIn",
@@ -105,12 +105,12 @@ static guint get_flags_from_key_file(DesktopEntry* entry, GKeyFile* key_file, co
                                      NULL);
   if (strv)
     {
-      show_in_mate = FALSE;
+      show_in_xfce = FALSE;
       for (i = 0; strv[i]; i++)
         {
-          if (!strcmp (strv[i], "MATE"))
+          if (!strcmp (strv[i], "XFCE"))
             {
-              show_in_mate = TRUE;
+              show_in_xfce = TRUE;
               break;
             }
         }
@@ -124,12 +124,12 @@ static guint get_flags_from_key_file(DesktopEntry* entry, GKeyFile* key_file, co
                                          NULL);
       if (strv)
         {
-          show_in_mate = TRUE;
+          show_in_xfce = TRUE;
           for (i = 0; strv[i]; i++)
             {
-              if (!strcmp (strv[i], "MATE"))
+              if (!strcmp (strv[i], "XFCE"))
                 {
-                  show_in_mate = FALSE;
+                  show_in_xfce = FALSE;
                 }
             }
         }
@@ -158,8 +158,8 @@ static guint get_flags_from_key_file(DesktopEntry* entry, GKeyFile* key_file, co
     flags |= DESKTOP_ENTRY_NO_DISPLAY;
   if (hidden)
     flags |= DESKTOP_ENTRY_HIDDEN;
-  if (show_in_mate)
-    flags |= DESKTOP_ENTRY_SHOW_IN_MATE;
+  if (show_in_xfce)
+    flags |= DESKTOP_ENTRY_SHOW_IN_XFCE;
   if (tryexec_failed)
     flags |= DESKTOP_ENTRY_TRYEXEC_FAILED;
 
@@ -277,7 +277,7 @@ static DesktopEntry* desktop_entry_load(DesktopEntry* entry)
 
   retval->name         = GET_LOCALE_STRING ("Name");
   retval->generic_name = GET_LOCALE_STRING ("GenericName");
-  retval->full_name    = GET_LOCALE_STRING ("X-MATE-FullName");
+  retval->full_name    = GET_LOCALE_STRING ("X-XFCE-FullName");
   retval->comment      = GET_LOCALE_STRING ("Comment");
   retval->icon         = GET_LOCALE_STRING ("Icon");
   retval->flags        = get_flags_from_key_file (retval, key_file, desktop_entry_group);
@@ -291,7 +291,7 @@ static DesktopEntry* desktop_entry_load(DesktopEntry* entry)
 
 #undef GET_LOCALE_STRING
 
-  menu_verbose ("Desktop entry \"%s\" (%s, %s, %s, %s, %s) flags: NoDisplay=%s, Hidden=%s, ShowInMATE=%s, TryExecFailed=%s\n",
+  menu_verbose ("Desktop entry \"%s\" (%s, %s, %s, %s, %s) flags: NoDisplay=%s, Hidden=%s, ShowInXFCE=%s, TryExecFailed=%s\n",
                 retval->basename,
                 retval->name,
                 retval->generic_name ? retval->generic_name : "(null)",
@@ -300,7 +300,7 @@ static DesktopEntry* desktop_entry_load(DesktopEntry* entry)
                 retval->icon ? retval->icon : "(null)",
                 retval->flags & DESKTOP_ENTRY_NO_DISPLAY     ? "(true)" : "(false)",
                 retval->flags & DESKTOP_ENTRY_HIDDEN         ? "(true)" : "(false)",
-                retval->flags & DESKTOP_ENTRY_SHOW_IN_MATE  ? "(true)" : "(false)",
+                retval->flags & DESKTOP_ENTRY_SHOW_IN_XFCE  ? "(true)" : "(false)",
                 retval->flags & DESKTOP_ENTRY_TRYEXEC_FAILED ? "(true)" : "(false)");
 
  out:
@@ -508,9 +508,9 @@ gboolean desktop_entry_get_no_display(DesktopEntry* entry)
 	return (entry->flags & DESKTOP_ENTRY_NO_DISPLAY) != 0;
 }
 
-gboolean desktop_entry_get_show_in_mate(DesktopEntry* entry)
+gboolean desktop_entry_get_show_in_xfce(DesktopEntry* entry)
 {
-	return (entry->flags & DESKTOP_ENTRY_SHOW_IN_MATE) != 0;
+	return (entry->flags & DESKTOP_ENTRY_SHOW_IN_XFCE) != 0;
 }
 
 gboolean desktop_entry_get_tryexec_failed(DesktopEntry* entry)

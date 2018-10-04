@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef __MATE_SCREENSAVER_H
-#define __MATE_SCREENSAVER_H
+#ifndef __XFCE_SCREENSAVER_H
+#define __XFCE_SCREENSAVER_H
 
 #include <glib.h>
 
