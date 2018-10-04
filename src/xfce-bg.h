@@ -45,10 +45,10 @@ G_BEGIN_DECLS
 /* whether to draw the desktop bg */
 #define XFCE_BG_KEY_DRAW_BACKGROUND	"draw-background"
 
-/* whether Caja or xfce-settings-daemon draw the desktop */
+/* whether Thunar or xfce-settings-daemon draw the desktop */
 #define XFCE_BG_KEY_SHOW_DESKTOP	"show-desktop-icons"
 
-/* whether to fade when changing background (By Caja/m-s-d) */
+/* whether to fade when changing background (By Thunar/m-s-d) */
 #define XFCE_BG_KEY_BACKGROUND_FADE	"background-fade"
 
 #define XFCE_BG_KEY_PRIMARY_COLOR	"primary-color"

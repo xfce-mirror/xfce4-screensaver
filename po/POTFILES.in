@@ -1,25 +1,29 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
+data/images/cosmos/cosmos.xml.in.in
+[type: gettext/glade]data/lock-dialog-default.ui
+[type: gettext/gsettings]data/org.xfce.background.gschema.xml.in
+[type: gettext/gsettings]data/org.xfce.lockdown.gschema.xml.in
+[type: gettext/gsettings]data/org.xfce.screensaver.gschema.xml.in
+[type: gettext/gsettings]data/org.xfce.session.gschema.xml.in
 data/xfce4-screensaver-preferences.desktop.in
 [type: gettext/glade]data/xfce4-screensaver-preferences.ui
 data/xfce4-screensaver.directory.in
-data/images/cosmos/cosmos.xml.in.in
-[type: gettext/glade]data/lock-dialog-default.ui
-[type: gettext/gsettings]data/org.xfce.screensaver.gschema.xml.in
 savers/cosmos-slideshow.desktop.in.in
+savers/floaters.c
 savers/footlogo-floaters.desktop.in.in
 savers/gnomelogo-floaters.desktop.in.in
 savers/personal-slideshow.desktop.in.in
-savers/popsquares.desktop.in.in
 savers/popsquares.c
-savers/floaters.c
+savers/popsquares.desktop.in.in
 savers/slideshow.c
 src/copy-theme-dialog.c
+src/gs-auth-pam.c
+src/gs-listener-dbus.c
+src/gs-lock-plug.c
+src/xfce-rr.c
 src/xfce4-screensaver-command.c
 src/xfce4-screensaver-dialog.c
 src/xfce4-screensaver-preferences.c
 src/xfce4-screensaver.c
 src/xfce4-screensaver.desktop.in.in
-src/gs-auth-pam.c
-src/gs-listener-dbus.c
-src/gs-lock-plug.c

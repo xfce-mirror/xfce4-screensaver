@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Changwoo Ryu <cwryu@debian.org>, 2006-2010
 # ganadist <ganadist@gmail.com>, 2006
@@ -14,15 +14,505 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MATE Desktop Environment\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-28 15:01+0100\n"
+"POT-Creation-Date: 2018-10-03 22:32-0400\n"
 "PO-Revision-Date: 2017-11-14 11:54+0000\n"
 "Last-Translator: 박정규(Jung-Kyu Park) <bagjunggyu@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/mate/MATE/language/ko/)\n"
+"Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#. Translators: This is the name of a desktop background image that shows outer space images.
+#. You might want to translate it into the equivalent words of your language
+#: ../data/images/cosmos/cosmos.xml.in.in.h:3
+#: ../savers/cosmos-slideshow.desktop.in.in.h:1
+msgid "Cosmos"
+msgstr "우주"
+
+#: ../data/lock-dialog-default.ui.h:1
+msgid "_Leave Message"
+msgstr "메시지 남기기(_L)"
+
+#: ../data/lock-dialog-default.ui.h:2
+msgid "_Switch User"
+msgstr "사용자 바꾸기(_S)"
+
+#: ../data/lock-dialog-default.ui.h:3
+msgid "_Log Out"
+msgstr "로그아웃(_L)"
+
+#: ../data/lock-dialog-default.ui.h:4
+msgid "_Cancel"
+msgstr "취소(_C)"
+
+#: ../data/lock-dialog-default.ui.h:5 ../src/gs-lock-plug.c:1672
+msgid "_Unlock"
+msgstr "잠금 풀기(_U)"
+
+#: ../data/lock-dialog-default.ui.h:7
+#, no-c-format
+msgid "<b>Leave a message for %R:</b>"
+msgstr "<b>%R에게 남길 메시지:</b>"
+
+#: ../data/org.xfce.background.gschema.xml.in.h:1
+msgid "Draw Desktop Background"
+msgstr ""
+
+#: ../data/org.xfce.background.gschema.xml.in.h:2
+msgid "Have xfce draw the desktop background."
+msgstr ""
+
+#: ../data/org.xfce.background.gschema.xml.in.h:3
+msgid "Show Desktop Icons"
+msgstr ""
+
+#: ../data/org.xfce.background.gschema.xml.in.h:4
+msgid "Have xfce file manager (Thunar) draw the desktop icons."
+msgstr ""
+
+#: ../data/org.xfce.background.gschema.xml.in.h:5
+msgid "Fade the background on change"
+msgstr ""
+
+#: ../data/org.xfce.background.gschema.xml.in.h:6
+msgid ""
+"If set to true, then xfce will change the desktop background with a fading "
+"effect."
+msgstr ""
+
+#: ../data/org.xfce.background.gschema.xml.in.h:7
+#, fuzzy
+msgid "Picture Options"
+msgstr "그림 폴더"
+
+#: ../data/org.xfce.background.gschema.xml.in.h:8
+msgid ""
+"Determines how the image set by wallpaper_filename is rendered. Possible "
+"values are \"wallpaper\", \"centered\", \"scaled\", \"stretched\", \"zoom\", "
+"\"spanned\"."
+msgstr ""
+
+#: ../data/org.xfce.background.gschema.xml.in.h:9
+#, fuzzy
+msgid "Picture Filename"
+msgstr "그림 폴더"
+
+#: ../data/org.xfce.background.gschema.xml.in.h:10
+#, fuzzy
+msgid "File to use for the background image."
+msgstr "이미지 배경에 쓸 색상"
+
+#: ../data/org.xfce.background.gschema.xml.in.h:11
+msgid "Picture Opacity"
+msgstr ""
+
+#: ../data/org.xfce.background.gschema.xml.in.h:12
+msgid "Opacity with which to draw the background picture."
+msgstr ""
+
+#: ../data/org.xfce.background.gschema.xml.in.h:13
+msgid "Primary Color"
+msgstr ""
+
+#: ../data/org.xfce.background.gschema.xml.in.h:14
+msgid "Left or Top color when drawing gradients, or the solid color."
+msgstr ""
+
+#: ../data/org.xfce.background.gschema.xml.in.h:15
+msgid "Secondary Color"
+msgstr ""
+
+#: ../data/org.xfce.background.gschema.xml.in.h:16
+msgid "Right or Bottom color when drawing gradients, not used for solid color."
+msgstr ""
+
+#: ../data/org.xfce.background.gschema.xml.in.h:17
+msgid "Color Shading Type"
+msgstr ""
+
+#: ../data/org.xfce.background.gschema.xml.in.h:18
+msgid ""
+"How to shade the background color. Possible values are \"horizontal-gradient"
+"\", \"vertical-gradient\", and \"solid\"."
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:1
+msgid "Disable command line"
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:2
+msgid ""
+"Prevent the user from accessing the terminal or specifying a command line to "
+"be executed. For example, this would disable access to the panel's \"Run "
+"Application\" dialog."
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:3
+msgid "Disable saving files to disk"
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:4
+msgid ""
+"Prevent the user from saving files to disk. For example, this would disable "
+"access to all applications' \"Save as\" dialogs."
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:5
+msgid "Disable printing"
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:6
+msgid ""
+"Prevent the user from printing. For example, this would disable access to "
+"all applications' \"Print\" dialogs."
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:7
+msgid "Disable print setup"
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:8
+msgid ""
+"Prevent the user from modifying print settings. For example, this would "
+"disable access to all applications' \"Print Setup\" dialogs."
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:9
+#, fuzzy
+msgid "Disable user switching"
+msgstr "사용자 전환 허용"
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:10
+#, fuzzy
+msgid ""
+"Prevent the user from switching to another account while his session is "
+"active."
+msgstr ""
+"화면 보호기 동작을 막습니다.  해당 명령이 동작하는 동안 활성화되지 않습니다."
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:11
+msgid "Disable lock screen"
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:12
+#, fuzzy
+msgid "Prevent the user from locking the screen."
+msgstr "화면 보호기를 켭니다(빈 화면)"
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:13
+msgid "Disable URL and MIME type handlers"
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:14
+msgid "Prevent running any URL or MIME type handler applications."
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:15
+msgid "Disable theme settings"
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:16
+msgid "Prevent the user from changing theme settings."
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:17
+msgid "Disable log out"
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:18
+msgid "Prevent the user from logging out."
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:1
+msgid "Activate when idle"
+msgstr "대기시 활성"
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:2
+msgid "Set this to TRUE to activate the screensaver when the session is idle."
+msgstr "참이면 세션 대기시 화면 보호기를 활성화합니다."
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:3
+msgid "Lock on activation"
+msgstr "활성시 잠금"
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:4
+msgid "Set this to TRUE to lock the screen when the screensaver goes active."
+msgstr "참이면 화면 보호기 활성화시 화면을 잠급니다."
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:5
+msgid "Screensaver theme selection mode"
+msgstr "화면 보호기 테마 선택 모드"
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:6
+msgid ""
+"The selection mode used by screensaver. May be \"blank-only\" to enable the "
+"screensaver without using any theme on activation, \"single\" to enable "
+"screensaver using only one theme on activation (specified in \"themes\" "
+"key), and \"random\" to enable the screensaver using a random theme on "
+"activation."
+msgstr ""
+"화면 보호기에서 쓸 선택 모드. \"blank-only\"는 테마를 쓰지 않고 화면보호기를 "
+"켭니다. \"single\"은 화면보호기에서 (\"themes\"키에서 지정한) 하나의 테마만 "
+"씁니다. \"random\"은 아무 테마나 써서 화면보호기를 켭니다."
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:7
+#: ../data/xfce4-screensaver.directory.in.h:2
+msgid "Screensaver themes"
+msgstr "화면 보호기 테마"
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:8
+msgid ""
+"This key specifies the list of themes to be used by the screensaver. It's "
+"ignored when \"mode\" key is \"blank-only\", should provide the theme name "
+"when \"mode\" is \"single\", and should provide a list of themes when \"mode"
+"\" is \"random\"."
+msgstr ""
+"화면 보호기에서 쓸 테마 목록이 이 키에 지정됩니다. \"mode\"키가 \"blank-only"
+"\"이면 무시됩니다. \"mode\"키가 \"single\"이면 테마 이름이, \"random\"이면 테"
+"마 목록이 지정됩니다."
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:9
+msgid "Time before power management baseline"
+msgstr "전원 관리에 들어갈 때까지 시간"
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:10
+msgid ""
+"The number of seconds of inactivity before signalling to power management. "
+"This key is set and maintained by the session power management agent."
+msgstr ""
+"전원 관리에 신호를 보내기까지의 입력이 없는 시간 (초 단위). 이 키 값은 전원 "
+"관리 에이전트가 설정하고 관리합니다."
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:11
+msgid "Time before theme change"
+msgstr "테마 바뀌기 전 시간"
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:12
+msgid "The number of minutes to run before changing the screensaver theme."
+msgstr "화면 보호기 테마가 바뀌기 전 실행 시간(분)."
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:13
+msgid "Time before locking"
+msgstr "잠그기 전 시간"
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:14
+msgid ""
+"The number of minutes after screensaver activation before locking the screen."
+msgstr "화면 보호기가 켜진 후 화면이 잠기는데 걸리는 시간(분)."
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:15
+msgid "Allow embedding a keyboard into the window"
+msgstr "키보드를 창에 포함시킬 수 있음"
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:16
+msgid ""
+"Set this to TRUE to allow embedding a keyboard into the window when trying "
+"to unlock. The \"keyboard_command\" key must be set with the appropriate "
+"command."
+msgstr ""
+"이 값이 참이면 잠금을 풀 때 키보드를 창 안에 내장합니다. \"keyboard_command"
+"\" 키도 적당한 명령어로 설정해야 합니다."
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:17
+msgid "Embedded keyboard command"
+msgstr "내장 키보드 명령어"
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:18
+msgid ""
+"The command that will be run, if the \"embedded_keyboard_enabled\" key is "
+"set to TRUE, to embed a keyboard widget into the window. This command should "
+"implement an XEMBED plug interface and output a window XID on the standard "
+"output."
+msgstr ""
+"\"embedded_keyboard_enabled\" 키가 참이면, 키보드 위젯을 창에 집어 넣을 때 "
+"이 명령을 실행합니다. 이 명령은 XEMBED 플러그 인터페이스에 맞아야 하고 표준 "
+"출력으로 창의 XID를 출력해야 합니다."
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:19
+msgid "Allow logout"
+msgstr "로그아웃 허용"
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:20
+msgid ""
+"Set this to TRUE to offer an option in the unlock dialog to allow logging "
+"out after a delay. The delay is specified in the \"logout_delay\" key."
+msgstr ""
+"지연 시간이 지난 후, 잠금 풀기 창에서 로그아웃 옵션을 제공하려면 이 값을 TRUE"
+"로 설정하십시오. 지연 시간 값은 \"logout_delay\" 키로 지정합니다."
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:21
+msgid "Time before logout option"
+msgstr "로그아웃 옵션 표시 전 시간"
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:22
+msgid ""
+"The number of minutes after the screensaver activation before a logout "
+"option will appear in the unlock dialog. This key has effect only if the "
+"\"logout_enable\" key is set to TRUE."
+msgstr ""
+"화면 보호기가 켜진 후, 잠금 풀기 창에서 로그아웃 옵션이 나타나기 까지 시간. "
+"이 키는 \"logout_enable\"키가 TRUE로 설정되어 있을 때 만 영향을 끼칩니다."
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:23
+msgid "Logout command"
+msgstr "로그아웃 명령"
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:24
+msgid ""
+"The command to invoke when the logout button is clicked. This command should "
+"simply log the user out without any interaction. This key has effect only if "
+"the \"logout_enable\" key is set to TRUE."
+msgstr ""
+"로그아웃 단추를 누를 때 실행할 명령. 이 명령은 아무 상호 작용없이 로그아웃 하"
+"도록 합니다. 이 키 값은 \"logout_enable\"키 값이 TRUE로 설정되어 있을 때만 영"
+"향을 끼칩니다."
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:25
+msgid "Allow user switching"
+msgstr "사용자 전환 허용"
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:26
+msgid ""
+"Set this to TRUE to offer an option in the unlock dialog to switch to a "
+"different user account."
+msgstr ""
+"잠금 풀기 창에서 다른 사용자 계정으로 바꾸는 옵션을 보이려면 이 값을 TRUE로 "
+"설정하십시오."
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:27
+msgid "Theme for lock dialog"
+msgstr "잠금 대화상자 테마"
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:28
+msgid "Theme to use for the lock dialog"
+msgstr "잠금 대화상자에 사용할 테마입니다"
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:29
+msgid "Allow the session status message to be displayed"
+msgstr "세션 상태 메시지를 표시 허용"
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:30
+msgid ""
+"Allow the session status message to be displayed when the screen is locked."
+msgstr "화면을 잠궜을 때 세션 상태 메시지 출력을 허용합니다."
+
+#: ../data/org.xfce.session.gschema.xml.in.h:1
+msgid "Current session start time"
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:2
+#, fuzzy
+msgid "Unix time of the start of the current session."
+msgstr "화면 보호기의 상태를 알아봅니다"
+
+#: ../data/org.xfce.session.gschema.xml.in.h:3
+msgid "Save sessions"
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:4
+msgid "If enabled, xfce-session will save the session automatically."
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:5
+#, fuzzy
+msgid "Logout prompt"
+msgstr "로그아웃 명령"
+
+#: ../data/org.xfce.session.gschema.xml.in.h:6
+msgid "If enabled, xfce-session will prompt the user before ending a session."
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:7
+msgid "Logout timeout"
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:8
+msgid ""
+"If logout prompt is enabled, this set the timeout in seconds before logout "
+"automatically. If 0, automatic logout is disabled."
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:9
+msgid "Time before session is considered idle"
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:10
+#, fuzzy
+msgid ""
+"The number of minutes of inactivity before the session is considered idle."
+msgstr "화면 보호기 테마가 바뀌기 전 실행 시간(분)."
+
+#: ../data/org.xfce.session.gschema.xml.in.h:11
+msgid "Default session"
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:12
+msgid "List of applications that are part of the default session."
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:13
+msgid "Required session components"
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:14
+msgid ""
+"List of components that are required as part of the session. (Each element "
+"names a key under \"/org/xfce/desktop/session/required_components\"). The "
+"Startup Applications preferences tool will not normally allow users to "
+"remove a required component from the session, and the session manager will "
+"automatically add the required components back to the session at login time "
+"if they do get removed."
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:15
+msgid "Control gnome compatibility component startup"
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:16
+msgid "Control which compatibility components to start."
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:17
+msgid "Window Manager"
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:18
+msgid ""
+"The window manager is the program that draws the title bar and borders "
+"around windows, and allows you to move and resize windows."
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:19
+msgid "Panel"
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:20
+msgid ""
+"The panel provides the bar at the top or bottom of the screen containing "
+"menus, the window list, status icons, the clock, etc."
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:21
+msgid "File Manager"
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:22
+msgid ""
+"The file manager provides the desktop icons and allows you to interact with "
+"your saved files."
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:23
+msgid "Dock"
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:24
+msgid ""
+"A dock provides a dockable area, similar to a panel, for launching and "
+"switching applications."
+msgstr ""
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:1
 #: ../src/xfce4-screensaver.desktop.in.in.h:1
@@ -77,231 +567,9 @@ msgstr "<b>경고: 루트 사용자의 경우에는 화면을 잠그지 않습�
 msgid "Screensavers"
 msgstr "화면 보호기"
 
-#: ../data/xfce4-screensaver.directory.in.h:2
-#: ../data/org.mate.screensaver.gschema.xml.in.h:7
-msgid "Screensaver themes"
-msgstr "화면 보호기 테마"
-
-#. Translators: This is the name of a desktop background image that shows
-#. outer space images.
-#. You might want to translate it into the equivalent words of your language
-#: ../data/images/cosmos/cosmos.xml.in.in.h:3
-#: ../savers/cosmos-slideshow.desktop.in.in.h:1
-msgid "Cosmos"
-msgstr "우주"
-
-#: ../data/lock-dialog-default.ui.h:1
-msgid "_Leave Message"
-msgstr "메시지 남기기(_L)"
-
-#: ../data/lock-dialog-default.ui.h:2
-msgid "_Switch User"
-msgstr "사용자 바꾸기(_S)"
-
-#: ../data/lock-dialog-default.ui.h:3
-msgid "_Log Out"
-msgstr "로그아웃(_L)"
-
-#: ../data/lock-dialog-default.ui.h:4
-msgid "_Cancel"
-msgstr "취소(_C)"
-
-#: ../data/lock-dialog-default.ui.h:5 ../src/gs-lock-plug.c:1659
-msgid "_Unlock"
-msgstr "잠금 풀기(_U)"
-
-#: ../data/lock-dialog-default.ui.h:7
-#, no-c-format
-msgid "<b>Leave a message for %R:</b>"
-msgstr "<b>%R에게 남길 메시지:</b>"
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:1
-msgid "Activate when idle"
-msgstr "대기시 활성"
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:2
-msgid "Set this to TRUE to activate the screensaver when the session is idle."
-msgstr "참이면 세션 대기시 화면 보호기를 활성화합니다."
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:3
-msgid "Lock on activation"
-msgstr "활성시 잠금"
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:4
-msgid "Set this to TRUE to lock the screen when the screensaver goes active."
-msgstr "참이면 화면 보호기 활성화시 화면을 잠급니다."
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:5
-msgid "Screensaver theme selection mode"
-msgstr "화면 보호기 테마 선택 모드"
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:6
-msgid ""
-"The selection mode used by screensaver. May be \"blank-only\" to enable the "
-"screensaver without using any theme on activation, \"single\" to enable "
-"screensaver using only one theme on activation (specified in \"themes\" "
-"key), and \"random\" to enable the screensaver using a random theme on "
-"activation."
-msgstr "화면 보호기에서 쓸 선택 모드. \"blank-only\"는 테마를 쓰지 않고 화면보호기를 켭니다. \"single\"은 화면보호기에서 (\"themes\"키에서 지정한) 하나의 테마만 씁니다. \"random\"은 아무 테마나 써서 화면보호기를 켭니다."
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:8
-msgid ""
-"This key specifies the list of themes to be used by the screensaver. It's "
-"ignored when \"mode\" key is \"blank-only\", should provide the theme name "
-"when \"mode\" is \"single\", and should provide a list of themes when "
-"\"mode\" is \"random\"."
-msgstr "화면 보호기에서 쓸 테마 목록이 이 키에 지정됩니다. \"mode\"키가 \"blank-only\"이면 무시됩니다. \"mode\"키가 \"single\"이면 테마 이름이, \"random\"이면 테마 목록이 지정됩니다."
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:9
-msgid "Time before power management baseline"
-msgstr "전원 관리에 들어갈 때까지 시간"
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:10
-msgid ""
-"The number of seconds of inactivity before signalling to power management. "
-"This key is set and maintained by the session power management agent."
-msgstr "전원 관리에 신호를 보내기까지의 입력이 없는 시간 (초 단위). 이 키 값은 전원 관리 에이전트가 설정하고 관리합니다."
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:11
-msgid "Time before theme change"
-msgstr "테마 바뀌기 전 시간"
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:12
-msgid "The number of minutes to run before changing the screensaver theme."
-msgstr "화면 보호기 테마가 바뀌기 전 실행 시간(분)."
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:13
-msgid "Time before locking"
-msgstr "잠그기 전 시간"
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:14
-msgid ""
-"The number of minutes after screensaver activation before locking the "
-"screen."
-msgstr "화면 보호기가 켜진 후 화면이 잠기는데 걸리는 시간(분)."
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:15
-msgid "Allow embedding a keyboard into the window"
-msgstr "키보드를 창에 포함시킬 수 있음"
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:16
-msgid ""
-"Set this to TRUE to allow embedding a keyboard into the window when trying "
-"to unlock. The \"keyboard_command\" key must be set with the appropriate "
-"command."
-msgstr "이 값이 참이면 잠금을 풀 때 키보드를 창 안에 내장합니다. \"keyboard_command\" 키도 적당한 명령어로 설정해야 합니다."
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:17
-msgid "Embedded keyboard command"
-msgstr "내장 키보드 명령어"
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:18
-msgid ""
-"The command that will be run, if the \"embedded_keyboard_enabled\" key is "
-"set to TRUE, to embed a keyboard widget into the window. This command should"
-" implement an XEMBED plug interface and output a window XID on the standard "
-"output."
-msgstr "\"embedded_keyboard_enabled\" 키가 참이면, 키보드 위젯을 창에 집어 넣을 때 이 명령을 실행합니다. 이 명령은 XEMBED 플러그 인터페이스에 맞아야 하고 표준 출력으로 창의 XID를 출력해야 합니다."
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:19
-msgid "Allow logout"
-msgstr "로그아웃 허용"
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:20
-msgid ""
-"Set this to TRUE to offer an option in the unlock dialog to allow logging "
-"out after a delay. The delay is specified in the \"logout_delay\" key."
-msgstr "지연 시간이 지난 후, 잠금 풀기 창에서 로그아웃 옵션을 제공하려면 이 값을 TRUE로 설정하십시오. 지연 시간 값은 \"logout_delay\" 키로 지정합니다."
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:21
-msgid "Time before logout option"
-msgstr "로그아웃 옵션 표시 전 시간"
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:22
-msgid ""
-"The number of minutes after the screensaver activation before a logout "
-"option will appear in the unlock dialog. This key has effect only if the "
-"\"logout_enable\" key is set to TRUE."
-msgstr "화면 보호기가 켜진 후, 잠금 풀기 창에서 로그아웃 옵션이 나타나기 까지 시간. 이 키는 \"logout_enable\"키가 TRUE로 설정되어 있을 때 만 영향을 끼칩니다."
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:23
-msgid "Logout command"
-msgstr "로그아웃 명령"
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:24
-msgid ""
-"The command to invoke when the logout button is clicked. This command should"
-" simply log the user out without any interaction. This key has effect only "
-"if the \"logout_enable\" key is set to TRUE."
-msgstr "로그아웃 단추를 누를 때 실행할 명령. 이 명령은 아무 상호 작용없이 로그아웃 하도록 합니다. 이 키 값은 \"logout_enable\"키 값이 TRUE로 설정되어 있을 때만 영향을 끼칩니다."
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:25
-msgid "Allow user switching"
-msgstr "사용자 전환 허용"
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:26
-msgid ""
-"Set this to TRUE to offer an option in the unlock dialog to switch to a "
-"different user account."
-msgstr "잠금 풀기 창에서 다른 사용자 계정으로 바꾸는 옵션을 보이려면 이 값을 TRUE로 설정하십시오."
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:27
-msgid "Theme for lock dialog"
-msgstr "잠금 대화상자 테마"
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:28
-msgid "Theme to use for the lock dialog"
-msgstr "잠금 대화상자에 사용할 테마입니다"
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:29
-msgid "Allow the session status message to be displayed"
-msgstr "세션 상태 메시지를 표시 허용"
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:30
-msgid ""
-"Allow the session status message to be displayed when the screen is locked."
-msgstr "화면을 잠궜을 때 세션 상태 메시지 출력을 허용합니다."
-
 #: ../savers/cosmos-slideshow.desktop.in.in.h:2
 msgid "Display a slideshow of pictures of the cosmos"
 msgstr "우주 그림의 슬라이드를 보여줍니다"
-
-#: ../savers/footlogo-floaters.desktop.in.in.h:1
-msgid "Floating MATE"
-msgstr "떠다니는 마테"
-
-#: ../savers/footlogo-floaters.desktop.in.in.h:2
-msgid "Bubbles the MATE logo around the screen"
-msgstr "화면에 마테 로고가 떠다닙니다"
-
-#: ../savers/gnomelogo-floaters.desktop.in.in.h:1
-msgid "Floating GNOME"
-msgstr "떠다니는 GNOME"
-
-#: ../savers/gnomelogo-floaters.desktop.in.in.h:2
-msgid "Bubbles the GNOME logo around the screen"
-msgstr "화면에 그놈 발바닥 로고가 떠다닙니다"
-
-#: ../savers/personal-slideshow.desktop.in.in.h:1
-msgid "Pictures folder"
-msgstr "그림 폴더"
-
-#: ../savers/personal-slideshow.desktop.in.in.h:2
-msgid "Display a slideshow from your Pictures folder"
-msgstr "그림 폴더에 있는 그림의 슬라이드를 보여줍니다"
-
-#: ../savers/popsquares.desktop.in.in.h:1
-msgid "Pop art squares"
-msgstr "팝 아트 사각형"
-
-#: ../savers/popsquares.desktop.in.in.h:2
-msgid "A pop-art-ish grid of pulsing colors."
-msgstr "고동치는 색깔의 팝아트 형식 격자 모양."
-
-#: ../savers/popsquares.c:49 ../savers/floaters.c:1188
-#, c-format
-msgid "%s. See --help for usage information.\n"
-msgstr "%s. 사용법을 보려면 --help를 쓰십시오.\n"
 
 #: ../savers/floaters.c:88
 msgid "Show paths that images follow"
@@ -337,14 +605,54 @@ msgstr "사용할 원본 그림"
 
 #. translators: the word "image" here
 #. * represents a command line argument
+#.
 #: ../savers/floaters.c:1182
 msgid "image - floats images around the screen"
 msgstr "그림 - 화면에 그림을 떠다니게 합니다"
+
+#: ../savers/floaters.c:1188 ../savers/popsquares.c:49
+#, c-format
+msgid "%s. See --help for usage information.\n"
+msgstr "%s. 사용법을 보려면 --help를 쓰십시오.\n"
 
 #: ../savers/floaters.c:1197
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr "그림 하나를 지정해야 합니다. 사용법을 보려면 --help를 쓰십시오.\n"
+
+#: ../savers/footlogo-floaters.desktop.in.in.h:1
+#, fuzzy
+msgid "Floating XFCE"
+msgstr "떠다니는 마테"
+
+#: ../savers/footlogo-floaters.desktop.in.in.h:2
+#, fuzzy
+msgid "Bubbles the XFCE logo around the screen"
+msgstr "화면에 마테 로고가 떠다닙니다"
+
+#: ../savers/gnomelogo-floaters.desktop.in.in.h:1
+msgid "Floating GNOME"
+msgstr "떠다니는 GNOME"
+
+#: ../savers/gnomelogo-floaters.desktop.in.in.h:2
+msgid "Bubbles the GNOME logo around the screen"
+msgstr "화면에 그놈 발바닥 로고가 떠다닙니다"
+
+#: ../savers/personal-slideshow.desktop.in.in.h:1
+msgid "Pictures folder"
+msgstr "그림 폴더"
+
+#: ../savers/personal-slideshow.desktop.in.in.h:2
+msgid "Display a slideshow from your Pictures folder"
+msgstr "그림 폴더에 있는 그림의 슬라이드를 보여줍니다"
+
+#: ../savers/popsquares.desktop.in.in.h:1
+msgid "Pop art squares"
+msgstr "팝 아트 사각형"
+
+#: ../savers/popsquares.desktop.in.in.h:2
+msgid "A pop-art-ish grid of pulsing colors."
+msgstr "고동치는 색깔의 팝아트 형식 격자 모양."
 
 #: ../savers/slideshow.c:55
 msgid "Location to get images from"
@@ -400,6 +708,116 @@ msgstr "%s 파일은 올바른 화면 보호기 테마가 아닌 것 같습니�
 msgid "Copying file: %u of %u"
 msgstr "파일 복사 중: %2$u개 중 %1$u개"
 
+#: ../src/gs-auth-pam.c:171 ../src/xfce4-screensaver-dialog.c:168
+#: ../src/xfce4-screensaver-dialog.c:169
+msgid "Password:"
+msgstr "암호:"
+
+#: ../src/gs-auth-pam.c:413
+#, c-format
+msgid "Unable to establish service %s: %s\n"
+msgstr "%s 서비스를 연결하지 못했습니다: %s\n"
+
+#: ../src/gs-auth-pam.c:443
+#, c-format
+msgid "Can't set PAM_TTY=%s"
+msgstr "PAM_TTY=%s 설정을 하지 못했습니다"
+
+#: ../src/gs-auth-pam.c:479
+msgid "Incorrect password."
+msgstr "암호가 올바르지 않습니다."
+
+#: ../src/gs-auth-pam.c:483 ../src/xfce4-screensaver-dialog.c:300
+msgid "Authentication failed."
+msgstr "인증이 실패했습니다."
+
+#: ../src/gs-auth-pam.c:499
+msgid "Not permitted to gain access at this time."
+msgstr "현재는 권한을 얻을 수 없습니다."
+
+#: ../src/gs-auth-pam.c:507
+msgid "No longer permitted to access the system."
+msgstr "더 이상 시스템에 접근할 수 없습니다."
+
+#. login: is whacked always translate to Username:
+#: ../src/gs-auth-pam.c:745 ../src/xfce4-screensaver-dialog.c:165
+#: ../src/xfce4-screensaver-dialog.c:166 ../src/xfce4-screensaver-dialog.c:167
+msgid "Username:"
+msgstr "사용자 이름:"
+
+#: ../src/gs-listener-dbus.c:2180
+msgid "failed to register with the message bus"
+msgstr "메시지 버스에 등록 실패"
+
+#: ../src/gs-listener-dbus.c:2191
+msgid "not connected to the message bus"
+msgstr "메시지 버스에 연결 안됨"
+
+#: ../src/gs-listener-dbus.c:2201 ../src/gs-listener-dbus.c:2233
+msgid "screensaver already running in this session"
+msgstr "이 세션에 화면 보호기가 이미 실행중입니다"
+
+#. Translators: Date format, see https://developer.gnome.org/glib/stable/glib-GDateTime.html#g-date-time-format
+#: ../src/gs-lock-plug.c:303
+msgid "%A, %B %e"
+msgstr "%B %e일 %A"
+
+#: ../src/gs-lock-plug.c:405
+msgid "Time has expired."
+msgstr "시간이 지났습니다."
+
+#: ../src/gs-lock-plug.c:436
+msgid "You have the Caps Lock key on."
+msgstr "Caps Lock키가 눌려져있습니다."
+
+#: ../src/gs-lock-plug.c:1652
+msgid "S_witch User..."
+msgstr "사용자 바꾸기(_W)..."
+
+#: ../src/gs-lock-plug.c:1661
+msgid "Log _Out"
+msgstr "로그아웃(_O)"
+
+#. To translators: This expands to USERNAME on HOSTNAME
+#: ../src/gs-lock-plug.c:1874
+msgid "%U on %h"
+msgstr "%h의 %U"
+
+#: ../src/gs-lock-plug.c:1889
+msgid "_Password:"
+msgstr "암호(_P):"
+
+#. Translators: a CRTC is a CRT Controller (this is X terminology).
+#: ../src/xfce-rr.c:468
+#, c-format
+msgid "could not get the screen resources (CRTCs, outputs, modes)"
+msgstr ""
+
+#: ../src/xfce-rr.c:489
+#, c-format
+msgid "unhandled X error while getting the range of screen sizes"
+msgstr ""
+
+#: ../src/xfce-rr.c:495
+#, c-format
+msgid "could not get the range of screen sizes"
+msgstr ""
+
+#: ../src/xfce-rr.c:714
+#, c-format
+msgid "RANDR extension is not present"
+msgstr ""
+
+#: ../src/xfce-rr.c:1121
+#, c-format
+msgid "could not get information about output %d"
+msgstr ""
+
+#: ../src/xfce-rr.c:1364
+#, c-format
+msgid "could not get information about CRTC %d"
+msgstr ""
+
 #: ../src/xfce4-screensaver-command.c:59
 msgid "Causes the screensaver to exit gracefully"
 msgstr "화면 보호기를 정상적으로 끝냅니다"
@@ -436,7 +854,8 @@ msgstr "실행 중인 화면 보호기를 건드려 사용자가 동작을 흉�
 msgid ""
 "Inhibit the screensaver from activating.  Command blocks while inhibit is "
 "active."
-msgstr "화면 보호기 동작을 막습니다.  해당 명령이 동작하는 동안 활성화되지 않습니다."
+msgstr ""
+"화면 보호기 동작을 막습니다.  해당 명령이 동작하는 동안 활성화되지 않습니다."
 
 #: ../src/xfce4-screensaver-command.c:95
 msgid "The calling application that is inhibiting the screensaver"
@@ -512,17 +931,6 @@ msgstr "<메시지>"
 msgid "Not used"
 msgstr "사용하지 않음"
 
-#. login: is whacked always translate to Username:
-#: ../src/xfce4-screensaver-dialog.c:165 ../src/xfce4-screensaver-dialog.c:166
-#: ../src/xfce4-screensaver-dialog.c:167 ../src/gs-auth-pam.c:745
-msgid "Username:"
-msgstr "사용자 이름:"
-
-#: ../src/xfce4-screensaver-dialog.c:168 ../src/xfce4-screensaver-dialog.c:169
-#: ../src/gs-auth-pam.c:171
-msgid "Password:"
-msgstr "암호:"
-
 #: ../src/xfce4-screensaver-dialog.c:170
 msgid "You are required to change your password immediately (password aged)"
 msgstr "즉시 암호를 바꿔야 합니다(암호가 오래됨)"
@@ -583,39 +991,35 @@ msgstr "암호가 일치하지 않습니다"
 msgid "Checking..."
 msgstr "확인하는 중..."
 
-#: ../src/xfce4-screensaver-dialog.c:300 ../src/gs-auth-pam.c:483
-msgid "Authentication failed."
-msgstr "인증이 실패했습니다."
-
-#: ../src/xfce4-screensaver-preferences.c:461
+#: ../src/xfce4-screensaver-preferences.c:456
 msgid "Blank screen"
 msgstr "빈 화면"
 
-#: ../src/xfce4-screensaver-preferences.c:467
+#: ../src/xfce4-screensaver-preferences.c:462
 msgid "Random"
 msgstr "아무거나"
 
-#: ../src/xfce4-screensaver-preferences.c:953
-#: ../src/xfce4-screensaver-preferences.c:963
+#: ../src/xfce4-screensaver-preferences.c:948
+#: ../src/xfce4-screensaver-preferences.c:958
 #, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d시간"
 
-#: ../src/xfce4-screensaver-preferences.c:956
-#: ../src/xfce4-screensaver-preferences.c:965
-#: ../src/xfce4-screensaver-preferences.c:974
+#: ../src/xfce4-screensaver-preferences.c:951
+#: ../src/xfce4-screensaver-preferences.c:960
+#: ../src/xfce4-screensaver-preferences.c:969
+#: ../src/xfce4-screensaver-preferences.c:972
 #: ../src/xfce4-screensaver-preferences.c:977
-#: ../src/xfce4-screensaver-preferences.c:982
+#: ../src/xfce4-screensaver-preferences.c:980
 #: ../src/xfce4-screensaver-preferences.c:985
-#: ../src/xfce4-screensaver-preferences.c:990
-#: ../src/xfce4-screensaver-preferences.c:993
+#: ../src/xfce4-screensaver-preferences.c:988
 #, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d분"
 
-#: ../src/xfce4-screensaver-preferences.c:959
+#: ../src/xfce4-screensaver-preferences.c:954
 #, c-format
 msgid "%d second"
 msgid_plural "%d seconds"
@@ -623,15 +1027,15 @@ msgstr[0] "%d초"
 
 #. hour:minutes
 #. minutes:seconds
-#: ../src/xfce4-screensaver-preferences.c:962
-#: ../src/xfce4-screensaver-preferences.c:1009
-#: ../src/xfce4-screensaver-preferences.c:1022
+#: ../src/xfce4-screensaver-preferences.c:957
+#: ../src/xfce4-screensaver-preferences.c:1004
+#: ../src/xfce4-screensaver-preferences.c:1017
 #, c-format
 msgid "%s %s"
 msgstr "%s %s"
 
 #. hour:minutes:seconds
-#: ../src/xfce4-screensaver-preferences.c:1004
+#: ../src/xfce4-screensaver-preferences.c:999
 #, c-format
 msgid "%s %s %s"
 msgstr "%s %s %s"
@@ -639,23 +1043,23 @@ msgstr "%s %s %s"
 #. hour
 #. minutes
 #. seconds
-#: ../src/xfce4-screensaver-preferences.c:1014
-#: ../src/xfce4-screensaver-preferences.c:1027
-#: ../src/xfce4-screensaver-preferences.c:1063
+#: ../src/xfce4-screensaver-preferences.c:1009
+#: ../src/xfce4-screensaver-preferences.c:1022
+#: ../src/xfce4-screensaver-preferences.c:1058
 #, c-format
 msgid "%s"
 msgstr "%s"
 
-#: ../src/xfce4-screensaver-preferences.c:1078
+#: ../src/xfce4-screensaver-preferences.c:1073
 #, c-format
 msgid "Never"
 msgstr "사용 안함"
 
-#: ../src/xfce4-screensaver-preferences.c:1567
+#: ../src/xfce4-screensaver-preferences.c:1558
 msgid "Could not load the main interface"
 msgstr "주 인터페이스를 불러올 수 없습니다"
 
-#: ../src/xfce4-screensaver-preferences.c:1569
+#: ../src/xfce4-screensaver-preferences.c:1560
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "화면 보호기를 올바로 설치하십시오"
 
@@ -670,68 +1074,3 @@ msgstr "디버깅 코드 사용"
 #: ../src/xfce4-screensaver.desktop.in.in.h:2
 msgid "Launch screensaver and locker program"
 msgstr "화면 보호기 및 잠금 프로그램 실행"
-
-#: ../src/gs-auth-pam.c:413
-#, c-format
-msgid "Unable to establish service %s: %s\n"
-msgstr "%s 서비스를 연결하지 못했습니다: %s\n"
-
-#: ../src/gs-auth-pam.c:443
-#, c-format
-msgid "Can't set PAM_TTY=%s"
-msgstr "PAM_TTY=%s 설정을 하지 못했습니다"
-
-#: ../src/gs-auth-pam.c:479
-msgid "Incorrect password."
-msgstr "암호가 올바르지 않습니다."
-
-#: ../src/gs-auth-pam.c:499
-msgid "Not permitted to gain access at this time."
-msgstr "현재는 권한을 얻을 수 없습니다."
-
-#: ../src/gs-auth-pam.c:507
-msgid "No longer permitted to access the system."
-msgstr "더 이상 시스템에 접근할 수 없습니다."
-
-#: ../src/gs-listener-dbus.c:2180
-msgid "failed to register with the message bus"
-msgstr "메시지 버스에 등록 실패"
-
-#: ../src/gs-listener-dbus.c:2191
-msgid "not connected to the message bus"
-msgstr "메시지 버스에 연결 안됨"
-
-#: ../src/gs-listener-dbus.c:2201 ../src/gs-listener-dbus.c:2233
-msgid "screensaver already running in this session"
-msgstr "이 세션에 화면 보호기가 이미 실행중입니다"
-
-#. Translators: Date format, see https://developer.gnome.org/glib/stable/glib-
-#. GDateTime.html#g-date-time-format
-#: ../src/gs-lock-plug.c:304
-msgid "%A, %B %e"
-msgstr "%B %e일 %A"
-
-#: ../src/gs-lock-plug.c:406
-msgid "Time has expired."
-msgstr "시간이 지났습니다."
-
-#: ../src/gs-lock-plug.c:437
-msgid "You have the Caps Lock key on."
-msgstr "Caps Lock키가 눌려져있습니다."
-
-#: ../src/gs-lock-plug.c:1639
-msgid "S_witch User..."
-msgstr "사용자 바꾸기(_W)..."
-
-#: ../src/gs-lock-plug.c:1648
-msgid "Log _Out"
-msgstr "로그아웃(_O)"
-
-#. To translators: This expands to USERNAME on HOSTNAME
-#: ../src/gs-lock-plug.c:1873
-msgid "%U on %h"
-msgstr "%h의 %U"
-
-#: ../src/gs-lock-plug.c:1892
-msgid "_Password:"
-msgstr "암호(_P):"

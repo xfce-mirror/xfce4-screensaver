@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # sir_hawell <arash.cordi@gmail.com>, 2014
 # Elnaz Sarbar <elnaz@farsiweb.info>, 2006
@@ -10,15 +10,480 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MATE Desktop Environment\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-28 15:01+0100\n"
+"POT-Creation-Date: 2018-10-03 22:32-0400\n"
 "PO-Revision-Date: 2017-09-19 13:40+0000\n"
 "Last-Translator: Vlad Orlov <monsta@inbox.ru>\n"
 "Language-Team: Persian (http://www.transifex.com/mate/MATE/language/fa/)\n"
+"Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fa\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#. Translators: This is the name of a desktop background image that shows outer space images.
+#. You might want to translate it into the equivalent words of your language
+#: ../data/images/cosmos/cosmos.xml.in.in.h:3
+#: ../savers/cosmos-slideshow.desktop.in.in.h:1
+msgid "Cosmos"
+msgstr "کیهان"
+
+#: ../data/lock-dialog-default.ui.h:1
+msgid "_Leave Message"
+msgstr "_باقی گذاشتن پیام"
+
+#: ../data/lock-dialog-default.ui.h:2
+msgid "_Switch User"
+msgstr "ت_عویض کاربر..."
+
+#: ../data/lock-dialog-default.ui.h:3
+msgid "_Log Out"
+msgstr "_خروج از سیستم"
+
+#: ../data/lock-dialog-default.ui.h:4
+msgid "_Cancel"
+msgstr "ان_صراف"
+
+#: ../data/lock-dialog-default.ui.h:5 ../src/gs-lock-plug.c:1672
+msgid "_Unlock"
+msgstr "_باز کردن قفل"
+
+#: ../data/lock-dialog-default.ui.h:7
+#, no-c-format
+msgid "<b>Leave a message for %R:</b>"
+msgstr "<b>باقی گذاشتن پیام برای %R</b>"
+
+#: ../data/org.xfce.background.gschema.xml.in.h:1
+msgid "Draw Desktop Background"
+msgstr ""
+
+#: ../data/org.xfce.background.gschema.xml.in.h:2
+msgid "Have xfce draw the desktop background."
+msgstr ""
+
+#: ../data/org.xfce.background.gschema.xml.in.h:3
+msgid "Show Desktop Icons"
+msgstr ""
+
+#: ../data/org.xfce.background.gschema.xml.in.h:4
+msgid "Have xfce file manager (Thunar) draw the desktop icons."
+msgstr ""
+
+#: ../data/org.xfce.background.gschema.xml.in.h:5
+msgid "Fade the background on change"
+msgstr ""
+
+#: ../data/org.xfce.background.gschema.xml.in.h:6
+msgid ""
+"If set to true, then xfce will change the desktop background with a fading "
+"effect."
+msgstr ""
+
+#: ../data/org.xfce.background.gschema.xml.in.h:7
+#, fuzzy
+msgid "Picture Options"
+msgstr "پوشهٔ تصاویر"
+
+#: ../data/org.xfce.background.gschema.xml.in.h:8
+msgid ""
+"Determines how the image set by wallpaper_filename is rendered. Possible "
+"values are \"wallpaper\", \"centered\", \"scaled\", \"stretched\", \"zoom\", "
+"\"spanned\"."
+msgstr ""
+
+#: ../data/org.xfce.background.gschema.xml.in.h:9
+#, fuzzy
+msgid "Picture Filename"
+msgstr "پوشهٔ تصاویر"
+
+#: ../data/org.xfce.background.gschema.xml.in.h:10
+#, fuzzy
+msgid "File to use for the background image."
+msgstr "رنگ پس زمینه تصاویر"
+
+#: ../data/org.xfce.background.gschema.xml.in.h:11
+msgid "Picture Opacity"
+msgstr ""
+
+#: ../data/org.xfce.background.gschema.xml.in.h:12
+msgid "Opacity with which to draw the background picture."
+msgstr ""
+
+#: ../data/org.xfce.background.gschema.xml.in.h:13
+msgid "Primary Color"
+msgstr ""
+
+#: ../data/org.xfce.background.gschema.xml.in.h:14
+msgid "Left or Top color when drawing gradients, or the solid color."
+msgstr ""
+
+#: ../data/org.xfce.background.gschema.xml.in.h:15
+msgid "Secondary Color"
+msgstr ""
+
+#: ../data/org.xfce.background.gschema.xml.in.h:16
+msgid "Right or Bottom color when drawing gradients, not used for solid color."
+msgstr ""
+
+#: ../data/org.xfce.background.gschema.xml.in.h:17
+msgid "Color Shading Type"
+msgstr ""
+
+#: ../data/org.xfce.background.gschema.xml.in.h:18
+msgid ""
+"How to shade the background color. Possible values are \"horizontal-gradient"
+"\", \"vertical-gradient\", and \"solid\"."
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:1
+msgid "Disable command line"
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:2
+msgid ""
+"Prevent the user from accessing the terminal or specifying a command line to "
+"be executed. For example, this would disable access to the panel's \"Run "
+"Application\" dialog."
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:3
+msgid "Disable saving files to disk"
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:4
+msgid ""
+"Prevent the user from saving files to disk. For example, this would disable "
+"access to all applications' \"Save as\" dialogs."
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:5
+msgid "Disable printing"
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:6
+msgid ""
+"Prevent the user from printing. For example, this would disable access to "
+"all applications' \"Print\" dialogs."
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:7
+msgid "Disable print setup"
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:8
+msgid ""
+"Prevent the user from modifying print settings. For example, this would "
+"disable access to all applications' \"Print Setup\" dialogs."
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:9
+msgid "Disable user switching"
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:10
+#, fuzzy
+msgid ""
+"Prevent the user from switching to another account while his session is "
+"active."
+msgstr ""
+"از فعال شدن محافظ صفحهٔ نمایش ممانعت شود. هنگام ممانعت، فرمان مسدود می‌شود."
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:11
+msgid "Disable lock screen"
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:12
+#, fuzzy
+msgid "Prevent the user from locking the screen."
+msgstr "محافظ صفحهٔ نمایش روشن شود (صفحهٔ نمایش خالی شود)"
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:13
+msgid "Disable URL and MIME type handlers"
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:14
+msgid "Prevent running any URL or MIME type handler applications."
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:15
+msgid "Disable theme settings"
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:16
+msgid "Prevent the user from changing theme settings."
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:17
+msgid "Disable log out"
+msgstr ""
+
+#: ../data/org.xfce.lockdown.gschema.xml.in.h:18
+msgid "Prevent the user from logging out."
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:1
+msgid "Activate when idle"
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:2
+msgid "Set this to TRUE to activate the screensaver when the session is idle."
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:3
+msgid "Lock on activation"
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:4
+msgid "Set this to TRUE to lock the screen when the screensaver goes active."
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:5
+msgid "Screensaver theme selection mode"
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:6
+msgid ""
+"The selection mode used by screensaver. May be \"blank-only\" to enable the "
+"screensaver without using any theme on activation, \"single\" to enable "
+"screensaver using only one theme on activation (specified in \"themes\" "
+"key), and \"random\" to enable the screensaver using a random theme on "
+"activation."
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:7
+#: ../data/xfce4-screensaver.directory.in.h:2
+msgid "Screensaver themes"
+msgstr "تم‌های محافظ صفحهٔ نمایش"
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:8
+msgid ""
+"This key specifies the list of themes to be used by the screensaver. It's "
+"ignored when \"mode\" key is \"blank-only\", should provide the theme name "
+"when \"mode\" is \"single\", and should provide a list of themes when \"mode"
+"\" is \"random\"."
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:9
+msgid "Time before power management baseline"
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:10
+msgid ""
+"The number of seconds of inactivity before signalling to power management. "
+"This key is set and maintained by the session power management agent."
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:11
+msgid "Time before theme change"
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:12
+msgid "The number of minutes to run before changing the screensaver theme."
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:13
+msgid "Time before locking"
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:14
+msgid ""
+"The number of minutes after screensaver activation before locking the screen."
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:15
+msgid "Allow embedding a keyboard into the window"
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:16
+msgid ""
+"Set this to TRUE to allow embedding a keyboard into the window when trying "
+"to unlock. The \"keyboard_command\" key must be set with the appropriate "
+"command."
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:17
+msgid "Embedded keyboard command"
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:18
+msgid ""
+"The command that will be run, if the \"embedded_keyboard_enabled\" key is "
+"set to TRUE, to embed a keyboard widget into the window. This command should "
+"implement an XEMBED plug interface and output a window XID on the standard "
+"output."
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:19
+msgid "Allow logout"
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:20
+msgid ""
+"Set this to TRUE to offer an option in the unlock dialog to allow logging "
+"out after a delay. The delay is specified in the \"logout_delay\" key."
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:21
+msgid "Time before logout option"
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:22
+msgid ""
+"The number of minutes after the screensaver activation before a logout "
+"option will appear in the unlock dialog. This key has effect only if the "
+"\"logout_enable\" key is set to TRUE."
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:23
+msgid "Logout command"
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:24
+msgid ""
+"The command to invoke when the logout button is clicked. This command should "
+"simply log the user out without any interaction. This key has effect only if "
+"the \"logout_enable\" key is set to TRUE."
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:25
+msgid "Allow user switching"
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:26
+msgid ""
+"Set this to TRUE to offer an option in the unlock dialog to switch to a "
+"different user account."
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:27
+msgid "Theme for lock dialog"
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:28
+msgid "Theme to use for the lock dialog"
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:29
+msgid "Allow the session status message to be displayed"
+msgstr ""
+
+#: ../data/org.xfce.screensaver.gschema.xml.in.h:30
+msgid ""
+"Allow the session status message to be displayed when the screen is locked."
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:1
+msgid "Current session start time"
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:2
+#, fuzzy
+msgid "Unix time of the start of the current session."
+msgstr "پرس‌وجو از وضعیت محافظ صفحهٔ نمایش"
+
+#: ../data/org.xfce.session.gschema.xml.in.h:3
+msgid "Save sessions"
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:4
+msgid "If enabled, xfce-session will save the session automatically."
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:5
+msgid "Logout prompt"
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:6
+msgid "If enabled, xfce-session will prompt the user before ending a session."
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:7
+msgid "Logout timeout"
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:8
+msgid ""
+"If logout prompt is enabled, this set the timeout in seconds before logout "
+"automatically. If 0, automatic logout is disabled."
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:9
+msgid "Time before session is considered idle"
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:10
+msgid ""
+"The number of minutes of inactivity before the session is considered idle."
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:11
+msgid "Default session"
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:12
+msgid "List of applications that are part of the default session."
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:13
+msgid "Required session components"
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:14
+msgid ""
+"List of components that are required as part of the session. (Each element "
+"names a key under \"/org/xfce/desktop/session/required_components\"). The "
+"Startup Applications preferences tool will not normally allow users to "
+"remove a required component from the session, and the session manager will "
+"automatically add the required components back to the session at login time "
+"if they do get removed."
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:15
+msgid "Control gnome compatibility component startup"
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:16
+msgid "Control which compatibility components to start."
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:17
+msgid "Window Manager"
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:18
+msgid ""
+"The window manager is the program that draws the title bar and borders "
+"around windows, and allows you to move and resize windows."
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:19
+msgid "Panel"
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:20
+msgid ""
+"The panel provides the bar at the top or bottom of the screen containing "
+"menus, the window list, status icons, the clock, etc."
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:21
+msgid "File Manager"
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:22
+msgid ""
+"The file manager provides the desktop icons and allows you to interact with "
+"your saved files."
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:23
+msgid "Dock"
+msgstr ""
+
+#: ../data/org.xfce.session.gschema.xml.in.h:24
+msgid ""
+"A dock provides a dockable area, similar to a panel, for launching and "
+"switching applications."
+msgstr ""
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:1
 #: ../src/xfce4-screensaver.desktop.in.in.h:1
@@ -73,231 +538,9 @@ msgstr "<b>اخطار: صفحهٔ نمایش کاربر root قفل نخواهد
 msgid "Screensavers"
 msgstr "محافظ‌های صفحهٔ نمایش"
 
-#: ../data/xfce4-screensaver.directory.in.h:2
-#: ../data/org.mate.screensaver.gschema.xml.in.h:7
-msgid "Screensaver themes"
-msgstr "تم‌های محافظ صفحهٔ نمایش"
-
-#. Translators: This is the name of a desktop background image that shows
-#. outer space images.
-#. You might want to translate it into the equivalent words of your language
-#: ../data/images/cosmos/cosmos.xml.in.in.h:3
-#: ../savers/cosmos-slideshow.desktop.in.in.h:1
-msgid "Cosmos"
-msgstr "کیهان"
-
-#: ../data/lock-dialog-default.ui.h:1
-msgid "_Leave Message"
-msgstr "_باقی گذاشتن پیام"
-
-#: ../data/lock-dialog-default.ui.h:2
-msgid "_Switch User"
-msgstr "ت_عویض کاربر..."
-
-#: ../data/lock-dialog-default.ui.h:3
-msgid "_Log Out"
-msgstr "_خروج از سیستم"
-
-#: ../data/lock-dialog-default.ui.h:4
-msgid "_Cancel"
-msgstr "ان_صراف"
-
-#: ../data/lock-dialog-default.ui.h:5 ../src/gs-lock-plug.c:1659
-msgid "_Unlock"
-msgstr "_باز کردن قفل"
-
-#: ../data/lock-dialog-default.ui.h:7
-#, no-c-format
-msgid "<b>Leave a message for %R:</b>"
-msgstr "<b>باقی گذاشتن پیام برای %R</b>"
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:1
-msgid "Activate when idle"
-msgstr ""
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:2
-msgid "Set this to TRUE to activate the screensaver when the session is idle."
-msgstr ""
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:3
-msgid "Lock on activation"
-msgstr ""
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:4
-msgid "Set this to TRUE to lock the screen when the screensaver goes active."
-msgstr ""
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:5
-msgid "Screensaver theme selection mode"
-msgstr ""
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:6
-msgid ""
-"The selection mode used by screensaver. May be \"blank-only\" to enable the "
-"screensaver without using any theme on activation, \"single\" to enable "
-"screensaver using only one theme on activation (specified in \"themes\" "
-"key), and \"random\" to enable the screensaver using a random theme on "
-"activation."
-msgstr ""
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:8
-msgid ""
-"This key specifies the list of themes to be used by the screensaver. It's "
-"ignored when \"mode\" key is \"blank-only\", should provide the theme name "
-"when \"mode\" is \"single\", and should provide a list of themes when "
-"\"mode\" is \"random\"."
-msgstr ""
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:9
-msgid "Time before power management baseline"
-msgstr ""
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:10
-msgid ""
-"The number of seconds of inactivity before signalling to power management. "
-"This key is set and maintained by the session power management agent."
-msgstr ""
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:11
-msgid "Time before theme change"
-msgstr ""
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:12
-msgid "The number of minutes to run before changing the screensaver theme."
-msgstr ""
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:13
-msgid "Time before locking"
-msgstr ""
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:14
-msgid ""
-"The number of minutes after screensaver activation before locking the "
-"screen."
-msgstr ""
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:15
-msgid "Allow embedding a keyboard into the window"
-msgstr ""
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:16
-msgid ""
-"Set this to TRUE to allow embedding a keyboard into the window when trying "
-"to unlock. The \"keyboard_command\" key must be set with the appropriate "
-"command."
-msgstr ""
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:17
-msgid "Embedded keyboard command"
-msgstr ""
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:18
-msgid ""
-"The command that will be run, if the \"embedded_keyboard_enabled\" key is "
-"set to TRUE, to embed a keyboard widget into the window. This command should"
-" implement an XEMBED plug interface and output a window XID on the standard "
-"output."
-msgstr ""
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:19
-msgid "Allow logout"
-msgstr ""
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:20
-msgid ""
-"Set this to TRUE to offer an option in the unlock dialog to allow logging "
-"out after a delay. The delay is specified in the \"logout_delay\" key."
-msgstr ""
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:21
-msgid "Time before logout option"
-msgstr ""
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:22
-msgid ""
-"The number of minutes after the screensaver activation before a logout "
-"option will appear in the unlock dialog. This key has effect only if the "
-"\"logout_enable\" key is set to TRUE."
-msgstr ""
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:23
-msgid "Logout command"
-msgstr ""
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:24
-msgid ""
-"The command to invoke when the logout button is clicked. This command should"
-" simply log the user out without any interaction. This key has effect only "
-"if the \"logout_enable\" key is set to TRUE."
-msgstr ""
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:25
-msgid "Allow user switching"
-msgstr ""
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:26
-msgid ""
-"Set this to TRUE to offer an option in the unlock dialog to switch to a "
-"different user account."
-msgstr ""
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:27
-msgid "Theme for lock dialog"
-msgstr ""
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:28
-msgid "Theme to use for the lock dialog"
-msgstr ""
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:29
-msgid "Allow the session status message to be displayed"
-msgstr ""
-
-#: ../data/org.mate.screensaver.gschema.xml.in.h:30
-msgid ""
-"Allow the session status message to be displayed when the screen is locked."
-msgstr ""
-
 #: ../savers/cosmos-slideshow.desktop.in.in.h:2
 msgid "Display a slideshow of pictures of the cosmos"
 msgstr "اسلایدهایی از تصاویر کیهان نمایش داده شود"
-
-#: ../savers/footlogo-floaters.desktop.in.in.h:1
-msgid "Floating MATE"
-msgstr "MATE معلق"
-
-#: ../savers/footlogo-floaters.desktop.in.in.h:2
-msgid "Bubbles the MATE logo around the screen"
-msgstr "حباب‌پراکنی از لوگوی MATE در اطراف صفحهٔ نمایش"
-
-#: ../savers/gnomelogo-floaters.desktop.in.in.h:1
-msgid "Floating GNOME"
-msgstr "GNOME معلق"
-
-#: ../savers/gnomelogo-floaters.desktop.in.in.h:2
-msgid "Bubbles the GNOME logo around the screen"
-msgstr "حباب‌پراکنی از لوگوی گنوم در اطراف صفحهٔ نمایش"
-
-#: ../savers/personal-slideshow.desktop.in.in.h:1
-msgid "Pictures folder"
-msgstr "پوشهٔ تصاویر"
-
-#: ../savers/personal-slideshow.desktop.in.in.h:2
-msgid "Display a slideshow from your Pictures folder"
-msgstr "اسلایدهایی از پوشهٔ تصاویر شما نمایش داده شود"
-
-#: ../savers/popsquares.desktop.in.in.h:1
-msgid "Pop art squares"
-msgstr "مربع‌های پاپ"
-
-#: ../savers/popsquares.desktop.in.in.h:2
-msgid "A pop-art-ish grid of pulsing colors."
-msgstr "چهارخانه‌ای با رنگ‌های تپنده به سبک هنر پاپ."
-
-#: ../savers/popsquares.c:49 ../savers/floaters.c:1188
-#, c-format
-msgid "%s. See --help for usage information.\n"
-msgstr "%s.  برای اطلاعات در مورد طرز استفاده --help را ببینید.\n"
 
 #: ../savers/floaters.c:88
 msgid "Show paths that images follow"
@@ -333,14 +576,55 @@ msgstr "تصویر منبع برای استفاده"
 
 #. translators: the word "image" here
 #. * represents a command line argument
+#.
 #: ../savers/floaters.c:1182
 msgid "image - floats images around the screen"
 msgstr "image - تصاویر را اطراف صفحهٔ نمایش شناور می‌کند"
 
+#: ../savers/floaters.c:1188 ../savers/popsquares.c:49
+#, c-format
+msgid "%s. See --help for usage information.\n"
+msgstr "%s.  برای اطلاعات در مورد طرز استفاده --help را ببینید.\n"
+
 #: ../savers/floaters.c:1197
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
-msgstr "باید یک تصویر مشخص کنید.  برای اطلاعات  در مورد استفاده --help را ببینید.\n"
+msgstr ""
+"باید یک تصویر مشخص کنید.  برای اطلاعات  در مورد استفاده --help را ببینید.\n"
+
+#: ../savers/footlogo-floaters.desktop.in.in.h:1
+#, fuzzy
+msgid "Floating XFCE"
+msgstr "MATE معلق"
+
+#: ../savers/footlogo-floaters.desktop.in.in.h:2
+#, fuzzy
+msgid "Bubbles the XFCE logo around the screen"
+msgstr "حباب‌پراکنی از لوگوی MATE در اطراف صفحهٔ نمایش"
+
+#: ../savers/gnomelogo-floaters.desktop.in.in.h:1
+msgid "Floating GNOME"
+msgstr "GNOME معلق"
+
+#: ../savers/gnomelogo-floaters.desktop.in.in.h:2
+msgid "Bubbles the GNOME logo around the screen"
+msgstr "حباب‌پراکنی از لوگوی گنوم در اطراف صفحهٔ نمایش"
+
+#: ../savers/personal-slideshow.desktop.in.in.h:1
+msgid "Pictures folder"
+msgstr "پوشهٔ تصاویر"
+
+#: ../savers/personal-slideshow.desktop.in.in.h:2
+msgid "Display a slideshow from your Pictures folder"
+msgstr "اسلایدهایی از پوشهٔ تصاویر شما نمایش داده شود"
+
+#: ../savers/popsquares.desktop.in.in.h:1
+msgid "Pop art squares"
+msgstr "مربع‌های پاپ"
+
+#: ../savers/popsquares.desktop.in.in.h:2
+msgid "A pop-art-ish grid of pulsing colors."
+msgstr "چهارخانه‌ای با رنگ‌های تپنده به سبک هنر پاپ."
 
 #: ../savers/slideshow.c:55
 msgid "Location to get images from"
@@ -396,6 +680,116 @@ msgstr "به نظر نمی رسد %s تم محافظ صفحه نمایش معت�
 msgid "Copying file: %u of %u"
 msgstr "در حال نسخه‌برداری پروندهٔ: %Iu از %Iu"
 
+#: ../src/gs-auth-pam.c:171 ../src/xfce4-screensaver-dialog.c:168
+#: ../src/xfce4-screensaver-dialog.c:169
+msgid "Password:"
+msgstr "گذرواژه:"
+
+#: ../src/gs-auth-pam.c:413
+#, c-format
+msgid "Unable to establish service %s: %s\n"
+msgstr "بر پا کردن سرویس %s ممکن نیست: %s\n"
+
+#: ../src/gs-auth-pam.c:443
+#, c-format
+msgid "Can't set PAM_TTY=%s"
+msgstr "نمی‌توان PAM_TTY=%s را تنظیم کرد"
+
+#: ../src/gs-auth-pam.c:479
+msgid "Incorrect password."
+msgstr "گذرواژه نادرست است"
+
+#: ../src/gs-auth-pam.c:483 ../src/xfce4-screensaver-dialog.c:300
+msgid "Authentication failed."
+msgstr "تأیید هویت شکست خورد."
+
+#: ../src/gs-auth-pam.c:499
+msgid "Not permitted to gain access at this time."
+msgstr "اجازهٔ دسترسی این بار داده نشده است."
+
+#: ../src/gs-auth-pam.c:507
+msgid "No longer permitted to access the system."
+msgstr "دیگر اجازهٔ دسترسی به سیستم را ندارد."
+
+#. login: is whacked always translate to Username:
+#: ../src/gs-auth-pam.c:745 ../src/xfce4-screensaver-dialog.c:165
+#: ../src/xfce4-screensaver-dialog.c:166 ../src/xfce4-screensaver-dialog.c:167
+msgid "Username:"
+msgstr "نام کاربری:"
+
+#: ../src/gs-listener-dbus.c:2180
+msgid "failed to register with the message bus"
+msgstr "ثبت نام در گذرگاه پیغام شکست خورد"
+
+#: ../src/gs-listener-dbus.c:2191
+msgid "not connected to the message bus"
+msgstr "به گذرگاه پیغام متصل نیست"
+
+#: ../src/gs-listener-dbus.c:2201 ../src/gs-listener-dbus.c:2233
+msgid "screensaver already running in this session"
+msgstr "محافظ صفحهٔ نمایش از قبل در این نشست در حال اجرا است"
+
+#. Translators: Date format, see https://developer.gnome.org/glib/stable/glib-GDateTime.html#g-date-time-format
+#: ../src/gs-lock-plug.c:303
+msgid "%A, %B %e"
+msgstr "%l:%M %p"
+
+#: ../src/gs-lock-plug.c:405
+msgid "Time has expired."
+msgstr "زمان منقضی شد."
+
+#: ../src/gs-lock-plug.c:436
+msgid "You have the Caps Lock key on."
+msgstr "کلید قفل تبدیل روشن است."
+
+#: ../src/gs-lock-plug.c:1652
+msgid "S_witch User..."
+msgstr "ت_عویض کاربر..."
+
+#: ../src/gs-lock-plug.c:1661
+msgid "Log _Out"
+msgstr "_خروج از سیستم"
+
+#. To translators: This expands to USERNAME on HOSTNAME
+#: ../src/gs-lock-plug.c:1874
+msgid "%U on %h"
+msgstr "%U روی %h"
+
+#: ../src/gs-lock-plug.c:1889
+msgid "_Password:"
+msgstr "_گذرواژه:"
+
+#. Translators: a CRTC is a CRT Controller (this is X terminology).
+#: ../src/xfce-rr.c:468
+#, c-format
+msgid "could not get the screen resources (CRTCs, outputs, modes)"
+msgstr ""
+
+#: ../src/xfce-rr.c:489
+#, c-format
+msgid "unhandled X error while getting the range of screen sizes"
+msgstr ""
+
+#: ../src/xfce-rr.c:495
+#, c-format
+msgid "could not get the range of screen sizes"
+msgstr ""
+
+#: ../src/xfce-rr.c:714
+#, c-format
+msgid "RANDR extension is not present"
+msgstr ""
+
+#: ../src/xfce-rr.c:1121
+#, c-format
+msgid "could not get information about output %d"
+msgstr ""
+
+#: ../src/xfce-rr.c:1364
+#, c-format
+msgid "could not get information about CRTC %d"
+msgstr ""
+
 #: ../src/xfce4-screensaver-command.c:59
 msgid "Causes the screensaver to exit gracefully"
 msgstr "باعث می‌شود محافظ صفحهٔ نمایش به آرامی خارج شود"
@@ -410,7 +804,9 @@ msgstr "پرس و جوی مدت زمانی که محافظ صفحه نمایش �
 
 #: ../src/xfce4-screensaver-command.c:71
 msgid "Tells the running screensaver process to lock the screen immediately"
-msgstr "به فراروند در حال اجرای محافظ صفحهٔ نمایش خبر می‌دهد که صفحهٔ نمایش را بلافاصله قفل کند"
+msgstr ""
+"به فراروند در حال اجرای محافظ صفحهٔ نمایش خبر می‌دهد که صفحهٔ نمایش را بلافاصله "
+"قفل کند"
 
 #: ../src/xfce4-screensaver-command.c:75
 msgid "If the screensaver is active then switch to another graphics demo"
@@ -422,7 +818,8 @@ msgstr "محافظ صفحهٔ نمایش روشن شود (صفحهٔ نمایش 
 
 #: ../src/xfce4-screensaver-command.c:83
 msgid "If the screensaver is active then deactivate it (un-blank the screen)"
-msgstr "اگر محافظ صفحهٔ نمایش فعال است، غیر فعال شود. (صفحهٔ نمایش از خالی بودن درآید)"
+msgstr ""
+"اگر محافظ صفحهٔ نمایش فعال است، غیر فعال شود. (صفحهٔ نمایش از خالی بودن درآید)"
 
 #: ../src/xfce4-screensaver-command.c:87
 msgid "Poke the running screensaver to simulate user activity"
@@ -432,7 +829,8 @@ msgstr "انگولک کردن محافظ صفحه نمایش در حال اجر�
 msgid ""
 "Inhibit the screensaver from activating.  Command blocks while inhibit is "
 "active."
-msgstr "از فعال شدن محافظ صفحهٔ نمایش ممانعت شود. هنگام ممانعت، فرمان مسدود می‌شود."
+msgstr ""
+"از فعال شدن محافظ صفحهٔ نمایش ممانعت شود. هنگام ممانعت، فرمان مسدود می‌شود."
 
 #: ../src/xfce4-screensaver-command.c:95
 msgid "The calling application that is inhibiting the screensaver"
@@ -508,17 +906,6 @@ msgstr "MESSAGE"
 msgid "Not used"
 msgstr "بی استفاده"
 
-#. login: is whacked always translate to Username:
-#: ../src/xfce4-screensaver-dialog.c:165 ../src/xfce4-screensaver-dialog.c:166
-#: ../src/xfce4-screensaver-dialog.c:167 ../src/gs-auth-pam.c:745
-msgid "Username:"
-msgstr "نام کاربری:"
-
-#: ../src/xfce4-screensaver-dialog.c:168 ../src/xfce4-screensaver-dialog.c:169
-#: ../src/gs-auth-pam.c:171
-msgid "Password:"
-msgstr "گذرواژه:"
-
 #: ../src/xfce4-screensaver-dialog.c:170
 msgid "You are required to change your password immediately (password aged)"
 msgstr "لازم است گذرواژه‌تان را بلافاصله تغییر دهید (گذرواژه قدیمی است)"
@@ -579,39 +966,35 @@ msgstr "ببخشید، گذرواژه‌ها مطابقت ندارند"
 msgid "Checking..."
 msgstr "در حال بررسی..."
 
-#: ../src/xfce4-screensaver-dialog.c:300 ../src/gs-auth-pam.c:483
-msgid "Authentication failed."
-msgstr "تأیید هویت شکست خورد."
-
-#: ../src/xfce4-screensaver-preferences.c:461
+#: ../src/xfce4-screensaver-preferences.c:456
 msgid "Blank screen"
 msgstr "صفحهٔ نمایش خالی"
 
-#: ../src/xfce4-screensaver-preferences.c:467
+#: ../src/xfce4-screensaver-preferences.c:462
 msgid "Random"
 msgstr "تصادفی"
 
-#: ../src/xfce4-screensaver-preferences.c:953
-#: ../src/xfce4-screensaver-preferences.c:963
+#: ../src/xfce4-screensaver-preferences.c:948
+#: ../src/xfce4-screensaver-preferences.c:958
 #, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%Id ساعت"
 
-#: ../src/xfce4-screensaver-preferences.c:956
-#: ../src/xfce4-screensaver-preferences.c:965
-#: ../src/xfce4-screensaver-preferences.c:974
+#: ../src/xfce4-screensaver-preferences.c:951
+#: ../src/xfce4-screensaver-preferences.c:960
+#: ../src/xfce4-screensaver-preferences.c:969
+#: ../src/xfce4-screensaver-preferences.c:972
 #: ../src/xfce4-screensaver-preferences.c:977
-#: ../src/xfce4-screensaver-preferences.c:982
+#: ../src/xfce4-screensaver-preferences.c:980
 #: ../src/xfce4-screensaver-preferences.c:985
-#: ../src/xfce4-screensaver-preferences.c:990
-#: ../src/xfce4-screensaver-preferences.c:993
+#: ../src/xfce4-screensaver-preferences.c:988
 #, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%Id دقیقه"
 
-#: ../src/xfce4-screensaver-preferences.c:959
+#: ../src/xfce4-screensaver-preferences.c:954
 #, c-format
 msgid "%d second"
 msgid_plural "%d seconds"
@@ -619,15 +1002,15 @@ msgstr[0] "%Id ثانیه"
 
 #. hour:minutes
 #. minutes:seconds
-#: ../src/xfce4-screensaver-preferences.c:962
-#: ../src/xfce4-screensaver-preferences.c:1009
-#: ../src/xfce4-screensaver-preferences.c:1022
+#: ../src/xfce4-screensaver-preferences.c:957
+#: ../src/xfce4-screensaver-preferences.c:1004
+#: ../src/xfce4-screensaver-preferences.c:1017
 #, c-format
 msgid "%s %s"
 msgstr "%s %s"
 
 #. hour:minutes:seconds
-#: ../src/xfce4-screensaver-preferences.c:1004
+#: ../src/xfce4-screensaver-preferences.c:999
 #, c-format
 msgid "%s %s %s"
 msgstr "%s %s %s"
@@ -635,23 +1018,23 @@ msgstr "%s %s %s"
 #. hour
 #. minutes
 #. seconds
-#: ../src/xfce4-screensaver-preferences.c:1014
-#: ../src/xfce4-screensaver-preferences.c:1027
-#: ../src/xfce4-screensaver-preferences.c:1063
+#: ../src/xfce4-screensaver-preferences.c:1009
+#: ../src/xfce4-screensaver-preferences.c:1022
+#: ../src/xfce4-screensaver-preferences.c:1058
 #, c-format
 msgid "%s"
 msgstr "%s"
 
-#: ../src/xfce4-screensaver-preferences.c:1078
+#: ../src/xfce4-screensaver-preferences.c:1073
 #, c-format
 msgid "Never"
 msgstr "هرگز"
 
-#: ../src/xfce4-screensaver-preferences.c:1567
+#: ../src/xfce4-screensaver-preferences.c:1558
 msgid "Could not load the main interface"
 msgstr "نمی‌توان واسط اصلی را بار  کرد"
 
-#: ../src/xfce4-screensaver-preferences.c:1569
+#: ../src/xfce4-screensaver-preferences.c:1560
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "لطفاً بررسی کنید که محافظ صفحهٔ نمایش درست نصب شده باشد"
 
@@ -666,68 +1049,3 @@ msgstr "اشکال‌زدایی کُد به کار انداخته شود"
 #: ../src/xfce4-screensaver.desktop.in.in.h:2
 msgid "Launch screensaver and locker program"
 msgstr ""
-
-#: ../src/gs-auth-pam.c:413
-#, c-format
-msgid "Unable to establish service %s: %s\n"
-msgstr "بر پا کردن سرویس %s ممکن نیست: %s\n"
-
-#: ../src/gs-auth-pam.c:443
-#, c-format
-msgid "Can't set PAM_TTY=%s"
-msgstr "نمی‌توان PAM_TTY=%s را تنظیم کرد"
-
-#: ../src/gs-auth-pam.c:479
-msgid "Incorrect password."
-msgstr "گذرواژه نادرست است"
-
-#: ../src/gs-auth-pam.c:499
-msgid "Not permitted to gain access at this time."
-msgstr "اجازهٔ دسترسی این بار داده نشده است."
-
-#: ../src/gs-auth-pam.c:507
-msgid "No longer permitted to access the system."
-msgstr "دیگر اجازهٔ دسترسی به سیستم را ندارد."
-
-#: ../src/gs-listener-dbus.c:2180
-msgid "failed to register with the message bus"
-msgstr "ثبت نام در گذرگاه پیغام شکست خورد"
-
-#: ../src/gs-listener-dbus.c:2191
-msgid "not connected to the message bus"
-msgstr "به گذرگاه پیغام متصل نیست"
-
-#: ../src/gs-listener-dbus.c:2201 ../src/gs-listener-dbus.c:2233
-msgid "screensaver already running in this session"
-msgstr "محافظ صفحهٔ نمایش از قبل در این نشست در حال اجرا است"
-
-#. Translators: Date format, see https://developer.gnome.org/glib/stable/glib-
-#. GDateTime.html#g-date-time-format
-#: ../src/gs-lock-plug.c:304
-msgid "%A, %B %e"
-msgstr "%l:%M %p"
-
-#: ../src/gs-lock-plug.c:406
-msgid "Time has expired."
-msgstr "زمان منقضی شد."
-
-#: ../src/gs-lock-plug.c:437
-msgid "You have the Caps Lock key on."
-msgstr "کلید قفل تبدیل روشن است."
-
-#: ../src/gs-lock-plug.c:1639
-msgid "S_witch User..."
-msgstr "ت_عویض کاربر..."
-
-#: ../src/gs-lock-plug.c:1648
-msgid "Log _Out"
-msgstr "_خروج از سیستم"
-
-#. To translators: This expands to USERNAME on HOSTNAME
-#: ../src/gs-lock-plug.c:1873
-msgid "%U on %h"
-msgstr "%U روی %h"
-
-#: ../src/gs-lock-plug.c:1892
-msgid "_Password:"
-msgstr "_گذرواژه:"
