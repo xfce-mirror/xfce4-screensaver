@@ -6,7 +6,7 @@ AC_INIT([xfce4-screensaver],
         [http://www.xfce.org/])
 
 AC_CONFIG_SRCDIR(src/xfce4-screensaver.c)
-AC_CONFIG_MACRO_DIR([m4])
+AC_CONFIG_MACRO_DIRS([m4])
 
 AM_INIT_AUTOMAKE([1.9 no-dist-gzip dist-xz check-news])
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
