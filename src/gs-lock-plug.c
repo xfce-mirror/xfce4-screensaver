@@ -240,7 +240,7 @@ do_user_switch (GSLockPlug *plug)
 												&error);
 
 		g_free (command);
-		
+
 		if (! res) {
 			gs_debug ("Unable to start GDM greeter: %s", error->message);
 			g_error_free (error);
@@ -1887,8 +1887,6 @@ create_page_one (GSLockPlug *plug)
 	gtk_box_pack_start (GTK_BOX (vbox2), hbox, FALSE, FALSE, 0);
 
 	plug->priv->auth_prompt_label = gtk_label_new_with_mnemonic (_("_Password:"));
-	gtk_label_set_xalign (GTK_LABEL (plug->priv->auth_prompt_label), 0.0);
-	gtk_label_set_yalign (GTK_LABEL (plug->priv->auth_prompt_label), 0.5);
 	gtk_box_pack_start (GTK_BOX (hbox), plug->priv->auth_prompt_label, FALSE, FALSE, 0);
 
 	plug->priv->auth_prompt_entry = gtk_entry_new ();
