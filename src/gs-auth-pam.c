@@ -693,7 +693,7 @@ gs_auth_pam_verify_user (pam_handle_t *handle,
 out:
 	if (watch_id != 0)
 	{
-		g_source_remove (watch_id);
+		//g_source_remove (watch_id);
 		watch_id = 0;
 	}
 
