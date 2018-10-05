@@ -114,8 +114,6 @@ SAVER_LIBS="$ALL_X_LIBS"
 AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
 
 
-MATE_COMPILE_WARNINGS(yes)
-
 # Solaris requires libresolv for daemon()
 case "$host" in
 	*-*-solaris*)
