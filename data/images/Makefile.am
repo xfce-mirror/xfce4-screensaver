@@ -6,7 +6,7 @@ SUBDIRS =			\
 
 imagedir   = $(datadir)/pixmaps
 image_DATA = 			\
-	mate-logo-white.svg 	\
+	xfce-logo-white.svg 	\
 	gnome-logo-white.svg 	\
 	$(NULL)
 

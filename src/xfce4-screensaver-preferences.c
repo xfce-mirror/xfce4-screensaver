@@ -62,7 +62,7 @@
 #define KEY_CYCLE_DELAY "cycle-delay"
 #define KEY_THEMES "themes"
 
-#define GPM_COMMAND "xfce-power-preferences"
+#define GPM_COMMAND "xfce4-power-manager-settings"
 
 enum
 {
