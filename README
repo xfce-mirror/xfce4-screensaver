@@ -24,6 +24,11 @@ Installation
 See the file 'INSTALL'
 
 ./autogen.sh --prefix=/usr --sysconfdir=/etc
+
+(For testing, we are using:
+ ./autogen.sh --disable-static --with-mit-ext --with-console-kit --with-libnotify --enable-locking --enable-debug --sysconfdir=/etc
+)
+
 make
 sudo make install
 
