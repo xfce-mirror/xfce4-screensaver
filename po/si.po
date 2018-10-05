@@ -587,11 +587,11 @@ msgstr ""
 "ඔබ විසින් එක් පිළිඹිබුවක් විශේෂිතව දැක්විය යුතුයි.  භාවිතය පිළිබද තොරතුරු සඳහා --help බලන්න.\n"
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:1
-msgid "Floating XFCE"
+msgid "Floating Xfce"
 msgstr ""
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:2
-msgid "Bubbles the XFCE logo around the screen"
+msgid "Bubbles the Xfce logo around the screen"
 msgstr ""
 
 #: ../savers/gnomelogo-floaters.desktop.in.in.h:1

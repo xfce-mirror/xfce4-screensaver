@@ -592,12 +592,12 @@ msgstr ""
 "optowiesen.\n"
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:1
-msgid "Floating XFCE"
+msgid "Floating Xfce"
 msgstr ""
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:2
 #, fuzzy
-msgid "Bubbles the XFCE logo around the screen"
+msgid "Bubbles the Xfce logo around the screen"
 msgstr "Bill - Billers fleugen över de Billschirm"
 
 #: ../savers/gnomelogo-floaters.desktop.in.in.h:1

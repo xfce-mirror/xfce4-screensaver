@@ -13,7 +13,7 @@ PKG_NAME="xfce4-screensaver"
 }
 
 which xdt-autogen || {
-    echo "You need to install xdt-autogen from the XFCE Git"
+    echo "You need to install xdt-autogen from the Xfce Git"
     exit 1
 }
 

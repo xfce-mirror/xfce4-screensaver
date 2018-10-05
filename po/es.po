@@ -643,12 +643,12 @@ msgstr "Debe especificar una imagen. Vea --help para la información de uso.\n"
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:1
 #, fuzzy
-msgid "Floating XFCE"
+msgid "Floating Xfce"
 msgstr "MATE flotante"
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:2
 #, fuzzy
-msgid "Bubbles the XFCE logo around the screen"
+msgid "Bubbles the Xfce logo around the screen"
 msgstr "Burbujas del logo MATE alrededor de la pantalla"
 
 #: ../savers/gnomelogo-floaters.desktop.in.in.h:1

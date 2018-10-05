@@ -11,7 +11,7 @@ privdatadir=@privdatadir@
 themesdir=@themesdir@
 
 Name: xfce4-screensaver
-Description: XFCE Screensaver
+Description: Xfce Screensaver
 Version: @VERSION@
 Requires:
 Libs:

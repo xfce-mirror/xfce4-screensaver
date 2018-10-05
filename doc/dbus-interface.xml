@@ -10,7 +10,7 @@
   <sect1 id="gs-intro">
     <title>Introduction</title>
     <para>
-      XFCE Screensaver exposes a DBUS API for programs to obtain information about
+      Xfce Screensaver exposes a DBUS API for programs to obtain information about
       the screensaver state and to interact with the screensaver in limited ways.
     </para>
     <para>

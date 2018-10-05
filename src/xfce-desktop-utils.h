@@ -1,5 +1,5 @@
 /* -*- Mode: C; c-set-style: linux indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*- */
-/* xfce-ditem.h - Utilities for the XFCE Desktop
+/* xfce-ditem.h - Utilities for the Xfce Desktop
 
    Copyright (C) 1998 Tom Tromey
    All rights reserved.

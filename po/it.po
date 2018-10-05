@@ -640,12 +640,12 @@ msgstr ""
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:1
 #, fuzzy
-msgid "Floating XFCE"
+msgid "Floating Xfce"
 msgstr "MATE fluttuante"
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:2
 #, fuzzy
-msgid "Bubbles the XFCE logo around the screen"
+msgid "Bubbles the Xfce logo around the screen"
 msgstr "Fa rimbalzare il logo di MATE sullo schermo"
 
 #: ../savers/gnomelogo-floaters.desktop.in.in.h:1

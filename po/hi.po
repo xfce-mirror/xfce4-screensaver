@@ -592,12 +592,12 @@ msgstr "आप जरूर एक चित्र निर्दिष्ट �
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:1
 #, fuzzy
-msgid "Floating XFCE"
+msgid "Floating Xfce"
 msgstr "फ्लोटिंग माटे"
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:2
 #, fuzzy
-msgid "Bubbles the XFCE logo around the screen"
+msgid "Bubbles the Xfce logo around the screen"
 msgstr "स्क्रीन के चारों ओर माटे के प्रतीक चिन्ह को बुदबुदाता है"
 
 #: ../savers/gnomelogo-floaters.desktop.in.in.h:1

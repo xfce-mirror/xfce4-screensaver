@@ -590,12 +590,12 @@ msgid "You must specify one image.  See --help for usage information.\n"
 msgstr "तुम्ही प्रतिमा निश्चित केली पाहिजे.  वापर माहिती करीता --help पहा.\n"
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:1
-msgid "Floating XFCE"
+msgid "Floating Xfce"
 msgstr ""
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:2
 #, fuzzy
-msgid "Bubbles the XFCE logo around the screen"
+msgid "Bubbles the Xfce logo around the screen"
 msgstr "प्रतिमा - पडद्याभोवती प्रतिमा तरंगविते"
 
 #: ../savers/gnomelogo-floaters.desktop.in.in.h:1

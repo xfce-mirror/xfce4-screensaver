@@ -627,12 +627,12 @@ msgstr "Du skal specificere et billede. Se --help for hjælp til benyttelse.\n"
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:1
 #, fuzzy
-msgid "Floating XFCE"
+msgid "Floating Xfce"
 msgstr "Flydende MATE"
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:2
 #, fuzzy
-msgid "Bubbles the XFCE logo around the screen"
+msgid "Bubbles the Xfce logo around the screen"
 msgstr "Bobler MATE-logoet omkring på skærmen"
 
 #: ../savers/gnomelogo-floaters.desktop.in.in.h:1

@@ -596,12 +596,12 @@ msgstr ""
 "একটি ছবি উল্লেখ করা আবশ্যক।  ব্যবহারপ্রণালী সম্পর্কিত তথ্য জানার জন্য --help দেখুন।\n"
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:1
-msgid "Floating XFCE"
+msgid "Floating Xfce"
 msgstr ""
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:2
 #, fuzzy
-msgid "Bubbles the XFCE logo around the screen"
+msgid "Bubbles the Xfce logo around the screen"
 msgstr "চিত্র - পর্দা জুড়ে চিত্র ভাসমান"
 
 #: ../savers/gnomelogo-floaters.desktop.in.in.h:1

@@ -590,12 +590,12 @@ msgid "You must specify one image.  See --help for usage information.\n"
 msgstr "ཁྱོད་ཀྱིས་གཟུགས་བརྙན་གཅིག་ གསལ་བཀོད་འབད་དགོ ལག་ལེན་བརྡ་དོན་གྱི་དོན་ལས་ གྲོགས་རམ་ལུ་བལྟ།\n"
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:1
-msgid "Floating XFCE"
+msgid "Floating Xfce"
 msgstr ""
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:2
 #, fuzzy
-msgid "Bubbles the XFCE logo around the screen"
+msgid "Bubbles the Xfce logo around the screen"
 msgstr "གཟུགས་བརྙན་ - གཟུགས་བརྙན་ཚུ་ གསལ་གཞི་མཐའ་བསྐོར་ཏེ་ལྡིངམ་ཨིན།"
 
 #: ../savers/gnomelogo-floaters.desktop.in.in.h:1

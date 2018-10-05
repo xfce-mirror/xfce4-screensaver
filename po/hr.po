@@ -637,12 +637,12 @@ msgstr "Moraš odrediti jednu sliku. Vidi --pomoć za obavijesti o korištenju.\
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:1
 #, fuzzy
-msgid "Floating XFCE"
+msgid "Floating Xfce"
 msgstr "Plutajući MATE"
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:2
 #, fuzzy
-msgid "Bubbles the XFCE logo around the screen"
+msgid "Bubbles the Xfce logo around the screen"
 msgstr "Ispušta zaštitni znak MATE po zaslonu"
 
 #: ../savers/gnomelogo-floaters.desktop.in.in.h:1

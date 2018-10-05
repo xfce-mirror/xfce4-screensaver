@@ -592,12 +592,12 @@ msgstr ""
 "ನೀವು ಒಂದು ಚಿತ್ರವನ್ನು ಸೂಚಿಸಲೇ ಬೇಕಾಗುತ್ತದೆ.  ಬಳಕೆಯ ಮಾಹಿತಿಗಾಗಿ --help ಅನ್ನು ನೋಡಿ.\n"
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:1
-msgid "Floating XFCE"
+msgid "Floating Xfce"
 msgstr ""
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:2
 #, fuzzy
-msgid "Bubbles the XFCE logo around the screen"
+msgid "Bubbles the Xfce logo around the screen"
 msgstr "image - ತೆರೆಯ ಸುತ್ತ ಚಿತ್ರಗಳನ್ನು ತೇಲಿಸುತ್ತದೆ"
 
 #: ../savers/gnomelogo-floaters.desktop.in.in.h:1

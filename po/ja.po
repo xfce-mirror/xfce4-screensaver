@@ -637,12 +637,12 @@ msgstr ""
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:1
 #, fuzzy
-msgid "Floating XFCE"
+msgid "Floating Xfce"
 msgstr "フローティング MATE"
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:2
 #, fuzzy
-msgid "Bubbles the XFCE logo around the screen"
+msgid "Bubbles the Xfce logo around the screen"
 msgstr "画面の回りに MATE のロゴが浮かびます"
 
 #: ../savers/gnomelogo-floaters.desktop.in.in.h:1

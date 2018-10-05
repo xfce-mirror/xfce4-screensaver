@@ -592,12 +592,12 @@ msgstr ""
 "ଆପଣଙ୍କୁ ଗୋଟିଏ ଚିତ୍ର ନିଦ୍ଦିଷ୍ଟ କରିବା ଆବଶ୍ଯକ। ଦେଖନ୍ତୁ --ସୂଚନା ଉପୟୋଗ କରିବା ନିମନ୍ତେ ସାହାୟ୍ଯ।\n"
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:1
-msgid "Floating XFCE"
+msgid "Floating Xfce"
 msgstr ""
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:2
 #, fuzzy
-msgid "Bubbles the XFCE logo around the screen"
+msgid "Bubbles the Xfce logo around the screen"
 msgstr "ଚିତ୍ର - ସ୍କ୍ରିନର ଚାରିପଟେ ଚିତ୍ରଗୁଡିକୁ ଭସମାନ କରେ"
 
 #: ../savers/gnomelogo-floaters.desktop.in.in.h:1

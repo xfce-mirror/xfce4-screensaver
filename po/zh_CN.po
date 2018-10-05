@@ -616,12 +616,12 @@ msgstr "您必须指定一幅图片。参见 --help 以获得用法信息。\n"
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:1
 #, fuzzy
-msgid "Floating XFCE"
+msgid "Floating Xfce"
 msgstr "浮动的 MATE"
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:2
 #, fuzzy
-msgid "Bubbles the XFCE logo around the screen"
+msgid "Bubbles the Xfce logo around the screen"
 msgstr "在屏幕上如泡泡一样浮动 MATE 徽标"
 
 #: ../savers/gnomelogo-floaters.desktop.in.in.h:1

@@ -622,12 +622,12 @@ msgstr "그림 하나를 지정해야 합니다. 사용법을 보려면 --help�
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:1
 #, fuzzy
-msgid "Floating XFCE"
+msgid "Floating Xfce"
 msgstr "떠다니는 마테"
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:2
 #, fuzzy
-msgid "Bubbles the XFCE logo around the screen"
+msgid "Bubbles the Xfce logo around the screen"
 msgstr "화면에 마테 로고가 떠다닙니다"
 
 #: ../savers/gnomelogo-floaters.desktop.in.in.h:1

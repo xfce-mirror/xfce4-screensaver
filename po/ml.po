@@ -591,12 +591,12 @@ msgstr ""
 "നിങ്ങള്‍ ഒരു ചിത്രം വ്യക്തമാക്കണം. ഉപയോഗിയ്ക്കുന്നതിനെക്കുറിച്ചുള്ള വിവരത്തിനായി --help കാണുക.\n"
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:1
-msgid "Floating XFCE"
+msgid "Floating Xfce"
 msgstr ""
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:2
 #, fuzzy
-msgid "Bubbles the XFCE logo around the screen"
+msgid "Bubbles the Xfce logo around the screen"
 msgstr "ചിത്രം - ചിത്രങ്ങള്‍ സ്ക്രീനിന് ചുറ്റും പാറിക്കിടക്കും"
 
 #: ../savers/gnomelogo-floaters.desktop.in.in.h:1

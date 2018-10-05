@@ -635,12 +635,12 @@ msgstr ""
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:1
 #, fuzzy
-msgid "Floating XFCE"
+msgid "Floating Xfce"
 msgstr "Lebegő MATE"
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:2
 #, fuzzy
-msgid "Bubbles the XFCE logo around the screen"
+msgid "Bubbles the Xfce logo around the screen"
 msgstr "A MATE logót lebegteti körbe a képernyőn"
 
 #: ../savers/gnomelogo-floaters.desktop.in.in.h:1

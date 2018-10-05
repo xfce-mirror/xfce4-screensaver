@@ -631,12 +631,12 @@ msgstr ""
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:1
 #, fuzzy
-msgid "Floating XFCE"
+msgid "Floating Xfce"
 msgstr "Biểu tượng MATE lơ lửng"
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:2
 #, fuzzy
-msgid "Bubbles the XFCE logo around the screen"
+msgid "Bubbles the Xfce logo around the screen"
 msgstr "Thổi bong bóng biểu tượng MATE xung quanh màn hình"
 
 #: ../savers/gnomelogo-floaters.desktop.in.in.h:1

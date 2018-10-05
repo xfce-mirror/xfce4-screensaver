@@ -595,12 +595,12 @@ msgstr "您必須指定一張圖片。請參閱 --help 以取得更多資訊。\
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:1
 #, fuzzy
-msgid "Floating XFCE"
+msgid "Floating Xfce"
 msgstr "浮動的 MATE"
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:2
 #, fuzzy
-msgid "Bubbles the XFCE logo around the screen"
+msgid "Bubbles the Xfce logo around the screen"
 msgstr "畫面上四處移動的 MATE 圖標泡泡"
 
 #: ../savers/gnomelogo-floaters.desktop.in.in.h:1

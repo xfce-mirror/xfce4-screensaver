@@ -590,12 +590,12 @@ msgid "You must specify one image.  See --help for usage information.\n"
 msgstr "Та нэг зургийг сонгох хэрэгтэй. Та хэрэглэх зааврыг харна уу.\n"
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:1
-msgid "Floating XFCE"
+msgid "Floating Xfce"
 msgstr ""
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:2
 #, fuzzy
-msgid "Bubbles the XFCE logo around the screen"
+msgid "Bubbles the Xfce logo around the screen"
 msgstr "Зураг - дэлгэцэн дэх зургуудыг ашиглалтанд оруулах"
 
 #: ../savers/gnomelogo-floaters.desktop.in.in.h:1

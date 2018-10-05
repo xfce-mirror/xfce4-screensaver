@@ -590,12 +590,12 @@ msgid "You must specify one image.  See --help for usage information.\n"
 msgstr "మీరు తప్పకుండా ఒక ప్రతిరూపాన్ని నిర్దేశించాలి. వాడుక సమాచారం కొరకు --help చూడండి.\n"
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:1
-msgid "Floating XFCE"
+msgid "Floating Xfce"
 msgstr ""
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:2
 #, fuzzy
-msgid "Bubbles the XFCE logo around the screen"
+msgid "Bubbles the Xfce logo around the screen"
 msgstr "ప్రతిరూపం  - తెర చుట్టు ప్రతిరూపాలు తేలాడుతాయి "
 
 #: ../savers/gnomelogo-floaters.desktop.in.in.h:1

@@ -592,12 +592,12 @@ msgid "You must specify one image.  See --help for usage information.\n"
 msgstr "તમારે એક ચિત્ર સ્પષ્ટ કરવું જ પડશે.  વપરાશ જાણકારી માટે --help જુઓ.\n"
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:1
-msgid "Floating XFCE"
+msgid "Floating Xfce"
 msgstr ""
 
 #: ../savers/footlogo-floaters.desktop.in.in.h:2
 #, fuzzy
-msgid "Bubbles the XFCE logo around the screen"
+msgid "Bubbles the Xfce logo around the screen"
 msgstr "ચિત્ર - સ્ક્રીનની ફરતે ચિત્રો તરે છે"
 
 #: ../savers/gnomelogo-floaters.desktop.in.in.h:1
