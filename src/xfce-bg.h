@@ -40,8 +40,6 @@ G_BEGIN_DECLS
 #define XFCE_IS_BG_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass),  XFCE_TYPE_BG))
 #define XFCE_BG_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj),  XFCE_TYPE_BG, XfceBGClass))
 
-#define XFCE_BG_SCHEMA "org.xfce.background"
-
 /* whether to draw the desktop bg */
 #define XFCE_BG_KEY_DRAW_BACKGROUND	"draw-background"
 
@@ -64,28 +62,32 @@ typedef struct _XfceBGClass XfceBGClass;
 typedef enum {
 	XFCE_BG_COLOR_SOLID,
 	XFCE_BG_COLOR_H_GRADIENT,
-	XFCE_BG_COLOR_V_GRADIENT
+	XFCE_BG_COLOR_V_GRADIENT,
+	XFCE_BG_COLOR_TRANSPARENT
 } XfceBGColorType;
 
 typedef enum {
-	XFCE_BG_PLACEMENT_TILED,
-	XFCE_BG_PLACEMENT_ZOOMED,
-	XFCE_BG_PLACEMENT_CENTERED,
-	XFCE_BG_PLACEMENT_SCALED,
-	XFCE_BG_PLACEMENT_FILL_SCREEN,
-	XFCE_BG_PLACEMENT_SPANNED
+    XFCE_BG_PLACEMENT_NONE,
+    XFCE_BG_PLACEMENT_CENTERED,
+    XFCE_BG_PLACEMENT_TILED,
+    XFCE_BG_PLACEMENT_FILL_SCREEN,
+    XFCE_BG_PLACEMENT_SCALED,
+    XFCE_BG_PLACEMENT_ZOOMED,
+    XFCE_BG_PLACEMENT_SPANNED
 } XfceBGPlacement;
 
 GType            xfce_bg_get_type              (void);
 XfceBG *         xfce_bg_new                   (void);
-void             xfce_bg_load_from_preferences (XfceBG               *bg);
+void             xfce_bg_load_from_preferences (XfceBG               *bg,
+                                                GdkMonitor *monitor);
 
 /* Drawing and thumbnailing */
 cairo_surface_t *xfce_bg_create_surface        (XfceBG               *bg,
 						GdkWindow            *window,
-						int                   width,
-						int                   height,
-						gboolean              root);
+						int                   screen_width,
+						int                   screen_height,
+						int                   monitor_width,
+						int                   monitor_height);
 
 G_END_DECLS
 

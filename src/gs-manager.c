@@ -1054,7 +1054,7 @@ gs_manager_init (GSManager *manager)
 					  G_CALLBACK (on_bg_changed),
 					  manager);
 
-	xfce_bg_load_from_preferences (manager->priv->bg);
+	xfce_bg_load_from_preferences (manager->priv->bg, NULL);
 }
 
 static void
@@ -1270,11 +1270,18 @@ apply_background_to_window (GSManager *manager,
 	cairo_surface_t *surface;
 	GdkDisplay      *display;
 	GdkScreen       *screen;
-	int              width;
-	int              height;
+	GdkMonitor      *monitor;
+	GdkRectangle     geometry;
+	int              width, m_width;
+	int              height, m_height;
 	gint             scale;
 
-        xfce_bg_load_from_preferences (manager->priv->bg);
+	display = gs_window_get_display (window);
+	screen = gdk_display_get_default_screen (display);
+	scale = gdk_window_get_scale_factor (gdk_screen_get_root_window (screen));
+	monitor = gs_window_get_monitor (window);
+
+	xfce_bg_load_from_preferences (manager->priv->bg, monitor);
 
 	if (manager->priv->bg == NULL)
 	{
@@ -1282,17 +1289,18 @@ apply_background_to_window (GSManager *manager,
 		gs_window_set_background_surface (window, NULL);
 	}
 
-	display = gs_window_get_display (window);
-	screen = gdk_display_get_default_screen (display);
-	scale = gdk_window_get_scale_factor (gdk_screen_get_root_window (screen));
+	gdk_monitor_get_geometry (monitor, &geometry);
+	m_width = geometry.width / scale;
+	m_height = geometry.height / scale;
 	width = WidthOfScreen (gdk_x11_screen_get_xscreen (screen)) / scale;
 	height = HeightOfScreen (gdk_x11_screen_get_xscreen (screen)) / scale;
-	gs_debug ("Creating background w:%d h:%d", width, height);
+	gs_debug ("Creating background (Screen: w:%d h:%d, Monitor: w:%d h: %d)", width, height, m_width, m_height);
 	surface = xfce_bg_create_surface (manager->priv->bg,
 	                                  gs_window_get_gdk_window (window),
 	                                  width,
 	                                  height,
-	                                  FALSE);
+									  m_width,
+									  m_height);
 	gs_window_set_background_surface (window, surface);
 	cairo_surface_destroy (surface);
 }

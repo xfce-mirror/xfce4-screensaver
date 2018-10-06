@@ -43,7 +43,7 @@ dbussessionservice_DATA = org.xfce.ScreenSaver.service
 @GSETTINGS_RULES@
 @INTLTOOL_XML_NOMERGE_RULE@
 
-gsettingsschema_in_files = org.xfce.screensaver.gschema.xml.in org.xfce.lockdown.gschema.xml.in org.xfce.session.gschema.xml.in org.xfce.background.gschema.xml.in
+gsettingsschema_in_files = org.xfce.screensaver.gschema.xml.in org.xfce.lockdown.gschema.xml.in org.xfce.session.gschema.xml.in
 gsettings_SCHEMAS = $(gsettingsschema_in_files:.xml.in=.xml)
 
 EXTRA_DIST = 				\

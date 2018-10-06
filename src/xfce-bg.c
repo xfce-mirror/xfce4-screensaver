@@ -44,10 +44,12 @@ Authors: Soren Sandmann <sandmann@redhat.com>
 #include <cairo.h>
 
 #include <xfce-bg.h>
+#include <xfconf/xfconf.h>
 
-# include <cairo-xlib.h>
+#include <cairo-xlib.h>
 
 #define XFCE_BG_CACHE_DIR "xfce/background"
+#define XFCE_BG_FALLBACK_IMG "/usr/share/backgrounds/xfce/xfce-teal.jpg"
 
 /* We keep the large pixbufs around if the next update
    in the slideshow is less than 60 seconds away */
@@ -121,10 +123,6 @@ static guint signals[N_SIGNALS] = {0};
 
 G_DEFINE_TYPE(XfceBG, xfce_bg, G_TYPE_OBJECT)
 
-static cairo_surface_t *make_root_pixmap     (GdkWindow  *window,
-                                              gint        width,
-                                              gint        height);
-
 /* Pixbuf utils */
 static GdkPixbuf *pixbuf_scale_to_fit  (GdkPixbuf  *src,
 					int         max_width,
@@ -179,15 +177,17 @@ static void xfce_bg_set_color(XfceBG *bg,
 				  GdkRGBA *primary,
 				  GdkRGBA *secondary);
 
-static void xfce_bg_load_from_gsettings (XfceBG    *bg,
-			     			GSettings *settings);
+static void xfce_bg_load_from_xfconf (XfceBG    *bg,
+			     					  XfconfChannel *channel,
+									  GdkMonitor *monitor);
 
 static cairo_surface_t * xfce_bg_create_surface_scale (XfceBG      *bg,
 			      GdkWindow   *window,
-			      int          width,
-			      int          height,
-			      int          scale,
-			      gboolean     root);
+			      int          screen_width,
+			      int          screen_height,
+			      int          monitor_width,
+			      int          monitor_height,
+			      int          scale);
 
 static void xfce_bg_set_placement (XfceBG		*bg,
 		       XfceBGPlacement	 placement);
@@ -195,16 +195,30 @@ static void xfce_bg_set_placement (XfceBG		*bg,
 static void xfce_bg_set_filename (XfceBG	 *bg,
 		      const char *filename);
 
-static void color_from_string(const char *string,
-							  GdkRGBA *colorp)
+static void color_from_array(XfconfChannel *channel,
+							 const gchar   *property,
+							 GdkRGBA       *colorp)
 {
+	gdouble r, g, b, a;
+
 	/* If all else fails use black */
 	gdk_rgba_parse (colorp, "#000000");
 
-	if (!string)
+	if (!xfconf_channel_has_property (channel, property))
 		return;
 
-	gdk_rgba_parse (colorp, string);
+	xfconf_channel_get_array(channel,
+							 property,
+							 G_TYPE_DOUBLE, &r,
+							 G_TYPE_DOUBLE, &g,
+							 G_TYPE_DOUBLE, &b,
+							 G_TYPE_DOUBLE, &a,
+							 G_TYPE_INVALID);
+
+	colorp->red = r;
+	colorp->green = g;
+	colorp->blue = b;
+	colorp->alpha = a;
 }
 
 static gboolean
@@ -262,36 +276,95 @@ queue_transitioned (XfceBG *bg)
 
 /* This function loads the user's preferences */
 void
-xfce_bg_load_from_preferences (XfceBG *bg)
+xfce_bg_load_from_preferences (XfceBG *bg,
+							   GdkMonitor *monitor)
 {
-	GSettings *settings;
-	settings = g_settings_new (XFCE_BG_SCHEMA);
+	XfconfChannel *channel;
 
-	xfce_bg_load_from_gsettings (bg, settings);
-	g_object_unref (settings);
+	channel = xfconf_channel_get ("xfce4-desktop");
+	xfce_bg_load_from_xfconf (bg, channel, monitor);
 
 	/* Queue change to force background redraw */
 	queue_changed (bg);
 }
 
+static gchar*
+xfce_bg_get_property_prefix (XfconfChannel *channel,
+							 const gchar   *monitor_name)
+{
+	gchar *prefix;
+
+	/* Check for workspace usage */
+	prefix = g_strconcat("/backdrop/screen0/monitor", monitor_name, "/workspace0", NULL);
+	if (xfconf_channel_has_property (channel, prefix)) {
+		return prefix;
+	}
+	g_free(prefix);
+
+	/* Check for non-workspace usage */
+	prefix = g_strconcat("/backdrop/screen0/monitor", monitor_name, NULL);
+	if (xfconf_channel_has_property(channel, prefix))
+	{
+		return prefix;
+	}
+	g_free(prefix);
+
+	/* Check defaults */
+	prefix = g_strdup("/backdrop/screen0/monitor0/workspace0");
+	if (xfconf_channel_has_property(channel, prefix))
+	{
+		return prefix;
+	}
+	g_free(prefix);
+
+	prefix = g_strdup("/backdrop/screen0/monitor0");
+	return prefix;
+}
+
 static void
-xfce_bg_load_from_gsettings (XfceBG    *bg,
-			     GSettings *settings)
+xfce_bg_load_from_xfconf (XfceBG        *bg,
+			     		  XfconfChannel *channel,
+						  GdkMonitor    *monitor)
 {
 	char    *tmp;
 	char    *filename;
 	XfceBGColorType ctype;
 	GdkRGBA c1, c2;
 	XfceBGPlacement placement;
+	GdkMonitor *mon;
+	const gchar *monitor_name;
+	gchar   *prop_prefix;
+	gchar   *property;
 
-	g_return_if_fail (XFCE_IS_BG (bg));
-	g_return_if_fail (G_IS_SETTINGS (settings));
+	g_return_if_fail(XFCE_IS_BG(bg));
+	//g_return_if_fail (G_IS_SETTINGS (settings));
 
-	bg->is_enabled = g_settings_get_boolean (settings, XFCE_BG_KEY_DRAW_BACKGROUND);
+	if (monitor == NULL)
+	{
+		GdkDisplay *display = gdk_display_get_default();
+		mon = gdk_display_get_primary_monitor(display);
+		if (mon == NULL)
+		{
+			mon = gdk_display_get_monitor(display, 0);
+		}
+	}
+	else
+	{
+		mon = monitor;
+	}
+
+	monitor_name = gdk_monitor_get_model(mon);
+	prop_prefix = xfce_bg_get_property_prefix (channel, monitor_name);
+
+	property = g_strconcat(prop_prefix, "/image-style", NULL);
+	placement = xfconf_channel_get_int(channel, property, XFCE_BG_PLACEMENT_NONE);
+	bg->is_enabled = placement != XFCE_BG_PLACEMENT_NONE;
 
 	/* Filename */
+	g_free(property);
+	property = g_strconcat(prop_prefix, "/image-path", NULL);
 	filename = NULL;
-	tmp = g_settings_get_string (settings, XFCE_BG_KEY_PICTURE_FILENAME);
+	tmp = xfconf_channel_get_string(channel, property, XFCE_BG_FALLBACK_IMG);
 	if (tmp && *tmp != '\0') {
 		/* FIXME: UTF-8 checks should go away.
 		 * picture-filename is of type string, which can only be used for
@@ -309,13 +382,8 @@ xfce_bg_load_from_gsettings (XfceBG    *bg,
 
 		/* Fallback to default BG if the filename set is non-existent */
 		if (filename != NULL && !g_file_test (filename, G_FILE_TEST_EXISTS)) {
-
 			g_free (filename);
-
-			g_settings_delay (settings);
-			g_settings_reset (settings, XFCE_BG_KEY_PICTURE_FILENAME);
-			filename = g_settings_get_string (settings, XFCE_BG_KEY_PICTURE_FILENAME);
-			g_settings_revert (settings);
+			filename = g_strdup(XFCE_BG_FALLBACK_IMG);
 
 			//* Check if default background exists, also */
 			if (filename != NULL && !g_file_test (filename, G_FILE_TEST_EXISTS)) {
@@ -327,19 +395,20 @@ xfce_bg_load_from_gsettings (XfceBG    *bg,
 	g_free (tmp);
 
 	/* Colors */
-	tmp = g_settings_get_string (settings, XFCE_BG_KEY_PRIMARY_COLOR);
-	color_from_string (tmp, &c1);
-	g_free (tmp);
+	g_free(property);
+	property = g_strconcat(prop_prefix, "/workspace0/rgba1", NULL);
+	color_from_array(channel, property, &c1);
 
-	tmp = g_settings_get_string (settings, XFCE_BG_KEY_SECONDARY_COLOR);
-	color_from_string (tmp, &c2);
-	g_free (tmp);
+	g_free(property);
+	property = g_strconcat(prop_prefix, "/workspace0/rgba2", NULL);
+	color_from_array(channel, property, &c2);
 
 	/* Color type */
-	ctype = g_settings_get_enum (settings, XFCE_BG_KEY_COLOR_TYPE);
+	g_free(property);
+	property = g_strconcat(prop_prefix, "/workspace0/color-style", NULL);
+	ctype = xfconf_channel_get_int(channel, property, XFCE_BG_COLOR_SOLID);
 
-	/* Placement */
-	placement = g_settings_get_enum (settings, XFCE_BG_KEY_PICTURE_PLACEMENT);
+	g_free(property);
 
 	xfce_bg_set_color (bg, ctype, &c1, &c2);
 	xfce_bg_set_placement (bg, placement);
@@ -694,24 +763,6 @@ draw_color (XfceBG    *bg,
 	draw_color_area (bg, dest, &rect);
 }
 
-static void
-draw_color_each_monitor (XfceBG    *bg,
-			 GdkPixbuf *dest,
-			 GdkScreen *screen)
-{
-	GdkDisplay *display;
-	GdkRectangle rect;
-	gint num_monitors;
-	int monitor;
-
-	display = gdk_screen_get_display (screen);
-	num_monitors = gdk_display_get_n_monitors (display);
-	for (monitor = 0; monitor < num_monitors; monitor++) {
-		gdk_monitor_get_geometry (gdk_display_get_monitor (display, monitor), &rect);
-		draw_color_area (bg, dest, &rect);
-	}
-}
-
 static GdkPixbuf *
 pixbuf_clip_to_fit (GdkPixbuf *src,
 		    int        max_width,
@@ -762,7 +813,7 @@ get_scaled_pixbuf (XfceBGPlacement  placement,
 
 	switch (placement) {
 	case XFCE_BG_PLACEMENT_SPANNED:
-                new = pixbuf_scale_to_fit (pixbuf, width, height);
+		new = pixbuf_scale_to_fit (pixbuf, width, height);
 		break;
 	case XFCE_BG_PLACEMENT_ZOOMED:
 		new = pixbuf_scale_to_min (pixbuf, width, height);
@@ -835,15 +886,13 @@ draw_image_area (XfceBG        *bg,
 
 static void
 draw_once (XfceBG    *bg,
-	   GdkPixbuf *dest,
-	   gboolean   is_root)
+	   GdkPixbuf *dest)
 {
 	GdkRectangle rect;
 	GdkPixbuf   *pixbuf;
 	gint         monitor;
 
-	/* whether we're drawing on root window or normal (Thunar) window */
-	monitor = (is_root) ? 0 : -1;
+	monitor = -1;
 
 	rect.x = 0;
 	rect.y = 0;
@@ -859,50 +908,16 @@ draw_once (XfceBG    *bg,
 }
 
 static void
-draw_each_monitor (XfceBG    *bg,
-		   GdkPixbuf *dest,
-		   GdkScreen *screen)
-{
-	GdkDisplay *display;
-
-	display = gdk_screen_get_display (screen);
-	gint num_monitors = gdk_display_get_n_monitors (display);
-	gint monitor = 0;
-
-	for (; monitor < num_monitors; monitor++) {
-		GdkRectangle rect;
-		GdkPixbuf *pixbuf;
-
-		gdk_monitor_get_geometry (gdk_display_get_monitor (display, monitor), &rect);
-
-		pixbuf = get_pixbuf_for_size (bg, monitor, rect.width, rect.height);
-		if (pixbuf) {
-			draw_image_area (bg, monitor, pixbuf, dest, &rect);
-
-			g_object_unref (pixbuf);
-		}
-	}
-}
-
-static void
 xfce_bg_draw (XfceBG     *bg,
 	       GdkPixbuf *dest,
-	       GdkScreen *screen,
-	       gboolean   is_root)
+	       GdkScreen *screen)
 {
 	if (!bg)
 		return;
 
-	if (is_root && (bg->placement != XFCE_BG_PLACEMENT_SPANNED)) {
-		draw_color_each_monitor (bg, dest, screen);
-		if (bg->filename) {
-			draw_each_monitor (bg, dest, screen);
-		}
-	} else {
-		draw_color (bg, dest);
-		if (bg->filename) {
-			draw_once (bg, dest, is_root);
-		}
+	draw_color (bg, dest);
+	if (bg->filename) {
+		draw_once (bg, dest);
 	}
 }
 
@@ -926,6 +941,7 @@ xfce_bg_get_pixmap_size (XfceBG   *bg,
 	if (!bg->filename) {
 		switch (bg->color_type) {
 		case XFCE_BG_COLOR_SOLID:
+		case XFCE_BG_COLOR_TRANSPARENT:
 			*pixmap_width = 1;
 			*pixmap_height = 1;
 			break;
@@ -945,26 +961,24 @@ xfce_bg_get_pixmap_size (XfceBG   *bg,
  * @window:
  * @width:
  * @height:
- * @root:
  *
- * Create a surface that can be set as background for @window. If @is_root is
- * TRUE, the surface created will be created by a temporary X server connection
- * so that if someone calls XKillClient on it, it won't affect the application
- * who created it.
+ * Create a surface that can be set as background for @window.
  **/
 cairo_surface_t *
 xfce_bg_create_surface (XfceBG      *bg,
-		 	GdkWindow   *window,
-			int	     width,
-			int	     height,
-			gboolean     root)
+						GdkWindow   *window,
+						int	         screen_width,
+						int	         screen_height,
+						int	         monitor_width,
+						int	         monitor_height)
 {
 	return xfce_bg_create_surface_scale (bg,
 					     window,
-					     width,
-					     height,
-					     1,
-					     root);
+					     screen_width,
+					     screen_height,
+					     monitor_width,
+					     monitor_height,
+					     1);
 }
 
 /**
@@ -974,22 +988,20 @@ xfce_bg_create_surface (XfceBG      *bg,
  * @width:
  * @height:
  * @scale:
- * @root:
  *
- * Create a scaled surface that can be set as background for @window. If @is_root is
- * TRUE, the surface created will be created by a temporary X server connection
- * so that if someone calls XKillClient on it, it won't affect the application
- * who created it.
+ * Create a scaled surface that can be set as background for @window.
  **/
 static cairo_surface_t *
 xfce_bg_create_surface_scale (XfceBG      *bg,
 			      GdkWindow   *window,
-			      int          width,
-			      int          height,
-			      int          scale,
-			      gboolean     root)
+			      int          screen_width,
+			      int          screen_height,
+			      int          monitor_width,
+			      int          monitor_height,
+			      int          scale)
 {
 	int pm_width, pm_height;
+	int width, height;
 
 	cairo_surface_t *surface;
 	cairo_t *cr;
@@ -997,25 +1009,26 @@ xfce_bg_create_surface_scale (XfceBG      *bg,
 	g_return_val_if_fail (bg != NULL, NULL);
 	g_return_val_if_fail (window != NULL, NULL);
 
+	if (bg->placement == XFCE_BG_PLACEMENT_SPANNED) {
+		width = screen_width;
+		height = screen_height;
+	} else {
+		width = monitor_width;
+		height = monitor_height;
+	}
+
 	if (bg->pixbuf_cache &&
-	    (gdk_pixbuf_get_width (bg->pixbuf_cache) != width ||
-	     gdk_pixbuf_get_height (bg->pixbuf_cache) != height))
+		(gdk_pixbuf_get_width(bg->pixbuf_cache) != width ||
+			gdk_pixbuf_get_height(bg->pixbuf_cache) != height))
 	{
-		g_object_unref (bg->pixbuf_cache);
+		g_object_unref(bg->pixbuf_cache);
 		bg->pixbuf_cache = NULL;
 	}
 
 	xfce_bg_get_pixmap_size (bg, width, height, &pm_width, &pm_height);
 
-	if (root)
-	{
-		surface = make_root_pixmap (window, pm_width * scale, pm_height * scale);
-	}
-	else
-	{
-		surface = gdk_window_create_similar_surface (window, CAIRO_CONTENT_COLOR,
-							     pm_width, pm_height);
-	}
+	surface = gdk_window_create_similar_surface (window, CAIRO_CONTENT_COLOR,
+								pm_width, pm_height);
 
 	cr = cairo_create (surface);
 	cairo_scale (cr, (double)scale, (double)scale);
@@ -1029,7 +1042,7 @@ xfce_bg_create_surface_scale (XfceBG      *bg,
 
 		pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE, 8,
 					 width, height);
-		xfce_bg_draw (bg, pixbuf, gdk_window_get_screen (window), root);
+		xfce_bg_draw (bg, pixbuf, gdk_window_get_screen (window));
 		gdk_cairo_set_source_pixbuf (cr, pixbuf, 0, 0);
 		g_object_unref (pixbuf);
 	}
@@ -1037,45 +1050,6 @@ xfce_bg_create_surface_scale (XfceBG      *bg,
 	cairo_paint (cr);
 
 	cairo_destroy (cr);
-
-	return surface;
-}
-
-/*
- * Create a persistent pixmap. We create a separate display
- * and set the closedown mode on it to RetainPermanent.
- */
-static cairo_surface_t *
-make_root_pixmap (GdkWindow *window, gint width, gint height)
-{
-	GdkScreen *screen = gdk_window_get_screen(window);
-	char *disp_name = DisplayString (GDK_WINDOW_XDISPLAY (window));
-	Display *display;
-	Pixmap xpixmap;
-	cairo_surface_t *surface;
-	int depth;
-
-	/* Desktop background pixmap should be created from dummy X client since most
-	 * applications will try to kill it with XKillClient later when changing pixmap
-	 */
-	display = XOpenDisplay (disp_name);
-
-	if (display == NULL) {
-		g_warning ("Unable to open display '%s' when setting background pixmap\n",
-		           (disp_name) ? disp_name : "NULL");
-		return NULL;
-	}
-
-	depth = DefaultDepth (display, gdk_x11_screen_get_screen_number (screen));
-	xpixmap = XCreatePixmap (display, GDK_WINDOW_XID (window), width, height, depth);
-
-	XFlush (display);
-	XSetCloseDownMode (display, RetainPermanent);
-	XCloseDisplay (display);
-
-	surface = cairo_xlib_surface_create (GDK_SCREEN_XDISPLAY (screen), xpixmap,
-                                             GDK_VISUAL_XVISUAL (gdk_screen_get_system_visual (screen)),
-        				     width, height);
 
 	return surface;
 }

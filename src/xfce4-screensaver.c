@@ -37,6 +37,8 @@
 #include "gs-monitor.h"
 #include "gs-debug.h"
 
+#include <xfconf/xfconf.h>
+
 void xfce4_screensaver_quit(void)
 {
 	gtk_main_quit();
@@ -85,6 +87,14 @@ int main(int argc, char **argv)
 	{
 		g_print("%s %s\n", argv[0], VERSION);
 		exit(1);
+	}
+
+	if (!xfconf_init(&error))
+	{
+		g_error("Failed to connect to xfconf daemon: %s.", error->message);
+		g_error_free(error);
+
+		return EXIT_FAILURE;
 	}
 
 	/* debug to a file if in deamon mode */
