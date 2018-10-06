@@ -971,21 +971,6 @@ if test x$with_kbd_layout_indicator != xno; then
 fi
 
 dnl ---------------------------------------------------------------------------
-dnl libnotify
-dnl ---------------------------------------------------------------------------
-
-have_libnotify=no
-AC_ARG_WITH(libnotify,[  --without-libnotify         disable libnotify support])
-if test x$with_libnotify != xno; then
-	PKG_CHECK_MODULES(LIBNOTIFY, libnotify > 0.7.0, have_libnotify=yes, have_libnotify=no)
-fi
-if test "x$have_libnotify" = "xyes"; then
-  AC_SUBST(LIBNOTIFY_CFLAGS)
-  AC_SUBST(LIBNOTIFY_LIBS)
-  AC_DEFINE(WITH_LIBNOTIFY, 1, [Define for libnotify support])
-fi
-
-dnl ---------------------------------------------------------------------------
 dnl Finish
 dnl ---------------------------------------------------------------------------
 
@@ -1174,7 +1159,6 @@ echo "
         Show keyboard indicator:  ${with_kbd_layout_indicator}
         systemd support:          ${use_systemd}
         ConsoleKit support:       ${use_console_kit}
-        libnotify support:        ${have_libnotify}
         PAM support:              ${have_pam}
         bsd_auth(3) support:      ${have_bsdauth}
         Have shadow passwords:    ${have_shadow}

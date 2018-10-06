@@ -30,7 +30,6 @@ AM_CPPFLAGS =							\
 	$(DEBUG_CFLAGS)						\
 	$(DBUS_CFLAGS)						\
 	$(LIBXFCEKBDUI_CFLAGS)					\
-	$(LIBNOTIFY_CFLAGS)					\
 	$(LIBXKLAVIER_CFLAGS)				\
 	$(SYSTEMD_CFLAGS)					\
 	$(NULL)
@@ -206,7 +205,6 @@ xfce4_screensaver_dialog_LDADD =	\
 	$(SAVER_LIBS)			\
 	$(AUTH_LIBS)			\
 	$(LIBXFCEKBDUI_LIBS)		\
-	$(LIBNOTIFY_LIBS)		\
 	$(NULL)
 
 BUILT_SOURCES = 		\
