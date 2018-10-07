@@ -49,6 +49,7 @@
 #include "gs-lock-plug.h"
 
 #include "gs-debug.h"
+#include "xfce-bg.h"
 
 #define GSETTINGS_SCHEMA "org.xfce.screensaver"
 
@@ -78,8 +79,7 @@ struct GSLockPlugPrivate
 	GtkWidget   *auth_action_area;
 
 	GtkWidget   *auth_face_image;
-	GtkWidget   *auth_time_label;
-	GtkWidget   *auth_date_label;
+	GtkWidget   *auth_datetime_label;
 	GtkWidget   *auth_realname_label;
 	GtkWidget   *auth_username_label;
 	GtkWidget   *auth_prompt_label;
@@ -271,6 +271,11 @@ set_status_text (GSLockPlug *plug,
 	if (plug->priv->auth_message_label != NULL)
 	{
 		gtk_label_set_text (GTK_LABEL (plug->priv->auth_message_label), text);
+		if (g_utf8_strlen (text, 1) == 0) {
+			gtk_widget_hide (GTK_WIDGET (plug->priv->auth_message_label));
+		} else {
+			gtk_widget_show (GTK_WIDGET (plug->priv->auth_message_label));
+		}
 	}
 }
 
@@ -278,27 +283,18 @@ static void
 date_time_update (GSLockPlug *plug)
 {
 	GDateTime *datetime;
-	gchar *time;
+	gchar *datetime_format;
 	gchar *date;
 	gchar *str;
 
 	datetime = g_date_time_new_now_local ();
-	time = g_date_time_format (datetime, "%X");
-	/* Translators: Date format, see https://developer.gnome.org/glib/stable/glib-GDateTime.html#g-date-time-format */
-	date = g_date_time_format (datetime, _("%A, %B %e"));
+	datetime_format = g_date_time_format (datetime, _("%A, %B %e %X"));
 
-	str = g_strdup_printf ("<span size=\"xx-large\" weight=\"ultrabold\">%s</span>", time);
-	gtk_label_set_text (GTK_LABEL (plug->priv->auth_time_label), str);
-	gtk_label_set_use_markup (GTK_LABEL (plug->priv->auth_time_label), TRUE);
+	str = g_strdup_printf ("%s", datetime_format);
+	gtk_label_set_text (GTK_LABEL (plug->priv->auth_datetime_label), str);
 	g_free (str);
 
-	str = g_strdup_printf ("<span size=\"large\">%s</span>", date);
-	gtk_label_set_markup (GTK_LABEL (plug->priv->auth_date_label), str);
-	gtk_label_set_use_markup (GTK_LABEL (plug->priv->auth_date_label), TRUE);
-	g_free (str);
-
-	g_free (time);
-	g_free (date);
+	g_free (datetime_format);
 	g_date_time_unref (datetime);
 }
 
@@ -417,13 +413,11 @@ capslock_update (GSLockPlug *plug,
 
 	if (is_on)
 	{
-		gtk_label_set_text (GTK_LABEL (plug->priv->auth_capslock_label),
-		                    _("You have the Caps Lock key on."));
+		gtk_widget_show (GTK_WIDGET (plug->priv->auth_capslock_label));
 	}
 	else
 	{
-		gtk_label_set_text (GTK_LABEL (plug->priv->auth_capslock_label),
-		                    "");
+		gtk_widget_hide (GTK_WIDGET (plug->priv->auth_capslock_label));
 	}
 }
 
@@ -1413,8 +1407,14 @@ gs_lock_plug_enable_prompt (GSLockPlug *plug,
 	gtk_widget_set_sensitive (plug->priv->auth_unlock_button, TRUE);
 	gtk_widget_show (plug->priv->auth_unlock_button);
 	gtk_widget_grab_default (plug->priv->auth_unlock_button);
-	gtk_label_set_text (GTK_LABEL (plug->priv->auth_prompt_label), message);
-	gtk_widget_show (plug->priv->auth_prompt_label);
+
+	gtk_label_set_text(GTK_LABEL(plug->priv->auth_prompt_label), message);
+	if (g_utf8_strlen(message, -1) == 0) {
+		gtk_widget_hide (GTK_WIDGET (plug->priv->auth_prompt_label));
+	} else {
+		gtk_widget_show (GTK_WIDGET (plug->priv->auth_prompt_label));
+	}
+
 	gtk_entry_set_visibility (GTK_ENTRY (plug->priv->auth_prompt_entry), visible);
 	gtk_widget_set_sensitive (plug->priv->auth_prompt_entry, TRUE);
 	gtk_widget_show (plug->priv->auth_prompt_entry);
@@ -1754,22 +1754,6 @@ create_page_one (GSLockPlug *plug)
 	vbox2 = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);
 	gtk_box_pack_start (GTK_BOX (vbox), vbox2, FALSE, FALSE, 0);
 
-	str = g_strdup ("<span size=\"xx-large\" weight=\"ultrabold\">%s</span>");
-	plug->priv->auth_time_label = gtk_label_new (str);
-	g_free (str);
-	gtk_label_set_xalign (GTK_LABEL (plug->priv->auth_time_label), 0.5);
-	gtk_label_set_yalign (GTK_LABEL (plug->priv->auth_time_label), 0.5);
-	gtk_label_set_use_markup (GTK_LABEL (plug->priv->auth_time_label), TRUE);
-	gtk_box_pack_start (GTK_BOX (vbox2), plug->priv->auth_time_label, FALSE, FALSE, 0);
-
-	str = g_strdup ("<span size=\"large\">%s</span>");
-	plug->priv->auth_date_label = gtk_label_new (str);
-	g_free (str);
-	gtk_label_set_xalign (GTK_LABEL (plug->priv->auth_date_label), 0.5);
-	gtk_label_set_yalign (GTK_LABEL (plug->priv->auth_date_label), 0.5);
-	gtk_label_set_use_markup (GTK_LABEL (plug->priv->auth_date_label), TRUE);
-	gtk_box_pack_start (GTK_BOX (vbox2), plug->priv->auth_date_label, FALSE, FALSE, 0);
-
 	plug->priv->auth_face_image = gtk_image_new ();
 	gtk_box_pack_start (GTK_BOX (vbox), plug->priv->auth_face_image, TRUE, TRUE, 0);
 	gtk_widget_set_halign (plug->priv->auth_face_image, GTK_ALIGN_CENTER);
@@ -1803,7 +1787,7 @@ create_page_one (GSLockPlug *plug)
 	hbox = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 6);
 	gtk_box_pack_start (GTK_BOX (vbox2), hbox, FALSE, FALSE, 0);
 
-	plug->priv->auth_prompt_label = gtk_label_new_with_mnemonic (_("_Password:"));
+	plug->priv->auth_prompt_label = gtk_label_new (_("Please enter your password."));
 	gtk_box_pack_start (GTK_BOX (hbox), plug->priv->auth_prompt_label, FALSE, FALSE, 0);
 
 	plug->priv->auth_prompt_entry = gtk_entry_new ();
@@ -1811,11 +1795,6 @@ create_page_one (GSLockPlug *plug)
 
 	gtk_label_set_mnemonic_widget (GTK_LABEL (plug->priv->auth_prompt_label),
 	                               plug->priv->auth_prompt_entry);
-
-	plug->priv->auth_capslock_label = gtk_label_new ("");
-	gtk_label_set_xalign (GTK_LABEL (plug->priv->auth_capslock_label), 0.5);
-	gtk_label_set_yalign (GTK_LABEL (plug->priv->auth_capslock_label), 0.5);
-	gtk_box_pack_start (GTK_BOX (vbox2), plug->priv->auth_capslock_label, FALSE, FALSE, 0);
 
 	/* Status text */
 
@@ -1881,6 +1860,44 @@ get_dialog_theme_name (GSLockPlug *plug)
 	return name;
 }
 
+static void
+get_draw_dimensions(GSLockPlug *plug, 
+				    XfceBG *bg,
+					gint *screen_width,
+					gint *screen_height,
+					gint *monitor_width,
+					gint *monitor_height)
+{
+	GdkWindow *window;
+	GdkDisplay *display;
+	GdkScreen *screen;
+	GdkMonitor *monitor;
+	GdkRectangle geometry;
+	gint scale;
+
+	window = gtk_widget_get_window (GTK_WIDGET(plug));
+	if (window != NULL) {
+		display = gdk_window_get_display(window);
+	} else {
+		display = gdk_display_get_default();
+	}
+	screen = gdk_display_get_default_screen(display);
+	scale = gdk_window_get_scale_factor(gdk_screen_get_root_window(screen));
+	if (window != NULL) {
+		monitor = gdk_display_get_monitor_at_window(display, window);
+	} else {
+		monitor = gdk_display_get_primary_monitor (display);
+	}
+
+	xfce_bg_load_from_preferences(bg, monitor);
+
+	gdk_monitor_get_geometry(monitor, &geometry);
+	*monitor_width = geometry.width / scale;
+	*monitor_height = geometry.height / scale;
+	*screen_width = WidthOfScreen(gdk_x11_screen_get_xscreen(screen)) / scale;
+	*screen_height = HeightOfScreen(gdk_x11_screen_get_xscreen(screen)) / scale;
+}
+
 static gboolean
 load_theme (GSLockPlug *plug)
 {
@@ -1889,8 +1906,15 @@ load_theme (GSLockPlug *plug)
 	char       *gtkbuilder;
 	char       *css;
 	GtkBuilder *builder;
+	GtkWidget  *lock_overlay;
+	GtkWidget  *lock_panel;
 	GtkWidget  *lock_dialog;
+	GtkWidget  *bg_image;
 	GError     *error=NULL;
+
+	XfceBG     *bg;
+	GdkPixbuf  *pixbuf;
+	gint screen_width, screen_height, monitor_width, monitor_height;
 
 	theme = get_dialog_theme_name (plug);
 	if (theme == NULL)
@@ -1930,17 +1954,34 @@ load_theme (GSLockPlug *plug)
 	}
 	g_free (gtkbuilder);
 
-	lock_dialog = GTK_WIDGET (gtk_builder_get_object(builder, "lock-dialog"));
-	gtk_container_add (GTK_CONTAINER (plug), lock_dialog);
+	bg_image = GTK_WIDGET (gtk_builder_get_object(builder, "lock-image"));
+
+	bg = xfce_bg_new();
+	get_draw_dimensions(plug, bg, &screen_width, &screen_height, &monitor_width, &monitor_height);
+	pixbuf = xfce_bg_get_pixbuf(bg, screen_width, screen_height, monitor_width, monitor_height);
+	gtk_image_set_from_pixbuf (GTK_IMAGE(bg_image), pixbuf);
+
+	lock_overlay = GTK_WIDGET(gtk_builder_get_object(builder, "lock-overlay"));
+	lock_panel = GTK_WIDGET(gtk_builder_get_object(builder, "lock-panel"));
+	lock_dialog = GTK_WIDGET(gtk_builder_get_object(builder, "lock-dialog"));
+
+	gtk_widget_set_halign(GTK_WIDGET(lock_panel), GTK_ALIGN_FILL);
+	gtk_widget_set_valign(GTK_WIDGET(lock_panel), GTK_ALIGN_START);
+	gtk_overlay_add_overlay(GTK_OVERLAY(lock_overlay), GTK_WIDGET(lock_panel));
+
+	gtk_widget_set_halign(GTK_WIDGET(lock_dialog), GTK_ALIGN_CENTER);
+	gtk_widget_set_valign(GTK_WIDGET(lock_dialog), GTK_ALIGN_CENTER);
+	gtk_overlay_add_overlay(GTK_OVERLAY(lock_overlay), GTK_WIDGET(lock_dialog));
+
+	gtk_container_add(GTK_CONTAINER(plug), lock_overlay);
 
 	plug->priv->vbox = NULL;
 
 	plug->priv->auth_face_image = GTK_WIDGET (gtk_builder_get_object(builder, "auth-face-image"));
 	plug->priv->auth_action_area = GTK_WIDGET (gtk_builder_get_object(builder, "auth-action-area"));
-	plug->priv->auth_time_label = GTK_WIDGET (gtk_builder_get_object(builder, "auth-time-label"));
-	plug->priv->auth_date_label = GTK_WIDGET (gtk_builder_get_object(builder, "auth-date-label"));
+	plug->priv->auth_datetime_label = GTK_WIDGET (gtk_builder_get_object(builder, "auth-date-time-label"));
 	plug->priv->auth_realname_label = GTK_WIDGET (gtk_builder_get_object(builder, "auth-realname-label"));
-	plug->priv->auth_username_label = GTK_WIDGET (gtk_builder_get_object(builder, "auth-username-label"));
+	plug->priv->auth_username_label = GTK_WIDGET (gtk_builder_get_object(builder, "auth-hostname-label"));
 	plug->priv->auth_prompt_label = GTK_WIDGET (gtk_builder_get_object(builder, "auth-prompt-label"));
 	plug->priv->auth_prompt_entry = GTK_WIDGET (gtk_builder_get_object(builder, "auth-prompt-entry"));
 	plug->priv->auth_prompt_box = GTK_WIDGET (gtk_builder_get_object(builder, "auth-prompt-box"));
@@ -2096,6 +2137,7 @@ gs_lock_plug_init (GSLockPlug *plug)
 		{
 			gtk_label_set_text (GTK_LABEL (plug->priv->status_message_label),
 			                    plug->priv->status_message);
+			gtk_widget_show (plug->priv->status_message_label);
 		}
 		else
 		{

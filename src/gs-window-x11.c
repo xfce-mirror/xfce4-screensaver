@@ -1695,7 +1695,10 @@ popup_dialog (GSWindow *window)
 	command = g_string_new (tmp);
 	g_free (tmp);
 
-	if (is_logout_enabled (window))
+	g_string_append_printf(command, " --height='%i'", window->priv->geometry.height);
+	g_string_append_printf(command, " --width='%i'", window->priv->geometry.width);
+
+	if (is_logout_enabled(window))
 	{
 		command = g_string_append (command, " --enable-logout");
 		g_string_append_printf (command, " --logout-command='%s'", window->priv->logout_command);

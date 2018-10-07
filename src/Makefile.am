@@ -154,6 +154,8 @@ xfce4_screensaver_dialog_SOURCES = 	\
 	xfcekbd-desktop-config.h \
 	xfcekbd-keyboard-config.c \
 	xfcekbd-keyboard-config.h \
+	xfce-bg.c \
+	xfce-bg.h \
 	desktop-entries.c \
 	desktop-entries.h \
 	menu-layout.c \

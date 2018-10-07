@@ -43,12 +43,16 @@
 
 #include "gs-debug.h"
 
+#include <xfconf/xfconf.h>
+
 #define MAX_FAILURES 5
 
 static gboolean verbose = FALSE;
 static gboolean show_version = FALSE;
 static gboolean enable_logout = FALSE;
 static gboolean enable_switch = FALSE;
+static gint dialog_height = 0;
+static gint dialog_width = 0;
 static char* logout_command = NULL;
 static char* status_message = NULL;
 static char* away_message = NULL;
@@ -61,6 +65,8 @@ static GOptionEntry entries[] = {
 	{"enable-switch", 0, 0, G_OPTION_ARG_NONE, &enable_switch, N_("Show the switch user button"), NULL},
 	{"status-message", 0, 0, G_OPTION_ARG_STRING, &status_message, N_("Message to show in the dialog"), N_("MESSAGE")},
 	{"away-message", 0, 0, G_OPTION_ARG_STRING, &away_message, N_("Not used"), N_("MESSAGE")},
+	{"height", 0, 0, G_OPTION_ARG_INT, &dialog_height, N_("Monitor height"), NULL},
+	{"width", 0, 0, G_OPTION_ARG_INT, &dialog_width, N_("Monitor width"), NULL},
 	{NULL}
 };
 
@@ -162,25 +168,25 @@ static const char* maybe_translate_message(const char* msg)
 		   some of these messages to be more sane. */
 		hash = g_hash_table_new (g_str_hash, g_str_equal);
 		/* login: is whacked always translate to Username: */
-		g_hash_table_insert(hash, "login:", _("Username:"));
-		g_hash_table_insert(hash, "Username:", _("Username:"));
-		g_hash_table_insert(hash, "username:", _("Username:"));
-		g_hash_table_insert(hash, "Password:", _("Password:"));
-		g_hash_table_insert(hash, "password:", _("Password:"));
+		g_hash_table_insert(hash, "login:", _("Please enter your username."));
+		g_hash_table_insert(hash, "Username:", _("Please enter your username."));
+		g_hash_table_insert(hash, "username:", _("Please enter your username."));
+		g_hash_table_insert(hash, "Password:", "");
+		g_hash_table_insert(hash, "password:", "");
 		g_hash_table_insert(hash, "You are required to change your password immediately (password aged)", _("You are required to change your password immediately (password aged)"));
 		g_hash_table_insert(hash, "You are required to change your password immediately (root enforced)", _("You are required to change your password immediately (root enforced)"));
 		g_hash_table_insert(hash, "Your account has expired; please contact your system administrator", _("Your account has expired; please contact your system administrator"));
-		g_hash_table_insert(hash, "No password supplied", _("No password supplied"));
-		g_hash_table_insert(hash, "Password unchanged", _("Password unchanged"));
-		g_hash_table_insert(hash, "Can not get username", _("Can not get username"));
-		g_hash_table_insert(hash, "Retype new UNIX password:", _("Retype new UNIX password:"));
-		g_hash_table_insert(hash, "Enter new UNIX password:", _("Enter new UNIX password:"));
-		g_hash_table_insert(hash, "(current) UNIX password:", _("(current) UNIX password:"));
+		g_hash_table_insert(hash, "No password supplied", _("No password supplied."));
+		g_hash_table_insert(hash, "Password unchanged", _("Password unchanged."));
+		g_hash_table_insert(hash, "Can not get username", _("Can not get username."));
+		g_hash_table_insert(hash, "Retype new UNIX password:", _("Retype your new password."));
+		g_hash_table_insert(hash, "Enter new UNIX password:", _("Enter your new password."));
+		g_hash_table_insert(hash, "(current) UNIX password:", _("Enter your current password:"));
 		g_hash_table_insert(hash, "Error while changing NIS password.", _("Error while changing NIS password."));
-		g_hash_table_insert(hash, "You must choose a longer password", _("You must choose a longer password"));
+		g_hash_table_insert(hash, "You must choose a longer password", _("You must choose a longer password."));
 		g_hash_table_insert(hash, "Password has been already used. Choose another.", _("Password has been already used. Choose another."));
-		g_hash_table_insert(hash, "You must wait longer to change your password", _("You must wait longer to change your password"));
-		g_hash_table_insert(hash, "Sorry, passwords do not match", _("Sorry, passwords do not match"));
+		g_hash_table_insert(hash, "You must wait longer to change your password", _("You must wait longer to change your password."));
+		g_hash_table_insert(hash, "Sorry, passwords do not match", _("Sorry, passwords do not match."));
 		/* FIXME: what about messages which have some variables in them, perhaps try to do those as well */
 	}
 
@@ -404,6 +410,8 @@ static gboolean popup_dialog_idle(void)
 		g_object_set(widget, "status-message", status_message, NULL);
 	}
 
+	gtk_widget_set_size_request(widget, dialog_width, dialog_height);
+
 	g_signal_connect(GS_LOCK_PLUG(widget), "response", G_CALLBACK(response_cb), NULL);
 	g_signal_connect(widget, "show", G_CALLBACK(show_cb), NULL);
 
@@ -571,6 +579,14 @@ int main(int argc, char** argv)
 			fprintf(stderr, "%s", error->message);
 			g_error_free(error);
 		}
+
+		exit(1);
+	}
+
+	if (!xfconf_init(&error))
+	{
+		g_error("Failed to connect to xfconf daemon: %s.", error->message);
+		g_error_free(error);
 
 		exit(1);
 	}

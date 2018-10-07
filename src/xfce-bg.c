@@ -909,8 +909,7 @@ draw_once (XfceBG    *bg,
 
 static void
 xfce_bg_draw (XfceBG     *bg,
-	       GdkPixbuf *dest,
-	       GdkScreen *screen)
+	          GdkPixbuf  *dest)
 {
 	if (!bg)
 		return;
@@ -981,6 +980,36 @@ xfce_bg_create_surface (XfceBG      *bg,
 					     1);
 }
 
+GdkPixbuf *
+xfce_bg_get_pixbuf(XfceBG *bg,
+				   int screen_width,
+				   int screen_height,
+				   int monitor_width,
+				   int monitor_height)
+{
+	GdkPixbuf *pixbuf;
+	gint width;
+	gint height;
+
+	if (bg->placement == XFCE_BG_PLACEMENT_SPANNED)
+	{
+		width = screen_width;
+		height = screen_height;
+	}
+	else
+	{
+		width = monitor_width;
+		height = monitor_height;
+	}
+
+	pixbuf = gdk_pixbuf_new(GDK_COLORSPACE_RGB, FALSE, 8,
+							width, height);
+
+	xfce_bg_draw(bg, pixbuf);
+
+	return pixbuf;
+}
+
 /**
  * xfce_bg_create_surface:
  * @bg: XfceBG
@@ -1038,11 +1067,7 @@ xfce_bg_create_surface_scale (XfceBG      *bg,
 	}
 	else
 	{
-		GdkPixbuf *pixbuf;
-
-		pixbuf = gdk_pixbuf_new (GDK_COLORSPACE_RGB, FALSE, 8,
-					 width, height);
-		xfce_bg_draw (bg, pixbuf, gdk_window_get_screen (window));
+		GdkPixbuf *pixbuf = xfce_bg_get_pixbuf(bg, screen_width, screen_height, monitor_width, monitor_height);
 		gdk_cairo_set_source_pixbuf (cr, pixbuf, 0, 0);
 		g_object_unref (pixbuf);
 	}

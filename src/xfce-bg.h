@@ -89,6 +89,12 @@ cairo_surface_t *xfce_bg_create_surface        (XfceBG               *bg,
 						int                   monitor_width,
 						int                   monitor_height);
 
+GdkPixbuf *xfce_bg_get_pixbuf(XfceBG *bg,
+                              int screen_width,
+                              int screen_height,
+                              int monitor_width,
+                              int monitor_height);
+
 G_END_DECLS
 
 #endif
