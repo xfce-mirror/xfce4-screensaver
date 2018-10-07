@@ -25,6 +25,9 @@
     <property name="skip_pager_hint">True</property>
     <property name="decorated">False</property>
     <child>
+      <placeholder/>
+    </child>
+    <child>
       <object class="GtkBox" id="vbox10">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
@@ -76,41 +79,56 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="fullscreen_preview_previous_button">
+              <object class="GtkBox">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
+                <property name="can_focus">False</property>
+                <property name="margin_right">6</property>
                 <child>
-                  <object class="GtkImage" id="image5">
+                  <object class="GtkButton" id="fullscreen_preview_previous_button">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="stock">gtk-go-back</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <child>
+                      <object class="GtkImage" id="image5">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="stock">gtk-go-back</property>
+                      </object>
+                    </child>
                   </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
                 </child>
+                <child>
+                  <object class="GtkButton" id="fullscreen_preview_next_button">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <child>
+                      <object class="GtkImage" id="image4">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="stock">gtk-go-forward</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <style>
+                  <class name="linked"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
                 <property name="position">3</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="fullscreen_preview_next_button">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <child>
-                  <object class="GtkImage" id="image4">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="stock">gtk-go-forward</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">4</property>
               </packing>
             </child>
             <child>
