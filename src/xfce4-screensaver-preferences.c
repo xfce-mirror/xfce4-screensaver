@@ -36,6 +36,8 @@
 
 #include <gio/gio.h>
 
+#include <libxfce4ui/libxfce4ui.h>
+
 #include "xfce-desktop-utils.h"
 
 #include "gs-debug.h"
