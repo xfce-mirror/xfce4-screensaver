@@ -288,10 +288,10 @@ date_time_update (GSLockPlug *plug)
 	gchar *str;
 
 	datetime = g_date_time_new_now_local ();
-	datetime_format = g_date_time_format (datetime, _("%A, %B %e %X"));
+	datetime_format = g_date_time_format (datetime, _("%A, %B %e   %H:%M"));
 
-	str = g_strdup_printf ("%s", datetime_format);
-	gtk_label_set_text (GTK_LABEL (plug->priv->auth_datetime_label), str);
+	str = g_strdup_printf ("<b>%s</b>", datetime_format);
+	gtk_label_set_markup (GTK_LABEL (plug->priv->auth_datetime_label), str);
 	g_free (str);
 
 	g_free (datetime_format);
@@ -2049,7 +2049,7 @@ gs_lock_plug_init (GSLockPlug *plug)
 		date_time_update (plug);
 		gtk_widget_show_all (plug->priv->vbox);
 	}
-	plug->priv->datetime_timeout_id = g_timeout_add_seconds (1, (GSourceFunc) date_time_update, plug);
+	plug->priv->datetime_timeout_id = g_timeout_add_seconds (60, (GSourceFunc) date_time_update, plug);
 
 	/* Layout indicator */
 #ifdef WITH_KBD_LAYOUT_INDICATOR
