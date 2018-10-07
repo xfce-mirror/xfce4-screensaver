@@ -284,7 +284,6 @@ date_time_update (GSLockPlug *plug)
 {
 	GDateTime *datetime;
 	gchar *datetime_format;
-	gchar *date;
 	gchar *str;
 
 	datetime = g_date_time_new_now_local ();
@@ -1582,7 +1581,7 @@ create_page_one_buttons (GSLockPlug *plug)
 
 	plug->priv->auth_cancel_button =  gs_lock_plug_add_button (GS_LOCK_PLUG (plug),
 	                                  plug->priv->auth_action_area,
-	                                  GTK_STOCK_CANCEL);
+	                                  _("_Cancel"));
 	gtk_widget_set_focus_on_click (GTK_WIDGET (plug->priv->auth_cancel_button), FALSE);
 
 	plug->priv->auth_unlock_button =  gs_lock_plug_add_button (GS_LOCK_PLUG (plug),
@@ -1861,7 +1860,7 @@ get_dialog_theme_name (GSLockPlug *plug)
 }
 
 static void
-get_draw_dimensions(GSLockPlug *plug, 
+get_draw_dimensions(GSLockPlug *plug,
 				    XfceBG *bg,
 					gint *screen_width,
 					gint *screen_height,
