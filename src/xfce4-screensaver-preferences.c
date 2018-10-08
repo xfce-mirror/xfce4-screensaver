@@ -50,9 +50,6 @@
 
 #define GTK_BUILDER_FILE "xfce4-screensaver-preferences.ui"
 
-#define LOCKDOWN_SETTINGS_SCHEMA "org.xfce.lockdown"
-#define KEY_LOCK_DISABLE "disable-lock-screen"
-
 #define SESSION_SETTINGS_SCHEMA "org.xfce.session"
 #define KEY_IDLE_DELAY "idle-delay"
 
@@ -91,7 +88,6 @@ static GSThemeManager *theme_manager = NULL;
 static GSJob          *job = NULL;
 static GSettings      *screensaver_settings = NULL;
 static GSettings      *session_settings = NULL;
-static GSettings      *lockdown_settings = NULL;
 
 static gint32
 config_get_activate_delay (gboolean *is_writable)
@@ -283,12 +279,6 @@ config_get_lock (gboolean *is_writable)
 	lock = g_settings_get_boolean (screensaver_settings, KEY_LOCK);
 
 	return lock;
-}
-
-static gboolean
-config_get_lock_disabled ()
-{
-	return g_settings_get_boolean (lockdown_settings, KEY_LOCK_DISABLE);
 }
 
 static void
@@ -1090,24 +1080,10 @@ enabled_checkbox_toggled (GtkToggleButton *button, gpointer user_data)
 }
 
 static void
-ui_disable_lock (gboolean disable)
-{
-	GtkWidget *widget;
-
-	widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_checkbox"));
-	gtk_widget_set_sensitive (widget, !disable);
-	if (disable)
-	{
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), FALSE);
-	}
-}
-
-static void
 ui_set_lock (gboolean enabled)
 {
 	GtkWidget *widget;
 	gboolean   active;
-	gboolean   lock_disabled;
 
 	widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_checkbox"));
 
@@ -1116,8 +1092,6 @@ ui_set_lock (gboolean enabled)
 	{
 		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), enabled);
 	}
-	lock_disabled = config_get_lock_disabled ();
-	ui_disable_lock (lock_disabled);
 }
 
 static void
@@ -1126,7 +1100,6 @@ ui_set_enabled (gboolean enabled)
 	GtkWidget *widget;
 	gboolean   active;
 	gboolean   is_writable;
-	gboolean   lock_disabled;
 
 	widget = GTK_WIDGET (gtk_builder_get_object (builder, "enable_checkbox"));
 	active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
@@ -1141,8 +1114,6 @@ ui_set_enabled (gboolean enabled)
 	{
 		gtk_widget_set_sensitive (widget, enabled);
 	}
-	lock_disabled = config_get_lock_disabled ();
-	ui_disable_lock(lock_disabled);
 }
 
 static void
@@ -1172,14 +1143,6 @@ key_changed_cb (GSettings *settings, const gchar *key, gpointer data)
 			enabled = g_settings_get_boolean (settings, key);
 
 			ui_set_lock (enabled);
-	}
-	else if (strcmp (key, KEY_LOCK_DISABLE) == 0)
-	{
-		        gboolean disabled;
-
-			disabled = g_settings_get_boolean (settings, key);
-
-			ui_disable_lock (disabled);
 	}
 	else if (strcmp (key, KEY_THEMES) == 0)
 	{
@@ -1611,12 +1574,6 @@ init_capplet (void)
 	                  G_CALLBACK (key_changed_cb),
 	                  NULL);
 
-	lockdown_settings = g_settings_new (LOCKDOWN_SETTINGS_SCHEMA);
-	g_signal_connect (lockdown_settings,
-	                  "changed::" KEY_LOCK_DISABLE,
-	                  G_CALLBACK (key_changed_cb),
-	                  NULL);
-
 	activate_delay = config_get_activate_delay (&is_writable);
 	ui_set_delay (activate_delay);
 	if (! is_writable)
@@ -1707,7 +1664,6 @@ finalize_capplet (void)
 {
 	g_object_unref (screensaver_settings);
 	g_object_unref (session_settings);
-	g_object_unref (lockdown_settings);
 }
 
 int

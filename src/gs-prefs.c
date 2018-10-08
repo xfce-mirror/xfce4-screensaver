@@ -34,10 +34,6 @@ static void gs_prefs_class_init (GSPrefsClass *klass);
 static void gs_prefs_init       (GSPrefs      *prefs);
 static void gs_prefs_finalize   (GObject      *object);
 
-#define LOCKDOWN_SETTINGS_SCHEMA "org.xfce.lockdown"
-#define KEY_LOCK_DISABLE "disable-lock-screen"
-#define KEY_USER_SWITCH_DISABLE "disable-user-switching"
-
 #define SESSION_SETTINGS_SCHEMA "org.xfce.session"
 #define KEY_IDLE_DELAY "idle-delay"
 
@@ -62,7 +58,6 @@ static void gs_prefs_finalize   (GObject      *object);
 struct GSPrefsPrivate
 {
 	GSettings *settings;
-	GSettings *lockdown_settings;
 	GSettings *session_settings;
 };
 
@@ -234,20 +229,6 @@ _gs_prefs_set_lock_enabled (GSPrefs *prefs,
 }
 
 static void
-_gs_prefs_set_lock_disabled (GSPrefs *prefs,
-                             gboolean value)
-{
-	prefs->lock_disabled = value;
-}
-
-static void
-_gs_prefs_set_user_switch_disabled (GSPrefs *prefs,
-                                    gboolean value)
-{
-	prefs->user_switch_disabled = value;
-}
-
-static void
 _gs_prefs_set_keyboard_enabled (GSPrefs *prefs,
                                 gboolean value)
 {
@@ -334,12 +315,6 @@ gs_prefs_load_from_settings (GSPrefs *prefs)
 
 	bvalue = g_settings_get_boolean (prefs->priv->settings, KEY_LOCK_ENABLED);
 	_gs_prefs_set_lock_enabled (prefs, bvalue);
-
-	bvalue = g_settings_get_boolean (prefs->priv->lockdown_settings, KEY_LOCK_DISABLE);
-	_gs_prefs_set_lock_disabled (prefs, bvalue);
-
-	bvalue = g_settings_get_boolean (prefs->priv->lockdown_settings, KEY_USER_SWITCH_DISABLE);
-	_gs_prefs_set_user_switch_disabled (prefs, bvalue);
 
 	value = g_settings_get_int (prefs->priv->session_settings, KEY_IDLE_DELAY);
 	_gs_prefs_set_timeout (prefs, value);
@@ -451,22 +426,6 @@ key_changed_cb (GSettings *settings,
 		_gs_prefs_set_lock_enabled (prefs, enabled);
 
 	}
-	else if (strcmp (key, KEY_LOCK_DISABLE) == 0)
-	{
-		gboolean disabled;
-
-		disabled = g_settings_get_boolean (settings, key);
-		_gs_prefs_set_lock_disabled (prefs, disabled);
-
-	}
-	else if (strcmp (key, KEY_USER_SWITCH_DISABLE) == 0)
-	{
-		gboolean disabled;
-
-		disabled = g_settings_get_boolean (settings, key);
-		_gs_prefs_set_user_switch_disabled (prefs, disabled);
-
-	}
 	else if (strcmp (key, KEY_CYCLE_DELAY) == 0)
 	{
 		int delay;
@@ -549,11 +508,6 @@ gs_prefs_init (GSPrefs *prefs)
 			  "changed",
 			  G_CALLBACK (key_changed_cb),
 			  prefs);
-	prefs->priv->lockdown_settings = g_settings_new (LOCKDOWN_SETTINGS_SCHEMA);
-	g_signal_connect (prefs->priv->lockdown_settings,
-			  "changed",
-			  G_CALLBACK (key_changed_cb),
-			  prefs);
 	prefs->priv->session_settings = g_settings_new (SESSION_SETTINGS_SCHEMA);
 	g_signal_connect (prefs->priv->session_settings,
 			  "changed::" KEY_IDLE_DELAY,
@@ -562,7 +516,6 @@ gs_prefs_init (GSPrefs *prefs)
 
 	prefs->idle_activation_enabled = TRUE;
 	prefs->lock_enabled            = TRUE;
-	prefs->lock_disabled           = FALSE;
 	prefs->logout_enabled          = FALSE;
 	prefs->user_switch_enabled     = FALSE;
 
@@ -593,11 +546,6 @@ gs_prefs_finalize (GObject *object)
 	{
 		g_object_unref (prefs->priv->settings);
 		prefs->priv->settings = NULL;
-	}
-
-	if (prefs->priv->lockdown_settings) {
-		g_object_unref (prefs->priv->lockdown_settings);
-		prefs->priv->lockdown_settings = NULL;
 	}
 
 	if (prefs->priv->session_settings) {

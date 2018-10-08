@@ -209,7 +209,7 @@ static void gs_monitor_simulate_user_activity(GSMonitor* monitor)
 
 static void listener_lock_cb(GSListener* listener, GSMonitor* monitor)
 {
-	if (!monitor->priv->prefs->lock_disabled)
+	if (monitor->priv->prefs->lock_enabled)
 	{
 		gs_monitor_lock_screen(monitor);
 	}
@@ -289,8 +289,8 @@ static void _gs_monitor_update_from_prefs(GSMonitor* monitor, GSPrefs* prefs)
 	gboolean lock_enabled;
 	gboolean user_switch_enabled;
 
-	lock_enabled = (monitor->priv->prefs->lock_enabled && !monitor->priv->prefs->lock_disabled);
-	user_switch_enabled = (monitor->priv->prefs->user_switch_enabled && !monitor->priv->prefs->user_switch_disabled);
+	lock_enabled = monitor->priv->prefs->lock_enabled;
+	user_switch_enabled = monitor->priv->prefs->user_switch_enabled;
 
 	gs_manager_set_lock_enabled(monitor->priv->manager, lock_enabled);
 	gs_manager_set_lock_timeout(monitor->priv->manager, monitor->priv->prefs->lock_timeout);
