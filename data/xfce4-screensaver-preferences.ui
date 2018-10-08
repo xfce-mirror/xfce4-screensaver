@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.20.0 -->
+<!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.14"/>
+  <requires lib="libxfce4ui-2" version="4.13"/>
   <!-- interface-license-type gplv2 -->
   <!-- interface-name xfce4-screensaver -->
   <!-- interface-description screensaver preferences -->
@@ -157,14 +158,16 @@
     <property name="can_focus">False</property>
     <property name="stock">gtk-fullscreen</property>
   </object>
-  <object class="GtkDialog" id="prefs_dialog">
+  <object class="XfceTitledDialog" id="prefs_dialog">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
     <property name="title" translatable="yes">Screensaver Preferences</property>
     <property name="default_width">600</property>
     <property name="default_height">400</property>
+    <property name="icon_name">preferences-desktop-screensaver</property>
     <property name="type_hint">dialog</property>
+    <property name="subtitle" translatable="yes">Configure your screensaver and locker</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox1">
         <property name="visible">True</property>
