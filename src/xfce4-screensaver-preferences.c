@@ -1725,6 +1725,10 @@ main (int    argc,
 
 	gtk_init (&argc, &argv);
 
+	/* hook to make sure the libxfce4ui library is linked */
+	if (xfce_titled_dialog_get_type() == 0)
+		exit(1);
+
 	job = gs_job_new ();
 	theme_manager = gs_theme_manager_new ();
 

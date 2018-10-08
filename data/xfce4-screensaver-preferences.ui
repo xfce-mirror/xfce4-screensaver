@@ -1,13 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.1 -->
+<!-- Generated with glade 3.22.1 
+
+xfce4-screensaver - screensaver preferences
+Copyright (C) 2018 Xfce Developers
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+Authors:
+Wolfgang Ulbrich (MATE Screensaver)
+Sean Davis
+Simon Steinbeiß
+
+-->
 <interface>
-  <requires lib="gtk+" version="3.14"/>
+  <requires lib="gtk+" version="3.20"/>
   <requires lib="libxfce4ui-2" version="4.13"/>
   <!-- interface-license-type gplv2 -->
   <!-- interface-name xfce4-screensaver -->
   <!-- interface-description screensaver preferences -->
-  <!-- interface-copyright MATE Developer -->
-  <!-- interface-authors Wolfgang Ulbrich -->
+  <!-- interface-copyright 2018 Xfce Developers -->
+  <!-- interface-authors Wolfgang Ulbrich (MATE Screensaver)\nSean Davis\nSimon Steinbei\303\237 -->
   <object class="GtkAdjustment" id="adjustment1">
     <property name="lower">1</property>
     <property name="upper">120</property>
@@ -25,6 +49,9 @@
     <property name="skip_taskbar_hint">True</property>
     <property name="skip_pager_hint">True</property>
     <property name="decorated">False</property>
+    <child>
+      <placeholder/>
+    </child>
     <child>
       <object class="GtkBox" id="vbox10">
         <property name="visible">True</property>
@@ -65,7 +92,7 @@
                 <property name="position">1</property>
               </packing>
             </child>
-            <child>
+            <child type="center">
               <object class="GtkLabel" id="fullscreen_preview_theme_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -73,25 +100,21 @@
               <packing>
                 <property name="expand">True</property>
                 <property name="fill">True</property>
-                <property name="position">2</property>
+                <property name="position">6</property>
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="fullscreen_preview_previous_button">
+              <object class="GtkButton" id="fullscreen_preview_close">
+                <property name="label">gtk-leave-fullscreen</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <child>
-                  <object class="GtkImage" id="image5">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="stock">gtk-go-back</property>
-                  </object>
-                </child>
+                <property name="use_stock">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
+                <property name="pack_type">end</property>
                 <property name="position">3</property>
               </packing>
             </child>
@@ -111,20 +134,27 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
+                <property name="pack_type">end</property>
                 <property name="position">4</property>
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="fullscreen_preview_close">
-                <property name="label">gtk-leave-fullscreen</property>
+              <object class="GtkButton" id="fullscreen_preview_previous_button">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="use_stock">True</property>
+                <child>
+                  <object class="GtkImage" id="image5">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="stock">gtk-go-back</property>
+                  </object>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
+                <property name="pack_type">end</property>
                 <property name="position">5</property>
               </packing>
             </child>
@@ -161,7 +191,6 @@
   <object class="XfceTitledDialog" id="prefs_dialog">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="border_width">5</property>
     <property name="title" translatable="yes">Screensaver Preferences</property>
     <property name="default_width">600</property>
     <property name="default_height">400</property>
@@ -178,6 +207,7 @@
           <object class="GtkButtonBox" id="dialog-action_area1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="hexpand">True</property>
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="helpbutton1">
@@ -192,6 +222,7 @@
                 <property name="expand">False</property>
                 <property name="fill">False</property>
                 <property name="position">0</property>
+                <property name="secondary">True</property>
               </packing>
             </child>
             <child>
@@ -243,7 +274,7 @@
             </child>
           </object>
           <packing>
-            <property name="expand">False</property>
+            <property name="expand">True</property>
             <property name="fill">True</property>
             <property name="pack_type">end</property>
             <property name="position">0</property>
@@ -253,7 +284,7 @@
           <object class="GtkBox" id="vbox1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="border_width">5</property>
+            <property name="border_width">6</property>
             <property name="orientation">vertical</property>
             <property name="spacing">12</property>
             <child>
