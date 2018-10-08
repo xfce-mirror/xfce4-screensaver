@@ -288,6 +288,57 @@ xfce_bg_load_from_preferences (XfceBG *bg,
 	queue_changed (bg);
 }
 
+static gboolean
+xfce_bg_check_property_prefix (XfconfChannel *channel,
+							   gchar         *prefix)
+{
+	gchar *property;
+
+	property = g_strconcat (prefix, "/last-image", NULL);
+	if (xfconf_channel_has_property (channel, property)) {
+		g_free (property);
+		return TRUE;
+	}
+	g_free (property);
+
+	property = g_strconcat (prefix, "/image-path", NULL);
+	if (xfconf_channel_has_property (channel, property)) {
+		g_free (property);
+		return TRUE;
+	}
+	g_free (property);
+
+	property = g_strconcat (prefix, "/image-style", NULL);
+	if (xfconf_channel_has_property (channel, property)) {
+		g_free (property);
+		return TRUE;
+	}
+	g_free (property);
+
+	property = g_strconcat (prefix, "/rgba1", NULL);
+	if (xfconf_channel_has_property (channel, property)) {
+		g_free (property);
+		return TRUE;
+	}
+	g_free (property);
+
+	property = g_strconcat (prefix, "/rgba2", NULL);
+	if (xfconf_channel_has_property (channel, property)) {
+		g_free (property);
+		return TRUE;
+	}
+	g_free (property);
+
+	property = g_strconcat (prefix, "/color-style", NULL);
+	if (xfconf_channel_has_property (channel, property)) {
+		g_free (property);
+		return TRUE;
+	}
+	g_free (property);
+
+	return FALSE;
+}
+
 static gchar*
 xfce_bg_get_property_prefix (XfconfChannel *channel,
 							 const gchar   *monitor_name)
@@ -296,14 +347,15 @@ xfce_bg_get_property_prefix (XfconfChannel *channel,
 
 	/* Check for workspace usage */
 	prefix = g_strconcat("/backdrop/screen0/monitor", monitor_name, "/workspace0", NULL);
-	if (xfconf_channel_has_property (channel, prefix)) {
+	if (xfce_bg_check_property_prefix (channel, prefix)) 
+	{
 		return prefix;
 	}
 	g_free(prefix);
 
 	/* Check for non-workspace usage */
 	prefix = g_strconcat("/backdrop/screen0/monitor", monitor_name, NULL);
-	if (xfconf_channel_has_property(channel, prefix))
+	if (xfce_bg_check_property_prefix (channel, prefix))
 	{
 		return prefix;
 	}
@@ -311,7 +363,7 @@ xfce_bg_get_property_prefix (XfconfChannel *channel,
 
 	/* Check defaults */
 	prefix = g_strdup("/backdrop/screen0/monitor0/workspace0");
-	if (xfconf_channel_has_property(channel, prefix))
+	if (xfce_bg_check_property_prefix (channel, prefix))
 	{
 		return prefix;
 	}
@@ -362,7 +414,11 @@ xfce_bg_load_from_xfconf (XfceBG        *bg,
 
 	/* Filename */
 	g_free(property);
-	property = g_strconcat(prop_prefix, "/image-path", NULL);
+	property = g_strconcat(prop_prefix, "/last-image", NULL);
+	if (!xfconf_channel_has_property (channel, property)) {
+		g_free(property);
+		property = g_strconcat(prop_prefix, "/image-path", NULL);
+	}
 	filename = NULL;
 	tmp = xfconf_channel_get_string(channel, property, XFCE_BG_FALLBACK_IMG);
 	if (tmp && *tmp != '\0') {
