@@ -34,9 +34,6 @@ static void gs_prefs_class_init (GSPrefsClass *klass);
 static void gs_prefs_init       (GSPrefs      *prefs);
 static void gs_prefs_finalize   (GObject      *object);
 
-#define SESSION_SETTINGS_SCHEMA "org.xfce.session"
-#define KEY_IDLE_DELAY "idle-delay"
-
 #define GSETTINGS_SCHEMA "org.xfce.screensaver"
 #define KEY_IDLE_ACTIVATION_ENABLED "idle-activation-enabled"
 #define KEY_LOCK_ENABLED "lock-enabled"
@@ -52,13 +49,13 @@ static void gs_prefs_finalize   (GObject      *object);
 #define KEY_KEYBOARD_ENABLED "embedded-keyboard-enabled"
 #define KEY_KEYBOARD_COMMAND "embedded-keyboard-command"
 #define KEY_STATUS_MESSAGE_ENABLED "status-message-enabled"
+#define KEY_IDLE_DELAY "idle-delay"
 
 #define GS_PREFS_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GS_TYPE_PREFS, GSPrefsPrivate))
 
 struct GSPrefsPrivate
 {
 	GSettings *settings;
-	GSettings *session_settings;
 };
 
 enum
@@ -316,7 +313,7 @@ gs_prefs_load_from_settings (GSPrefs *prefs)
 	bvalue = g_settings_get_boolean (prefs->priv->settings, KEY_LOCK_ENABLED);
 	_gs_prefs_set_lock_enabled (prefs, bvalue);
 
-	value = g_settings_get_int (prefs->priv->session_settings, KEY_IDLE_DELAY);
+	value = g_settings_get_int (prefs->priv->settings, KEY_IDLE_DELAY);
 	_gs_prefs_set_timeout (prefs, value);
 
 	value = g_settings_get_int (prefs->priv->settings, KEY_POWER_DELAY);
@@ -508,11 +505,6 @@ gs_prefs_init (GSPrefs *prefs)
 			  "changed",
 			  G_CALLBACK (key_changed_cb),
 			  prefs);
-	prefs->priv->session_settings = g_settings_new (SESSION_SETTINGS_SCHEMA);
-	g_signal_connect (prefs->priv->session_settings,
-			  "changed::" KEY_IDLE_DELAY,
-			  G_CALLBACK (key_changed_cb),
-			  prefs);
 
 	prefs->idle_activation_enabled = TRUE;
 	prefs->lock_enabled            = TRUE;
@@ -546,11 +538,6 @@ gs_prefs_finalize (GObject *object)
 	{
 		g_object_unref (prefs->priv->settings);
 		prefs->priv->settings = NULL;
-	}
-
-	if (prefs->priv->session_settings) {
-		g_object_unref (prefs->priv->session_settings);
-		prefs->priv->session_settings = NULL;
 	}
 
 	if (prefs->themes)

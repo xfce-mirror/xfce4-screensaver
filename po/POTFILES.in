@@ -3,7 +3,6 @@
 data/images/cosmos/cosmos.xml.in.in
 [type: gettext/glade]data/lock-dialog-default.ui
 [type: gettext/gsettings]data/org.xfce.screensaver.gschema.xml.in
-[type: gettext/gsettings]data/org.xfce.session.gschema.xml.in
 data/xfce4-screensaver-preferences.desktop.in
 [type: gettext/glade]data/xfce4-screensaver-preferences.ui
 data/xfce4-screensaver.directory.in

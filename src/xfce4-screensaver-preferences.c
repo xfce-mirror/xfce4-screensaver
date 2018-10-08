@@ -50,9 +50,6 @@
 
 #define GTK_BUILDER_FILE "xfce4-screensaver-preferences.ui"
 
-#define SESSION_SETTINGS_SCHEMA "org.xfce.session"
-#define KEY_IDLE_DELAY "idle-delay"
-
 #define GSETTINGS_SCHEMA "org.xfce.screensaver"
 #define KEY_LOCK "lock-enabled"
 #define KEY_IDLE_ACTIVATION_ENABLED "idle-activation-enabled"
@@ -60,6 +57,7 @@
 #define KEY_LOCK_DELAY "lock-delay"
 #define KEY_CYCLE_DELAY "cycle-delay"
 #define KEY_THEMES "themes"
+#define KEY_IDLE_DELAY "idle-delay"
 
 #define GPM_COMMAND "xfce4-power-manager-settings"
 
@@ -87,7 +85,6 @@ static GtkBuilder     *builder = NULL;
 static GSThemeManager *theme_manager = NULL;
 static GSJob          *job = NULL;
 static GSettings      *screensaver_settings = NULL;
-static GSettings      *session_settings = NULL;
 
 static gint32
 config_get_activate_delay (gboolean *is_writable)
@@ -96,11 +93,11 @@ config_get_activate_delay (gboolean *is_writable)
 
 	if (is_writable)
 	{
-		*is_writable = g_settings_is_writable (session_settings,
+		*is_writable = g_settings_is_writable (screensaver_settings,
 		               KEY_IDLE_DELAY);
 	}
 
-	delay = g_settings_get_int (session_settings, KEY_IDLE_DELAY);
+	delay = g_settings_get_int (screensaver_settings, KEY_IDLE_DELAY);
 
 	if (delay < 1)
 	{
@@ -113,7 +110,7 @@ config_get_activate_delay (gboolean *is_writable)
 static void
 config_set_activate_delay (gint32 timeout)
 {
-	g_settings_set_int (session_settings, KEY_IDLE_DELAY, timeout);
+	g_settings_set_int (screensaver_settings, KEY_IDLE_DELAY, timeout);
 }
 
 static int
@@ -1568,12 +1565,6 @@ init_capplet (void)
 	                  G_CALLBACK (key_changed_cb),
 	                  NULL);
 
-	session_settings = g_settings_new (SESSION_SETTINGS_SCHEMA);
-	g_signal_connect (session_settings,
-	                  "changed::" KEY_IDLE_DELAY,
-	                  G_CALLBACK (key_changed_cb),
-	                  NULL);
-
 	activate_delay = config_get_activate_delay (&is_writable);
 	ui_set_delay (activate_delay);
 	if (! is_writable)
@@ -1663,7 +1654,6 @@ static void
 finalize_capplet (void)
 {
 	g_object_unref (screensaver_settings);
-	g_object_unref (session_settings);
 }
 
 int
