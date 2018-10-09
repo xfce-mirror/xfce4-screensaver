@@ -70,10 +70,11 @@ enum
 #define DIALOG_TIMEOUT_MSEC 60000
 
 static void gs_lock_plug_finalize   (GObject         *object);
+static void redraw_background       (GSLockPlug      *plug);
 
 #define GS_LOCK_PLUG_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GS_TYPE_LOCK_PLUG, GSLockPlugPrivate))
 
-struct GSLockPlugPrivate
+	struct GSLockPlugPrivate
 {
 	GtkWidget   *vbox;
 	GtkWidget   *auth_action_area;
@@ -88,6 +89,7 @@ struct GSLockPlugPrivate
 	GtkWidget   *auth_capslock_label;
 	GtkWidget   *auth_message_label;
 	GtkWidget   *status_message_label;
+	GtkWidget   *background_image;
 
 	GtkWidget   *auth_unlock_button;
 	GtkWidget   *auth_switch_button;
@@ -108,6 +110,8 @@ struct GSLockPlugPrivate
 	guint        cancel_timeout_id;
 	guint        auth_check_idle_id;
 	guint        response_idle_id;
+
+	gint         monitor_index;
 
 	GList       *key_events;
 };
@@ -133,7 +137,8 @@ enum
     PROP_LOGOUT_ENABLED,
     PROP_LOGOUT_COMMAND,
     PROP_SWITCH_ENABLED,
-    PROP_STATUS_MESSAGE
+    PROP_STATUS_MESSAGE,
+    PROP_MONITOR_INDEX
 };
 
 static guint lock_plug_signals [LAST_SIGNAL] = { 0 };
@@ -1073,6 +1078,23 @@ gs_lock_plug_set_logout_enabled (GSLockPlug *plug,
 }
 
 static void
+gs_lock_plug_set_monitor_index (GSLockPlug *plug,
+                                gint        monitor_index)
+{
+	g_return_if_fail (GS_LOCK_PLUG (plug));
+
+	if (plug->priv->monitor_index == monitor_index)
+	{
+		return;
+	}
+
+	plug->priv->monitor_index = monitor_index;
+	g_object_notify (G_OBJECT (plug), "monitor-index");
+
+	redraw_background (plug);
+}
+
+static void
 gs_lock_plug_set_logout_command (GSLockPlug *plug,
                                  const char *command)
 {
@@ -1137,6 +1159,9 @@ gs_lock_plug_get_property (GObject    *object,
 		break;
 	case PROP_STATUS_MESSAGE:
 		g_value_set_string (value, self->priv->status_message);
+		break;
+	case PROP_MONITOR_INDEX:
+		g_value_set_int (value, self->priv->monitor_index);
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -1215,6 +1240,9 @@ gs_lock_plug_set_property (GObject            *object,
 		break;
 	case PROP_SWITCH_ENABLED:
 		gs_lock_plug_set_switch_enabled (self, g_value_get_boolean (value));
+		break;
+	case PROP_MONITOR_INDEX:
+		gs_lock_plug_set_monitor_index (self, g_value_get_int (value));
 		break;
 	default:
 		G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -1302,6 +1330,15 @@ gs_lock_plug_class_init (GSLockPlugClass *klass)
 	                                         NULL,
 	                                         NULL,
 	                                         FALSE,
+	                                         G_PARAM_READWRITE));
+	g_object_class_install_property (object_class,
+	                                 PROP_MONITOR_INDEX,
+	                                 g_param_spec_int ("monitor-index",
+	                                         NULL,
+	                                         NULL,
+	                                         0,
+	                                         200,
+	                                         0,
 	                                         G_PARAM_READWRITE));
 
 	binding_set = gtk_binding_set_by_class (klass);
@@ -1882,10 +1919,17 @@ get_draw_dimensions(GSLockPlug *plug,
 	}
 	screen = gdk_display_get_default_screen(display);
 	scale = gdk_window_get_scale_factor(gdk_screen_get_root_window(screen));
-	if (window != NULL) {
-		monitor = gdk_display_get_monitor_at_window(display, window);
-	} else {
-		monitor = gdk_display_get_primary_monitor (display);
+
+	monitor = gdk_display_get_monitor (display, plug->priv->monitor_index);
+	if (!monitor)
+	{
+		if (window != NULL)
+			monitor = gdk_display_get_monitor_at_window(display, window);
+		else
+			monitor = gdk_display_get_primary_monitor(display);
+
+		if (!monitor)
+			monitor = gdk_display_get_monitor (display, 0);
 	}
 
 	xfce_bg_load_from_preferences(bg, monitor);
@@ -1895,6 +1939,26 @@ get_draw_dimensions(GSLockPlug *plug,
 	*monitor_height = geometry.height / scale;
 	*screen_width = WidthOfScreen(gdk_x11_screen_get_xscreen(screen)) / scale;
 	*screen_height = HeightOfScreen(gdk_x11_screen_get_xscreen(screen)) / scale;
+}
+
+static void
+redraw_background (GSLockPlug *plug)
+{
+	XfceBG *bg;
+	GdkPixbuf *pixbuf;
+	gint screen_width, screen_height, monitor_width, monitor_height;
+
+	pixbuf = gtk_image_get_pixbuf (GTK_IMAGE (plug->priv->background_image));
+	if (pixbuf)
+	{
+		g_free(pixbuf);
+		pixbuf = NULL;
+	}
+
+	bg = xfce_bg_new();
+	get_draw_dimensions(plug, bg, &screen_width, &screen_height, &monitor_width, &monitor_height);
+	pixbuf = xfce_bg_get_pixbuf(bg, screen_width, screen_height, monitor_width, monitor_height);
+	gtk_image_set_from_pixbuf(GTK_IMAGE(plug->priv->background_image), pixbuf);
 }
 
 static gboolean
@@ -1908,12 +1972,7 @@ load_theme (GSLockPlug *plug)
 	GtkWidget  *lock_overlay;
 	GtkWidget  *lock_panel;
 	GtkWidget  *lock_dialog;
-	GtkWidget  *bg_image;
 	GError     *error=NULL;
-
-	XfceBG     *bg;
-	GdkPixbuf  *pixbuf;
-	gint screen_width, screen_height, monitor_width, monitor_height;
 
 	theme = get_dialog_theme_name (plug);
 	if (theme == NULL)
@@ -1953,13 +2012,6 @@ load_theme (GSLockPlug *plug)
 	}
 	g_free (gtkbuilder);
 
-	bg_image = GTK_WIDGET (gtk_builder_get_object(builder, "lock-image"));
-
-	bg = xfce_bg_new();
-	get_draw_dimensions(plug, bg, &screen_width, &screen_height, &monitor_width, &monitor_height);
-	pixbuf = xfce_bg_get_pixbuf(bg, screen_width, screen_height, monitor_width, monitor_height);
-	gtk_image_set_from_pixbuf (GTK_IMAGE(bg_image), pixbuf);
-
 	lock_overlay = GTK_WIDGET(gtk_builder_get_object(builder, "lock-overlay"));
 	lock_panel = GTK_WIDGET(gtk_builder_get_object(builder, "lock-panel"));
 	lock_dialog = GTK_WIDGET(gtk_builder_get_object(builder, "lock-dialog"));
@@ -1990,6 +2042,7 @@ load_theme (GSLockPlug *plug)
 	plug->priv->auth_cancel_button = GTK_WIDGET (gtk_builder_get_object(builder, "auth-cancel-button"));
 	plug->priv->auth_logout_button = GTK_WIDGET (gtk_builder_get_object(builder, "auth-logout-button"));
 	plug->priv->auth_switch_button = GTK_WIDGET (gtk_builder_get_object(builder, "auth-switch-button"));
+	plug->priv->background_image = GTK_WIDGET (gtk_builder_get_object(builder, "lock-image"));
 
 	/* Placeholder for the keyboard indicator */
 	plug->priv->auth_prompt_kbd_layout_indicator = GTK_WIDGET (gtk_builder_get_object(builder, "auth-prompt-kbd-layout-indicator"));
@@ -2001,6 +2054,8 @@ load_theme (GSLockPlug *plug)
 	{
 		gtk_widget_set_no_show_all (plug->priv->auth_switch_button, TRUE);
 	}
+
+	redraw_background (plug);
 
 	date_time_update (plug);
 	gtk_widget_show_all (lock_dialog);

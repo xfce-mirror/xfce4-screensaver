@@ -56,6 +56,7 @@ static gint dialog_width = 0;
 static char* logout_command = NULL;
 static char* status_message = NULL;
 static char* away_message = NULL;
+static gint monitor_index = 0;
 
 static GOptionEntry entries[] = {
 	{"verbose", 0, 0, G_OPTION_ARG_NONE, &verbose, N_("Show debugging output"), NULL},
@@ -67,6 +68,7 @@ static GOptionEntry entries[] = {
 	{"away-message", 0, 0, G_OPTION_ARG_STRING, &away_message, N_("Not used"), N_("MESSAGE")},
 	{"height", 0, 0, G_OPTION_ARG_INT, &dialog_height, N_("Monitor height"), NULL},
 	{"width", 0, 0, G_OPTION_ARG_INT, &dialog_width, N_("Monitor width"), NULL},
+	{"monitor", 0, 0, G_OPTION_ARG_INT, &monitor_index, N_("Monitor index"), NULL},
 	{NULL}
 };
 
@@ -409,6 +411,8 @@ static gboolean popup_dialog_idle(void)
 	{
 		g_object_set(widget, "status-message", status_message, NULL);
 	}
+
+	g_object_set(widget, "monitor-index", monitor_index, NULL);
 
 	gtk_widget_set_size_request(widget, dialog_width, dialog_height);
 

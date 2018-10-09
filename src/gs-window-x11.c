@@ -1682,6 +1682,23 @@ is_user_switch_enabled (GSWindow *window)
 	return window->priv->user_switch_enabled;
 }
 
+static gint
+get_monitor_index (GSWindow *window)
+{
+	GdkDisplay *display = gs_window_get_display (window);
+	GdkMonitor *monitor;
+	gint idx;
+
+	for (idx = 0; idx < gdk_display_get_n_monitors (display); idx++) {
+		monitor = gdk_display_get_monitor (display, idx);
+		if (g_strcmp0 (gdk_monitor_get_model (monitor), gdk_monitor_get_model (window->priv->monitor)) == 0) {
+			return idx;
+		}
+	}
+
+	return 0;
+}
+
 static void
 popup_dialog (GSWindow *window)
 {
@@ -1695,6 +1712,7 @@ popup_dialog (GSWindow *window)
 	command = g_string_new (tmp);
 	g_free (tmp);
 
+	g_string_append_printf(command, " --monitor='%i'", get_monitor_index (window));
 	g_string_append_printf(command, " --height='%i'", window->priv->geometry.height);
 	g_string_append_printf(command, " --width='%i'", window->priv->geometry.width);
 
