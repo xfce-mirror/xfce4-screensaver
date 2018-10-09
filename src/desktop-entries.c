@@ -108,7 +108,8 @@ static guint get_flags_from_key_file(DesktopEntry* entry, GKeyFile* key_file, co
       show_in_xfce = FALSE;
       for (i = 0; strv[i]; i++)
         {
-          if (!strcmp (strv[i], "XFCE"))
+          /* Since we use the same codebase as MATE and GNOME, don't let them have all the fun. */
+          if (!strcmp (strv[i], "XFCE") || !strcmp (strv[i], "MATE") || !strcmp (strv[i], "GNOME"))
             {
               show_in_xfce = TRUE;
               break;
