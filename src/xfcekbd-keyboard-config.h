@@ -39,7 +39,6 @@ struct _XfcekbdKeyboardConfig {
 	gchar **options;
 
 	/* private, transient */
-	GSettings *settings;
 	int config_listener_id;
 	XklEngine *engine;
 };

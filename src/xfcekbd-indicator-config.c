@@ -45,9 +45,6 @@ const gchar XFCEKBD_INDICATOR_CONFIG_KEY_FONT_FAMILY[] = "font-family";
 const gchar XFCEKBD_INDICATOR_CONFIG_KEY_FOREGROUND_COLOR[] = "foreground-color";
 const gchar XFCEKBD_INDICATOR_CONFIG_KEY_BACKGROUND_COLOR[] = "background-color";
 
-#define SYSTEM_FONT_SCHEMA "org.xfce.interface"
-#define SYSTEM_FONT_KEY "font-name"
-
 /*
  * static applet config functions
  */

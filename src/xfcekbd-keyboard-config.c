@@ -32,20 +32,6 @@
 /*
  * XfcekbdKeyboardConfig
  */
-#define XFCEKBD_KEYBOARD_CONFIG_SCHEMA XFCEKBD_CONFIG_SCHEMA ".kbd"
-
-#define GROUP_SWITCHERS_GROUP "grp"
-#define DEFAULT_GROUP_SWITCH "grp:shift_caps_toggle"
-
-const gchar XFCEKBD_KEYBOARD_CONFIG_KEY_MODEL[] = "model";
-const gchar XFCEKBD_KEYBOARD_CONFIG_KEY_LAYOUTS[] = "layouts";
-const gchar XFCEKBD_KEYBOARD_CONFIG_KEY_OPTIONS[] = "options";
-
-const gchar *XFCEKBD_KEYBOARD_CONFIG_ACTIVE[] = {
-	XFCEKBD_KEYBOARD_CONFIG_KEY_MODEL,
-	XFCEKBD_KEYBOARD_CONFIG_KEY_LAYOUTS,
-	XFCEKBD_KEYBOARD_CONFIG_KEY_OPTIONS
-};
 
 /*
  * extern common functions
@@ -175,7 +161,6 @@ xfcekbd_keyboard_config_init (XfcekbdKeyboardConfig * kbd_config,
 			      XklEngine * engine)
 {
 	memset (kbd_config, 0, sizeof (*kbd_config));
-	kbd_config->settings = g_settings_new (XFCEKBD_KEYBOARD_CONFIG_SCHEMA);
 	kbd_config->engine = engine;
 }
 
@@ -188,9 +173,6 @@ xfcekbd_keyboard_config_term (XfcekbdKeyboardConfig * kbd_config)
 	kbd_config->layouts_variants = NULL;
 	g_strfreev (kbd_config->options);
 	kbd_config->options = NULL;
-
-	g_object_unref (kbd_config->settings);
-	kbd_config->settings = NULL;
 }
 
 void

@@ -87,3 +87,4 @@ src/xfce4-screensaver.desktop.in
 src/xfcekbd-indicator-marshal.h
 stamp-h1
 po/xfce4-screensaver.pot
+*~
