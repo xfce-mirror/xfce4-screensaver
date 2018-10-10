@@ -23,7 +23,7 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 #include <gdk/gdkx.h>
-#include <glib/gi18n-lib.h>
+#include <libxfce4util/libxfce4util.h>
 
 #include "xfcekbd-indicator.h"
 #include "xfcekbd-indicator-marshal.h"

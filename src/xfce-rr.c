@@ -25,7 +25,7 @@
 
 
 #include <config.h>
-#include <glib/gi18n-lib.h>
+#include <libxfce4util/libxfce4util.h>
 #include <string.h>
 #include <X11/Xlib.h>
 

@@ -30,7 +30,6 @@
 
 #include <glib.h>
 #include <glib-object.h>
-#include <glib/gi18n.h>
 
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>

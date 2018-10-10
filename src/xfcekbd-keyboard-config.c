@@ -24,7 +24,7 @@
 #include <stdlib.h>
 #include <X11/keysym.h>
 
-#include <glib/gi18n-lib.h>
+#include <libxfce4util/libxfce4util.h>
 
 #include "xfcekbd-keyboard-config.h"
 #include "xfcekbd-config-private.h"

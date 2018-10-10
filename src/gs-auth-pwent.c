@@ -45,7 +45,7 @@
 #endif /* __bsdi__ */
 
 #include <glib.h>
-#include <glib/gi18n.h>
+#include <libxfce4util/libxfce4util.h>
 
 #if defined(HAVE_SHADOW_PASSWD)	      /* passwds live in /etc/shadow */
 

@@ -30,7 +30,6 @@
 #include <string.h>
 #include <sys/types.h>          /* For uid_t, gid_t */
 
-#include <glib/gi18n.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 

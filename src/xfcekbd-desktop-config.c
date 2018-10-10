@@ -26,7 +26,7 @@
 
 #include <xfconf/xfconf.h>
 
-#include <glib/gi18n-lib.h>
+#include <libxfce4util/libxfce4util.h>
 #include <gio/gio.h>
 #include "xfcekbd-desktop-config.h"
 #include "xfcekbd-config-private.h"

@@ -27,7 +27,7 @@
 #include <config.h>
 #include <glib.h>
 #include <gio/gio.h>
-#include <glib/gi18n-lib.h>
+#include <libxfce4util/libxfce4util.h>
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
 

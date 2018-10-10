@@ -31,7 +31,7 @@
 #include <termios.h>
 #include <unistd.h>
 
-#include <glib/gi18n.h>
+#include <libxfce4util/libxfce4util.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 

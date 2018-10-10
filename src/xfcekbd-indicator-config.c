@@ -26,7 +26,7 @@
 
 #include <pango/pango.h>
 
-#include <glib/gi18n-lib.h>
+#include <libxfce4util/libxfce4util.h>
 #include <gdk/gdkx.h>
 
 #include <xfconf/xfconf.h>

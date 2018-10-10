@@ -30,7 +30,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-#include <glib/gi18n.h>
+#include <libxfce4util/libxfce4util.h>
 #include <gtk/gtk.h>
 
 #include "xfce4-screensaver.h"

@@ -26,7 +26,7 @@
 #include <stdlib.h>
 #include <locale.h>
 #include <glib.h>
-#include <glib/gi18n.h>
+#include <libxfce4util/libxfce4util.h>
 
 #define DBUS_API_SUBJECT_TO_CHANGE
 #include <dbus/dbus.h>
