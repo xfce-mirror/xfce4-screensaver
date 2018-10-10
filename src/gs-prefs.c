@@ -28,34 +28,19 @@
 #include <glib-object.h>
 #include <gio/gio.h>
 
+#include <xfconf/xfconf.h>
+
 #include "gs-prefs.h"
 
 static void gs_prefs_class_init (GSPrefsClass *klass);
 static void gs_prefs_init       (GSPrefs      *prefs);
 static void gs_prefs_finalize   (GObject      *object);
 
-#define GSETTINGS_SCHEMA "org.xfce.screensaver"
-#define KEY_IDLE_ACTIVATION_ENABLED "idle-activation-enabled"
-#define KEY_LOCK_ENABLED "lock-enabled"
-#define KEY_MODE "mode"
-#define KEY_POWER_DELAY "power-management-delay"
-#define KEY_LOCK_DELAY "lock-delay"
-#define KEY_CYCLE_DELAY "cycle-delay"
-#define KEY_THEMES "themes"
-#define KEY_USER_SWITCH_ENABLED "user-switch-enabled"
-#define KEY_LOGOUT_ENABLED "logout-enabled"
-#define KEY_LOGOUT_DELAY "logout-delay"
-#define KEY_LOGOUT_COMMAND "logout-command"
-#define KEY_KEYBOARD_ENABLED "embedded-keyboard-enabled"
-#define KEY_KEYBOARD_COMMAND "embedded-keyboard-command"
-#define KEY_STATUS_MESSAGE_ENABLED "status-message-enabled"
-#define KEY_IDLE_DELAY "idle-delay"
-
 #define GS_PREFS_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GS_TYPE_PREFS, GSPrefsPrivate))
 
 struct GSPrefsPrivate
 {
-	GSettings *settings;
+	XfconfChannel *channel;
 };
 
 enum
@@ -205,6 +190,9 @@ _gs_prefs_set_themes (GSPrefs *prefs,
 		g_slist_free (prefs->themes);
 	}
 
+	if (values == NULL)
+		return;
+
 	/* take ownership of the list */
 	prefs->themes = NULL;
         for (i=0; values[i] != NULL; i++)
@@ -307,189 +295,179 @@ gs_prefs_load_from_settings (GSPrefs *prefs)
 	gchar    **strv;
 	gint       mode;
 
-	bvalue = g_settings_get_boolean (prefs->priv->settings, KEY_IDLE_ACTIVATION_ENABLED);
+	bvalue = xfconf_channel_get_bool (prefs->priv->channel, KEY_IDLE_ACTIVATION_ENABLED, DEFAULT_KEY_IDLE_ACTIVATION_ENABLED);
 	_gs_prefs_set_idle_activation_enabled (prefs, bvalue);
 
-	bvalue = g_settings_get_boolean (prefs->priv->settings, KEY_LOCK_ENABLED);
+	bvalue = xfconf_channel_get_bool (prefs->priv->channel, KEY_LOCK_ENABLED, DEFAULT_KEY_LOCK_ENABLED);
 	_gs_prefs_set_lock_enabled (prefs, bvalue);
 
-	value = g_settings_get_int (prefs->priv->settings, KEY_IDLE_DELAY);
+	value = xfconf_channel_get_int (prefs->priv->channel, KEY_IDLE_DELAY, DEFAULT_KEY_IDLE_DELAY);
 	_gs_prefs_set_timeout (prefs, value);
 
-	value = g_settings_get_int (prefs->priv->settings, KEY_POWER_DELAY);
+	value = xfconf_channel_get_int (prefs->priv->channel, KEY_POWER_DELAY, DEFAULT_KEY_POWER_DELAY);
 	_gs_prefs_set_power_timeout (prefs, value);
 
-	value = g_settings_get_int (prefs->priv->settings, KEY_LOCK_DELAY);
+	value = xfconf_channel_get_int (prefs->priv->channel, KEY_LOCK_DELAY, DEFAULT_KEY_LOCK_DELAY);
 	_gs_prefs_set_lock_timeout (prefs, value);
 
-	value = g_settings_get_int (prefs->priv->settings, KEY_CYCLE_DELAY);
+	value = xfconf_channel_get_int (prefs->priv->channel, KEY_CYCLE_DELAY, DEFAULT_KEY_CYCLE_DELAY);
 	_gs_prefs_set_cycle_timeout (prefs, value);
 
-	mode = g_settings_get_enum (prefs->priv->settings, KEY_MODE);
+	mode = xfconf_channel_get_int (prefs->priv->channel, KEY_MODE, DEFAULT_KEY_MODE);
 	_gs_prefs_set_mode (prefs, mode);
 
-	strv = g_settings_get_strv (prefs->priv->settings, KEY_THEMES);
+	strv = xfconf_channel_get_string_list (prefs->priv->channel, KEY_THEMES);
 	_gs_prefs_set_themes (prefs, strv);
 	g_strfreev (strv);
 
 	/* Embedded keyboard options */
 
-	bvalue = g_settings_get_boolean (prefs->priv->settings, KEY_KEYBOARD_ENABLED);
+	bvalue = xfconf_channel_get_bool (prefs->priv->channel, KEY_KEYBOARD_ENABLED, DEFAULT_KEY_KEYBOARD_ENABLED);
 	_gs_prefs_set_keyboard_enabled (prefs, bvalue);
 
-	string = g_settings_get_string (prefs->priv->settings, KEY_KEYBOARD_COMMAND);
+	string = xfconf_channel_get_string (prefs->priv->channel, KEY_KEYBOARD_COMMAND, DEFAULT_KEY_KEYBOARD_COMMAND);
 	_gs_prefs_set_keyboard_command (prefs, string);
 	g_free (string);
 
-	bvalue = g_settings_get_boolean (prefs->priv->settings, KEY_STATUS_MESSAGE_ENABLED);
+	bvalue = xfconf_channel_get_bool (prefs->priv->channel, KEY_STATUS_MESSAGE_ENABLED, DEFAULT_KEY_STATUS_MESSAGE_ENABLED);
 	_gs_prefs_set_status_message_enabled (prefs, bvalue);
 
 	/* Logout options */
 
-	bvalue = g_settings_get_boolean (prefs->priv->settings, KEY_LOGOUT_ENABLED);
+	bvalue = xfconf_channel_get_bool (prefs->priv->channel, KEY_LOGOUT_ENABLED, DEFAULT_KEY_LOGOUT_ENABLED);
 	_gs_prefs_set_logout_enabled (prefs, bvalue);
 
-	string = g_settings_get_string (prefs->priv->settings, KEY_LOGOUT_COMMAND);
+	string = xfconf_channel_get_string (prefs->priv->channel, KEY_LOGOUT_COMMAND, DEFAULT_KEY_LOGOUT_COMMAND);
 	_gs_prefs_set_logout_command (prefs, string);
 	g_free (string);
 
-	value = g_settings_get_int (prefs->priv->settings, KEY_LOGOUT_DELAY);
+	value = xfconf_channel_get_int (prefs->priv->channel, KEY_LOGOUT_DELAY, DEFAULT_KEY_LOGOUT_DELAY);
 	_gs_prefs_set_logout_timeout (prefs, value);
 
 	/* User switching options */
 
-	bvalue = g_settings_get_boolean (prefs->priv->settings, KEY_USER_SWITCH_ENABLED);
+	bvalue = xfconf_channel_get_bool (prefs->priv->channel, KEY_USER_SWITCH_ENABLED, DEFAULT_KEY_USER_SWITCH_ENABLED);
 	_gs_prefs_set_user_switch_enabled (prefs, bvalue);
 }
 
 static void
-key_changed_cb (GSettings *settings,
-		gchar *key,
+key_changed_cb (XfconfChannel *channel,
+		gchar *property,
+		GValue *value,
 		GSPrefs *prefs)
 {
-	if (strcmp (key, KEY_MODE) == 0)
+	g_warning("key changed!");
+	if (strcmp (property, KEY_MODE) == 0)
 	{
 		gint mode;
 
-		mode = g_settings_get_enum (settings, key);
+		mode = xfconf_channel_get_int (channel, property, DEFAULT_KEY_MODE);
 		_gs_prefs_set_mode (prefs, mode);
-
 	}
-	else if (strcmp (key, KEY_THEMES) == 0)
+	else if (strcmp (property, KEY_THEMES) == 0)
 	{
 		gchar **strv = NULL;
 
-		strv = g_settings_get_strv (settings, key);
+		strv = xfconf_channel_get_string_list (channel, property);
 		_gs_prefs_set_themes (prefs, strv);
 		g_strfreev (strv);
-
 	}
-	else if (strcmp (key, KEY_IDLE_DELAY) == 0)
+	else if (strcmp (property, KEY_IDLE_DELAY) == 0)
 	{
 		int delay;
 
-		delay = g_settings_get_int (settings, key);
+		delay = xfconf_channel_get_int (channel, property, DEFAULT_KEY_IDLE_DELAY);
 		_gs_prefs_set_timeout (prefs, delay);
-
 	}
-	else if (strcmp (key, KEY_POWER_DELAY) == 0)
+	else if (strcmp (property, KEY_POWER_DELAY) == 0)
 	{
 		int delay;
 
-		delay = g_settings_get_int (settings, key);
+		delay = xfconf_channel_get_int (channel, property, DEFAULT_KEY_POWER_DELAY);
 		_gs_prefs_set_power_timeout (prefs, delay);
-
 	}
-	else if (strcmp (key, KEY_LOCK_DELAY) == 0)
+	else if (strcmp (property, KEY_LOCK_DELAY) == 0)
 	{
 		int delay;
 
-		delay = g_settings_get_int (settings, key);
+		delay = xfconf_channel_get_int (channel, property, DEFAULT_KEY_LOCK_DELAY);
 		_gs_prefs_set_lock_timeout (prefs, delay);
 	}
-	else if (strcmp (key, KEY_IDLE_ACTIVATION_ENABLED) == 0)
+	else if (strcmp (property, KEY_IDLE_ACTIVATION_ENABLED) == 0)
 	{
 		gboolean enabled;
 
-		enabled = g_settings_get_boolean (settings, key);
+		enabled = xfconf_channel_get_bool (channel, property, DEFAULT_KEY_IDLE_ACTIVATION_ENABLED);
 		_gs_prefs_set_idle_activation_enabled (prefs, enabled);
-
 	}
-	else if (strcmp (key, KEY_LOCK_ENABLED) == 0)
+	else if (strcmp (property, KEY_LOCK_ENABLED) == 0)
 	{
 		gboolean enabled;
 
-		enabled = g_settings_get_boolean (settings, key);
+		enabled = xfconf_channel_get_bool (channel, property, DEFAULT_KEY_LOCK_ENABLED);
 		_gs_prefs_set_lock_enabled (prefs, enabled);
-
 	}
-	else if (strcmp (key, KEY_CYCLE_DELAY) == 0)
+	else if (strcmp (property, KEY_CYCLE_DELAY) == 0)
 	{
 		int delay;
 
-		delay = g_settings_get_int (settings, key);
+		delay = xfconf_channel_get_int (channel, property, DEFAULT_KEY_CYCLE_DELAY);
 		_gs_prefs_set_cycle_timeout (prefs, delay);
-
 	}
-	else if (strcmp (key, KEY_KEYBOARD_ENABLED) == 0)
+	else if (strcmp (property, KEY_KEYBOARD_ENABLED) == 0)
 	{
 		gboolean enabled;
 
-		enabled = g_settings_get_boolean (settings, key);
+		enabled = xfconf_channel_get_bool (channel, property, DEFAULT_KEY_KEYBOARD_ENABLED);
 		_gs_prefs_set_keyboard_enabled (prefs, enabled);
-
 	}
-	else if (strcmp (key, KEY_KEYBOARD_COMMAND) == 0)
+	else if (strcmp (property, KEY_KEYBOARD_COMMAND) == 0)
 	{
 		char *command;
 
-		command = g_settings_get_string (settings, key);
+		command = xfconf_channel_get_string (channel, property, DEFAULT_KEY_KEYBOARD_COMMAND);
 		_gs_prefs_set_keyboard_command (prefs, command);
 		g_free (command);
-
 	}
-	else if (strcmp (key, KEY_STATUS_MESSAGE_ENABLED) == 0)
+	else if (strcmp (property, KEY_STATUS_MESSAGE_ENABLED) == 0)
 	{
 		gboolean enabled;
 
-		enabled = g_settings_get_boolean (settings, key);
+		enabled = xfconf_channel_get_bool (channel, property, DEFAULT_KEY_STATUS_MESSAGE_ENABLED);
 		_gs_prefs_set_status_message_enabled (prefs, enabled);
-
 	}
-	else if (strcmp (key, KEY_LOGOUT_ENABLED) == 0)
+	else if (strcmp (property, KEY_LOGOUT_ENABLED) == 0)
 	{
 		gboolean enabled;
 
-		enabled = g_settings_get_boolean (settings, key);
+		enabled = xfconf_channel_get_bool (channel, property, DEFAULT_KEY_LOGOUT_ENABLED);
 		_gs_prefs_set_logout_enabled (prefs, enabled);
-
 	}
-	else if (strcmp (key, KEY_LOGOUT_DELAY) == 0)
+	else if (strcmp (property, KEY_LOGOUT_DELAY) == 0)
 	{
 		int delay;
 
-		delay = g_settings_get_int (settings, key);
+		delay = xfconf_channel_get_int (channel, property, DEFAULT_KEY_LOGOUT_DELAY);
 		_gs_prefs_set_logout_timeout (prefs, delay);
-
 	}
-	else if (strcmp (key, KEY_LOGOUT_COMMAND) == 0)
+	else if (strcmp (property, KEY_LOGOUT_COMMAND) == 0)
 	{
 		char *command;
-		command = g_settings_get_string (settings, key);
+		command = xfconf_channel_get_string (channel, property, DEFAULT_KEY_LOGOUT_COMMAND);
 		_gs_prefs_set_logout_command (prefs, command);
 		g_free (command);
 	}
-	else if (strcmp (key, KEY_USER_SWITCH_ENABLED) == 0)
+	else if (strcmp (property, KEY_USER_SWITCH_ENABLED) == 0)
 	{
 		gboolean enabled;
 
-		enabled = g_settings_get_boolean (settings, key);
+		enabled = xfconf_channel_get_bool (channel, property, DEFAULT_KEY_USER_SWITCH_ENABLED);
 		_gs_prefs_set_user_switch_enabled (prefs, enabled);
 
 	}
 	else
 	{
-		g_warning ("Config key not handled: %s", key);
+		g_warning ("Config key not handled: %s", property);
 	}
 
 	g_signal_emit (prefs, signals [CHANGED], 0);
@@ -500,9 +478,9 @@ gs_prefs_init (GSPrefs *prefs)
 {
 	prefs->priv = GS_PREFS_GET_PRIVATE (prefs);
 
-	prefs->priv->settings = g_settings_new (GSETTINGS_SCHEMA);
-	g_signal_connect (prefs->priv->settings,
-			  "changed",
+	prefs->priv->channel = xfconf_channel_get (SETTINGS_XFCONF_CHANNEL);
+	g_signal_connect (prefs->priv->channel,
+			  "property-changed",
 			  G_CALLBACK (key_changed_cb),
 			  prefs);
 
@@ -534,10 +512,10 @@ gs_prefs_finalize (GObject *object)
 
 	g_return_if_fail (prefs->priv != NULL);
 
-	if (prefs->priv->settings)
+	if (prefs->priv->channel)
 	{
-		g_object_unref (prefs->priv->settings);
-		prefs->priv->settings = NULL;
+		g_object_unref (prefs->priv->channel);
+		prefs->priv->channel = NULL;
 	}
 
 	if (prefs->themes)

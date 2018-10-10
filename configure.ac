@@ -100,7 +100,8 @@ PKG_CHECK_MODULES(XFCE_SCREENSAVER_CAPPLET,
         gio-2.0 >= $GLIB_REQUIRED_VERSION
         gtk+-3.0 >= $GTK_REQUIRED_VERSION
         libxklavier >= $LIBXKLAVIER_REQUIRED
-        libxfce4ui-2 >= $LIBXFCE4UI_REQUIRED)
+        libxfce4ui-2 >= $LIBXFCE4UI_REQUIRED
+        libxfconf-0 >= $LIBXFCONF_REQUIRED)
 AC_SUBST(XFCE_SCREENSAVER_CAPPLET_CFLAGS)
 AC_SUBST(XFCE_SCREENSAVER_CAPPLET_LIBS)
 
@@ -1127,7 +1128,6 @@ data/Makefile
 data/xfce4-screensavers.menu
 data/xfce4-screensaver.pc
 data/org.xfce.ScreenSaver.service
-data/org.xfce.screensaver.gschema.xml
 data/images/Makefile
 data/images/cosmos/Makefile
 savers/Makefile

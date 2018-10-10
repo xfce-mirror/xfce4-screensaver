@@ -51,10 +51,6 @@
 #include "gs-debug.h"
 #include "xfce-bg.h"
 
-#define GSETTINGS_SCHEMA "org.xfce.screensaver"
-
-#define KEY_LOCK_DIALOG_THEME "lock-dialog-theme"
-
 #define MDM_FLEXISERVER_COMMAND "mdmflexiserver"
 #define MDM_FLEXISERVER_ARGS    "--startnew Standard"
 
@@ -1883,19 +1879,6 @@ switch_user_button_clicked (GtkButton  *button,
 	do_user_switch (plug);
 }
 
-static char *
-get_dialog_theme_name (GSLockPlug *plug)
-{
-	char        *name;
-	GSettings *settings;
-
-	settings = g_settings_new (GSETTINGS_SCHEMA);
-	name = g_settings_get_string (settings, KEY_LOCK_DIALOG_THEME);
-	g_object_unref (settings);
-
-	return name;
-}
-
 static void
 get_draw_dimensions(GSLockPlug *plug,
 				    XfceBG *bg,
@@ -1974,11 +1957,7 @@ load_theme (GSLockPlug *plug)
 	GtkWidget  *lock_dialog;
 	GError     *error=NULL;
 
-	theme = get_dialog_theme_name (plug);
-	if (theme == NULL)
-	{
-		return FALSE;
-	}
+	theme = g_strdup("default");
 
 	filename = g_strdup_printf ("lock-dialog-%s.ui", theme);
 	gtkbuilder = g_build_filename (GTKBUILDERDIR, filename, NULL);

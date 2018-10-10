@@ -48,16 +48,9 @@
 #include "gs-job.h"
 #include "gs-prefs.h" /* for GS_MODE enum */
 
-#define GTK_BUILDER_FILE "xfce4-screensaver-preferences.ui"
+#include <xfconf/xfconf.h>
 
-#define GSETTINGS_SCHEMA "org.xfce.screensaver"
-#define KEY_LOCK "lock-enabled"
-#define KEY_IDLE_ACTIVATION_ENABLED "idle-activation-enabled"
-#define KEY_MODE "mode"
-#define KEY_LOCK_DELAY "lock-delay"
-#define KEY_CYCLE_DELAY "cycle-delay"
-#define KEY_THEMES "themes"
-#define KEY_IDLE_DELAY "idle-delay"
+#define GTK_BUILDER_FILE "xfce4-screensaver-preferences.ui"
 
 #define GPM_COMMAND "xfce4-power-manager-settings"
 
@@ -84,7 +77,7 @@ static GtkTargetEntry drop_types [] =
 static GtkBuilder     *builder = NULL;
 static GSThemeManager *theme_manager = NULL;
 static GSJob          *job = NULL;
-static GSettings      *screensaver_settings = NULL;
+static XfconfChannel  *screensaver_channel = NULL;
 
 static gint32
 config_get_activate_delay (gboolean *is_writable)
@@ -93,11 +86,11 @@ config_get_activate_delay (gboolean *is_writable)
 
 	if (is_writable)
 	{
-		*is_writable = g_settings_is_writable (screensaver_settings,
+		*is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
 		               KEY_IDLE_DELAY);
 	}
 
-	delay = g_settings_get_int (screensaver_settings, KEY_IDLE_DELAY);
+	delay = xfconf_channel_get_int (screensaver_channel, KEY_IDLE_DELAY, DEFAULT_KEY_IDLE_DELAY);
 
 	if (delay < 1)
 	{
@@ -110,7 +103,7 @@ config_get_activate_delay (gboolean *is_writable)
 static void
 config_set_activate_delay (gint32 timeout)
 {
-	g_settings_set_int (screensaver_settings, KEY_IDLE_DELAY, timeout);
+	xfconf_channel_set_int (screensaver_channel, KEY_IDLE_DELAY, timeout);
 }
 
 static int
@@ -120,11 +113,11 @@ config_get_mode (gboolean *is_writable)
 
 	if (is_writable)
 	{
-		*is_writable = g_settings_is_writable (screensaver_settings,
+		*is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
 		               KEY_MODE);
 	}
 
-	mode = g_settings_get_enum (screensaver_settings, KEY_MODE);
+	mode = xfconf_channel_get_int (screensaver_channel, KEY_MODE, DEFAULT_KEY_MODE);
 
 	return mode;
 }
@@ -132,7 +125,7 @@ config_get_mode (gboolean *is_writable)
 static void
 config_set_mode (int mode)
 {
-	g_settings_set_enum (screensaver_settings, KEY_MODE, mode);
+	xfconf_channel_set_int (screensaver_channel, KEY_MODE, mode);
 }
 
 static char *
@@ -143,13 +136,13 @@ config_get_theme (gboolean *is_writable)
 
 	if (is_writable)
 	{
-		gboolean can_write_theme;
-		gboolean can_write_mode;
+		gboolean can_write_theme = TRUE;
+		gboolean can_write_mode = TRUE;
 
-		can_write_theme = g_settings_is_writable (screensaver_settings,
-		                                          KEY_THEMES);
-		can_write_mode = g_settings_is_writable (screensaver_settings,
-		                                         KEY_MODE);
+		can_write_theme = !xfconf_channel_is_property_locked (screensaver_channel,
+												KEY_THEMES);
+		can_write_mode = !xfconf_channel_is_property_locked (screensaver_channel,
+												KEY_MODE);
 		*is_writable = can_write_theme && can_write_mode;
 	}
 
@@ -167,7 +160,7 @@ config_get_theme (gboolean *is_writable)
 	else
 	{
 		gchar **strv;
-		strv = g_settings_get_strv (screensaver_settings,
+		strv = xfconf_channel_get_string_list (screensaver_channel,
 	                                KEY_THEMES);
 		if (strv != NULL) {
 			name = g_strdup (strv[0]);
@@ -232,7 +225,7 @@ config_set_theme (const char *theme_id)
 
 	config_set_mode (mode);
 
-	g_settings_set_strv (screensaver_settings,
+	xfconf_channel_set_string_list (screensaver_channel,
 	                     KEY_THEMES,
 	                     (const gchar * const*) strv);
 
@@ -247,11 +240,11 @@ config_get_enabled (gboolean *is_writable)
 
 	if (is_writable)
 	{
-		*is_writable = g_settings_is_writable (screensaver_settings,
-		               KEY_LOCK);
+		*is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
+		               KEY_LOCK_ENABLED);
 	}
 
-	enabled = g_settings_get_boolean (screensaver_settings, KEY_IDLE_ACTIVATION_ENABLED);
+	enabled = xfconf_channel_get_bool (screensaver_channel, KEY_IDLE_ACTIVATION_ENABLED, DEFAULT_KEY_IDLE_ACTIVATION_ENABLED);
 
 	return enabled;
 }
@@ -259,7 +252,7 @@ config_get_enabled (gboolean *is_writable)
 static void
 config_set_enabled (gboolean enabled)
 {
-	g_settings_set_boolean (screensaver_settings, KEY_IDLE_ACTIVATION_ENABLED, enabled);
+	xfconf_channel_set_bool (screensaver_channel, KEY_IDLE_ACTIVATION_ENABLED, enabled);
 }
 
 static gboolean
@@ -269,11 +262,11 @@ config_get_lock (gboolean *is_writable)
 
 	if (is_writable)
 	{
-		*is_writable = g_settings_is_writable (screensaver_settings,
-		               KEY_LOCK);
+		*is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
+		               KEY_LOCK_ENABLED);
 	}
 
-	lock = g_settings_get_boolean (screensaver_settings, KEY_LOCK);
+	lock = xfconf_channel_get_bool (screensaver_channel, KEY_LOCK_ENABLED, DEFAULT_KEY_LOCK_ENABLED);
 
 	return lock;
 }
@@ -281,7 +274,7 @@ config_get_lock (gboolean *is_writable)
 static void
 config_set_lock (gboolean lock)
 {
-	g_settings_set_boolean (screensaver_settings, KEY_LOCK, lock);
+	xfconf_channel_set_bool (screensaver_channel, KEY_LOCK_ENABLED, lock);
 }
 
 static void
@@ -1123,38 +1116,31 @@ ui_set_delay (int delay)
 }
 
 static void
-key_changed_cb (GSettings *settings, const gchar *key, gpointer data)
+key_changed_cb (XfconfChannel *channel, const gchar *key, gpointer data)
 {
 	if (strcmp (key, KEY_IDLE_ACTIVATION_ENABLED) == 0)
 	{
-			gboolean enabled;
-
-			enabled = g_settings_get_boolean (settings, key);
-
-			ui_set_enabled (enabled);
+		gboolean enabled;
+		enabled = xfconf_channel_get_bool (channel, key, DEFAULT_KEY_IDLE_ACTIVATION_ENABLED);
+		ui_set_enabled (enabled);
 	}
-	else if (strcmp (key, KEY_LOCK) == 0)
+	else if (strcmp (key, KEY_LOCK_ENABLED) == 0)
 	{
-		        gboolean enabled;
-
-			enabled = g_settings_get_boolean (settings, key);
-
-			ui_set_lock (enabled);
+		gboolean enabled;
+		enabled = xfconf_channel_get_bool (channel, key, DEFAULT_KEY_LOCK_ENABLED);
+		ui_set_lock (enabled);
 	}
 	else if (strcmp (key, KEY_THEMES) == 0)
 	{
-		        GtkWidget *treeview;
-
-			treeview = GTK_WIDGET (gtk_builder_get_object (builder, "savers_treeview"));
-			setup_treeview_selection (treeview);
+		GtkWidget *treeview;
+		treeview = GTK_WIDGET (gtk_builder_get_object (builder, "savers_treeview"));
+		setup_treeview_selection (treeview);
 	}
 	else if (strcmp (key, KEY_IDLE_DELAY) == 0)
 	{
-			int delay;
-
-			delay = g_settings_get_int (settings, key);
-                        ui_set_delay (delay);
-
+		int delay;
+		delay = xfconf_channel_get_int (channel, key, DEFAULT_KEY_IDLE_DELAY);
+		ui_set_delay (delay);
 	}
 	else
 	{
@@ -1559,9 +1545,9 @@ init_capplet (void)
 		gtk_widget_hide (gpm_button);
 	}
 
-	screensaver_settings = g_settings_new (GSETTINGS_SCHEMA);
-	g_signal_connect (screensaver_settings,
-	                  "changed",
+	screensaver_channel = xfconf_channel_get(SETTINGS_XFCONF_CHANNEL);
+	g_signal_connect (screensaver_channel,
+	                  "property-changed",
 	                  G_CALLBACK (key_changed_cb),
 	                  NULL);
 
@@ -1614,11 +1600,12 @@ init_capplet (void)
 	gtk_widget_show_all (dialog);
 
 	/* Update list of themes if using random screensaver */
-	mode = g_settings_get_enum (screensaver_settings, KEY_MODE);
+	mode = xfconf_channel_get_int (screensaver_channel, KEY_MODE, DEFAULT_KEY_MODE);
 	if (mode == GS_MODE_RANDOM) {
 		gchar **list;
 		list = get_all_theme_ids (theme_manager);
-		g_settings_set_strv (screensaver_settings, KEY_THEMES, (const gchar * const*) list);
+		g_warning("instance b");
+		xfconf_channel_set_string_list (screensaver_channel, KEY_THEMES, (const gchar * const*) list);
 		g_strfreev (list);
 	}
 
@@ -1653,13 +1640,14 @@ init_capplet (void)
 static void
 finalize_capplet (void)
 {
-	g_object_unref (screensaver_settings);
+	g_object_unref (screensaver_channel);
 }
 
 int
 main (int    argc,
       char **argv)
 {
+	GError *error = NULL;
 
 #ifdef ENABLE_NLS
 	bindtextdomain (GETTEXT_PACKAGE, XFCELOCALEDIR);
@@ -1674,6 +1662,14 @@ main (int    argc,
 	/* hook to make sure the libxfce4ui library is linked */
 	if (xfce_titled_dialog_get_type() == 0)
 		exit(1);
+
+	if (!xfconf_init(&error))
+	{
+		g_error("Failed to connect to xfconf daemon: %s.", error->message);
+		g_error_free(error);
+
+		return EXIT_FAILURE;
+	}
 
 	job = gs_job_new ();
 	theme_manager = gs_theme_manager_new ();
