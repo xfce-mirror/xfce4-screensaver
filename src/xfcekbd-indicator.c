@@ -470,7 +470,7 @@ xfcekbd_indicator_cfg_changed (GSettings *settings,
 {
 	xkl_debug (100,
 		   "General configuration changed in GSettings - reiniting...\n");
-	xfcekbd_desktop_config_load_from_gsettings (&globals.cfg);
+	xfcekbd_desktop_config_load_from_xfconf (&globals.cfg);
 	xfcekbd_desktop_config_activate (&globals.cfg);
 	ForAllIndicators () {
 		xfcekbd_indicator_reinit_ui (gki);
@@ -485,7 +485,7 @@ xfcekbd_indicator_ind_cfg_changed (GSettings *settings,
 {
 	xkl_debug (100,
 		   "Applet configuration changed in GSettings - reiniting...\n");
-	xfcekbd_indicator_config_load_from_gsettings (&globals.ind_cfg);
+	xfcekbd_indicator_config_load_from_xfconf (&globals.ind_cfg);
 	xfcekbd_indicator_update_images ();
 	xfcekbd_indicator_config_activate (&globals.ind_cfg);
 
@@ -812,7 +812,7 @@ xfcekbd_indicator_global_init (void)
 					    xfcekbd_indicator_ind_cfg_changed,
 					    NULL);
 
-	xfcekbd_desktop_config_load_from_gsettings (&globals.cfg);
+	xfcekbd_desktop_config_load_from_xfconf (&globals.cfg);
 	xfcekbd_desktop_config_activate (&globals.cfg);
 
 	globals.registry =
@@ -823,7 +823,7 @@ xfcekbd_indicator_global_init (void)
 	xfcekbd_keyboard_config_load_from_x_current (&globals.kbd_cfg,
 						  xklrec);
 
-	xfcekbd_indicator_config_load_from_gsettings (&globals.ind_cfg);
+	xfcekbd_indicator_config_load_from_xfconf (&globals.ind_cfg);
 	xfcekbd_indicator_update_images ();
 	xfcekbd_indicator_config_activate (&globals.ind_cfg);
 

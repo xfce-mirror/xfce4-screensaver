@@ -25,10 +25,7 @@
 #include <gio/gio.h>
 #include <libxklavier/xklavier.h>
 
-extern const gchar XFCEKBD_DESKTOP_CONFIG_KEY_DEFAULT_GROUP[];
-extern const gchar XFCEKBD_DESKTOP_CONFIG_KEY_GROUP_PER_WINDOW[];
-extern const gchar XFCEKBD_DESKTOP_CONFIG_KEY_HANDLE_INDICATORS[];
-extern const gchar XFCEKBD_DESKTOP_CONFIG_KEY_LAYOUT_NAMES_AS_GROUP_NAMES[];
+#include <xfconf/xfconf.h>
 
 /*
  * General configuration
@@ -42,7 +39,7 @@ struct _XfcekbdDesktopConfig {
 	gboolean load_extra_items;
 
 	/* private, transient */
-	GSettings *settings;
+	XfconfChannel *channel;
 	int config_listener_id;
 	XklEngine *engine;
 };
@@ -54,7 +51,7 @@ extern void xfcekbd_desktop_config_init (XfcekbdDesktopConfig * config,
 				      XklEngine * engine);
 extern void xfcekbd_desktop_config_term (XfcekbdDesktopConfig * config);
 
-extern void xfcekbd_desktop_config_load_from_gsettings (XfcekbdDesktopConfig *
+extern void xfcekbd_desktop_config_load_from_xfconf (XfcekbdDesktopConfig *
 						 config);
 
 extern gboolean xfcekbd_desktop_config_activate (XfcekbdDesktopConfig * config);

@@ -43,11 +43,7 @@ dbussessionservice_DATA = org.xfce.ScreenSaver.service
 @GSETTINGS_RULES@
 @INTLTOOL_XML_NOMERGE_RULE@
 
-gsettingsschema_in_files = org.xfce.peripherals-keyboard-xkb.gschema.xml.in
-gsettings_SCHEMAS = $(gsettingsschema_in_files:.xml.in=.xml)
-
 EXTRA_DIST = 				\
-	$(gsettingsschema_in_files)	\
 	$(desktop_in_files)		\
 	$(directory_in_files)		\
 	$(gtkbuilder_DATA)		\
@@ -60,15 +56,13 @@ EXTRA_DIST = 				\
 	$(NULL)
 
 DISTCLEANFILES = 			\
-	$(gsettings_SCHEMAS)	\
 	$(desktop_DATA)			\
 	$(directory_DATA)		\
 	$(NULL)
 
 MAINTAINERCLEANFILES =			\
 	*~				\
-	Makefile.in     \
-    $(gsettings_SCHEMAS:.xml=.valid)
+	Makefile.in
 
 install-data-hook:
 	@system=`uname`; \

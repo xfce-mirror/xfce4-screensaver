@@ -21,6 +21,7 @@
 #define __XFCEKBD_INDICATOR_CONFIG_H__
 
 #include <gtk/gtk.h>
+#include <xfconf/xfconf.h>
 
 #include "xfcekbd-keyboard-config.h"
 
@@ -37,7 +38,7 @@ struct _XfcekbdIndicatorConfig {
 	gchar *background_color;
 
 	/* private, transient */
-	GSettings *settings;
+	XfconfChannel *channel;
 	GSList *image_filenames;
 	GtkIconTheme *icon_theme;
 	int config_listener_id;
@@ -55,7 +56,7 @@ void xfcekbd_indicator_config_init (XfcekbdIndicatorConfig *
 void xfcekbd_indicator_config_term (XfcekbdIndicatorConfig *
 					applet_config);
 
-void xfcekbd_indicator_config_load_from_gsettings (XfcekbdIndicatorConfig
+void xfcekbd_indicator_config_load_from_xfconf (XfcekbdIndicatorConfig
 						   * applet_config);
 
 void xfcekbd_indicator_config_load_image_filenames (XfcekbdIndicatorConfig
@@ -65,7 +66,7 @@ void xfcekbd_indicator_config_load_image_filenames (XfcekbdIndicatorConfig
 void xfcekbd_indicator_config_free_image_filenames (XfcekbdIndicatorConfig
 							* applet_config);
 
-/* Should be updated on Indicator/GSettings configuration change */
+/* Should be updated on Indicator/Xfconf configuration change */
 void xfcekbd_indicator_config_activate (XfcekbdIndicatorConfig *
 					    applet_config);
 

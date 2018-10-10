@@ -29,21 +29,12 @@
 #include <glib/gi18n-lib.h>
 #include <gdk/gdkx.h>
 
+#include <xfconf/xfconf.h>
+
 #include "xfcekbd-keyboard-config.h"
 #include "xfcekbd-indicator-config.h"
 
 #include "xfcekbd-config-private.h"
-
-/**
- * XfcekbdIndicatorConfig:
- */
-#define XFCEKBD_INDICATOR_CONFIG_SCHEMA  XFCEKBD_CONFIG_SCHEMA ".indicator"
-
-const gchar XFCEKBD_INDICATOR_CONFIG_KEY_SHOW_FLAGS[] = "show-flags";
-const gchar XFCEKBD_INDICATOR_CONFIG_KEY_SECONDARIES[] = "secondary";
-const gchar XFCEKBD_INDICATOR_CONFIG_KEY_FONT_FAMILY[] = "font-family";
-const gchar XFCEKBD_INDICATOR_CONFIG_KEY_FOREGROUND_COLOR[] = "foreground-color";
-const gchar XFCEKBD_INDICATOR_CONFIG_KEY_BACKGROUND_COLOR[] = "background-color";
 
 /*
  * static applet config functions
@@ -52,8 +43,9 @@ static void
 xfcekbd_indicator_config_load_font (XfcekbdIndicatorConfig * ind_config)
 {
 	ind_config->font_family =
-	    g_settings_get_string (ind_config->settings,
-				   XFCEKBD_INDICATOR_CONFIG_KEY_FONT_FAMILY);
+		xfconf_channel_get_string(ind_config->channel,
+								  KEY_KBD_INDICATOR_FONT_FAMILY,
+								  DEFAULT_KEY_KBD_INDICATOR_FONT_FAMILY);
 
 	if (ind_config->font_family == NULL ||
 	    ind_config->font_family[0] == '\0') {
@@ -90,8 +82,9 @@ static void
 xfcekbd_indicator_config_load_colors (XfcekbdIndicatorConfig * ind_config)
 {
 	ind_config->foreground_color =
-	    g_settings_get_string (ind_config->settings,
-	                           XFCEKBD_INDICATOR_CONFIG_KEY_FOREGROUND_COLOR);
+		xfconf_channel_get_string(ind_config->channel,
+								  KEY_KBD_INDICATOR_FOREGROUND_COLOR,
+								  DEFAULT_KEY_KBD_INDICATOR_FOREGROUND_COLOR);
 
 	if (ind_config->foreground_color == NULL ||
 	    ind_config->foreground_color[0] == '\0') {
@@ -122,8 +115,9 @@ xfcekbd_indicator_config_load_colors (XfcekbdIndicatorConfig * ind_config)
 	}
 
 	ind_config->background_color =
-	    g_settings_get_string (ind_config->settings,
-				     XFCEKBD_INDICATOR_CONFIG_KEY_BACKGROUND_COLOR);
+		xfconf_channel_get_string(ind_config->channel,
+								  KEY_KBD_INDICATOR_BACKGROUND_COLOR,
+								  DEFAULT_KEY_KBD_INDICATOR_BACKGROUND_COLOR);
 }
 
 static gchar *
@@ -219,7 +213,7 @@ xfcekbd_indicator_config_init (XfcekbdIndicatorConfig * ind_config,
 	gchar *sp;
 
 	memset (ind_config, 0, sizeof (*ind_config));
-	ind_config->settings = g_settings_new (XFCEKBD_INDICATOR_CONFIG_SCHEMA);
+	ind_config->channel = xfconf_channel_get (SETTINGS_XFCONF_CHANNEL);
 	ind_config->engine = engine;
 
 	ind_config->icon_theme = gtk_icon_theme_get_default ();
@@ -262,20 +256,22 @@ xfcekbd_indicator_config_term (XfcekbdIndicatorConfig * ind_config)
 
 	xfcekbd_indicator_config_free_image_filenames (ind_config);
 
-	g_object_unref (ind_config->settings);
-	ind_config->settings = NULL;
+	g_object_unref (ind_config->channel);
+	ind_config->channel = NULL;
 }
 
 void
-xfcekbd_indicator_config_load_from_gsettings (XfcekbdIndicatorConfig * ind_config)
+xfcekbd_indicator_config_load_from_xfconf (XfcekbdIndicatorConfig * ind_config)
 {
 	ind_config->secondary_groups_mask =
-	    g_settings_get_int (ind_config->settings,
-				XFCEKBD_INDICATOR_CONFIG_KEY_SECONDARIES);
+	    xfconf_channel_get_int (ind_config->channel,
+				KEY_KBD_INDICATOR_SECONDARIES,
+				DEFAULT_KEY_KBD_INDICATOR_SECONDARIES);
 
 	ind_config->show_flags =
-	    g_settings_get_boolean (ind_config->settings,
-				 XFCEKBD_INDICATOR_CONFIG_KEY_SHOW_FLAGS);
+	    xfconf_channel_get_bool (ind_config->channel,
+				 KEY_KBD_INDICATOR_SHOW_FLAGS,
+				 DEFAULT_KEY_KBD_INDICATOR_SHOW_FLAGS);
 
 	xfcekbd_indicator_config_load_font (ind_config);
 	xfcekbd_indicator_config_load_colors (ind_config);
@@ -300,14 +296,14 @@ xfcekbd_indicator_config_start_listen (XfcekbdIndicatorConfig *
 				    gpointer user_data)
 {
 	ind_config->config_listener_id =
-	    g_signal_connect (ind_config->settings, "changed", func,
+	    g_signal_connect (ind_config->channel, "property-changed", func,
 			      user_data);
 }
 
 void
 xfcekbd_indicator_config_stop_listen (XfcekbdIndicatorConfig * ind_config)
 {
-	g_signal_handler_disconnect (ind_config->settings,
+	g_signal_handler_disconnect (ind_config->channel,
 				     ind_config->config_listener_id);
 	ind_config->config_listener_id = 0;
 }

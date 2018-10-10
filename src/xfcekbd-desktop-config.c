@@ -24,21 +24,12 @@
 #include <stdlib.h>
 #include <X11/keysym.h>
 
+#include <xfconf/xfconf.h>
+
 #include <glib/gi18n-lib.h>
 #include <gio/gio.h>
 #include "xfcekbd-desktop-config.h"
 #include "xfcekbd-config-private.h"
-
-/**
- * XfcekbdDesktopConfig:
- */
-#define XFCEKBD_DESKTOP_CONFIG_SCHEMA  XFCEKBD_CONFIG_SCHEMA ".general"
-
-const gchar XFCEKBD_DESKTOP_CONFIG_KEY_DEFAULT_GROUP[] = "default-group";
-const gchar XFCEKBD_DESKTOP_CONFIG_KEY_GROUP_PER_WINDOW[] = "group-per-window";
-const gchar XFCEKBD_DESKTOP_CONFIG_KEY_HANDLE_INDICATORS[] = "handle-indicators";
-const gchar XFCEKBD_DESKTOP_CONFIG_KEY_LAYOUT_NAMES_AS_GROUP_NAMES[] = "layout-names-as-group-names";
-const gchar XFCEKBD_DESKTOP_CONFIG_KEY_LOAD_EXTRA_ITEMS[] = "load-extra-items";
 
 /*
  * static common functions
@@ -131,46 +122,51 @@ xfcekbd_desktop_config_init (XfcekbdDesktopConfig * config,
 			  XklEngine * engine)
 {
 	memset (config, 0, sizeof (*config));
-	config->settings = g_settings_new (XFCEKBD_DESKTOP_CONFIG_SCHEMA);
+	config->channel = xfconf_channel_get (SETTINGS_XFCONF_CHANNEL);
 	config->engine = engine;
 }
 
 void
 xfcekbd_desktop_config_term (XfcekbdDesktopConfig * config)
 {
-	g_object_unref (config->settings);
-	config->settings = NULL;
+	g_object_unref (config->channel);
+	config->channel = NULL;
 }
 
 void
-xfcekbd_desktop_config_load_from_gsettings (XfcekbdDesktopConfig * config)
+xfcekbd_desktop_config_load_from_xfconf (XfcekbdDesktopConfig * config)
 {
 	config->group_per_app =
-	    g_settings_get_boolean (config->settings,
-				 XFCEKBD_DESKTOP_CONFIG_KEY_GROUP_PER_WINDOW);
+		xfconf_channel_get_bool(config->channel,
+								KEY_KBD_GROUP_PER_WINDOW,
+								DEFAULT_KEY_KBD_GROUP_PER_WINDOW);
 	xkl_debug (150, "group_per_app: %d\n", config->group_per_app);
 
 	config->handle_indicators =
-	    g_settings_get_boolean (config->settings,
-				 XFCEKBD_DESKTOP_CONFIG_KEY_HANDLE_INDICATORS);
+		xfconf_channel_get_bool(config->channel,
+								KEY_KBD_HANDLE_INDICATORS,
+								DEFAULT_KEY_KBD_HANDLE_INDICATORS);
 	xkl_debug (150, "handle_indicators: %d\n",
 		   config->handle_indicators);
 
 	config->layout_names_as_group_names =
-	    g_settings_get_boolean (config->settings,
-				   XFCEKBD_DESKTOP_CONFIG_KEY_LAYOUT_NAMES_AS_GROUP_NAMES);
+		xfconf_channel_get_bool(config->channel,
+								KEY_KBD_LAYOUT_NAMES_AS_GROUP_NAMES,
+								DEFAULT_KEY_KBD_LAYOUT_NAMES_AS_GROUP_NAMES);
 	xkl_debug (150, "layout_names_as_group_names: %d\n",
 		   config->layout_names_as_group_names);
 
 	config->load_extra_items =
-	    g_settings_get_boolean (config->settings,
-				   XFCEKBD_DESKTOP_CONFIG_KEY_LOAD_EXTRA_ITEMS);
+		xfconf_channel_get_bool(config->channel,
+								KEY_KBD_LOAD_EXTRA_ITEMS,
+								DEFAULT_KEY_KBD_LOAD_EXTRA_ITEMS);
 	xkl_debug (150, "load_extra_items: %d\n",
 		   config->load_extra_items);
 
 	config->default_group =
-	    g_settings_get_int (config->settings,
-				  XFCEKBD_DESKTOP_CONFIG_KEY_DEFAULT_GROUP);
+		xfconf_channel_get_int(config->channel,
+							   KEY_KBD_DEFAULT_GROUP,
+							   DEFAULT_KEY_KBD_DEFAULT_GROUP);
 
 	if (config->default_group < -1
 	    || config->default_group >=
@@ -211,14 +207,14 @@ xfcekbd_desktop_config_start_listen (XfcekbdDesktopConfig * config,
 				  gpointer user_data)
 {
 	config->config_listener_id =
-	    g_signal_connect (config->settings, "changed", func,
+	    g_signal_connect (config->channel, "property-changed", func,
 			      user_data);
 }
 
 void
 xfcekbd_desktop_config_stop_listen (XfcekbdDesktopConfig * config)
 {
-	g_signal_handler_disconnect (config->settings,
+	g_signal_handler_disconnect (config->channel,
 				    config->config_listener_id);
 	config->config_listener_id = 0;
 }
