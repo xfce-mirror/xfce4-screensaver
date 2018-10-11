@@ -1110,7 +1110,7 @@ screen_saver_do_update_state (ScreenSaver *screen_saver)
 	 */
 	if (screen_saver->draw_ops_pending)
 	{
-		gdk_flush ();
+		gdk_display_flush (gdk_display_get_default());;
 		screen_saver->draw_ops_pending = FALSE;
 	}
 
@@ -1220,9 +1220,11 @@ main (int   argc,
 		               (GSourceFunc) do_print_screen_saver_stats,
 		               screen_saver);
 
+	G_GNUC_BEGIN_IGNORE_DEPRECATIONS /* GTK 3.20 */
 	if ((geometry == NULL)
 	        || !gtk_window_parse_geometry (GTK_WINDOW (window), geometry))
 		gtk_window_set_default_size (GTK_WINDOW (window), 640, 480);
+	G_GNUC_END_IGNORE_DEPRECATIONS
 
 	gtk_widget_show (window);
 

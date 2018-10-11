@@ -142,8 +142,10 @@ gs_theme_window_real_realize (GtkWidget *widget)
 		return;
 	}
 
+	G_GNUC_BEGIN_IGNORE_DEPRECATIONS /* GTK 3.18 */
 	gtk_style_context_set_background (gtk_widget_get_style_context (widget),
 	                                  window);
+	G_GNUC_END_IGNORE_DEPRECATIONS
 	gdk_window_set_decorations (window, (GdkWMDecoration) 0);
 	gdk_window_set_events (window, gdk_window_get_events (window) | event_mask);
 

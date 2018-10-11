@@ -117,7 +117,7 @@ xorg_lock_smasher_set_active (GSGrab  *grab,
 		gs_debug ("Disabling the x.org grab smasher");
 	}
 
-	gdk_error_trap_push ();
+	gdk_x11_display_error_trap_push (gdk_display_get_default());;
 
 	status = XF86MiscSetGrabKeysState (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), active);
 
@@ -260,7 +260,7 @@ gs_grab_release (GSGrab *grab, gboolean flush)
 		xorg_lock_smasher_set_active (grab, TRUE);
 
 		gdk_display_sync (gdk_display_get_default ());
-		gdk_flush ();
+		gdk_display_flush (gdk_display_get_default());;
 	}
 }
 
@@ -345,13 +345,13 @@ gs_grab_nuke_focus (GdkDisplay *display)
 
 	gs_debug ("Nuking focus");
 
-	gdk_error_trap_push ();
+	gdk_x11_display_error_trap_push (gdk_display_get_default());;
 
 	XGetInputFocus (GDK_DISPLAY_XDISPLAY (display), &focus, &rev);
 	XSetInputFocus (GDK_DISPLAY_XDISPLAY (display), None,
 	                RevertToNone, CurrentTime);
 
-	gdk_error_trap_pop_ignored ();
+	gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default());;
 }
 
 gboolean
@@ -461,7 +461,7 @@ gs_grab_move_to_window (GSGrab     *grab,
 	{
 		result = gs_grab_move (grab, window, display,
 		                       no_pointer_grab, hide_cursor);
-		gdk_flush ();
+		gdk_display_flush (gdk_display_get_default());;
 	}
 }
 

@@ -243,7 +243,7 @@ xf86_whack_gamma (int              screen,
 # endif /* !HAVE_XF86VMODE_GAMMA_RAMP */
 	}
 
-	gdk_flush ();
+	gdk_display_flush (gdk_display_get_default());;
 
 	return status;
 }

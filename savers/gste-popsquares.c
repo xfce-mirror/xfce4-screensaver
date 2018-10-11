@@ -301,15 +301,19 @@ set_colors (GtkWidget *widget,
 
 	gtk_style_context_save (style);
 	gtk_style_context_set_state (style, GTK_STATE_FLAG_SELECTED);
+	G_GNUC_BEGIN_IGNORE_DEPRECATIONS /* GTK 3.16 */
 	gtk_style_context_get_background_color (style,
 	                                        gtk_style_context_get_state (style),
 	                                        bg);
+	G_GNUC_END_IGNORE_DEPRECATIONS
 	if (bg->alpha == 0.0)
 	{
 		gtk_style_context_add_class (style, GTK_STYLE_CLASS_VIEW);
+		G_GNUC_BEGIN_IGNORE_DEPRECATIONS /* GTK 3.16 */
 		gtk_style_context_get_background_color (style,
 		                                        gtk_style_context_get_state (style),
 		                                        bg);
+		G_GNUC_END_IGNORE_DEPRECATIONS
 	}
 	gtk_style_context_restore (style);
 

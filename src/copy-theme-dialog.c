@@ -504,19 +504,25 @@ static void
 eel_gtk_label_make_bold (GtkLabel *label)
 {
 	PangoFontDescription *font_desc;
+	PangoAttrList *attrlist;
+	PangoAttribute *attr;
 
 	font_desc = pango_font_description_new ();
+	attrlist = pango_attr_list_new();
 
 	pango_font_description_set_weight (font_desc,
 	                                   PANGO_WEIGHT_BOLD);
+	attr = pango_attr_font_desc_new(font_desc);
+	pango_font_description_free (font_desc);
+	pango_attr_list_insert (attrlist, attr);
 
 	/* This will only affect the weight of the font, the rest is
 	 * from the current state of the widget, which comes from the
 	 * theme or user prefs, since the font desc only has the
 	 * weight flag turned on.
 	 */
-	gtk_widget_override_font (GTK_WIDGET (label), font_desc);
-	pango_font_description_free (font_desc);
+	gtk_label_set_attributes (label, attrlist);
+	pango_attr_list_unref (attrlist);
 }
 
 /* from caja */

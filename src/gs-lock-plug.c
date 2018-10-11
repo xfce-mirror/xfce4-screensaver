@@ -429,7 +429,7 @@ is_capslock_on (void)
 
 	res = FALSE;
 
-	keymap = gdk_keymap_get_default ();
+	keymap = gdk_keymap_get_for_display (gdk_display_get_default());;
 	if (keymap != NULL) {
 		res = gdk_keymap_get_caps_lock_state (keymap);
 	}
@@ -1976,7 +1976,9 @@ load_theme (GSLockPlug *plug)
 	g_free (filename);
 	if (g_file_test (css, G_FILE_TEST_IS_REGULAR))
 	{
+		G_GNUC_BEGIN_IGNORE_DEPRECATIONS /* GTK 3.24 */
 		GtkCssProvider *style_provider = gtk_css_provider_get_default ();
+		G_GNUC_END_IGNORE_DEPRECATIONS
 		gtk_css_provider_load_from_path (style_provider, css, NULL);
 	}
 	g_free (css);

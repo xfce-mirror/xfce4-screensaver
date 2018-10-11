@@ -900,7 +900,9 @@ gste_slideshow_real_configure (GtkWidget         *widget,
 		cairo_surface_destroy (show->priv->surf);
 	}
 
+	G_GNUC_BEGIN_IGNORE_DEPRECATIONS /* GTK 3.22 */
 	cr = gdk_cairo_create (gtk_widget_get_window (widget));
+	G_GNUC_END_IGNORE_DEPRECATIONS
 	show->priv->surf = cairo_surface_create_similar (cairo_get_target (cr),
 	                   CAIRO_CONTENT_COLOR,
 	                   show->priv->window_width,

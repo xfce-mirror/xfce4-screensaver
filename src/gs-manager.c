@@ -1174,7 +1174,7 @@ manager_maybe_grab_window (GSManager *manager,
 	gdk_device_get_position (device, NULL, &x, &y);
 	monitor = gdk_display_get_monitor_at_point (display, x, y);
 
-	gdk_flush ();
+	gdk_display_flush (gdk_display_get_default());;
 	grabbed = FALSE;
 	if (gs_window_get_display (window) == display &&
 	    gs_window_get_monitor (window) == monitor)
@@ -1646,7 +1646,7 @@ on_screen_monitors_changed (GdkScreen *screen,
 			gs_manager_request_unlock (manager);
 		}
 
-		gdk_flush ();
+		gdk_display_flush (gdk_display_get_default());;
 		gdk_x11_ungrab_server ();
 	}
 }
