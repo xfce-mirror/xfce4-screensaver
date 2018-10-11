@@ -1110,7 +1110,10 @@ screen_saver_do_update_state (ScreenSaver *screen_saver)
 	 */
 	if (screen_saver->draw_ops_pending)
 	{
-		gdk_display_flush (gdk_display_get_default());;
+		GdkDisplay *display;
+
+		display = gtk_widget_get_display (GTK_WIDGET(screen_saver->drawing_area));
+		gdk_display_flush (display);
 		screen_saver->draw_ops_pending = FALSE;
 	}
 

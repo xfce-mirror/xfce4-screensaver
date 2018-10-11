@@ -232,16 +232,18 @@ static void
 widget_clear_all_children (GtkWidget *widget)
 {
 	GdkWindow *w;
+	GdkDisplay *display;
 
 	gs_debug ("Clearing all child windows");
+	display = gtk_widget_get_display (widget);
 
-	gdk_x11_display_error_trap_push (gdk_display_get_default());;
+	gdk_x11_display_error_trap_push (display);
 
 	w = gtk_widget_get_window (widget);
 
 	clear_children (GDK_WINDOW_XID (w));
 
-	gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default());;
+	gdk_x11_display_error_trap_pop_ignored (display);
 }
 
 void
@@ -267,6 +269,7 @@ gs_window_set_background_surface (GSWindow        *window,
 void
 gs_window_clear (GSWindow *window)
 {
+	GdkDisplay *display;
 	g_return_if_fail (GS_IS_WINDOW (window));
 
 	gs_debug ("Clearing widgets");
@@ -285,7 +288,8 @@ gs_window_clear (GSWindow *window)
 		widget_clear_all_children (window->priv->drawing_area);
 	}
 
-	gdk_display_flush (gdk_display_get_default());;
+	display = gtk_widget_get_display (GTK_WIDGET(window));
+	gdk_display_flush (display);
 }
 
 static cairo_region_t *
@@ -764,16 +768,19 @@ select_popup_events (void)
 {
 	XWindowAttributes attr;
 	unsigned long     events;
+	GdkDisplay *display;
 
-	gdk_x11_display_error_trap_push (gdk_display_get_default());;
+	display = gdk_display_get_default ();
+
+	gdk_x11_display_error_trap_push (display);
 
 	memset (&attr, 0, sizeof (attr));
-	XGetWindowAttributes (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), GDK_ROOT_WINDOW (), &attr);
+	XGetWindowAttributes (GDK_DISPLAY_XDISPLAY (display), GDK_ROOT_WINDOW (), &attr);
 
 	events = SubstructureNotifyMask | attr.your_event_mask;
-	XSelectInput (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), GDK_ROOT_WINDOW (), events);
+	XSelectInput (GDK_DISPLAY_XDISPLAY (display), GDK_ROOT_WINDOW (), events);
 
-	gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default());;
+	gdk_x11_display_error_trap_pop_ignored (display);
 }
 
 static void
@@ -782,15 +789,18 @@ window_select_shape_events (GSWindow *window)
 #ifdef HAVE_SHAPE_EXT
 	unsigned long events;
 	int           shape_error_base;
+	GdkDisplay *display;
 
-	gdk_x11_display_error_trap_push (gdk_display_get_default());;
+	display = gtk_widget_get_display (GTK_WIDGET(window));
 
-	if (XShapeQueryExtension (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &window->priv->shape_event_base, &shape_error_base)) {
+	gdk_x11_display_error_trap_push (display);
+
+	if (XShapeQueryExtension (GDK_DISPLAY_XDISPLAY (display), &window->priv->shape_event_base, &shape_error_base)) {
 		events = ShapeNotifyMask;
-		XShapeSelectInput (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), GDK_WINDOW_XID (gtk_widget_get_window (GTK_WIDGET (window))), events);
+		XShapeSelectInput (GDK_DISPLAY_XDISPLAY (display), GDK_WINDOW_XID (gtk_widget_get_window (GTK_WIDGET (window))), events);
 	}
 
-	gdk_x11_display_error_trap_pop_ignored (gdk_display_get_default());;
+	gdk_x11_display_error_trap_pop_ignored (display);
 #endif
 }
 
