@@ -68,9 +68,7 @@ enum
 static void gs_lock_plug_finalize   (GObject         *object);
 static void redraw_background       (GSLockPlug      *plug);
 
-#define GS_LOCK_PLUG_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GS_TYPE_LOCK_PLUG, GSLockPlugPrivate))
-
-	struct GSLockPlugPrivate
+struct GSLockPlugPrivate
 {
 	GtkWidget   *vbox;
 	GtkWidget   *auth_action_area;
@@ -139,7 +137,7 @@ enum
 
 static guint lock_plug_signals [LAST_SIGNAL] = { 0 };
 
-G_DEFINE_TYPE (GSLockPlug, gs_lock_plug, GTK_TYPE_PLUG)
+G_DEFINE_TYPE_WITH_PRIVATE (GSLockPlug, gs_lock_plug, GTK_TYPE_PLUG)
 
 static void
 gs_lock_plug_style_set (GtkWidget *widget,
@@ -1285,8 +1283,6 @@ gs_lock_plug_class_init (GSLockPlugClass *klass)
 
 	klass->close = gs_lock_plug_close;
 
-	g_type_class_add_private (klass, sizeof (GSLockPlugPrivate));
-
 	lock_plug_signals [RESPONSE] = g_signal_new ("response",
 	                               G_OBJECT_CLASS_TYPE (klass),
 	                               G_SIGNAL_RUN_LAST,
@@ -2065,7 +2061,7 @@ gs_lock_plug_init (GSLockPlug *plug)
 {
 	gs_profile_start (NULL);
 
-	plug->priv = GS_LOCK_PLUG_GET_PRIVATE (plug);
+	plug->priv = gs_lock_plug_get_instance_private (plug);
 
 	clear_clipboards (plug);
 
