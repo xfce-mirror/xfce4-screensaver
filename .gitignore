@@ -57,8 +57,8 @@ savers/Makefile
 savers/cosmos-slideshow.desktop
 savers/cosmos-slideshow.desktop.in
 savers/floaters
-savers/footlogo-floaters.desktop
-savers/footlogo-floaters.desktop.in
+savers/xfce-floaters.desktop
+savers/xfce-floaters.desktop.in
 savers/gs-theme-engine-marshal.c
 savers/gs-theme-engine-marshal.h
 savers/libgs-theme-engine.a
