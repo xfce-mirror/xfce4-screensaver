@@ -23,14 +23,14 @@ Installation
 
 See the file 'INSTALL'
 
-./autogen.sh --prefix=/usr --sysconfdir=/etc
+`./autogen.sh --prefix=/usr --sysconfdir=/etc`
 
 (For testing, we are using:
- ./autogen.sh --disable-static --with-mit-ext --with-console-kit --with-libnotify --enable-locking --enable-debug --sysconfdir=/etc
+ `./autogen.sh --disable-static --with-mit-ext --with-console-kit --enable-locking --enable-debug --sysconfdir=/etc`
 )
 
-make
-sudo make install
+`make`
+`sudo make install`
 
 
 How to report bugs
@@ -49,4 +49,5 @@ In the bug report please include information about your system, if possible:
 
         The output of the "xfce4-screensaver-command --version" command.
 
- 
+If you want to debug your installation you may also be able to get meaningful debug output when starting xfce4-screensaver from the debug script:
+`./src/debug-screensaver.sh`
