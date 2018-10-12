@@ -1094,10 +1094,6 @@ AC_SUBST(CPPFLAGS)
 AC_SUBST(LDFLAGS)
 
 # Saver engine stuff
-SLIDESHOW_COSMOS_DIR="${EXPANDED_DATADIR}/backgrounds/cosmos"
-
-AC_SUBST(SLIDESHOW_COSMOS_DIR)
-
 FLOATERS_XFCE_IMAGE="${EXPANDED_DATADIR}/pixmaps/xfce-logo-white.svg"
 AC_SUBST(FLOATERS_XFCE_IMAGE)
 
@@ -1131,7 +1127,6 @@ data/xfce4-screensavers.menu
 data/xfce4-screensaver.pc
 data/org.xfce.ScreenSaver.service
 data/images/Makefile
-data/images/cosmos/Makefile
 savers/Makefile
 doc/Makefile
 doc/xfce4-screensaver.xml

@@ -15,14 +15,11 @@ AM_CPPFLAGS =							\
 	$(NULL)
 
 DESKTOP_IN_IN_FILES = 			 \
-	cosmos-slideshow.desktop.in.in 	 \
 	xfce-floaters.desktop.in.in	 \
 	personal-slideshow.desktop.in.in \
 	popsquares.desktop.in.in	 \
 	$(NULL)
 
-cosmos-slideshow.desktop.in: cosmos-slideshow.desktop.in.in Makefile
-	$(edit) $< >$@
 xfce-floaters.desktop.in: xfce-floaters.desktop.in.in Makefile
 	$(edit) $< >$@
 personal-slideshow.desktop.in: personal-slideshow.desktop.in.in Makefile
@@ -33,13 +30,11 @@ popsquares.desktop.in: popsquares.desktop.in.in Makefile
 @INTLTOOL_DESKTOP_RULE@
 
 edit = sed \
-	-e 's|@SLIDESHOW_COSMOS_DIR[@]|$(SLIDESHOW_COSMOS_DIR)|g' \
 	-e 's|@FLOATERS_XFCE_IMAGE[@]|$(FLOATERS_XFCE_IMAGE)|g' \
 	-e 's|@SAVERDIR[@]|$(privlibexecdir)|g'
 
 themesdir = $(datadir)/applications/screensavers
 themes_in_files = 			\
-	cosmos-slideshow.desktop.in	\
 	xfce-floaters.desktop.in    \
 	personal-slideshow.desktop.in	\
 	popsquares.desktop.in		\
@@ -123,7 +118,6 @@ EXTRA_DIST =				\
 
 CLEANFILES = 				\
 	$(BUILT_SOURCES)		\
-	cosmos-slideshow.desktop.in	\
 	xfce-floaters.desktop.in	\
 	popsquares.desktop.in		\
 	personal-slideshow.desktop.in	\
@@ -136,7 +130,6 @@ DISTCLEANFILES = 			\
 MAINTAINERCLEANFILES =			\
 	*~				\
 	Makefile.in			\
-	cosmos-slideshow.desktop	\
 	xfce-floaters.desktop	\
 	personal-slideshow.desktop	\
 	popsquares.desktop		\

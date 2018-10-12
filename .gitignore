@@ -35,8 +35,6 @@ missing
 POTFILES
 
 # Paths
-data/images/cosmos/*.xml
-data/images/cosmos/cosmos.xml.in
 data/org.xfce.ScreenSaver.service
 data/xfce4-screensaver.directory
 data/xfce4-screensaver.pc

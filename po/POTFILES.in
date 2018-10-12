@@ -1,11 +1,9 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
-data/images/cosmos/cosmos.xml.in.in
 [type: gettext/glade]data/lock-dialog-default.ui
 data/xfce4-screensaver-preferences.desktop.in
 [type: gettext/glade]data/xfce4-screensaver-preferences.ui
 data/xfce4-screensaver.directory.in
-savers/cosmos-slideshow.desktop.in.in
 savers/floaters.c
 savers/xfce-floaters.desktop.in.in
 savers/personal-slideshow.desktop.in.in

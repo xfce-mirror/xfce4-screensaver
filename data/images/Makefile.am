@@ -1,7 +1,6 @@
 NULL =
 
 SUBDIRS =			\
-	cosmos			\
 	$(NULL)
 
 imagedir   = $(datadir)/pixmaps
