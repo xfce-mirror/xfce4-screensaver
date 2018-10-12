@@ -1931,13 +1931,6 @@ redraw_background (GSLockPlug *plug)
 	GdkPixbuf *pixbuf;
 	gint screen_width, screen_height, monitor_width, monitor_height;
 
-	pixbuf = gtk_image_get_pixbuf (GTK_IMAGE (plug->priv->background_image));
-	if (pixbuf)
-	{
-		g_free(pixbuf);
-		pixbuf = NULL;
-	}
-
 	bg = xfce_bg_new();
 	get_draw_dimensions(plug, bg, &screen_width, &screen_height, &monitor_width, &monitor_height);
 	pixbuf = xfce_bg_get_pixbuf(bg, screen_width, screen_height, monitor_width, monitor_height);
