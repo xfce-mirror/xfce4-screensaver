@@ -120,7 +120,9 @@ copy_theme_dialog_class_init (CopyThemeDialogClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
+	G_GNUC_BEGIN_IGNORE_DEPRECATIONS /* GObject 2.58 */
 	g_type_class_add_private (klass, sizeof (CopyThemeDialogPrivate));
+	G_GNUC_END_IGNORE_DEPRECATIONS
 
 	klass->cancelled = copy_theme_dialog_cancel;
 	object_class->finalize = copy_theme_dialog_finalize;

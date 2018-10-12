@@ -781,7 +781,9 @@ void
 xfce_rr_screen_class_init (XfceRRScreenClass *klass)
 {
     GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+    G_GNUC_BEGIN_IGNORE_DEPRECATIONS /* GObject 2.58 */
     g_type_class_add_private (klass, sizeof (XfceRRScreenPrivate));
+    G_GNUC_END_IGNORE_DEPRECATIONS
 
     gobject_class->set_property = xfce_rr_screen_set_property;
     gobject_class->get_property = xfce_rr_screen_get_property;
