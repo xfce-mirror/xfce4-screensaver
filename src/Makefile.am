@@ -156,18 +156,6 @@ xfce4_screensaver_dialog_SOURCES = 	\
 	xfcekbd-keyboard-config.h \
 	xfce-bg.c \
 	xfce-bg.h \
-	desktop-entries.c \
-	desktop-entries.h \
-	menu-layout.c \
-	menu-layout.h \
-	menu-util.c \
-	menu-util.h \
-	menu-monitor.c \
-	menu-monitor.h \
-	canonicalize.c \
-	canonicalize.h \
-	entry-directories.c \
-	entry-directories.h \
 	$(AUTH_SOURCES)			\
 	$(NULL)
 
@@ -187,18 +175,6 @@ EXTRA_xfce4_screensaver_dialog_SOURCES = \
 	xfcekbd-desktop-config.h \
 	xfcekbd-keyboard-config.c \
 	xfcekbd-keyboard-config.h \
-	desktop-entries.c \
-	desktop-entries.h \
-	menu-layout.c \
-	menu-layout.h \
-	menu-util.c \
-	menu-util.h \
-	menu-monitor.c \
-	menu-monitor.h \
-	canonicalize.c \
-	canonicalize.h \
-	entry-directories.c \
-	entry-directories.h \
 	$(NULL)
 
 xfce4_screensaver_dialog_LDADD =	\
@@ -264,18 +240,6 @@ xfce4_screensaver_SOURCES =	\
 	xfcekbd-desktop-config.h \
 	xfcekbd-keyboard-config.c \
 	xfcekbd-keyboard-config.h \
-	desktop-entries.c \
-	desktop-entries.h \
-	menu-layout.c \
-	menu-layout.h \
-	menu-util.c \
-	menu-util.h \
-	menu-monitor.c \
-	menu-monitor.h \
-	canonicalize.c \
-	canonicalize.h \
-	entry-directories.c \
-	entry-directories.h \
 	$(BUILT_SOURCES)	\
 	$(NULL)
 
@@ -321,18 +285,6 @@ xfce4_screensaver_preferences_SOURCES =	\
 	xfcekbd-desktop-config.h \
 	xfcekbd-keyboard-config.c \
 	xfcekbd-keyboard-config.h \
-	canonicalize.c \
-	canonicalize.h \
-	entry-directories.c \
-	entry-directories.h \
-	menu-util.c \
-	menu-util.h \
-	menu-layout.c \
-	menu-layout.h \
-	menu-monitor.c \
-	menu-monitor.h \
-	desktop-entries.c \
-	desktop-entries.h \
 	$(NULL)
 
 xfce4_screensaver_preferences_LDADD =	\
