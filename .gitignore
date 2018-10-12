@@ -59,8 +59,6 @@ savers/cosmos-slideshow.desktop.in
 savers/floaters
 savers/footlogo-floaters.desktop
 savers/footlogo-floaters.desktop.in
-savers/gnomelogo-floaters.desktop
-savers/gnomelogo-floaters.desktop.in
 savers/gs-theme-engine-marshal.c
 savers/gs-theme-engine-marshal.h
 savers/libgs-theme-engine.a

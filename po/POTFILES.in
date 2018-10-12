@@ -8,7 +8,6 @@ data/xfce4-screensaver.directory.in
 savers/cosmos-slideshow.desktop.in.in
 savers/floaters.c
 savers/footlogo-floaters.desktop.in.in
-savers/gnomelogo-floaters.desktop.in.in
 savers/personal-slideshow.desktop.in.in
 savers/popsquares.c
 savers/popsquares.desktop.in.in
