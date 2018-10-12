@@ -17,6 +17,7 @@ It is designed to support:
 Known Issues
 ============
 
+Currently none.
 
 Installation
 ============
@@ -44,7 +45,7 @@ You will need to create an account if you don't have one already.
 In the bug report please include information about your system, if possible:
 
  - What operating system and version
- - What version of xfce4-screensaver, i.e. the output of the "xfce4-screensaver-command --version" command
+ - What version of xfce4-screensaver, i.e. the output of the `xfce4-screensaver-command --version` command
 
 If you want to debug your installation you may also be able to get meaningful debug output when starting xfce4-screensaver from the debug script:
 `./src/debug-screensaver.sh`
