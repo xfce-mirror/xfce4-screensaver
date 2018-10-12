@@ -31,7 +31,7 @@
 #endif /* HAVE_UNISTD_H */
 
 #include <glib-object.h>
-#include <xfcemenu-tree.h>
+#include <garcon/garcon.h>
 
 #include "gs-theme-manager.h"
 #include "gs-debug.h"
@@ -50,7 +50,7 @@ struct _GSThemeInfo
 
 struct GSThemeManagerPrivate
 {
-	XfceMenuTree *menu_tree;
+	GarconMenu *menu;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (GSThemeManager, gs_theme_manager, G_TYPE_OBJECT)
@@ -230,7 +230,7 @@ gs_theme_info_get_exec (GSThemeInfo *info)
 }
 
 static GSThemeInfo *
-gs_theme_info_new_from_xfcemenu_tree_entry (XfceMenuTreeEntry *entry)
+gs_theme_info_new_from_garcon_menu_item(GarconMenuItem *item)
 {
 	GSThemeInfo *info;
 	const char     *str;
@@ -239,11 +239,11 @@ gs_theme_info_new_from_xfcemenu_tree_entry (XfceMenuTreeEntry *entry)
 	info = g_new0 (GSThemeInfo, 1);
 
 	info->refcount = 1;
-	info->name     = g_strdup (xfcemenu_tree_entry_get_name (entry));
-	info->exec     = g_strdup (xfcemenu_tree_entry_get_exec (entry));
+	info->name     = g_strdup (garcon_menu_item_get_name (item));
+	info->exec     = g_strdup (garcon_menu_item_get_command (item));
 
 	/* remove the .desktop suffix */
-	str = xfcemenu_tree_entry_get_desktop_file_id (entry);
+	str = garcon_menu_item_get_desktop_id (item);
 	pos = g_strrstr (str, ".desktop");
 	if (pos)
 	{
@@ -258,44 +258,33 @@ gs_theme_info_new_from_xfcemenu_tree_entry (XfceMenuTreeEntry *entry)
 }
 
 static GSThemeInfo *
-find_info_for_id (XfceMenuTree  *tree,
+find_info_for_id (GarconMenu *menu,
                   const char *id)
 {
 	GSThemeInfo     *info;
-	XfceMenuTreeDirectory *root;
-	GSList             *items;
-	GSList             *l;
+	GList             *items;
+	GList             *l;
 
-	root = xfcemenu_tree_get_root_directory (tree);
-	if (root == NULL)
-	{
-		return NULL;
-	}
-
-	items = xfcemenu_tree_directory_get_contents (root);
+	items = garcon_menu_get_items (menu);
 
 	info = NULL;
 
 	for (l = items; l; l = l->next)
 	{
-		if (info == NULL
-		        && xfcemenu_tree_item_get_type (l->data) == XFCEMENU_TREE_ITEM_ENTRY)
+		if (info == NULL)
 		{
-			XfceMenuTreeEntry *entry = l->data;
+			GarconMenuItem *item = l->data;
 			const char     *file_id;
 
-			file_id = xfcemenu_tree_entry_get_desktop_file_id (entry);
+			file_id = garcon_menu_item_get_desktop_id (item);
 			if (file_id && id && strcmp (file_id, id) == 0)
 			{
-				info = gs_theme_info_new_from_xfcemenu_tree_entry (entry);
+				info = gs_theme_info_new_from_garcon_menu_item (item);
 			}
 		}
-
-		xfcemenu_tree_item_unref (l->data);
 	}
 
-	g_slist_free (items);
-	xfcemenu_tree_item_unref (root);
+	g_list_free (items);
 
 	return info;
 }
@@ -311,53 +300,38 @@ gs_theme_manager_lookup_theme_info (GSThemeManager *theme_manager,
 	g_return_val_if_fail (name != NULL, NULL);
 
 	id = g_strdup_printf ("%s.desktop", name);
-	info = find_info_for_id (theme_manager->priv->menu_tree, id);
+	info = find_info_for_id (theme_manager->priv->menu, id);
 	g_free (id);
 
 	return info;
 }
 
 static void
-theme_prepend_entry (GSList         **parent_list,
-                     XfceMenuTreeEntry  *entry,
-                     const char      *filename)
+theme_prepend_item (GSList         **parent_list,
+                    GarconMenuItem  *item)
 {
 	GSThemeInfo *info;
 
-	info = gs_theme_info_new_from_xfcemenu_tree_entry (entry);
+	info = gs_theme_info_new_from_garcon_menu_item (item);
 
 	*parent_list = g_slist_prepend (*parent_list, info);
 }
 
 static void
-make_theme_list (GSList             **parent_list,
-                 XfceMenuTreeDirectory  *directory,
-                 const char          *filename)
+make_theme_list (GSList     **parent_list,
+                 GarconMenu  *menu)
 {
-	GSList *items;
-	GSList *l;
+	GList *items;
+	GList *l;
 
-	items = xfcemenu_tree_directory_get_contents (directory);
+	items = garcon_menu_get_items (menu);
 
 	for (l = items; l; l = l->next)
 	{
-		switch (xfcemenu_tree_item_get_type (l->data))
-		{
-
-		case XFCEMENU_TREE_ITEM_ENTRY:
-			theme_prepend_entry (parent_list, l->data, filename);
-			break;
-
-		case XFCEMENU_TREE_ITEM_ALIAS:
-		case XFCEMENU_TREE_ITEM_DIRECTORY:
-		default:
-			break;
-		}
-
-		xfcemenu_tree_item_unref (l->data);
+		theme_prepend_item (parent_list, l->data);
 	}
 
-	g_slist_free (items);
+	g_list_free (items);
 
 	*parent_list = g_slist_reverse (*parent_list);
 }
@@ -366,17 +340,10 @@ GSList *
 gs_theme_manager_get_info_list (GSThemeManager *theme_manager)
 {
 	GSList             *l = NULL;
-	XfceMenuTreeDirectory *root;
 
 	g_return_val_if_fail (GS_IS_THEME_MANAGER (theme_manager), NULL);
 
-	root = xfcemenu_tree_get_root_directory (theme_manager->priv->menu_tree);
-
-	if (root != NULL)
-	{
-		make_theme_list (&l, root, "xfce4-screensavers.menu");
-		xfcemenu_tree_item_unref (root);
-	}
+	make_theme_list (&l, theme_manager->priv->menu);
 
 	return l;
 }
@@ -389,18 +356,23 @@ gs_theme_manager_class_init (GSThemeManagerClass *klass)
 	object_class->finalize = gs_theme_manager_finalize;
 }
 
-static XfceMenuTree *
-get_themes_tree (void)
+static GarconMenu *
+get_themes_menu (void)
 {
-	XfceMenuTree *themes_tree = NULL;
+	GarconMenu *menu = NULL;
+	gchar      *menu_file = g_strconcat(SYSCONFDIR, "/xdg/menus/xfce4-screensavers.menu", NULL);
 
 	/* we only need to add the locations to the path once
 	   and since this is only run once we'll do it here */
 	add_known_engine_locations_to_path ();
 
-	themes_tree = xfcemenu_tree_lookup ("xfce4-screensavers.menu", XFCEMENU_TREE_FLAGS_NONE);
+	menu = garcon_menu_new_for_path (menu_file);
+	if (!garcon_menu_load (menu, NULL, NULL))
+	{
+		g_warning("Failed to load menu.");
+	}
 
-	return themes_tree;
+	return menu;
 }
 
 static void
@@ -408,7 +380,7 @@ gs_theme_manager_init (GSThemeManager *theme_manager)
 {
 	theme_manager->priv = gs_theme_manager_get_instance_private (theme_manager);
 
-	theme_manager->priv->menu_tree = get_themes_tree ();
+	theme_manager->priv->menu = get_themes_menu ();
 }
 
 static void
@@ -423,9 +395,9 @@ gs_theme_manager_finalize (GObject *object)
 
 	g_return_if_fail (theme_manager->priv != NULL);
 
-	if (theme_manager->priv->menu_tree != NULL)
+	if (theme_manager->priv->menu != NULL)
 	{
-		xfcemenu_tree_unref (theme_manager->priv->menu_tree);
+		g_object_unref (G_OBJECT(theme_manager->priv->menu));
 	}
 
 	G_OBJECT_CLASS (gs_theme_manager_parent_class)->finalize (object);

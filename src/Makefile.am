@@ -264,8 +264,6 @@ xfce4_screensaver_SOURCES =	\
 	xfcekbd-desktop-config.h \
 	xfcekbd-keyboard-config.c \
 	xfcekbd-keyboard-config.h \
-	xfcemenu-tree.c \
-	xfcemenu-tree.h \
 	desktop-entries.c \
 	desktop-entries.h \
 	menu-layout.c \
@@ -323,8 +321,6 @@ xfce4_screensaver_preferences_SOURCES =	\
 	xfcekbd-desktop-config.h \
 	xfcekbd-keyboard-config.c \
 	xfcekbd-keyboard-config.h \
-	xfcemenu-tree.c \
-	xfcemenu-tree.h \
 	canonicalize.c \
 	canonicalize.h \
 	entry-directories.c \
