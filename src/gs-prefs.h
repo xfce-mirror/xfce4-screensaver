@@ -38,9 +38,9 @@ G_BEGIN_DECLS
 
 /**
  * Screensaver theme selection mode
- * The selection mode used by screensaver. May be "blank-only" to enable the screensaver 
- * without using any theme on activation, "single" to enable screensaver using only one 
- * theme on activation (specified in "themes" key), and "random" to enable the screensaver 
+ * The selection mode used by screensaver. May be "blank-only" to enable the screensaver
+ * without using any theme on activation, "single" to enable screensaver using only one
+ * theme on activation (specified in "themes" key), and "random" to enable the screensaver
  * using a random theme on activation.
  */
 #define KEY_MODE "/mode"
@@ -55,7 +55,7 @@ G_BEGIN_DECLS
 
 /**
  * Time before power management baseline
- * The number of seconds of inactivity before signalling to power management. 
+ * The number of seconds of inactivity before signalling to power management.
  * This key is set and maintained by the session power management agent.
  */
 #define KEY_POWER_DELAY "/power-management-delay"
@@ -99,8 +99,8 @@ G_BEGIN_DECLS
 
 /**
  * Embedded keyboard command
- * The command that will be run, if the "embedded_keyboard_enabled" key is set to TRUE, 
- * to embed a keyboard widget into the window. This command should implement an XEMBED 
+ * The command that will be run, if the "embedded_keyboard_enabled" key is set to TRUE,
+ * to embed a keyboard widget into the window. This command should implement an XEMBED
  * plug interface and output a window XID on the standard output.
  */
 #define KEY_KEYBOARD_COMMAND "/embedded-keyboard-command"
@@ -123,8 +123,8 @@ G_BEGIN_DECLS
 
 /**
  * Time before logout option
- * The number of minutes after the screensaver activation before a logout option will 
- * appear in the unlock dialog. This key has effect only if the "logout_enable" key is 
+ * The number of minutes after the screensaver activation before a logout option will
+ * appear in the unlock dialog. This key has effect only if the "logout_enable" key is
  * set to TRUE.
  */
 #define KEY_LOGOUT_DELAY "/logout-delay"
@@ -132,8 +132,8 @@ G_BEGIN_DECLS
 
 /**
  * Logout command
- * The command to invoke when the logout button is clicked. This command should simply 
- * log the user out without any interaction. This key has effect only if the 
+ * The command to invoke when the logout button is clicked. This command should simply
+ * log the user out without any interaction. This key has effect only if the
  * "logout_enable" key is set to TRUE.
  */
 #define KEY_LOGOUT_COMMAND "/logout-command"
@@ -141,7 +141,7 @@ G_BEGIN_DECLS
 
 /**
  * Allow user switching
- * Set this to TRUE to offer an option in the unlock dialog to switch to a different 
+ * Set this to TRUE to offer an option in the unlock dialog to switch to a different
  * user account.
  */
 #define KEY_USER_SWITCH_ENABLED "/user-switch-enabled"
@@ -149,8 +149,8 @@ G_BEGIN_DECLS
 
 /**
  * Screensaver themes
- * This key specifies the list of themes to be used by the screensaver. It's ignored 
- * when "mode" key is "blank-only", should provide the theme name when "mode" is "single", 
+ * This key specifies the list of themes to be used by the screensaver. It's ignored
+ * when "mode" key is "blank-only", should provide the theme name when "mode" is "single",
  * and should provide a list of themes when "mode" is "random".
  */
 #define KEY_THEMES "/themes"

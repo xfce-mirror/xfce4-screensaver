@@ -35,11 +35,11 @@ struct XfceRRScreenPrivate
     Screen               *xscreen;
     ScreenInfo           *info;
     Window			      xroot;
-    
+
     int				      randr_event_base;
     int				      rr_major_version;
     int				      rr_minor_version;
-    
+
     Atom                  connector_type_atom;
 };
 

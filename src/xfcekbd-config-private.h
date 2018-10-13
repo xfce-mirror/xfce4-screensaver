@@ -71,7 +71,7 @@
 
 /**
  * KBD/Indicator: The font
- * The font for the layout indicator. This should be in 
+ * The font for the layout indicator. This should be in
  * "[FAMILY-LIST] [STYLE-OPTIONS] [SIZE]" format.
  */
 #define KEY_KBD_INDICATOR_FONT_FAMILY "/kbd/indicator/font-family"
@@ -79,7 +79,7 @@
 
 /**
  * KBD/Indicator: The foreground color
- * The foreground color for the layout indicator. 
+ * The foreground color for the layout indicator.
  * This should be in "R G B" format, for example "255 0 0".
  */
 #define KEY_KBD_INDICATOR_FOREGROUND_COLOR "/kbd/indicator/foreground-color"
@@ -87,7 +87,7 @@
 
 /**
  * KBD/Indicator: The background color
- * The background color for the layout indicator. 
+ * The background color for the layout indicator.
  * This should be in "R G B" format, for example "255 0 0".
  */
 #define KEY_KBD_INDICATOR_BACKGROUND_COLOR "/kbd/indicator/background-color"

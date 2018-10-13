@@ -347,7 +347,7 @@ xfce_bg_get_property_prefix (XfconfChannel *channel,
 
 	/* Check for workspace usage */
 	prefix = g_strconcat("/backdrop/screen0/monitor", monitor_name, "/workspace0", NULL);
-	if (xfce_bg_check_property_prefix (channel, prefix)) 
+	if (xfce_bg_check_property_prefix (channel, prefix))
 	{
 		return prefix;
 	}

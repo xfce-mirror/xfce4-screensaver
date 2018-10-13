@@ -3,12 +3,12 @@ body {
 }
 
 table {
-	border: solid 1pt; 
+	border: solid 1pt;
 	border-collapse: collapse;
 }
 
 th {
-	background: #eeeeee; 
+	background: #eeeeee;
 	padding: 5px;
 }
 
