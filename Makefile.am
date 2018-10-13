@@ -20,6 +20,7 @@ EXTRA_DIST =			\
 	autogen.sh		\
 	COPYING			\
 	COPYING.LIB		\
+	COPYING.LGPL		\
 	AUTHORS			\
 	INSTALL			\
 	README.md			\

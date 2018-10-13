@@ -13,8 +13,9 @@
 # more details.
 #
 # You should have received a copy of the GNU Lesser General Public
-# License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+# License along with this library; see the file COPYING.LGPL.  If not, write
+# to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+# Boston, MA 02110-1301 USA
 #
 # Written for Xfce by Benedikt Meurer <benny@xfce.org>
 #                 and Brian Tarricone <brian@tarricone.org>.
@@ -23,7 +24,7 @@
 (type xdt-autogen) >/dev/null 2>&1 || {
   cat >&2 <<EOF
 autogen.sh: You don't seem to have the Xfce development tools (at least
-            version $XDT_REQURED_VERSION) installed on your system, which
+            version $XDT_REQUIRED_VERSION) installed on your system, which
             are required to build this software.
             Please install the xfce4-dev-tools package first; it is available
             from http://www.xfce.org/.
