@@ -5,15 +5,19 @@
 autom4te.cache/
 cov-int/
 m4/
+xfce4-screensaver-*/
 
 # Wildcard Match
 *.a
+*.bak
 *.desktop
 *.gmo
+*.html
 *.m4
 *.o
 *.pot
 *.tgz
+*.xz
 *intltool*
 *marshal.c
 *marshal.h
@@ -22,6 +26,7 @@ config.*
 stamp-*
 
 # File Match
+ChangeLog
 compile
 configure
 depcomp
@@ -32,6 +37,7 @@ ltmain.sh
 Makefile
 Makefile.in
 missing
+NONE
 POTFILES
 
 # Paths
