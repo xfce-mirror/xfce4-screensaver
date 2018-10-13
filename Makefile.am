@@ -22,7 +22,7 @@ EXTRA_DIST =			\
 	COPYING.LIB		\
 	AUTHORS			\
 	INSTALL			\
-	README			\
+	README.md			\
 	ChangeLog		\
 	NEWS			\
 	intltool-extract.in     \

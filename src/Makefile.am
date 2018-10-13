@@ -78,6 +78,7 @@ test_fade_SOURCES = 			\
 	gs-debug.h			\
 	xfce-rr.c			\
 	xfce-rr.h			\
+	xfce-rr-private.h			\
 	$(NULL)
 
 test_fade_LDADD =			\
@@ -227,6 +228,7 @@ xfce4_screensaver_SOURCES =	\
 	gs-fade.h		\
 	xfce-rr.c		\
 	xfce-rr.h		\
+	xfce-rr-private.h			\
 	xfce-bg.c		\
 	xfce-bg.h		\
 	xfce-desktop-utils.c		\
@@ -294,6 +296,7 @@ xfce4_screensaver_preferences_LDADD =	\
 EXTRA_DIST =				\
 	debug-screensaver.sh		\
 	gs-marshal.list			\
+	xfcekbd-indicator-marshal.list	\
 	xfce4-screensaver.desktop.in	\
 	$(NULL)
 
