@@ -158,6 +158,10 @@ fi
 PAM_PREFIX=`eval echo $PAM_PREFIX_UNEXPANDED`
 AC_SUBST(PAM_PREFIX)
 
+# Translation distcheck fix
+XGETTEXT_ARGS=
+AC_SUBST(XGETTEXT_ARGS)
+
 dnl ---------------------------------------------------------------------------
 dnl - Where should we put documentation ?
 dnl ---------------------------------------------------------------------------
