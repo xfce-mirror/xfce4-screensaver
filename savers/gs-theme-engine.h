@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
  *
  * Copyright (C) 2005 William Jon McCann <mccann@jhu.edu>
  *
@@ -39,26 +39,26 @@ typedef struct GSThemeEnginePrivate GSThemeEnginePrivate;
 
 typedef struct
 {
-	GtkDrawingArea        parent;
-	GSThemeEnginePrivate *priv;
+    GtkDrawingArea        parent;
+    GSThemeEnginePrivate *priv;
 } GSThemeEngine;
 
 typedef struct
 {
-	GtkDrawingAreaClass parent_class;
+    GtkDrawingAreaClass parent_class;
 
-	/* for signals later if needed */
-	gpointer reserved_1;
-	gpointer reserved_2;
-	gpointer reserved_3;
-	gpointer reserved_4;
+    /* for signals later if needed */
+    gpointer            reserved_1;
+    gpointer            reserved_2;
+    gpointer            reserved_3;
+    gpointer            reserved_4;
 } GSThemeEngineClass;
 
-GType           gs_theme_engine_get_type         (void);
+GType           gs_theme_engine_get_type        (void);
 
 void            gs_theme_engine_get_window_size (GSThemeEngine *engine,
-        int           *width,
-        int           *height);
+                                                 int           *width,
+                                                 int           *height);
 GdkWindow      *gs_theme_engine_get_window      (GSThemeEngine *engine);
 
 #define ENABLE_PROFILING 1
@@ -79,9 +79,9 @@ GdkWindow      *gs_theme_engine_get_window      (GSThemeEngine *engine);
 #endif
 
 void            _gs_theme_engine_profile_log    (const char *func,
-        const char *note,
-        const char *format,
-        ...) G_GNUC_PRINTF (3, 4);
+                                                 const char *note,
+                                                 const char *format,
+                                                 ...) G_GNUC_PRINTF (3, 4);
 
 G_END_DECLS
 

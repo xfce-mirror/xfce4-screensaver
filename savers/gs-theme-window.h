@@ -1,4 +1,4 @@
-/* -*- Mode: C; indent-tabs-mode: nil; c-basic-offset: 8; tab-width: 8 -*-
+/* -*- Mode: C; indent-tabs-mode: nil; c-basic-offset: 4; tab-width: 4 -*-
  *
  * gs-theme-window.h - special toplevel for screensavers
  *
@@ -45,22 +45,22 @@ typedef struct _GSThemeWindowClass GSThemeWindowClass;
 
 struct _GSThemeWindow
 {
-	GtkWindow parent;
+    GtkWindow parent;
 
-	/*< private >*/
-	/* reserved for priv pointer */
-	gpointer reserved;
+    /*< private >*/
+    /* reserved for priv pointer */
+    gpointer  reserved;
 };
 
 struct _GSThemeWindowClass
 {
-	GtkWindowClass parent_class;
+    GtkWindowClass parent_class;
 
-	/* for signals later if needed */
-	gpointer reserved_1;
-	gpointer reserved_2;
-	gpointer reserved_3;
-	gpointer reserved_4;
+    /* for signals later if needed */
+    gpointer       reserved_1;
+    gpointer       reserved_2;
+    gpointer       reserved_3;
+    gpointer       reserved_4;
 };
 
 #ifndef GS_HIDE_FUNCTION_DECLARATIONS

@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
  *
  * Copyright (C) 2005 William Jon McCann <mccann@jhu.edu>
  *
@@ -40,29 +40,29 @@ typedef struct GSTESlideshowPrivate GSTESlideshowPrivate;
 
 typedef struct
 {
-	GSThemeEngine         parent;
-	GSTESlideshowPrivate *priv;
+    GSThemeEngine         parent;
+    GSTESlideshowPrivate *priv;
 } GSTESlideshow;
 
 typedef struct
 {
-	GSThemeEngineClass     parent_class;
+    GSThemeEngineClass     parent_class;
 } GSTESlideshowClass;
 
 GType           gste_slideshow_get_type         (void);
 GSThemeEngine  *gste_slideshow_new              (void);
 
 void            gste_slideshow_set_images_location  (GSTESlideshow *show,
-        const char    *location);
+                                                     const char    *location);
 
 void            gste_slideshow_set_sort_images      (GSTESlideshow *show,
-        gboolean       sort_image);
+                                                     gboolean       sort_image);
 
 void            gste_slideshow_set_background_color (GSTESlideshow *show,
-        const char    *background_color);
+                                                     const char    *background_color);
 
 void            gste_slideshow_set_no_stretch_hint  (GSTESlideshow *show,
-        gboolean       no_stretch_hint);
+                                                     gboolean       no_stretch_hint);
 
 G_END_DECLS
 

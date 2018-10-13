@@ -1,4 +1,4 @@
-/* -*- Mode: C; indent-tabs-mode: nil; c-basic-offset: 8; tab-width: 8 -*-
+/* -*- Mode: C; indent-tabs-mode: nil; c-basic-offset: 4; tab-width: 4 -*-
  *
  * Copyright (C) 2005 William Jon McCann <mccann@jhu.edu>
  *
@@ -32,41 +32,42 @@
 #include "gste-popsquares.h"
 
 int
-main (int argc, char **argv)
+main (int    argc,
+      char **argv)
 {
-	GSThemeEngine *engine;
-	GtkWidget     *window;
-	GError        *error;
+    GSThemeEngine *engine;
+    GtkWidget     *window;
+    GError        *error;
 
-	bindtextdomain (GETTEXT_PACKAGE, XFCELOCALEDIR);
-	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-	textdomain (GETTEXT_PACKAGE);
+    bindtextdomain (GETTEXT_PACKAGE, XFCELOCALEDIR);
+    bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+    textdomain (GETTEXT_PACKAGE);
 
-	error = NULL;
+    error = NULL;
 
-	if (!gtk_init_with_args (&argc, &argv, NULL, NULL, NULL, &error))
-	{
-		g_printerr (_("%s. See --help for usage information.\n"),
-		            error->message);
-		g_error_free (error);
-		exit (1);
-	}
+    if (!gtk_init_with_args (&argc, &argv, NULL, NULL, NULL, &error))
+    {
+        g_printerr (_("%s. See --help for usage information.\n"),
+                    error->message);
+        g_error_free (error);
+        exit (1);
+    }
 
-	window = gs_theme_window_new ();
-	g_signal_connect (G_OBJECT (window), "delete-event",
-	                  G_CALLBACK (gtk_main_quit), NULL);
+    window = gs_theme_window_new ();
+    g_signal_connect (G_OBJECT (window), "delete-event",
+                      G_CALLBACK (gtk_main_quit), NULL);
 
-	g_set_prgname ("popsquares");
+    g_set_prgname ("popsquares");
 
-	engine = g_object_new (GSTE_TYPE_POPSQUARES, NULL);
-	gtk_container_add (GTK_CONTAINER (window), GTK_WIDGET (engine));
+    engine = g_object_new (GSTE_TYPE_POPSQUARES, NULL);
+    gtk_container_add (GTK_CONTAINER (window), GTK_WIDGET (engine));
 
-	gtk_widget_show (GTK_WIDGET (engine));
+    gtk_widget_show (GTK_WIDGET (engine));
 
-	gtk_window_set_default_size (GTK_WINDOW (window), 640, 480);
-	gtk_widget_show (window);
+    gtk_window_set_default_size (GTK_WINDOW (window), 640, 480);
+    gtk_widget_show (window);
 
-	gtk_main ();
+    gtk_main ();
 
-	return 0;
+    return 0;
 }

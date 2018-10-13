@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
  *
  * Copyright (C) 2005 William Jon McCann <mccann@jhu.edu>
  *
@@ -40,17 +40,17 @@ typedef struct GSTEPopsquaresPrivate GSTEPopsquaresPrivate;
 
 typedef struct
 {
-	GSThemeEngine          parent;
-	GSTEPopsquaresPrivate *priv;
+    GSThemeEngine          parent;
+    GSTEPopsquaresPrivate *priv;
 } GSTEPopsquares;
 
 typedef struct
 {
-	GSThemeEngineClass     parent_class;
+    GSThemeEngineClass     parent_class;
 } GSTEPopsquaresClass;
 
-GType           gste_popsquares_get_type         (void);
-GSThemeEngine  *gste_popsquares_new              (void);
+GType           gste_popsquares_get_type (void);
+GSThemeEngine  *gste_popsquares_new      (void);
 
 G_END_DECLS
 
