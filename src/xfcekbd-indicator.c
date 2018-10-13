@@ -464,12 +464,12 @@ xfcekbd_indicator_reinit_ui (XfcekbdIndicator * gki)
 
 /* Should be called once for all widgets */
 static void
-xfcekbd_indicator_cfg_changed (GSettings *settings,
+xfcekbd_indicator_cfg_changed (XfconfChannel *channel,
 			       gchar     *key,
 			       gpointer   user_data)
 {
 	xkl_debug (100,
-		   "General configuration changed in GSettings - reiniting...\n");
+		   "General configuration changed in Xfconf - reiniting...\n");
 	xfcekbd_desktop_config_load_from_xfconf (&globals.cfg);
 	xfcekbd_desktop_config_activate (&globals.cfg);
 	ForAllIndicators () {
@@ -479,12 +479,12 @@ xfcekbd_indicator_cfg_changed (GSettings *settings,
 
 /* Should be called once for all widgets */
 static void
-xfcekbd_indicator_ind_cfg_changed (GSettings *settings,
+xfcekbd_indicator_ind_cfg_changed (XfconfChannel *channel,
 				   gchar     *key,
 				   gpointer   user_data)
 {
 	xkl_debug (100,
-		   "Applet configuration changed in GSettings - reiniting...\n");
+		   "Applet configuration changed in Xfconf - reiniting...\n");
 	xfcekbd_indicator_config_load_from_xfconf (&globals.ind_cfg);
 	xfcekbd_indicator_update_images ();
 	xfcekbd_indicator_config_activate (&globals.ind_cfg);

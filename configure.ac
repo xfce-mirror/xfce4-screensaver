@@ -115,6 +115,14 @@ PKG_CHECK_MODULES(XFCE_SCREENSAVER_COMMAND,
 AC_SUBST(XFCE_SCREENSAVER_COMMAND_CFLAGS)
 AC_SUBST(XFCE_SCREENSAVER_COMMAND_LIBS)
 
+PKG_CHECK_MODULES(XFCE_SCREENSAVER_SAVER,
+        gthread-2.0
+        gtk+-3.0 >= $GTK_REQUIRED_VERSION
+        gobject-2.0 >= $GLIB_REQUIRED_VERSION
+        libxfce4util-1.0 >= LIBXFCE4UTIL_REQUIRED)
+AC_SUBST(XFCE_SCREENSAVER_SAVER_CFLAGS)
+AC_SUBST(XFCE_SCREENSAVER_SAVER_LIBS)
+
 AC_PATH_XTRA
 
 ALL_X_LIBS="$X_LIBS $X_PRE_LIBS -lXext -lX11 $X_EXTRA_LIBS"
@@ -122,21 +130,12 @@ SAVER_LIBS="$ALL_X_LIBS"
 
 AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
 
-
 # Solaris requires libresolv for daemon()
 case "$host" in
 	*-*-solaris*)
 		AC_CHECK_LIB(resolv, daemon, [XFCE_SCREENSAVER_LIBS="$XFCE_SCREENSAVER_LIBS -lresolv"])
 	;;
 esac
-
-# Optional dependencies for the theme engines
-
-SAVER_MODULES="gthread-2.0 gtk+-3.0 >= $GTK_REQUIRED_VERSION gobject-2.0 >= $GLIB_REQUIRED_VERSION libxfce4util-1.0 >= LIBXFCE4UTIL_REQUIRED"
-
-PKG_CHECK_MODULES(XFCE_SCREENSAVER_SAVER, $SAVER_MODULES)
-AC_SUBST(XFCE_SCREENSAVER_SAVER_CFLAGS)
-AC_SUBST(XFCE_SCREENSAVER_SAVER_LIBS)
 
 # Find out where the session service file goes
 # The sad sed hack is recomended by section 27.10 of the automake manual.
@@ -158,14 +157,6 @@ else
 fi
 PAM_PREFIX=`eval echo $PAM_PREFIX_UNEXPANDED`
 AC_SUBST(PAM_PREFIX)
-
-# Desktop entry handling
-
-PKG_CHECK_MODULES(LIB_XFCE_MENU,
-        gtk+-3.0 >= $GTK_REQUIRED_VERSION)
-
-AC_SUBST(LIB_XFCE_MENU_CFLAGS)
-AC_SUBST(LIB_XFCE_MENU_LIBS)
 
 dnl ---------------------------------------------------------------------------
 dnl - Where should we put documentation ?

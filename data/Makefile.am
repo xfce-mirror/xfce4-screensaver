@@ -40,7 +40,6 @@ pkgconfig_DATA = xfce4-screensaver.pc
 dbussessionservicedir = $(DBUS_SESSION_SERVICE_DIR)
 dbussessionservice_DATA = org.xfce.ScreenSaver.service
 
-@GSETTINGS_RULES@
 @INTLTOOL_XML_NOMERGE_RULE@
 
 EXTRA_DIST = 				\
