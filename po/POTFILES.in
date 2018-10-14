@@ -20,3 +20,4 @@ src/xfce4-screensaver-dialog.c
 src/xfce4-screensaver-preferences.c
 src/xfce4-screensaver.c
 src/xfce4-screensaver.desktop.in.in
+src/xfcekbd-indicator.c
