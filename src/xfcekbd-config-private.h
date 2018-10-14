@@ -96,14 +96,12 @@
 /**
  * General config functions (private)
  */
-extern void xfcekbd_keyboard_config_model_set (XfcekbdKeyboardConfig *
-					    kbd_config,
-					    const gchar * model_name);
+extern void xfcekbd_keyboard_config_model_set   (XfcekbdKeyboardConfig  *kbd_config,
+                                                 const gchar            *model_name);
 
-extern void xfcekbd_keyboard_config_options_set (XfcekbdKeyboardConfig *
-					      kbd_config,
-					      gint idx,
-					      const gchar * group_name,
-					      const gchar * option_name);
+extern void xfcekbd_keyboard_config_options_set (XfcekbdKeyboardConfig  *kbd_config,
+                                                 gint                    idx,
+                                                 const gchar            *group_name,
+                                                 const gchar            *option_name);
 
 #endif

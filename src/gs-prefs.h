@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
  *
  * Copyright (C) 2004-2006 William Jon McCann <mccann@jhu.edu>
  *
@@ -166,35 +166,34 @@ typedef struct GSPrefsPrivate GSPrefsPrivate;
 
 typedef struct
 {
-	GObject          parent;
+    GObject          parent;
 
-	GSPrefsPrivate  *priv;
+    GSPrefsPrivate  *priv;
 
-	guint            idle_activation_enabled : 1; /* whether to activate when idle */
-guint lock_enabled : 1;			  /* whether to lock when active */
-guint logout_enabled : 1;		  /* Whether to offer the logout option */
-guint user_switch_enabled : 1;	/* Whether to offer the user switch option */
-guint keyboard_enabled : 1;		  /* Whether to try to embed a keyboard */
-guint status_message_enabled : 1; /* show the status message in the lock */
+    guint            idle_activation_enabled : 1; /* whether to activate when idle */
+    guint            lock_enabled : 1;           /* whether to lock when active */
+    guint            logout_enabled : 1;         /* Whether to offer the logout option */
+    guint            user_switch_enabled : 1;  /* Whether to offer the user switch option */
+    guint            keyboard_enabled : 1;       /* Whether to try to embed a keyboard */
+    guint            status_message_enabled : 1; /* show the status message in the lock */
+    guint            power_timeout;  /* how much idle time before power management */
+    guint            timeout;        /* how much idle time before activation */
+    guint            lock_timeout;   /* how long after activation locking starts */
+    guint            logout_timeout; /* how long until the logout option appears */
+    guint            cycle;          /* how long each theme should run */
 
-guint power_timeout;  /* how much idle time before power management */
-guint timeout;		  /* how much idle time before activation */
-guint lock_timeout;   /* how long after activation locking starts */
-guint logout_timeout; /* how long until the logout option appears */
-guint cycle;		  /* how long each theme should run */
+    char            *logout_command;   /* command to use to logout */
+    char            *keyboard_command; /* command to use to embed a keyboard */
 
-char *logout_command;   /* command to use to logout */
-char *keyboard_command; /* command to use to embed a keyboard */
-
-GSList *themes;   /* the screensaver themes to run */
-GSSaverMode mode; /* theme selection mode */
+    GSList          *themes;   /* the screensaver themes to run */
+    GSSaverMode      mode; /* theme selection mode */
 } GSPrefs;
 
 typedef struct
 {
-	GObjectClass     parent_class;
+    GObjectClass     parent_class;
 
-	void            (* changed)        (GSPrefs *prefs);
+    void            (* changed)        (GSPrefs *prefs);
 } GSPrefsClass;
 
 GType       gs_prefs_get_type        (void);

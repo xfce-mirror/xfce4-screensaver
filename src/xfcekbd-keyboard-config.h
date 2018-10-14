@@ -34,34 +34,30 @@ extern const gchar XFCEKBD_KEYBOARD_CONFIG_KEY_OPTIONS[];
  */
 typedef struct _XfcekbdKeyboardConfig XfcekbdKeyboardConfig;
 struct _XfcekbdKeyboardConfig {
-	gchar *model;
-	gchar **layouts_variants;
-	gchar **options;
+    gchar      *model;
+    gchar     **layouts_variants;
+    gchar     **options;
 
-	/* private, transient */
-	int config_listener_id;
-	XklEngine *engine;
+    /* private, transient */
+    int         config_listener_id;
+    XklEngine  *engine;
 };
 
 /*
  * XfcekbdKeyboardConfig functions
  */
-extern void xfcekbd_keyboard_config_init (XfcekbdKeyboardConfig * kbd_config,
-				       XklEngine * engine);
-extern void xfcekbd_keyboard_config_term (XfcekbdKeyboardConfig * kbd_config);
+extern void             xfcekbd_keyboard_config_init                    (XfcekbdKeyboardConfig  *kbd_config,
+                                                                         XklEngine              *engine);
+extern void             xfcekbd_keyboard_config_term                    (XfcekbdKeyboardConfig  *kbd_config);
 
-extern void xfcekbd_keyboard_config_load_from_x_current (XfcekbdKeyboardConfig *
-						      kbd_config,
-						      XklConfigRec * buf);
+extern void             xfcekbd_keyboard_config_load_from_x_current     (XfcekbdKeyboardConfig  *kbd_config,
+                                                                         XklConfigRec           *buf);
 
-extern gboolean xfcekbd_keyboard_config_split_items (const gchar * merged,
-						  gchar ** parent,
-						  gchar ** child);
+extern gboolean         xfcekbd_keyboard_config_split_items             (const gchar            *merged,
+                                                                         gchar                 **parent,
+                                                                         gchar                 **child);
 
-extern const gchar *xfcekbd_keyboard_config_format_full_layout (const gchar
-							     *
-							     layout_descr,
-							     const gchar *
-							     variant_descr);
+extern const gchar *    xfcekbd_keyboard_config_format_full_layout      (const gchar            *layout_descr,
+                                                                         const gchar            *variant_descr);
 
 #endif

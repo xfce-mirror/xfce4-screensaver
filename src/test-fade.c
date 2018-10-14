@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
  *
  * Copyright (C) 2005 William Jon McCann <mccann@jhu.edu>
  *
@@ -47,88 +47,87 @@
 static void
 test_fade (void)
 {
-	GSFade *fade;
-	int     reps = 2;
-	int     delay = 2;
+    GSFade *fade;
+    int     reps = 2;
+    int     delay = 2;
 
-	fade = gs_fade_new ();
+    fade = gs_fade_new ();
 
-	while (reps-- > 0)
-	{
+    while (reps-- > 0)
+    {
+        g_print ("fading out...");
+        gs_fade_sync (fade, 1000);
+        g_print ("done.\n");
 
-		g_print ("fading out...");
-		gs_fade_sync (fade, 1000);
-		g_print ("done.\n");
+        g_print ("fading in...");
+        gs_fade_reset (fade);
+        g_print ("done.\n");
 
-		g_print ("fading in...");
-		gs_fade_reset (fade);
-		g_print ("done.\n");
+        if (delay)
+        {
+            sleep (delay);
+        }
+    }
 
-		if (delay)
-		{
-			sleep (delay);
-		}
-	}
-
-	g_object_unref (fade);
+    g_object_unref (fade);
 }
 
 int
 main (int    argc,
       char **argv)
 {
-	GError *error = NULL;
-	int     op, event, err;
+    GError *error = NULL;
+    int     op, event, err;
 
 #ifdef ENABLE_NLS
-	bindtextdomain (GETTEXT_PACKAGE, XFCELOCALEDIR);
+    bindtextdomain (GETTEXT_PACKAGE, XFCELOCALEDIR);
 # ifdef HAVE_BIND_TEXTDOMAIN_CODESET
-	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+    bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 # endif
-	textdomain (GETTEXT_PACKAGE);
+    textdomain (GETTEXT_PACKAGE);
 #endif
 
-	if (error)
-	{
-		fprintf (stderr, "%s\n", error->message);
-		exit (1);
-	}
+    if (error)
+    {
+        fprintf (stderr, "%s\n", error->message);
+        exit (1);
+    }
 
-	if (! gtk_init_with_args (&argc, &argv, NULL, NULL, NULL, &error))
-	{
-		fprintf (stderr, "%s", error->message);
-		g_error_free (error);
-		exit (1);
-	}
+    if (! gtk_init_with_args (&argc, &argv, NULL, NULL, NULL, &error))
+    {
+        fprintf (stderr, "%s", error->message);
+        g_error_free (error);
+        exit (1);
+    }
 
-	if (! XQueryExtension (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), XF86_VIDMODE_NAME, &op, &event, &err))
-	{
-		g_message ("no " XF86_VIDMODE_NAME " extension");
-	}
-	else
-	{
+    if (! XQueryExtension (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), XF86_VIDMODE_NAME, &op, &event, &err))
+    {
+        g_message ("no " XF86_VIDMODE_NAME " extension");
+    }
+    else
+    {
 # ifdef HAVE_XF86VMODE_GAMMA
-		int major;
-		int minor;
+        int major;
+        int minor;
 
-		if (! XF86VidModeQueryVersion (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &major, &minor))
-		{
-			g_message ("unable to get " XF86_VIDMODE_NAME " version");
-		}
-		else
-		{
-			g_message (XF86_VIDMODE_NAME " version %d.%d", major, minor);
-		}
+        if (! XF86VidModeQueryVersion (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &major, &minor))
+        {
+            g_message ("unable to get " XF86_VIDMODE_NAME " version");
+        }
+        else
+        {
+            g_message (XF86_VIDMODE_NAME " version %d.%d", major, minor);
+        }
 # else /* !HAVE_XF86VMODE_GAMMA */
-		g_message ("no support for display's " XF86_VIDMODE_NAME " extension");
+        g_message ("no support for display's " XF86_VIDMODE_NAME " extension");
 # endif /* !HAVE_XF86VMODE_GAMMA */
-	}
+    }
 
-	gs_debug_init (TRUE, FALSE);
+    gs_debug_init (TRUE, FALSE);
 
-	test_fade ();
+    test_fade ();
 
-	gs_debug_shutdown ();
+    gs_debug_shutdown ();
 
-	return 0;
+    return 0;
 }

@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
  *
  * Copyright (C) 2005 William Jon McCann <mccann@jhu.edu>
  *
@@ -61,10 +61,10 @@ void gs_debug_real             (const char *func,
 #define gs_profile_msg(...)
 #endif
 
-void            _gs_profile_log    (const char *func,
-                                    const char *note,
-                                    const char *format,
-                                    ...) G_GNUC_PRINTF (3, 4);
+void       _gs_profile_log     (const char *func,
+                                const char *note,
+                                const char *format,
+                                ...) G_GNUC_PRINTF (3, 4);
 
 G_END_DECLS
 

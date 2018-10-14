@@ -30,19 +30,19 @@
  */
 typedef struct _XfcekbdIndicatorConfig XfcekbdIndicatorConfig;
 struct _XfcekbdIndicatorConfig {
-	int secondary_groups_mask;
-	gboolean show_flags;
+    int            secondary_groups_mask;
+    gboolean       show_flags;
 
-	gchar *font_family;
-	gchar *foreground_color;
-	gchar *background_color;
+    gchar         *font_family;
+    gchar         *foreground_color;
+    gchar         *background_color;
 
-	/* private, transient */
-	XfconfChannel *channel;
-	GSList *image_filenames;
-	GtkIconTheme *icon_theme;
-	int config_listener_id;
-	XklEngine *engine;
+    /* private, transient */
+    XfconfChannel *channel;
+    GSList        *image_filenames;
+    GtkIconTheme  *icon_theme;
+    int            config_listener_id;
+    XklEngine     *engine;
 };
 
 /*
@@ -50,32 +50,23 @@ struct _XfcekbdIndicatorConfig {
  * some of them require XfcekbdKeyboardConfig as well -
  * for loading approptiate images
  */
-void xfcekbd_indicator_config_init (XfcekbdIndicatorConfig *
-					applet_config,
-					XklEngine * engine);
-void xfcekbd_indicator_config_term (XfcekbdIndicatorConfig *
-					applet_config);
+void    xfcekbd_indicator_config_init                   (XfcekbdIndicatorConfig  *applet_config,
+                                                         XklEngine               *engine);
+void    xfcekbd_indicator_config_term                   (XfcekbdIndicatorConfig  *applet_config);
 
-void xfcekbd_indicator_config_load_from_xfconf (XfcekbdIndicatorConfig
-						   * applet_config);
+void    xfcekbd_indicator_config_load_from_xfconf       (XfcekbdIndicatorConfig  *applet_config);
 
-void xfcekbd_indicator_config_load_image_filenames (XfcekbdIndicatorConfig
-							* applet_config,
-							XfcekbdKeyboardConfig
-							* kbd_config);
-void xfcekbd_indicator_config_free_image_filenames (XfcekbdIndicatorConfig
-							* applet_config);
+void    xfcekbd_indicator_config_load_image_filenames   (XfcekbdIndicatorConfig  *applet_config,
+                                                         XfcekbdKeyboardConfig   *kbd_config);
+void    xfcekbd_indicator_config_free_image_filenames   (XfcekbdIndicatorConfig  *applet_config);
 
 /* Should be updated on Indicator/Xfconf configuration change */
-void xfcekbd_indicator_config_activate (XfcekbdIndicatorConfig *
-					    applet_config);
+void    xfcekbd_indicator_config_activate               (XfcekbdIndicatorConfig  *applet_config);
 
-void xfcekbd_indicator_config_start_listen (XfcekbdIndicatorConfig *
-						applet_config,
-						GCallback
-						func, gpointer user_data);
+void    xfcekbd_indicator_config_start_listen           (XfcekbdIndicatorConfig  *applet_config,
+                                                         GCallback                func,
+                                                         gpointer                 user_data);
 
-void xfcekbd_indicator_config_stop_listen (XfcekbdIndicatorConfig *
-					       applet_config);
+void    xfcekbd_indicator_config_stop_listen            (XfcekbdIndicatorConfig  *applet_config);
 
 #endif

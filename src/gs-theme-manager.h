@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
  *
  * Copyright (C) 2006 William Jon McCann <mccann@jhu.edu>
  *
@@ -38,13 +38,13 @@ typedef struct GSThemeManagerPrivate GSThemeManagerPrivate;
 
 typedef struct
 {
-	GObject                parent;
-	GSThemeManagerPrivate *priv;
+    GObject                parent;
+    GSThemeManagerPrivate *priv;
 } GSThemeManager;
 
 typedef struct
 {
-	GObjectClass   parent_class;
+    GObjectClass           parent_class;
 } GSThemeManagerClass;
 
 typedef struct _GSThemeInfo GSThemeInfo;
@@ -55,7 +55,7 @@ GSThemeManager    *gs_theme_manager_new               (void);
 
 GSList            *gs_theme_manager_get_info_list     (GSThemeManager *manager);
 GSThemeInfo       *gs_theme_manager_lookup_theme_info (GSThemeManager *manager,
-        const char     *theme);
+                                                       const char     *theme);
 GSThemeInfo       *gs_theme_info_ref                  (GSThemeInfo    *info);
 void               gs_theme_info_unref                (GSThemeInfo    *info);
 const char        *gs_theme_info_get_id               (GSThemeInfo    *info);

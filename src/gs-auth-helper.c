@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
  *
  * written by Olaf Kirch <okir@suse.de>
  * xscreensaver, Copyright (c) 1993-2004 Jamie Zawinski <jwz@jwz.org>
@@ -55,25 +55,25 @@ static gboolean verbose_enabled = FALSE;
 GQuark
 gs_auth_error_quark (void)
 {
-	static GQuark quark = 0;
-	if (! quark)
-	{
-		quark = g_quark_from_static_string ("gs_auth_error");
-	}
+    static GQuark quark = 0;
+    if (! quark)
+    {
+        quark = g_quark_from_static_string ("gs_auth_error");
+    }
 
-	return quark;
+    return quark;
 }
 
 void
 gs_auth_set_verbose (gboolean enabled)
 {
-	verbose_enabled = enabled;
+    verbose_enabled = enabled;
 }
 
 gboolean
 gs_auth_get_verbose (void)
 {
-	return verbose_enabled;
+    return verbose_enabled;
 }
 
 static gboolean
@@ -81,133 +81,133 @@ ext_run (const char *user,
          const char *typed_passwd,
          gboolean    verbose)
 {
-	int   pfd[2], status;
-	pid_t pid;
+    int   pfd[2], status;
+    pid_t pid;
 
-	if (pipe (pfd) < 0)
-	{
-		return 0;
-	}
+    if (pipe (pfd) < 0)
+    {
+        return 0;
+    }
 
-	if (verbose)
-	{
-		g_message ("ext_run (%s, %s)",
-		           PASSWD_HELPER_PROGRAM, user);
-	}
+    if (verbose)
+    {
+        g_message ("ext_run (%s, %s)",
+                   PASSWD_HELPER_PROGRAM, user);
+    }
 
-	block_sigchld ();
+    block_sigchld ();
 
-	if ((pid = fork ()) < 0)
-	{
-		close (pfd [0]);
-		close (pfd [1]);
-		return FALSE;
-	}
+    if ((pid = fork ()) < 0)
+    {
+        close (pfd [0]);
+        close (pfd [1]);
+        return FALSE;
+    }
 
-	if (pid == 0)
-	{
-		close (pfd [1]);
-		if (pfd [0] != 0)
-		{
-			dup2 (pfd [0], 0);
-		}
+    if (pid == 0)
+    {
+        close (pfd [1]);
+        if (pfd [0] != 0)
+        {
+            dup2 (pfd [0], 0);
+        }
 
-		/* Helper is invoked as helper service-name [user] */
-		execlp (PASSWD_HELPER_PROGRAM, PASSWD_HELPER_PROGRAM, "xfce4-screensaver", user, NULL);
-		if (verbose)
-		{
-			g_message ("%s: %s", PASSWD_HELPER_PROGRAM, g_strerror (errno));
-		}
+        /* Helper is invoked as helper service-name [user] */
+        execlp (PASSWD_HELPER_PROGRAM, PASSWD_HELPER_PROGRAM, "xfce4-screensaver", user, NULL);
+        if (verbose)
+        {
+            g_message ("%s: %s", PASSWD_HELPER_PROGRAM, g_strerror (errno));
+        }
 
-		exit (1);
-	}
+        exit (1);
+    }
 
-	close (pfd [0]);
+    close (pfd [0]);
 
-	/* Write out password to helper process */
-	if (!typed_passwd)
-	{
-		typed_passwd = "";
-	}
-	write (pfd [1], typed_passwd, strlen (typed_passwd));
-	close (pfd [1]);
+    /* Write out password to helper process */
+    if (!typed_passwd)
+    {
+        typed_passwd = "";
+    }
+    write (pfd [1], typed_passwd, strlen (typed_passwd));
+    close (pfd [1]);
 
-	while (waitpid (pid, &status, 0) < 0)
-	{
-		if (errno == EINTR)
-		{
-			continue;
-		}
+    while (waitpid (pid, &status, 0) < 0)
+    {
+        if (errno == EINTR)
+        {
+            continue;
+        }
 
-		if (verbose)
-		{
-			g_message ("ext_run: waitpid failed: %s\n",
-			           g_strerror (errno));
-		}
+        if (verbose)
+        {
+            g_message ("ext_run: waitpid failed: %s\n",
+                       g_strerror (errno));
+        }
 
-		unblock_sigchld ();
-		return FALSE;
-	}
+        unblock_sigchld ();
+        return FALSE;
+    }
 
-	unblock_sigchld ();
+    unblock_sigchld ();
 
-	if (! WIFEXITED (status) || WEXITSTATUS (status) != 0)
-	{
-		return FALSE;
-	}
+    if (! WIFEXITED (status) || WEXITSTATUS (status) != 0)
+    {
+        return FALSE;
+    }
 
-	return TRUE;
+    return TRUE;
 }
 
 gboolean
-gs_auth_verify_user (const char       *username,
-                     const char       *display,
-                     GSAuthMessageFunc func,
-                     gpointer          data,
-                     GError          **error)
+gs_auth_verify_user (const char         *username,
+                     const char         *display,
+                     GSAuthMessageFunc   func,
+                     gpointer            data,
+                     GError            **error)
 {
-	gboolean       res = FALSE;
-	char          *password;
+    gboolean       res = FALSE;
+    char          *password;
 
-	password = NULL;
+    password = NULL;
 
-	/* ask for the password for user */
-	if (func != NULL)
-	{
-		func (GS_AUTH_MESSAGE_PROMPT_ECHO_OFF,
-		      "Password: ",
-		      &password,
-		      data);
-	}
+    /* ask for the password for user */
+    if (func != NULL)
+    {
+        func (GS_AUTH_MESSAGE_PROMPT_ECHO_OFF,
+              "Password: ",
+              &password,
+              data);
+    }
 
-	if (password == NULL)
-	{
-		return FALSE;
-	}
+    if (password == NULL)
+    {
+        return FALSE;
+    }
 
-	res = ext_run (username, password, gs_auth_get_verbose ());
+    res = ext_run (username, password, gs_auth_get_verbose ());
 
-	return res;
+    return res;
 }
 
 gboolean
 gs_auth_init (void)
 {
-	return TRUE;
+    return TRUE;
 }
 
 gboolean
 gs_auth_priv_init (void)
 {
-	/* Make sure the passwd helper exists */
-	if (g_access (PASSWD_HELPER_PROGRAM, X_OK) < 0)
-	{
-		g_warning ("%s does not exist. "
-		           "password authentication via "
-		           "external helper will not work.",
-		           PASSWD_HELPER_PROGRAM);
-		return FALSE;
-	}
+    /* Make sure the passwd helper exists */
+    if (g_access (PASSWD_HELPER_PROGRAM, X_OK) < 0)
+    {
+        g_warning ("%s does not exist. "
+                   "password authentication via "
+                   "external helper will not work.",
+                   PASSWD_HELPER_PROGRAM);
+        return FALSE;
+    }
 
-	return TRUE;
+    return TRUE;
 }

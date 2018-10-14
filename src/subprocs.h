@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
  *
  * subprocs.c --- choosing, spawning, and killing screenhacks.
  *
@@ -30,8 +30,8 @@ int
 #endif /* !HAVE_SIGACTION */
 block_sigchld (void);
 
-int  signal_pid           (int    pid,
-                           int    signal);
+int  signal_pid           (int      pid,
+                           int      signal);
 void await_dying_children (int      pid,
                            gboolean debug);
 

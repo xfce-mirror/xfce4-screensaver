@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
  *
  * Copyright (C) 2004-2006 William Jon McCann <mccann@jhu.edu>
  *
@@ -38,26 +38,26 @@ typedef struct GSListenerPrivate GSListenerPrivate;
 
 typedef struct
 {
-	GObject            parent;
-	GSListenerPrivate *priv;
+    GObject            parent;
+    GSListenerPrivate *priv;
 } GSListener;
 
 typedef struct
 {
-	GObjectClass       parent_class;
+    GObjectClass       parent_class;
 
-	void            (* lock)                     (GSListener *listener);
-	void            (* cycle)                    (GSListener *listener);
-	void            (* quit)                     (GSListener *listener);
-	void            (* simulate_user_activity)   (GSListener *listener);
-	gboolean        (* active_changed)           (GSListener *listener,
-	        gboolean    active);
-	void            (* throttle_changed)         (GSListener *listener,
-	        gboolean    throttled);
-	void            (* show_message)             (GSListener *listener,
-	        const char *summary,
-	        const char *body,
-	        const char *icon);
+    void            (* lock)                     (GSListener *listener);
+    void            (* cycle)                    (GSListener *listener);
+    void            (* quit)                     (GSListener *listener);
+    void            (* simulate_user_activity)   (GSListener *listener);
+    gboolean        (* active_changed)           (GSListener *listener,
+                                                  gboolean    active);
+    void            (* throttle_changed)         (GSListener *listener,
+                                                  gboolean    throttled);
+    void            (* show_message)             (GSListener *listener,
+                                                  const char *summary,
+                                                  const char *body,
+                                                  const char *icon);
 
 } GSListenerClass;
 

@@ -1,4 +1,4 @@
-/* -*- Mode: C; c-set-style: linux indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*- */
+/* -*- Mode: C; c-set-style: linux indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /* xfce-desktop-utils.c - Utilities for the Xfce Desktop
 
    Copyright (C) 1998 Tom Tromey
@@ -53,20 +53,22 @@
  * Since: 1.7.1
  **/
 gboolean
-xfce_gdk_spawn_command_line_on_screen (GdkScreen *screen, const gchar *command, GError **error)
+xfce_gdk_spawn_command_line_on_screen (GdkScreen    *screen,
+                                       const gchar  *command,
+                                       GError      **error)
 {
-	GAppInfo *appinfo = NULL;
-	GdkAppLaunchContext *context = NULL;
-	gboolean res = FALSE;
+    GAppInfo            *appinfo = NULL;
+    GdkAppLaunchContext *context = NULL;
+    gboolean             res = FALSE;
 
-	appinfo = g_app_info_create_from_commandline (command, NULL, G_APP_INFO_CREATE_NONE, error);
+    appinfo = g_app_info_create_from_commandline (command, NULL, G_APP_INFO_CREATE_NONE, error);
 
-	if (appinfo) {
-		context = gdk_display_get_app_launch_context (gdk_screen_get_display (screen));
-		res = g_app_info_launch (appinfo, NULL, G_APP_LAUNCH_CONTEXT (context), error);
-		g_object_unref (context);
-		g_object_unref (appinfo);
-	}
+    if (appinfo) {
+        context = gdk_display_get_app_launch_context (gdk_screen_get_display (screen));
+        res = g_app_info_launch (appinfo, NULL, G_APP_LAUNCH_CONTEXT (context), error);
+        g_object_unref (context);
+        g_object_unref (appinfo);
+    }
 
-	return res;
+    return res;
 }

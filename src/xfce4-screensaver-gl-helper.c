@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
  *
  * Copyright (C) 2006 William Jon McCann <mccann@jhu.edu>
  *
@@ -34,46 +34,46 @@ int
 main (int    argc,
       char **argv)
 {
-	GdkDisplay     *display;
-	GdkVisual      *visual;
-	Visual         *xvisual;
-	GError         *error = NULL;
+    GdkDisplay *display;
+    GdkVisual  *visual;
+    Visual     *xvisual;
+    GError     *error = NULL;
 
 #ifdef ENABLE_NLS
-	bindtextdomain (GETTEXT_PACKAGE, XFCELOCALEDIR);
+    bindtextdomain (GETTEXT_PACKAGE, XFCELOCALEDIR);
 # ifdef HAVE_BIND_TEXTDOMAIN_CODESET
-	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+    bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 # endif
-	textdomain (GETTEXT_PACKAGE);
+    textdomain (GETTEXT_PACKAGE);
 #endif
 
-	g_set_prgname (argv[0]);
-	if (! gtk_init_with_args (&argc, &argv, NULL, NULL, NULL, &error))
-	{
-		if (error != NULL)
-		{
-			g_warning ("%s", error->message);
-			g_error_free (error);
-		}
-		else
-		{
-			g_warning ("Unable to initialize GTK+");
-		}
-		exit (1);
-	}
+    g_set_prgname (argv[0]);
+    if (! gtk_init_with_args (&argc, &argv, NULL, NULL, NULL, &error))
+    {
+        if (error != NULL)
+        {
+            g_warning ("%s", error->message);
+            g_error_free (error);
+        }
+        else
+        {
+            g_warning ("Unable to initialize GTK+");
+        }
+        exit (1);
+    }
 
-	display = gdk_display_get_default ();
-	visual = gs_visual_gl_get_best_for_display (display);
+    display = gdk_display_get_default ();
+    visual = gs_visual_gl_get_best_for_display (display);
 
-	if (visual != NULL)
-	{
-		xvisual = gdk_x11_visual_get_xvisual (visual);
-		printf ("0x%x\n", (unsigned int) XVisualIDFromVisual (xvisual));
-	}
-	else
-	{
-		printf ("none\n");
-	}
+    if (visual != NULL)
+    {
+        xvisual = gdk_x11_visual_get_xvisual (visual);
+        printf ("0x%x\n", (unsigned int) XVisualIDFromVisual (xvisual));
+    }
+    else
+    {
+        printf ("none\n");
+    }
 
-	return 0;
+    return 0;
 }

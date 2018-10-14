@@ -47,12 +47,12 @@ typedef int RROutput;
 typedef int RRCrtc;
 typedef int RRMode;
 typedef int Rotation;
-#define RR_Rotate_0		1
-#define RR_Rotate_90		2
-#define RR_Rotate_180		4
-#define RR_Rotate_270		8
-#define RR_Reflect_X		16
-#define RR_Reflect_Y		32
+#define RR_Rotate_0   1
+#define RR_Rotate_90  2
+#define RR_Rotate_180 4
+#define RR_Rotate_270 8
+#define RR_Reflect_X  16
+#define RR_Reflect_Y  32
 #endif
 
 enum {
@@ -70,107 +70,116 @@ gint screen_signals[SCREEN_SIGNAL_LAST];
 
 struct XfceRROutput
 {
-    ScreenInfo *	info;
-    RROutput		id;
+    ScreenInfo      *info;
+    RROutput         id;
 
-    char *		name;
-    XfceRRCrtc *	current_crtc;
-    gboolean		connected;
-    gulong		width_mm;
-    gulong		height_mm;
-    XfceRRCrtc **	possible_crtcs;
-    XfceRROutput **	clones;
-    XfceRRMode **	modes;
-    int			n_preferred;
-    guint8 *		edid_data;
-    int         edid_size;
-    char *              connector_type;
+    char            *name;
+    XfceRRCrtc      *current_crtc;
+    gboolean         connected;
+    gulong           width_mm;
+    gulong           height_mm;
+    XfceRRCrtc     **possible_crtcs;
+    XfceRROutput   **clones;
+    XfceRRMode     **modes;
+    int              n_preferred;
+    guint8          *edid_data;
+    int              edid_size;
+    char            *connector_type;
 };
 
 struct XfceRROutputWrap
 {
-    RROutput		id;
+    RROutput         id;
 };
 
 struct XfceRRCrtc
 {
-    ScreenInfo *	info;
-    RRCrtc		id;
+    ScreenInfo      *info;
+    RRCrtc           id;
 
-    XfceRRMode *	current_mode;
-    XfceRROutput **	current_outputs;
-    XfceRROutput **	possible_outputs;
-    int			x;
-    int			y;
+    XfceRRMode      *current_mode;
+    XfceRROutput   **current_outputs;
+    XfceRROutput   **possible_outputs;
+    int              x;
+    int              y;
 
-    XfceRRRotation	current_rotation;
-    XfceRRRotation	rotations;
-    int			gamma_size;
+    XfceRRRotation   current_rotation;
+    XfceRRRotation   rotations;
+    int              gamma_size;
 };
 
 struct XfceRRMode
 {
-    ScreenInfo *	info;
-    RRMode		id;
-    char *		name;
-    int			width;
-    int			height;
-    int			freq;		/* in mHz */
+    ScreenInfo      *info;
+    RRMode           id;
+    char            *name;
+    int              width;
+    int              height;
+    int              freq;       /* in mHz */
 };
 
 /* XfceRRCrtc */
-static XfceRRCrtc *  crtc_new          (ScreenInfo         *info,
-					 RRCrtc              id);
-static XfceRRCrtc *  crtc_copy         (const XfceRRCrtc  *from);
-static void           crtc_free         (XfceRRCrtc        *crtc);
+static XfceRRCrtc   *   crtc_new                            (ScreenInfo          *info,
+                                                             RRCrtc               id);
+static XfceRRCrtc   *   crtc_copy                           (const XfceRRCrtc    *from);
+static void             crtc_free                           (XfceRRCrtc          *crtc);
 
 #ifdef HAVE_RANDR
-static gboolean       crtc_initialize   (XfceRRCrtc        *crtc,
-					 XRRScreenResources *res,
-					 GError            **error);
+static gboolean         crtc_initialize                     (XfceRRCrtc          *crtc,
+                                                             XRRScreenResources  *res,
+                                                             GError             **error);
 #endif
 
 /* XfceRROutput */
-static XfceRROutput *output_new        (ScreenInfo         *info,
-					 RROutput            id);
+static XfceRROutput *   output_new                          (ScreenInfo          *info,
+                                                             RROutput             id);
 
 #ifdef HAVE_RANDR
-static gboolean       output_initialize (XfceRROutput      *output,
-					 XRRScreenResources *res,
-					 GError            **error);
+static gboolean         output_initialize                   (XfceRROutput        *output,
+                                                             XRRScreenResources  *res,
+                                                             GError             **error);
 #endif
 
-static XfceRROutput *output_copy       (const XfceRROutput *from);
-static void           output_free       (XfceRROutput      *output);
+static XfceRROutput *   output_copy                         (const XfceRROutput  *from);
+static void             output_free                         (XfceRROutput        *output);
 
 /* XfceRRMode */
-static XfceRRMode *  mode_new          (ScreenInfo         *info,
-					 RRMode              id);
+static XfceRRMode   *   mode_new                            (ScreenInfo          *info,
+                                                             RRMode               id);
 
 #ifdef HAVE_RANDR
-static void           mode_initialize   (XfceRRMode        *mode,
-					 XRRModeInfo        *info);
+static void             mode_initialize                     (XfceRRMode          *mode,
+                                                             XRRModeInfo         *info);
 #endif
 
-static XfceRRMode *  mode_copy         (const XfceRRMode  *from);
-static void           mode_free         (XfceRRMode        *mode);
+static XfceRRMode   *   mode_copy                           (const XfceRRMode    *from);
+static void             mode_free                           (XfceRRMode          *mode);
 
-static guint         xfce_rr_mode_get_width  (XfceRRMode *mode);
-static guint         xfce_rr_mode_get_height (XfceRRMode *mode);
+static guint            xfce_rr_mode_get_width              (XfceRRMode          *mode);
+static guint            xfce_rr_mode_get_height             (XfceRRMode          *mode);
 
-static XfceRRMode  **xfce_rr_output_list_modes (XfceRROutput *output);
+static XfceRRMode  **   xfce_rr_output_list_modes           (XfceRROutput        *output);
 
-static void          xfce_rr_screen_get_ranges (XfceRRScreen *screen,
-                                                int *min_width,
-                                                int *max_width,
-                                                int *min_height,
-                                                int *max_height);
+static void             xfce_rr_screen_get_ranges           (XfceRRScreen        *screen,
+                                                             int                 *min_width,
+                                                             int                 *max_width,
+                                                             int                 *min_height,
+                                                             int                 *max_height);
 
-static void xfce_rr_screen_finalize (GObject*);
-static void xfce_rr_screen_set_property (GObject*, guint, const GValue*, GParamSpec*);
-static void xfce_rr_screen_get_property (GObject*, guint, GValue*, GParamSpec*);
-static gboolean xfce_rr_screen_initable_init (GInitable*, GCancellable*, GError**);
-static void xfce_rr_screen_initable_iface_init (GInitableIface *iface);
+static void             xfce_rr_screen_finalize             (GObject             *gobject);
+static void             xfce_rr_screen_set_property         (GObject             *gobject,
+                                                             guint                property_id,
+                                                             const GValue        *value,
+                                                             GParamSpec          *property);
+static void             xfce_rr_screen_get_property         (GObject             *gobject,
+                                                             guint                property_id,
+                                                             GValue              *value,
+                                                             GParamSpec          *property);
+static gboolean         xfce_rr_screen_initable_init        (GInitable           *initable,
+                                                             GCancellable        *canc,
+                                                             GError             **error);
+static void             xfce_rr_screen_initable_iface_init  (GInitableIface      *iface);
+
 G_DEFINE_TYPE_WITH_CODE (XfceRRScreen, xfce_rr_screen, G_TYPE_OBJECT,
     G_IMPLEMENT_INTERFACE (G_TYPE_INITABLE, xfce_rr_screen_initable_iface_init))
 
@@ -196,7 +205,8 @@ xfce_rr_error_quark (void)
 
 /* Screen */
 static XfceRROutput *
-xfce_rr_output_by_id (ScreenInfo *info, RROutput id)
+xfce_rr_output_by_id (ScreenInfo *info,
+                      RROutput    id)
 {
     XfceRROutput **output;
 
@@ -204,15 +214,16 @@ xfce_rr_output_by_id (ScreenInfo *info, RROutput id)
 
     for (output = info->outputs; *output; ++output)
     {
-	if ((*output)->id == id)
-	    return *output;
+        if ((*output)->id == id)
+            return *output;
     }
 
     return NULL;
 }
 
 static XfceRRCrtc *
-crtc_by_id (ScreenInfo *info, RRCrtc id)
+crtc_by_id (ScreenInfo *info,
+            RRCrtc      id)
 {
     XfceRRCrtc **crtc;
 
@@ -221,15 +232,16 @@ crtc_by_id (ScreenInfo *info, RRCrtc id)
 
     for (crtc = info->crtcs; *crtc; ++crtc)
     {
-	if ((*crtc)->id == id)
-	    return *crtc;
+        if ((*crtc)->id == id)
+            return *crtc;
     }
 
     return NULL;
 }
 
 static XfceRRMode *
-mode_by_id (ScreenInfo *info, RRMode id)
+mode_by_id (ScreenInfo *info,
+            RRMode      id)
 {
     XfceRRMode **mode;
 
@@ -237,8 +249,8 @@ mode_by_id (ScreenInfo *info, RRMode id)
 
     for (mode = info->modes; *mode; ++mode)
     {
-	if ((*mode)->id == id)
-	    return *mode;
+        if ((*mode)->id == id)
+            return *mode;
     }
 
     return NULL;
@@ -248,67 +260,68 @@ static void
 screen_info_free (ScreenInfo *info)
 {
     XfceRROutput **output;
-    XfceRRCrtc **crtc;
-    XfceRRMode **mode;
+    XfceRRCrtc   **crtc;
+    XfceRRMode   **mode;
 
     g_assert (info != NULL);
 
 #ifdef HAVE_RANDR
     if (info->resources)
     {
-	XRRFreeScreenResources (info->resources);
+        XRRFreeScreenResources (info->resources);
 
-	info->resources = NULL;
+        info->resources = NULL;
     }
 #endif
 
     if (info->outputs)
     {
-	for (output = info->outputs; *output; ++output)
-	    output_free (*output);
-	g_free (info->outputs);
+        for (output = info->outputs; *output; ++output)
+            output_free (*output);
+        g_free (info->outputs);
     }
 
     if (info->crtcs)
     {
-	for (crtc = info->crtcs; *crtc; ++crtc)
-	    crtc_free (*crtc);
-	g_free (info->crtcs);
+        for (crtc = info->crtcs; *crtc; ++crtc)
+            crtc_free (*crtc);
+        g_free (info->crtcs);
     }
 
     if (info->modes)
     {
-	for (mode = info->modes; *mode; ++mode)
-	    mode_free (*mode);
-	g_free (info->modes);
+        for (mode = info->modes; *mode; ++mode)
+            mode_free (*mode);
+        g_free (info->modes);
     }
 
     if (info->clone_modes)
     {
-	/* The modes themselves were freed above */
-	g_free (info->clone_modes);
+        /* The modes themselves were freed above */
+        g_free (info->clone_modes);
     }
 
     g_free (info);
 }
 
 static gboolean
-has_similar_mode (XfceRROutput *output, XfceRRMode *mode)
+has_similar_mode (XfceRROutput *output,
+                  XfceRRMode   *mode)
 {
-    int i;
+    int          i;
     XfceRRMode **modes = xfce_rr_output_list_modes (output);
-    int width = xfce_rr_mode_get_width (mode);
-    int height = xfce_rr_mode_get_height (mode);
+    int          width = xfce_rr_mode_get_width (mode);
+    int          height = xfce_rr_mode_get_height (mode);
 
     for (i = 0; modes[i] != NULL; ++i)
     {
-	XfceRRMode *m = modes[i];
+        XfceRRMode *m = modes[i];
 
-	if (xfce_rr_mode_get_width (m) == width	&&
-	    xfce_rr_mode_get_height (m) == height)
-	{
-	    return TRUE;
-	}
+        if (xfce_rr_mode_get_width (m) == width &&
+            xfce_rr_mode_get_height (m) == height)
+        {
+            return TRUE;
+        }
     }
 
     return FALSE;
@@ -322,38 +335,38 @@ gather_clone_modes (ScreenInfo *info)
 
     for (i = 0; info->outputs[i] != NULL; ++i)
     {
-	int j;
-	XfceRROutput *output1, *output2;
+        int j;
+        XfceRROutput *output1, *output2;
 
-	output1 = info->outputs[i];
+        output1 = info->outputs[i];
 
-	if (!output1->connected)
-	    continue;
+        if (!output1->connected)
+            continue;
 
-	for (j = 0; output1->modes[j] != NULL; ++j)
-	{
-	    XfceRRMode *mode = output1->modes[j];
-	    gboolean valid;
-	    int k;
+        for (j = 0; output1->modes[j] != NULL; ++j)
+        {
+            XfceRRMode *mode = output1->modes[j];
+            gboolean valid;
+            int k;
 
-	    valid = TRUE;
-	    for (k = 0; info->outputs[k] != NULL; ++k)
-	    {
-		output2 = info->outputs[k];
+            valid = TRUE;
+            for (k = 0; info->outputs[k] != NULL; ++k)
+            {
+                output2 = info->outputs[k];
 
-		if (!output2->connected)
-		    continue;
+                if (!output2->connected)
+                    continue;
 
-		if (!has_similar_mode (output2, mode))
-		{
-		    valid = FALSE;
-		    break;
-		}
-	    }
+                if (!has_similar_mode (output2, mode))
+                {
+                    valid = FALSE;
+                    break;
+                }
+            }
 
-	    if (valid)
-		g_ptr_array_add (result, mode);
-	}
+            if (valid)
+            g_ptr_array_add (result, mode);
+        }
     }
 
     g_ptr_array_add (result, NULL);
@@ -363,13 +376,13 @@ gather_clone_modes (ScreenInfo *info)
 
 #ifdef HAVE_RANDR
 static gboolean
-fill_screen_info_from_resources (ScreenInfo *info,
-				 XRRScreenResources *resources,
-				 GError **error)
+fill_screen_info_from_resources (ScreenInfo          *info,
+                                 XRRScreenResources  *resources,
+                                 GError             **error)
 {
-    int i;
-    GPtrArray *a;
-    XfceRRCrtc **crtc;
+    int            i;
+    GPtrArray     *a;
+    XfceRRCrtc   **crtc;
     XfceRROutput **output;
 
     info->resources = resources;
@@ -380,9 +393,9 @@ fill_screen_info_from_resources (ScreenInfo *info,
     a = g_ptr_array_new ();
     for (i = 0; i < resources->ncrtc; ++i)
     {
-	XfceRRCrtc *crtc = crtc_new (info, resources->crtcs[i]);
+        XfceRRCrtc *crtc = crtc_new (info, resources->crtcs[i]);
 
-	g_ptr_array_add (a, crtc);
+        g_ptr_array_add (a, crtc);
     }
     g_ptr_array_add (a, NULL);
     info->crtcs = (XfceRRCrtc **)g_ptr_array_free (a, FALSE);
@@ -390,9 +403,9 @@ fill_screen_info_from_resources (ScreenInfo *info,
     a = g_ptr_array_new ();
     for (i = 0; i < resources->noutput; ++i)
     {
-	XfceRROutput *output = output_new (info, resources->outputs[i]);
+        XfceRROutput *output = output_new (info, resources->outputs[i]);
 
-	g_ptr_array_add (a, output);
+        g_ptr_array_add (a, output);
     }
     g_ptr_array_add (a, NULL);
     info->outputs = (XfceRROutput **)g_ptr_array_free (a, FALSE);
@@ -400,9 +413,9 @@ fill_screen_info_from_resources (ScreenInfo *info,
     a = g_ptr_array_new ();
     for (i = 0;  i < resources->nmode; ++i)
     {
-	XfceRRMode *mode = mode_new (info, resources->modes[i].id);
+        XfceRRMode *mode = mode_new (info, resources->modes[i].id);
 
-	g_ptr_array_add (a, mode);
+        g_ptr_array_add (a, mode);
     }
     g_ptr_array_add (a, NULL);
     info->modes = (XfceRRMode **)g_ptr_array_free (a, FALSE);
@@ -410,21 +423,21 @@ fill_screen_info_from_resources (ScreenInfo *info,
     /* Initialize */
     for (crtc = info->crtcs; *crtc; ++crtc)
     {
-	if (!crtc_initialize (*crtc, resources, error))
-	    return FALSE;
+        if (!crtc_initialize (*crtc, resources, error))
+            return FALSE;
     }
 
     for (output = info->outputs; *output; ++output)
     {
-	if (!output_initialize (*output, resources, error))
-	    return FALSE;
+        if (!output_initialize (*output, resources, error))
+            return FALSE;
     }
 
     for (i = 0; i < resources->nmode; ++i)
     {
-	XfceRRMode *mode = mode_by_id (info, resources->modes[i].id);
+        XfceRRMode *mode = mode_by_id (info, resources->modes[i].id);
 
-	mode_initialize (mode, &(resources->modes[i]));
+        mode_initialize (mode, &(resources->modes[i]));
     }
 
     gather_clone_modes (info);
@@ -434,15 +447,15 @@ fill_screen_info_from_resources (ScreenInfo *info,
 #endif /* HAVE_RANDR */
 
 static gboolean
-fill_out_screen_info (Display *xdisplay,
-		      Window xroot,
-		      ScreenInfo *info,
-		      gboolean needs_reprobe,
-		      GError **error)
+fill_out_screen_info (Display     *xdisplay,
+                      Window       xroot,
+                      ScreenInfo  *info,
+                      gboolean     needs_reprobe,
+                      GError     **error)
 {
 #ifdef HAVE_RANDR
     XRRScreenResources *resources;
-	GdkDisplay *display;
+    GdkDisplay         *display;
 
     g_assert (xdisplay != NULL);
     g_assert (info != NULL);
@@ -456,15 +469,15 @@ fill_out_screen_info (Display *xdisplay,
 
     if (resources)
     {
-	if (!fill_screen_info_from_resources (info, resources, error))
-	    return FALSE;
+        if (!fill_screen_info_from_resources (info, resources, error))
+            return FALSE;
     }
     else
     {
-	g_set_error (error, XFCE_RR_ERROR, XFCE_RR_ERROR_RANDR_ERROR,
-		     /* Translators: a CRTC is a CRT Controller (this is X terminology). */
-		     _("could not get the screen resources (CRTCs, outputs, modes)"));
-	return FALSE;
+        g_set_error (error, XFCE_RR_ERROR, XFCE_RR_ERROR_RANDR_ERROR,
+                /* Translators: a CRTC is a CRT Controller (this is X terminology). */
+                _("could not get the screen resources (CRTCs, outputs, modes)"));
+        return FALSE;
     }
 
     /* Then update the screen size range.  We do this after XRRGetScreenResources() so that
@@ -472,39 +485,39 @@ fill_out_screen_info (Display *xdisplay,
      */
 
     if (needs_reprobe) {
-	gboolean success;
+        gboolean success;
 
-	display = gdk_display_get_default ();
-    gdk_x11_display_error_trap_push (display);
-	success = XRRGetScreenSizeRange (xdisplay, xroot,
-					 &(info->min_width),
-					 &(info->min_height),
-					 &(info->max_width),
-					 &(info->max_height));
-	gdk_display_flush (display);
-	if (gdk_x11_display_error_trap_pop (display)) {
-	    g_set_error (error, XFCE_RR_ERROR, XFCE_RR_ERROR_UNKNOWN,
-			 _("unhandled X error while getting the range of screen sizes"));
-	    return FALSE;
-	}
-
-	if (!success) {
-	    g_set_error (error, XFCE_RR_ERROR, XFCE_RR_ERROR_RANDR_ERROR,
-			 _("could not get the range of screen sizes"));
+        display = gdk_display_get_default ();
+        gdk_x11_display_error_trap_push (display);
+        success = XRRGetScreenSizeRange (xdisplay, xroot,
+                                         &(info->min_width),
+                                         &(info->min_height),
+                                         &(info->max_width),
+                                         &(info->max_height));
+        gdk_display_flush (display);
+        if (gdk_x11_display_error_trap_pop (display)) {
+            g_set_error (error, XFCE_RR_ERROR, XFCE_RR_ERROR_UNKNOWN,
+                _("unhandled X error while getting the range of screen sizes"));
             return FALSE;
+        }
+
+        if (!success) {
+            g_set_error (error, XFCE_RR_ERROR, XFCE_RR_ERROR_RANDR_ERROR,
+                         _("could not get the range of screen sizes"));
+                         return FALSE;
         }
     }
     else
     {
         xfce_rr_screen_get_ranges (info->screen,
-					 &(info->min_width),
-					 &(info->max_width),
-					 &(info->min_height),
-					 &(info->max_height));
+                                   &(info->min_width),
+                                   &(info->max_width),
+                                   &(info->min_height),
+                                   &(info->max_height));
     }
 
     info->primary = None;
-	display = gdk_display_get_default ();
+    display = gdk_display_get_default ();
     gdk_x11_display_error_trap_push (display);
     info->primary = XRRGetOutputPrimary (xdisplay, xroot);
     gdk_x11_display_error_trap_pop_ignored (display);
@@ -516,9 +529,11 @@ fill_out_screen_info (Display *xdisplay,
 }
 
 static ScreenInfo *
-screen_info_new (XfceRRScreen *screen, gboolean needs_reprobe, GError **error)
+screen_info_new (XfceRRScreen  *screen,
+                 gboolean       needs_reprobe,
+                 GError       **error)
 {
-    ScreenInfo *info = g_new0 (ScreenInfo, 1);
+    ScreenInfo          *info = g_new0 (ScreenInfo, 1);
     XfceRRScreenPrivate *priv;
 
     g_assert (screen != NULL);
@@ -532,30 +547,33 @@ screen_info_new (XfceRRScreen *screen, gboolean needs_reprobe, GError **error)
 
     if (fill_out_screen_info (priv->xdisplay, priv->xroot, info, needs_reprobe, error))
     {
-	return info;
+        return info;
     }
     else
     {
-	screen_info_free (info);
-	return NULL;
+        screen_info_free (info);
+        return NULL;
     }
 }
 
 static gboolean
-screen_update (XfceRRScreen *screen, gboolean force_callback, gboolean needs_reprobe, GError **error)
+screen_update (XfceRRScreen  *screen,
+               gboolean       force_callback,
+               gboolean       needs_reprobe,
+               GError       **error)
 {
     ScreenInfo *info;
-    gboolean changed = FALSE;
+    gboolean    changed = FALSE;
 
     g_assert (screen != NULL);
 
     info = screen_info_new (screen, needs_reprobe, error);
     if (!info)
-	    return FALSE;
+        return FALSE;
 
 #ifdef HAVE_RANDR
     if (info->resources->configTimestamp != screen->priv->info->resources->configTimestamp)
-	    changed = TRUE;
+        changed = TRUE;
 #endif
 
     screen_info_free (screen->priv->info);
@@ -563,63 +581,63 @@ screen_update (XfceRRScreen *screen, gboolean force_callback, gboolean needs_rep
     screen->priv->info = info;
 
     if (changed || force_callback)
-	g_signal_emit (G_OBJECT (screen), screen_signals[SCREEN_CHANGED], 0);
+        g_signal_emit (G_OBJECT (screen), screen_signals[SCREEN_CHANGED], 0);
 
     return changed;
 }
 
 static GdkFilterReturn
 screen_on_event (GdkXEvent *xevent,
-		 GdkEvent *event,
-		 gpointer data)
+                 GdkEvent  *event,
+                 gpointer  data)
 {
 #ifdef HAVE_RANDR
-    XfceRRScreen *screen = data;
+    XfceRRScreen        *screen = data;
     XfceRRScreenPrivate *priv = screen->priv;
-    XEvent *e = xevent;
-    int event_num;
+    XEvent              *e = xevent;
+    int                  event_num;
 
     if (!e)
-	return GDK_FILTER_CONTINUE;
+        return GDK_FILTER_CONTINUE;
 
     event_num = e->type - priv->randr_event_base;
 
     if (event_num == RRScreenChangeNotify) {
-	/* We don't reprobe the hardware; we just fetch the X server's latest
-	 * state.  The server already knows the new state of the outputs; that's
-	 * why it sent us an event!
-	 */
+        /* We don't reprobe the hardware; we just fetch the X server's latest
+        * state.  The server already knows the new state of the outputs; that's
+        * why it sent us an event!
+        */
         screen_update (screen, TRUE, FALSE, NULL); /* NULL-GError */
 #if 0
-	/* Enable this code to get a dialog showing the RANDR timestamps, for debugging purposes */
-	{
-	    GtkWidget *dialog;
-	    XRRScreenChangeNotifyEvent *rr_event;
-	    static int dialog_num;
+    /* Enable this code to get a dialog showing the RANDR timestamps, for debugging purposes */
+    {
+        GtkWidget *dialog;
+        XRRScreenChangeNotifyEvent *rr_event;
+        static int dialog_num;
 
-	    rr_event = (XRRScreenChangeNotifyEvent *) e;
+        rr_event = (XRRScreenChangeNotifyEvent *) e;
 
-	    dialog = gtk_message_dialog_new (NULL,
-					     0,
-					     GTK_MESSAGE_INFO,
-					     GTK_BUTTONS_CLOSE,
-					     "RRScreenChangeNotify timestamps (%d):\n"
-					     "event change: %u\n"
-					     "event config: %u\n"
-					     "event serial: %lu\n"
-					     "----------------------"
-					     "screen change: %u\n"
-					     "screen config: %u\n",
-					     dialog_num++,
-					     (guint32) rr_event->timestamp,
-					     (guint32) rr_event->config_timestamp,
-					     rr_event->serial,
-					     (guint32) priv->info->resources->timestamp,
-					     (guint32) priv->info->resources->configTimestamp);
-	    g_signal_connect (dialog, "response",
-			      G_CALLBACK (gtk_widget_destroy), NULL);
-	    gtk_widget_show (dialog);
-	}
+        dialog = gtk_message_dialog_new (NULL,
+                                         0,
+                                         GTK_MESSAGE_INFO,
+                                         GTK_BUTTONS_CLOSE,
+                                         "RRScreenChangeNotify timestamps (%d):\n"
+                                         "event change: %u\n"
+                                         "event config: %u\n"
+                                         "event serial: %lu\n"
+                                         "----------------------"
+                                         "screen change: %u\n"
+                                         "screen config: %u\n",
+                                         dialog_num++,
+                                         (guint32) rr_event->timestamp,
+                                         (guint32) rr_event->config_timestamp,
+                                         rr_event->serial,
+                                         (guint32) priv->info->resources->timestamp,
+                                         (guint32) priv->info->resources->configTimestamp);
+        g_signal_connect (dialog, "response",
+                          G_CALLBACK (gtk_widget_destroy), NULL);
+        gtk_widget_show (dialog);
+    }
 #endif
     }
 #if 0
@@ -639,23 +657,23 @@ screen_on_event (GdkXEvent *xevent,
      */
     else if (event_num == RRNotify)
     {
-	/* Other RandR events */
+        /* Other RandR events */
 
-	XRRNotifyEvent *event = (XRRNotifyEvent *)e;
+        XRRNotifyEvent *event = (XRRNotifyEvent *)e;
 
-	/* Here we can distinguish between RRNotify events supported
-	 * since RandR 1.2 such as RRNotify_OutputProperty.  For now, we
-	 * don't have anything special to do for particular subevent types, so
-	 * we leave this as an empty switch().
-	 */
-	switch (event->subtype)
-	{
-	default:
-	    break;
-	}
+        /* Here we can distinguish between RRNotify events supported
+        * since RandR 1.2 such as RRNotify_OutputProperty.  For now, we
+        * don't have anything special to do for particular subevent types, so
+        * we leave this as an empty switch().
+        */
+        switch (event->subtype)
+        {
+            default:
+                break;
+        }
 
-	/* No need to reprobe hardware here */
-	screen_update (screen, TRUE, FALSE, NULL); /* NULL-GError */
+        /* No need to reprobe hardware here */
+        screen_update (screen, TRUE, FALSE, NULL); /* NULL-GError */
     }
 #endif
 
@@ -666,14 +684,15 @@ screen_on_event (GdkXEvent *xevent,
 }
 
 static gboolean
-xfce_rr_screen_initable_init (GInitable *initable, GCancellable *canc, GError **error)
-
+xfce_rr_screen_initable_init (GInitable     *initable,
+                              GCancellable  *canc,
+                              GError       **error)
 {
-    XfceRRScreen *self = XFCE_RR_SCREEN (initable);
+    XfceRRScreen        *self = XFCE_RR_SCREEN (initable);
     XfceRRScreenPrivate *priv = self->priv;
-    Display *dpy = GDK_SCREEN_XDISPLAY (self->priv->gdk_screen);
-    int event_base;
-    int ignore;
+    Display             *dpy = GDK_SCREEN_XDISPLAY (self->priv->gdk_screen);
+    int                  event_base;
+    int                  ignore;
 
     priv->connector_type_atom = XInternAtom (dpy, "ConnectorType", FALSE);
 
@@ -692,15 +711,15 @@ xfce_rr_screen_initable_init (GInitable *initable, GCancellable *canc, GError **
         priv->info = screen_info_new (self, TRUE, error);
 
         if (!priv->info) {
-	    return FALSE;
-	}
+            return FALSE;
+        }
 
         XRRSelectInput (priv->xdisplay,
-            priv->xroot,
-            RRScreenChangeNotifyMask);
+                        priv->xroot,
+                        RRScreenChangeNotifyMask);
         gdk_x11_register_standard_event_type (gdk_screen_get_display (priv->gdk_screen),
-                          event_base,
-                          RRNotify + 1);
+                                              event_base,
+                                              RRNotify + 1);
         gdk_window_add_filter (priv->gdk_root, screen_on_event, self);
 
         return TRUE;
@@ -708,10 +727,10 @@ xfce_rr_screen_initable_init (GInitable *initable, GCancellable *canc, GError **
     else
     {
 #endif /* HAVE_RANDR */
-    g_set_error (error, XFCE_RR_ERROR, XFCE_RR_ERROR_NO_RANDR_EXTENSION,
-        _("RANDR extension is not present"));
+        g_set_error (error, XFCE_RR_ERROR, XFCE_RR_ERROR_NO_RANDR_EXTENSION,
+            _("RANDR extension is not present"));
 
-    return FALSE;
+        return FALSE;
 
 #ifdef HAVE_RANDR
    }
@@ -725,53 +744,59 @@ xfce_rr_screen_initable_iface_init (GInitableIface *iface)
 }
 
 void
-    xfce_rr_screen_finalize (GObject *gobject)
+xfce_rr_screen_finalize (GObject *gobject)
 {
     XfceRRScreen *screen = XFCE_RR_SCREEN (gobject);
 
     gdk_window_remove_filter (screen->priv->gdk_root, screen_on_event, screen);
 
     if (screen->priv->info)
-      screen_info_free (screen->priv->info);
+        screen_info_free (screen->priv->info);
 
     G_OBJECT_CLASS (xfce_rr_screen_parent_class)->finalize (gobject);
 }
 
 void
-xfce_rr_screen_set_property (GObject *gobject, guint property_id, const GValue *value, GParamSpec *property)
+xfce_rr_screen_set_property (GObject      *gobject,
+                             guint         property_id,
+                             const GValue *value,
+                             GParamSpec   *property)
 {
-    XfceRRScreen *self = XFCE_RR_SCREEN (gobject);
+    XfceRRScreen        *self = XFCE_RR_SCREEN (gobject);
     XfceRRScreenPrivate *priv = self->priv;
 
     switch (property_id)
     {
-    case SCREEN_PROP_GDK_SCREEN:
-        priv->gdk_screen = g_value_get_object (value);
-        priv->gdk_root = gdk_screen_get_root_window (priv->gdk_screen);
-        priv->xroot = GDK_WINDOW_XID (priv->gdk_root);
-        priv->xdisplay = GDK_SCREEN_XDISPLAY (priv->gdk_screen);
-        priv->xscreen = gdk_x11_screen_get_xscreen (priv->gdk_screen);
-        return;
-    default:
-        G_OBJECT_WARN_INVALID_PROPERTY_ID (gobject, property_id, property);
-        return;
+        case SCREEN_PROP_GDK_SCREEN:
+            priv->gdk_screen = g_value_get_object (value);
+            priv->gdk_root = gdk_screen_get_root_window (priv->gdk_screen);
+            priv->xroot = GDK_WINDOW_XID (priv->gdk_root);
+            priv->xdisplay = GDK_SCREEN_XDISPLAY (priv->gdk_screen);
+            priv->xscreen = gdk_x11_screen_get_xscreen (priv->gdk_screen);
+            return;
+        default:
+            G_OBJECT_WARN_INVALID_PROPERTY_ID (gobject, property_id, property);
+            return;
     }
 }
 
 void
-xfce_rr_screen_get_property (GObject *gobject, guint property_id, GValue *value, GParamSpec *property)
+xfce_rr_screen_get_property (GObject    *gobject,
+                             guint       property_id,
+                             GValue     *value,
+                             GParamSpec *property)
 {
-    XfceRRScreen *self = XFCE_RR_SCREEN (gobject);
+    XfceRRScreen        *self = XFCE_RR_SCREEN (gobject);
     XfceRRScreenPrivate *priv = self->priv;
 
     switch (property_id)
     {
-    case SCREEN_PROP_GDK_SCREEN:
-        g_value_set_object (value, priv->gdk_screen);
-        return;
-     default:
-        G_OBJECT_WARN_INVALID_PROPERTY_ID (gobject, property_id, property);
-        return;
+        case SCREEN_PROP_GDK_SCREEN:
+            g_value_set_object (value, priv->gdk_screen);
+            return;
+        default:
+            G_OBJECT_WARN_INVALID_PROPERTY_ID (gobject, property_id, property);
+            return;
     }
 }
 
@@ -795,8 +820,7 @@ xfce_rr_screen_class_init (XfceRRScreenClass *klass)
             "GDK Screen",
             "The GDK Screen represented by this XfceRRScreen",
             GDK_TYPE_SCREEN,
-	    G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS)
-        );
+            G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 
     screen_signals[SCREEN_CHANGED] = g_signal_new("changed",
         G_TYPE_FROM_CLASS (gobject_class),
@@ -836,8 +860,8 @@ xfce_rr_screen_init (XfceRRScreen *self)
  * for instance if the driver does not support Xrandr 1.2
  */
 XfceRRScreen *
-xfce_rr_screen_new (GdkScreen *screen,
-                    GError **error)
+xfce_rr_screen_new (GdkScreen  *screen,
+                    GError    **error)
 {
     //bindtextdomain (GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR);
     bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
@@ -856,10 +880,10 @@ xfce_rr_screen_new (GdkScreen *screen,
  */
 static void
 xfce_rr_screen_get_ranges (XfceRRScreen *screen,
-			    int	          *min_width,
-			    int	          *max_width,
-			    int           *min_height,
-			    int	          *max_height)
+                           int          *min_width,
+                           int          *max_width,
+                           int          *min_height,
+                           int          *max_height)
 {
     XfceRRScreenPrivate *priv;
 
@@ -868,16 +892,16 @@ xfce_rr_screen_get_ranges (XfceRRScreen *screen,
     priv = screen->priv;
 
     if (min_width)
-	*min_width = priv->info->min_width;
+        *min_width = priv->info->min_width;
 
     if (max_width)
-	*max_width = priv->info->max_width;
+        *max_width = priv->info->max_width;
 
     if (min_height)
-	*min_height = priv->info->min_height;
+        *min_height = priv->info->min_height;
 
     if (max_height)
-	*max_height = priv->info->max_height;
+        *max_height = priv->info->max_height;
 }
 
 static gboolean
@@ -885,47 +909,47 @@ force_timestamp_update (XfceRRScreen *screen)
 {
 #ifdef HAVE_RANDR
     XfceRRScreenPrivate *priv = screen->priv;
-    XfceRRCrtc *crtc;
-    XRRCrtcInfo *current_info;
-	GdkDisplay *display;
-    Status status;
-    gboolean timestamp_updated;
+    XfceRRCrtc          *crtc;
+    XRRCrtcInfo         *current_info;
+    GdkDisplay          *display;
+    Status               status;
+    gboolean             timestamp_updated;
 
     timestamp_updated = FALSE;
 
     crtc = priv->info->crtcs[0];
 
     if (crtc == NULL)
-	goto out;
+        goto out;
 
     current_info = XRRGetCrtcInfo (priv->xdisplay,
-				   priv->info->resources,
-				   crtc->id);
+                                   priv->info->resources,
+                                   crtc->id);
 
     if (current_info == NULL)
-	  goto out;
+        goto out;
 
-	display = gdk_display_get_default ();
+    display = gdk_display_get_default ();
     gdk_x11_display_error_trap_push (display);
     status = XRRSetCrtcConfig (priv->xdisplay,
-			       priv->info->resources,
-			       crtc->id,
-			       current_info->timestamp,
-			       current_info->x,
-			       current_info->y,
-			       current_info->mode,
-			       current_info->rotation,
-			       current_info->outputs,
-			       current_info->noutput);
+                               priv->info->resources,
+                               crtc->id,
+                               current_info->timestamp,
+                               current_info->x,
+                               current_info->y,
+                               current_info->mode,
+                               current_info->rotation,
+                               current_info->outputs,
+                               current_info->noutput);
 
     XRRFreeCrtcInfo (current_info);
 
     gdk_display_flush (display);
     if (gdk_x11_display_error_trap_pop (display))
-	goto out;
+        goto out;
 
     if (status == RRSetConfigSuccess)
-	timestamp_updated = TRUE;
+        timestamp_updated = TRUE;
 out:
     return timestamp_updated;
 #else
@@ -947,8 +971,8 @@ out:
  * configuration.
  */
 gboolean
-xfce_rr_screen_refresh (XfceRRScreen *screen,
-			 GError       **error)
+xfce_rr_screen_refresh (XfceRRScreen  *screen,
+                        GError       **error)
 {
     gboolean refreshed;
 
@@ -982,7 +1006,8 @@ xfce_rr_screen_list_crtcs (XfceRRScreen *screen)
 
 /* XfceRROutput */
 static XfceRROutput *
-output_new (ScreenInfo *info, RROutput id)
+output_new (ScreenInfo *info,
+            RROutput    id)
 {
     XfceRROutput *output = g_slice_new0 (XfceRROutput);
 
@@ -993,33 +1018,33 @@ output_new (ScreenInfo *info, RROutput id)
 }
 
 static guint8 *
-get_property (Display *dpy,
-	      RROutput output,
-	      Atom atom,
-	      int *len)
+get_property (Display  *dpy,
+              RROutput  output,
+              Atom      atom,
+              int      *len)
 {
 #ifdef HAVE_RANDR
     unsigned char *prop;
-    int actual_format;
-    unsigned long nitems, bytes_after;
-    Atom actual_type;
-    guint8 *result;
+    int            actual_format;
+    unsigned long  nitems, bytes_after;
+    Atom           actual_type;
+    guint8        *result;
 
     XRRGetOutputProperty (dpy, output, atom,
-			  0, 100, False, False,
-			  AnyPropertyType,
-			  &actual_type, &actual_format,
-			  &nitems, &bytes_after, &prop);
+                          0, 100, False, False,
+                          AnyPropertyType,
+                          &actual_type, &actual_format,
+                          &nitems, &bytes_after, &prop);
 
     if (actual_type == XA_INTEGER && actual_format == 8)
     {
-	result = g_memdup (prop, nitems);
-	if (len)
-	    *len = nitems;
+        result = g_memdup (prop, nitems);
+        if (len)
+            *len = nitems;
     }
     else
     {
-	result = NULL;
+        result = NULL;
     }
 
     XFree (prop);
@@ -1033,26 +1058,26 @@ get_property (Display *dpy,
 static guint8 *
 read_edid_data (XfceRROutput *output, int *len)
 {
-    Atom edid_atom;
+    Atom    edid_atom;
     guint8 *result;
 
     edid_atom = XInternAtom (DISPLAY (output), "EDID", FALSE);
     result = get_property (DISPLAY (output),
-			   output->id, edid_atom, len);
+                           output->id, edid_atom, len);
 
     if (!result)
     {
-	edid_atom = XInternAtom (DISPLAY (output), "EDID_DATA", FALSE);
-	result = get_property (DISPLAY (output),
-			       output->id, edid_atom, len);
+        edid_atom = XInternAtom (DISPLAY (output), "EDID_DATA", FALSE);
+        result = get_property (DISPLAY (output),
+                               output->id, edid_atom, len);
     }
 
     if (result)
     {
-	if (*len % 128 == 0)
-	    return result;
-	else
-	    g_free (result);
+        if (*len % 128 == 0)
+            return result;
+        else
+            g_free (result);
     }
 
     return NULL;
@@ -1062,32 +1087,32 @@ static char *
 get_connector_type_string (XfceRROutput *output)
 {
 #ifdef HAVE_RANDR
-    char *result;
-    unsigned char *prop;
-    int actual_format;
-    unsigned long nitems, bytes_after;
-    Atom actual_type;
-    Atom connector_type;
-    char *connector_type_str;
+    char            *result;
+    unsigned char   *prop;
+    int              actual_format;
+    unsigned long    nitems, bytes_after;
+    Atom             actual_type;
+    Atom             connector_type;
+    char            *connector_type_str;
 
     result = NULL;
 
     if (XRRGetOutputProperty (DISPLAY (output), output->id, output->info->screen->priv->connector_type_atom,
-			      0, 100, False, False,
-			      AnyPropertyType,
-			      &actual_type, &actual_format,
-			      &nitems, &bytes_after, &prop) != Success)
-	return NULL;
+                              0, 100, False, False,
+                              AnyPropertyType,
+                              &actual_type, &actual_format,
+                              &nitems, &bytes_after, &prop) != Success)
+        return NULL;
 
     if (!(actual_type == XA_ATOM && actual_format == 32 && nitems == 1))
-	goto out;
+        goto out;
 
     connector_type = *((Atom *) prop);
 
     connector_type_str = XGetAtomName (DISPLAY (output), connector_type);
     if (connector_type_str) {
-	result = g_strdup (connector_type_str); /* so the caller can g_free() it */
-	XFree (connector_type_str);
+        result = g_strdup (connector_type_str); /* so the caller can g_free() it */
+        XFree (connector_type_str);
     }
 
 out:
@@ -1102,12 +1127,13 @@ out:
 
 #ifdef HAVE_RANDR
 static gboolean
-output_initialize (XfceRROutput *output, XRRScreenResources *res, GError **error)
+output_initialize (XfceRROutput        *output,
+                   XRRScreenResources  *res,
+                   GError             **error)
 {
-    XRROutputInfo *info = XRRGetOutputInfo (
-	DISPLAY (output), res, output->id);
-    GPtrArray *a;
-    int i;
+    XRROutputInfo *info = XRRGetOutputInfo (DISPLAY (output), res, output->id);
+    GPtrArray     *a;
+    int            i;
 
 #if 0
     g_print ("Output %lx Timestamp: %u\n", output->id, (guint32)info->timestamp);
@@ -1115,12 +1141,12 @@ output_initialize (XfceRROutput *output, XRRScreenResources *res, GError **error
 
     if (!info || !output->info)
     {
-	/* FIXME: see the comment in crtc_initialize() */
-	/* Translators: here, an "output" is a video output */
-	g_set_error (error, XFCE_RR_ERROR, XFCE_RR_ERROR_RANDR_ERROR,
-		     _("could not get information about output %d"),
-		     (int) output->id);
-	return FALSE;
+        /* FIXME: see the comment in crtc_initialize() */
+        /* Translators: here, an "output" is a video output */
+        g_set_error (error, XFCE_RR_ERROR, XFCE_RR_ERROR_RANDR_ERROR,
+                     _("could not get information about output %d"),
+                     (int) output->id);
+        return FALSE;
     }
 
     output->name = g_strdup (info->name); /* FIXME: what is nameLen used for? */
@@ -1135,10 +1161,10 @@ output_initialize (XfceRROutput *output, XRRScreenResources *res, GError **error
 
     for (i = 0; i < info->ncrtc; ++i)
     {
-	XfceRRCrtc *crtc = crtc_by_id (output->info, info->crtcs[i]);
+        XfceRRCrtc *crtc = crtc_by_id (output->info, info->crtcs[i]);
 
-	if (crtc)
-	    g_ptr_array_add (a, crtc);
+        if (crtc)
+            g_ptr_array_add (a, crtc);
     }
     g_ptr_array_add (a, NULL);
     output->possible_crtcs = (XfceRRCrtc **)g_ptr_array_free (a, FALSE);
@@ -1147,10 +1173,10 @@ output_initialize (XfceRROutput *output, XRRScreenResources *res, GError **error
     a = g_ptr_array_new ();
     for (i = 0; i < info->nclone; ++i)
     {
-	XfceRROutput *xfce_rr_output = xfce_rr_output_by_id (output->info, info->clones[i]);
+        XfceRROutput *xfce_rr_output = xfce_rr_output_by_id (output->info, info->clones[i]);
 
-	if (xfce_rr_output)
-	    g_ptr_array_add (a, xfce_rr_output);
+        if (xfce_rr_output)
+            g_ptr_array_add (a, xfce_rr_output);
     }
     g_ptr_array_add (a, NULL);
     output->clones = (XfceRROutput **)g_ptr_array_free (a, FALSE);
@@ -1159,10 +1185,10 @@ output_initialize (XfceRROutput *output, XRRScreenResources *res, GError **error
     a = g_ptr_array_new ();
     for (i = 0; i < info->nmode; ++i)
     {
-	XfceRRMode *mode = mode_by_id (output->info, info->modes[i]);
+        XfceRRMode *mode = mode_by_id (output->info, info->modes[i]);
 
-	if (mode)
-	    g_ptr_array_add (a, mode);
+        if (mode)
+            g_ptr_array_add (a, mode);
     }
     g_ptr_array_add (a, NULL);
     output->modes = (XfceRRMode **)g_ptr_array_free (a, FALSE);
@@ -1181,11 +1207,11 @@ output_initialize (XfceRROutput *output, XRRScreenResources *res, GError **error
 static XfceRROutput*
 output_copy (const XfceRROutput *from)
 {
-    GPtrArray *array;
-    XfceRRCrtc **p_crtc;
+    GPtrArray     *array;
+    XfceRRCrtc   **p_crtc;
     XfceRROutput **p_output;
-    XfceRRMode **p_mode;
-    XfceRROutput *output = g_slice_new0 (XfceRROutput);
+    XfceRRMode   **p_mode;
+    XfceRROutput  *output = g_slice_new0 (XfceRROutput);
 
     output->id = from->id;
     output->info = from->info;
@@ -1269,13 +1295,13 @@ static const RotationMap rotation_map[] =
 static XfceRRRotation
 xfce_rr_rotation_from_xrotation (Rotation r)
 {
-    int i;
+    int            i;
     XfceRRRotation result = 0;
 
     for (i = 0; i < G_N_ELEMENTS (rotation_map); ++i)
     {
-	if (r & rotation_map[i].xrot)
-	    result |= rotation_map[i].rot;
+        if (r & rotation_map[i].xrot)
+            result |= rotation_map[i].rot;
     }
 
     return result;
@@ -1309,8 +1335,8 @@ static XfceRRCrtc *
 crtc_copy (const XfceRRCrtc *from)
 {
     XfceRROutput **p_output;
-    GPtrArray *array;
-    XfceRRCrtc *to = g_slice_new0 (XfceRRCrtc);
+    GPtrArray     *array;
+    XfceRRCrtc    *to = g_slice_new0 (XfceRRCrtc);
 
     to->info = from->info;
     to->id = from->id;
@@ -1340,13 +1366,13 @@ crtc_copy (const XfceRRCrtc *from)
 
 #ifdef HAVE_RANDR
 static gboolean
-crtc_initialize (XfceRRCrtc        *crtc,
-		 XRRScreenResources *res,
-		 GError            **error)
+crtc_initialize (XfceRRCrtc          *crtc,
+                 XRRScreenResources  *res,
+                 GError             **error)
 {
     XRRCrtcInfo *info = XRRGetCrtcInfo (DISPLAY (crtc), res, crtc->id);
-    GPtrArray *a;
-    int i;
+    GPtrArray   *a;
+    int          i;
 
 #if 0
     g_print ("CRTC %lx Timestamp: %u\n", crtc->id, (guint32)info->timestamp);
@@ -1354,16 +1380,16 @@ crtc_initialize (XfceRRCrtc        *crtc,
 
     if (!info)
     {
-	/* FIXME: We need to reaquire the screen resources */
-	/* FIXME: can we actually catch BadRRCrtc, and does it make sense to emit that? */
+        /* FIXME: We need to reaquire the screen resources */
+        /* FIXME: can we actually catch BadRRCrtc, and does it make sense to emit that? */
 
-	/* Translators: CRTC is a CRT Controller (this is X terminology).
-	 * It is *very* unlikely that you'll ever get this error, so it is
-	 * only listed for completeness. */
-	g_set_error (error, XFCE_RR_ERROR, XFCE_RR_ERROR_RANDR_ERROR,
-		     _("could not get information about CRTC %d"),
-		     (int) crtc->id);
-	return FALSE;
+        /* Translators: CRTC is a CRT Controller (this is X terminology).
+        * It is *very* unlikely that you'll ever get this error, so it is
+        * only listed for completeness. */
+        g_set_error (error, XFCE_RR_ERROR, XFCE_RR_ERROR_RANDR_ERROR,
+                     _("could not get information about CRTC %d"),
+                     (int) crtc->id);
+        return FALSE;
     }
 
     /* XfceRRMode */
@@ -1376,10 +1402,10 @@ crtc_initialize (XfceRRCrtc        *crtc,
     a = g_ptr_array_new ();
     for (i = 0; i < info->noutput; ++i)
     {
-	XfceRROutput *output = xfce_rr_output_by_id (crtc->info, info->outputs[i]);
+        XfceRROutput *output = xfce_rr_output_by_id (crtc->info, info->outputs[i]);
 
-	if (output)
-	    g_ptr_array_add (a, output);
+        if (output)
+            g_ptr_array_add (a, output);
     }
     g_ptr_array_add (a, NULL);
     crtc->current_outputs = (XfceRROutput **)g_ptr_array_free (a, FALSE);
@@ -1388,10 +1414,10 @@ crtc_initialize (XfceRRCrtc        *crtc,
     a = g_ptr_array_new ();
     for (i = 0; i < info->npossible; ++i)
     {
-	XfceRROutput *output = xfce_rr_output_by_id (crtc->info, info->possible[i]);
+        XfceRROutput *output = xfce_rr_output_by_id (crtc->info, info->possible[i]);
 
-	if (output)
-	    g_ptr_array_add (a, output);
+        if (output)
+            g_ptr_array_add (a, output);
     }
     g_ptr_array_add (a, NULL);
     crtc->possible_outputs = (XfceRROutput **)g_ptr_array_free (a, FALSE);
@@ -1445,7 +1471,8 @@ xfce_rr_mode_get_height (XfceRRMode *mode)
 
 #ifdef HAVE_RANDR
 static void
-mode_initialize (XfceRRMode *mode, XRRModeInfo *info)
+mode_initialize (XfceRRMode  *mode,
+                 XRRModeInfo *info)
 {
     g_assert (mode != NULL);
     g_assert (info != NULL);
@@ -1480,13 +1507,13 @@ mode_free (XfceRRMode *mode)
 }
 
 void
-xfce_rr_crtc_set_gamma (XfceRRCrtc *crtc, int size,
-			 unsigned short *red,
-			 unsigned short *green,
-			 unsigned short *blue)
+xfce_rr_crtc_set_gamma (XfceRRCrtc     *crtc, int size,
+                        unsigned short *red,
+                        unsigned short *green,
+                        unsigned short *blue)
 {
 #ifdef HAVE_RANDR
-    int copy_size;
+    int           copy_size;
     XRRCrtcGamma *gamma;
 
     g_return_if_fail (crtc != NULL);
@@ -1495,7 +1522,7 @@ xfce_rr_crtc_set_gamma (XfceRRCrtc *crtc, int size,
     g_return_if_fail (blue != NULL);
 
     if (size != crtc->gamma_size)
-	return;
+        return;
 
     gamma = XRRAllocGamma (crtc->gamma_size);
 
@@ -1520,45 +1547,47 @@ xfce_rr_crtc_set_gamma (XfceRRCrtc *crtc, int size,
  * Returns: %TRUE for success
  */
 gboolean
-xfce_rr_crtc_get_gamma (XfceRRCrtc *crtc, int *size,
-			 unsigned short **red, unsigned short **green,
-			 unsigned short **blue)
+xfce_rr_crtc_get_gamma (XfceRRCrtc      *crtc,
+                        int             *size,
+                        unsigned short **red,
+                        unsigned short **green,
+                        unsigned short **blue)
 {
 #ifdef HAVE_RANDR
-    int copy_size;
+    int             copy_size;
     unsigned short *r, *g, *b;
-    XRRCrtcGamma *gamma;
+    XRRCrtcGamma   *gamma;
 
     g_return_val_if_fail (crtc != NULL, FALSE);
 
     gamma = XRRGetCrtcGamma (DISPLAY (crtc), crtc->id);
     if (!gamma)
-	return FALSE;
+        return FALSE;
 
     copy_size = crtc->gamma_size * sizeof (unsigned short);
 
     if (red) {
-	r = g_new0 (unsigned short, crtc->gamma_size);
-	memcpy (r, gamma->red, copy_size);
-	*red = r;
+        r = g_new0 (unsigned short, crtc->gamma_size);
+        memcpy (r, gamma->red, copy_size);
+        *red = r;
     }
 
     if (green) {
-	g = g_new0 (unsigned short, crtc->gamma_size);
-	memcpy (g, gamma->green, copy_size);
-	*green = g;
+        g = g_new0 (unsigned short, crtc->gamma_size);
+        memcpy (g, gamma->green, copy_size);
+        *green = g;
     }
 
     if (blue) {
-	b = g_new0 (unsigned short, crtc->gamma_size);
-	memcpy (b, gamma->blue, copy_size);
-	*blue = b;
+        b = g_new0 (unsigned short, crtc->gamma_size);
+        memcpy (b, gamma->blue, copy_size);
+        *blue = b;
     }
 
     XRRFreeGamma (gamma);
 
     if (size)
-	*size = crtc->gamma_size;
+        *size = crtc->gamma_size;
 
     return TRUE;
 #else

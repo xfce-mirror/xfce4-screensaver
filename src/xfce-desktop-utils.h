@@ -1,4 +1,4 @@
-/* -*- Mode: C; c-set-style: linux indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*- */
+/* -*- Mode: C; c-set-style: linux indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*- */
 /* xfce-ditem.h - Utilities for the Xfce Desktop
 
    Copyright (C) 1998 Tom Tromey
@@ -32,7 +32,9 @@
 G_BEGIN_DECLS
 
 /* replace gdk_spawn_command_line_on_screen, not available in GTK3 */
-gboolean xfce_gdk_spawn_command_line_on_screen (GdkScreen *screen, const gchar *command, GError **error);
+gboolean xfce_gdk_spawn_command_line_on_screen (GdkScreen    *screen,
+                                                const gchar  *command,
+                                                GError      **error);
 
 G_END_DECLS
 

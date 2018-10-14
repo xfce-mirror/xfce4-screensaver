@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
  *
  * Copyright (C) 2005 William Jon McCann <mccann@jhu.edu>
  *
@@ -36,10 +36,10 @@ watcher_idle_cb (GSWatcher *watcher,
                  gboolean   is_idle,
                  gpointer   data)
 {
-	g_message ("Idle status changed: %s", is_idle ? "idle" : "not idle");
+    g_message ("Idle status changed: %s", is_idle ? "idle" : "not idle");
 
-	/* return FALSE so that the idle watcher continues */
-	return FALSE;
+    /* return FALSE so that the idle watcher continues */
+    return FALSE;
 }
 
 static gboolean
@@ -47,60 +47,60 @@ watcher_idle_notice_cb (GSWatcher *watcher,
                         gboolean   is_idle,
                         gpointer   data)
 {
-	g_message ("Idle notice status changed: %s", is_idle ? "idle" : "not idle");
+    g_message ("Idle notice status changed: %s", is_idle ? "idle" : "not idle");
 
-	return TRUE;
+    return TRUE;
 }
 
 static void
 connect_watcher_signals (GSWatcher *watcher)
 {
-	g_signal_connect (watcher, "idle-changed",
-	                  G_CALLBACK (watcher_idle_cb), NULL);
-	g_signal_connect (watcher, "idle-notice-changed",
-	                  G_CALLBACK (watcher_idle_notice_cb), NULL);
+    g_signal_connect (watcher, "idle-changed",
+                      G_CALLBACK (watcher_idle_cb), NULL);
+    g_signal_connect (watcher, "idle-notice-changed",
+                      G_CALLBACK (watcher_idle_notice_cb), NULL);
 }
 
 static void
 test_watcher (void)
 {
-	GSWatcher *watcher;
+    GSWatcher *watcher;
 
-	watcher = gs_watcher_new ();
-	gs_watcher_set_enabled (watcher, TRUE);
-	gs_watcher_set_active (watcher, TRUE);
+    watcher = gs_watcher_new ();
+    gs_watcher_set_enabled (watcher, TRUE);
+    gs_watcher_set_active (watcher, TRUE);
 
-	connect_watcher_signals (watcher);
+    connect_watcher_signals (watcher);
 }
 
 int
 main (int    argc,
       char **argv)
 {
-	GError *error = NULL;
+    GError *error = NULL;
 
 #ifdef ENABLE_NLS
-	bindtextdomain (GETTEXT_PACKAGE, XFCELOCALEDIR);
+    bindtextdomain (GETTEXT_PACKAGE, XFCELOCALEDIR);
 # ifdef HAVE_BIND_TEXTDOMAIN_CODESET
-	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+    bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 # endif
-	textdomain (GETTEXT_PACKAGE);
+    textdomain (GETTEXT_PACKAGE);
 #endif
 
-	if (! gtk_init_with_args (&argc, &argv, NULL, NULL, NULL, &error))
-	{
-		fprintf (stderr, "%s", error->message);
-		g_error_free (error);
-		exit (1);
-	}
+    if (! gtk_init_with_args (&argc, &argv, NULL, NULL, NULL, &error))
+    {
+        fprintf (stderr, "%s", error->message);
+        g_error_free (error);
+        exit (1);
+    }
 
-	gs_debug_init (TRUE, FALSE);
+    gs_debug_init (TRUE, FALSE);
 
-	test_watcher ();
+    test_watcher ();
 
-	gtk_main ();
+    gtk_main ();
 
-	gs_debug_shutdown ();
+    gs_debug_shutdown ();
 
-	return 0;
+    return 0;
 }

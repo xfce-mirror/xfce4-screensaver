@@ -24,32 +24,32 @@
 
 G_BEGIN_DECLS
 
-#define COPY_THEME_DIALOG_TYPE copy_theme_dialog_get_type ()
+#define COPY_THEME_DIALOG_TYPE          copy_theme_dialog_get_type ()
 #define COPY_THEME_DIALOG(obj)          G_TYPE_CHECK_INSTANCE_CAST (obj, COPY_THEME_DIALOG_TYPE, CopyThemeDialog)
 #define COPY_THEME_DIALOG_CLASS(klass)  G_TYPE_CHECK_CLASS_CAST (klass, COPY_THEME_DIALOG_TYPE, CopyThemeDialogClass)
 #define IS_COPY_THEME_DIALOG(obj)       G_TYPE_CHECK_INSTANCE_TYPE (obj, COPY_THEME_DIALOG_TYPE)
 
-typedef struct _CopyThemeDialog CopyThemeDialog;
-typedef struct _CopyThemeDialogClass CopyThemeDialogClass;
-typedef struct _CopyThemeDialogPrivate CopyThemeDialogPrivate;
+typedef struct _CopyThemeDialog         CopyThemeDialog;
+typedef struct _CopyThemeDialogClass    CopyThemeDialogClass;
+typedef struct _CopyThemeDialogPrivate  CopyThemeDialogPrivate;
 
 struct _CopyThemeDialog
 {
-	GtkDialog dialog;
-	CopyThemeDialogPrivate *priv;
+    GtkDialog               dialog;
+    CopyThemeDialogPrivate *priv;
 };
 
 struct _CopyThemeDialogClass
 {
-	GtkDialogClass parent_class;
+    GtkDialogClass parent_class;
 
-	void (*cancelled) (CopyThemeDialog *dialog);
-	void (*complete) (CopyThemeDialog *dialog);
+    void (*cancelled) (CopyThemeDialog *dialog);
+    void (*complete)  (CopyThemeDialog *dialog);
 };
 
-GType copy_theme_dialog_get_type (void);
-GtkWidget *copy_theme_dialog_new (GList *files);
-void copy_theme_dialog_begin (CopyThemeDialog *dialog);
+GType       copy_theme_dialog_get_type (void);
+GtkWidget  *copy_theme_dialog_new      (GList *files);
+void        copy_theme_dialog_begin    (CopyThemeDialog *dialog);
 
 G_END_DECLS
 

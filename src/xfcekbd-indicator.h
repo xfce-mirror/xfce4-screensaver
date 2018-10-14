@@ -28,9 +28,9 @@
 extern "C" {
 #endif
 
-	typedef struct _XfcekbdIndicator XfcekbdIndicator;
-	typedef struct _XfcekbdIndicatorPrivate XfcekbdIndicatorPrivate;
-	typedef struct _XfcekbdIndicatorClass XfcekbdIndicatorClass;
+typedef struct _XfcekbdIndicator XfcekbdIndicator;
+typedef struct _XfcekbdIndicatorPrivate XfcekbdIndicatorPrivate;
+typedef struct _XfcekbdIndicatorClass XfcekbdIndicatorClass;
 
 #define XFCEKBD_TYPE_INDICATOR             (xfcekbd_indicator_get_type ())
 #define XFCEKBD_INDICATOR(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), XFCEKBD_TYPE_INDICATOR, XfcekbdIndicator))
@@ -39,24 +39,23 @@ extern "C" {
 #define XFCEKBD_IS_INDICATOR_CLASS(obj)    (G_TYPE_CHECK_CLASS_TYPE ((obj), XFCEKBD_TYPE_INDICATOR))
 #define XFCEKBD_INDICATOR_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), XFCEKBD_TYPE_INDICATOR, XfcekbdIndicatorClass))
 
-	struct _XfcekbdIndicator {
-		GtkNotebook parent;
-		XfcekbdIndicatorPrivate *priv;
-	};
+struct _XfcekbdIndicator {
+    GtkNotebook              parent;
+    XfcekbdIndicatorPrivate *priv;
+};
 
-	struct _XfcekbdIndicatorClass {
-		GtkNotebookClass parent_class;
+struct _XfcekbdIndicatorClass {
+    GtkNotebookClass   parent_class;
 
-		void (*reinit_ui) (XfcekbdIndicator * gki);
-	};
+    void (*reinit_ui)  (XfcekbdIndicator * gki);
+};
 
-	extern GType xfcekbd_indicator_get_type (void);
+extern GType        xfcekbd_indicator_get_type              (void);
 
-	extern GtkWidget *xfcekbd_indicator_new (void);
+extern GtkWidget *  xfcekbd_indicator_new                   (void);
 
-	extern void
-	 xfcekbd_indicator_set_parent_tooltips (XfcekbdIndicator *
-					     gki, gboolean ifset);
+extern void         xfcekbd_indicator_set_parent_tooltips   (XfcekbdIndicator *gki,
+                                                             gboolean          ifset);
 
 #ifdef __cplusplus
 }

@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
  *
  * Copyright (C) 2006 William Jon McCann <mccann@jhu.edu>
  *
@@ -42,10 +42,10 @@ typedef enum
     GS_AUTH_ERROR_AUTH_DENIED
 } GSAuthError;
 
-typedef gboolean  (* GSAuthMessageFunc) (GSAuthMessageStyle style,
-        const char        *msg,
-        char             **response,
-        gpointer           data);
+typedef gboolean  (* GSAuthMessageFunc) (GSAuthMessageStyle   style,
+                                         const char          *msg,
+                                         char               **response,
+                                         gpointer             data);
 
 #define GS_AUTH_ERROR gs_auth_error_quark ()
 
@@ -56,11 +56,11 @@ gboolean gs_auth_get_verbose (void);
 
 gboolean gs_auth_priv_init   (void);
 gboolean gs_auth_init        (void);
-gboolean gs_auth_verify_user (const char       *username,
-                              const char       *display,
-                              GSAuthMessageFunc func,
-                              gpointer          data,
-                              GError          **error);
+gboolean gs_auth_verify_user (const char         *username,
+                              const char         *display,
+                              GSAuthMessageFunc   func,
+                              gpointer            data,
+                              GError            **error);
 
 G_END_DECLS
 

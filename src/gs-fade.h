@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
  *
  * Copyright (C) 2004-2005 William Jon McCann <mccann@jhu.edu>
  *
@@ -39,40 +39,40 @@ typedef struct GSFadePrivate GSFadePrivate;
 
 typedef struct
 {
-	GObject        parent;
-	GSFadePrivate *priv;
+    GObject        parent;
+    GSFadePrivate *priv;
 } GSFade;
 
 typedef struct
 {
-	GObjectClass   parent_class;
+    GObjectClass    parent_class;
 
-	void          (* faded)        (GSFade *fade);
+    void (* faded)  (GSFade *fade);
 } GSFadeClass;
 
-typedef void  (* GSFadeDoneFunc) (GSFade       *fade,
-                                  gpointer      data);
+typedef void  (* GSFadeDoneFunc) (GSFade   *fade,
+                                  gpointer  data);
 
 
 GType       gs_fade_get_type         (void);
 
 GSFade    * gs_fade_new              (void);
 
-void        gs_fade_async            (GSFade        *fade,
-                                      guint          timeout,
-                                      GSFadeDoneFunc done_cb,
-                                      gpointer       data);
-void        gs_fade_sync             (GSFade        *fade,
-                                      guint          timeout);
+void        gs_fade_async            (GSFade         *fade,
+                                      guint           timeout,
+                                      GSFadeDoneFunc  done_cb,
+                                      gpointer        data);
+void        gs_fade_sync             (GSFade         *fade,
+                                      guint           timeout);
 
-void        gs_fade_finish           (GSFade    *fade);
-void        gs_fade_reset            (GSFade    *fade);
+void        gs_fade_finish           (GSFade         *fade);
+void        gs_fade_reset            (GSFade         *fade);
 
-gboolean    gs_fade_get_active       (GSFade    *fade);
+gboolean    gs_fade_get_active       (GSFade         *fade);
 
-gboolean    gs_fade_get_enabled      (GSFade    *fade);
-void        gs_fade_set_enabled      (GSFade    *fade,
-                                      gboolean   enabled);
+gboolean    gs_fade_get_enabled      (GSFade         *fade);
+void        gs_fade_set_enabled      (GSFade         *fade,
+                                      gboolean        enabled);
 
 G_END_DECLS
 

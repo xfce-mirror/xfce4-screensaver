@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
  *
  * Copyright (C) 2004-2006 William Jon McCann <mccann@jhu.edu>
  *
@@ -69,8 +69,8 @@ enum
 
 static GtkTargetEntry drop_types [] =
 {
-	{ "text/uri-list", 0, TARGET_URI_LIST },
-	{ "_NETSCAPE_URL", 0, TARGET_NS_URL }
+    { "text/uri-list", 0, TARGET_URI_LIST },
+    { "_NETSCAPE_URL", 0, TARGET_NS_URL }
 };
 
 static GtkBuilder     *builder = NULL;
@@ -81,222 +81,227 @@ static XfconfChannel  *screensaver_channel = NULL;
 static gint32
 config_get_activate_delay (gboolean *is_writable)
 {
-	gint32 delay;
+    gint32 delay;
 
-	if (is_writable)
-	{
-		*is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
-		               KEY_IDLE_DELAY);
-	}
+    if (is_writable)
+    {
+        *is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
+                       KEY_IDLE_DELAY);
+    }
 
-	delay = xfconf_channel_get_int (screensaver_channel, KEY_IDLE_DELAY, DEFAULT_KEY_IDLE_DELAY);
+    delay = xfconf_channel_get_int (screensaver_channel, KEY_IDLE_DELAY, DEFAULT_KEY_IDLE_DELAY);
 
-	if (delay < 1)
-	{
-		delay = 1;
-	}
+    if (delay < 1)
+    {
+        delay = 1;
+    }
 
-	return delay;
+    return delay;
 }
 
 static void
 config_set_activate_delay (gint32 timeout)
 {
-	xfconf_channel_set_int (screensaver_channel, KEY_IDLE_DELAY, timeout);
+    xfconf_channel_set_int (screensaver_channel, KEY_IDLE_DELAY, timeout);
 }
 
 static int
 config_get_mode (gboolean *is_writable)
 {
-	int mode;
+    int mode;
 
-	if (is_writable)
-	{
-		*is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
-		               KEY_MODE);
-	}
+    if (is_writable)
+    {
+        *is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
+                       KEY_MODE);
+    }
 
-	mode = xfconf_channel_get_int (screensaver_channel, KEY_MODE, DEFAULT_KEY_MODE);
+    mode = xfconf_channel_get_int (screensaver_channel, KEY_MODE, DEFAULT_KEY_MODE);
 
-	return mode;
+    return mode;
 }
 
 static void
 config_set_mode (int mode)
 {
-	xfconf_channel_set_int (screensaver_channel, KEY_MODE, mode);
+    xfconf_channel_set_int (screensaver_channel, KEY_MODE, mode);
 }
 
 static char *
 config_get_theme (gboolean *is_writable)
 {
-	char *name;
-	int   mode;
+    char *name;
+    int   mode;
 
-	if (is_writable)
-	{
-		gboolean can_write_theme = TRUE;
-		gboolean can_write_mode = TRUE;
+    if (is_writable)
+    {
+        gboolean can_write_theme = TRUE;
+        gboolean can_write_mode = TRUE;
 
-		can_write_theme = !xfconf_channel_is_property_locked (screensaver_channel,
-												KEY_THEMES);
-		can_write_mode = !xfconf_channel_is_property_locked (screensaver_channel,
-												KEY_MODE);
-		*is_writable = can_write_theme && can_write_mode;
-	}
+        can_write_theme = !xfconf_channel_is_property_locked (screensaver_channel,
+                                                              KEY_THEMES);
+        can_write_mode = !xfconf_channel_is_property_locked (screensaver_channel,
+                                                              KEY_MODE);
+        *is_writable = can_write_theme && can_write_mode;
+    }
 
-	mode = config_get_mode (NULL);
+    mode = config_get_mode (NULL);
 
-	name = NULL;
-	if (mode == GS_MODE_BLANK_ONLY)
-	{
-		name = g_strdup ("__blank-only");
-	}
-	else if (mode == GS_MODE_RANDOM)
-	{
-		name = g_strdup ("__random");
-	}
-	else
-	{
-		gchar **strv;
-		strv = xfconf_channel_get_string_list (screensaver_channel,
-	                                KEY_THEMES);
-		if (strv != NULL) {
-			name = g_strdup (strv[0]);
-		}
-		else
-		{
-			/* TODO: handle error */
-			/* default to blank */
-			name = g_strdup ("__blank-only");
-		}
+    name = NULL;
+    if (mode == GS_MODE_BLANK_ONLY)
+    {
+        name = g_strdup ("__blank-only");
+    }
+    else if (mode == GS_MODE_RANDOM)
+    {
+        name = g_strdup ("__random");
+    }
+    else
+    {
+        gchar **strv;
+        strv = xfconf_channel_get_string_list (screensaver_channel,
+                                               KEY_THEMES);
+        if (strv != NULL) {
+            name = g_strdup (strv[0]);
+        }
+        else
+        {
+            /* TODO: handle error */
+            /* default to blank */
+            name = g_strdup ("__blank-only");
+        }
 
-		g_strfreev (strv);
-	}
+        g_strfreev (strv);
+    }
 
-	return name;
+    return name;
 }
 
 static gchar **
 get_all_theme_ids (GSThemeManager *theme_manager)
 {
-	gchar **ids = NULL;
-	GSList *entries;
-	GSList *l;
-        guint idx = 0;
+    gchar  **ids = NULL;
+    GSList  *entries;
+    GSList  *l;
+    guint    idx = 0;
 
-	entries = gs_theme_manager_get_info_list (theme_manager);
-        ids = g_new0 (gchar *, g_slist_length (entries) + 1);
-	for (l = entries; l; l = l->next)
-	{
-		GSThemeInfo *info = l->data;
+    entries = gs_theme_manager_get_info_list (theme_manager);
+    ids = g_new0 (gchar *, g_slist_length (entries) + 1);
+    for (l = entries; l; l = l->next)
+    {
+        GSThemeInfo *info = l->data;
 
-		ids[idx++] = g_strdup (gs_theme_info_get_id (info));
-		gs_theme_info_unref (info);
-	}
-	g_slist_free (entries);
+        ids[idx++] = g_strdup (gs_theme_info_get_id (info));
+        gs_theme_info_unref (info);
+    }
+    g_slist_free (entries);
 
-	return ids;
+    return ids;
 }
 
 static void
 config_set_theme (const char *theme_id)
 {
-	gchar **strv = NULL;
-	int     mode;
+    gchar **strv = NULL;
+    int     mode;
 
-	if (theme_id && strcmp (theme_id, "__blank-only") == 0)
-	{
-		mode = GS_MODE_BLANK_ONLY;
-	}
-	else if (theme_id && strcmp (theme_id, "__random") == 0)
-	{
-		mode = GS_MODE_RANDOM;
+    if (theme_id && strcmp (theme_id, "__blank-only") == 0)
+    {
+        mode = GS_MODE_BLANK_ONLY;
+    }
+    else if (theme_id && strcmp (theme_id, "__random") == 0)
+    {
+        mode = GS_MODE_RANDOM;
 
-		/* set the themes key to contain all available screensavers */
-		strv = get_all_theme_ids (theme_manager);
-	}
-	else
-	{
-		mode = GS_MODE_SINGLE;
-		strv = g_strsplit (theme_id, "%%%", 1);
-	}
+        /* set the themes key to contain all available screensavers */
+        strv = get_all_theme_ids (theme_manager);
+    }
+    else
+    {
+        mode = GS_MODE_SINGLE;
+        strv = g_strsplit (theme_id, "%%%", 1);
+    }
 
-	config_set_mode (mode);
+    config_set_mode (mode);
 
-	xfconf_channel_set_string_list (screensaver_channel,
-	                     KEY_THEMES,
-	                     (const gchar * const*) strv);
+    xfconf_channel_set_string_list (screensaver_channel,
+                                    KEY_THEMES,
+                                    (const gchar * const*) strv);
 
-	g_strfreev (strv);
-
+    g_strfreev (strv);
 }
 
 static gboolean
 config_get_enabled (gboolean *is_writable)
 {
-	int enabled;
+    int enabled;
 
-	if (is_writable)
-	{
-		*is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
-		               KEY_LOCK_ENABLED);
-	}
+    if (is_writable)
+    {
+        *is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
+                                                           KEY_LOCK_ENABLED);
+    }
 
-	enabled = xfconf_channel_get_bool (screensaver_channel, KEY_IDLE_ACTIVATION_ENABLED, DEFAULT_KEY_IDLE_ACTIVATION_ENABLED);
+    enabled = xfconf_channel_get_bool (screensaver_channel,
+                                       KEY_IDLE_ACTIVATION_ENABLED,
+                                       DEFAULT_KEY_IDLE_ACTIVATION_ENABLED);
 
-	return enabled;
+    return enabled;
 }
 
 static void
 config_set_enabled (gboolean enabled)
 {
-	xfconf_channel_set_bool (screensaver_channel, KEY_IDLE_ACTIVATION_ENABLED, enabled);
+    xfconf_channel_set_bool (screensaver_channel,
+                             KEY_IDLE_ACTIVATION_ENABLED,
+                             enabled);
 }
 
 static gboolean
 config_get_lock (gboolean *is_writable)
 {
-	gboolean lock;
+    gboolean lock;
 
-	if (is_writable)
-	{
-		*is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
-		               KEY_LOCK_ENABLED);
-	}
+    if (is_writable)
+    {
+        *is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
+                                                           KEY_LOCK_ENABLED);
+    }
 
-	lock = xfconf_channel_get_bool (screensaver_channel, KEY_LOCK_ENABLED, DEFAULT_KEY_LOCK_ENABLED);
+    lock = xfconf_channel_get_bool (screensaver_channel,
+                                    KEY_LOCK_ENABLED,
+                                    DEFAULT_KEY_LOCK_ENABLED);
 
-	return lock;
+    return lock;
 }
 
 static void
 config_set_lock (gboolean lock)
 {
-	xfconf_channel_set_bool (screensaver_channel, KEY_LOCK_ENABLED, lock);
+    xfconf_channel_set_bool (screensaver_channel, KEY_LOCK_ENABLED, lock);
 }
 
 static void
 job_set_theme (GSJob      *job,
                const char *theme)
 {
-	GSThemeInfo *info;
-	const char  *command;
+    GSThemeInfo *info;
+    const char  *command;
 
-	command = NULL;
+    command = NULL;
 
-	info = gs_theme_manager_lookup_theme_info (theme_manager, theme);
-	if (info != NULL)
-	{
-		command = gs_theme_info_get_exec (info);
-	}
+    info = gs_theme_manager_lookup_theme_info (theme_manager, theme);
+    if (info != NULL)
+    {
+        command = gs_theme_info_get_exec (info);
+    }
 
-	gs_job_set_command (job, command);
+    gs_job_set_command (job, command);
 
-	if (info != NULL)
-	{
-		gs_theme_info_unref (info);
-	}
+    if (info != NULL)
+    {
+        gs_theme_info_unref (info);
+    }
 }
 
 static gboolean
@@ -304,14 +309,14 @@ preview_on_draw (GtkWidget *widget,
                  cairo_t   *cr,
                  gpointer   data)
 {
-	if (job == NULL || !gs_job_is_running (job))
-	{
-		cairo_set_operator (cr, CAIRO_OPERATOR_OVER);
-		cairo_set_source_rgb (cr, 0, 0, 0);
-		cairo_paint (cr);
-	}
+    if (job == NULL || !gs_job_is_running (job))
+    {
+        cairo_set_operator (cr, CAIRO_OPERATOR_OVER);
+        cairo_set_source_rgb (cr, 0, 0, 0);
+        cairo_paint (cr);
+    }
 
-	return FALSE;
+    return FALSE;
 }
 
 static void
@@ -319,71 +324,71 @@ preview_set_theme (GtkWidget  *widget,
                    const char *theme,
                    const char *name)
 {
-	GtkWidget *label;
-	char      *markup;
+    GtkWidget *label;
+    char      *markup;
 
-	if (job != NULL)
-	{
-		gs_job_stop (job);
-	}
+    if (job != NULL)
+    {
+        gs_job_stop (job);
+    }
 
-	gtk_widget_queue_draw (widget);
+    gtk_widget_queue_draw (widget);
 
-	label = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_theme_label"));
-	markup = g_markup_printf_escaped ("<i>%s</i>", name);
-	gtk_label_set_markup (GTK_LABEL (label), markup);
-	g_free (markup);
+    label = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_theme_label"));
+    markup = g_markup_printf_escaped ("<i>%s</i>", name);
+    gtk_label_set_markup (GTK_LABEL (label), markup);
+    g_free (markup);
 
-	if ((theme && strcmp (theme, "__blank-only") == 0))
-	{
+    if ((theme && strcmp (theme, "__blank-only") == 0))
+    {
 
-	}
-	else if (theme && strcmp (theme, "__random") == 0)
-	{
-		gchar **themes;
+    }
+    else if (theme && strcmp (theme, "__random") == 0)
+    {
+        gchar **themes;
 
-		themes = get_all_theme_ids (theme_manager);
-		if (themes != NULL)
-		{
-			gint32  i;
+        themes = get_all_theme_ids (theme_manager);
+        if (themes != NULL)
+        {
+            gint32  i;
 
-			i = g_random_int_range (0, g_strv_length (themes));
+            i = g_random_int_range (0, g_strv_length (themes));
                         job_set_theme (job, themes[i]);
                         g_strfreev (themes);
 
-			gs_job_start (job);
-		}
-	}
-	else
-	{
-		job_set_theme (job, theme);
-		gs_job_start (job);
-	}
+            gs_job_start (job);
+        }
+    }
+    else
+    {
+        job_set_theme (job, theme);
+        gs_job_start (job);
+    }
 }
 
 static void
 help_display (void)
 {
-	GError *error;
+    GError *error;
 
-	error = NULL;
-	gtk_show_uri_on_window (NULL,
-                                "help:xfce-user-guide/prefs-screensaver",
-                                GDK_CURRENT_TIME,
-                                &error);
+    error = NULL;
+    gtk_show_uri_on_window (NULL,
+                            "help:xfce-user-guide/prefs-screensaver",
+                            GDK_CURRENT_TIME,
+                            &error);
 
-	if (error != NULL)
-	{
-		GtkWidget *d;
+    if (error != NULL)
+    {
+        GtkWidget *d;
 
-		d = gtk_message_dialog_new (NULL,
-		                            GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-		                            GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,
-		                            "%s", error->message);
-		gtk_dialog_run (GTK_DIALOG (d));
-		gtk_widget_destroy (d);
-		g_error_free (error);
-	}
+        d = gtk_message_dialog_new (NULL,
+                                    GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+                                    GTK_MESSAGE_ERROR, GTK_BUTTONS_OK,
+                                    "%s", error->message);
+        gtk_dialog_run (GTK_DIALOG (d));
+        gtk_widget_destroy (d);
+        g_error_free (error);
+    }
 
 }
 
@@ -392,170 +397,170 @@ response_cb (GtkWidget *widget,
              int        response_id)
 {
 
-	if (response_id == GTK_RESPONSE_HELP)
-	{
-		help_display ();
-	}
-	else if (response_id == GTK_RESPONSE_REJECT)
-	{
-		GError  *error;
-		gboolean res;
+    if (response_id == GTK_RESPONSE_HELP)
+    {
+        help_display ();
+    }
+    else if (response_id == GTK_RESPONSE_REJECT)
+    {
+        GError  *error;
+        gboolean res;
 
-		error = NULL;
+        error = NULL;
 
-		res = xfce_gdk_spawn_command_line_on_screen (gdk_screen_get_default (),
-		                                        GPM_COMMAND,
-		                                        &error);
-		if (! res)
-		{
-			g_warning ("Unable to start power management preferences: %s", error->message);
-			g_error_free (error);
-		}
-	}
-	else
-	{
-		gtk_widget_destroy (widget);
-		gtk_main_quit ();
-	}
+        res = xfce_gdk_spawn_command_line_on_screen (gdk_screen_get_default (),
+                                                GPM_COMMAND,
+                                                &error);
+        if (! res)
+        {
+            g_warning ("Unable to start power management preferences: %s", error->message);
+            g_error_free (error);
+        }
+    }
+    else
+    {
+        gtk_widget_destroy (widget);
+        gtk_main_quit ();
+    }
 }
 
 static GSList *
 get_theme_info_list (void)
 {
-	return gs_theme_manager_get_info_list (theme_manager);
+    return gs_theme_manager_get_info_list (theme_manager);
 }
 
 static void
 populate_model (GtkTreeStore *store)
 {
-	GtkTreeIter iter;
-	GSList     *themes        = NULL;
-	GSList     *l;
+    GtkTreeIter  iter;
+    GSList      *themes = NULL;
+    GSList      *l;
 
-	gtk_tree_store_append (store, &iter, NULL);
-	gtk_tree_store_set (store, &iter,
-	                    NAME_COLUMN, _("Blank screen"),
-	                    ID_COLUMN, "__blank-only",
-	                    -1);
+    gtk_tree_store_append (store, &iter, NULL);
+    gtk_tree_store_set (store, &iter,
+                        NAME_COLUMN, _("Blank screen"),
+                        ID_COLUMN, "__blank-only",
+                        -1);
 
-	gtk_tree_store_append (store, &iter, NULL);
-	gtk_tree_store_set (store, &iter,
-	                    NAME_COLUMN, _("Random"),
-	                    ID_COLUMN, "__random",
-	                    -1);
+    gtk_tree_store_append (store, &iter, NULL);
+    gtk_tree_store_set (store, &iter,
+                        NAME_COLUMN, _("Random"),
+                        ID_COLUMN, "__random",
+                        -1);
 
-	gtk_tree_store_append (store, &iter, NULL);
-	gtk_tree_store_set (store, &iter,
-	                    NAME_COLUMN, NULL,
-	                    ID_COLUMN, "__separator",
-	                    -1);
+    gtk_tree_store_append (store, &iter, NULL);
+    gtk_tree_store_set (store, &iter,
+                        NAME_COLUMN, NULL,
+                        ID_COLUMN, "__separator",
+                        -1);
 
-	themes = get_theme_info_list ();
+    themes = get_theme_info_list ();
 
-	if (themes == NULL)
-	{
-		return;
-	}
+    if (themes == NULL)
+    {
+        return;
+    }
 
-	for (l = themes; l; l = l->next)
-	{
-		const char  *name;
-		const char  *id;
-		GSThemeInfo *info = l->data;
+    for (l = themes; l; l = l->next)
+    {
+        const char  *name;
+        const char  *id;
+        GSThemeInfo *info = l->data;
 
-		if (info == NULL)
-		{
-			continue;
-		}
+        if (info == NULL)
+        {
+            continue;
+        }
 
-		name = gs_theme_info_get_name (info);
-		id = gs_theme_info_get_id (info);
+        name = gs_theme_info_get_name (info);
+        id = gs_theme_info_get_id (info);
 
-		gtk_tree_store_append (store, &iter, NULL);
-		gtk_tree_store_set (store, &iter,
-		                    NAME_COLUMN, name,
-		                    ID_COLUMN, id,
-		                    -1);
+        gtk_tree_store_append (store, &iter, NULL);
+        gtk_tree_store_set (store, &iter,
+                            NAME_COLUMN, name,
+                            ID_COLUMN, id,
+                            -1);
 
-		gs_theme_info_unref (info);
-	}
+        gs_theme_info_unref (info);
+    }
 
-	g_slist_free (themes);
+    g_slist_free (themes);
 }
 
 static void
 tree_selection_previous (GtkTreeSelection *selection)
 {
-	GtkTreeIter   iter;
-	GtkTreeModel *model;
-	GtkTreePath  *path;
+    GtkTreeIter   iter;
+    GtkTreeModel *model;
+    GtkTreePath  *path;
 
-	if (! gtk_tree_selection_get_selected (selection, &model, &iter))
-	{
-		return;
-	}
+    if (! gtk_tree_selection_get_selected (selection, &model, &iter))
+    {
+        return;
+    }
 
-	path = gtk_tree_model_get_path (model, &iter);
-	if (gtk_tree_path_prev (path))
-	{
-		gtk_tree_selection_select_path (selection, path);
-	}
+    path = gtk_tree_model_get_path (model, &iter);
+    if (gtk_tree_path_prev (path))
+    {
+        gtk_tree_selection_select_path (selection, path);
+    }
 }
 
 static void
 tree_selection_next (GtkTreeSelection *selection)
 {
-	GtkTreeIter   iter;
-	GtkTreeModel *model;
-	GtkTreePath  *path;
+    GtkTreeIter   iter;
+    GtkTreeModel *model;
+    GtkTreePath  *path;
 
-	if (! gtk_tree_selection_get_selected (selection, &model, &iter))
-	{
-		return;
-	}
+    if (! gtk_tree_selection_get_selected (selection, &model, &iter))
+    {
+        return;
+    }
 
-	path = gtk_tree_model_get_path (model, &iter);
-	gtk_tree_path_next (path);
-	gtk_tree_selection_select_path (selection, path);
+    path = gtk_tree_model_get_path (model, &iter);
+    gtk_tree_path_next (path);
+    gtk_tree_selection_select_path (selection, path);
 }
 
 static void
 tree_selection_changed_cb (GtkTreeSelection *selection,
                            GtkWidget        *preview)
 {
-	GtkTreeIter   iter;
-	GtkTreeModel *model;
-	char         *theme;
-	char         *name;
+    GtkTreeIter   iter;
+    GtkTreeModel *model;
+    char         *theme;
+    char         *name;
 
-	if (! gtk_tree_selection_get_selected (selection, &model, &iter))
-	{
-		return;
-	}
+    if (! gtk_tree_selection_get_selected (selection, &model, &iter))
+    {
+        return;
+    }
 
-	gtk_tree_model_get (model, &iter, ID_COLUMN, &theme, NAME_COLUMN, &name, -1);
+    gtk_tree_model_get (model, &iter, ID_COLUMN, &theme, NAME_COLUMN, &name, -1);
 
-	if (theme == NULL)
-	{
-		g_free (name);
-		return;
-	}
+    if (theme == NULL)
+    {
+        g_free (name);
+        return;
+    }
 
-	preview_set_theme (preview, theme, name);
-	config_set_theme (theme);
+    preview_set_theme (preview, theme, name);
+    config_set_theme (theme);
 
-	g_free (theme);
-	g_free (name);
+    g_free (theme);
+    g_free (name);
 }
 
 static void
 activate_delay_value_changed_cb (GtkRange *range,
                                  gpointer  user_data)
 {
-	gdouble value;
+    gdouble value;
 
-	value = gtk_range_get_value (range);
-	config_set_activate_delay ((gint32)value);
+    value = gtk_range_get_value (range);
+    config_set_activate_delay ((gint32)value);
 }
 
 static int
@@ -564,51 +569,50 @@ compare_theme_names (char *name_a,
                      char *id_a,
                      char *id_b)
 {
+    if (id_a == NULL)
+    {
+        return 1;
+    }
+    else if (id_b == NULL)
+    {
+        return -1;
+    }
 
-	if (id_a == NULL)
-	{
-		return 1;
-	}
-	else if (id_b == NULL)
-	{
-		return -1;
-	}
+    if (strcmp (id_a, "__blank-only") == 0)
+    {
+        return -1;
+    }
+    else if (strcmp (id_b, "__blank-only") == 0)
+    {
+        return 1;
+    }
+    else if (strcmp (id_a, "__random") == 0)
+    {
+        return -1;
+    }
+    else if (strcmp (id_b, "__random") == 0)
+    {
+        return 1;
+    }
+    else if (strcmp (id_a, "__separator") == 0)
+    {
+        return -1;
+    }
+    else if (strcmp (id_b, "__separator") == 0)
+    {
+        return 1;
+    }
 
-	if (strcmp (id_a, "__blank-only") == 0)
-	{
-		return -1;
-	}
-	else if (strcmp (id_b, "__blank-only") == 0)
-	{
-		return 1;
-	}
-	else if (strcmp (id_a, "__random") == 0)
-	{
-		return -1;
-	}
-	else if (strcmp (id_b, "__random") == 0)
-	{
-		return 1;
-	}
-	else if (strcmp (id_a, "__separator") == 0)
-	{
-		return -1;
-	}
-	else if (strcmp (id_b, "__separator") == 0)
-	{
-		return 1;
-	}
+    if (name_a == NULL)
+    {
+        return 1;
+    }
+    else if (name_b == NULL)
+    {
+        return -1;
+    }
 
-	if (name_a == NULL)
-	{
-		return 1;
-	}
-	else if (name_b == NULL)
-	{
-		return -1;
-	}
-
-	return g_utf8_collate (name_a, name_b);
+    return g_utf8_collate (name_a, name_b);
 }
 
 static int
@@ -617,25 +621,25 @@ compare_theme  (GtkTreeModel *model,
                 GtkTreeIter  *b,
                 gpointer      user_data)
 {
-	char *name_a;
-	char *name_b;
-	char *id_a;
-	char *id_b;
-	int   result;
+    char *name_a;
+    char *name_b;
+    char *id_a;
+    char *id_b;
+    int   result;
 
-	gtk_tree_model_get (model, a, NAME_COLUMN, &name_a, -1);
-	gtk_tree_model_get (model, b, NAME_COLUMN, &name_b, -1);
-	gtk_tree_model_get (model, a, ID_COLUMN, &id_a, -1);
-	gtk_tree_model_get (model, b, ID_COLUMN, &id_b, -1);
+    gtk_tree_model_get (model, a, NAME_COLUMN, &name_a, -1);
+    gtk_tree_model_get (model, b, NAME_COLUMN, &name_b, -1);
+    gtk_tree_model_get (model, a, ID_COLUMN, &id_a, -1);
+    gtk_tree_model_get (model, b, ID_COLUMN, &id_b, -1);
 
-	result = compare_theme_names (name_a, name_b, id_a, id_b);
+    result = compare_theme_names (name_a, name_b, id_a, id_b);
 
-	g_free (name_a);
-	g_free (name_b);
-	g_free (id_a);
-	g_free (id_b);
+    g_free (name_a);
+    g_free (name_b);
+    g_free (id_a);
+    g_free (id_b);
 
-	return result;
+    return result;
 }
 
 static gboolean
@@ -643,164 +647,166 @@ separator_func (GtkTreeModel *model,
                 GtkTreeIter  *iter,
                 gpointer      data)
 {
-	int   column = GPOINTER_TO_INT (data);
-	char *text;
+    int   column = GPOINTER_TO_INT (data);
+    char *text;
 
-	gtk_tree_model_get (model, iter, column, &text, -1);
+    gtk_tree_model_get (model, iter, column, &text, -1);
 
-	if (text != NULL && strcmp (text, "__separator") == 0)
-	{
-		return TRUE;
-	}
+    if (text != NULL && strcmp (text, "__separator") == 0)
+    {
+        return TRUE;
+    }
 
-	g_free (text);
+    g_free (text);
 
-	return FALSE;
+    return FALSE;
 }
 
 static void
 setup_treeview (GtkWidget *tree,
                 GtkWidget *preview)
 {
-	GtkTreeStore      *store;
-	GtkTreeViewColumn *column;
-	GtkCellRenderer   *renderer;
-	GtkTreeSelection  *select;
+    GtkTreeStore      *store;
+    GtkTreeViewColumn *column;
+    GtkCellRenderer   *renderer;
+    GtkTreeSelection  *select;
 
-	store = gtk_tree_store_new (N_COLUMNS,
-	                            G_TYPE_STRING,
-	                            G_TYPE_STRING);
-	populate_model (store);
+    store = gtk_tree_store_new (N_COLUMNS,
+                                G_TYPE_STRING,
+                                G_TYPE_STRING);
+    populate_model (store);
 
-	gtk_tree_view_set_model (GTK_TREE_VIEW (tree),
-	                         GTK_TREE_MODEL (store));
+    gtk_tree_view_set_model (GTK_TREE_VIEW (tree),
+                             GTK_TREE_MODEL (store));
 
-	g_object_unref (store);
+    g_object_unref (store);
 
-	g_object_set (tree, "show-expanders", FALSE, NULL);
+    g_object_set (tree, "show-expanders", FALSE, NULL);
 
-	renderer = gtk_cell_renderer_text_new ();
-	column = gtk_tree_view_column_new_with_attributes ("Name", renderer,
-	         "text", NAME_COLUMN,
-	         NULL);
-	gtk_tree_view_append_column (GTK_TREE_VIEW (tree), column);
+    renderer = gtk_cell_renderer_text_new ();
+    column = gtk_tree_view_column_new_with_attributes ("Name", renderer,
+             "text", NAME_COLUMN,
+             NULL);
+    gtk_tree_view_append_column (GTK_TREE_VIEW (tree), column);
 
-	gtk_tree_view_column_set_sort_column_id (column, NAME_COLUMN);
-	gtk_tree_sortable_set_sort_func (GTK_TREE_SORTABLE (store),
-	                                 NAME_COLUMN,
-	                                 compare_theme,
-	                                 NULL, NULL);
-	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (store),
-	                                      NAME_COLUMN,
-	                                      GTK_SORT_ASCENDING);
+    gtk_tree_view_column_set_sort_column_id (column, NAME_COLUMN);
+    gtk_tree_sortable_set_sort_func (GTK_TREE_SORTABLE (store),
+                                     NAME_COLUMN,
+                                     compare_theme,
+                                     NULL, NULL);
+    gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (store),
+                                          NAME_COLUMN,
+                                          GTK_SORT_ASCENDING);
 
-	gtk_tree_view_set_row_separator_func (GTK_TREE_VIEW (tree),
-	                                      separator_func,
-	                                      GINT_TO_POINTER (ID_COLUMN),
-	                                      NULL);
+    gtk_tree_view_set_row_separator_func (GTK_TREE_VIEW (tree),
+                                          separator_func,
+                                          GINT_TO_POINTER (ID_COLUMN),
+                                          NULL);
 
-	select = gtk_tree_view_get_selection (GTK_TREE_VIEW (tree));
-	gtk_tree_selection_set_mode (select, GTK_SELECTION_SINGLE);
-	g_signal_connect (G_OBJECT (select), "changed",
-	                  G_CALLBACK (tree_selection_changed_cb),
-	                  preview);
+    select = gtk_tree_view_get_selection (GTK_TREE_VIEW (tree));
+    gtk_tree_selection_set_mode (select, GTK_SELECTION_SINGLE);
+    g_signal_connect (G_OBJECT (select), "changed",
+                      G_CALLBACK (tree_selection_changed_cb),
+                      preview);
 
 }
 
 static void
 setup_treeview_selection (GtkWidget *tree)
 {
-	char         *theme;
-	GtkTreeModel *model;
-	GtkTreeIter   iter;
-	GtkTreePath  *path = NULL;
-	gboolean      is_writable;
+    char         *theme;
+    GtkTreeModel *model;
+    GtkTreeIter   iter;
+    GtkTreePath  *path = NULL;
+    gboolean      is_writable;
 
-	theme = config_get_theme (&is_writable);
+    theme = config_get_theme (&is_writable);
 
-	if (! is_writable)
-	{
-		gtk_widget_set_sensitive (tree, FALSE);
-	}
+    if (! is_writable)
+    {
+        gtk_widget_set_sensitive (tree, FALSE);
+    }
 
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW (tree));
+    model = gtk_tree_view_get_model (GTK_TREE_VIEW (tree));
 
-	if (theme && gtk_tree_model_get_iter_first (model, &iter))
-	{
+    if (theme && gtk_tree_model_get_iter_first (model, &iter))
+    {
 
-		do
-		{
-			char *id;
-			gboolean found;
+        do
+        {
+            char *id;
+            gboolean found;
 
-			gtk_tree_model_get (model, &iter,
-			                    ID_COLUMN, &id, -1);
-			found = (id && strcmp (id, theme) == 0);
-			g_free (id);
+            gtk_tree_model_get (model, &iter,
+                                ID_COLUMN, &id, -1);
+            found = (id && strcmp (id, theme) == 0);
+            g_free (id);
 
-			if (found)
-			{
-				path = gtk_tree_model_get_path (model, &iter);
-				break;
-			}
+            if (found)
+            {
+                path = gtk_tree_model_get_path (model, &iter);
+                break;
+            }
 
-		}
-		while (gtk_tree_model_iter_next (model, &iter));
-	}
+        }
+        while (gtk_tree_model_iter_next (model, &iter));
+    }
 
-	if (path)
-	{
-		gtk_tree_view_set_cursor (GTK_TREE_VIEW (tree),
-		                          path,
-		                          NULL,
-		                          FALSE);
+    if (path)
+    {
+        gtk_tree_view_set_cursor (GTK_TREE_VIEW (tree),
+                                  path,
+                                  NULL,
+                                  FALSE);
 
-		gtk_tree_path_free (path);
-	}
+        gtk_tree_path_free (path);
+    }
 
-	g_free (theme);
+    g_free (theme);
 }
 
 static void
 reload_themes (void)
 {
-	GtkWidget    *treeview;
-	GtkTreeModel *model;
+    GtkWidget    *treeview;
+    GtkTreeModel *model;
 
-	treeview = GTK_WIDGET (gtk_builder_get_object (builder, "savers_treeview"));
-	model = gtk_tree_view_get_model (GTK_TREE_VIEW (treeview));
-	gtk_tree_store_clear (GTK_TREE_STORE (model));
-	populate_model (GTK_TREE_STORE (model));
+    treeview = GTK_WIDGET (gtk_builder_get_object (builder, "savers_treeview"));
+    model = gtk_tree_view_get_model (GTK_TREE_VIEW (treeview));
+    gtk_tree_store_clear (GTK_TREE_STORE (model));
+    populate_model (GTK_TREE_STORE (model));
 
-	gtk_tree_view_set_model (GTK_TREE_VIEW (treeview),
-	                         GTK_TREE_MODEL (model));
+    gtk_tree_view_set_model (GTK_TREE_VIEW (treeview),
+                             GTK_TREE_MODEL (model));
 }
 
 static void
-theme_copy_complete_cb (GtkWidget *dialog, gpointer user_data)
+theme_copy_complete_cb (GtkWidget *dialog,
+                        gpointer   user_data)
 {
-	reload_themes ();
-	gtk_widget_destroy (dialog);
+    reload_themes ();
+    gtk_widget_destroy (dialog);
 }
 
 static void
-theme_installer_run (GtkWidget *prefs_dialog, GList *files)
+theme_installer_run (GtkWidget *prefs_dialog,
+                     GList     *files)
 {
-	GtkWidget *copy_dialog;
+    GtkWidget *copy_dialog;
 
-	copy_dialog = copy_theme_dialog_new (files);
-	g_list_foreach (files, (GFunc) (g_object_unref), NULL);
-	g_list_free (files);
+    copy_dialog = copy_theme_dialog_new (files);
+    g_list_foreach (files, (GFunc) (g_object_unref), NULL);
+    g_list_free (files);
 
-	gtk_window_set_transient_for (GTK_WINDOW (copy_dialog),
-	                              GTK_WINDOW (prefs_dialog));
-	gtk_window_set_icon_name (GTK_WINDOW (copy_dialog),
-	                          "preferences-desktop-screensaver");
+    gtk_window_set_transient_for (GTK_WINDOW (copy_dialog),
+                                  GTK_WINDOW (prefs_dialog));
+    gtk_window_set_icon_name (GTK_WINDOW (copy_dialog),
+                              "preferences-desktop-screensaver");
 
-	g_signal_connect (copy_dialog, "complete",
-	                  G_CALLBACK (theme_copy_complete_cb), NULL);
+    g_signal_connect (copy_dialog, "complete",
+                      G_CALLBACK (theme_copy_complete_cb), NULL);
 
-	copy_theme_dialog_begin (COPY_THEME_DIALOG (copy_dialog));
+    copy_theme_dialog_begin (COPY_THEME_DIALOG (copy_dialog));
 }
 
 /* Callback issued during drag movements */
@@ -812,7 +818,7 @@ drag_motion_cb (GtkWidget      *widget,
                 guint           time,
                 gpointer        data)
 {
-	return FALSE;
+    return FALSE;
 }
 
 /* Callback issued during drag leaves */
@@ -822,7 +828,7 @@ drag_leave_cb (GtkWidget      *widget,
                guint           time,
                gpointer        data)
 {
-	gtk_widget_queue_draw (widget);
+    gtk_widget_queue_draw (widget);
 }
 
 /* GIO has no version of xfce_vfs_uri_list_parse(), so copy from XfceVFS
@@ -831,58 +837,58 @@ drag_leave_cb (GtkWidget      *widget,
 static GList *
 uri_list_parse (const gchar *uri_list)
 {
-	const gchar *p, *q;
-	gchar *retval;
-	GFile *file;
-	GList *result = NULL;
+    const gchar *p, *q;
+    gchar       *retval;
+    GFile       *file;
+    GList       *result = NULL;
 
-	g_return_val_if_fail (uri_list != NULL, NULL);
+    g_return_val_if_fail (uri_list != NULL, NULL);
 
-	p = uri_list;
+    p = uri_list;
 
-	/* We don't actually try to validate the URI according to RFC
-	 * 2396, or even check for allowed characters - we just ignore
-	 * comments and trim whitespace off the ends.  We also
-	 * allow LF delimination as well as the specified CRLF.
-	 */
-	while (p != NULL)
-	{
-		if (*p != '#')
-		{
-			while (g_ascii_isspace (*p))
-				p++;
+    /* We don't actually try to validate the URI according to RFC
+     * 2396, or even check for allowed characters - we just ignore
+     * comments and trim whitespace off the ends.  We also
+     * allow LF delimination as well as the specified CRLF.
+     */
+    while (p != NULL)
+    {
+        if (*p != '#')
+        {
+            while (g_ascii_isspace (*p))
+                p++;
 
-			q = p;
-			while ((*q != '\0')
-			        && (*q != '\n')
-			        && (*q != '\r'))
-				q++;
+            q = p;
+            while ((*q != '\0')
+                    && (*q != '\n')
+                    && (*q != '\r'))
+                q++;
 
-			if (q > p)
-			{
-				q--;
-				while (q > p
-				        && g_ascii_isspace (*q))
-					q--;
+            if (q > p)
+            {
+                q--;
+                while (q > p
+                        && g_ascii_isspace (*q))
+                    q--;
 
-				retval = g_malloc (q - p + 2);
-				strncpy (retval, p, q - p + 1);
-				retval[q - p + 1] = '\0';
+                retval = g_malloc (q - p + 2);
+                strncpy (retval, p, q - p + 1);
+                retval[q - p + 1] = '\0';
 
-				file = g_file_new_for_uri (retval);
+                file = g_file_new_for_uri (retval);
 
-				g_free (retval);
+                g_free (retval);
 
-				if (file != NULL)
-					result = g_list_prepend (result, file);
-			}
-		}
-		p = strchr (p, '\n');
-		if (p != NULL)
-			p++;
-	}
+                if (file != NULL)
+                    result = g_list_prepend (result, file);
+            }
+        }
+        p = strchr (p, '\n');
+        if (p != NULL)
+            p++;
+    }
 
-	return g_list_reverse (result);
+    return g_list_reverse (result);
 }
 
 /* Callback issued on actual drops. Attempts to load the file dropped. */
@@ -896,279 +902,278 @@ drag_data_received_cb (GtkWidget        *widget,
                        guint             time,
                        gpointer          data)
 {
-	GList     *files;
+    GList     *files;
 
-	if (!(info == TARGET_URI_LIST || info == TARGET_NS_URL))
-		return;
+    if (!(info == TARGET_URI_LIST || info == TARGET_NS_URL))
+        return;
 
-	files = uri_list_parse ((char *) gtk_selection_data_get_data (selection_data));
-	if (files != NULL)
-	{
-		GtkWidget *prefs_dialog;
+    files = uri_list_parse ((char *) gtk_selection_data_get_data (selection_data));
+    if (files != NULL)
+    {
+        GtkWidget *prefs_dialog;
 
-		prefs_dialog = GTK_WIDGET (gtk_builder_get_object (builder, "prefs_dialog"));
-		theme_installer_run (prefs_dialog, files);
-	}
+        prefs_dialog = GTK_WIDGET (gtk_builder_get_object (builder, "prefs_dialog"));
+        theme_installer_run (prefs_dialog, files);
+    }
 }
 
 /* Adapted from totem_time_to_string_text */
 static char *
 time_to_string_text (long time)
 {
-	char *secs, *mins, *hours, *string;
-	int   sec, min, hour;
+    char *secs, *mins, *hours, *string;
+    int   sec, min, hour;
+    int   n, inc_len, len_minutes;
 
-	int n, inc_len, len_minutes;
+    sec = time % 60;
+    time = time - sec;
+    min = (time % (60 * 60)) / 60;
+    time = time - (min * 60);
+    hour = time / (60 * 60);
 
-	sec = time % 60;
-	time = time - sec;
-	min = (time % (60 * 60)) / 60;
-	time = time - (min * 60);
-	hour = time / (60 * 60);
+    hours = g_strdup_printf (ngettext ("%d hour",
+                                       "%d hours", hour), hour);
 
-	hours = g_strdup_printf (ngettext ("%d hour",
-	                                   "%d hours", hour), hour);
+    mins = g_strdup_printf (ngettext ("%d minute",
+                                      "%d minutes", min), min);
 
-	mins = g_strdup_printf (ngettext ("%d minute",
-	                                  "%d minutes", min), min);
+    secs = g_strdup_printf (ngettext ("%d second",
+                                      "%d seconds", sec), sec);
 
-	secs = g_strdup_printf (ngettext ("%d second",
-	                                  "%d seconds", sec), sec);
+    inc_len = strlen (g_strdup_printf (_("%s %s"),
+                      g_strdup_printf (ngettext ("%d hour",
+                                                 "%d hours", 1), 1),
+                      g_strdup_printf (ngettext ("%d minute",
+                                                 "%d minutes", 59), 59))) - 1;
 
-	inc_len = strlen (g_strdup_printf (_("%s %s"),
-	                  g_strdup_printf (ngettext ("%d hour",
-	                                             "%d hours", 1), 1),
-	                  g_strdup_printf (ngettext ("%d minute",
-	                                             "%d minutes", 59), 59))) - 1;
+    len_minutes = 0;
 
-	len_minutes = 0;
+    for (n = 2; n < 60; n++)
+    {
+        if (n < 10)
+        {
+            if ((strlen (g_str_to_ascii (g_strdup_printf (ngettext ("%d minute",
+                                                                    "%d minutes", n), n), NULL)) - 2) > len_minutes)
 
-	for (n = 2; n < 60; n++)
-	{
-		if (n < 10)
-		{
-			if ((strlen (g_str_to_ascii (g_strdup_printf (ngettext ("%d minute",
-	                                                                        "%d minutes", n), n), NULL)) - 2) > len_minutes)
+                len_minutes = strlen (g_str_to_ascii (g_strdup_printf (ngettext ("%d minute",
+                                                                                 "%d minutes", n), n), NULL)) - 2;
+        }
+        else
+        {
+            if ((strlen (g_str_to_ascii (g_strdup_printf (ngettext ("%d minute",
+                                                                    "%d minutes", n), n), NULL)) - 3) > len_minutes)
 
-				len_minutes = strlen (g_str_to_ascii (g_strdup_printf (ngettext ("%d minute",
-	                                                                                         "%d minutes", n), n), NULL)) - 2;
-		}
-		else
-		{
-			if ((strlen (g_str_to_ascii (g_strdup_printf (ngettext ("%d minute",
-	                                                                        "%d minutes", n), n), NULL)) - 3) > len_minutes)
+                len_minutes = strlen (g_str_to_ascii (g_strdup_printf (ngettext ("%d minute",
+                                                                                 "%d minutes", n), n), NULL)) - 3;
+        }
+    }
 
-				len_minutes = strlen (g_str_to_ascii (g_strdup_printf (ngettext ("%d minute",
-	                                                                                         "%d minutes", n), n), NULL)) - 3;
-		}
-	}
+    if ((strlen (g_str_to_ascii (g_strdup_printf (ngettext ("%d minute",
+                                                            "%d minutes", 1), 1), NULL)) - 2) > len_minutes)
 
-	if ((strlen (g_str_to_ascii (g_strdup_printf (ngettext ("%d minute",
-	                                                        "%d minutes", 1), 1), NULL)) - 2) > len_minutes)
+        len_minutes = strlen (g_str_to_ascii (g_strdup_printf (ngettext ("%d minute",
+                                                                         "%d minutes", 1), 1), NULL)) - 2;
 
-		len_minutes = strlen (g_str_to_ascii (g_strdup_printf (ngettext ("%d minute",
-	                                                                         "%d minutes", 1), 1), NULL)) - 2;
+    if (len_minutes < 1)
+        len_minutes = 1;
 
-	if (len_minutes < 1)
-		len_minutes = 1;
+    if (hour > 0)
+    {
+        if (sec > 0)
+        {
+            /* hour:minutes:seconds */
+            string = g_strdup_printf (_("%s %s %s"), hours, mins, secs);
+        }
+        else if (min > 0)
+        {
+            /* hour:minutes */
+            string = g_strdup_printf (_("%s %s"), hours, mins);
+        }
+        else
+        {
+            /* hour */
+            string = g_strdup_printf (_("%s"), hours);
+        }
+    }
+    else if (min > 0)
+    {
+        if (sec > 0)
+        {
+            /* minutes:seconds */
+            string = g_strdup_printf (_("%s %s"), mins, secs);
+        }
+        else
+        {
+            /* minutes */
+            string = g_strdup_printf (_("%s"), mins);
 
-	if (hour > 0)
-	{
-		if (sec > 0)
-		{
-			/* hour:minutes:seconds */
-			string = g_strdup_printf (_("%s %s %s"), hours, mins, secs);
-		}
-		else if (min > 0)
-		{
-			/* hour:minutes */
-			string = g_strdup_printf (_("%s %s"), hours, mins);
-		}
-		else
-		{
-			/* hour */
-			string = g_strdup_printf (_("%s"), hours);
-		}
-	}
-	else if (min > 0)
-	{
-		if (sec > 0)
-		{
-			/* minutes:seconds */
-			string = g_strdup_printf (_("%s %s"), mins, secs);
-		}
-		else
-		{
-			/* minutes */
-			string = g_strdup_printf (_("%s"), mins);
+            if (min < 10)
+            {
+                if (min == 1)
+                    while (strlen (string) != (len_minutes + inc_len + 3))
+                    {
+                        if (strlen (string) % 2 == 0)
+                            string = g_strconcat (string, " ", NULL);
+                        else
+                            string = g_strconcat (" " , string, NULL);
+                    }
+                else
+                    while (strlen (string) != (len_minutes + inc_len))
+                    {
+                        if (strlen (string) % 2 == 0)
+                            string = g_strconcat (string, " ", NULL);
+                        else
+                            string = g_strconcat (" " , string, NULL);
+                    }
+            }
+            else
+            {
+                while (strlen (string) != (len_minutes + inc_len - 1))
+                {
+                    if (strlen (string) % 2 == 0)
+                        string = g_strconcat (string, " ", NULL);
+                    else
+                        string = g_strconcat (" " , string, NULL);
+                }
+            }
+        }
+    }
+    else
+    {
+        /* seconds */
+        string = g_strdup_printf (_("%s"), secs);
+    }
 
-			if (min < 10)
-			{
-				if (min == 1)
-					while (strlen (string) != (len_minutes + inc_len + 3))
-					{
-						if (strlen (string) % 2 == 0)
-							string = g_strconcat (string, " ", NULL);
-						else
-							string = g_strconcat (" " , string, NULL);
-					}
-				else
-					while (strlen (string) != (len_minutes + inc_len))
-					{
-						if (strlen (string) % 2 == 0)
-							string = g_strconcat (string, " ", NULL);
-						else
-							string = g_strconcat (" " , string, NULL);
-					}
-			}
-			else
-			{
-				while (strlen (string) != (len_minutes + inc_len - 1))
-				{
-					if (strlen (string) % 2 == 0)
-						string = g_strconcat (string, " ", NULL);
-					else
-						string = g_strconcat (" " , string, NULL);
-				}
-			}
-		}
-	}
-	else
-	{
-		/* seconds */
-		string = g_strdup_printf (_("%s"), secs);
-	}
+    g_free (hours);
+    g_free (mins);
+    g_free (secs);
 
-	g_free (hours);
-	g_free (mins);
-	g_free (secs);
-
-	return string;
+    return string;
 }
 
 static char *
 format_value_callback_time (GtkScale *scale,
                             gdouble   value)
 {
-	if (value == 0)
-		return g_strdup_printf (_("Never"));
+    if (value == 0)
+        return g_strdup_printf (_("Never"));
 
-	return time_to_string_text (value * 60.0);
+    return time_to_string_text (value * 60.0);
 }
 
 static void
 lock_checkbox_toggled (GtkToggleButton *button, gpointer user_data)
 {
-	config_set_lock (gtk_toggle_button_get_active (button));
+    config_set_lock (gtk_toggle_button_get_active (button));
 }
 
 static void
 enabled_checkbox_toggled (GtkToggleButton *button, gpointer user_data)
 {
-	config_set_enabled (gtk_toggle_button_get_active (button));
+    config_set_enabled (gtk_toggle_button_get_active (button));
 }
 
 static void
 ui_set_lock (gboolean enabled)
 {
-	GtkWidget *widget;
-	gboolean   active;
+    GtkWidget *widget;
+    gboolean   active;
 
-	widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_checkbox"));
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_checkbox"));
 
-	active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
-	if (active != enabled)
-	{
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), enabled);
-	}
+    active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
+    if (active != enabled)
+    {
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), enabled);
+    }
 }
 
 static void
 ui_set_enabled (gboolean enabled)
 {
-	GtkWidget *widget;
-	gboolean   active;
-	gboolean   is_writable;
+    GtkWidget *widget;
+    gboolean   active;
+    gboolean   is_writable;
 
-	widget = GTK_WIDGET (gtk_builder_get_object (builder, "enable_checkbox"));
-	active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
-	if (active != enabled)
-	{
-		gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), enabled);
-	}
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "enable_checkbox"));
+    active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
+    if (active != enabled)
+    {
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), enabled);
+    }
 
-	widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_checkbox"));
-	config_get_lock (&is_writable);
-	if (is_writable)
-	{
-		gtk_widget_set_sensitive (widget, enabled);
-	}
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_checkbox"));
+    config_get_lock (&is_writable);
+    if (is_writable)
+    {
+        gtk_widget_set_sensitive (widget, enabled);
+    }
 }
 
 static void
 ui_set_delay (int delay)
 {
-	GtkWidget *widget;
+    GtkWidget *widget;
 
-	widget = GTK_WIDGET (gtk_builder_get_object (builder, "activate_delay_hscale"));
-	gtk_range_set_value (GTK_RANGE (widget), delay);
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "activate_delay_hscale"));
+    gtk_range_set_value (GTK_RANGE (widget), delay);
 }
 
 static void
 key_changed_cb (XfconfChannel *channel, const gchar *key, gpointer data)
 {
-	if (strcmp (key, KEY_IDLE_ACTIVATION_ENABLED) == 0)
-	{
-		gboolean enabled;
-		enabled = xfconf_channel_get_bool (channel, key, DEFAULT_KEY_IDLE_ACTIVATION_ENABLED);
-		ui_set_enabled (enabled);
-	}
-	else if (strcmp (key, KEY_LOCK_ENABLED) == 0)
-	{
-		gboolean enabled;
-		enabled = xfconf_channel_get_bool (channel, key, DEFAULT_KEY_LOCK_ENABLED);
-		ui_set_lock (enabled);
-	}
-	else if (strcmp (key, KEY_THEMES) == 0)
-	{
-		GtkWidget *treeview;
-		treeview = GTK_WIDGET (gtk_builder_get_object (builder, "savers_treeview"));
-		setup_treeview_selection (treeview);
-	}
-	else if (strcmp (key, KEY_IDLE_DELAY) == 0)
-	{
-		int delay;
-		delay = xfconf_channel_get_int (channel, key, DEFAULT_KEY_IDLE_DELAY);
-		ui_set_delay (delay);
-	}
-	else
-	{
-		/*g_warning ("Config key not handled: %s", key);*/
-	}
+    if (strcmp (key, KEY_IDLE_ACTIVATION_ENABLED) == 0)
+    {
+        gboolean enabled;
+        enabled = xfconf_channel_get_bool (channel, key, DEFAULT_KEY_IDLE_ACTIVATION_ENABLED);
+        ui_set_enabled (enabled);
+    }
+    else if (strcmp (key, KEY_LOCK_ENABLED) == 0)
+    {
+        gboolean enabled;
+        enabled = xfconf_channel_get_bool (channel, key, DEFAULT_KEY_LOCK_ENABLED);
+        ui_set_lock (enabled);
+    }
+    else if (strcmp (key, KEY_THEMES) == 0)
+    {
+        GtkWidget *treeview;
+        treeview = GTK_WIDGET (gtk_builder_get_object (builder, "savers_treeview"));
+        setup_treeview_selection (treeview);
+    }
+    else if (strcmp (key, KEY_IDLE_DELAY) == 0)
+    {
+        int delay;
+        delay = xfconf_channel_get_int (channel, key, DEFAULT_KEY_IDLE_DELAY);
+        ui_set_delay (delay);
+    }
+    else
+    {
+        /*g_warning ("Config key not handled: %s", key);*/
+    }
 }
 
 static void
 fullscreen_preview_previous_cb (GtkWidget *fullscreen_preview_window,
                                 gpointer   user_data)
 {
-	GtkWidget        *treeview;
-	GtkTreeSelection *selection;
+    GtkWidget        *treeview;
+    GtkTreeSelection *selection;
 
-	treeview = GTK_WIDGET (gtk_builder_get_object (builder, "savers_treeview"));
-	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview));
-	tree_selection_previous (selection);
+    treeview = GTK_WIDGET (gtk_builder_get_object (builder, "savers_treeview"));
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview));
+    tree_selection_previous (selection);
 }
 
 static void
 fullscreen_preview_next_cb (GtkWidget *fullscreen_preview_window,
                             gpointer   user_data)
 {
-	GtkWidget        *treeview;
-	GtkTreeSelection *selection;
+    GtkWidget        *treeview;
+    GtkTreeSelection *selection;
 
-	treeview = GTK_WIDGET (gtk_builder_get_object (builder, "savers_treeview"));
-	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview));
-	tree_selection_next (selection);
+    treeview = GTK_WIDGET (gtk_builder_get_object (builder, "savers_treeview"));
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview));
+    tree_selection_next (selection);
 }
 
 static void
@@ -1176,47 +1181,47 @@ fullscreen_preview_cancelled_cb (GtkWidget *button,
                                  gpointer   user_data)
 {
 
-	GtkWidget *fullscreen_preview_area;
-	GtkWidget *fullscreen_preview_window;
-	GtkWidget *preview_area;
-	GtkWidget *dialog;
+    GtkWidget *fullscreen_preview_area;
+    GtkWidget *fullscreen_preview_window;
+    GtkWidget *preview_area;
+    GtkWidget *dialog;
 
-	preview_area = GTK_WIDGET (gtk_builder_get_object (builder, "preview_area"));
-	gs_job_set_widget (job, preview_area);
+    preview_area = GTK_WIDGET (gtk_builder_get_object (builder, "preview_area"));
+    gs_job_set_widget (job, preview_area);
 
-	fullscreen_preview_area = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_area"));
-	gtk_widget_queue_draw (fullscreen_preview_area);
+    fullscreen_preview_area = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_area"));
+    gtk_widget_queue_draw (fullscreen_preview_area);
 
-	fullscreen_preview_window = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_window"));
-	gtk_widget_hide (fullscreen_preview_window);
+    fullscreen_preview_window = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_window"));
+    gtk_widget_hide (fullscreen_preview_window);
 
-	dialog = GTK_WIDGET (gtk_builder_get_object (builder, "prefs_dialog"));
-	gtk_widget_show (dialog);
-	gtk_window_present (GTK_WINDOW (dialog));
+    dialog = GTK_WIDGET (gtk_builder_get_object (builder, "prefs_dialog"));
+    gtk_widget_show (dialog);
+    gtk_window_present (GTK_WINDOW (dialog));
 }
 
 static void
 fullscreen_preview_start_cb (GtkWidget *widget,
                              gpointer   user_data)
 {
-	GtkWidget *fullscreen_preview_area;
-	GtkWidget *fullscreen_preview_window;
-	GtkWidget *dialog;
+    GtkWidget *fullscreen_preview_area;
+    GtkWidget *fullscreen_preview_window;
+    GtkWidget *dialog;
 
-	dialog = GTK_WIDGET (gtk_builder_get_object (builder, "prefs_dialog"));
-	gtk_widget_hide (dialog);
+    dialog = GTK_WIDGET (gtk_builder_get_object (builder, "prefs_dialog"));
+    gtk_widget_hide (dialog);
 
-	fullscreen_preview_window = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_window"));
+    fullscreen_preview_window = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_window"));
 
-	gtk_window_fullscreen (GTK_WINDOW (fullscreen_preview_window));
-	gtk_window_set_keep_above (GTK_WINDOW (fullscreen_preview_window), TRUE);
+    gtk_window_fullscreen (GTK_WINDOW (fullscreen_preview_window));
+    gtk_window_set_keep_above (GTK_WINDOW (fullscreen_preview_window), TRUE);
 
-	gtk_widget_show (fullscreen_preview_window);
-	gtk_widget_grab_focus (fullscreen_preview_window);
+    gtk_widget_show (fullscreen_preview_window);
+    gtk_widget_grab_focus (fullscreen_preview_window);
 
-	fullscreen_preview_area = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_area"));
-	gtk_widget_queue_draw (fullscreen_preview_area);
-	gs_job_set_widget (job, fullscreen_preview_area);
+    fullscreen_preview_area = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_area"));
+    gtk_widget_queue_draw (fullscreen_preview_area);
+    gs_job_set_widget (job, fullscreen_preview_area);
 }
 
 static void
@@ -1224,101 +1229,101 @@ constrain_list_size (GtkWidget      *widget,
                      GtkAllocation  *allocation,
                      GtkWidget      *to_size)
 {
-	GtkRequisition req;
-	int            max_height;
+    GtkRequisition req;
+    int            max_height;
 
-	/* constrain height to be the tree height up to a max */
-	max_height = (HeightOfScreen (gdk_x11_screen_get_xscreen (gtk_widget_get_screen (widget)))) / 4;
+    /* constrain height to be the tree height up to a max */
+    max_height = (HeightOfScreen (gdk_x11_screen_get_xscreen (gtk_widget_get_screen (widget)))) / 4;
 
-	gtk_widget_get_preferred_size (to_size, &req, NULL);
-	allocation->height = MIN (req.height, max_height);
+    gtk_widget_get_preferred_size (to_size, &req, NULL);
+    allocation->height = MIN (req.height, max_height);
 }
 
 static void
 setup_list_size_constraint (GtkWidget *widget,
                             GtkWidget *to_size)
 {
-	g_signal_connect (widget, "size-allocate",
-	                  G_CALLBACK (constrain_list_size), to_size);
+    g_signal_connect (widget, "size-allocate",
+                      G_CALLBACK (constrain_list_size), to_size);
 }
 
 static gboolean
 check_is_root_user (void)
 {
 #ifndef G_OS_WIN32
-	uid_t ruid, euid, suid; /* Real, effective and saved user ID's */
-	gid_t rgid, egid, sgid; /* Real, effective and saved group ID's */
+    uid_t ruid, euid, suid; /* Real, effective and saved user ID's */
+    gid_t rgid, egid, sgid; /* Real, effective and saved group ID's */
 
 #ifdef HAVE_GETRESUID
-	if (getresuid (&ruid, &euid, &suid) != 0 ||
-	        getresgid (&rgid, &egid, &sgid) != 0)
+    if (getresuid (&ruid, &euid, &suid) != 0 ||
+            getresgid (&rgid, &egid, &sgid) != 0)
 #endif /* HAVE_GETRESUID */
-	{
-		suid = ruid = getuid ();
-		sgid = rgid = getgid ();
-		euid = geteuid ();
-		egid = getegid ();
-	}
+    {
+        suid = ruid = getuid ();
+        sgid = rgid = getgid ();
+        euid = geteuid ();
+        egid = getegid ();
+    }
 
-	if (ruid == 0)
-	{
-		return TRUE;
-	}
+    if (ruid == 0)
+    {
+        return TRUE;
+    }
 
 #endif
-	return FALSE;
+    return FALSE;
 }
 
 static void
 setup_for_root_user (void)
 {
-	GtkWidget *lock_checkbox;
-	GtkWidget *label;
+    GtkWidget *lock_checkbox;
+    GtkWidget *label;
 
-	lock_checkbox = GTK_WIDGET (gtk_builder_get_object (builder, "lock_checkbox"));
-	label = GTK_WIDGET (gtk_builder_get_object (builder, "root_warning_label"));
+    lock_checkbox = GTK_WIDGET (gtk_builder_get_object (builder, "lock_checkbox"));
+    label = GTK_WIDGET (gtk_builder_get_object (builder, "root_warning_label"));
 
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (lock_checkbox), FALSE);
-	gtk_widget_set_sensitive (lock_checkbox, FALSE);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (lock_checkbox), FALSE);
+    gtk_widget_set_sensitive (lock_checkbox, FALSE);
 
-	gtk_widget_show (label);
+    gtk_widget_show (label);
 }
 
 /* copied from gs-window-x11.c */
 extern char **environ;
 
 static gchar **
-spawn_make_environment_for_display (GdkDisplay *display,
-                                    gchar     **envp)
+spawn_make_environment_for_display (GdkDisplay  *display,
+                                    gchar      **envp)
 {
-	gchar **retval = NULL;
-	const gchar *display_name;
-	gint    display_index = -1;
-	gint    i, env_len;
+    gchar        **retval = NULL;
+    const gchar  *display_name;
+    gint          display_index = -1;
+    gint          i, env_len;
 
-	g_return_val_if_fail (GDK_IS_DISPLAY (display), NULL);
+    g_return_val_if_fail (GDK_IS_DISPLAY (display), NULL);
 
-	if (envp == NULL)
-		envp = environ;
+    if (envp == NULL)
+        envp = environ;
 
-	for (env_len = 0; envp[env_len]; env_len++)
-		if (strncmp (envp[env_len], "DISPLAY", strlen ("DISPLAY")) == 0)
-			display_index = env_len;
+    for (env_len = 0; envp[env_len]; env_len++)
+        if (strncmp (envp[env_len], "DISPLAY", strlen ("DISPLAY")) == 0)
+            display_index = env_len;
 
-	retval = g_new (char *, env_len + 1);
-	retval[env_len] = NULL;
+    retval = g_new (char *, env_len + 1);
+    retval[env_len] = NULL;
 
-	display_name = gdk_display_get_name (display);
+    display_name = gdk_display_get_name (display);
 
-	for (i = 0; i < env_len; i++)
-		if (i == display_index)
-			retval[i] = g_strconcat ("DISPLAY=", display_name, NULL);
-		else
-			retval[i] = g_strdup (envp[i]);
+    for (i = 0; i < env_len; i++)
+        if (i == display_index)
+            retval[i] = g_strconcat ("DISPLAY=", display_name, NULL);
+        else
+            retval[i] = g_strdup (envp[i]);
 
-	g_assert (i == env_len);
+    g_assert (i == env_len);
 
-	return retval;
+    return retval;
 }
 
 static gboolean
@@ -1329,358 +1334,358 @@ spawn_command_line_on_display_sync (GdkDisplay  *display,
                                     int          *exit_status,
                                     GError      **error)
 {
-	char     **argv = NULL;
-	char     **envp = NULL;
-	gboolean   retval;
+    char     **argv = NULL;
+    char     **envp = NULL;
+    gboolean   retval;
 
-	g_return_val_if_fail (command_line != NULL, FALSE);
+    g_return_val_if_fail (command_line != NULL, FALSE);
 
-	if (! g_shell_parse_argv (command_line, NULL, &argv, error))
-	{
-		return FALSE;
-	}
+    if (! g_shell_parse_argv (command_line, NULL, &argv, error))
+    {
+        return FALSE;
+    }
 
-	envp = spawn_make_environment_for_display (display, NULL);
+    envp = spawn_make_environment_for_display (display, NULL);
 
-	retval = g_spawn_sync (NULL,
-	                       argv,
-	                       envp,
-	                       G_SPAWN_SEARCH_PATH,
-	                       NULL,
-	                       NULL,
-	                       standard_output,
-	                       standard_error,
-	                       exit_status,
-	                       error);
+    retval = g_spawn_sync (NULL,
+                           argv,
+                           envp,
+                           G_SPAWN_SEARCH_PATH,
+                           NULL,
+                           NULL,
+                           standard_output,
+                           standard_error,
+                           exit_status,
+                           error);
 
-	g_strfreev (argv);
-	g_strfreev (envp);
+    g_strfreev (argv);
+    g_strfreev (envp);
 
-	return retval;
+    return retval;
 }
 
 
 static GdkVisual *
 get_best_visual_for_display (GdkDisplay *display)
 {
-	GdkScreen    *screen;
-	char         *command;
-	char         *std_output;
-	int           exit_status;
-	GError       *error;
-	unsigned long v;
-	char          c;
-	GdkVisual    *visual;
-	gboolean      res;
+    GdkScreen     *screen;
+    char          *command;
+    char          *std_output;
+    int            exit_status;
+    GError        *error;
+    unsigned long  v;
+    char           c;
+    GdkVisual     *visual;
+    gboolean       res;
 
-	visual = NULL;
-	screen = gdk_display_get_default_screen (display);
+    visual = NULL;
+    screen = gdk_display_get_default_screen (display);
 
-	command = g_build_filename (LIBEXECDIR, "xfce4-screensaver-gl-helper", NULL);
+    command = g_build_filename (LIBEXECDIR, "xfce4-screensaver-gl-helper", NULL);
 
-	error = NULL;
-	std_output = NULL;
-	res = spawn_command_line_on_display_sync (display,
-	        command,
-	        &std_output,
-	        NULL,
-	        &exit_status,
-	        &error);
-	if (! res)
-	{
-		gs_debug ("Could not run command '%s': %s", command, error->message);
-		g_error_free (error);
-		goto out;
-	}
+    error = NULL;
+    std_output = NULL;
+    res = spawn_command_line_on_display_sync (display,
+                                              command,
+                                              &std_output,
+                                              NULL,
+                                              &exit_status,
+                                              &error);
+    if (! res)
+    {
+        gs_debug ("Could not run command '%s': %s", command, error->message);
+        g_error_free (error);
+        goto out;
+    }
 
-	if (1 == sscanf (std_output, "0x%lx %c", &v, &c))
-	{
-		if (v != 0)
-		{
-			VisualID      visual_id;
+    if (1 == sscanf (std_output, "0x%lx %c", &v, &c))
+    {
+        if (v != 0)
+        {
+            VisualID visual_id;
 
-			visual_id = (VisualID) v;
-			visual = gdk_x11_screen_lookup_visual (screen, visual_id);
+            visual_id = (VisualID) v;
+            visual = gdk_x11_screen_lookup_visual (screen, visual_id);
 
-			gs_debug ("Found best GL visual for display %s: 0x%x",
-			          gdk_display_get_name (display),
-			          (unsigned int) visual_id);
-		}
-	}
+            gs_debug ("Found best GL visual for display %s: 0x%x",
+                      gdk_display_get_name (display),
+                      (unsigned int) visual_id);
+        }
+    }
 out:
-	g_free (std_output);
-	g_free (command);
+    g_free (std_output);
+    g_free (command);
 
-	return visual;
+    return visual;
 }
 
 
 static void
 widget_set_best_visual (GtkWidget *widget)
 {
-	GdkVisual *visual;
+    GdkVisual *visual;
 
-	g_return_if_fail (widget != NULL);
+    g_return_if_fail (widget != NULL);
 
-	visual = get_best_visual_for_display (gtk_widget_get_display (widget));
-	if (visual != NULL)
-	{
-		gtk_widget_set_visual (widget, visual);
-		g_object_unref (visual);
-	}
+    visual = get_best_visual_for_display (gtk_widget_get_display (widget));
+    if (visual != NULL)
+    {
+        gtk_widget_set_visual (widget, visual);
+        g_object_unref (visual);
+    }
 }
 
 static gboolean
 setup_treeview_idle (gpointer data)
 {
-	GtkWidget *preview;
-	GtkWidget *treeview;
+    GtkWidget *preview;
+    GtkWidget *treeview;
 
-	preview  = GTK_WIDGET (gtk_builder_get_object (builder, "preview_area"));
-	treeview = GTK_WIDGET (gtk_builder_get_object (builder, "savers_treeview"));
+    preview  = GTK_WIDGET (gtk_builder_get_object (builder, "preview_area"));
+    treeview = GTK_WIDGET (gtk_builder_get_object (builder, "savers_treeview"));
 
-	setup_treeview (treeview, preview);
-	setup_treeview_selection (treeview);
+    setup_treeview (treeview, preview);
+    setup_treeview_selection (treeview);
 
-	return FALSE;
+    return FALSE;
 }
 
 static gboolean
 is_program_in_path (const char *program)
 {
-	char *tmp = g_find_program_in_path (program);
-	if (tmp != NULL)
-	{
-		g_free (tmp);
-		return TRUE;
-	}
-	else
-	{
-		return FALSE;
-	}
+    char *tmp = g_find_program_in_path (program);
+    if (tmp != NULL)
+    {
+        g_free (tmp);
+        return TRUE;
+    }
+    else
+    {
+        return FALSE;
+    }
 }
 
 static void
 init_capplet (void)
 {
-	GtkWidget *dialog;
-	GtkWidget *preview;
-	GtkWidget *treeview;
-	GtkWidget *list_scroller;
-	GtkWidget *activate_delay_hscale;
-	GtkWidget *activate_delay_hbox;
-	GtkWidget *label;
-	GtkWidget *enabled_checkbox;
-	GtkWidget *lock_checkbox;
-	GtkWidget *root_warning_label;
-	GtkWidget *preview_button;
-	GtkWidget *gpm_button;
-	GtkWidget *fullscreen_preview_window;
-	GtkWidget *fullscreen_preview_area;
-	GtkWidget *fullscreen_preview_previous;
-	GtkWidget *fullscreen_preview_next;
-	GtkWidget *fullscreen_preview_close;
-	char      *gtk_builder_file;
-	gdouble    activate_delay;
-	gboolean   enabled;
-	gboolean   is_writable;
-	GError    *error=NULL;
-	gint       mode;
+    GtkWidget *dialog;
+    GtkWidget *preview;
+    GtkWidget *treeview;
+    GtkWidget *list_scroller;
+    GtkWidget *activate_delay_hscale;
+    GtkWidget *activate_delay_hbox;
+    GtkWidget *label;
+    GtkWidget *enabled_checkbox;
+    GtkWidget *lock_checkbox;
+    GtkWidget *root_warning_label;
+    GtkWidget *preview_button;
+    GtkWidget *gpm_button;
+    GtkWidget *fullscreen_preview_window;
+    GtkWidget *fullscreen_preview_area;
+    GtkWidget *fullscreen_preview_previous;
+    GtkWidget *fullscreen_preview_next;
+    GtkWidget *fullscreen_preview_close;
+    char      *gtk_builder_file;
+    gdouble    activate_delay;
+    gboolean   enabled;
+    gboolean   is_writable;
+    GError    *error=NULL;
+    gint       mode;
 
-	gtk_builder_file = g_build_filename (GTKBUILDERDIR, GTK_BUILDER_FILE, NULL);
-	builder = gtk_builder_new();
-	if (!gtk_builder_add_from_file(builder, gtk_builder_file, &error))
-	{
-		g_warning("Couldn't load builder file: %s", error->message);
-		g_error_free(error);
-	}
-	g_free (gtk_builder_file);
+    gtk_builder_file = g_build_filename (GTKBUILDERDIR, GTK_BUILDER_FILE, NULL);
+    builder = gtk_builder_new();
+    if (!gtk_builder_add_from_file(builder, gtk_builder_file, &error))
+    {
+        g_warning("Couldn't load builder file: %s", error->message);
+        g_error_free(error);
+    }
+    g_free (gtk_builder_file);
 
-	if (builder == NULL)
-	{
+    if (builder == NULL)
+    {
 
-		dialog = gtk_message_dialog_new (NULL,
-		                                 0, GTK_MESSAGE_ERROR,
-		                                 GTK_BUTTONS_OK,
-		                                 _("Could not load the main interface"));
-		gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
-		        _("Please make sure that the screensaver is properly installed"));
+        dialog = gtk_message_dialog_new (NULL,
+                                         0, GTK_MESSAGE_ERROR,
+                                         GTK_BUTTONS_OK,
+                                         _("Could not load the main interface"));
+        gtk_message_dialog_format_secondary_text (GTK_MESSAGE_DIALOG (dialog),
+                                                  _("Please make sure that the screensaver is properly installed"));
 
-		gtk_dialog_set_default_response (GTK_DIALOG (dialog),
-		                                 GTK_RESPONSE_OK);
-		gtk_dialog_run (GTK_DIALOG (dialog));
-		gtk_widget_destroy (dialog);
-		exit (1);
-	}
+        gtk_dialog_set_default_response (GTK_DIALOG (dialog),
+                                         GTK_RESPONSE_OK);
+        gtk_dialog_run (GTK_DIALOG (dialog));
+        gtk_widget_destroy (dialog);
+        exit (1);
+    }
 
-	preview            = GTK_WIDGET (gtk_builder_get_object (builder, "preview_area"));
-	dialog             = GTK_WIDGET (gtk_builder_get_object (builder, "prefs_dialog"));
-	treeview           = GTK_WIDGET (gtk_builder_get_object (builder, "savers_treeview"));
-	list_scroller      = GTK_WIDGET (gtk_builder_get_object (builder, "themes_scrolled_window"));
-	activate_delay_hscale = GTK_WIDGET (gtk_builder_get_object (builder, "activate_delay_hscale"));
-	activate_delay_hbox   = GTK_WIDGET (gtk_builder_get_object (builder, "activate_delay_hbox"));
-	enabled_checkbox   = GTK_WIDGET (gtk_builder_get_object (builder, "enable_checkbox"));
-	lock_checkbox      = GTK_WIDGET (gtk_builder_get_object (builder, "lock_checkbox"));
-	root_warning_label = GTK_WIDGET (gtk_builder_get_object (builder, "root_warning_label"));
-	preview_button     = GTK_WIDGET (gtk_builder_get_object (builder, "preview_button"));
-	gpm_button         = GTK_WIDGET (gtk_builder_get_object (builder, "gpm_button"));
-	fullscreen_preview_window = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_window"));
-	fullscreen_preview_area = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_area"));
-	fullscreen_preview_close = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_close"));
-	fullscreen_preview_previous = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_previous_button"));
-	fullscreen_preview_next = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_next_button"));
+    preview                     = GTK_WIDGET (gtk_builder_get_object (builder, "preview_area"));
+    dialog                      = GTK_WIDGET (gtk_builder_get_object (builder, "prefs_dialog"));
+    treeview                    = GTK_WIDGET (gtk_builder_get_object (builder, "savers_treeview"));
+    list_scroller               = GTK_WIDGET (gtk_builder_get_object (builder, "themes_scrolled_window"));
+    activate_delay_hscale       = GTK_WIDGET (gtk_builder_get_object (builder, "activate_delay_hscale"));
+    activate_delay_hbox         = GTK_WIDGET (gtk_builder_get_object (builder, "activate_delay_hbox"));
+    enabled_checkbox            = GTK_WIDGET (gtk_builder_get_object (builder, "enable_checkbox"));
+    lock_checkbox               = GTK_WIDGET (gtk_builder_get_object (builder, "lock_checkbox"));
+    root_warning_label          = GTK_WIDGET (gtk_builder_get_object (builder, "root_warning_label"));
+    preview_button              = GTK_WIDGET (gtk_builder_get_object (builder, "preview_button"));
+    gpm_button                  = GTK_WIDGET (gtk_builder_get_object (builder, "gpm_button"));
+    fullscreen_preview_window   = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_window"));
+    fullscreen_preview_area     = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_area"));
+    fullscreen_preview_close    = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_close"));
+    fullscreen_preview_previous = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_previous_button"));
+    fullscreen_preview_next     = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_next_button"));
 
-	label              = GTK_WIDGET (gtk_builder_get_object (builder, "activate_delay_label"));
-	gtk_label_set_mnemonic_widget (GTK_LABEL (label), activate_delay_hscale);
-	label              = GTK_WIDGET (gtk_builder_get_object (builder, "savers_label"));
-	gtk_label_set_mnemonic_widget (GTK_LABEL (label), treeview);
+    label = GTK_WIDGET (gtk_builder_get_object (builder, "activate_delay_label"));
+    gtk_label_set_mnemonic_widget (GTK_LABEL (label), activate_delay_hscale);
+    label = GTK_WIDGET (gtk_builder_get_object (builder, "savers_label"));
+    gtk_label_set_mnemonic_widget (GTK_LABEL (label), treeview);
 
-	gtk_widget_set_no_show_all (root_warning_label, TRUE);
-	widget_set_best_visual (preview);
+    gtk_widget_set_no_show_all (root_warning_label, TRUE);
+    widget_set_best_visual (preview);
 
-	if (! is_program_in_path (GPM_COMMAND))
-	{
-		gtk_widget_set_no_show_all (gpm_button, TRUE);
-		gtk_widget_hide (gpm_button);
-	}
+    if (! is_program_in_path (GPM_COMMAND))
+    {
+        gtk_widget_set_no_show_all (gpm_button, TRUE);
+        gtk_widget_hide (gpm_button);
+    }
 
-	screensaver_channel = xfconf_channel_get(SETTINGS_XFCONF_CHANNEL);
-	g_signal_connect (screensaver_channel,
-	                  "property-changed",
-	                  G_CALLBACK (key_changed_cb),
-	                  NULL);
+    screensaver_channel = xfconf_channel_get(SETTINGS_XFCONF_CHANNEL);
+    g_signal_connect (screensaver_channel,
+                      "property-changed",
+                      G_CALLBACK (key_changed_cb),
+                      NULL);
 
-	activate_delay = config_get_activate_delay (&is_writable);
-	ui_set_delay (activate_delay);
-	if (! is_writable)
-	{
-		gtk_widget_set_sensitive (activate_delay_hbox, FALSE);
-	}
-	g_signal_connect (activate_delay_hscale, "format-value",
-	                  G_CALLBACK (format_value_callback_time), NULL);
+    activate_delay = config_get_activate_delay (&is_writable);
+    ui_set_delay (activate_delay);
+    if (! is_writable)
+    {
+        gtk_widget_set_sensitive (activate_delay_hbox, FALSE);
+    }
+    g_signal_connect (activate_delay_hscale, "format-value",
+                      G_CALLBACK (format_value_callback_time), NULL);
 
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (lock_checkbox), config_get_lock (&is_writable));
-	if (! is_writable)
-	{
-		gtk_widget_set_sensitive (lock_checkbox, FALSE);
-	}
-	g_signal_connect (lock_checkbox, "toggled",
-	                  G_CALLBACK (lock_checkbox_toggled), NULL);
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (lock_checkbox), config_get_lock (&is_writable));
+    if (! is_writable)
+    {
+        gtk_widget_set_sensitive (lock_checkbox, FALSE);
+    }
+    g_signal_connect (lock_checkbox, "toggled",
+                      G_CALLBACK (lock_checkbox_toggled), NULL);
 
-	enabled = config_get_enabled (&is_writable);
-	ui_set_enabled (enabled);
-	if (! is_writable)
-	{
-		gtk_widget_set_sensitive (enabled_checkbox, FALSE);
-	}
-	g_signal_connect (enabled_checkbox, "toggled",
-	                  G_CALLBACK (enabled_checkbox_toggled), NULL);
+    enabled = config_get_enabled (&is_writable);
+    ui_set_enabled (enabled);
+    if (! is_writable)
+    {
+        gtk_widget_set_sensitive (enabled_checkbox, FALSE);
+    }
+    g_signal_connect (enabled_checkbox, "toggled",
+                      G_CALLBACK (enabled_checkbox_toggled), NULL);
 
-	setup_list_size_constraint (list_scroller, treeview);
-	gtk_widget_set_size_request (preview, 480, 300);
-	gtk_window_set_icon_name (GTK_WINDOW (dialog), "preferences-desktop-screensaver");
-	gtk_window_set_icon_name (GTK_WINDOW (fullscreen_preview_window), "screensaver");
+    setup_list_size_constraint (list_scroller, treeview);
+    gtk_widget_set_size_request (preview, 480, 300);
+    gtk_window_set_icon_name (GTK_WINDOW (dialog), "preferences-desktop-screensaver");
+    gtk_window_set_icon_name (GTK_WINDOW (fullscreen_preview_window), "screensaver");
 
-	g_signal_connect (fullscreen_preview_area,
-	                  "draw", G_CALLBACK (preview_on_draw),
-	                  NULL);
+    g_signal_connect (fullscreen_preview_area,
+                      "draw", G_CALLBACK (preview_on_draw),
+                      NULL);
 
-	gtk_drag_dest_set (dialog, GTK_DEST_DEFAULT_ALL,
-	                   drop_types, G_N_ELEMENTS (drop_types),
-	                   GDK_ACTION_COPY | GDK_ACTION_LINK | GDK_ACTION_MOVE);
+    gtk_drag_dest_set (dialog, GTK_DEST_DEFAULT_ALL,
+                       drop_types, G_N_ELEMENTS (drop_types),
+                       GDK_ACTION_COPY | GDK_ACTION_LINK | GDK_ACTION_MOVE);
 
-	g_signal_connect (dialog, "drag-motion",
-	                  G_CALLBACK (drag_motion_cb), NULL);
-	g_signal_connect (dialog, "drag-leave",
-	                  G_CALLBACK (drag_leave_cb), NULL);
-	g_signal_connect (dialog, "drag-data-received",
-	                  G_CALLBACK (drag_data_received_cb), NULL);
+    g_signal_connect (dialog, "drag-motion",
+                      G_CALLBACK (drag_motion_cb), NULL);
+    g_signal_connect (dialog, "drag-leave",
+                      G_CALLBACK (drag_leave_cb), NULL);
+    g_signal_connect (dialog, "drag-data-received",
+                      G_CALLBACK (drag_data_received_cb), NULL);
 
-	gtk_widget_show_all (dialog);
+    gtk_widget_show_all (dialog);
 
-	/* Update list of themes if using random screensaver */
-	mode = xfconf_channel_get_int (screensaver_channel, KEY_MODE, DEFAULT_KEY_MODE);
-	if (mode == GS_MODE_RANDOM) {
-		gchar **list;
-		list = get_all_theme_ids (theme_manager);
-		g_warning("instance b");
-		xfconf_channel_set_string_list (screensaver_channel, KEY_THEMES, (const gchar * const*) list);
-		g_strfreev (list);
-	}
+    /* Update list of themes if using random screensaver */
+    mode = xfconf_channel_get_int (screensaver_channel, KEY_MODE, DEFAULT_KEY_MODE);
+    if (mode == GS_MODE_RANDOM) {
+        gchar **list;
+        list = get_all_theme_ids (theme_manager);
+        g_warning("instance b");
+        xfconf_channel_set_string_list (screensaver_channel, KEY_THEMES, (const gchar * const*) list);
+        g_strfreev (list);
+    }
 
-	g_signal_connect (preview, "draw", G_CALLBACK (preview_on_draw), NULL);
-	gs_job_set_widget (job, preview);
+    g_signal_connect (preview, "draw", G_CALLBACK (preview_on_draw), NULL);
+    gs_job_set_widget (job, preview);
 
-	if (check_is_root_user ())
-	{
-		setup_for_root_user ();
-	}
+    if (check_is_root_user ())
+    {
+        setup_for_root_user ();
+    }
 
-	g_signal_connect (activate_delay_hscale, "value-changed",
-	                  G_CALLBACK (activate_delay_value_changed_cb), NULL);
+    g_signal_connect (activate_delay_hscale, "value-changed",
+                      G_CALLBACK (activate_delay_value_changed_cb), NULL);
 
-	g_signal_connect (dialog, "response",
-	                  G_CALLBACK (response_cb), NULL);
+    g_signal_connect (dialog, "response",
+                      G_CALLBACK (response_cb), NULL);
 
-	g_signal_connect (preview_button, "clicked",
-	                  G_CALLBACK (fullscreen_preview_start_cb),
-	                  treeview);
+    g_signal_connect (preview_button, "clicked",
+                      G_CALLBACK (fullscreen_preview_start_cb),
+                      treeview);
 
-	g_signal_connect (fullscreen_preview_close, "clicked",
-	                  G_CALLBACK (fullscreen_preview_cancelled_cb), NULL);
-	g_signal_connect (fullscreen_preview_previous, "clicked",
-	                  G_CALLBACK (fullscreen_preview_previous_cb), NULL);
-	g_signal_connect (fullscreen_preview_next, "clicked",
-	                  G_CALLBACK (fullscreen_preview_next_cb), NULL);
+    g_signal_connect (fullscreen_preview_close, "clicked",
+                      G_CALLBACK (fullscreen_preview_cancelled_cb), NULL);
+    g_signal_connect (fullscreen_preview_previous, "clicked",
+                      G_CALLBACK (fullscreen_preview_previous_cb), NULL);
+    g_signal_connect (fullscreen_preview_next, "clicked",
+                      G_CALLBACK (fullscreen_preview_next_cb), NULL);
 
-	g_idle_add ((GSourceFunc)setup_treeview_idle, NULL);
+    g_idle_add ((GSourceFunc)setup_treeview_idle, NULL);
 }
 
 static void
 finalize_capplet (void)
 {
-	g_object_unref (screensaver_channel);
+    g_object_unref (screensaver_channel);
 }
 
 int
 main (int    argc,
       char **argv)
 {
-	GError *error = NULL;
+    GError *error = NULL;
 
 #ifdef ENABLE_NLS
-	bindtextdomain (GETTEXT_PACKAGE, XFCELOCALEDIR);
+    bindtextdomain (GETTEXT_PACKAGE, XFCELOCALEDIR);
 # ifdef HAVE_BIND_TEXTDOMAIN_CODESET
-	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+    bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 # endif
-	textdomain (GETTEXT_PACKAGE);
+    textdomain (GETTEXT_PACKAGE);
 #endif
 
-	gtk_init (&argc, &argv);
+    gtk_init (&argc, &argv);
 
-	/* hook to make sure the libxfce4ui library is linked */
-	if (xfce_titled_dialog_get_type() == 0)
-		exit(1);
+    /* hook to make sure the libxfce4ui library is linked */
+    if (xfce_titled_dialog_get_type() == 0)
+        exit(1);
 
-	if (!xfconf_init(&error))
-	{
-		g_error("Failed to connect to xfconf daemon: %s.", error->message);
-		g_error_free(error);
+    if (!xfconf_init(&error))
+    {
+        g_error("Failed to connect to xfconf daemon: %s.", error->message);
+        g_error_free(error);
 
-		return EXIT_FAILURE;
-	}
+        return EXIT_FAILURE;
+    }
 
-	job = gs_job_new ();
-	theme_manager = gs_theme_manager_new ();
+    job = gs_job_new ();
+    theme_manager = gs_theme_manager_new ();
 
-	init_capplet ();
+    init_capplet ();
 
-	gtk_main ();
+    gtk_main ();
 
-	finalize_capplet ();
+    finalize_capplet ();
 
-	g_object_unref (theme_manager);
-	g_object_unref (job);
+    g_object_unref (theme_manager);
+    g_object_unref (job);
 
-	return 0;
+    return 0;
 }

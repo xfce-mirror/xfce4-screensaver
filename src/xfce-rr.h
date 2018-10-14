@@ -39,17 +39,17 @@ typedef struct {
 typedef struct {
     GObjectClass parent_class;
 
-        void (* changed) (void);
+    void (* changed) (void);
 } XfceRRScreenClass;
 
 typedef enum
 {
-    XFCE_RR_ROTATION_0 =	(1 << 0),
-    XFCE_RR_ROTATION_90 =	(1 << 1),
-    XFCE_RR_ROTATION_180 =	(1 << 2),
-    XFCE_RR_ROTATION_270 =	(1 << 3),
-    XFCE_RR_REFLECT_X =	(1 << 4),
-    XFCE_RR_REFLECT_Y =	(1 << 5)
+    XFCE_RR_ROTATION_0 =    (1 << 0),
+    XFCE_RR_ROTATION_90 =   (1 << 1),
+    XFCE_RR_ROTATION_180 =  (1 << 2),
+    XFCE_RR_ROTATION_270 =  (1 << 3),
+    XFCE_RR_REFLECT_X =     (1 << 4),
+    XFCE_RR_REFLECT_Y =     (1 << 5)
 } XfceRRRotation;
 
 /* Error codes */
@@ -59,12 +59,12 @@ typedef enum
 GQuark xfce_rr_error_quark (void);
 
 typedef enum {
-    XFCE_RR_ERROR_UNKNOWN,		/* generic "fail" */
-    XFCE_RR_ERROR_NO_RANDR_EXTENSION,	/* RANDR extension is not present */
-    XFCE_RR_ERROR_RANDR_ERROR,		/* generic/undescribed error from the underlying XRR API */
-    XFCE_RR_ERROR_BOUNDS_ERROR,	/* requested bounds of a CRTC are outside the maximum size */
-    XFCE_RR_ERROR_CRTC_ASSIGNMENT,	/* could not assign CRTCs to outputs */
-    XFCE_RR_ERROR_NO_MATCHING_CONFIG,	/* none of the saved configurations matched the current configuration */
+    XFCE_RR_ERROR_UNKNOWN,      /* generic "fail" */
+    XFCE_RR_ERROR_NO_RANDR_EXTENSION,   /* RANDR extension is not present */
+    XFCE_RR_ERROR_RANDR_ERROR,      /* generic/undescribed error from the underlying XRR API */
+    XFCE_RR_ERROR_BOUNDS_ERROR, /* requested bounds of a CRTC are outside the maximum size */
+    XFCE_RR_ERROR_CRTC_ASSIGNMENT,  /* could not assign CRTCs to outputs */
+    XFCE_RR_ERROR_NO_MATCHING_CONFIG,   /* none of the saved configurations matched the current configuration */
 } XfceRRError;
 
 #define XFCE_RR_CONNECTOR_TYPE_PANEL "Panel"  /* This is a laptop's built-in LCD */
@@ -86,23 +86,23 @@ GType xfce_rr_crtc_get_type (void);
 GType xfce_rr_mode_get_type (void);
 
 /* XfceRRScreen */
-XfceRRScreen * xfce_rr_screen_new                (GdkScreen             *screen,
-						    GError               **error);
-XfceRRCrtc **  xfce_rr_screen_list_crtcs         (XfceRRScreen         *screen);
-gboolean        xfce_rr_screen_refresh            (XfceRRScreen         *screen,
-						    GError               **error);
+XfceRRScreen *  xfce_rr_screen_new              (GdkScreen       *screen,
+                                                 GError         **error);
+XfceRRCrtc  **  xfce_rr_screen_list_crtcs       (XfceRRScreen    *screen);
+gboolean        xfce_rr_screen_refresh          (XfceRRScreen    *screen,
+                                                 GError         **error);
 
 /* XfceRRCrtc */
-XfceRRMode *   xfce_rr_crtc_get_current_mode     (XfceRRCrtc           *crtc);
+XfceRRMode   *  xfce_rr_crtc_get_current_mode   (XfceRRCrtc      *crtc);
 
-gboolean        xfce_rr_crtc_get_gamma            (XfceRRCrtc           *crtc,
-						    int                   *size,
-						    unsigned short       **red,
-						    unsigned short       **green,
-						    unsigned short       **blue);
-void            xfce_rr_crtc_set_gamma            (XfceRRCrtc           *crtc,
-						    int                    size,
-						    unsigned short        *red,
-						    unsigned short        *green,
-						    unsigned short        *blue);
+gboolean        xfce_rr_crtc_get_gamma          (XfceRRCrtc      *crtc,
+                                                 int             *size,
+                                                 unsigned short **red,
+                                                 unsigned short **green,
+                                                 unsigned short **blue);
+void            xfce_rr_crtc_set_gamma          (XfceRRCrtc      *crtc,
+                                                 int              size,
+                                                 unsigned short  *red,
+                                                 unsigned short  *green,
+                                                 unsigned short  *blue);
 #endif /* XFCE_RR_H */

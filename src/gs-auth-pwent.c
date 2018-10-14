@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
  *
  * Copyright (c) 1993-1998 Jamie Zawinski <jwz@jwz.org>
  * Copyright (C) 2006 William Jon McCann <mccann@jhu.edu>
@@ -47,7 +47,7 @@
 #include <glib.h>
 #include <libxfce4util/libxfce4util.h>
 
-#if defined(HAVE_SHADOW_PASSWD)	      /* passwds live in /etc/shadow */
+#if defined(HAVE_SHADOW_PASSWD)       /* passwds live in /etc/shadow */
 
 #   include <shadow.h>
 #   define PWTYPE   struct spwd *
@@ -95,96 +95,96 @@ static char *encrypted_user_passwd = NULL;
 GQuark
 gs_auth_error_quark (void)
 {
-	static GQuark quark = 0;
-	if (! quark)
-	{
-		quark = g_quark_from_static_string ("gs_auth_error");
-	}
+    static GQuark quark = 0;
+    if (! quark)
+    {
+        quark = g_quark_from_static_string ("gs_auth_error");
+    }
 
-	return quark;
+    return quark;
 }
 
 void
 gs_auth_set_verbose (gboolean enabled)
 {
-	verbose_enabled = enabled;
+    verbose_enabled = enabled;
 }
 
 gboolean
 gs_auth_get_verbose (void)
 {
-	return verbose_enabled;
+    return verbose_enabled;
 }
 
 static gboolean
 passwd_known (const char *pw)
 {
-	return (pw &&
-	        pw[0] != '*' &&	/* This would be sensible...         */
-	        strlen (pw) > 4);	/* ...but this is what Solaris does. */
+    return (pw &&
+            pw[0] != '*' && /* This would be sensible...         */
+            strlen (pw) > 4);   /* ...but this is what Solaris does. */
 }
 
 static char *
 get_encrypted_passwd (const char *user)
 {
-	char *result = NULL;
+    char *result = NULL;
 
 #ifdef PWTYPE
-	if (user && *user && !result)
-	{
-		/* First check the shadow passwords. */
-		PWTYPE p = GETPW ((char *) user);
-		if (p && passwd_known (p->PWPSLOT))
-		{
-			result = g_strdup (p->PWPSLOT);
-		}
-	}
+    if (user && *user && !result)
+    {
+        /* First check the shadow passwords. */
+        PWTYPE p = GETPW ((char *) user);
+        if (p && passwd_known (p->PWPSLOT))
+        {
+            result = g_strdup (p->PWPSLOT);
+        }
+    }
 #endif /* PWTYPE */
 
-	if (user && *user && !result)
-	{
-		/* Check non-shadow passwords too. */
-		struct passwd *p = getpwnam (user);
-		if (p && passwd_known (p->pw_passwd))
-		{
-			result = g_strdup (p->pw_passwd);
-		}
-	}
+    if (user && *user && !result)
+    {
+        /* Check non-shadow passwords too. */
+        struct passwd *p = getpwnam (user);
+        if (p && passwd_known (p->pw_passwd))
+        {
+            result = g_strdup (p->pw_passwd);
+        }
+    }
 
-	/* The manual for passwd(4) on HPUX 10.10 says:
+    /* The manual for passwd(4) on HPUX 10.10 says:
 
-	Password aging is put in effect for a particular user if his
-	encrypted password in the password file is followed by a comma and
-	a nonnull string of characters from the above alphabet.  This
-	string defines the "age" needed to implement password aging.
+    Password aging is put in effect for a particular user if his
+    encrypted password in the password file is followed by a comma and
+    a nonnull string of characters from the above alphabet.  This
+    string defines the "age" needed to implement password aging.
 
-	So this means that passwd->pw_passwd isn't simply a string of cyphertext,
-	it might have trailing junk.  So, if there is a comma in the string, and
-	that comma is beyond position 13, terminate the string before the comma.
-	*/
-	if (result && strlen (result) > 13)
-	{
-		char *s = strchr (result + 13, ',');
-		if (s)
-		{
-			*s = 0;
-		}
-	}
+    So this means that passwd->pw_passwd isn't simply a string of cyphertext,
+    it might have trailing junk.  So, if there is a comma in the string, and
+    that comma is beyond position 13, terminate the string before the comma.
+    */
+    if (result && strlen (result) > 13)
+    {
+        char *s = strchr (result + 13, ',');
+        if (s)
+        {
+            *s = 0;
+        }
+    }
 
 #if !defined(HAVE_PAM) && !defined(HAVE_BSDAUTH)
-	/* We only issue this warning if not compiled with support for PAM,
-	   or bsd_auth(3). If we're using PAM, it's not unheard of that
-	   normal pwent passwords would be unavailable. */
+    /* We only issue this warning if not compiled with support for PAM,
+       or bsd_auth(3). If we're using PAM, it's not unheard of that
+       normal pwent passwords would be unavailable. */
 
-	if (!result)
-	{
-		g_warning ("Couldn't get password of \"%s\"",
-		           (user ? user : "(null)"));
-	}
+    if (!result)
+    {
+        g_warning ("Couldn't get password of \"%s\"",
+                   (user ? user : "(null)"));
+    }
 
 #endif /* !HAVE_PAM */
 
-	return result;
+    return result;
 }
 
 /* This has to be called before we've changed our effective user ID,
@@ -196,96 +196,96 @@ get_encrypted_passwd (const char *user)
 gboolean
 gs_auth_priv_init (void)
 {
-	const char *u;
+    const char *u;
 
-	u = g_get_user_name ();
+    u = g_get_user_name ();
 
-	encrypted_user_passwd = get_encrypted_passwd (u);
+    encrypted_user_passwd = get_encrypted_passwd (u);
 
-	if (encrypted_user_passwd != NULL)
-	{
-		return TRUE;
-	}
-	else
-	{
-		return FALSE;
-	}
+    if (encrypted_user_passwd != NULL)
+    {
+        return TRUE;
+    }
+    else
+    {
+        return FALSE;
+    }
 }
 
 
 gboolean
 gs_auth_init (void)
 {
-	if (encrypted_user_passwd != NULL)
-	{
-		return TRUE;
-	}
-	else
-	{
-		return FALSE;
-	}
+    if (encrypted_user_passwd != NULL)
+    {
+        return TRUE;
+    }
+    else
+    {
+        return FALSE;
+    }
 }
 
 static gboolean
 passwds_match (const char *cleartext,
                const char *ciphertext)
 {
-	char *s = NULL;  /* note that on some systems, crypt() may return null */
+    char *s = NULL;  /* note that on some systems, crypt() may return null */
 
-	s = (char *) crypt (cleartext, ciphertext);
-	if (s && !strcmp (s, ciphertext))
-	{
-		return TRUE;
-	}
+    s = (char *) crypt (cleartext, ciphertext);
+    if (s && !strcmp (s, ciphertext))
+    {
+        return TRUE;
+    }
 
 #ifdef HAVE_BIGCRYPT
-	/* There seems to be no way to tell at runtime if an HP machine is in
-	   "trusted" mode, and thereby, which of crypt() or bigcrypt() we should
-	   be calling to compare passwords.  So call them both, and see which
-	   one works. */
+    /* There seems to be no way to tell at runtime if an HP machine is in
+       "trusted" mode, and thereby, which of crypt() or bigcrypt() we should
+       be calling to compare passwords.  So call them both, and see which
+       one works. */
 
-	s = (char *) bigcrypt (cleartext, ciphertext);
-	if (s && !strcmp (s, ciphertext))
-	{
-		return TRUE;
-	}
+    s = (char *) bigcrypt (cleartext, ciphertext);
+    if (s && !strcmp (s, ciphertext))
+    {
+        return TRUE;
+    }
 
 #endif /* HAVE_BIGCRYPT */
 
-	return FALSE;
+    return FALSE;
 }
 
 gboolean
-gs_auth_verify_user (const char       *username,
-                     const char       *display,
-                     GSAuthMessageFunc func,
-                     gpointer          data,
-                     GError          **error)
+gs_auth_verify_user (const char         *username,
+                     const char         *display,
+                     GSAuthMessageFunc   func,
+                     gpointer            data,
+                     GError            **error)
 {
-	char *password;
+    char *password;
 
-	password = NULL;
+    password = NULL;
 
-	/* ask for the password for user */
-	if (func != NULL)
-	{
-		func (GS_AUTH_MESSAGE_PROMPT_ECHO_OFF,
-		      "Password: ",
-		      &password,
-		      data);
-	}
+    /* ask for the password for user */
+    if (func != NULL)
+    {
+        func (GS_AUTH_MESSAGE_PROMPT_ECHO_OFF,
+              "Password: ",
+              &password,
+              data);
+    }
 
-	if (password == NULL)
-	{
-		return FALSE;
-	}
+    if (password == NULL)
+    {
+        return FALSE;
+    }
 
-	if (encrypted_user_passwd && passwds_match (password, encrypted_user_passwd))
-	{
-		return TRUE;
-	}
-	else
-	{
-		return FALSE;
-	}
+    if (encrypted_user_passwd && passwds_match (password, encrypted_user_passwd))
+    {
+        return TRUE;
+    }
+    else
+    {
+        return FALSE;
+    }
 }

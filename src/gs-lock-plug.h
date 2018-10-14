@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
  *
  * Copyright (C) 2004-2005 William Jon McCann <mccann@jhu.edu>
  *
@@ -45,39 +45,39 @@ typedef struct GSLockPlugPrivate GSLockPlugPrivate;
 
 typedef struct
 {
-	GtkPlug            parent;
+    GtkPlug            parent;
 
-	GSLockPlugPrivate *priv;
+    GSLockPlugPrivate *priv;
 } GSLockPlug;
 
 typedef struct
 {
-	GtkPlugClass         parent_class;
+    GtkPlugClass         parent_class;
 
-	void (* response) (GSLockPlug *plug, gint response_id);
+    void (* response) (GSLockPlug *plug, gint response_id);
 
-	/* Keybinding signals */
-	void (* close)    (GSLockPlug *plug);
+    /* Keybinding signals */
+    void (* close)    (GSLockPlug *plug);
 
 } GSLockPlugClass;
 
 GType       gs_lock_plug_get_type       (void);
 GtkWidget * gs_lock_plug_new            (void);
 
-int         gs_lock_plug_run            (GSLockPlug *plug);
-void        gs_lock_plug_set_sensitive  (GSLockPlug *plug,
-        gboolean    sensitive);
-void        gs_lock_plug_enable_prompt  (GSLockPlug *plug,
-        const char *message,
-        gboolean    visible);
-void        gs_lock_plug_disable_prompt (GSLockPlug *plug);
-void        gs_lock_plug_set_busy       (GSLockPlug *plug);
-void        gs_lock_plug_set_ready      (GSLockPlug *plug);
+int         gs_lock_plug_run            (GSLockPlug  *plug);
+void        gs_lock_plug_set_sensitive  (GSLockPlug  *plug,
+                                         gboolean     sensitive);
+void        gs_lock_plug_enable_prompt  (GSLockPlug  *plug,
+                                         const char  *message,
+                                         gboolean     visible);
+void        gs_lock_plug_disable_prompt (GSLockPlug  *plug);
+void        gs_lock_plug_set_busy       (GSLockPlug  *plug);
+void        gs_lock_plug_set_ready      (GSLockPlug  *plug);
 
-void        gs_lock_plug_get_text       (GSLockPlug *plug,
-        char      **text);
-void        gs_lock_plug_show_message   (GSLockPlug *plug,
-        const char *message);
+void        gs_lock_plug_get_text       (GSLockPlug  *plug,
+                                         char       **text);
+void        gs_lock_plug_show_message   (GSLockPlug  *plug,
+                                         const char  *message);
 
 G_END_DECLS
 

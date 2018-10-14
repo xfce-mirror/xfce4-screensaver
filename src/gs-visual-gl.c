@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
  *
  * Copyright (C) 2006 William Jon McCann <mccann@jhu.edu>
  * Copyright (C) 1999, 2000, 2003 Jamie Zawinski <jwz@jwz.org>
@@ -40,12 +40,12 @@
 GdkVisual *
 gs_visual_gl_get_best_for_display (GdkDisplay *display)
 {
-	GdkVisual *visual;
+    GdkVisual *visual;
 #ifdef HAVE_LIBGL
-	Display   *xdisplay;
-	GdkScreen *screen;
-	int        screen_num;
-	int        i;
+    Display   *xdisplay;
+    GdkScreen *screen;
+    int        screen_num;
+    int        i;
 
 # define R GLX_RED_SIZE
 # define G GLX_GREEN_SIZE
@@ -55,60 +55,60 @@ gs_visual_gl_get_best_for_display (GdkDisplay *display)
 # define DB GLX_DOUBLEBUFFER
 # define ST GLX_STENCIL_SIZE
 
-	static int attrs [][20] =
-	{
-		{ GLX_RGBA, R, 8, G, 8, B, 8, D, 8, DB, ST,1, 0 }, /* rgb double, stencil */
-		{ GLX_RGBA, R, 4, G, 4, B, 4, D, 4, DB, ST,1, 0 },
-		{ GLX_RGBA, R, 2, G, 2, B, 2, D, 2, DB, ST,1, 0 },
-		{ GLX_RGBA, R, 8, G, 8, B, 8, D, 8, DB,       0 }, /* rgb double */
-		{ GLX_RGBA, R, 4, G, 4, B, 4, D, 4, DB,       0 },
-		{ GLX_RGBA, R, 2, G, 2, B, 2, D, 2, DB,       0 },
-		{ GLX_RGBA, R, 8, G, 8, B, 8, D, 8,           0 }, /* rgb single */
-		{ GLX_RGBA, R, 4, G, 4, B, 4, D, 4,           0 },
-		{ GLX_RGBA, R, 2, G, 2, B, 2, D, 2,           0 },
-		{ I, 8,                       D, 8, DB,       0 }, /* cmap double */
-		{ I, 4,                       D, 4, DB,       0 },
-		{ I, 8,                       D, 8,           0 }, /* cmap single */
-		{ I, 4,                       D, 4,           0 },
-		{ GLX_RGBA, R, 1, G, 1, B, 1, D, 1,           0 }  /* monochrome */
-	};
+    static int attrs [][20] =
+    {
+        { GLX_RGBA, R, 8, G, 8, B, 8, D, 8, DB, ST,1, 0 }, /* rgb double, stencil */
+        { GLX_RGBA, R, 4, G, 4, B, 4, D, 4, DB, ST,1, 0 },
+        { GLX_RGBA, R, 2, G, 2, B, 2, D, 2, DB, ST,1, 0 },
+        { GLX_RGBA, R, 8, G, 8, B, 8, D, 8, DB,       0 }, /* rgb double */
+        { GLX_RGBA, R, 4, G, 4, B, 4, D, 4, DB,       0 },
+        { GLX_RGBA, R, 2, G, 2, B, 2, D, 2, DB,       0 },
+        { GLX_RGBA, R, 8, G, 8, B, 8, D, 8,           0 }, /* rgb single */
+        { GLX_RGBA, R, 4, G, 4, B, 4, D, 4,           0 },
+        { GLX_RGBA, R, 2, G, 2, B, 2, D, 2,           0 },
+        { I, 8,                       D, 8, DB,       0 }, /* cmap double */
+        { I, 4,                       D, 4, DB,       0 },
+        { I, 8,                       D, 8,           0 }, /* cmap single */
+        { I, 4,                       D, 4,           0 },
+        { GLX_RGBA, R, 1, G, 1, B, 1, D, 1,           0 }  /* monochrome */
+    };
 
-	g_return_val_if_fail (display != NULL, NULL);
+    g_return_val_if_fail (display != NULL, NULL);
 
-	xdisplay = GDK_DISPLAY_XDISPLAY (display);
-	screen = gdk_display_get_default_screen (display);
-	screen_num = GDK_SCREEN_XNUMBER (screen);
+    xdisplay = GDK_DISPLAY_XDISPLAY (display);
+    screen = gdk_display_get_default_screen (display);
+    screen_num = GDK_SCREEN_XNUMBER (screen);
 
-	gdk_x11_display_error_trap_push (display);
+    gdk_x11_display_error_trap_push (display);
 
-	visual = NULL;
-	for (i = 0; i < G_N_ELEMENTS (attrs); i++)
-	{
-		XVisualInfo *vi;
+    visual = NULL;
+    for (i = 0; i < G_N_ELEMENTS (attrs); i++)
+    {
+        XVisualInfo *vi;
 
-		vi = glXChooseVisual (xdisplay, screen_num, attrs [i]);
+        vi = glXChooseVisual (xdisplay, screen_num, attrs [i]);
 
-		if (vi != NULL)
-		{
-			VisualID   vid;
+        if (vi != NULL)
+        {
+            VisualID   vid;
 
-			vid = XVisualIDFromVisual (vi->visual);
+            vid = XVisualIDFromVisual (vi->visual);
 
-			visual = gdk_x11_screen_lookup_visual (screen, vid);
+            visual = gdk_x11_screen_lookup_visual (screen, vid);
 
-			XFree (vi);
+            XFree (vi);
 
-			if (visual != NULL)
-			{
-				break;
-			}
-		}
-	}
+            if (visual != NULL)
+            {
+                break;
+            }
+        }
+    }
 
-	gdk_x11_display_error_trap_pop_ignored (display);
+    gdk_x11_display_error_trap_pop_ignored (display);
 #else
-	visual = NULL;
+    visual = NULL;
 #endif /* HAVE_LIBGL */
 
-	return visual;
+    return visual;
 }

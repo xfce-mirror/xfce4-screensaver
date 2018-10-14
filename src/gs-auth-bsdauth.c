@@ -42,62 +42,62 @@ static gboolean verbose_enabled = FALSE;
 GQuark
 gs_auth_error_quark (void)
 {
-	static GQuark quark = 0;
-	if (! quark) {
-		quark = g_quark_from_static_string ("gs_auth_error");
-	}
+    static GQuark quark = 0;
+    if (! quark) {
+        quark = g_quark_from_static_string ("gs_auth_error");
+    }
 
-	return quark;
+    return quark;
 }
 
 void
 gs_auth_set_verbose (gboolean enabled)
 {
-	verbose_enabled = enabled;
+    verbose_enabled = enabled;
 }
 
 gboolean
 gs_auth_get_verbose (void)
 {
-	return verbose_enabled;
+    return verbose_enabled;
 }
 
 gboolean
-gs_auth_verify_user (const char       *username,
-                     const char       *display,
-                     GSAuthMessageFunc func,
-                     gpointer          data,
-                     GError          **error)
+gs_auth_verify_user (const char        *username,
+                     const char        *display,
+                     GSAuthMessageFunc  func,
+                     gpointer           data,
+                     GError           **error)
 {
-	int res;
-	char *password;
+    int res;
+    char *password;
 
-	/* ask for the password for user */
-	if (func != NULL) {
-		func (GS_AUTH_MESSAGE_PROMPT_ECHO_OFF,
-		    "Password: ",
-		    &password,
-		    data);
-	}
+    /* ask for the password for user */
+    if (func != NULL) {
+        func (GS_AUTH_MESSAGE_PROMPT_ECHO_OFF,
+              "Password: ",
+              &password,
+              data);
+    }
 
-	if (password == NULL) {
-		return FALSE;
-	}
+    if (password == NULL) {
+        return FALSE;
+    }
 
-	/* authenticate */
-	res = auth_userokay((char *)username, NULL, "auth-xfce4-screensaver", password);
+    /* authenticate */
+    res = auth_userokay((char *)username, NULL, "auth-xfce4-screensaver", password);
 
-	return res;
+    return res;
 }
 
 gboolean
 gs_auth_init (void)
 {
-	return TRUE;
+    return TRUE;
 }
 
 gboolean
 gs_auth_priv_init (void)
 {
-	return TRUE;
+    return TRUE;
 }

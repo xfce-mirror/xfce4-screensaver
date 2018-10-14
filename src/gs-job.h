@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
  *
  * Copyright (C) 2004-2005 William Jon McCann <mccann@jhu.edu>
  *
@@ -38,13 +38,13 @@ typedef struct GSJobPrivate GSJobPrivate;
 
 typedef struct
 {
-	GObject       parent;
-	GSJobPrivate *priv;
+    GObject       parent;
+    GSJobPrivate *priv;
 } GSJob;
 
 typedef struct
 {
-	GObjectClass  parent_class;
+    GObjectClass  parent_class;
 } GSJobClass;
 
 GType           gs_job_get_type                  (void);
@@ -56,13 +56,13 @@ gboolean        gs_job_is_running                (GSJob      *job);
 gboolean        gs_job_start                     (GSJob      *job);
 gboolean        gs_job_stop                      (GSJob      *job);
 gboolean        gs_job_suspend                   (GSJob      *job,
-        gboolean    suspend);
+                                                  gboolean    suspend);
 
 void            gs_job_set_widget                (GSJob      *job,
-        GtkWidget  *widget);
+                                                  GtkWidget  *widget);
 
-gboolean        gs_job_set_command               (GSJob          *job,
-        const char     *command);
+gboolean        gs_job_set_command               (GSJob      *job,
+                                                  const char *command);
 
 G_END_DECLS
 
