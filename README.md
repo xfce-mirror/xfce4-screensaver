@@ -36,9 +36,7 @@ See the file 'INSTALL'
  `./autogen.sh --disable-static --with-mit-ext --with-console-kit --enable-locking --enable-debug --sysconfdir=/etc`
 )
 
-`make`
-
-`sudo make install`
+`make && sudo make install`
 
 
 How to report bugs
