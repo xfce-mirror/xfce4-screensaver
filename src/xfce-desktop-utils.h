@@ -2,6 +2,7 @@
 /* xfce-ditem.h - Utilities for the Xfce Desktop
 
    Copyright (C) 1998 Tom Tromey
+   Copyright (C) 2018 Sean Davis <bluesabre@xfce.org>
    All rights reserved.
 
    This library is free software; you can redistribute it and/or

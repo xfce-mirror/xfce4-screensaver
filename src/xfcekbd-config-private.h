@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2006 Sergey V. Udaltsov <svu@gnome.org>
+ * Copyright (C) 2018 Sean Davis <bluesabre@xfce.org>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public

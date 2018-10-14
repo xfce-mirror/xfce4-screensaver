@@ -1,5 +1,6 @@
 /* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
  *
+ * Copyright (C) 2018 Sean Davis <bluesabre@xfce.org>
  * Copyright (C) 2006 William Jon McCann <mccann@jhu.edu>
  * Copyright (C) 1999, 2000, 2003 Jamie Zawinski <jwz@jwz.org>
  *

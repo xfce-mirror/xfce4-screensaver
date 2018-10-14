@@ -1,5 +1,7 @@
 /* copy-theme-dialog.c
  * Copyright (C) 2008 John Millikin <jmillikin@gmail.com>
+ * Copyright (C) 2018 Sean Davis <bluesabre@xfce.org>
+ * Copyright (C) 2018 Simon Steinbeiss <ochosi@xfce.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

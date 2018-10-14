@@ -5,6 +5,7 @@ xfcebg.c: Object for the desktop background.
 Copyright (C) 2000 Eazel, Inc.
 Copyright (C) 2007-2008 Red Hat, Inc.
 Copyright (C) 2012 Jasmine Hassan <jasmine.aura@gmail.com>
+Copyright (C) 2018 Sean Davis <bluesabre@xfce.org>
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU Library General Public License as
