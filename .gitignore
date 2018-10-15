@@ -30,7 +30,6 @@ ChangeLog
 compile
 configure
 depcomp
-INSTALL
 install-sh
 libtool
 ltmain.sh
