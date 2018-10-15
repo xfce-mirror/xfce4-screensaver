@@ -42,8 +42,8 @@ See the file 'INSTALL'
 How to report bugs
 ==================
 
-For the time being, please report bugs here on GitHub:
-    https://github.com/bluesabre/xfce4-screensaver/issues
+Report bugs on the Xfce Bug Tracker:
+    https://bugzilla.xfce.org
 
 You will need to create an account if you don't have one already.
 
