@@ -1,0 +1,642 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-10-16 18:31+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Igor <f2404@yandex.ru>, 2018\n"
+"Language-Team: Russian (https://www.transifex.com/xfce/teams/16840/ru/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: ../data/lock-dialog-default.ui.h:2
+#, no-c-format
+msgid "%U"
+msgstr "%U"
+
+#: ../data/lock-dialog-default.ui.h:3
+msgid "Enter your password"
+msgstr "Введите пароль"
+
+#: ../data/lock-dialog-default.ui.h:4
+msgid "You have the Caps Lock key on."
+msgstr "У вас включен Caps Lock."
+
+#: ../data/lock-dialog-default.ui.h:5
+msgid "_Switch User"
+msgstr "_Переключить пользователя"
+
+#: ../data/lock-dialog-default.ui.h:6
+msgid "_Log Out"
+msgstr "_Выйти"
+
+#: ../data/lock-dialog-default.ui.h:7 ../src/copy-theme-dialog.c:263
+#: ../src/gs-lock-plug.c:1323
+msgid "_Cancel"
+msgstr "О_тмена"
+
+#: ../data/lock-dialog-default.ui.h:8 ../src/gs-lock-plug.c:1328
+msgid "_Unlock"
+msgstr "_Разблокировать"
+
+#: ../data/lock-dialog-default.ui.h:10
+#, no-c-format
+msgid "<b>%h</b>"
+msgstr "<b>%h</b>"
+
+#: ../data/lock-dialog-default.ui.h:12
+#, no-c-format
+msgid "<b>%s</b>"
+msgstr "<b>%s</b>"
+
+#: ../data/xfce4-screensaver-preferences.desktop.in.h:1
+#: ../src/xfce4-screensaver.desktop.in.in.h:1
+msgid "Screensaver"
+msgstr "Хранитель экрана"
+
+#: ../data/xfce4-screensaver-preferences.desktop.in.h:2
+msgid "Set your screensaver preferences"
+msgstr "Настройка хранителя экрана"
+
+#: ../data/xfce4-screensaver-preferences.ui.h:1
+msgid "Screensaver Preview"
+msgstr "Предпросмотр хранителя экрана"
+
+#: ../data/xfce4-screensaver-preferences.ui.h:2
+msgid "<b>Screensaver preview</b>"
+msgstr "<b>Предпросмотр хранителя экрана</b>"
+
+#: ../data/xfce4-screensaver-preferences.ui.h:3
+msgid "Screensaver Preferences"
+msgstr "Настройки хранителя экрана"
+
+#: ../data/xfce4-screensaver-preferences.ui.h:4
+msgid "Configure your screensaver and locker"
+msgstr "Настройка хранителя и блокировщика экрана"
+
+#: ../data/xfce4-screensaver-preferences.ui.h:5
+msgid "Power _Management"
+msgstr "_Управление питанием"
+
+#: ../data/xfce4-screensaver-preferences.ui.h:6
+msgid "_Preview"
+msgstr "_Показать"
+
+#: ../data/xfce4-screensaver-preferences.ui.h:7
+msgid "_Screensaver theme:"
+msgstr "_Тема хранителя экрана:"
+
+#: ../data/xfce4-screensaver-preferences.ui.h:8
+msgid "Regard the computer as _idle after:"
+msgstr ""
+
+#: ../data/xfce4-screensaver-preferences.ui.h:9
+msgid "_Activate screensaver when computer is idle"
+msgstr "_Запускать хранитель экрана при простое компьютера"
+
+#: ../data/xfce4-screensaver-preferences.ui.h:10
+msgid "_Lock screen when screensaver is active"
+msgstr "_Блокировать экран при запуске хранителя"
+
+#: ../data/xfce4-screensaver-preferences.ui.h:11
+msgid "<b>Warning: the screen will not be locked for the root user.</b>"
+msgstr "<b>Внимание: экран суперпользователя блокироваться не будет.</b>"
+
+#: ../data/xfce4-screensaver.directory.in.h:1
+msgid "Screensavers"
+msgstr "Хранители экрана"
+
+#: ../data/xfce4-screensaver.directory.in.h:2
+msgid "Screensaver themes"
+msgstr "Темы хранителя экрана"
+
+#: ../savers/floaters.c:91
+msgid "Show paths that images follow"
+msgstr "Показывать пути движения изображений"
+
+#: ../savers/floaters.c:96
+msgid "Occasionally rotate images as they move"
+msgstr "Вращать изображения при движении"
+
+#: ../savers/floaters.c:101
+msgid "Print out frame rate and other statistics"
+msgstr "Выводить частоту кадров и прочую статистику"
+
+#: ../savers/floaters.c:106
+msgid "The maximum number of images to keep on screen"
+msgstr "Максимальное количество видимых изображений"
+
+#: ../savers/floaters.c:106
+msgid "MAX_IMAGES"
+msgstr "МАКС_ИЗОБРАЖЕНИЙ"
+
+#: ../savers/floaters.c:111
+msgid "The initial size and position of window"
+msgstr "Первоначальный размер и положение окна"
+
+#: ../savers/floaters.c:111
+msgid "WIDTHxHEIGHT+X+Y"
+msgstr "ШИРИНАxВЫСОТА+X+Y"
+
+#: ../savers/floaters.c:116
+msgid "The source image to use"
+msgstr "Исходное изображение"
+
+#. translators: the word "image" here
+#. * represents a command line argument
+#: ../savers/floaters.c:1186
+msgid "image - floats images around the screen"
+msgstr "image - выводит на экран летающие изображения"
+
+#: ../savers/floaters.c:1192 ../savers/popsquares.c:50
+#, c-format
+msgid "%s. See --help for usage information.\n"
+msgstr ""
+
+#: ../savers/floaters.c:1201
+#, c-format
+msgid "You must specify one image.  See --help for usage information.\n"
+msgstr ""
+
+#: ../savers/xfce-floaters.desktop.in.in.h:1
+msgid "Floating Xfce"
+msgstr ""
+
+#: ../savers/xfce-floaters.desktop.in.in.h:2
+msgid "Bubbles the Xfce logo around the screen"
+msgstr ""
+
+#: ../savers/personal-slideshow.desktop.in.in.h:1
+msgid "Pictures folder"
+msgstr "Папка Изображения"
+
+#: ../savers/personal-slideshow.desktop.in.in.h:2
+msgid "Display a slideshow from your Pictures folder"
+msgstr ""
+
+#: ../savers/popsquares.desktop.in.in.h:1
+msgid "Pop art squares"
+msgstr ""
+
+#: ../savers/popsquares.desktop.in.in.h:2
+msgid "A pop-art-ish grid of pulsing colors."
+msgstr ""
+
+#: ../savers/slideshow.c:55
+msgid "Location to get images from"
+msgstr "Путь к изображениям"
+
+#: ../savers/slideshow.c:55
+msgid "PATH"
+msgstr "ПУТЬ"
+
+#: ../savers/slideshow.c:59
+msgid "Color to use for images background"
+msgstr "Фоновый цвет"
+
+#: ../savers/slideshow.c:59
+msgid "\"#rrggbb\""
+msgstr "\"#ккззсс\""
+
+#: ../savers/slideshow.c:63
+msgid "Do not randomize pictures from location"
+msgstr "Не показывать в случайном порядке"
+
+#: ../savers/slideshow.c:67
+msgid "Do not try to stretch images on screen"
+msgstr "Не растягивать изображения"
+
+#: ../src/copy-theme-dialog.c:222
+msgid "Copying files"
+msgstr "Копирование файлов"
+
+#: ../src/copy-theme-dialog.c:241
+msgid "From:"
+msgstr "Из:"
+
+#: ../src/copy-theme-dialog.c:245
+msgid "To:"
+msgstr "В:"
+
+#: ../src/copy-theme-dialog.c:266
+msgid "Copying themes"
+msgstr "Копирование тем"
+
+#: ../src/copy-theme-dialog.c:310
+msgid "Invalid screensaver theme"
+msgstr "Неверная тема хранителя экрана"
+
+#: ../src/copy-theme-dialog.c:313
+#, c-format
+msgid "%s does not appear to be a valid screensaver theme."
+msgstr "%s не является допустимой темой хранителя экрана."
+
+#: ../src/copy-theme-dialog.c:494
+#, c-format
+msgid "Copying file: %u of %u"
+msgstr "Копирование файла: %u из %u"
+
+#: ../src/gs-auth-pam.c:172
+msgid "Password:"
+msgstr "Пароль:"
+
+#: ../src/gs-auth-pam.c:414
+#, c-format
+msgid "Unable to establish service %s: %s\n"
+msgstr ""
+
+#: ../src/gs-auth-pam.c:444
+#, c-format
+msgid "Can't set PAM_TTY=%s"
+msgstr "Не удалось задать PAM_TTY=%s"
+
+#: ../src/gs-auth-pam.c:480
+msgid "Incorrect password."
+msgstr "Неверный пароль."
+
+#: ../src/gs-auth-pam.c:484 ../src/xfce4-screensaver-dialog.c:314
+msgid "Authentication failed."
+msgstr "Ошибка проверки подлинности."
+
+#: ../src/gs-auth-pam.c:500
+msgid "Not permitted to gain access at this time."
+msgstr ""
+
+#: ../src/gs-auth-pam.c:508
+msgid "No longer permitted to access the system."
+msgstr ""
+
+#: ../src/gs-auth-pam.c:746
+msgid "Username:"
+msgstr ""
+
+#: ../src/gs-listener-dbus.c:2176
+msgid "failed to register with the message bus"
+msgstr "не удалось зарегистрироваться на шине сообщений"
+
+#: ../src/gs-listener-dbus.c:2187
+msgid "not connected to the message bus"
+msgstr "не удалось подключиться к шине сообщений"
+
+#: ../src/gs-listener-dbus.c:2197 ../src/gs-listener-dbus.c:2229
+msgid "screensaver already running in this session"
+msgstr "в этом сеансе уже запущен хранитель экрана"
+
+#: ../src/gs-lock-plug.c:291
+msgid "%A, %B %e   %H:%M"
+msgstr "%A, %e %B   %H:%M"
+
+#: ../src/gs-lock-plug.c:386
+msgid "Time has expired."
+msgstr "Время истекло."
+
+#: ../src/gs-lock-plug.c:1308
+msgid "S_witch User..."
+msgstr ""
+
+#: ../src/gs-lock-plug.c:1317
+msgid "Log _Out"
+msgstr ""
+
+#. To translators: This expands to USERNAME on HOSTNAME
+#: ../src/gs-lock-plug.c:1513
+msgid "%U on %h"
+msgstr "%U на %h"
+
+#: ../src/gs-lock-plug.c:1528
+msgid "Please enter your password."
+msgstr "Введите ваш пароль."
+
+#. Translators: a CRTC is a CRT Controller (this is X terminology).
+#: ../src/xfce-rr.c:478
+#, c-format
+msgid "could not get the screen resources (CRTCs, outputs, modes)"
+msgstr "не удалось узнать свойства экрана (контроллеры, выходы, режимы)"
+
+#: ../src/xfce-rr.c:499
+#, c-format
+msgid "unhandled X error while getting the range of screen sizes"
+msgstr "ошибка X-сервера при получении размеров экрана"
+
+#: ../src/xfce-rr.c:505
+#, c-format
+msgid "could not get the range of screen sizes"
+msgstr "не удалось получить список размеров экрана"
+
+#: ../src/xfce-rr.c:730
+#, c-format
+msgid "RANDR extension is not present"
+msgstr "отсутствует расширение RANDR"
+
+#: ../src/xfce-rr.c:1146
+#, c-format
+msgid "could not get information about output %d"
+msgstr "не удалось получить информацию о выходе %d"
+
+#: ../src/xfce-rr.c:1389
+#, c-format
+msgid "could not get information about CRTC %d"
+msgstr "не удалось получить информацию о контроллере %d"
+
+#: ../src/xfce4-screensaver-command.c:59
+msgid "Causes the screensaver to exit gracefully"
+msgstr "Завершает хранитель экрана"
+
+#: ../src/xfce4-screensaver-command.c:63
+msgid "Query the state of the screensaver"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:67
+msgid "Query the length of time the screensaver has been active"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:71
+msgid "Tells the running screensaver process to lock the screen immediately"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:75
+msgid "If the screensaver is active then switch to another graphics demo"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:79
+msgid "Turn the screensaver on (blank the screen)"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:83
+msgid "If the screensaver is active then deactivate it (un-blank the screen)"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:87
+msgid "Poke the running screensaver to simulate user activity"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:91
+msgid ""
+"Inhibit the screensaver from activating.  Command blocks while inhibit is "
+"active."
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:95
+msgid "The calling application that is inhibiting the screensaver"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:99
+msgid "The reason for inhibiting the screensaver"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:103 ../src/xfce4-screensaver-dialog.c:64
+#: ../src/xfce4-screensaver.c:59
+msgid "Version of this application"
+msgstr "Версия данного приложения"
+
+#: ../src/xfce4-screensaver-command.c:352
+#, c-format
+msgid "The screensaver is %s\n"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:352
+msgid "active"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:352
+msgid "inactive"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:368
+#, c-format
+msgid "The screensaver is not inhibited\n"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:376
+#, c-format
+msgid "The screensaver is being inhibited by:\n"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:411
+#, c-format
+msgid "The screensaver has been active for %d seconds.\n"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:417
+#, c-format
+msgid "The screensaver is not currently active.\n"
+msgstr ""
+
+#: ../src/xfce4-screensaver-dialog.c:63
+msgid "Show debugging output"
+msgstr "Показывать отладочный вывод"
+
+#: ../src/xfce4-screensaver-dialog.c:65
+msgid "Show the logout button"
+msgstr "Показывать кнопку завершения сеанса"
+
+#: ../src/xfce4-screensaver-dialog.c:66
+msgid "Command to invoke from the logout button"
+msgstr "Команда для завершения сеанса"
+
+#: ../src/xfce4-screensaver-dialog.c:67
+msgid "Show the switch user button"
+msgstr "Показывать кнопку переключения пользователей"
+
+#: ../src/xfce4-screensaver-dialog.c:68
+msgid "Message to show in the dialog"
+msgstr "Сообщение для окна диалога"
+
+#: ../src/xfce4-screensaver-dialog.c:68 ../src/xfce4-screensaver-dialog.c:69
+msgid "MESSAGE"
+msgstr "СООБЩЕНИЕ"
+
+#: ../src/xfce4-screensaver-dialog.c:69
+msgid "Not used"
+msgstr "Не используется"
+
+#: ../src/xfce4-screensaver-dialog.c:70
+msgid "Monitor height"
+msgstr "Высота монитора"
+
+#: ../src/xfce4-screensaver-dialog.c:71
+msgid "Monitor width"
+msgstr "Ширина монитора"
+
+#: ../src/xfce4-screensaver-dialog.c:72
+msgid "Monitor index"
+msgstr "Индекс монитора"
+
+#. login: is whacked always translate to Username:
+#: ../src/xfce4-screensaver-dialog.c:176 ../src/xfce4-screensaver-dialog.c:177
+#: ../src/xfce4-screensaver-dialog.c:178
+msgid "Please enter your username."
+msgstr "Введите имя пользователя."
+
+#: ../src/xfce4-screensaver-dialog.c:181
+msgid "You are required to change your password immediately (password aged)"
+msgstr "Требуется немедленно сменить пароль (он устарел)"
+
+#: ../src/xfce4-screensaver-dialog.c:182
+msgid "You are required to change your password immediately (root enforced)"
+msgstr "Требуется немедленно сменить пароль (требование суперпользователя)"
+
+#: ../src/xfce4-screensaver-dialog.c:183
+msgid "Your account has expired; please contact your system administrator"
+msgstr ""
+"Срок действия вашей учётной записи истек. Свяжитесь с вашим системным "
+"администратором"
+
+#: ../src/xfce4-screensaver-dialog.c:184
+msgid "No password supplied."
+msgstr "Не указан пароль."
+
+#: ../src/xfce4-screensaver-dialog.c:185
+msgid "Password unchanged."
+msgstr "Пароль не был изменён."
+
+#: ../src/xfce4-screensaver-dialog.c:186
+msgid "Can not get username."
+msgstr "Не удалось получить имя пользователя."
+
+#: ../src/xfce4-screensaver-dialog.c:187
+msgid "Retype your new password."
+msgstr "Введите новый пароль ещё раз."
+
+#: ../src/xfce4-screensaver-dialog.c:188
+msgid "Enter your new password."
+msgstr "Введите новый пароль."
+
+#: ../src/xfce4-screensaver-dialog.c:189
+msgid "Enter your current password:"
+msgstr "Введите ваш текущий пароль:"
+
+#: ../src/xfce4-screensaver-dialog.c:190
+msgid "Error while changing NIS password."
+msgstr "Ошибка при изменении пароля NIS."
+
+#: ../src/xfce4-screensaver-dialog.c:191
+msgid "You must choose a longer password."
+msgstr "Нужно выбрать более длинный пароль."
+
+#: ../src/xfce4-screensaver-dialog.c:192
+msgid "Password has been already used. Choose another."
+msgstr "Пароль уже использовался. Выберите другой."
+
+#: ../src/xfce4-screensaver-dialog.c:193
+msgid "You must wait longer to change your password."
+msgstr "Вы не можете изменить пароль так скоро."
+
+#: ../src/xfce4-screensaver-dialog.c:194
+msgid "Sorry, passwords do not match."
+msgstr "Пароли не совпадают."
+
+#: ../src/xfce4-screensaver-dialog.c:268
+msgid "Checking..."
+msgstr "Проверка..."
+
+#: ../src/xfce4-screensaver-preferences.c:443
+msgid "Blank screen"
+msgstr "Очистка экрана"
+
+#: ../src/xfce4-screensaver-preferences.c:449
+msgid "Random"
+msgstr "Случайный порядок"
+
+#: ../src/xfce4-screensaver-preferences.c:935
+#: ../src/xfce4-screensaver-preferences.c:945
+#, c-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: ../src/xfce4-screensaver-preferences.c:938
+#: ../src/xfce4-screensaver-preferences.c:947
+#: ../src/xfce4-screensaver-preferences.c:956
+#: ../src/xfce4-screensaver-preferences.c:959
+#: ../src/xfce4-screensaver-preferences.c:964
+#: ../src/xfce4-screensaver-preferences.c:967
+#: ../src/xfce4-screensaver-preferences.c:972
+#: ../src/xfce4-screensaver-preferences.c:975
+#, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#: ../src/xfce4-screensaver-preferences.c:941
+#, c-format
+msgid "%d second"
+msgid_plural "%d seconds"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+#. hour:minutes
+#. minutes:seconds
+#: ../src/xfce4-screensaver-preferences.c:944
+#: ../src/xfce4-screensaver-preferences.c:991
+#: ../src/xfce4-screensaver-preferences.c:1004
+#, c-format
+msgid "%s %s"
+msgstr ""
+
+#. hour:minutes:seconds
+#: ../src/xfce4-screensaver-preferences.c:986
+#, c-format
+msgid "%s %s %s"
+msgstr ""
+
+#. hour
+#. minutes
+#. seconds
+#: ../src/xfce4-screensaver-preferences.c:996
+#: ../src/xfce4-screensaver-preferences.c:1009
+#: ../src/xfce4-screensaver-preferences.c:1045
+#, c-format
+msgid "%s"
+msgstr ""
+
+#: ../src/xfce4-screensaver-preferences.c:1060
+#, c-format
+msgid "Never"
+msgstr "Никогда"
+
+#: ../src/xfce4-screensaver-preferences.c:1511
+msgid "Could not load the main interface"
+msgstr "Не удалось загрузить основной интерфейс"
+
+#: ../src/xfce4-screensaver-preferences.c:1513
+msgid "Please make sure that the screensaver is properly installed"
+msgstr "Убедитесь, что хранитель экрана правильно установлен"
+
+#: ../src/xfce4-screensaver.c:60
+msgid "Don't become a daemon"
+msgstr "Не становиться демоном"
+
+#: ../src/xfce4-screensaver.c:61
+msgid "Enable debugging code"
+msgstr "Включить отладочный код"
+
+#: ../src/xfce4-screensaver.desktop.in.in.h:2
+msgid "Launch screensaver and locker program"
+msgstr "Запустить хранитель и блокировщик экрана"
+
+#: ../src/xfcekbd-indicator.c:111
+#, c-format
+msgid "There was an error loading an image: %s"
+msgstr "Ошибка при загрузке изображения: %s"
+
+#: ../src/xfcekbd-indicator.c:688
+msgid "XKB initialization error"
+msgstr "Ошибка инициализации XKB"
