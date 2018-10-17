@@ -626,29 +626,29 @@ msgstr "Nooit"
 
 #: ../src/xfce4-screensaver-preferences.c:1511
 msgid "Could not load the main interface"
-msgstr ""
+msgstr "Kon de hoofd-gebruikersschil niet laden"
 
 #: ../src/xfce4-screensaver-preferences.c:1513
 msgid "Please make sure that the screensaver is properly installed"
-msgstr ""
+msgstr "Zorg er a.u.b. voor dat de schermbeveiliging juist is geïnstalleerd"
 
 #: ../src/xfce4-screensaver.c:60
 msgid "Don't become a daemon"
-msgstr ""
+msgstr "Word geen achtergronddienst"
 
 #: ../src/xfce4-screensaver.c:61
 msgid "Enable debugging code"
-msgstr ""
+msgstr "Foutopsporingscode inschakelen"
 
 #: ../src/xfce4-screensaver.desktop.in.in.h:2
 msgid "Launch screensaver and locker program"
-msgstr ""
+msgstr "Schermbeveiliging en vergrendelprogramma starten"
 
 #: ../src/xfcekbd-indicator.c:111
 #, c-format
 msgid "There was an error loading an image: %s"
-msgstr ""
+msgstr "Er is een fout opgetreden bij het laden van een afbeelding: %s"
 
 #: ../src/xfcekbd-indicator.c:688
 msgid "XKB initialization error"
-msgstr ""
+msgstr "XKB-initialisatiefout"
