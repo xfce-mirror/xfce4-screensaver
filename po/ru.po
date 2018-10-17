@@ -174,7 +174,7 @@ msgstr "Летающий Xfce"
 
 #: ../savers/xfce-floaters.desktop.in.in.h:2
 msgid "Bubbles the Xfce logo around the screen"
-msgstr ""
+msgstr "Логотип Xfce, летающий как мячик"
 
 #: ../savers/personal-slideshow.desktop.in.in.h:1
 msgid "Pictures folder"
@@ -182,7 +182,7 @@ msgstr "Папка Изображения"
 
 #: ../savers/personal-slideshow.desktop.in.in.h:2
 msgid "Display a slideshow from your Pictures folder"
-msgstr ""
+msgstr "Слайд-шоу из содержимого папки Изображения"
 
 #: ../savers/popsquares.desktop.in.in.h:1
 msgid "Pop art squares"
@@ -270,11 +270,11 @@ msgstr "Ошибка проверки подлинности."
 
 #: ../src/gs-auth-pam.c:500
 msgid "Not permitted to gain access at this time."
-msgstr ""
+msgstr "В настоящий момент вам нельзя войти в систему."
 
 #: ../src/gs-auth-pam.c:508
 msgid "No longer permitted to access the system."
-msgstr ""
+msgstr "Вам больше не разрешено входить в систему."
 
 #: ../src/gs-auth-pam.c:746
 msgid "Username:"
@@ -354,15 +354,15 @@ msgstr "Завершает хранитель экрана"
 
 #: ../src/xfce4-screensaver-command.c:63
 msgid "Query the state of the screensaver"
-msgstr ""
+msgstr "Запросить состояние хранителя экрана"
 
 #: ../src/xfce4-screensaver-command.c:67
 msgid "Query the length of time the screensaver has been active"
-msgstr ""
+msgstr "Запросить время работы хранителя экрана"
 
 #: ../src/xfce4-screensaver-command.c:71
 msgid "Tells the running screensaver process to lock the screen immediately"
-msgstr ""
+msgstr "Немедленно заблокировать экран"
 
 #: ../src/xfce4-screensaver-command.c:75
 msgid "If the screensaver is active then switch to another graphics demo"
@@ -370,11 +370,11 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-command.c:79
 msgid "Turn the screensaver on (blank the screen)"
-msgstr ""
+msgstr "Запустить хранитель экрана (очистить экран)"
 
 #: ../src/xfce4-screensaver-command.c:83
 msgid "If the screensaver is active then deactivate it (un-blank the screen)"
-msgstr ""
+msgstr "Если хранитель запущен, остановить его (восстановить экран)"
 
 #: ../src/xfce4-screensaver-command.c:87
 msgid "Poke the running screensaver to simulate user activity"
