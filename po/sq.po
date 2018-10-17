@@ -1,0 +1,637 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-10-16 18:31+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Besnik <besnik@programeshqip.org>, 2018\n"
+"Language-Team: Albanian (https://www.transifex.com/xfce/teams/16840/sq/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sq\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../data/lock-dialog-default.ui.h:2
+#, no-c-format
+msgid "%U"
+msgstr "%U"
+
+#: ../data/lock-dialog-default.ui.h:3
+msgid "Enter your password"
+msgstr "Jepni fjalëkalimin tuaj"
+
+#: ../data/lock-dialog-default.ui.h:4
+msgid "You have the Caps Lock key on."
+msgstr "Keni të aktivizuar tastin Caps Lock."
+
+#: ../data/lock-dialog-default.ui.h:5
+msgid "_Switch User"
+msgstr "_Këmbeni Përdorues"
+
+#: ../data/lock-dialog-default.ui.h:6
+msgid "_Log Out"
+msgstr "_Dilni"
+
+#: ../data/lock-dialog-default.ui.h:7 ../src/copy-theme-dialog.c:263
+#: ../src/gs-lock-plug.c:1323
+msgid "_Cancel"
+msgstr "_Anuloje"
+
+#: ../data/lock-dialog-default.ui.h:8 ../src/gs-lock-plug.c:1328
+msgid "_Unlock"
+msgstr "_Shkyçe"
+
+#: ../data/lock-dialog-default.ui.h:10
+#, no-c-format
+msgid "<b>%h</b>"
+msgstr "<b>%h</b>"
+
+#: ../data/lock-dialog-default.ui.h:12
+#, no-c-format
+msgid "<b>%s</b>"
+msgstr "<b>%s</b>"
+
+#: ../data/xfce4-screensaver-preferences.desktop.in.h:1
+#: ../src/xfce4-screensaver.desktop.in.in.h:1
+msgid "Screensaver"
+msgstr "Ekrankursyes"
+
+#: ../data/xfce4-screensaver-preferences.desktop.in.h:2
+msgid "Set your screensaver preferences"
+msgstr "Caktoni parapëlqimet tuaja për ekrankursyesin"
+
+#: ../data/xfce4-screensaver-preferences.ui.h:1
+msgid "Screensaver Preview"
+msgstr "Paraparje Ekrankursyesi"
+
+#: ../data/xfce4-screensaver-preferences.ui.h:2
+msgid "<b>Screensaver preview</b>"
+msgstr "<b>Paraparje ekrankursyesi</b>"
+
+#: ../data/xfce4-screensaver-preferences.ui.h:3
+msgid "Screensaver Preferences"
+msgstr "Parapëlqime Ekrankursyesi"
+
+#: ../data/xfce4-screensaver-preferences.ui.h:4
+msgid "Configure your screensaver and locker"
+msgstr "Formësoni ekrankursyesin dhe kyçjen tuaj"
+
+#: ../data/xfce4-screensaver-preferences.ui.h:5
+msgid "Power _Management"
+msgstr "_Administrim Energjie"
+
+#: ../data/xfce4-screensaver-preferences.ui.h:6
+msgid "_Preview"
+msgstr "_Paraparje"
+
+#: ../data/xfce4-screensaver-preferences.ui.h:7
+msgid "_Screensaver theme:"
+msgstr "Temë _ekrankursyesi:"
+
+#: ../data/xfce4-screensaver-preferences.ui.h:8
+msgid "Regard the computer as _idle after:"
+msgstr ""
+
+#: ../data/xfce4-screensaver-preferences.ui.h:9
+msgid "_Activate screensaver when computer is idle"
+msgstr ""
+
+#: ../data/xfce4-screensaver-preferences.ui.h:10
+msgid "_Lock screen when screensaver is active"
+msgstr ""
+
+#: ../data/xfce4-screensaver-preferences.ui.h:11
+msgid "<b>Warning: the screen will not be locked for the root user.</b>"
+msgstr ""
+
+#: ../data/xfce4-screensaver.directory.in.h:1
+msgid "Screensavers"
+msgstr "Ekrankursyes"
+
+#: ../data/xfce4-screensaver.directory.in.h:2
+msgid "Screensaver themes"
+msgstr "Tema ekrankursyesi"
+
+#: ../savers/floaters.c:91
+msgid "Show paths that images follow"
+msgstr "Shfaq shtigje që ndjekin figurat"
+
+#: ../savers/floaters.c:96
+msgid "Occasionally rotate images as they move"
+msgstr ""
+
+#: ../savers/floaters.c:101
+msgid "Print out frame rate and other statistics"
+msgstr ""
+
+#: ../savers/floaters.c:106
+msgid "The maximum number of images to keep on screen"
+msgstr ""
+
+#: ../savers/floaters.c:106
+msgid "MAX_IMAGES"
+msgstr ""
+
+#: ../savers/floaters.c:111
+msgid "The initial size and position of window"
+msgstr ""
+
+#: ../savers/floaters.c:111
+msgid "WIDTHxHEIGHT+X+Y"
+msgstr ""
+
+#: ../savers/floaters.c:116
+msgid "The source image to use"
+msgstr "Figura burim për t’u përdorur"
+
+#. translators: the word "image" here
+#. * represents a command line argument
+#: ../savers/floaters.c:1186
+msgid "image - floats images around the screen"
+msgstr ""
+
+#: ../savers/floaters.c:1192 ../savers/popsquares.c:50
+#, c-format
+msgid "%s. See --help for usage information.\n"
+msgstr "%s. Për të dhëna përdorimi, shihni --help.\n"
+
+#: ../savers/floaters.c:1201
+#, c-format
+msgid "You must specify one image.  See --help for usage information.\n"
+msgstr ""
+
+#: ../savers/xfce-floaters.desktop.in.in.h:1
+msgid "Floating Xfce"
+msgstr "Xfce pezull"
+
+#: ../savers/xfce-floaters.desktop.in.in.h:2
+msgid "Bubbles the Xfce logo around the screen"
+msgstr ""
+
+#: ../savers/personal-slideshow.desktop.in.in.h:1
+msgid "Pictures folder"
+msgstr ""
+
+#: ../savers/personal-slideshow.desktop.in.in.h:2
+msgid "Display a slideshow from your Pictures folder"
+msgstr ""
+
+#: ../savers/popsquares.desktop.in.in.h:1
+msgid "Pop art squares"
+msgstr ""
+
+#: ../savers/popsquares.desktop.in.in.h:2
+msgid "A pop-art-ish grid of pulsing colors."
+msgstr ""
+
+#: ../savers/slideshow.c:55
+msgid "Location to get images from"
+msgstr "Vendndodhje nga të merren figurat"
+
+#: ../savers/slideshow.c:55
+msgid "PATH"
+msgstr "SHTEG\t"
+
+#: ../savers/slideshow.c:59
+msgid "Color to use for images background"
+msgstr "Ngjyrë për t’u përdorur për sfond figurash"
+
+#: ../savers/slideshow.c:59
+msgid "\"#rrggbb\""
+msgstr ""
+
+#: ../savers/slideshow.c:63
+msgid "Do not randomize pictures from location"
+msgstr ""
+
+#: ../savers/slideshow.c:67
+msgid "Do not try to stretch images on screen"
+msgstr ""
+
+#: ../src/copy-theme-dialog.c:222
+msgid "Copying files"
+msgstr "Po kopjohen kartela"
+
+#: ../src/copy-theme-dialog.c:241
+msgid "From:"
+msgstr "Nga:"
+
+#: ../src/copy-theme-dialog.c:245
+msgid "To:"
+msgstr ""
+
+#: ../src/copy-theme-dialog.c:266
+msgid "Copying themes"
+msgstr "Po kopjohen tema"
+
+#: ../src/copy-theme-dialog.c:310
+msgid "Invalid screensaver theme"
+msgstr "Temë ekrankursyesi e pavlefshme"
+
+#: ../src/copy-theme-dialog.c:313
+#, c-format
+msgid "%s does not appear to be a valid screensaver theme."
+msgstr ""
+
+#: ../src/copy-theme-dialog.c:494
+#, c-format
+msgid "Copying file: %u of %u"
+msgstr "Po kopjohet kartelë: %u nga %u"
+
+#: ../src/gs-auth-pam.c:172
+msgid "Password:"
+msgstr "Fjalëkalim:"
+
+#: ../src/gs-auth-pam.c:414
+#, c-format
+msgid "Unable to establish service %s: %s\n"
+msgstr "S’arrihet të vendoset shërbim %s: %s\n"
+
+#: ../src/gs-auth-pam.c:444
+#, c-format
+msgid "Can't set PAM_TTY=%s"
+msgstr ""
+
+#: ../src/gs-auth-pam.c:480
+msgid "Incorrect password."
+msgstr "Fjalëkalim i pasaktë."
+
+#: ../src/gs-auth-pam.c:484 ../src/xfce4-screensaver-dialog.c:314
+msgid "Authentication failed."
+msgstr "Mirëfilltësimi dështoi."
+
+#: ../src/gs-auth-pam.c:500
+msgid "Not permitted to gain access at this time."
+msgstr ""
+
+#: ../src/gs-auth-pam.c:508
+msgid "No longer permitted to access the system."
+msgstr "Jo më i lejuar të hyjë te sistemi."
+
+#: ../src/gs-auth-pam.c:746
+msgid "Username:"
+msgstr "Emër përdoruesi:"
+
+#: ../src/gs-listener-dbus.c:2176
+msgid "failed to register with the message bus"
+msgstr ""
+
+#: ../src/gs-listener-dbus.c:2187
+msgid "not connected to the message bus"
+msgstr ""
+
+#: ../src/gs-listener-dbus.c:2197 ../src/gs-listener-dbus.c:2229
+msgid "screensaver already running in this session"
+msgstr "ekrankursyes tashmë në xhirim e sipër në këtë sesion"
+
+#: ../src/gs-lock-plug.c:291
+msgid "%A, %B %e   %H:%M"
+msgstr "%A, %B %e   %H:%M"
+
+#: ../src/gs-lock-plug.c:386
+msgid "Time has expired."
+msgstr "Koha ka skaduar."
+
+#: ../src/gs-lock-plug.c:1308
+msgid "S_witch User..."
+msgstr ""
+
+#: ../src/gs-lock-plug.c:1317
+msgid "Log _Out"
+msgstr "_Dilni"
+
+#. To translators: This expands to USERNAME on HOSTNAME
+#: ../src/gs-lock-plug.c:1513
+msgid "%U on %h"
+msgstr "%U më %h"
+
+#: ../src/gs-lock-plug.c:1528
+msgid "Please enter your password."
+msgstr "Ju lutemi, jepni fjalëkalimin tuaj."
+
+#. Translators: a CRTC is a CRT Controller (this is X terminology).
+#: ../src/xfce-rr.c:478
+#, c-format
+msgid "could not get the screen resources (CRTCs, outputs, modes)"
+msgstr ""
+
+#: ../src/xfce-rr.c:499
+#, c-format
+msgid "unhandled X error while getting the range of screen sizes"
+msgstr ""
+
+#: ../src/xfce-rr.c:505
+#, c-format
+msgid "could not get the range of screen sizes"
+msgstr ""
+
+#: ../src/xfce-rr.c:730
+#, c-format
+msgid "RANDR extension is not present"
+msgstr "Zgjerimi RANDR s’është i pranishëm"
+
+#: ../src/xfce-rr.c:1146
+#, c-format
+msgid "could not get information about output %d"
+msgstr ""
+
+#: ../src/xfce-rr.c:1389
+#, c-format
+msgid "could not get information about CRTC %d"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:59
+msgid "Causes the screensaver to exit gracefully"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:63
+msgid "Query the state of the screensaver"
+msgstr "Kërko gjendjen e ekrankursyesit"
+
+#: ../src/xfce4-screensaver-command.c:67
+msgid "Query the length of time the screensaver has been active"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:71
+msgid "Tells the running screensaver process to lock the screen immediately"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:75
+msgid "If the screensaver is active then switch to another graphics demo"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:79
+msgid "Turn the screensaver on (blank the screen)"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:83
+msgid "If the screensaver is active then deactivate it (un-blank the screen)"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:87
+msgid "Poke the running screensaver to simulate user activity"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:91
+msgid ""
+"Inhibit the screensaver from activating.  Command blocks while inhibit is "
+"active."
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:95
+msgid "The calling application that is inhibiting the screensaver"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:99
+msgid "The reason for inhibiting the screensaver"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:103 ../src/xfce4-screensaver-dialog.c:64
+#: ../src/xfce4-screensaver.c:59
+msgid "Version of this application"
+msgstr "Version i këtij aplikacioni"
+
+#: ../src/xfce4-screensaver-command.c:352
+#, c-format
+msgid "The screensaver is %s\n"
+msgstr "Ekrankursyesi është %s\n"
+
+#: ../src/xfce4-screensaver-command.c:352
+msgid "active"
+msgstr "aktiv"
+
+#: ../src/xfce4-screensaver-command.c:352
+msgid "inactive"
+msgstr "jo aktiv"
+
+#: ../src/xfce4-screensaver-command.c:368
+#, c-format
+msgid "The screensaver is not inhibited\n"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:376
+#, c-format
+msgid "The screensaver is being inhibited by:\n"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:411
+#, c-format
+msgid "The screensaver has been active for %d seconds.\n"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:417
+#, c-format
+msgid "The screensaver is not currently active.\n"
+msgstr ""
+
+#: ../src/xfce4-screensaver-dialog.c:63
+msgid "Show debugging output"
+msgstr "Shfaq përfundim diagnostikimi"
+
+#: ../src/xfce4-screensaver-dialog.c:65
+msgid "Show the logout button"
+msgstr "Shfaq butonin e daljes"
+
+#: ../src/xfce4-screensaver-dialog.c:66
+msgid "Command to invoke from the logout button"
+msgstr ""
+
+#: ../src/xfce4-screensaver-dialog.c:67
+msgid "Show the switch user button"
+msgstr "Shfaq butonin e ndërrimit të përdoruesit"
+
+#: ../src/xfce4-screensaver-dialog.c:68
+msgid "Message to show in the dialog"
+msgstr "Mesazh për shfaqje te dialogu"
+
+#: ../src/xfce4-screensaver-dialog.c:68 ../src/xfce4-screensaver-dialog.c:69
+msgid "MESSAGE"
+msgstr "MESAZH"
+
+#: ../src/xfce4-screensaver-dialog.c:69
+msgid "Not used"
+msgstr "E papërdorur"
+
+#: ../src/xfce4-screensaver-dialog.c:70
+msgid "Monitor height"
+msgstr "Lartësi monitori"
+
+#: ../src/xfce4-screensaver-dialog.c:71
+msgid "Monitor width"
+msgstr "Gjerësi monitori"
+
+#: ../src/xfce4-screensaver-dialog.c:72
+msgid "Monitor index"
+msgstr "Tregues monitori"
+
+#. login: is whacked always translate to Username:
+#: ../src/xfce4-screensaver-dialog.c:176 ../src/xfce4-screensaver-dialog.c:177
+#: ../src/xfce4-screensaver-dialog.c:178
+msgid "Please enter your username."
+msgstr "Ju lutemi, jepni emrin tuaj të përdoruesit."
+
+#: ../src/xfce4-screensaver-dialog.c:181
+msgid "You are required to change your password immediately (password aged)"
+msgstr ""
+
+#: ../src/xfce4-screensaver-dialog.c:182
+msgid "You are required to change your password immediately (root enforced)"
+msgstr ""
+
+#: ../src/xfce4-screensaver-dialog.c:183
+msgid "Your account has expired; please contact your system administrator"
+msgstr ""
+"Llogaria juaj ka skaduar; ju lutemi, lidhuni me përgjegjësin e sistemit tuaj"
+
+#: ../src/xfce4-screensaver-dialog.c:184
+msgid "No password supplied."
+msgstr "S’u dha fjalëkalim."
+
+#: ../src/xfce4-screensaver-dialog.c:185
+msgid "Password unchanged."
+msgstr "Fjalëkalim i pandryshuar."
+
+#: ../src/xfce4-screensaver-dialog.c:186
+msgid "Can not get username."
+msgstr "S’merret dot emër përdoruesi."
+
+#: ../src/xfce4-screensaver-dialog.c:187
+msgid "Retype your new password."
+msgstr "Rishtypni fjalëkalimin tuaj të ri."
+
+#: ../src/xfce4-screensaver-dialog.c:188
+msgid "Enter your new password."
+msgstr "Jepni fjalëkalimin tuaj të ri."
+
+#: ../src/xfce4-screensaver-dialog.c:189
+msgid "Enter your current password:"
+msgstr "Jepni fjalëkalimin tuaj të tanishëm."
+
+#: ../src/xfce4-screensaver-dialog.c:190
+msgid "Error while changing NIS password."
+msgstr "Gabim teksa ndryshohej fjalëkalim NIS."
+
+#: ../src/xfce4-screensaver-dialog.c:191
+msgid "You must choose a longer password."
+msgstr "Duhet të zgjidhni një fjalëkalim më të gjatë."
+
+#: ../src/xfce4-screensaver-dialog.c:192
+msgid "Password has been already used. Choose another."
+msgstr ""
+
+#: ../src/xfce4-screensaver-dialog.c:193
+msgid "You must wait longer to change your password."
+msgstr ""
+
+#: ../src/xfce4-screensaver-dialog.c:194
+msgid "Sorry, passwords do not match."
+msgstr "Na ndjeni, fjalëkalimet nuk përputhen."
+
+#: ../src/xfce4-screensaver-dialog.c:268
+msgid "Checking..."
+msgstr "Po kontrollohet…"
+
+#: ../src/xfce4-screensaver-preferences.c:443
+msgid "Blank screen"
+msgstr "Ekran të zbrazët"
+
+#: ../src/xfce4-screensaver-preferences.c:449
+msgid "Random"
+msgstr "Kuturu"
+
+#: ../src/xfce4-screensaver-preferences.c:935
+#: ../src/xfce4-screensaver-preferences.c:945
+#, c-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d orë"
+msgstr[1] "%d orë"
+
+#: ../src/xfce4-screensaver-preferences.c:938
+#: ../src/xfce4-screensaver-preferences.c:947
+#: ../src/xfce4-screensaver-preferences.c:956
+#: ../src/xfce4-screensaver-preferences.c:959
+#: ../src/xfce4-screensaver-preferences.c:964
+#: ../src/xfce4-screensaver-preferences.c:967
+#: ../src/xfce4-screensaver-preferences.c:972
+#: ../src/xfce4-screensaver-preferences.c:975
+#, c-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d minutë"
+msgstr[1] "%d minuta"
+
+#: ../src/xfce4-screensaver-preferences.c:941
+#, c-format
+msgid "%d second"
+msgid_plural "%d seconds"
+msgstr[0] "%d sekondë"
+msgstr[1] "%d sekonda"
+
+#. hour:minutes
+#. minutes:seconds
+#: ../src/xfce4-screensaver-preferences.c:944
+#: ../src/xfce4-screensaver-preferences.c:991
+#: ../src/xfce4-screensaver-preferences.c:1004
+#, c-format
+msgid "%s %s"
+msgstr "%s %s"
+
+#. hour:minutes:seconds
+#: ../src/xfce4-screensaver-preferences.c:986
+#, c-format
+msgid "%s %s %s"
+msgstr "%s %s %s"
+
+#. hour
+#. minutes
+#. seconds
+#: ../src/xfce4-screensaver-preferences.c:996
+#: ../src/xfce4-screensaver-preferences.c:1009
+#: ../src/xfce4-screensaver-preferences.c:1045
+#, c-format
+msgid "%s"
+msgstr "%s"
+
+#: ../src/xfce4-screensaver-preferences.c:1060
+#, c-format
+msgid "Never"
+msgstr "Kurrë"
+
+#: ../src/xfce4-screensaver-preferences.c:1511
+msgid "Could not load the main interface"
+msgstr "S’u arrit të ngarkohej ndërfaqja kryesore"
+
+#: ../src/xfce4-screensaver-preferences.c:1513
+msgid "Please make sure that the screensaver is properly installed"
+msgstr ""
+"Ju lutemi, garantoni që aplikacioni që ekrankursyesi është instaluar si "
+"duhet"
+
+#: ../src/xfce4-screensaver.c:60
+msgid "Don't become a daemon"
+msgstr "Mos u shndërro në demon"
+
+#: ../src/xfce4-screensaver.c:61
+msgid "Enable debugging code"
+msgstr "Aktivizo diagnostikim kodi"
+
+#: ../src/xfce4-screensaver.desktop.in.in.h:2
+msgid "Launch screensaver and locker program"
+msgstr ""
+
+#: ../src/xfcekbd-indicator.c:111
+#, c-format
+msgid "There was an error loading an image: %s"
+msgstr "Pati një gabim në ngarkimin e një figure: %s"
+
+#: ../src/xfcekbd-indicator.c:688
+msgid "XKB initialization error"
+msgstr "Gabim në gatitjen e XKB-së"
