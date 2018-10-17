@@ -97,7 +97,7 @@ msgstr "_Тема хранителя экрана:"
 
 #: ../data/xfce4-screensaver-preferences.ui.h:8
 msgid "Regard the computer as _idle after:"
-msgstr ""
+msgstr "Считать компьютер _неактивным после:"
 
 #: ../data/xfce4-screensaver-preferences.ui.h:9
 msgid "_Activate screensaver when computer is idle"
@@ -160,16 +160,17 @@ msgstr "image - выводит на экран летающие изображе
 #: ../savers/floaters.c:1192 ../savers/popsquares.c:50
 #, c-format
 msgid "%s. See --help for usage information.\n"
-msgstr ""
+msgstr "%s. Введите --help для получения справки.\n"
 
 #: ../savers/floaters.c:1201
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr ""
+"Вы должны указать одно изображение. Введите --help для получения справки.\n"
 
 #: ../savers/xfce-floaters.desktop.in.in.h:1
 msgid "Floating Xfce"
-msgstr ""
+msgstr "Летающий Xfce"
 
 #: ../savers/xfce-floaters.desktop.in.in.h:2
 msgid "Bubbles the Xfce logo around the screen"
@@ -252,7 +253,7 @@ msgstr "Пароль:"
 #: ../src/gs-auth-pam.c:414
 #, c-format
 msgid "Unable to establish service %s: %s\n"
-msgstr ""
+msgstr "Невозможно установить сервис %s: %s\n"
 
 #: ../src/gs-auth-pam.c:444
 #, c-format
@@ -277,7 +278,7 @@ msgstr ""
 
 #: ../src/gs-auth-pam.c:746
 msgid "Username:"
-msgstr ""
+msgstr "Имя пользователя:"
 
 #: ../src/gs-listener-dbus.c:2176
 msgid "failed to register with the message bus"
@@ -301,11 +302,11 @@ msgstr "Время истекло."
 
 #: ../src/gs-lock-plug.c:1308
 msgid "S_witch User..."
-msgstr ""
+msgstr "П_ереключить пользователя..."
 
 #: ../src/gs-lock-plug.c:1317
 msgid "Log _Out"
-msgstr ""
+msgstr "В_ыйти"
 
 #. To translators: This expands to USERNAME on HOSTNAME
 #: ../src/gs-lock-plug.c:1513
@@ -405,11 +406,11 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-command.c:352
 msgid "active"
-msgstr ""
+msgstr "активен"
 
 #: ../src/xfce4-screensaver-command.c:352
 msgid "inactive"
-msgstr ""
+msgstr "неактивен"
 
 #: ../src/xfce4-screensaver-command.c:368
 #, c-format
@@ -429,7 +430,7 @@ msgstr ""
 #: ../src/xfce4-screensaver-command.c:417
 #, c-format
 msgid "The screensaver is not currently active.\n"
-msgstr ""
+msgstr "Этот хранитель экрана сейчас неактивен.\n"
 
 #: ../src/xfce4-screensaver-dialog.c:63
 msgid "Show debugging output"
@@ -552,10 +553,10 @@ msgstr "Случайный порядок"
 #, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "%d час"
+msgstr[1] "%d часа"
+msgstr[2] "%d часов"
+msgstr[3] "%d часов"
 
 #: ../src/xfce4-screensaver-preferences.c:938
 #: ../src/xfce4-screensaver-preferences.c:947
@@ -568,19 +569,19 @@ msgstr[3] ""
 #, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "%d минута"
+msgstr[1] "%d минуты"
+msgstr[2] "%d минут"
+msgstr[3] "%dминут "
 
 #: ../src/xfce4-screensaver-preferences.c:941
 #, c-format
 msgid "%d second"
 msgid_plural "%d seconds"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "%d секунда"
+msgstr[1] "%d секунды"
+msgstr[2] "%d секунд"
+msgstr[3] "%d секунд"
 
 #. hour:minutes
 #. minutes:seconds
@@ -589,13 +590,13 @@ msgstr[3] ""
 #: ../src/xfce4-screensaver-preferences.c:1004
 #, c-format
 msgid "%s %s"
-msgstr ""
+msgstr "%s %s"
 
 #. hour:minutes:seconds
 #: ../src/xfce4-screensaver-preferences.c:986
 #, c-format
 msgid "%s %s %s"
-msgstr ""
+msgstr "%s %s %s"
 
 #. hour
 #. minutes
@@ -605,7 +606,7 @@ msgstr ""
 #: ../src/xfce4-screensaver-preferences.c:1045
 #, c-format
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: ../src/xfce4-screensaver-preferences.c:1060
 #, c-format
