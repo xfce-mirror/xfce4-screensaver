@@ -536,7 +536,7 @@ msgstr "Désolé, les mots de passe ne correspondent pas."
 
 #: ../src/xfce4-screensaver-dialog.c:268
 msgid "Checking..."
-msgstr ""
+msgstr "Vérification…"
 
 #: ../src/xfce4-screensaver-preferences.c:443
 msgid "Blank screen"
