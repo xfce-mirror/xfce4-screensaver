@@ -37,7 +37,7 @@ msgstr "_Skift bruger"
 
 #: ../data/lock-dialog-default.ui.h:6
 msgid "_Log Out"
-msgstr "_Log ud"
+msgstr "Log _ud"
 
 #: ../data/lock-dialog-default.ui.h:7 ../src/copy-theme-dialog.c:263
 #: ../src/gs-lock-plug.c:1323
@@ -155,7 +155,7 @@ msgstr "Kildebilledet som skal bruges"
 #. * represents a command line argument
 #: ../savers/floaters.c:1186
 msgid "image - floats images around the screen"
-msgstr "billede - svæver billeder omkring på skærmen"
+msgstr "billede - svæver billeder rundt på skærmen"
 
 #: ../savers/floaters.c:1192 ../savers/popsquares.c:50
 #, c-format
@@ -173,7 +173,7 @@ msgstr "Svævende Xfce"
 
 #: ../savers/xfce-floaters.desktop.in.in.h:2
 msgid "Bubbles the Xfce logo around the screen"
-msgstr "Bobler Xfce-logoet omkring på skærmen"
+msgstr "Bobler Xfce-logoet rundt på skærmen"
 
 #: ../savers/personal-slideshow.desktop.in.in.h:1
 msgid "Pictures folder"
@@ -305,7 +305,7 @@ msgstr "_Skift bruger..."
 
 #: ../src/gs-lock-plug.c:1317
 msgid "Log _Out"
-msgstr "_Log ud"
+msgstr "Log _ud"
 
 #. To translators: This expands to USERNAME on HOSTNAME
 #: ../src/gs-lock-plug.c:1513
@@ -320,7 +320,7 @@ msgstr "Indtast venligst din adgangskode."
 #: ../src/xfce-rr.c:478
 #, c-format
 msgid "could not get the screen resources (CRTCs, outputs, modes)"
-msgstr "kunne ikke hente skærmressourcer (CRTC'er, outputs, tilstande)"
+msgstr "kunne ikke hente skærmressourcer (CRTC'ere, outputs, tilstande)"
 
 #: ../src/xfce-rr.c:499
 #, c-format
@@ -345,7 +345,7 @@ msgstr "kunne ikke hente information om outputtet %d"
 #: ../src/xfce-rr.c:1389
 #, c-format
 msgid "could not get information about CRTC %d"
-msgstr "kunne ikke hente information om CRTC'en %d"
+msgstr "kunne ikke hente information om CRTC'eren %d"
 
 #: ../src/xfce4-screensaver-command.c:59
 msgid "Causes the screensaver to exit gracefully"
@@ -353,11 +353,11 @@ msgstr "Får pauseskærmen til at afslutte elegant"
 
 #: ../src/xfce4-screensaver-command.c:63
 msgid "Query the state of the screensaver"
-msgstr "Forespørger pauseskærmens tilstand"
+msgstr "Forespørg pauseskærmens tilstand"
 
 #: ../src/xfce4-screensaver-command.c:67
 msgid "Query the length of time the screensaver has been active"
-msgstr "Forespørger hvor længe pauseskærmen har været aktiv"
+msgstr "Forespørg hvor længe pauseskærmen har været aktiv"
 
 #: ../src/xfce4-screensaver-command.c:71
 msgid "Tells the running screensaver process to lock the screen immediately"
@@ -528,7 +528,7 @@ msgstr "Du skal vælge en længere adgangskode."
 
 #: ../src/xfce4-screensaver-dialog.c:192
 msgid "Password has been already used. Choose another."
-msgstr "Adgangskoden er allerede blevet brugt. Vælg en anden."
+msgstr "Adgangskoden har allerede været brugt. Vælg en anden."
 
 #: ../src/xfce4-screensaver-dialog.c:193
 msgid "You must wait longer to change your password."
