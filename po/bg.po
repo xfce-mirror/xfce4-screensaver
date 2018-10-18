@@ -328,26 +328,28 @@ msgstr "не бяха получени екранните ресурси (CRTC, 
 #, c-format
 msgid "unhandled X error while getting the range of screen sizes"
 msgstr ""
+"да не се обработват грешки в Х, докато се получи диапазона от размери на "
+"екрана"
 
 #: ../src/xfce-rr.c:505
 #, c-format
 msgid "could not get the range of screen sizes"
-msgstr ""
+msgstr "не може да се получи диапазона от размери на екрана"
 
 #: ../src/xfce-rr.c:730
 #, c-format
 msgid "RANDR extension is not present"
-msgstr ""
+msgstr "RANDR разширението не съществува"
 
 #: ../src/xfce-rr.c:1146
 #, c-format
 msgid "could not get information about output %d"
-msgstr ""
+msgstr "не може да бъде получена информация за изход %d"
 
 #: ../src/xfce-rr.c:1389
 #, c-format
 msgid "could not get information about CRTC %d"
-msgstr ""
+msgstr "не може да бъде получена информация за CRTC %d"
 
 #: ../src/xfce4-screensaver-command.c:59
 msgid "Causes the screensaver to exit gracefully"
