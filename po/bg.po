@@ -353,31 +353,33 @@ msgstr "не може да бъде получена информация за C
 
 #: ../src/xfce4-screensaver-command.c:59
 msgid "Causes the screensaver to exit gracefully"
-msgstr ""
+msgstr "Задава на предпазителя да излезе елегантно"
 
 #: ../src/xfce4-screensaver-command.c:63
 msgid "Query the state of the screensaver"
-msgstr ""
+msgstr "Запитване за състоянието на предпазителя на екрана"
 
 #: ../src/xfce4-screensaver-command.c:67
 msgid "Query the length of time the screensaver has been active"
 msgstr ""
+"Запитване за продължителността на времето, през което предпазителят да бъде "
+"активен"
 
 #: ../src/xfce4-screensaver-command.c:71
 msgid "Tells the running screensaver process to lock the screen immediately"
-msgstr ""
+msgstr "Заявява на стартирания предпазител да заключи екрана незабавно"
 
 #: ../src/xfce4-screensaver-command.c:75
 msgid "If the screensaver is active then switch to another graphics demo"
-msgstr ""
+msgstr "Ако предпазителят е активен, превключете на друго графично демо"
 
 #: ../src/xfce4-screensaver-command.c:79
 msgid "Turn the screensaver on (blank the screen)"
-msgstr ""
+msgstr "Включване на предпазителя (празен екран)"
 
 #: ../src/xfce4-screensaver-command.c:83
 msgid "If the screensaver is active then deactivate it (un-blank the screen)"
-msgstr ""
+msgstr "Ако предпазителят е активен, деактивирайте го (активен екран)"
 
 #: ../src/xfce4-screensaver-command.c:87
 msgid "Poke the running screensaver to simulate user activity"
