@@ -33,7 +33,7 @@ msgstr "La touche Verrou Maj. est activée."
 
 #: ../data/lock-dialog-default.ui.h:5
 msgid "_Switch User"
-msgstr "_Changer d'utilisateur"
+msgstr "_Changer d’utilisateur"
 
 #: ../data/lock-dialog-default.ui.h:6
 msgid "_Log Out"
@@ -46,7 +46,7 @@ msgstr "A_nnuler"
 
 #: ../data/lock-dialog-default.ui.h:8 ../src/gs-lock-plug.c:1328
 msgid "_Unlock"
-msgstr "Dévero_uiller"
+msgstr "Déverro_uiller"
 
 #: ../data/lock-dialog-default.ui.h:10
 #, no-c-format
@@ -81,11 +81,11 @@ msgstr "Préférences de l’économiseur d’écran"
 
 #: ../data/xfce4-screensaver-preferences.ui.h:4
 msgid "Configure your screensaver and locker"
-msgstr "Configurer l'économiseur et le verrouillage d'écran"
+msgstr "Configurer l’économiseur et le verrouillage d’écran"
 
 #: ../data/xfce4-screensaver-preferences.ui.h:5
 msgid "Power _Management"
-msgstr "Gestion de l'ali_mentation"
+msgstr "Gestion de l’ali_mentation"
 
 #: ../data/xfce4-screensaver-preferences.ui.h:6
 msgid "_Preview"
@@ -93,24 +93,24 @@ msgstr "_Aperçu"
 
 #: ../data/xfce4-screensaver-preferences.ui.h:7
 msgid "_Screensaver theme:"
-msgstr "_Thème de l'économiseur d'écran"
+msgstr "_Thème de l’économiseur d’écran :"
 
 #: ../data/xfce4-screensaver-preferences.ui.h:8
 msgid "Regard the computer as _idle after:"
-msgstr "Considérer l'ordinateur comme _inactif après:"
+msgstr "Considérer l’ordinateur comme _inactif après :"
 
 #: ../data/xfce4-screensaver-preferences.ui.h:9
 msgid "_Activate screensaver when computer is idle"
-msgstr "_Activer l'économiseur d'écran quand l'ordinateur est inactif"
+msgstr "_Activer l’économiseur d’écran quand l’ordinateur est inactif"
 
 #: ../data/xfce4-screensaver-preferences.ui.h:10
 msgid "_Lock screen when screensaver is active"
-msgstr "_Verrouiller l'écran quand l'économiseur d'écran est actif"
+msgstr "_Verrouiller l’écran quand l’économiseur d’écran est actif"
 
 #: ../data/xfce4-screensaver-preferences.ui.h:11
 msgid "<b>Warning: the screen will not be locked for the root user.</b>"
 msgstr ""
-"<b>Attention: l'écran ne sera pas verrouillé pour l'utilisateur root</b>"
+"<b>Attention : l’écran ne sera pas verrouillé pour l’utilisateur root.</b>"
 
 #: ../data/xfce4-screensaver.directory.in.h:1
 msgid "Screensavers"
@@ -222,11 +222,11 @@ msgstr "Copie des fichiers"
 
 #: ../src/copy-theme-dialog.c:241
 msgid "From:"
-msgstr "Depuis:"
+msgstr "Depuis :"
 
 #: ../src/copy-theme-dialog.c:245
 msgid "To:"
-msgstr "Vers:"
+msgstr "Vers :"
 
 #: ../src/copy-theme-dialog.c:266
 msgid "Copying themes"
@@ -234,7 +234,7 @@ msgstr "Copie des thèmes"
 
 #: ../src/copy-theme-dialog.c:310
 msgid "Invalid screensaver theme"
-msgstr "Thème d'économiseur d'écran invalide"
+msgstr "Thème d’économiseur d’écran invalide"
 
 #: ../src/copy-theme-dialog.c:313
 #, c-format
@@ -290,7 +290,7 @@ msgstr "déconnecté du bus de messages"
 
 #: ../src/gs-listener-dbus.c:2197 ../src/gs-listener-dbus.c:2229
 msgid "screensaver already running in this session"
-msgstr "économiseur d'écran déjà lancé dans cette session"
+msgstr "économiseur d’écran déjà lancé dans cette session"
 
 #: ../src/gs-lock-plug.c:291
 msgid "%A, %B %e   %H:%M"
@@ -302,7 +302,7 @@ msgstr "Le délai a expiré."
 
 #: ../src/gs-lock-plug.c:1308
 msgid "S_witch User..."
-msgstr "_Changer d'utilisateur..."
+msgstr "_Changer d’utilisateur…"
 
 #: ../src/gs-lock-plug.c:1317
 msgid "Log _Out"
@@ -370,7 +370,7 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-command.c:79
 msgid "Turn the screensaver on (blank the screen)"
-msgstr "Activer l'économiseur d'écran (écran vide)"
+msgstr "Activer l’économiseur d’écran (écran vide)"
 
 #: ../src/xfce4-screensaver-command.c:83
 msgid "If the screensaver is active then deactivate it (un-blank the screen)"
@@ -397,12 +397,12 @@ msgstr "Raison d'inhibition de l'économiseur d'écran"
 #: ../src/xfce4-screensaver-command.c:103 ../src/xfce4-screensaver-dialog.c:64
 #: ../src/xfce4-screensaver.c:59
 msgid "Version of this application"
-msgstr "Version de l'application"
+msgstr "Version de l’application"
 
 #: ../src/xfce4-screensaver-command.c:352
 #, c-format
 msgid "The screensaver is %s\n"
-msgstr "L'économiseur d'écran est %s\n"
+msgstr "L’économiseur d’écran est %s\n"
 
 #: ../src/xfce4-screensaver-command.c:352
 msgid "active"
@@ -430,15 +430,15 @@ msgstr ""
 #: ../src/xfce4-screensaver-command.c:417
 #, c-format
 msgid "The screensaver is not currently active.\n"
-msgstr ""
+msgstr "L’économiseur d’écran n’est actuellement pas actif.\n"
 
 #: ../src/xfce4-screensaver-dialog.c:63
 msgid "Show debugging output"
-msgstr ""
+msgstr "Afficher la sortie de débogage"
 
 #: ../src/xfce4-screensaver-dialog.c:65
 msgid "Show the logout button"
-msgstr ""
+msgstr "Afficher le bouton de déconnexion"
 
 #: ../src/xfce4-screensaver-dialog.c:66
 msgid "Command to invoke from the logout button"
@@ -476,7 +476,7 @@ msgstr "Index du moniteur"
 #: ../src/xfce4-screensaver-dialog.c:176 ../src/xfce4-screensaver-dialog.c:177
 #: ../src/xfce4-screensaver-dialog.c:178
 msgid "Please enter your username."
-msgstr "Veuillez entrer votre nom d'utilisateur"
+msgstr "Veuillez entrer votre nom d’utilisateur."
 
 #: ../src/xfce4-screensaver-dialog.c:181
 msgid "You are required to change your password immediately (password aged)"
@@ -520,7 +520,7 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-dialog.c:191
 msgid "You must choose a longer password."
-msgstr ""
+msgstr "Vous devez choisir un mot de passe plus long."
 
 #: ../src/xfce4-screensaver-dialog.c:192
 msgid "Password has been already used. Choose another."
