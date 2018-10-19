@@ -384,30 +384,33 @@ msgstr "Ако предпазителят е активен, деактивир�
 #: ../src/xfce4-screensaver-command.c:87
 msgid "Poke the running screensaver to simulate user activity"
 msgstr ""
+"Задаване на стартираният предпазител да симулира потребителска активност"
 
 #: ../src/xfce4-screensaver-command.c:91
 msgid ""
 "Inhibit the screensaver from activating.  Command blocks while inhibit is "
 "active."
 msgstr ""
+"Инхибиране на предпазителя от активирането. Командни блокове, докато "
+"блокирането е активно."
 
 #: ../src/xfce4-screensaver-command.c:95
 msgid "The calling application that is inhibiting the screensaver"
-msgstr ""
+msgstr "Заявка на приложение, която блокира предпазителя."
 
 #: ../src/xfce4-screensaver-command.c:99
 msgid "The reason for inhibiting the screensaver"
-msgstr ""
+msgstr "Причина за блокиране на предпазителя"
 
 #: ../src/xfce4-screensaver-command.c:103 ../src/xfce4-screensaver-dialog.c:64
 #: ../src/xfce4-screensaver.c:59
 msgid "Version of this application"
-msgstr ""
+msgstr "Версия на това приложения"
 
 #: ../src/xfce4-screensaver-command.c:352
 #, c-format
 msgid "The screensaver is %s\n"
-msgstr ""
+msgstr "Предпазителят е %s\n"
 
 #: ../src/xfce4-screensaver-command.c:352
 msgid "active"
@@ -420,42 +423,42 @@ msgstr "неактивен"
 #: ../src/xfce4-screensaver-command.c:368
 #, c-format
 msgid "The screensaver is not inhibited\n"
-msgstr ""
+msgstr "Предпазителят не е блокиран\n"
 
 #: ../src/xfce4-screensaver-command.c:376
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
-msgstr ""
+msgstr "Предпазителят е блокиран от:\n"
 
 #: ../src/xfce4-screensaver-command.c:411
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
-msgstr ""
+msgstr "Предпазителят  е активен за %d секунди.\n"
 
 #: ../src/xfce4-screensaver-command.c:417
 #, c-format
 msgid "The screensaver is not currently active.\n"
-msgstr ""
+msgstr "Предпазителят в момента не е активен.\n"
 
 #: ../src/xfce4-screensaver-dialog.c:63
 msgid "Show debugging output"
-msgstr ""
+msgstr "Покажи изходна информация с грешките"
 
 #: ../src/xfce4-screensaver-dialog.c:65
 msgid "Show the logout button"
-msgstr ""
+msgstr "Покажи бутона за изход"
 
 #: ../src/xfce4-screensaver-dialog.c:66
 msgid "Command to invoke from the logout button"
-msgstr ""
+msgstr "Команда за извикване на бутона за изход"
 
 #: ../src/xfce4-screensaver-dialog.c:67
 msgid "Show the switch user button"
-msgstr ""
+msgstr "Покажи бутона за смяна на потребител"
 
 #: ../src/xfce4-screensaver-dialog.c:68
 msgid "Message to show in the dialog"
-msgstr ""
+msgstr "Показване на съобщенията в диалогов прозорец"
 
 #: ../src/xfce4-screensaver-dialog.c:68 ../src/xfce4-screensaver-dialog.c:69
 msgid "MESSAGE"
@@ -467,25 +470,25 @@ msgstr "Не се използва"
 
 #: ../src/xfce4-screensaver-dialog.c:70
 msgid "Monitor height"
-msgstr ""
+msgstr "Височина на монитора"
 
 #: ../src/xfce4-screensaver-dialog.c:71
 msgid "Monitor width"
-msgstr ""
+msgstr "Ширина на монитора"
 
 #: ../src/xfce4-screensaver-dialog.c:72
 msgid "Monitor index"
-msgstr ""
+msgstr "Индекс на монитора"
 
 #. login: is whacked always translate to Username:
 #: ../src/xfce4-screensaver-dialog.c:176 ../src/xfce4-screensaver-dialog.c:177
 #: ../src/xfce4-screensaver-dialog.c:178
 msgid "Please enter your username."
-msgstr ""
+msgstr "Моля, въведете вашето потребителско име"
 
 #: ../src/xfce4-screensaver-dialog.c:181
 msgid "You are required to change your password immediately (password aged)"
-msgstr ""
+msgstr "Необходимо е да смените вашата парола незабавно (остаряла парола)"
 
 #: ../src/xfce4-screensaver-dialog.c:182
 msgid "You are required to change your password immediately (root enforced)"
