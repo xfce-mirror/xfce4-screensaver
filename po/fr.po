@@ -130,11 +130,11 @@ msgstr ""
 
 #: ../savers/floaters.c:101
 msgid "Print out frame rate and other statistics"
-msgstr ""
+msgstr "Afficher la fréquence d’images et d’autres statistiques"
 
 #: ../savers/floaters.c:106
 msgid "The maximum number of images to keep on screen"
-msgstr ""
+msgstr "Le nombre maximum d’images à conserver sur l’écran"
 
 #: ../savers/floaters.c:106
 msgid "MAX_IMAGES"
@@ -142,7 +142,7 @@ msgstr ""
 
 #: ../savers/floaters.c:111
 msgid "The initial size and position of window"
-msgstr ""
+msgstr "La taille et la position initiales de la fenêtre"
 
 #: ../savers/floaters.c:111
 msgid "WIDTHxHEIGHT+X+Y"
@@ -156,7 +156,7 @@ msgstr "Source de l'image à utiliser"
 #. * represents a command line argument
 #: ../savers/floaters.c:1186
 msgid "image - floats images around the screen"
-msgstr ""
+msgstr "image - fait flotter des images sur l’écran"
 
 #: ../savers/floaters.c:1192 ../savers/popsquares.c:50
 #, c-format
@@ -354,7 +354,7 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-command.c:63
 msgid "Query the state of the screensaver"
-msgstr ""
+msgstr "Interroger l’état de l’économiseur d’écran"
 
 #: ../src/xfce4-screensaver-command.c:67
 msgid "Query the length of time the screensaver has been active"
@@ -415,17 +415,17 @@ msgstr "inactif"
 #: ../src/xfce4-screensaver-command.c:368
 #, c-format
 msgid "The screensaver is not inhibited\n"
-msgstr ""
+msgstr "L’économiseur d’écran n’est pas inhibé\n"
 
 #: ../src/xfce4-screensaver-command.c:376
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
-msgstr ""
+msgstr "L’économiseur d’écran est en cours d’inhibition par :\n"
 
 #: ../src/xfce4-screensaver-command.c:411
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
-msgstr ""
+msgstr "L’économiseur d’écran est actif depuis %d secondes.\n"
 
 #: ../src/xfce4-screensaver-command.c:417
 #, c-format
@@ -504,7 +504,7 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-dialog.c:187
 msgid "Retype your new password."
-msgstr ""
+msgstr "Ressaisissez votre nouveau mot de passe."
 
 #: ../src/xfce4-screensaver-dialog.c:188
 msgid "Enter your new password."
@@ -528,7 +528,7 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-dialog.c:193
 msgid "You must wait longer to change your password."
-msgstr ""
+msgstr "Vous devez attendre plus longtemps pour changer votre mot de passe."
 
 #: ../src/xfce4-screensaver-dialog.c:194
 msgid "Sorry, passwords do not match."
