@@ -373,173 +373,173 @@ msgstr "開啟螢幕保護程式（將螢幕清空）"
 
 #: ../src/xfce4-screensaver-command.c:83
 msgid "If the screensaver is active then deactivate it (un-blank the screen)"
-msgstr ""
+msgstr "如果螢幕保護程式處於活躍狀態，那就停用它（取消螢幕空白）"
 
 #: ../src/xfce4-screensaver-command.c:87
 msgid "Poke the running screensaver to simulate user activity"
-msgstr ""
+msgstr "擾動執行中的螢幕保護程式以模擬使用者的活動"
 
 #: ../src/xfce4-screensaver-command.c:91
 msgid ""
 "Inhibit the screensaver from activating.  Command blocks while inhibit is "
 "active."
-msgstr ""
+msgstr "抑制螢幕保護程式啟動。當抑制啟動時，指令會被阻擋。"
 
 #: ../src/xfce4-screensaver-command.c:95
 msgid "The calling application that is inhibiting the screensaver"
-msgstr ""
+msgstr "呼叫的應用程式正在抑制螢幕保護程式"
 
 #: ../src/xfce4-screensaver-command.c:99
 msgid "The reason for inhibiting the screensaver"
-msgstr ""
+msgstr "抑制螢幕保護程式的理由"
 
 #: ../src/xfce4-screensaver-command.c:103 ../src/xfce4-screensaver-dialog.c:64
 #: ../src/xfce4-screensaver.c:59
 msgid "Version of this application"
-msgstr ""
+msgstr "此應用程式的版本"
 
 #: ../src/xfce4-screensaver-command.c:352
 #, c-format
 msgid "The screensaver is %s\n"
-msgstr ""
+msgstr "螢幕保護程式為 %s\n"
 
 #: ../src/xfce4-screensaver-command.c:352
 msgid "active"
-msgstr ""
+msgstr "活躍"
 
 #: ../src/xfce4-screensaver-command.c:352
 msgid "inactive"
-msgstr ""
+msgstr "不活躍"
 
 #: ../src/xfce4-screensaver-command.c:368
 #, c-format
 msgid "The screensaver is not inhibited\n"
-msgstr ""
+msgstr "螢幕保護程式未被抑制\n"
 
 #: ../src/xfce4-screensaver-command.c:376
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
-msgstr ""
+msgstr "螢幕保護程式抑制由：\n"
 
 #: ../src/xfce4-screensaver-command.c:411
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
-msgstr ""
+msgstr "螢幕保護程式已經活躍 %d 秒。\n"
 
 #: ../src/xfce4-screensaver-command.c:417
 #, c-format
 msgid "The screensaver is not currently active.\n"
-msgstr ""
+msgstr "螢幕保護程式目前不活躍。\n"
 
 #: ../src/xfce4-screensaver-dialog.c:63
 msgid "Show debugging output"
-msgstr ""
+msgstr "顯示除錯輸出"
 
 #: ../src/xfce4-screensaver-dialog.c:65
 msgid "Show the logout button"
-msgstr ""
+msgstr "顯示登出鈕"
 
 #: ../src/xfce4-screensaver-dialog.c:66
 msgid "Command to invoke from the logout button"
-msgstr ""
+msgstr "登出按鈕呼叫的指令"
 
 #: ../src/xfce4-screensaver-dialog.c:67
 msgid "Show the switch user button"
-msgstr ""
+msgstr "顯示切換使用者按鈕"
 
 #: ../src/xfce4-screensaver-dialog.c:68
 msgid "Message to show in the dialog"
-msgstr ""
+msgstr "在對話框中顯示的訊息"
 
 #: ../src/xfce4-screensaver-dialog.c:68 ../src/xfce4-screensaver-dialog.c:69
 msgid "MESSAGE"
-msgstr ""
+msgstr "MESSAGE"
 
 #: ../src/xfce4-screensaver-dialog.c:69
 msgid "Not used"
-msgstr ""
+msgstr "未使用"
 
 #: ../src/xfce4-screensaver-dialog.c:70
 msgid "Monitor height"
-msgstr ""
+msgstr "螢幕高度"
 
 #: ../src/xfce4-screensaver-dialog.c:71
 msgid "Monitor width"
-msgstr ""
+msgstr "螢幕寬度"
 
 #: ../src/xfce4-screensaver-dialog.c:72
 msgid "Monitor index"
-msgstr ""
+msgstr "螢幕索引"
 
 #. login: is whacked always translate to Username:
 #: ../src/xfce4-screensaver-dialog.c:176 ../src/xfce4-screensaver-dialog.c:177
 #: ../src/xfce4-screensaver-dialog.c:178
 msgid "Please enter your username."
-msgstr ""
+msgstr "請輸入您的使用者名稱。"
 
 #: ../src/xfce4-screensaver-dialog.c:181
 msgid "You are required to change your password immediately (password aged)"
-msgstr ""
+msgstr "您必須立刻變更您的密碼（密碼已過期）"
 
 #: ../src/xfce4-screensaver-dialog.c:182
 msgid "You are required to change your password immediately (root enforced)"
-msgstr ""
+msgstr "您必須立刻變更您的密碼（root 強制執行）"
 
 #: ../src/xfce4-screensaver-dialog.c:183
 msgid "Your account has expired; please contact your system administrator"
-msgstr ""
+msgstr "您的帳號已過期：請聯絡您的系統管理員"
 
 #: ../src/xfce4-screensaver-dialog.c:184
 msgid "No password supplied."
-msgstr ""
+msgstr "未提供密碼。"
 
 #: ../src/xfce4-screensaver-dialog.c:185
 msgid "Password unchanged."
-msgstr ""
+msgstr "密碼未變更。"
 
 #: ../src/xfce4-screensaver-dialog.c:186
 msgid "Can not get username."
-msgstr ""
+msgstr "無法取得使用者名稱。"
 
 #: ../src/xfce4-screensaver-dialog.c:187
 msgid "Retype your new password."
-msgstr ""
+msgstr "重新輸入您的新密碼。"
 
 #: ../src/xfce4-screensaver-dialog.c:188
 msgid "Enter your new password."
-msgstr ""
+msgstr "輸入您的新密碼。"
 
 #: ../src/xfce4-screensaver-dialog.c:189
 msgid "Enter your current password:"
-msgstr ""
+msgstr "輸入您目前的密碼："
 
 #: ../src/xfce4-screensaver-dialog.c:190
 msgid "Error while changing NIS password."
-msgstr ""
+msgstr "變更 NIS 密碼時發生錯誤。"
 
 #: ../src/xfce4-screensaver-dialog.c:191
 msgid "You must choose a longer password."
-msgstr ""
+msgstr "您必須選擇較長的密碼。"
 
 #: ../src/xfce4-screensaver-dialog.c:192
 msgid "Password has been already used. Choose another."
-msgstr ""
+msgstr "密碼已經用過了。請選其他的。"
 
 #: ../src/xfce4-screensaver-dialog.c:193
 msgid "You must wait longer to change your password."
-msgstr ""
+msgstr "您必須等久一點才能變更您的密碼。"
 
 #: ../src/xfce4-screensaver-dialog.c:194
 msgid "Sorry, passwords do not match."
-msgstr ""
+msgstr "抱歉，密碼不符合。"
 
 #: ../src/xfce4-screensaver-dialog.c:268
 msgid "Checking..."
-msgstr ""
+msgstr "正在檢查……"
 
 #: ../src/xfce4-screensaver-preferences.c:443
 msgid "Blank screen"
-msgstr ""
+msgstr "空白畫面"
 
 #: ../src/xfce4-screensaver-preferences.c:449
 msgid "Random"
@@ -550,7 +550,7 @@ msgstr "隨機"
 #, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
-msgstr[0] ""
+msgstr[0] "%d小時"
 
 #: ../src/xfce4-screensaver-preferences.c:938
 #: ../src/xfce4-screensaver-preferences.c:947
@@ -563,13 +563,13 @@ msgstr[0] ""
 #, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
-msgstr[0] ""
+msgstr[0] "%d分鐘"
 
 #: ../src/xfce4-screensaver-preferences.c:941
 #, c-format
 msgid "%d second"
 msgid_plural "%d seconds"
-msgstr[0] ""
+msgstr[0] "%d秒"
 
 #. hour:minutes
 #. minutes:seconds
@@ -578,13 +578,13 @@ msgstr[0] ""
 #: ../src/xfce4-screensaver-preferences.c:1004
 #, c-format
 msgid "%s %s"
-msgstr ""
+msgstr "%s %s"
 
 #. hour:minutes:seconds
 #: ../src/xfce4-screensaver-preferences.c:986
 #, c-format
 msgid "%s %s %s"
-msgstr ""
+msgstr "%s %s %s"
 
 #. hour
 #. minutes
@@ -594,7 +594,7 @@ msgstr ""
 #: ../src/xfce4-screensaver-preferences.c:1045
 #, c-format
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: ../src/xfce4-screensaver-preferences.c:1060
 #, c-format
@@ -603,29 +603,29 @@ msgstr "從不"
 
 #: ../src/xfce4-screensaver-preferences.c:1511
 msgid "Could not load the main interface"
-msgstr ""
+msgstr "無法載入主介面"
 
 #: ../src/xfce4-screensaver-preferences.c:1513
 msgid "Please make sure that the screensaver is properly installed"
-msgstr ""
+msgstr "請確定螢幕保護程式已正確安裝"
 
 #: ../src/xfce4-screensaver.c:60
 msgid "Don't become a daemon"
-msgstr ""
+msgstr "不要變成幕後程式"
 
 #: ../src/xfce4-screensaver.c:61
 msgid "Enable debugging code"
-msgstr ""
+msgstr "啟用除錯程式碼"
 
 #: ../src/xfce4-screensaver.desktop.in.in.h:2
 msgid "Launch screensaver and locker program"
-msgstr ""
+msgstr "啟動螢幕保護程式與鎖定程式"
 
 #: ../src/xfcekbd-indicator.c:111
 #, c-format
 msgid "There was an error loading an image: %s"
-msgstr ""
+msgstr "載入圖片時發生錯誤：%s"
 
 #: ../src/xfcekbd-indicator.c:688
 msgid "XKB initialization error"
-msgstr ""
+msgstr "XKB 初始化錯誤"
