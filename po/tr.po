@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-16 18:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Demiray Muhterem <mdemiray@msn.com>, 2018\n"
+"Last-Translator: Emin Tufan <etcetin@gmail.com>, 2018\n"
 "Language-Team: Turkish (https://www.transifex.com/xfce/teams/16840/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +25,7 @@ msgstr "%U"
 
 #: ../data/lock-dialog-default.ui.h:3
 msgid "Enter your password"
-msgstr "Şifrenizi girin"
+msgstr "Parolanızı girin"
 
 #: ../data/lock-dialog-default.ui.h:4
 msgid "You have the Caps Lock key on."
@@ -61,7 +61,7 @@ msgstr "<b>%s</b>"
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:1
 #: ../src/xfce4-screensaver.desktop.in.in.h:1
 msgid "Screensaver"
-msgstr "Ekrankoruyucu"
+msgstr "Ekran Koruyucu"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:2
 msgid "Set your screensaver preferences"
@@ -93,7 +93,7 @@ msgstr "_Önizleme"
 
 #: ../data/xfce4-screensaver-preferences.ui.h:7
 msgid "_Screensaver theme:"
-msgstr "_Ekrankoruyucu tema:"
+msgstr "_Ekran Koruyucu gövdesi:"
 
 #: ../data/xfce4-screensaver-preferences.ui.h:8
 msgid "Regard the computer as _idle after:"
@@ -117,7 +117,7 @@ msgstr "Ekran koruyucular"
 
 #: ../data/xfce4-screensaver.directory.in.h:2
 msgid "Screensaver themes"
-msgstr "Ekran koruyucu temaları"
+msgstr "Ekran koruyucu gövdeleri"
 
 #: ../savers/floaters.c:91
 msgid "Show paths that images follow"
@@ -229,16 +229,16 @@ msgstr "Şuraya:"
 
 #: ../src/copy-theme-dialog.c:266
 msgid "Copying themes"
-msgstr "Temalar kopyalanıyor"
+msgstr "Gövdeler kopyalanıyor"
 
 #: ../src/copy-theme-dialog.c:310
 msgid "Invalid screensaver theme"
-msgstr "Geçersiz ekrankoruyucu teması"
+msgstr "Geçersiz ekran koruyucu gövdesi"
 
 #: ../src/copy-theme-dialog.c:313
 #, c-format
 msgid "%s does not appear to be a valid screensaver theme."
-msgstr "%sgeçerli bir ekran koruyucu teması gibi görünmüyor. "
+msgstr "%sgeçerli bir ekran koruyucu gövdesi gibi görünmüyor. "
 
 #: ../src/copy-theme-dialog.c:494
 #, c-format
@@ -261,7 +261,7 @@ msgstr "Ayarlanamadı PAM_TTY=%s"
 
 #: ../src/gs-auth-pam.c:480
 msgid "Incorrect password."
-msgstr "Yanlış şifre."
+msgstr "Yanlış parola."
 
 #: ../src/gs-auth-pam.c:484 ../src/xfce4-screensaver-dialog.c:314
 msgid "Authentication failed."
@@ -281,11 +281,11 @@ msgstr "Kullanıcı:"
 
 #: ../src/gs-listener-dbus.c:2176
 msgid "failed to register with the message bus"
-msgstr "mesaj veriyoluna kayıt yapılamadı"
+msgstr "ileti veri yoluna kayıt yapılamadı"
 
 #: ../src/gs-listener-dbus.c:2187
 msgid "not connected to the message bus"
-msgstr "mesaj veri yoluna bağlı değil"
+msgstr "ileti veri yoluna bağlı değil"
 
 #: ../src/gs-listener-dbus.c:2197 ../src/gs-listener-dbus.c:2229
 msgid "screensaver already running in this session"
@@ -314,7 +314,7 @@ msgstr "%U şurada %h"
 
 #: ../src/gs-lock-plug.c:1528
 msgid "Please enter your password."
-msgstr "Lütfen şifrenizi giriniz."
+msgstr "Lütfen parolanızı giriniz."
 
 #. Translators: a CRTC is a CRT Controller (this is X terminology).
 #: ../src/xfce-rr.c:478
@@ -335,7 +335,7 @@ msgstr "ekran boyutları aralığı alınamadı"
 #: ../src/xfce-rr.c:730
 #, c-format
 msgid "RANDR extension is not present"
-msgstr "RANDR uzantısı mevcut değil"
+msgstr "RANDR uzantısı yok"
 
 #: ../src/xfce-rr.c:1146
 #, c-format
@@ -452,11 +452,11 @@ msgstr "Kullanıcı değiştirme düğmesini göster"
 
 #: ../src/xfce4-screensaver-dialog.c:68
 msgid "Message to show in the dialog"
-msgstr "İletişim kutusunda gösterilecek mesaj"
+msgstr "İletişim kutusunda gösterilecek ileti"
 
 #: ../src/xfce4-screensaver-dialog.c:68 ../src/xfce4-screensaver-dialog.c:69
 msgid "MESSAGE"
-msgstr "MESAJ"
+msgstr "İLETİ"
 
 #: ../src/xfce4-screensaver-dialog.c:69
 msgid "Not used"
@@ -486,7 +486,7 @@ msgstr "Parolanızı hemen değiştirmeniz gerekiyor (parola eski)"
 
 #: ../src/xfce4-screensaver-dialog.c:182
 msgid "You are required to change your password immediately (root enforced)"
-msgstr "Parolanızı hemen değiştirmeniz gerekiyor (kök root zorunlu)"
+msgstr "Parolanızı hemen değiştirmeniz gerekiyor (kök zorunlu)"
 
 #: ../src/xfce4-screensaver-dialog.c:183
 msgid "Your account has expired; please contact your system administrator"
@@ -494,11 +494,11 @@ msgstr "Hesabınızın süresi doldu; lütfen sistem yöneticinize başvurun"
 
 #: ../src/xfce4-screensaver-dialog.c:184
 msgid "No password supplied."
-msgstr "Şifre yok."
+msgstr "Parola yok."
 
 #: ../src/xfce4-screensaver-dialog.c:185
 msgid "Password unchanged."
-msgstr "Şifre değişmedi."
+msgstr "Parola değişmedi."
 
 #: ../src/xfce4-screensaver-dialog.c:186
 msgid "Can not get username."
@@ -506,35 +506,35 @@ msgstr "Kullanıcı adı alınamıyor."
 
 #: ../src/xfce4-screensaver-dialog.c:187
 msgid "Retype your new password."
-msgstr "Yeni şifrenizi tekrar giriniz."
+msgstr "Yeni parolanızı yeniden giriniz."
 
 #: ../src/xfce4-screensaver-dialog.c:188
 msgid "Enter your new password."
-msgstr "Yeni şifrenizi giriniz."
+msgstr "Yeni parolanızı giriniz."
 
 #: ../src/xfce4-screensaver-dialog.c:189
 msgid "Enter your current password:"
-msgstr "Mevcut şifrenizi girin:"
+msgstr "Geçerli parolanızı girin:"
 
 #: ../src/xfce4-screensaver-dialog.c:190
 msgid "Error while changing NIS password."
-msgstr "NIS şifresi değiştirilirken hata oluştu."
+msgstr "NIS parolası değiştirilirken hata oluştu."
 
 #: ../src/xfce4-screensaver-dialog.c:191
 msgid "You must choose a longer password."
-msgstr "Daha uzun bir şifre seçmelisiniz."
+msgstr "Daha uzun bir parola seçmelisiniz."
 
 #: ../src/xfce4-screensaver-dialog.c:192
 msgid "Password has been already used. Choose another."
-msgstr "Şifre zaten kullanıldı. Başka bir tane belirle."
+msgstr "Parola zaten kullanıldı. Başka bir tane belirle."
 
 #: ../src/xfce4-screensaver-dialog.c:193
 msgid "You must wait longer to change your password."
-msgstr "Şifrenizi değiştirmek için daha uzun süre beklemeniz gerekir."
+msgstr "Parolanızı değiştirmek için daha uzun süre beklemeniz gerekir."
 
 #: ../src/xfce4-screensaver-dialog.c:194
 msgid "Sorry, passwords do not match."
-msgstr "Üzgünüz, şifreler eşleşmiyor."
+msgstr "Üzgünüz, parolalar eşleşmiyor."
 
 #: ../src/xfce4-screensaver-dialog.c:268
 msgid "Checking..."
@@ -630,7 +630,7 @@ msgstr "Ekran koruyucu ve kilitleme programını başlat"
 #: ../src/xfcekbd-indicator.c:111
 #, c-format
 msgid "There was an error loading an image: %s"
-msgstr "Bir resim yüklenirken bir hata oluştu: %s"
+msgstr "Resim yüklenirken bir hata oluştu: %s"
 
 #: ../src/xfcekbd-indicator.c:688
 msgid "XKB initialization error"
