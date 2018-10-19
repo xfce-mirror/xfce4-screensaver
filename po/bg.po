@@ -492,63 +492,64 @@ msgstr "Необходимо е да смените вашата парола н
 
 #: ../src/xfce4-screensaver-dialog.c:182
 msgid "You are required to change your password immediately (root enforced)"
-msgstr ""
+msgstr "Трябва да смените вашата парола незабавно (с root права)"
 
 #: ../src/xfce4-screensaver-dialog.c:183
 msgid "Your account has expired; please contact your system administrator"
 msgstr ""
+"Профилът Ви е изтекъл; моля, свържете се със системния си администратор"
 
 #: ../src/xfce4-screensaver-dialog.c:184
 msgid "No password supplied."
-msgstr ""
+msgstr "Няма предоставена парола."
 
 #: ../src/xfce4-screensaver-dialog.c:185
 msgid "Password unchanged."
-msgstr ""
+msgstr "Паролата не е променена."
 
 #: ../src/xfce4-screensaver-dialog.c:186
 msgid "Can not get username."
-msgstr ""
+msgstr "Не може да бъде получено потребителско име."
 
 #: ../src/xfce4-screensaver-dialog.c:187
 msgid "Retype your new password."
-msgstr ""
+msgstr "Повторете вашата нова парола."
 
 #: ../src/xfce4-screensaver-dialog.c:188
 msgid "Enter your new password."
-msgstr ""
+msgstr "Въведете вашата нова парола."
 
 #: ../src/xfce4-screensaver-dialog.c:189
 msgid "Enter your current password:"
-msgstr ""
+msgstr "Въведете вашата текуща парола:"
 
 #: ../src/xfce4-screensaver-dialog.c:190
 msgid "Error while changing NIS password."
-msgstr ""
+msgstr "Грешка при промяна на NIS паролата."
 
 #: ../src/xfce4-screensaver-dialog.c:191
 msgid "You must choose a longer password."
-msgstr ""
+msgstr "Вие трябва да изберете по- дълга парола."
 
 #: ../src/xfce4-screensaver-dialog.c:192
 msgid "Password has been already used. Choose another."
-msgstr ""
+msgstr "Паролата вече е използвана. Изберете друга."
 
 #: ../src/xfce4-screensaver-dialog.c:193
 msgid "You must wait longer to change your password."
-msgstr ""
+msgstr "Вие трябва да изчакате по- дълго, за да се смени вашата парола."
 
 #: ../src/xfce4-screensaver-dialog.c:194
 msgid "Sorry, passwords do not match."
-msgstr ""
+msgstr "Съжалявам, паролите не съвпадат."
 
 #: ../src/xfce4-screensaver-dialog.c:268
 msgid "Checking..."
-msgstr ""
+msgstr "Проверка..."
 
 #: ../src/xfce4-screensaver-preferences.c:443
 msgid "Blank screen"
-msgstr ""
+msgstr "Празен екран"
 
 #: ../src/xfce4-screensaver-preferences.c:449
 msgid "Random"
@@ -615,29 +616,29 @@ msgstr "Никога"
 
 #: ../src/xfce4-screensaver-preferences.c:1511
 msgid "Could not load the main interface"
-msgstr ""
+msgstr "Не може да бъде зареден основният интерфейс"
 
 #: ../src/xfce4-screensaver-preferences.c:1513
 msgid "Please make sure that the screensaver is properly installed"
-msgstr ""
+msgstr "Моля, убедете се, че предпазителят на екрана е инсталиран правилно"
 
 #: ../src/xfce4-screensaver.c:60
 msgid "Don't become a daemon"
-msgstr ""
+msgstr "Услугата не се изпълни"
 
 #: ../src/xfce4-screensaver.c:61
 msgid "Enable debugging code"
-msgstr ""
+msgstr "Активирайте кода за отстраняване на грешки"
 
 #: ../src/xfce4-screensaver.desktop.in.in.h:2
 msgid "Launch screensaver and locker program"
-msgstr ""
+msgstr "Стартиране на предпазителя и програмата за заключване на екрана"
 
 #: ../src/xfcekbd-indicator.c:111
 #, c-format
 msgid "There was an error loading an image: %s"
-msgstr ""
+msgstr "Възникна грешка при зареждане на изображението: %s"
 
 #: ../src/xfcekbd-indicator.c:688
 msgid "XKB initialization error"
-msgstr ""
+msgstr "Грешка на XKB инициализацията"
