@@ -138,7 +138,7 @@ msgstr "Le nombre maximum d’images à conserver sur l’écran"
 
 #: ../savers/floaters.c:106
 msgid "MAX_IMAGES"
-msgstr ""
+msgstr "MAX_IMAGES"
 
 #: ../savers/floaters.c:111
 msgid "The initial size and position of window"
@@ -198,7 +198,7 @@ msgstr ""
 
 #: ../savers/slideshow.c:55
 msgid "PATH"
-msgstr ""
+msgstr "PATH"
 
 #: ../savers/slideshow.c:59
 msgid "Color to use for images background"
@@ -239,12 +239,12 @@ msgstr "Thème d’économiseur d’écran invalide"
 #: ../src/copy-theme-dialog.c:313
 #, c-format
 msgid "%s does not appear to be a valid screensaver theme."
-msgstr ""
+msgstr "%s ne semble pas être un thème d'économiseur d'écran valide."
 
 #: ../src/copy-theme-dialog.c:494
 #, c-format
 msgid "Copying file: %u of %u"
-msgstr ""
+msgstr "Copie du fichier: %u sur %u"
 
 #: ../src/gs-auth-pam.c:172
 msgid "Password:"
@@ -258,7 +258,7 @@ msgstr ""
 #: ../src/gs-auth-pam.c:444
 #, c-format
 msgid "Can't set PAM_TTY=%s"
-msgstr ""
+msgstr "Impossible de définir PAM_TTY=%s"
 
 #: ../src/gs-auth-pam.c:480
 msgid "Incorrect password."
@@ -270,11 +270,11 @@ msgstr "L’authentification a échoué."
 
 #: ../src/gs-auth-pam.c:500
 msgid "Not permitted to gain access at this time."
-msgstr ""
+msgstr "Accès non autorisé actuellement."
 
 #: ../src/gs-auth-pam.c:508
 msgid "No longer permitted to access the system."
-msgstr ""
+msgstr "L'accès au système n'est plus autorisé."
 
 #: ../src/gs-auth-pam.c:746
 msgid "Username:"
@@ -350,7 +350,7 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-command.c:59
 msgid "Causes the screensaver to exit gracefully"
-msgstr ""
+msgstr "Entraîne la fermeture gracieuse de l'économiseur d'écran"
 
 #: ../src/xfce4-screensaver-command.c:63
 msgid "Query the state of the screensaver"
@@ -358,11 +358,13 @@ msgstr "Interroger l’état de l’économiseur d’écran"
 
 #: ../src/xfce4-screensaver-command.c:67
 msgid "Query the length of time the screensaver has been active"
-msgstr ""
+msgstr "Interroger la durée depuis laquelle l'économiseur d'écran est actif"
 
 #: ../src/xfce4-screensaver-command.c:71
 msgid "Tells the running screensaver process to lock the screen immediately"
 msgstr ""
+"Demande au processus d'économiseur d'écran en cours de verrouiller l'écran "
+"immédiatement"
 
 #: ../src/xfce4-screensaver-command.c:75
 msgid "If the screensaver is active then switch to another graphics demo"
@@ -389,6 +391,7 @@ msgstr ""
 #: ../src/xfce4-screensaver-command.c:95
 msgid "The calling application that is inhibiting the screensaver"
 msgstr ""
+"L'application appelante responsable de l'inhibition de l'économiseur d'écran"
 
 #: ../src/xfce4-screensaver-command.c:99
 msgid "The reason for inhibiting the screensaver"
@@ -500,7 +503,7 @@ msgstr "Mot de passe inchangé."
 
 #: ../src/xfce4-screensaver-dialog.c:186
 msgid "Can not get username."
-msgstr ""
+msgstr "Impossible d'obtenir le nom d'utilisateur."
 
 #: ../src/xfce4-screensaver-dialog.c:187
 msgid "Retype your new password."
@@ -516,7 +519,7 @@ msgstr "Entrez votre mot de passe actuel."
 
 #: ../src/xfce4-screensaver-dialog.c:190
 msgid "Error while changing NIS password."
-msgstr ""
+msgstr "Erreur au changement de mot de passe NIS."
 
 #: ../src/xfce4-screensaver-dialog.c:191
 msgid "You must choose a longer password."
@@ -524,7 +527,7 @@ msgstr "Vous devez choisir un mot de passe plus long."
 
 #: ../src/xfce4-screensaver-dialog.c:192
 msgid "Password has been already used. Choose another."
-msgstr ""
+msgstr "Le mot de passe a déjà été utilisé. Choisissez-en un autre."
 
 #: ../src/xfce4-screensaver-dialog.c:193
 msgid "You must wait longer to change your password."
@@ -582,13 +585,13 @@ msgstr[1] "%d secondes"
 #: ../src/xfce4-screensaver-preferences.c:1004
 #, c-format
 msgid "%s %s"
-msgstr ""
+msgstr "%s %s"
 
 #. hour:minutes:seconds
 #: ../src/xfce4-screensaver-preferences.c:986
 #, c-format
 msgid "%s %s %s"
-msgstr ""
+msgstr "%s %s %s"
 
 #. hour
 #. minutes
@@ -598,7 +601,7 @@ msgstr ""
 #: ../src/xfce4-screensaver-preferences.c:1045
 #, c-format
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: ../src/xfce4-screensaver-preferences.c:1060
 #, c-format
@@ -620,7 +623,7 @@ msgstr "Ne pas mettre en arrière-plan"
 
 #: ../src/xfce4-screensaver.c:61
 msgid "Enable debugging code"
-msgstr ""
+msgstr "Activer le code de debugging"
 
 #: ../src/xfce4-screensaver.desktop.in.in.h:2
 msgid "Launch screensaver and locker program"
