@@ -174,7 +174,7 @@ msgstr "Xfce flottant"
 
 #: ../savers/xfce-floaters.desktop.in.in.h:2
 msgid "Bubbles the Xfce logo around the screen"
-msgstr ""
+msgstr "Fait bouillonner le logo Xfce sur l’écran"
 
 #: ../savers/personal-slideshow.desktop.in.in.h:1
 msgid "Pictures folder"
@@ -182,15 +182,15 @@ msgstr "Dossier des images"
 
 #: ../savers/personal-slideshow.desktop.in.in.h:2
 msgid "Display a slideshow from your Pictures folder"
-msgstr ""
+msgstr "Afficher un diaporama à partir de votre dossier d’images"
 
 #: ../savers/popsquares.desktop.in.in.h:1
 msgid "Pop art squares"
-msgstr ""
+msgstr "Carrés pop art"
 
 #: ../savers/popsquares.desktop.in.in.h:2
 msgid "A pop-art-ish grid of pulsing colors."
-msgstr ""
+msgstr "Une grille pop-art de couleurs vibrantes."
 
 #: ../savers/slideshow.c:55
 msgid "Location to get images from"
@@ -202,7 +202,7 @@ msgstr ""
 
 #: ../savers/slideshow.c:59
 msgid "Color to use for images background"
-msgstr ""
+msgstr "Couleur à utiliser pour l’arrière-plan des images"
 
 #: ../savers/slideshow.c:59
 msgid "\"#rrggbb\""
