@@ -161,12 +161,14 @@ msgstr "image - fait flotter des images sur l’écran"
 #: ../savers/floaters.c:1192 ../savers/popsquares.c:50
 #, c-format
 msgid "%s. See --help for usage information.\n"
-msgstr ""
+msgstr "%s. Consulter --help pour les infos d’utilisation.\n"
 
 #: ../savers/floaters.c:1201
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr ""
+"Vous devez spécifier une image. Consulter --help pour les infos "
+"d’utilisation.\n"
 
 #: ../savers/xfce-floaters.desktop.in.in.h:1
 msgid "Floating Xfce"
