@@ -430,7 +430,7 @@ msgstr "L'estalvi de pantalla no està inhibit\n"
 #: ../src/xfce4-screensaver-command.c:376
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
-msgstr "L'estalvi de pantalla està sent inhibit per:\n"
+msgstr "Està inhibint l'estalvi de pantalla:\n"
 
 #: ../src/xfce4-screensaver-command.c:411
 #, c-format
