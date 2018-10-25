@@ -2515,7 +2515,6 @@ gs_window_init (GSWindow *window)
                       G_CALLBACK (on_drawing_area_draw),
                       NULL);
     create_info_bar (window);
-
 }
 
 static void

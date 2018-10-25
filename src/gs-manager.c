@@ -1572,6 +1572,9 @@ on_display_monitor_added (GdkDisplay *display,
     gs_debug ("Monitor added on display %s, now there are %d",
               gdk_display_get_name (display), n_monitors);
 
+    /* add a new window */
+    gs_manager_create_window_for_monitor (manager, monitor);
+
     /* Tear down the unlock dialog in case we want to move it
      * to the new monitor
      */
@@ -1581,12 +1584,6 @@ on_display_monitor_added (GdkDisplay *display,
         gs_window_cancel_unlock_request (GS_WINDOW (l->data));
         l = l->next;
     }
-
-    /* add a new window */
-    gs_manager_create_window_for_monitor (manager, monitor);
-
-    /* and put unlock dialog up whereever it's supposed to be */
-    gs_manager_request_unlock (manager);
 }
 
 static void
@@ -1596,6 +1593,7 @@ on_display_monitor_removed (GdkDisplay *display,
 {
     GSList     *l;
     int         n_monitors;
+    GdkMonitor *last_monitor = NULL;
 
     n_monitors = gdk_display_get_n_monitors (display);
 
@@ -1622,11 +1620,23 @@ on_display_monitor_removed (GdkDisplay *display,
             gs_window_destroy (GS_WINDOW (l->data));
             manager->priv->windows = g_slist_delete_link (manager->priv->windows, l);
         }
+        else
+        {
+            last_monitor = this_monitor;
+            gs_window_cancel_unlock_request (GS_WINDOW (l->data));
+        }
         l = next;
     }
 
     gdk_display_flush (display);
     gdk_x11_ungrab_server ();
+
+    /* add a new window */
+    if (last_monitor)
+        gs_manager_create_window_for_monitor(manager, last_monitor);
+
+    /* and put unlock dialog up whereever it's supposed to be */
+    gs_manager_request_unlock(manager);
 }
 
 static void
