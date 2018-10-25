@@ -390,7 +390,6 @@ xfce_bg_load_from_xfconf (XfceBG        *bg,
     gchar           *property;
 
     g_return_if_fail(XFCE_IS_BG(bg));
-    //g_return_if_fail (G_IS_SETTINGS (settings));
 
     if (monitor == NULL)
     {
@@ -453,16 +452,16 @@ xfce_bg_load_from_xfconf (XfceBG        *bg,
 
     /* Colors */
     g_free(property);
-    property = g_strconcat(prop_prefix, "/workspace0/rgba1", NULL);
+    property = g_strconcat(prop_prefix, "/rgba1", NULL);
     color_from_array(channel, property, &c1);
 
     g_free(property);
-    property = g_strconcat(prop_prefix, "/workspace0/rgba2", NULL);
+    property = g_strconcat(prop_prefix, "/rgba2", NULL);
     color_from_array(channel, property, &c2);
 
     /* Color type */
     g_free(property);
-    property = g_strconcat(prop_prefix, "/workspace0/color-style", NULL);
+    property = g_strconcat(prop_prefix, "/color-style", NULL);
     ctype = xfconf_channel_get_int(channel, property, XFCE_BG_COLOR_SOLID);
 
     g_free(property);
@@ -976,7 +975,7 @@ xfce_bg_draw (XfceBG    *bg,
         return;
 
     draw_color (bg, dest);
-    if (bg->filename) {
+    if (bg->filename && bg->placement != XFCE_BG_PLACEMENT_NONE) {
         draw_once (bg, dest);
     }
 }
