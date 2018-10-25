@@ -196,7 +196,7 @@ msgstr "Une grille pop-art de couleurs vibrantes."
 
 #: ../savers/slideshow.c:55
 msgid "Location to get images from"
-msgstr ""
+msgstr "Emplacement depuis lequel obtenir les images"
 
 #: ../savers/slideshow.c:55
 msgid "PATH"
@@ -216,7 +216,7 @@ msgstr ""
 
 #: ../savers/slideshow.c:67
 msgid "Do not try to stretch images on screen"
-msgstr "Ne pas essayer d'étirer les images à l'écran"
+msgstr "Ne pas essayer d’étirer les images à l’écran"
 
 #: ../src/copy-theme-dialog.c:222
 msgid "Copying files"
@@ -276,7 +276,7 @@ msgstr "Accès non autorisé actuellement."
 
 #: ../src/gs-auth-pam.c:508
 msgid "No longer permitted to access the system."
-msgstr "L'accès au système n'est plus autorisé."
+msgstr "L’accès au système n’est plus autorisé."
 
 #: ../src/gs-auth-pam.c:746
 msgid "Username:"
@@ -505,7 +505,7 @@ msgstr "Mot de passe inchangé."
 
 #: ../src/xfce4-screensaver-dialog.c:186
 msgid "Can not get username."
-msgstr "Impossible d'obtenir le nom d'utilisateur."
+msgstr "Impossible d’obtenir le nom d’utilisateur."
 
 #: ../src/xfce4-screensaver-dialog.c:187
 msgid "Retype your new password."
@@ -638,4 +638,4 @@ msgstr ""
 
 #: ../src/xfcekbd-indicator.c:688
 msgid "XKB initialization error"
-msgstr "Erreur d'initialisation XKB"
+msgstr "Erreur d’initialisation XKB"
