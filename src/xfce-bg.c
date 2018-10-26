@@ -196,7 +196,7 @@ static void        xfce_bg_set_placement    (XfceBG           *bg,
 static void        xfce_bg_set_filename     (XfceBG           *bg,
                                              const char       *filename);
 
-static void        color_from_array         (XfconfChannel    *channel,
+static void        color_from_rgba_array    (XfconfChannel    *channel,
                                              const gchar      *property,
                                              GdkRGBA          *colorp)
 {
@@ -220,6 +220,32 @@ static void        color_from_array         (XfconfChannel    *channel,
     colorp->green = g;
     colorp->blue = b;
     colorp->alpha = a;
+}
+
+static void        color_from_color_array   (XfconfChannel    *channel,
+                                             const gchar      *property,
+                                             GdkRGBA          *colorp)
+{
+    guint   pc, rc, gc, bc;
+
+    /* If all else fails use black */
+    gdk_rgba_parse (colorp, "#000000");
+
+    if (!xfconf_channel_has_property (channel, property))
+        return;
+
+    xfconf_channel_get_array(channel,
+                             property,
+                             G_TYPE_UINT, &pc,
+                             G_TYPE_UINT, &rc,
+                             G_TYPE_UINT, &gc,
+                             G_TYPE_UINT, &bc,
+                             G_TYPE_INVALID);
+
+    colorp->red = (gdouble) rc / 65535;
+    colorp->green = (gdouble) gc / 65535;
+    colorp->blue = (gdouble) bc / 65535;
+    colorp->alpha = 1.0;
 }
 
 static gboolean
@@ -387,7 +413,7 @@ xfce_bg_load_from_xfconf (XfceBG        *bg,
     GdkMonitor      *mon;
     const gchar     *monitor_name;
     gchar           *prop_prefix;
-    gchar           *property;
+    gchar           *property, *property2;
 
     g_return_if_fail(XFCE_IS_BG(bg));
 
@@ -453,11 +479,30 @@ xfce_bg_load_from_xfconf (XfceBG        *bg,
     /* Colors */
     g_free(property);
     property = g_strconcat(prop_prefix, "/rgba1", NULL);
-    color_from_array(channel, property, &c1);
+    property2 = g_strconcat(prop_prefix, "/color1", NULL);
+    if (!xfconf_channel_has_property (channel, property) && xfconf_channel_has_property (channel, property2)) {
+        // Using GdkColor properties from Xfdesktop 4.12
+        g_free(property);
+        g_free(property2);
 
-    g_free(property);
-    property = g_strconcat(prop_prefix, "/rgba2", NULL);
-    color_from_array(channel, property, &c2);
+        property = g_strconcat(prop_prefix, "/color1", NULL);
+        color_from_color_array(channel, property, &c1);
+
+        g_free(property);
+        property = g_strconcat(prop_prefix, "/color2", NULL);
+        color_from_color_array(channel, property, &c2);
+    } else {
+        // Using GdkRGBA properties from Xfdesktop 4.13
+        g_free(property);
+        g_free(property2);
+
+        property = g_strconcat(prop_prefix, "/rgba1", NULL);
+        color_from_rgba_array(channel, property, &c1);
+
+        g_free(property);
+        property = g_strconcat(prop_prefix, "/rgba2", NULL);
+        color_from_rgba_array(channel, property, &c2);
+    }
 
     /* Color type */
     g_free(property);
