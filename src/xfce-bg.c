@@ -226,7 +226,7 @@ static void        color_from_color_array   (XfconfChannel    *channel,
                                              const gchar      *property,
                                              GdkRGBA          *colorp)
 {
-    guint   pc, rc, gc, bc;
+    guint   rc, gc, bc, ac;
 
     /* If all else fails use black */
     gdk_rgba_parse (colorp, "#000000");
@@ -236,16 +236,16 @@ static void        color_from_color_array   (XfconfChannel    *channel,
 
     xfconf_channel_get_array(channel,
                              property,
-                             G_TYPE_UINT, &pc,
                              G_TYPE_UINT, &rc,
                              G_TYPE_UINT, &gc,
                              G_TYPE_UINT, &bc,
+                             G_TYPE_UINT, &ac,
                              G_TYPE_INVALID);
 
     colorp->red = (gdouble) rc / 65535;
     colorp->green = (gdouble) gc / 65535;
     colorp->blue = (gdouble) bc / 65535;
-    colorp->alpha = 1.0;
+    colorp->alpha = (gdouble) ac / 65535;
 }
 
 static gboolean
