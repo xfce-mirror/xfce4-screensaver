@@ -47,7 +47,8 @@ EXTRA_DIST = 				\
 	$(directory_in_files)		\
 	$(gtkbuilder_DATA)		\
 	$(man_MANS)			\
-	xfce4-screensaver		\
+	xfce4-screensaver.common-auth		\
+	xfce4-screensaver.system-auth		\
 	xfce4-screensaver.pc.in		\
 	org.xfce.ScreenSaver.service.in\
 	xscreensaver-config.xsl		\
@@ -72,7 +73,11 @@ install-data-hook:
 	   fi; \
 	   if test $$system = Linux; then \
 		if test '!' -f $(DESTDIR)$(PAM_PREFIX)/pam.d/xfce4-screensaver; then \
-		     $(INSTALL_DATA) xfce4-screensaver $(DESTDIR)$(PAM_PREFIX)/pam.d/xfce4-screensaver; \
+			 if test "x$(PAM_AUTH_TYPE)" = "xsystem"; then \
+		     	$(INSTALL_DATA) xfce4-screensaver.system-auth $(DESTDIR)$(PAM_PREFIX)/pam.d/xfce4-screensaver; \
+			 else \
+			 	$(INSTALL_DATA) xfce4-screensaver.common-auth $(DESTDIR)$(PAM_PREFIX)/pam.d/xfce4-screensaver; \
+			 fi; \
 		fi; \
 		if test "x$(PAM_PREFIX)" != "x/etc/pam.d"; then \
 	             echo "***" ; \
@@ -81,8 +86,6 @@ install-data-hook:
 	             echo "***           manually install $(PAM_PREFIX)/pam.d/xfce4-screensaver" ; \
 	             echo "***           to /etc/pam.d/xfce4-screensaver.  Otherwise, unlocking might" ; \
 	             echo "***           not work." ; \
-	             echo "***" ; \
-	             echo "***           Note: If you are using SuSE/Novell you may have to modify this file." ; \
 	             echo "***" ; \
 		fi; \
 	   fi; \

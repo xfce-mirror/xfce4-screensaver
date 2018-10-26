@@ -158,6 +158,23 @@ fi
 PAM_PREFIX=`eval echo $PAM_PREFIX_UNEXPANDED`
 AC_SUBST(PAM_PREFIX)
 
+# Determine the PAM authentication type
+
+AC_CACHE_CHECK([for PAM auth type], ac_cv_pam_auth_type,
+                [if test -f /etc/pam.d/common-auth ; then
+                  ac_cv_pam_auth_type=common
+                else
+                  ac_cv_pam_auth_type=system
+                fi])
+withval=""
+AC_ARG_WITH(pam-auth-type,
+[  --with-pam-auth-type=<auth-type>   specify pam auth type (common or system)],[
+if test x$withval != x; then
+   ac_cv_pam_auth_type="$withval"
+fi])
+PAM_AUTH_TYPE="$ac_cv_pam_auth_type"
+AC_SUBST(PAM_AUTH_TYPE)
+
 # Translation distcheck fix
 XGETTEXT_ARGS=
 AC_SUBST(XGETTEXT_ARGS)
@@ -1154,6 +1171,7 @@ echo "
         systemd support:          ${use_systemd}
         ConsoleKit support:       ${use_console_kit}
         PAM support:              ${have_pam}
+        PAM auth type:            ${PAM_AUTH_TYPE}
         bsd_auth(3) support:      ${have_bsdauth}
         Have shadow passwords:    ${have_shadow}
         Have adjunct shadow:      ${have_shadow_adjunct}

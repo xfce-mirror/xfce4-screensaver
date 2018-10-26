@@ -32,6 +32,10 @@ See the file 'INSTALL'
 
 `./autogen.sh --prefix=/usr --sysconfdir=/etc`
 
+You may need to set your PAM auth type if it is not correctly detected.
+
+`--with-pam-auth-type=<auth-type>   specify pam auth type (common or system)`
+
 (For testing, we are using:
  `./autogen.sh --disable-static --with-mit-ext --with-console-kit --enable-locking --enable-debug --sysconfdir=/etc`
 )
