@@ -202,8 +202,8 @@ static void        color_from_rgba_array    (XfconfChannel    *channel,
 {
     gdouble r, g, b, a;
 
-    /* If all else fails use black */
-    gdk_rgba_parse (colorp, "#000000");
+    /* If all else fails use Xfdesktop's default */
+    gdk_rgba_parse (colorp, "#152233");
 
     if (!xfconf_channel_has_property (channel, property))
         return;
@@ -228,8 +228,8 @@ static void        color_from_color_array   (XfconfChannel    *channel,
 {
     guint   rc, gc, bc, ac;
 
-    /* If all else fails use black */
-    gdk_rgba_parse (colorp, "#000000");
+    /* If all else fails use Xfdesktop's default */
+    gdk_rgba_parse (colorp, "#152233");
 
     if (!xfconf_channel_has_property (channel, property))
         return;
