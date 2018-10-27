@@ -135,7 +135,8 @@ test_window_LDADD =			\
 	$(NULL)
 
 xfce4_screensaver_dialog_built_sources = \
-	xfce4-screensaver-dialog-css.h
+	xfce4-screensaver-dialog-css.h	\
+	xfce4-screensaver-dialog-ui.h
 
 xfce4_screensaver_dialog_SOURCES = 	\
 	$(xfce4_screensaver_dialog_built_sources)	\
@@ -301,6 +302,9 @@ if MAINTAINER_MODE
 
 xfce4-screensaver-dialog-css.h: $(srcdir)/xfce4-screensaver-dialog.css Makefile
 	$(AM_V_GEN) exo-csource --static --name=xfce4_screensaver_dialog_css $< >$@
+
+xfce4-screensaver-dialog-ui.h: $(srcdir)/xfce4-screensaver-dialog.ui Makefile
+	$(AM_V_GEN) exo-csource --static --strip-comments --strip-content --name=xfce4_screensaver_dialog_ui $< >$@
 
 DISTCLEANFILES = \
 	$(xfce4_screensaver_dialog_built_sources)

@@ -31,7 +31,6 @@ menu_DATA =					\
 gtkbuilderdir = $(pkgdatadir)
 gtkbuilder_DATA = 					\
 	xfce4-screensaver-preferences.ui	\
-	lock-dialog-default.ui		\
 	$(NULL)
 
 pkgconfigdir = $(libdir)/pkgconfig

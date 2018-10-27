@@ -53,6 +53,8 @@
 #include "gs-debug.h"
 #include "xfce-bg.h"
 
+#include "xfce4-screensaver-dialog-ui.h"
+
 #define MDM_FLEXISERVER_COMMAND "mdmflexiserver"
 #define MDM_FLEXISERVER_ARGS    "--startnew Standard"
 
@@ -1645,51 +1647,20 @@ redraw_background (GSLockPlug *plug)
 static gboolean
 load_theme (GSLockPlug *plug)
 {
-    char       *theme;
-    char       *filename;
-    char       *gtkbuilder;
-    char       *css;
     GtkBuilder *builder;
     GtkWidget  *lock_overlay;
     GtkWidget  *lock_panel;
     GtkWidget  *lock_dialog;
     GError     *error=NULL;
 
-    theme = g_strdup("default");
-
-    filename = g_strdup_printf ("lock-dialog-%s.ui", theme);
-    gtkbuilder = g_build_filename (GTKBUILDERDIR, filename, NULL);
-    g_free (filename);
-    if (! g_file_test (gtkbuilder, G_FILE_TEST_IS_REGULAR))
-    {
-        g_free (gtkbuilder);
-        g_free (theme);
-        return FALSE;
-    }
-
-    filename = g_strdup_printf ("lock-dialog-%s.css", theme);
-    g_free (theme);
-
-    css = g_build_filename (GTKBUILDERDIR, filename, NULL);
-    g_free (filename);
-    if (g_file_test (css, G_FILE_TEST_IS_REGULAR))
-    {
-        G_GNUC_BEGIN_IGNORE_DEPRECATIONS /* GTK 3.24 */
-        GtkCssProvider *style_provider = gtk_css_provider_get_default ();
-        G_GNUC_END_IGNORE_DEPRECATIONS
-        gtk_css_provider_load_from_path (style_provider, css, NULL);
-    }
-    g_free (css);
-
     builder = gtk_builder_new();
-    if (!gtk_builder_add_from_file (builder,gtkbuilder,&error))
+    if (!gtk_builder_add_from_string (builder, xfce4_screensaver_dialog_ui,
+                                      xfce4_screensaver_dialog_ui_length, &error))
     {
-        g_warning ("Couldn't load builder file '%s': %s", gtkbuilder, error->message);
+        g_warning ("Error loading UI: %s", error->message);
         g_error_free(error);
-        g_free (gtkbuilder);
         return FALSE;
     }
-    g_free (gtkbuilder);
 
     lock_overlay = GTK_WIDGET(gtk_builder_get_object(builder, "lock-overlay"));
     lock_panel = GTK_WIDGET(gtk_builder_get_object(builder, "lock-panel"));
