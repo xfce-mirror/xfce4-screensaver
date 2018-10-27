@@ -23,7 +23,7 @@ Features
 Known Issues
 ============
 
- - Theming issues with the Adwaita GTK theme
+No currently known issues.
 
 Installation
 ============
