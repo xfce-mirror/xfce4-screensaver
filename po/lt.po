@@ -137,7 +137,7 @@ msgstr "Didžiausias skaičius paveikslų, kuriuos laikyti ekrane"
 
 #: ../savers/floaters.c:106
 msgid "MAX_IMAGES"
-msgstr ""
+msgstr "MAKS_PAVEIKSLŲ"
 
 #: ../savers/floaters.c:111
 msgid "The initial size and position of window"
@@ -145,7 +145,7 @@ msgstr "Pradinis lango dydis ir pozicija"
 
 #: ../savers/floaters.c:111
 msgid "WIDTHxHEIGHT+X+Y"
-msgstr ""
+msgstr "PLOTISxAUKŠTIS+X+Y"
 
 #: ../savers/floaters.c:116
 msgid "The source image to use"
@@ -199,7 +199,7 @@ msgstr "Vieta iš kurios gauti paveikslus"
 
 #: ../savers/slideshow.c:55
 msgid "PATH"
-msgstr ""
+msgstr "KELIAS"
 
 #: ../savers/slideshow.c:59
 msgid "Color to use for images background"
@@ -207,7 +207,7 @@ msgstr "Paveikslų fonui naudojama spalva"
 
 #: ../savers/slideshow.c:59
 msgid "\"#rrggbb\""
-msgstr ""
+msgstr "\"#rržžmm\""
 
 #: ../savers/slideshow.c:63
 msgid "Do not randomize pictures from location"
