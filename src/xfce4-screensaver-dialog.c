@@ -43,6 +43,7 @@
 #include "setuid.h"
 
 #include "gs-debug.h"
+#include "xfce4-screensaver-dialog-css.h"
 
 #include <xfconf/xfconf.h>
 
@@ -394,7 +395,8 @@ static void show_cb(GtkWidget *widget,
 
 static gboolean popup_dialog_idle(void)
 {
-    GtkWidget *widget;
+    GtkWidget      *widget;
+    GtkCssProvider *css_provider;
 
     gs_profile_start(NULL);
 
@@ -426,6 +428,11 @@ static gboolean popup_dialog_idle(void)
 
     g_signal_connect(GS_LOCK_PLUG(widget), "response", G_CALLBACK(response_cb), NULL);
     g_signal_connect(widget, "show", G_CALLBACK(show_cb), NULL);
+
+    css_provider = gtk_css_provider_new ();
+    gtk_css_provider_load_from_data (css_provider, xfce4_screensaver_dialog_css, xfce4_screensaver_dialog_css_length, NULL);
+    gtk_style_context_add_provider_for_screen (gdk_screen_get_default (), GTK_STYLE_PROVIDER (css_provider),
+                                               GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
     gtk_widget_realize(widget);
 

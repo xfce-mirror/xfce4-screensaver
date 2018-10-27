@@ -134,7 +134,11 @@ test_window_LDADD =			\
 	$(SAVER_LIBS)			\
 	$(NULL)
 
+xfce4_screensaver_dialog_built_sources = \
+	xfce4-screensaver-dialog-css.h
+
 xfce4_screensaver_dialog_SOURCES = 	\
+	$(xfce4_screensaver_dialog_built_sources)	\
 	xfce4-screensaver-dialog.c	\
 	gs-lock-plug.c			\
 	gs-lock-plug.h			\
@@ -293,11 +297,25 @@ xfce4_screensaver_preferences_LDADD =	\
 	$(XFCE_SCREENSAVER_CAPPLET_LIBS)	\
 	$(NULL)
 
+if MAINTAINER_MODE
+
+xfce4-screensaver-dialog-css.h: $(srcdir)/xfce4-screensaver-dialog.css Makefile
+	$(AM_V_GEN) exo-csource --static --name=xfce4_screensaver_dialog_css $< >$@
+
+DISTCLEANFILES = \
+	$(xfce4_screensaver_dialog_built_sources)
+
+BUILT_SOURCES += \
+	$(xfce4_screensaver_dialog_built_sources)
+
+endif
+
 EXTRA_DIST =				\
 	debug-screensaver.sh		\
 	gs-marshal.list			\
 	xfcekbd-indicator-marshal.list	\
 	xfce4-screensaver.desktop.in	\
+	xfce4-screensaver-dialog.css	\
 	$(NULL)
 
 GLIB_GENMARSHAL = $(shell pkg-config --variable=glib_genmarshal glib-2.0)
