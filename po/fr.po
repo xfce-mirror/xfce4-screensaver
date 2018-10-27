@@ -447,15 +447,15 @@ msgstr "Afficher le bouton de déconnexion"
 
 #: ../src/xfce4-screensaver-dialog.c:66
 msgid "Command to invoke from the logout button"
-msgstr ""
+msgstr "Commande à lancer depuis le bouton de déconnexion"
 
 #: ../src/xfce4-screensaver-dialog.c:67
 msgid "Show the switch user button"
-msgstr ""
+msgstr "Afficher le bouton de changement d'utilisateur"
 
 #: ../src/xfce4-screensaver-dialog.c:68
 msgid "Message to show in the dialog"
-msgstr ""
+msgstr "Message à afficher dans le dialogue"
 
 #: ../src/xfce4-screensaver-dialog.c:68 ../src/xfce4-screensaver-dialog.c:69
 msgid "MESSAGE"
@@ -629,12 +629,12 @@ msgstr "Activer le code de debugging"
 
 #: ../src/xfce4-screensaver.desktop.in.in.h:2
 msgid "Launch screensaver and locker program"
-msgstr ""
+msgstr "Lancer l'économiseur d'écran et le programme de verrouillage"
 
 #: ../src/xfcekbd-indicator.c:111
 #, c-format
 msgid "There was an error loading an image: %s"
-msgstr ""
+msgstr "Une erreur est survenue au chargement d'une image: %s"
 
 #: ../src/xfcekbd-indicator.c:688
 msgid "XKB initialization error"
