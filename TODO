@@ -1,4 +1,3 @@
-- Compile .ui files to .h
 - Make sure gnome-, mate-, and xfce4-screensaver are co-installable
 - Consider replacement for Cosmos screensaver
 - Improve build defaults so the screensaver is functional without configure arguments
