@@ -269,7 +269,11 @@ xfce4_screensaver_LDADD =		\
 
 xfce4_screensaver_LDFLAGS = -export-dynamic
 
+xfce4_screensaver_preferences_built_sources = \
+	xfce4-screensaver-preferences-ui.h
+
 xfce4_screensaver_preferences_SOURCES =	\
+	$(xfce4_screensaver_preferences_built_sources)	\
 	xfce4-screensaver-preferences.c	\
 	copy-theme-dialog.c		\
 	copy-theme-dialog.h		\
@@ -306,11 +310,16 @@ xfce4-screensaver-dialog-css.h: $(srcdir)/xfce4-screensaver-dialog.css Makefile
 xfce4-screensaver-dialog-ui.h: $(srcdir)/xfce4-screensaver-dialog.ui Makefile
 	$(AM_V_GEN) exo-csource --static --strip-comments --strip-content --name=xfce4_screensaver_dialog_ui $< >$@
 
+xfce4-screensaver-preferences-ui.h: $(srcdir)/xfce4-screensaver-preferences.ui Makefile
+	$(AM_V_GEN) exo-csource --static --strip-comments --strip-content --name=xfce4_screensaver_preferences_ui $< >$@
+
 DISTCLEANFILES = \
-	$(xfce4_screensaver_dialog_built_sources)
+	$(xfce4_screensaver_dialog_built_sources)	\
+	$(xfce4_screensaver_preferences_built_sources)
 
 BUILT_SOURCES += \
-	$(xfce4_screensaver_dialog_built_sources)
+	$(xfce4_screensaver_dialog_built_sources)	\
+	$(xfce4_screensaver_preferences_built_sources)
 
 endif
 
@@ -320,6 +329,8 @@ EXTRA_DIST =				\
 	xfcekbd-indicator-marshal.list	\
 	xfce4-screensaver.desktop.in	\
 	xfce4-screensaver-dialog.css	\
+	xfce4-screensaver-dialog.ui	\
+	xfce4-screensaver-preferences.ui	\
 	$(NULL)
 
 GLIB_GENMARSHAL = $(shell pkg-config --variable=glib_genmarshal glib-2.0)

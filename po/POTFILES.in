@@ -1,7 +1,6 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
 data/xfce4-screensaver-preferences.desktop.in
-[type: gettext/glade]data/xfce4-screensaver-preferences.ui
 data/xfce4-screensaver.directory.in
 savers/floaters.c
 savers/xfce-floaters.desktop.in.in
@@ -18,6 +17,7 @@ src/xfce4-screensaver-command.c
 src/xfce4-screensaver-dialog.c
 [type: gettext/glade]src/xfce4-screensaver-dialog.ui
 src/xfce4-screensaver-preferences.c
+[type: gettext/glade]src/xfce4-screensaver-preferences.ui
 src/xfce4-screensaver.c
 src/xfce4-screensaver.desktop.in.in
 src/xfcekbd-indicator.c

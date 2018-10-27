@@ -48,9 +48,9 @@
 #include "gs-job.h"
 #include "gs-prefs.h" /* for GS_MODE enum */
 
-#include <xfconf/xfconf.h>
+#include "xfce4-screensaver-preferences-ui.h"
 
-#define GTK_BUILDER_FILE "xfce4-screensaver-preferences.ui"
+#include <xfconf/xfconf.h>
 
 #define GPM_COMMAND "xfce4-power-manager-settings"
 
@@ -1486,21 +1486,19 @@ init_capplet (void)
     GtkWidget *fullscreen_preview_previous;
     GtkWidget *fullscreen_preview_next;
     GtkWidget *fullscreen_preview_close;
-    char      *gtk_builder_file;
     gdouble    activate_delay;
     gboolean   enabled;
     gboolean   is_writable;
     GError    *error=NULL;
     gint       mode;
 
-    gtk_builder_file = g_build_filename (GTKBUILDERDIR, GTK_BUILDER_FILE, NULL);
     builder = gtk_builder_new();
-    if (!gtk_builder_add_from_file(builder, gtk_builder_file, &error))
+    if (!gtk_builder_add_from_string (builder, xfce4_screensaver_preferences_ui,
+                                      xfce4_screensaver_preferences_ui_length, &error))
     {
-        g_warning("Couldn't load builder file: %s", error->message);
+        g_warning ("Error loading UI: %s", error->message);
         g_error_free(error);
     }
-    g_free (gtk_builder_file);
 
     if (builder == NULL)
     {

@@ -28,11 +28,6 @@ menu_DATA =					\
 	xfce4-screensavers.menu			\
 	$(NULL)
 
-gtkbuilderdir = $(pkgdatadir)
-gtkbuilder_DATA = 					\
-	xfce4-screensaver-preferences.ui	\
-	$(NULL)
-
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = xfce4-screensaver.pc
 
@@ -44,7 +39,6 @@ dbussessionservice_DATA = org.xfce.ScreenSaver.service
 EXTRA_DIST = 				\
 	$(desktop_in_files)		\
 	$(directory_in_files)		\
-	$(gtkbuilder_DATA)		\
 	$(man_MANS)			\
 	xfce4-screensaver.common-auth		\
 	xfce4-screensaver.system-auth		\
