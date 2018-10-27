@@ -1,3 +1,21 @@
+0.1.1 (alpha) (UNRELEASED)
+=============
+- General:
+  - Support color settings for Xfdesktop 4.12
+  - Fallback to the Xfdesktop default color background (dark blue)
+  - UI files are now compiled and included in the binaries
+- Bug Fixes:
+  - Fix crash with no background placement, fix color settings  (Xfce #14769)
+  - Redraw the screensaver on monitor configuration events (Xfce #14796)
+  - Automate detection of PAM configuration, add flag to override (Xfce #14779)
+  - Fix appearance with the Adwaita GTK theme
+  - Fix builds on OpenBSD, build status can now be tracked on the
+    Xfce Build Bot: https://buildbot.xfce.alteroot.org/job/xfce4-screensaver/
+- New Translations:
+  Albanian, Basque, Bulgarian, Catalan, Chinese (China), Chinese (Taiwan), 
+  Danish, Dutch, French, German, Italian, Lithuanian, Polish, Russian, Slovak, 
+  Spanish, Swedish, Turkish
+
 0.1.0 (alpha)
 =============
 - Initial Xfce release.
