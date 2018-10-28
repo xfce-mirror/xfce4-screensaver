@@ -1290,6 +1290,54 @@ setup_for_root_user (void)
     gtk_widget_show (label);
 }
 
+static void
+resolve_lid_switch_cb (GtkWidget *widget,
+                       gpointer   user_data)
+{
+    XfconfChannel *channel = xfconf_channel_get("xfce4-power-manager");
+    const gchar   *property = "/xfce4-power-manager/logind-handle-lid-switch";
+    gboolean       locked = xfconf_channel_is_property_locked(channel, property);
+    GtkWidget     *infobar = GTK_WIDGET (gtk_builder_get_object (builder, "logind_lid_infobar"));
+
+    if (!locked)
+    {
+        xfconf_channel_set_bool(channel, property, FALSE);
+        gtk_widget_hide (GTK_WIDGET (infobar));
+    }
+}
+
+static void
+setup_for_lid_switch (void)
+{
+    XfconfChannel *channel = xfconf_channel_get ("xfce4-power-manager");
+    const gchar   *property = "/xfce4-power-manager/logind-handle-lid-switch";
+    gboolean       handled = xfconf_channel_get_bool (channel, property, FALSE);
+    gboolean       locked = xfconf_channel_is_property_locked (channel, property);
+    GtkWidget     *infobar;
+    GtkWidget     *button;
+
+    infobar = GTK_WIDGET (gtk_builder_get_object (builder, "logind_lid_infobar"));
+    button = GTK_WIDGET (gtk_builder_get_object (builder, "logind_lid_resolve"));
+
+    if (handled)
+    {
+        gtk_widget_show (infobar);
+        if (locked)
+        {
+            gtk_widget_hide (button);
+        }
+        else
+        {
+            gtk_widget_show (button);
+            g_signal_connect (button, "clicked", G_CALLBACK (resolve_lid_switch_cb), NULL);
+        }
+    }
+    else
+    {
+        gtk_widget_hide (infobar);
+    }
+}
+
 /* copied from gs-window-x11.c */
 extern char **environ;
 
@@ -1614,6 +1662,8 @@ init_capplet (void)
 
     g_signal_connect (preview, "draw", G_CALLBACK (preview_on_draw), NULL);
     gs_job_set_widget (job, preview);
+
+    setup_for_lid_switch ();
 
     if (check_is_root_user ())
     {
