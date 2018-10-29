@@ -1279,15 +1279,15 @@ static void
 setup_for_root_user (void)
 {
     GtkWidget *lock_checkbox;
-    GtkWidget *label;
+    GtkWidget *infobar;
 
     lock_checkbox = GTK_WIDGET (gtk_builder_get_object (builder, "lock_checkbox"));
-    label = GTK_WIDGET (gtk_builder_get_object (builder, "root_warning_label"));
+    infobar = GTK_WIDGET (gtk_builder_get_object (builder, "root_warning_infobar"));
 
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (lock_checkbox), FALSE);
     gtk_widget_set_sensitive (lock_checkbox, FALSE);
 
-    gtk_widget_show (label);
+    gtk_widget_show (infobar);
 }
 
 static void
@@ -1526,7 +1526,7 @@ init_capplet (void)
     GtkWidget *label;
     GtkWidget *enabled_checkbox;
     GtkWidget *lock_checkbox;
-    GtkWidget *root_warning_label;
+    GtkWidget *root_warning_infobar;
     GtkWidget *preview_button;
     GtkWidget *gpm_button;
     GtkWidget *fullscreen_preview_window;
@@ -1573,7 +1573,7 @@ init_capplet (void)
     activate_delay_hbox         = GTK_WIDGET (gtk_builder_get_object (builder, "activate_delay_hbox"));
     enabled_checkbox            = GTK_WIDGET (gtk_builder_get_object (builder, "enable_checkbox"));
     lock_checkbox               = GTK_WIDGET (gtk_builder_get_object (builder, "lock_checkbox"));
-    root_warning_label          = GTK_WIDGET (gtk_builder_get_object (builder, "root_warning_label"));
+    root_warning_infobar        = GTK_WIDGET (gtk_builder_get_object (builder, "root_warning_infobar"));
     preview_button              = GTK_WIDGET (gtk_builder_get_object (builder, "preview_button"));
     gpm_button                  = GTK_WIDGET (gtk_builder_get_object (builder, "gpm_button"));
     fullscreen_preview_window   = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_window"));
@@ -1587,7 +1587,7 @@ init_capplet (void)
     label = GTK_WIDGET (gtk_builder_get_object (builder, "savers_label"));
     gtk_label_set_mnemonic_widget (GTK_LABEL (label), treeview);
 
-    gtk_widget_set_no_show_all (root_warning_label, TRUE);
+    gtk_widget_set_no_show_all (root_warning_infobar, TRUE);
     widget_set_best_visual (preview);
 
     if (! is_program_in_path (GPM_COMMAND))
