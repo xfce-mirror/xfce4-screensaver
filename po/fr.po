@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-16 18:31+0200\n"
+"POT-Creation-Date: 2018-10-29 06:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: nodiscc <nodiscc@gmail.com>, 2018\n"
 "Language-Team: French (https://www.transifex.com/xfce/teams/16840/fr/)\n"
@@ -18,46 +18,6 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../data/lock-dialog-default.ui.h:2
-#, no-c-format
-msgid "%U"
-msgstr "%U"
-
-#: ../data/lock-dialog-default.ui.h:3
-msgid "Enter your password"
-msgstr "Saisissez votre mot de passe"
-
-#: ../data/lock-dialog-default.ui.h:4
-msgid "You have the Caps Lock key on."
-msgstr "La touche Verrou Maj. est activée."
-
-#: ../data/lock-dialog-default.ui.h:5
-msgid "_Switch User"
-msgstr "_Changer d’utilisateur"
-
-#: ../data/lock-dialog-default.ui.h:6
-msgid "_Log Out"
-msgstr "_Déconnexion"
-
-#: ../data/lock-dialog-default.ui.h:7 ../src/copy-theme-dialog.c:263
-#: ../src/gs-lock-plug.c:1323
-msgid "_Cancel"
-msgstr "A_nnuler"
-
-#: ../data/lock-dialog-default.ui.h:8 ../src/gs-lock-plug.c:1328
-msgid "_Unlock"
-msgstr "Déverro_uiller"
-
-#: ../data/lock-dialog-default.ui.h:10
-#, no-c-format
-msgid "<b>%h</b>"
-msgstr "<b>%h</b>"
-
-#: ../data/lock-dialog-default.ui.h:12
-#, no-c-format
-msgid "<b>%s</b>"
-msgstr "<b>%s</b>"
-
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:1
 #: ../src/xfce4-screensaver.desktop.in.in.h:1
 msgid "Screensaver"
@@ -66,51 +26,6 @@ msgstr "Économiseur d’écran"
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:2
 msgid "Set your screensaver preferences"
 msgstr "Définissez vos préférences d’économiseur d’écran"
-
-#: ../data/xfce4-screensaver-preferences.ui.h:1
-msgid "Screensaver Preview"
-msgstr "Aperçu de l’économiseur d’écran"
-
-#: ../data/xfce4-screensaver-preferences.ui.h:2
-msgid "<b>Screensaver preview</b>"
-msgstr "<b>Aperçu de l’économiseur d’écran</b>"
-
-#: ../data/xfce4-screensaver-preferences.ui.h:3
-msgid "Screensaver Preferences"
-msgstr "Préférences de l’économiseur d’écran"
-
-#: ../data/xfce4-screensaver-preferences.ui.h:4
-msgid "Configure your screensaver and locker"
-msgstr "Configurer l’économiseur et le verrouillage d’écran"
-
-#: ../data/xfce4-screensaver-preferences.ui.h:5
-msgid "Power _Management"
-msgstr "Gestion de l’ali_mentation"
-
-#: ../data/xfce4-screensaver-preferences.ui.h:6
-msgid "_Preview"
-msgstr "_Aperçu"
-
-#: ../data/xfce4-screensaver-preferences.ui.h:7
-msgid "_Screensaver theme:"
-msgstr "_Thème de l’économiseur d’écran :"
-
-#: ../data/xfce4-screensaver-preferences.ui.h:8
-msgid "Regard the computer as _idle after:"
-msgstr "Considérer l’ordinateur comme _inactif après :"
-
-#: ../data/xfce4-screensaver-preferences.ui.h:9
-msgid "_Activate screensaver when computer is idle"
-msgstr "_Activer l’économiseur d’écran quand l’ordinateur est inactif"
-
-#: ../data/xfce4-screensaver-preferences.ui.h:10
-msgid "_Lock screen when screensaver is active"
-msgstr "_Verrouiller l’écran quand l’économiseur d’écran est actif"
-
-#: ../data/xfce4-screensaver-preferences.ui.h:11
-msgid "<b>Warning: the screen will not be locked for the root user.</b>"
-msgstr ""
-"<b>Attention : l’écran ne sera pas verrouillé pour l’utilisateur root.</b>"
 
 #: ../data/xfce4-screensaver.directory.in.h:1
 msgid "Screensavers"
@@ -230,6 +145,11 @@ msgstr "Depuis :"
 msgid "To:"
 msgstr "Vers :"
 
+#: ../src/copy-theme-dialog.c:263 ../src/gs-lock-plug.c:1325
+#: ../src/xfce4-screensaver-dialog.ui.h:7
+msgid "_Cancel"
+msgstr "A_nnuler"
+
 #: ../src/copy-theme-dialog.c:266
 msgid "Copying themes"
 msgstr "Copie des thèmes"
@@ -255,7 +175,7 @@ msgstr "Mot de passe :"
 #: ../src/gs-auth-pam.c:414
 #, c-format
 msgid "Unable to establish service %s: %s\n"
-msgstr ""
+msgstr "Impossible d’établir le service %s : %s\n"
 
 #: ../src/gs-auth-pam.c:444
 #, c-format
@@ -266,7 +186,7 @@ msgstr "Impossible de définir PAM_TTY=%s"
 msgid "Incorrect password."
 msgstr "Mot de passe incorrect."
 
-#: ../src/gs-auth-pam.c:484 ../src/xfce4-screensaver-dialog.c:314
+#: ../src/gs-auth-pam.c:484 ../src/xfce4-screensaver-dialog.c:315
 msgid "Authentication failed."
 msgstr "L’authentification a échoué."
 
@@ -294,28 +214,32 @@ msgstr "déconnecté du bus de messages"
 msgid "screensaver already running in this session"
 msgstr "économiseur d’écran déjà lancé dans cette session"
 
-#: ../src/gs-lock-plug.c:291
+#: ../src/gs-lock-plug.c:293
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, %B %e   %H:%M"
 
-#: ../src/gs-lock-plug.c:386
+#: ../src/gs-lock-plug.c:388
 msgid "Time has expired."
 msgstr "Le délai a expiré."
 
-#: ../src/gs-lock-plug.c:1308
+#: ../src/gs-lock-plug.c:1310
 msgid "S_witch User..."
 msgstr "_Changer d’utilisateur…"
 
-#: ../src/gs-lock-plug.c:1317
+#: ../src/gs-lock-plug.c:1319
 msgid "Log _Out"
 msgstr "Déc_onnexion"
 
+#: ../src/gs-lock-plug.c:1330 ../src/xfce4-screensaver-dialog.ui.h:8
+msgid "_Unlock"
+msgstr "Déverro_uiller"
+
 #. To translators: This expands to USERNAME on HOSTNAME
-#: ../src/gs-lock-plug.c:1513
+#: ../src/gs-lock-plug.c:1515
 msgid "%U on %h"
 msgstr "%U sur %h"
 
-#: ../src/gs-lock-plug.c:1528
+#: ../src/gs-lock-plug.c:1530
 msgid "Please enter your password."
 msgstr "Veuillez saisir votre mot de passe."
 
@@ -399,7 +323,7 @@ msgstr ""
 msgid "The reason for inhibiting the screensaver"
 msgstr "Raison d'inhibition de l'économiseur d'écran"
 
-#: ../src/xfce4-screensaver-command.c:103 ../src/xfce4-screensaver-dialog.c:64
+#: ../src/xfce4-screensaver-command.c:103 ../src/xfce4-screensaver-dialog.c:65
 #: ../src/xfce4-screensaver.c:59
 msgid "Version of this application"
 msgstr "Version de l’application"
@@ -437,111 +361,142 @@ msgstr "L’économiseur d’écran est actif depuis %d secondes.\n"
 msgid "The screensaver is not currently active.\n"
 msgstr "L’économiseur d’écran n’est actuellement pas actif.\n"
 
-#: ../src/xfce4-screensaver-dialog.c:63
+#: ../src/xfce4-screensaver-dialog.c:64
 msgid "Show debugging output"
 msgstr "Afficher la sortie de débogage"
 
-#: ../src/xfce4-screensaver-dialog.c:65
+#: ../src/xfce4-screensaver-dialog.c:66
 msgid "Show the logout button"
 msgstr "Afficher le bouton de déconnexion"
 
-#: ../src/xfce4-screensaver-dialog.c:66
+#: ../src/xfce4-screensaver-dialog.c:67
 msgid "Command to invoke from the logout button"
 msgstr "Commande à lancer depuis le bouton de déconnexion"
 
-#: ../src/xfce4-screensaver-dialog.c:67
+#: ../src/xfce4-screensaver-dialog.c:68
 msgid "Show the switch user button"
 msgstr "Afficher le bouton de changement d'utilisateur"
 
-#: ../src/xfce4-screensaver-dialog.c:68
+#: ../src/xfce4-screensaver-dialog.c:69
 msgid "Message to show in the dialog"
 msgstr "Message à afficher dans le dialogue"
 
-#: ../src/xfce4-screensaver-dialog.c:68 ../src/xfce4-screensaver-dialog.c:69
+#: ../src/xfce4-screensaver-dialog.c:69 ../src/xfce4-screensaver-dialog.c:70
 msgid "MESSAGE"
 msgstr "MESSAGE"
 
-#: ../src/xfce4-screensaver-dialog.c:69
+#: ../src/xfce4-screensaver-dialog.c:70
 msgid "Not used"
 msgstr "Inutilisé"
 
-#: ../src/xfce4-screensaver-dialog.c:70
+#: ../src/xfce4-screensaver-dialog.c:71
 msgid "Monitor height"
 msgstr "Hauteur du moniteur"
 
-#: ../src/xfce4-screensaver-dialog.c:71
+#: ../src/xfce4-screensaver-dialog.c:72
 msgid "Monitor width"
 msgstr "Largeur du moniteur"
 
-#: ../src/xfce4-screensaver-dialog.c:72
+#: ../src/xfce4-screensaver-dialog.c:73
 msgid "Monitor index"
 msgstr "Index du moniteur"
 
 #. login: is whacked always translate to Username:
-#: ../src/xfce4-screensaver-dialog.c:176 ../src/xfce4-screensaver-dialog.c:177
-#: ../src/xfce4-screensaver-dialog.c:178
+#: ../src/xfce4-screensaver-dialog.c:177 ../src/xfce4-screensaver-dialog.c:178
+#: ../src/xfce4-screensaver-dialog.c:179
 msgid "Please enter your username."
 msgstr "Veuillez entrer votre nom d’utilisateur."
 
-#: ../src/xfce4-screensaver-dialog.c:181
+#: ../src/xfce4-screensaver-dialog.c:182
 msgid "You are required to change your password immediately (password aged)"
 msgstr ""
 
-#: ../src/xfce4-screensaver-dialog.c:182
+#: ../src/xfce4-screensaver-dialog.c:183
 msgid "You are required to change your password immediately (root enforced)"
 msgstr ""
 
-#: ../src/xfce4-screensaver-dialog.c:183
+#: ../src/xfce4-screensaver-dialog.c:184
 msgid "Your account has expired; please contact your system administrator"
 msgstr ""
 
-#: ../src/xfce4-screensaver-dialog.c:184
+#: ../src/xfce4-screensaver-dialog.c:185
 msgid "No password supplied."
 msgstr "Aucun mot de passe saisi."
 
-#: ../src/xfce4-screensaver-dialog.c:185
+#: ../src/xfce4-screensaver-dialog.c:186
 msgid "Password unchanged."
 msgstr "Mot de passe inchangé."
 
-#: ../src/xfce4-screensaver-dialog.c:186
+#: ../src/xfce4-screensaver-dialog.c:187
 msgid "Can not get username."
 msgstr "Impossible d’obtenir le nom d’utilisateur."
 
-#: ../src/xfce4-screensaver-dialog.c:187
+#: ../src/xfce4-screensaver-dialog.c:188
 msgid "Retype your new password."
 msgstr "Ressaisissez votre nouveau mot de passe."
 
-#: ../src/xfce4-screensaver-dialog.c:188
+#: ../src/xfce4-screensaver-dialog.c:189
 msgid "Enter your new password."
 msgstr "Entrez votre nouveau mot de passe."
 
-#: ../src/xfce4-screensaver-dialog.c:189
+#: ../src/xfce4-screensaver-dialog.c:190
 msgid "Enter your current password:"
 msgstr "Entrez votre mot de passe actuel."
 
-#: ../src/xfce4-screensaver-dialog.c:190
+#: ../src/xfce4-screensaver-dialog.c:191
 msgid "Error while changing NIS password."
 msgstr "Erreur au changement de mot de passe NIS."
 
-#: ../src/xfce4-screensaver-dialog.c:191
+#: ../src/xfce4-screensaver-dialog.c:192
 msgid "You must choose a longer password."
 msgstr "Vous devez choisir un mot de passe plus long."
 
-#: ../src/xfce4-screensaver-dialog.c:192
+#: ../src/xfce4-screensaver-dialog.c:193
 msgid "Password has been already used. Choose another."
 msgstr "Le mot de passe a déjà été utilisé. Choisissez-en un autre."
 
-#: ../src/xfce4-screensaver-dialog.c:193
+#: ../src/xfce4-screensaver-dialog.c:194
 msgid "You must wait longer to change your password."
 msgstr "Vous devez attendre plus longtemps pour changer votre mot de passe."
 
-#: ../src/xfce4-screensaver-dialog.c:194
+#: ../src/xfce4-screensaver-dialog.c:195
 msgid "Sorry, passwords do not match."
 msgstr "Désolé, les mots de passe ne correspondent pas."
 
-#: ../src/xfce4-screensaver-dialog.c:268
+#: ../src/xfce4-screensaver-dialog.c:269
 msgid "Checking..."
 msgstr "Vérification…"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:2
+#, no-c-format
+msgid "%U"
+msgstr "%U"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:3
+msgid "Enter your password"
+msgstr "Saisissez votre mot de passe"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:4
+msgid "You have the Caps Lock key on."
+msgstr "La touche Verrou Maj. est activée."
+
+#: ../src/xfce4-screensaver-dialog.ui.h:5
+msgid "_Switch User"
+msgstr "_Changer d’utilisateur"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:6
+msgid "_Log Out"
+msgstr "_Déconnexion"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:10
+#, no-c-format
+msgid "<b>%h</b>"
+msgstr "<b>%h</b>"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:12
+#, no-c-format
+msgid "<b>%s</b>"
+msgstr "<b>%s</b>"
 
 #: ../src/xfce4-screensaver-preferences.c:443
 msgid "Blank screen"
@@ -610,14 +565,74 @@ msgstr "%s"
 msgid "Never"
 msgstr "Jamais"
 
-#: ../src/xfce4-screensaver-preferences.c:1511
+#: ../src/xfce4-screensaver-preferences.c:1557
 msgid "Could not load the main interface"
 msgstr "Impossible de charger l’interface principale"
 
-#: ../src/xfce4-screensaver-preferences.c:1513
+#: ../src/xfce4-screensaver-preferences.c:1559
 msgid "Please make sure that the screensaver is properly installed"
 msgstr ""
 "Veuillez vous assurer que l’économiseur d’écran est correctement installé"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:1
+msgid "Screensaver Preview"
+msgstr "Aperçu de l’économiseur d’écran"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:2
+msgid "<b>Screensaver preview</b>"
+msgstr "<b>Aperçu de l’économiseur d’écran</b>"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:3
+msgid "Screensaver Preferences"
+msgstr "Préférences de l’économiseur d’écran"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:4
+msgid "Configure your screensaver and locker"
+msgstr "Configurer l’économiseur et le verrouillage d’écran"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:5
+msgid "Power _Management"
+msgstr "Gestion de l’ali_mentation"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:6
+msgid "_Preview"
+msgstr "_Aperçu"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:7
+msgid "Running as root"
+msgstr ""
+
+#: ../src/xfce4-screensaver-preferences.ui.h:8
+msgid "The screen will not be locked for the root user."
+msgstr ""
+
+#: ../src/xfce4-screensaver-preferences.ui.h:9
+msgid "Resolve"
+msgstr ""
+
+#: ../src/xfce4-screensaver-preferences.ui.h:10
+msgid "Xfce Power Manager is not configured to handle laptop lid events"
+msgstr ""
+
+#: ../src/xfce4-screensaver-preferences.ui.h:11
+msgid "Your computer may not be locked when you close the lid."
+msgstr ""
+
+#: ../src/xfce4-screensaver-preferences.ui.h:12
+msgid "_Screensaver theme:"
+msgstr "_Thème de l’économiseur d’écran :"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:13
+msgid "Regard the computer as _idle after:"
+msgstr "Considérer l’ordinateur comme _inactif après :"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:14
+msgid "_Activate screensaver when computer is idle"
+msgstr "_Activer l’économiseur d’écran quand l’ordinateur est inactif"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:15
+msgid "_Lock screen when screensaver is active"
+msgstr "_Verrouiller l’écran quand l’économiseur d’écran est actif"
 
 #: ../src/xfce4-screensaver.c:60
 msgid "Don't become a daemon"
