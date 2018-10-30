@@ -10,6 +10,7 @@ xfce4-screensaver-*/
 # Wildcard Match
 *.a
 *.bak
+*.bz2
 *.desktop
 *.gmo
 *.html
