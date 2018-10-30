@@ -33,6 +33,7 @@
 
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
+#include <gtk/gtkx.h>
 
 #include <gio/gio.h>
 
@@ -78,6 +79,13 @@ static GtkBuilder     *builder = NULL;
 static GSThemeManager *theme_manager = NULL;
 static GSJob          *job = NULL;
 static XfconfChannel  *screensaver_channel = NULL;
+
+static gint opt_socket_id = 0;
+static GOptionEntry entries[] =
+{
+    { "socket-id", 's', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_INT, &opt_socket_id, N_("Settings manager socket"), N_("SOCKET ID") },
+    { NULL }
+};
 
 static gint32
 config_get_activate_delay (gboolean *is_writable)
@@ -1515,9 +1523,10 @@ is_program_in_path (const char *program)
 }
 
 static void
-init_capplet (void)
+configure_capplet (void)
 {
     GtkWidget *dialog;
+    GtkWidget *plug_child;
     GtkWidget *preview;
     GtkWidget *treeview;
     GtkWidget *list_scroller;
@@ -1567,6 +1576,7 @@ init_capplet (void)
 
     preview                     = GTK_WIDGET (gtk_builder_get_object (builder, "preview_area"));
     dialog                      = GTK_WIDGET (gtk_builder_get_object (builder, "prefs_dialog"));
+    plug_child                  = GTK_WIDGET (gtk_builder_get_object (builder, "plug-child"));
     treeview                    = GTK_WIDGET (gtk_builder_get_object (builder, "savers_treeview"));
     list_scroller               = GTK_WIDGET (gtk_builder_get_object (builder, "themes_scrolled_window"));
     activate_delay_hscale       = GTK_WIDGET (gtk_builder_get_object (builder, "activate_delay_hscale"));
@@ -1637,25 +1647,22 @@ init_capplet (void)
                       "draw", G_CALLBACK (preview_on_draw),
                       NULL);
 
-    gtk_drag_dest_set (dialog, GTK_DEST_DEFAULT_ALL,
+    gtk_drag_dest_set (plug_child, GTK_DEST_DEFAULT_ALL,
                        drop_types, G_N_ELEMENTS (drop_types),
                        GDK_ACTION_COPY | GDK_ACTION_LINK | GDK_ACTION_MOVE);
 
-    g_signal_connect (dialog, "drag-motion",
+    g_signal_connect (plug_child, "drag-motion",
                       G_CALLBACK (drag_motion_cb), NULL);
-    g_signal_connect (dialog, "drag-leave",
+    g_signal_connect (plug_child, "drag-leave",
                       G_CALLBACK (drag_leave_cb), NULL);
-    g_signal_connect (dialog, "drag-data-received",
+    g_signal_connect (plug_child, "drag-data-received",
                       G_CALLBACK (drag_data_received_cb), NULL);
-
-    gtk_widget_show_all (dialog);
 
     /* Update list of themes if using random screensaver */
     mode = xfconf_channel_get_int (screensaver_channel, KEY_MODE, DEFAULT_KEY_MODE);
     if (mode == GS_MODE_RANDOM) {
         gchar **list;
         list = get_all_theme_ids (theme_manager);
-        g_warning("instance b");
         xfconf_channel_set_string_list (screensaver_channel, KEY_THEMES, (const gchar * const*) list);
         g_strfreev (list);
     }
@@ -1672,9 +1679,6 @@ init_capplet (void)
 
     g_signal_connect (activate_delay_hscale, "value-changed",
                       G_CALLBACK (activate_delay_value_changed_cb), NULL);
-
-    g_signal_connect (dialog, "response",
-                      G_CALLBACK (response_cb), NULL);
 
     g_signal_connect (preview_button, "clicked",
                       G_CALLBACK (fullscreen_preview_start_cb),
@@ -1700,7 +1704,9 @@ int
 main (int    argc,
       char **argv)
 {
-    GError *error = NULL;
+    GtkWidget *plug;
+    GObject   *plug_child;
+    GError    *error = NULL;
 
 #ifdef ENABLE_NLS
     bindtextdomain (GETTEXT_PACKAGE, XFCELOCALEDIR);
@@ -1710,7 +1716,21 @@ main (int    argc,
     textdomain (GETTEXT_PACKAGE);
 #endif
 
-    gtk_init (&argc, &argv);
+    if (!gtk_init_with_args (&argc, &argv, "", entries, NULL, &error))
+    {
+        if (G_LIKELY (error))
+        {
+            /* print error */
+            g_error ("%s\n", error->message);
+            g_error_free (error);
+        }
+        else
+        {
+            g_error ("Unable to open display.");
+        }
+
+        return EXIT_FAILURE;
+    }
 
     /* hook to make sure the libxfce4ui library is linked */
     if (xfce_titled_dialog_get_type() == 0)
@@ -1727,9 +1747,43 @@ main (int    argc,
     job = gs_job_new ();
     theme_manager = gs_theme_manager_new ();
 
-    init_capplet ();
+    configure_capplet ();
 
-    gtk_main ();
+    if (G_UNLIKELY(opt_socket_id == 0))
+    {
+        GtkWidget *dialog = GTK_WIDGET (gtk_builder_get_object (builder, "prefs_dialog"));
+
+        g_signal_connect(dialog, "response",
+                         G_CALLBACK(response_cb), NULL);
+
+        gtk_widget_show_all (dialog);
+
+        /* To prevent the settings dialog to be saved in the session */
+        gdk_x11_set_sm_client_id("FAKE ID");
+
+        gtk_main();
+    }
+    else
+    {
+        /* Create plug widget */
+        plug = gtk_plug_new(opt_socket_id);
+        g_signal_connect(plug, "delete-event", G_CALLBACK(gtk_main_quit), NULL);
+        gtk_widget_show(plug);
+
+        /* Stop startup notification */
+        gdk_notify_startup_complete();
+
+        /* Get plug child widget */
+        plug_child = gtk_builder_get_object (builder, "plug-child");
+        xfce_widget_reparent (GTK_WIDGET(plug_child), plug);
+        gtk_widget_show_all (GTK_WIDGET(plug_child));
+
+        /* To prevent the settings dialog to be saved in the session */
+        gdk_x11_set_sm_client_id("FAKE ID");
+
+        /* Enter main loop */
+        gtk_main();
+    }
 
     finalize_capplet ();
 

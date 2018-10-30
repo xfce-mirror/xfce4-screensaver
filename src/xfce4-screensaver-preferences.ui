@@ -206,7 +206,6 @@ Simon Steinbeiß
     <property name="stock">gtk-fullscreen</property>
   </object>
   <object class="XfceTitledDialog" id="prefs_dialog">
-    <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Screensaver Preferences</property>
     <property name="default_width">600</property>
@@ -298,7 +297,7 @@ Simon Steinbeiß
           </packing>
         </child>
         <child>
-          <object class="GtkBox" id="vbox1">
+          <object class="GtkBox" id="plug-child">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="border_width">6</property>
@@ -567,6 +566,7 @@ Simon Steinbeiß
                                 <property name="app_paintable">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="hexpand">True</property>
+                                <property name="vexpand">True</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
