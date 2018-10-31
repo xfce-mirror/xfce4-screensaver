@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-29 06:31+0100\n"
+"POT-Creation-Date: 2018-10-31 06:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Igor <f2404@yandex.ru>, 2018\n"
 "Language-Team: Russian (https://www.transifex.com/xfce/teams/16840/ru/)\n"
@@ -498,16 +498,24 @@ msgstr "<b>%h</b>"
 msgid "<b>%s</b>"
 msgstr "<b>%s</b>"
 
-#: ../src/xfce4-screensaver-preferences.c:443
+#: ../src/xfce4-screensaver-preferences.c:86
+msgid "Settings manager socket"
+msgstr "Сокет менеджера настроек"
+
+#: ../src/xfce4-screensaver-preferences.c:86
+msgid "SOCKET ID"
+msgstr "ID СОКЕТА"
+
+#: ../src/xfce4-screensaver-preferences.c:451
 msgid "Blank screen"
 msgstr "Очистка экрана"
 
-#: ../src/xfce4-screensaver-preferences.c:449
+#: ../src/xfce4-screensaver-preferences.c:457
 msgid "Random"
 msgstr "Случайный порядок"
 
-#: ../src/xfce4-screensaver-preferences.c:935
-#: ../src/xfce4-screensaver-preferences.c:945
+#: ../src/xfce4-screensaver-preferences.c:943
+#: ../src/xfce4-screensaver-preferences.c:953
 #, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
@@ -516,14 +524,14 @@ msgstr[1] "%d часа"
 msgstr[2] "%d часов"
 msgstr[3] "%d часов"
 
-#: ../src/xfce4-screensaver-preferences.c:938
-#: ../src/xfce4-screensaver-preferences.c:947
-#: ../src/xfce4-screensaver-preferences.c:956
-#: ../src/xfce4-screensaver-preferences.c:959
+#: ../src/xfce4-screensaver-preferences.c:946
+#: ../src/xfce4-screensaver-preferences.c:955
 #: ../src/xfce4-screensaver-preferences.c:964
 #: ../src/xfce4-screensaver-preferences.c:967
 #: ../src/xfce4-screensaver-preferences.c:972
 #: ../src/xfce4-screensaver-preferences.c:975
+#: ../src/xfce4-screensaver-preferences.c:980
+#: ../src/xfce4-screensaver-preferences.c:983
 #, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
@@ -532,7 +540,7 @@ msgstr[1] "%d минуты"
 msgstr[2] "%d минут"
 msgstr[3] "%dминут "
 
-#: ../src/xfce4-screensaver-preferences.c:941
+#: ../src/xfce4-screensaver-preferences.c:949
 #, c-format
 msgid "%d second"
 msgid_plural "%d seconds"
@@ -543,15 +551,15 @@ msgstr[3] "%d секунд"
 
 #. hour:minutes
 #. minutes:seconds
-#: ../src/xfce4-screensaver-preferences.c:944
-#: ../src/xfce4-screensaver-preferences.c:991
-#: ../src/xfce4-screensaver-preferences.c:1004
+#: ../src/xfce4-screensaver-preferences.c:952
+#: ../src/xfce4-screensaver-preferences.c:999
+#: ../src/xfce4-screensaver-preferences.c:1012
 #, c-format
 msgid "%s %s"
 msgstr "%s %s"
 
 #. hour:minutes:seconds
-#: ../src/xfce4-screensaver-preferences.c:986
+#: ../src/xfce4-screensaver-preferences.c:994
 #, c-format
 msgid "%s %s %s"
 msgstr "%s %s %s"
@@ -559,23 +567,23 @@ msgstr "%s %s %s"
 #. hour
 #. minutes
 #. seconds
-#: ../src/xfce4-screensaver-preferences.c:996
-#: ../src/xfce4-screensaver-preferences.c:1009
-#: ../src/xfce4-screensaver-preferences.c:1045
+#: ../src/xfce4-screensaver-preferences.c:1004
+#: ../src/xfce4-screensaver-preferences.c:1017
+#: ../src/xfce4-screensaver-preferences.c:1053
 #, c-format
 msgid "%s"
 msgstr "%s"
 
-#: ../src/xfce4-screensaver-preferences.c:1060
+#: ../src/xfce4-screensaver-preferences.c:1068
 #, c-format
 msgid "Never"
 msgstr "Никогда"
 
-#: ../src/xfce4-screensaver-preferences.c:1557
+#: ../src/xfce4-screensaver-preferences.c:1566
 msgid "Could not load the main interface"
 msgstr "Не удалось загрузить основной интерфейс"
 
-#: ../src/xfce4-screensaver-preferences.c:1559
+#: ../src/xfce4-screensaver-preferences.c:1568
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "Убедитесь, что хранитель экрана правильно установлен"
 
