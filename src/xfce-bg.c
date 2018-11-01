@@ -315,7 +315,7 @@ find_system_backgrounds (void)
 	dirs = g_get_system_data_dirs ();
 	for (i = 0; dirs[i]; i++) {
 		path = g_build_path (G_DIR_SEPARATOR_S, dirs[i],
-                             "backgrounds", "xfce");
+                             "backgrounds", "xfce", NULL);
 		if (g_file_test (path, G_FILE_TEST_IS_DIR))
 			return path;
 		else
@@ -472,7 +472,8 @@ xfce_bg_load_from_xfconf (XfceBG        *bg,
     filename = NULL;
     tmp = xfconf_channel_get_string(channel, property,
                                     g_build_filename(find_system_backgrounds(),
-                                                     XFCE_BG_FALLBACK_IMG));
+                                                     XFCE_BG_FALLBACK_IMG,
+                                                     NULL));
     if (tmp && *tmp != '\0') {
         /* FIXME: UTF-8 checks should go away.
          * picture-filename is of type string, which can only be used for
