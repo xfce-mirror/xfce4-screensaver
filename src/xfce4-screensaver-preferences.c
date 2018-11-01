@@ -1775,7 +1775,15 @@ main (int    argc,
 
         /* Get plug child widget */
         plug_child = gtk_builder_get_object (builder, "plug-child");
+
+#if LIBXFCE4UI_CHECK_VERSION (4, 13, 2)
         xfce_widget_reparent (GTK_WIDGET(plug_child), plug);
+#else
+        G_GNUC_BEGIN_IGNORE_DEPRECATIONS /* GTK 3.14 */
+        gtk_widget_reparent (dialog->content_box, dialog->vbox);
+        G_GNUC_END_IGNORE_DEPRECATIONS
+#endif
+
         gtk_widget_show_all (GTK_WIDGET(plug_child));
 
         /* To prevent the settings dialog to be saved in the session */
