@@ -1780,7 +1780,7 @@ main (int    argc,
         xfce_widget_reparent (GTK_WIDGET(plug_child), plug);
 #else
         G_GNUC_BEGIN_IGNORE_DEPRECATIONS /* GTK 3.14 */
-        gtk_widget_reparent (dialog->content_box, dialog->vbox);
+        gtk_widget_reparent (GTK_WIDGET(plug_child), plug);
         G_GNUC_END_IGNORE_DEPRECATIONS
 #endif
 
