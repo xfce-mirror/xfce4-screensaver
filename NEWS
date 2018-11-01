@@ -1,7 +1,8 @@
-0.1.2 (alpha) (UNRELEASED)
+0.1.2 (alpha)
 =============
 - Bug Fixes:
   - Resolve hidden libxfce4ui 4.13 requirement (Xfce #14821)
+  - Avoid hard-coded paths for systems that do not use /usr (Xfce #14822)
 
 0.1.1 (alpha)
 =============

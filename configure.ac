@@ -2,7 +2,7 @@ dnl -*- mode: m4 -*-
 
 AC_PREREQ(2.60)
 AC_INIT([xfce4-screensaver],
-        [0.1.1],
+        [0.1.2],
         [https://www.xfce.org/])
 
 AC_CONFIG_SRCDIR(src/xfce4-screensaver.c)
