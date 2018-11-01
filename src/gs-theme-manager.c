@@ -65,8 +65,7 @@ static const char *known_engine_locations [] =
     XSCREENSAVER_HACK_DIR,
 #endif
     LIBEXECDIR "/xscreensaver",
-    "/usr/libexec/xscreensaver",
-    "/usr/lib/xscreensaver",
+    LIBDIR "/xscreensaver",
     NULL
 };
 

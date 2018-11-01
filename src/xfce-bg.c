@@ -34,7 +34,11 @@ Authors: Soren Sandmann <sandmann@redhat.com>
 #include <math.h>
 #include <stdarg.h>
 #include <stdlib.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
+#include <glib/gprintf.h>
 #include <glib/gstdio.h>
 #include <gio/gio.h>
 
@@ -50,7 +54,7 @@ Authors: Soren Sandmann <sandmann@redhat.com>
 #include <cairo-xlib.h>
 
 #define XFCE_BG_CACHE_DIR "xfce/background"
-#define XFCE_BG_FALLBACK_IMG "/usr/share/backgrounds/xfce/xfce-teal.jpg"
+#define XFCE_BG_FALLBACK_IMG "xfce-teal.jpg"
 
 /* We keep the large pixbufs around if the next update
    in the slideshow is less than 60 seconds away */
@@ -301,6 +305,26 @@ queue_transitioned (XfceBG *bg)
                           NULL);
 }
 
+static gchar *
+find_system_backgrounds (void)
+{
+	const gchar * const *dirs;
+	gchar               *path;
+	gint                 i;
+
+	dirs = g_get_system_data_dirs ();
+	for (i = 0; dirs[i]; i++) {
+		path = g_build_path (G_DIR_SEPARATOR_S, dirs[i],
+                             "backgrounds", "xfce");
+		if (g_file_test (path, G_FILE_TEST_IS_DIR))
+			return path;
+		else
+			g_free (path);
+	}
+
+	return NULL;
+}
+
 /* This function loads the user's preferences */
 void
 xfce_bg_load_from_preferences (XfceBG     *bg,
@@ -446,7 +470,9 @@ xfce_bg_load_from_xfconf (XfceBG        *bg,
         property = g_strconcat(prop_prefix, "/image-path", NULL);
     }
     filename = NULL;
-    tmp = xfconf_channel_get_string(channel, property, XFCE_BG_FALLBACK_IMG);
+    tmp = xfconf_channel_get_string(channel, property,
+                                    g_build_filename(find_system_backgrounds(),
+                                                     XFCE_BG_FALLBACK_IMG));
     if (tmp && *tmp != '\0') {
         /* FIXME: UTF-8 checks should go away.
          * picture-filename is of type string, which can only be used for
