@@ -3,13 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# Nick Schermer <nick@xfce.org>, 2018
+# Moo, 2018
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-31 06:31+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Moo, 2018\n"
 "Language-Team: Lithuanian (https://www.transifex.com/xfce/teams/16840/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -619,7 +623,7 @@ msgstr "_Peržiūra"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:7
 msgid "Running as root"
-msgstr "Paleidimas kaip root"
+msgstr "Vykdoma kaip root"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:8
 msgid "The screen will not be locked for the root user."
