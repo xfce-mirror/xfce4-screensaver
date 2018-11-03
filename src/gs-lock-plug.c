@@ -264,7 +264,9 @@ date_time_update (GSLockPlug *plug) {
     gchar     *str;
 
     datetime = g_date_time_new_now_local ();
-    datetime_format = g_date_time_format (datetime, _("%A, %B %e   %H:%M"));
+    /* TRANSLATORS: adjust this accordingly for your locale format */
+    datetime_format = g_date_time_format (datetime, NC_("Date",
+                                                        "%A %d %B %Y   %H:%M"));
 
     str = g_strdup_printf ("<b>%s</b>", datetime_format);
     gtk_label_set_markup (GTK_LABEL (plug->priv->auth_datetime_label), str);
