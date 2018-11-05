@@ -3,14 +3,22 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# Cristian Marchi <cri.penta@gmail.com>, 2018
+# idetao <marcxosm@gmail.com>, 2018
+# Edoardo Maria Elidoro <edoardo.elidoro@gmail.com>, 2018
+# Emanuele Petriglia <inbox@emanuelepetriglia.me>, 2018
+# Nick Schermer <nick@xfce.org>, 2018
+# bebabi34 <bebabi34@email.it>, 2018
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-29 06:31+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Edoardo Maria Elidoro <edoardo.elidoro@gmail.com>, 2018\n"
+"POT-Creation-Date: 2018-10-31 06:31+0100\n"
+"PO-Revision-Date: 2018-10-16 16:27+0000\n"
+"Last-Translator: bebabi34 <bebabi34@email.it>, 2018\n"
 "Language-Team: Italian (https://www.transifex.com/xfce/teams/16840/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -220,7 +228,7 @@ msgstr "%A, %B %e   %H:%M"
 
 #: ../src/gs-lock-plug.c:388
 msgid "Time has expired."
-msgstr ""
+msgstr "Tempo scaduto."
 
 #: ../src/gs-lock-plug.c:1310
 msgid "S_witch User..."
@@ -264,7 +272,7 @@ msgstr ""
 #: ../src/xfce-rr.c:730
 #, c-format
 msgid "RANDR extension is not present"
-msgstr ""
+msgstr "estensione RANDR non presente."
 
 #: ../src/xfce-rr.c:1146
 #, c-format
@@ -299,7 +307,7 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-command.c:79
 msgid "Turn the screensaver on (blank the screen)"
-msgstr ""
+msgstr "Attiva il salvaschermo (pulisci lo schermo)"
 
 #: ../src/xfce4-screensaver-command.c:83
 msgid "If the screensaver is active then deactivate it (un-blank the screen)"
@@ -498,37 +506,45 @@ msgstr "<b>%h</b>"
 msgid "<b>%s</b>"
 msgstr "<b>%s</b>"
 
-#: ../src/xfce4-screensaver-preferences.c:443
+#: ../src/xfce4-screensaver-preferences.c:86
+msgid "Settings manager socket"
+msgstr "Socket del gestore delle impostazioni"
+
+#: ../src/xfce4-screensaver-preferences.c:86
+msgid "SOCKET ID"
+msgstr ""
+
+#: ../src/xfce4-screensaver-preferences.c:451
 msgid "Blank screen"
 msgstr ""
 
-#: ../src/xfce4-screensaver-preferences.c:449
+#: ../src/xfce4-screensaver-preferences.c:457
 msgid "Random"
 msgstr "Casuale"
 
-#: ../src/xfce4-screensaver-preferences.c:935
-#: ../src/xfce4-screensaver-preferences.c:945
+#: ../src/xfce4-screensaver-preferences.c:943
+#: ../src/xfce4-screensaver-preferences.c:953
 #, c-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/xfce4-screensaver-preferences.c:938
-#: ../src/xfce4-screensaver-preferences.c:947
-#: ../src/xfce4-screensaver-preferences.c:956
-#: ../src/xfce4-screensaver-preferences.c:959
+#: ../src/xfce4-screensaver-preferences.c:946
+#: ../src/xfce4-screensaver-preferences.c:955
 #: ../src/xfce4-screensaver-preferences.c:964
 #: ../src/xfce4-screensaver-preferences.c:967
 #: ../src/xfce4-screensaver-preferences.c:972
 #: ../src/xfce4-screensaver-preferences.c:975
+#: ../src/xfce4-screensaver-preferences.c:980
+#: ../src/xfce4-screensaver-preferences.c:983
 #, c-format
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/xfce4-screensaver-preferences.c:941
+#: ../src/xfce4-screensaver-preferences.c:949
 #, c-format
 msgid "%d second"
 msgid_plural "%d seconds"
@@ -537,15 +553,15 @@ msgstr[1] ""
 
 #. hour:minutes
 #. minutes:seconds
-#: ../src/xfce4-screensaver-preferences.c:944
-#: ../src/xfce4-screensaver-preferences.c:991
-#: ../src/xfce4-screensaver-preferences.c:1004
+#: ../src/xfce4-screensaver-preferences.c:952
+#: ../src/xfce4-screensaver-preferences.c:999
+#: ../src/xfce4-screensaver-preferences.c:1012
 #, c-format
 msgid "%s %s"
 msgstr ""
 
 #. hour:minutes:seconds
-#: ../src/xfce4-screensaver-preferences.c:986
+#: ../src/xfce4-screensaver-preferences.c:994
 #, c-format
 msgid "%s %s %s"
 msgstr ""
@@ -553,23 +569,23 @@ msgstr ""
 #. hour
 #. minutes
 #. seconds
-#: ../src/xfce4-screensaver-preferences.c:996
-#: ../src/xfce4-screensaver-preferences.c:1009
-#: ../src/xfce4-screensaver-preferences.c:1045
+#: ../src/xfce4-screensaver-preferences.c:1004
+#: ../src/xfce4-screensaver-preferences.c:1017
+#: ../src/xfce4-screensaver-preferences.c:1053
 #, c-format
 msgid "%s"
 msgstr ""
 
-#: ../src/xfce4-screensaver-preferences.c:1060
+#: ../src/xfce4-screensaver-preferences.c:1068
 #, c-format
 msgid "Never"
 msgstr "Mai"
 
-#: ../src/xfce4-screensaver-preferences.c:1557
+#: ../src/xfce4-screensaver-preferences.c:1566
 msgid "Could not load the main interface"
 msgstr ""
 
-#: ../src/xfce4-screensaver-preferences.c:1559
+#: ../src/xfce4-screensaver-preferences.c:1568
 msgid "Please make sure that the screensaver is properly installed"
 msgstr ""
 
