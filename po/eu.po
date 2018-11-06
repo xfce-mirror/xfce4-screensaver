@@ -92,11 +92,11 @@ msgstr ""
 
 #: ../savers/xfce-floaters.desktop.in.in.h:1
 msgid "Floating Xfce"
-msgstr ""
+msgstr "Xfce flotatzen"
 
 #: ../savers/xfce-floaters.desktop.in.in.h:2
 msgid "Bubbles the Xfce logo around the screen"
-msgstr ""
+msgstr "Xfceren logoa pantailan zehar burbuilatzen du"
 
 #: ../savers/personal-slideshow.desktop.in.in.h:1
 msgid "Pictures folder"
@@ -108,11 +108,11 @@ msgstr ""
 
 #: ../savers/popsquares.desktop.in.in.h:1
 msgid "Pop art squares"
-msgstr ""
+msgstr "Pop art laukiak"
 
 #: ../savers/popsquares.desktop.in.in.h:2
 msgid "A pop-art-ish grid of pulsing colors."
-msgstr ""
+msgstr "Kolore sutsuz osatutako pop-art estiloko sareta."
 
 #: ../savers/slideshow.c:55
 msgid "Location to get images from"
