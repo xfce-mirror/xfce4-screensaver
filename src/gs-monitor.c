@@ -130,14 +130,7 @@ static void listener_lock_cb(GSListener* listener, GSMonitor* monitor)
 
 static void listener_x11_lock_cb(GSListenerX11* listener, GSMonitor* monitor)
 {
-    if (monitor->priv->prefs->lock_enabled)
-    {
-        gs_monitor_lock_screen(monitor);
-    }
-    else
-    {
-        gs_debug("Locking disabled by the administrator");
-    }
+    gs_monitor_lock_screen(monitor);
 }
 
 static void listener_quit_cb(GSListener* listener, GSMonitor* monitor)

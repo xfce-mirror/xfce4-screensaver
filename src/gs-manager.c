@@ -464,13 +464,7 @@ gs_manager_set_lock_active (GSManager *manager,
 
     if (manager->priv->lock_active != lock_active)
     {
-        GSList *l;
-
         manager->priv->lock_active = lock_active;
-        for (l = manager->priv->windows; l; l = l->next)
-        {
-            gs_window_set_lock_enabled (l->data, lock_active);
-        }
     }
 }
 
@@ -1152,7 +1146,6 @@ gs_manager_show_message (GSManager  *manager,
     /* Find the GSWindow that contains the pointer */
     window = find_window_at_pointer (manager);
     gs_window_show_message (window, summary, body, icon);
-
     gs_manager_request_unlock (manager);
 }
 
@@ -1369,11 +1362,6 @@ window_obscured_cb (GSWindow   *window,
     gs_debug ("Handling window obscured: %s", obscured ? "obscured" : "unobscured");
 
     maybe_set_window_throttle (manager, window, obscured);
-
-    if (! obscured)
-    {
-        gs_manager_request_unlock (manager);
-    }
 }
 
 static void
@@ -1473,7 +1461,6 @@ window_activity_cb (GSWindow  *window,
                     GSManager *manager)
 {
     gboolean handled;
-
     handled = gs_manager_request_unlock (manager);
 
     return handled;
@@ -1539,7 +1526,7 @@ gs_manager_create_window_for_monitor (GSManager  *manager,
     gs_debug ("Creating a window [%d,%d] (%dx%d)",
               rect.x, rect.y, rect.width, rect.height);
 
-    window = gs_window_new (monitor, manager->priv->lock_active);
+    window = gs_window_new (monitor, manager->priv->lock_enabled);
 
     gs_window_set_user_switch_enabled (window, manager->priv->user_switch_enabled);
     gs_window_set_logout_enabled (window, manager->priv->logout_enabled);
