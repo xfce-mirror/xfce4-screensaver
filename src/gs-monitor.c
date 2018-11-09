@@ -209,6 +209,7 @@ static void _gs_monitor_update_from_prefs(GSMonitor* monitor, GSPrefs* prefs)
 
     /* enable activation when allowed */
     gs_listener_set_activation_enabled(monitor->priv->listener, monitor->priv->prefs->idle_activation_enabled);
+    gs_listener_x11_set_lock_after(monitor->priv->listener_x11, monitor->priv->prefs->timeout);
 }
 
 static void disconnect_listener_signals(GSMonitor* monitor)
@@ -311,8 +312,6 @@ GSMonitor* gs_monitor_new(void)
     GSMonitor* monitor;
 
     monitor = g_object_new(GS_TYPE_MONITOR, NULL);
-
-    gs_listener_x11_set_lock_after(monitor->priv->listener_x11, 1);
 
     return GS_MONITOR(monitor);
 }

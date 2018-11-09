@@ -119,7 +119,7 @@ _gs_prefs_set_timeout (GSPrefs *prefs,
     if (value > 480)
         value = 480;
 
-    prefs->timeout = value * 60000;
+    prefs->timeout = value;
 }
 
 static void

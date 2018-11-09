@@ -232,6 +232,7 @@ void
 gs_listener_x11_set_lock_after (GSListenerX11 *listener,
                                 gint lock_after)
 {
+        gs_debug ("Lock timout updated to %i minutes", lock_after);
         listener->priv->lock_timeout = lock_after * 60;
         reset_lock_timer(listener);
 }
