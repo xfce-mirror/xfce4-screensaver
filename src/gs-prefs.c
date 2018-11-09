@@ -352,7 +352,6 @@ key_changed_cb (XfconfChannel *channel,
                 GValue        *value,
                 GSPrefs       *prefs)
 {
-    g_warning("key changed!");
     if (strcmp (property, KEY_MODE) == 0)
     {
         gint mode;
