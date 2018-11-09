@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
  *
  * Copyright (C) 2004-2006 William Jon McCann <mccann@jhu.edu>
  *
@@ -43,25 +43,25 @@
 #include "gs-marshal.h"
 #include "gs-debug.h"
 
-static void              gs_listener_x11_class_init         (GSListenerX11Class *klass);
-static void              gs_listener_x11_init               (GSListenerX11      *listener);
-static void              gs_listener_x11_finalize           (GObject            *object);
+static void         gs_listener_x11_class_init      (GSListenerX11Class *klass);
+static void         gs_listener_x11_init            (GSListenerX11      *listener);
+static void         gs_listener_x11_finalize        (GObject            *object);
 
 #define GS_LISTENER_X11_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GS_TYPE_LISTENER_X11, GSListenerX11Private))
 
 struct GSListenerX11Private
 {
 #ifdef HAVE_MIT_SAVER_EXTENSION
-        int scrnsaver_event_base;
+    int scrnsaver_event_base;
 #endif
 
-        gint lock_timeout;
-        guint lock_timer_id;
+    gint lock_timeout;
+    guint lock_timer_id;
 };
 
 enum {
-        LOCK,
-        LAST_SIGNAL
+    LOCK,
+    LAST_SIGNAL
 };
 
 static guint         signals [LAST_SIGNAL] = { 0, };
@@ -71,203 +71,203 @@ G_DEFINE_TYPE (GSListenerX11, gs_listener_x11, G_TYPE_OBJECT)
 static void
 gs_listener_x11_class_init (GSListenerX11Class *klass)
 {
-        GObjectClass   *object_class = G_OBJECT_CLASS (klass);
+    GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
-        object_class->finalize     = gs_listener_x11_finalize;
+    object_class->finalize       = gs_listener_x11_finalize;
 
-        signals [LOCK] =
-                g_signal_new ("lock",
-                              G_TYPE_FROM_CLASS (object_class),
-                              G_SIGNAL_RUN_LAST,
-                              G_STRUCT_OFFSET (GSListenerX11Class, lock),
-                              NULL,
-                              NULL,
-                              g_cclosure_marshal_VOID__VOID,
-                              G_TYPE_NONE,
-                              0);
+    signals [LOCK] =
+        g_signal_new ("lock",
+                      G_TYPE_FROM_CLASS (object_class),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (GSListenerX11Class, lock),
+                      NULL,
+                      NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE,
+                      0);
 
-        g_type_class_add_private (klass, sizeof (GSListenerX11Private));
+    g_type_class_add_private (klass, sizeof (GSListenerX11Private));
 }
 
 static gboolean
 lock_timer (GSListenerX11 *listener)
 {
-        Display *display = gdk_x11_display_get_xdisplay(gdk_display_get_default());
-        static XScreenSaverInfo *mit_info = NULL;
-        guint idle_time;
+    Display *display = gdk_x11_display_get_xdisplay(gdk_display_get_default());
+    static XScreenSaverInfo *mit_info = NULL;
+    guint idle_time;
 
-        mit_info = XScreenSaverAllocInfo();
-        XScreenSaverQueryInfo(display, GDK_ROOT_WINDOW(), mit_info);
-        idle_time = mit_info->idle / 1000; // seconds
+    mit_info = XScreenSaverAllocInfo();
+    XScreenSaverQueryInfo(display, GDK_ROOT_WINDOW(), mit_info);
+    idle_time = mit_info->idle / 1000; // seconds
 
-        if (idle_time >= listener->priv->lock_timeout)
-        {
-                listener->priv->lock_timer_id = 0;
+    if (idle_time >= listener->priv->lock_timeout)
+    {
+        listener->priv->lock_timer_id = 0;
 
-                gs_debug("Lock timer");
+        gs_debug("Lock timer");
 
-                g_signal_emit(listener, signals[LOCK], 0);
-        }
-        else
-        {
-                gs_debug("Idle time interrupted. Resetting lock timer for %i seconds", listener->priv->lock_timeout - idle_time);
+        g_signal_emit(listener, signals[LOCK], 0);
+    }
+    else
+    {
+        gs_debug("Idle time interrupted. Resetting lock timer for %i seconds", listener->priv->lock_timeout - idle_time);
 
-                listener->priv->lock_timer_id = g_timeout_add_seconds(listener->priv->lock_timeout - idle_time,
-                                                                      (GSourceFunc)lock_timer,
-                                                                      listener);
-        }
+        listener->priv->lock_timer_id = g_timeout_add_seconds(listener->priv->lock_timeout - idle_time,
+                                      (GSourceFunc)lock_timer,
+                                      listener);
+    }
 
-        return FALSE;
+    return FALSE;
 }
 
 static void
 remove_lock_timer (GSListenerX11 *listener)
 {
-        if (listener->priv->lock_timer_id != 0) {
-                g_source_remove (listener->priv->lock_timer_id);
-                listener->priv->lock_timer_id = 0;
-        }
+    if (listener->priv->lock_timer_id != 0) {
+        g_source_remove (listener->priv->lock_timer_id);
+        listener->priv->lock_timer_id = 0;
+    }
 }
 
 static void
 reset_lock_timer (GSListenerX11 *listener)
 {
-        remove_lock_timer (listener);
+    remove_lock_timer (listener);
 
-        listener->priv->lock_timer_id = g_timeout_add_seconds(listener->priv->lock_timeout,
-                                                              (GSourceFunc)lock_timer,
-                                                              listener);
+    listener->priv->lock_timer_id = g_timeout_add_seconds(listener->priv->lock_timeout,
+                                                          (GSourceFunc)lock_timer,
+                                                          listener);
 }
 
 static GdkFilterReturn
 xroot_filter (GdkXEvent *xevent,
               GdkEvent  *event,
-              gpointer  data)
+              gpointer   data)
 {
-        GSListenerX11 *listener;
-        XEvent *ev;
+    GSListenerX11 *listener;
+    XEvent *ev;
 
-        g_return_val_if_fail (data != NULL, GDK_FILTER_CONTINUE);
-        g_return_val_if_fail (GS_IS_LISTENER_X11 (data), GDK_FILTER_CONTINUE);
+    g_return_val_if_fail (data != NULL, GDK_FILTER_CONTINUE);
+    g_return_val_if_fail (GS_IS_LISTENER_X11 (data), GDK_FILTER_CONTINUE);
 
-        listener = GS_LISTENER_X11 (data);
+    listener = GS_LISTENER_X11 (data);
 
-        ev = xevent;
+    ev = xevent;
 
-        switch (ev->xany.type) {
-        default:
-                /* extension events */
+    switch (ev->xany.type) {
+    default:
+        /* extension events */
 #ifdef HAVE_MIT_SAVER_EXTENSION
-                if (ev->xany.type == (listener->priv->scrnsaver_event_base + ScreenSaverNotify)) {
-                        XScreenSaverNotifyEvent *xssne = (XScreenSaverNotifyEvent *) ev;
-                        switch (xssne->state) {
-                                case ScreenSaverOff:
-                                        // Reset the lock timer
-                                        gs_debug("ScreenSaver timer reset");
-                                        reset_lock_timer (listener);
-                                        break;
+        if (ev->xany.type == (listener->priv->scrnsaver_event_base + ScreenSaverNotify)) {
+            XScreenSaverNotifyEvent *xssne = (XScreenSaverNotifyEvent *) ev;
+            switch (xssne->state) {
+                case ScreenSaverOff:
+                    // Reset the lock timer
+                    gs_debug("ScreenSaver timer reset");
+                    reset_lock_timer (listener);
+                    break;
 
-                                case ScreenSaverDisabled:
-                                        // Disable the lock timer
-                                        gs_debug ("ScreenSaver timer disabled");
-                                        remove_lock_timer (listener);
-                                        break;
+                case ScreenSaverDisabled:
+                    // Disable the lock timer
+                    gs_debug ("ScreenSaver timer disabled");
+                    remove_lock_timer (listener);
+                    break;
 
-                                case ScreenSaverOn:
-                                        // lock now!
-                                        gs_debug("ScreenSaver on");
-                                        g_signal_emit (listener, signals [LOCK], 0);
-                                        break;
+                case ScreenSaverOn:
+                    // lock now!
+                    gs_debug("ScreenSaver on");
+                    g_signal_emit (listener, signals [LOCK], 0);
+                    break;
 
-                        }
-                }
-#endif
-                break;
+            }
         }
+#endif
+        break;
+    }
 
-        return GDK_FILTER_CONTINUE;
+    return GDK_FILTER_CONTINUE;
 }
 
 
 gboolean
 gs_listener_x11_acquire (GSListenerX11 *listener)
 {
-        GdkDisplay *display;
-        GdkScreen *screen;
-        GdkWindow *window;
+    GdkDisplay *display;
+    GdkScreen *screen;
+    GdkWindow *window;
 #ifdef HAVE_MIT_SAVER_EXTENSION
-        int scrnsaver_error_base;
-        unsigned long events;
+    int scrnsaver_error_base;
+    unsigned long events;
 #endif
 
-        g_return_val_if_fail (listener != NULL, FALSE);
+    g_return_val_if_fail (listener != NULL, FALSE);
 
-        display = gdk_display_get_default ();
-        screen = gdk_display_get_default_screen (display);
-        window = gdk_screen_get_root_window (screen);
+    display = gdk_display_get_default ();
+    screen = gdk_display_get_default_screen (display);
+    window = gdk_screen_get_root_window (screen);
 
 #ifdef HAVE_MIT_SAVER_EXTENSION
-        gdk_error_trap_push ();
-        if (XScreenSaverQueryExtension (GDK_DISPLAY_XDISPLAY (display), &listener->priv->scrnsaver_event_base, &scrnsaver_error_base)) {
-                events = ScreenSaverNotifyMask;
-                XScreenSaverSelectInput (GDK_DISPLAY_XDISPLAY (display), GDK_WINDOW_XID (window), events);
-                gs_debug ("ScreenSaver Registered");
-        } else {
-                gs_debug ("ScreenSaverExtension not found");
-        }
+    gdk_error_trap_push ();
+    if (XScreenSaverQueryExtension (GDK_DISPLAY_XDISPLAY (display), &listener->priv->scrnsaver_event_base, &scrnsaver_error_base)) {
+        events = ScreenSaverNotifyMask;
+        XScreenSaverSelectInput (GDK_DISPLAY_XDISPLAY (display), GDK_WINDOW_XID (window), events);
+        gs_debug ("ScreenSaver Registered");
+    } else {
+        gs_debug ("ScreenSaverExtension not found");
+    }
 
 #if GTK_CHECK_VERSION(3, 0, 0)
-        gdk_error_trap_pop_ignored ();
+    gdk_error_trap_pop_ignored ();
 #else
-        gdk_error_trap_pop ();
+    gdk_error_trap_pop ();
 #endif
 #endif
 
-        gdk_window_add_filter (NULL, (GdkFilterFunc)xroot_filter, listener);
+    gdk_window_add_filter (NULL, (GdkFilterFunc)xroot_filter, listener);
 
-        return TRUE;
+    return TRUE;
 }
 
 void
 gs_listener_x11_set_lock_after (GSListenerX11 *listener,
-                                gint lock_after)
+                gint lock_after)
 {
-        gs_debug ("Lock timout updated to %i minutes", lock_after);
-        listener->priv->lock_timeout = lock_after * 60;
-        reset_lock_timer(listener);
+    gs_debug ("Lock timout updated to %i minutes", lock_after);
+    listener->priv->lock_timeout = lock_after * 60;
+    reset_lock_timer(listener);
 }
 
 static void
 gs_listener_x11_init (GSListenerX11 *listener)
 {
-        listener->priv = GS_LISTENER_X11_GET_PRIVATE (listener);
+    listener->priv = GS_LISTENER_X11_GET_PRIVATE (listener);
 
-        listener->priv->lock_timeout = 300;
+    listener->priv->lock_timeout = 300;
 }
 
 static void
 gs_listener_x11_finalize (GObject *object)
 {
-        GSListenerX11 *listener;
+    GSListenerX11 *listener;
 
-        g_return_if_fail (object != NULL);
-        g_return_if_fail (GS_IS_LISTENER_X11 (object));
+    g_return_if_fail (object != NULL);
+    g_return_if_fail (GS_IS_LISTENER_X11 (object));
 
-        listener = GS_LISTENER_X11 (object);
+    listener = GS_LISTENER_X11 (object);
 
-        g_return_if_fail (listener->priv != NULL);
+    g_return_if_fail (listener->priv != NULL);
 
-        gdk_window_remove_filter (NULL, (GdkFilterFunc)xroot_filter, NULL);
+    gdk_window_remove_filter (NULL, (GdkFilterFunc)xroot_filter, NULL);
 
-        G_OBJECT_CLASS (gs_listener_x11_parent_class)->finalize (object);
+    G_OBJECT_CLASS (gs_listener_x11_parent_class)->finalize (object);
 }
 
 GSListenerX11 *
 gs_listener_x11_new (void)
 {
-        GSListenerX11 *listener;
+    GSListenerX11 *listener;
 
-        listener = g_object_new (GS_TYPE_LISTENER_X11, NULL);
+    listener = g_object_new (GS_TYPE_LISTENER_X11, NULL);
 
-        return GS_LISTENER_X11 (listener);
+    return GS_LISTENER_X11 (listener);
 }

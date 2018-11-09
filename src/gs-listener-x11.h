@@ -1,4 +1,4 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-
+/* -*- Mode: C; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
  *
  * Copyright (C) 2004-2006 William Jon McCann <mccann@jhu.edu>
  *
@@ -36,24 +36,24 @@ typedef struct GSListenerX11Private GSListenerX11Private;
 
 typedef struct
 {
-        GObject               parent;
-        GSListenerX11Private *priv;
+    GObject               parent;
+    GSListenerX11Private *priv;
 } GSListenerX11;
 
 typedef struct
 {
-        GObjectClass       parent_class;
+    GObjectClass          parent_class;
 
-        void            (* lock)                     (GSListenerX11 *listener);
+    void         (* lock) (GSListenerX11 *listener);
 
 } GSListenerX11Class;
 
-GType          gs_listener_x11_get_type          (void);
+GType                     gs_listener_x11_get_type          (void);
 
-GSListenerX11 *gs_listener_x11_new               (void);
-gboolean       gs_listener_x11_acquire           (GSListenerX11 *listener);
-void           gs_listener_x11_set_lock_after    (GSListenerX11 *listener,
-                                                  gint lock_after);
+GSListenerX11            *gs_listener_x11_new               (void);
+gboolean                  gs_listener_x11_acquire           (GSListenerX11 *listener);
+void                      gs_listener_x11_set_lock_after    (GSListenerX11 *listener,
+                                                             gint           lock_after);
 
 G_END_DECLS
 
