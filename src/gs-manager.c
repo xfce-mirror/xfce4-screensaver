@@ -115,7 +115,7 @@ enum
     PROP_THROTTLED,
 };
 
-#define FADE_TIMEOUT 250
+#define FADE_TIMEOUT 1000
 
 static guint         signals [LAST_SIGNAL] = { 0, };
 
@@ -1825,7 +1825,7 @@ gs_manager_activate (GSManager *manager)
     manager->priv->active = TRUE;
 
     /* fade to black and show windows */
-    do_fade = FALSE;
+    do_fade = TRUE;
     if (do_fade)
     {
         manager->priv->fading = TRUE;
