@@ -48,7 +48,6 @@ libexec_PROGRAMS = \
 noinst_PROGRAMS = 	\
 	test-fade	\
 	test-passwd	\
-	test-watcher	\
 	test-window	\
 	$(NULL)
 
@@ -98,21 +97,6 @@ test_passwd_SOURCES = 			\
 test_passwd_LDADD =			\
 	$(XFCE_SCREENSAVER_DIALOG_LIBS)\
 	$(AUTH_LIBS)			\
-	$(NULL)
-
-test_watcher_SOURCES =			\
-	test-watcher.c			\
-	gs-watcher.h			\
-	gs-watcher-x11.c		\
-	gs-marshal.c 			\
-	gs-marshal.h			\
-	gs-debug.c			\
-	gs-debug.h			\
-	$(NULL)
-
-test_watcher_LDADD =			\
-	$(XFCE_SCREENSAVER_LIBS)	\
-	$(SAVER_LIBS)			\
 	$(NULL)
 
 test_window_SOURCES =			\
@@ -209,10 +193,10 @@ xfce4_screensaver_SOURCES =	\
 	xfce4-screensaver.h	\
 	gs-monitor.c		\
 	gs-monitor.h		\
-	gs-watcher-x11.c	\
-	gs-watcher.h		\
 	gs-listener-dbus.c	\
 	gs-listener-dbus.h	\
+	gs-listener-x11.c	\
+	gs-listener-x11.h	\
 	gs-manager.c		\
 	gs-manager.h		\
 	gs-window-x11.c		\

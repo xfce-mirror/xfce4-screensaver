@@ -35,11 +35,11 @@
 #include "xfce4-screensaver.h"
 
 #include "gs-manager.h"
-#include "gs-watcher.h"
 #include "gs-fade.h"
 #include "gs-grab.h"
 
 #include "gs-listener-dbus.h"
+#include "gs-listener-x11.h"
 #include "gs-monitor.h"
 #include "gs-prefs.h"
 #include "gs-debug.h"
@@ -49,8 +49,8 @@ static void gs_monitor_init(GSMonitor* monitor);
 static void gs_monitor_finalize(GObject* object);
 
 struct GSMonitorPrivate {
-    GSWatcher* watcher;
     GSListener* listener;
+    GSListenerX11 *listener_x11;
     GSManager* manager;
     GSPrefs* prefs;
     GSFade* fade;
@@ -77,93 +77,6 @@ static void manager_activated_cb(GSManager* manager, GSMonitor* monitor)
 static void manager_deactivated_cb(GSManager* manager, GSMonitor* monitor)
 {
     gs_listener_set_active (monitor->priv->listener, FALSE);
-}
-
-static gboolean watcher_idle_cb(GSWatcher* watcher, gboolean is_idle, GSMonitor* monitor)
-{
-    gboolean res;
-
-    gs_debug ("Idle signal detected: %d", is_idle);
-
-    res = gs_listener_set_session_idle(monitor->priv->listener, is_idle);
-
-    return res;
-}
-
-static gboolean release_grab_timeout(GSMonitor* monitor)
-{
-    gboolean manager_active;
-
-    manager_active = gs_manager_get_active(monitor->priv->manager);
-
-    if (! manager_active)
-    {
-        gs_grab_release(monitor->priv->grab, TRUE);
-    }
-
-    monitor->priv->release_grab_id = 0;
-    return FALSE;
-}
-
-static gboolean watcher_idle_notice_cb(GSWatcher* watcher, gboolean in_effect, GSMonitor* monitor)
-{
-    gboolean activation_enabled;
-    gboolean inhibited;
-    gboolean handled;
-
-    gs_debug("Idle notice signal detected: %d", in_effect);
-
-    /* only fade if screensaver can activate */
-    activation_enabled = gs_listener_get_activation_enabled(monitor->priv->listener);
-    inhibited = gs_listener_is_inhibited(monitor->priv->listener);
-
-    handled = FALSE;
-
-    if (in_effect)
-    {
-        if (activation_enabled && ! inhibited)
-        {
-            /* start slow fade */
-            if (gs_grab_grab_offscreen(monitor->priv->grab, FALSE, FALSE))
-            {
-                gs_fade_async(monitor->priv->fade, FADE_TIMEOUT, NULL, NULL);
-            }
-            else
-            {
-                gs_debug("Could not grab the keyboard so not performing idle warning fade-out");
-            }
-
-            handled = TRUE;
-        }
-    }
-    else
-    {
-        gboolean manager_active;
-
-        manager_active = gs_manager_get_active(monitor->priv->manager);
-        /* cancel the fade unless manager was activated */
-        if (! manager_active)
-        {
-            gs_debug("manager not active, performing fade cancellation");
-            gs_fade_reset(monitor->priv->fade);
-
-            /* don't release the grab immediately to prevent typing passwords into windows */
-            if (monitor->priv->release_grab_id != 0)
-            {
-                g_source_remove(monitor->priv->release_grab_id);
-            }
-
-            monitor->priv->release_grab_id = g_timeout_add(1000, (GSourceFunc) release_grab_timeout, monitor);
-        }
-        else
-        {
-            gs_debug("manager active, skipping fade cancellation");
-        }
-
-        handled = TRUE;
-    }
-
-    return handled;
 }
 
 static void gs_monitor_lock_screen(GSMonitor* monitor)
@@ -213,7 +126,18 @@ static void listener_lock_cb(GSListener* listener, GSMonitor* monitor)
     {
         gs_debug("Locking disabled by the administrator");
     }
+}
 
+static void listener_x11_lock_cb(GSListenerX11* listener, GSMonitor* monitor)
+{
+    if (monitor->priv->prefs->lock_enabled)
+    {
+        gs_monitor_lock_screen(monitor);
+    }
+    else
+    {
+        gs_debug("Locking disabled by the administrator");
+    }
 }
 
 static void listener_quit_cb(GSListener* listener, GSMonitor* monitor)
@@ -236,7 +160,6 @@ static gboolean listener_active_changed_cb(GSListener* listener, gboolean active
 {
     gboolean res;
     gboolean ret;
-    gboolean idle_watch_enabled;
 
     res = gs_manager_set_active(monitor->priv->manager, active);
 
@@ -250,18 +173,6 @@ static gboolean listener_active_changed_cb(GSListener* listener, gboolean active
     ret = TRUE;
 
     done:
-
-    idle_watch_enabled = gs_watcher_get_enabled(monitor->priv->watcher);
-
-    if (ret && idle_watch_enabled)
-    {
-        res = gs_watcher_set_active(monitor->priv->watcher, !active);
-
-        if (!res)
-        {
-            gs_debug("Unable to set the idle watcher active: %d", !active);
-        }
-    }
 
     return ret;
 }
@@ -278,10 +189,6 @@ static void listener_simulate_user_activity_cb(GSListener* listener, GSMonitor* 
 
 static void _gs_monitor_update_from_prefs(GSMonitor* monitor, GSPrefs* prefs)
 {
-    gboolean idle_detection_enabled;
-    gboolean idle_detection_active;
-    gboolean activate_watch;
-    gboolean manager_active;
     gboolean lock_enabled;
     gboolean user_switch_enabled;
 
@@ -302,36 +209,6 @@ static void _gs_monitor_update_from_prefs(GSMonitor* monitor, GSPrefs* prefs)
 
     /* enable activation when allowed */
     gs_listener_set_activation_enabled(monitor->priv->listener, monitor->priv->prefs->idle_activation_enabled);
-
-    /* idle detection always enabled */
-    idle_detection_enabled = TRUE;
-
-    gs_watcher_set_enabled(monitor->priv->watcher, idle_detection_enabled);
-
-    /* in the case where idle detection is reenabled we may need to
-       activate the watcher too */
-
-    manager_active = gs_manager_get_active(monitor->priv->manager);
-    idle_detection_active = gs_watcher_get_active(monitor->priv->watcher);
-
-    activate_watch = (! manager_active && ! idle_detection_active && idle_detection_enabled);
-
-    if (activate_watch)
-    {
-        gs_watcher_set_active(monitor->priv->watcher, TRUE);
-    }
-
-    if (monitor->priv->prefs->status_message_enabled)
-    {
-        char* text;
-        g_object_get(monitor->priv->watcher, "status-message", &text, NULL);
-        gs_manager_set_status_message(monitor->priv->manager, text);
-        g_free(text);
-    }
-    else
-    {
-        gs_manager_set_status_message(monitor->priv->manager, NULL);
-    }
 }
 
 static void disconnect_listener_signals(GSMonitor* monitor)
@@ -343,6 +220,8 @@ static void disconnect_listener_signals(GSMonitor* monitor)
     g_signal_handlers_disconnect_by_func(monitor->priv->listener, listener_throttle_changed_cb, monitor);
     g_signal_handlers_disconnect_by_func(monitor->priv->listener, listener_simulate_user_activity_cb, monitor);
     g_signal_handlers_disconnect_by_func(monitor->priv->listener, listener_show_message_cb, monitor);
+
+    g_signal_handlers_disconnect_by_func(monitor->priv->listener_x11, listener_x11_lock_cb, monitor);
 }
 
 static void connect_listener_signals(GSMonitor* monitor)
@@ -354,29 +233,9 @@ static void connect_listener_signals(GSMonitor* monitor)
     g_signal_connect(monitor->priv->listener, "throttle-changed", G_CALLBACK(listener_throttle_changed_cb), monitor);
     g_signal_connect(monitor->priv->listener, "simulate-user-activity", G_CALLBACK(listener_simulate_user_activity_cb), monitor);
     g_signal_connect(monitor->priv->listener, "show-message", G_CALLBACK(listener_show_message_cb), monitor);
-}
 
-static void on_watcher_status_message_changed(GSWatcher* watcher, GParamSpec* pspec, GSMonitor* monitor)
-{
-    char* text;
-    g_object_get(watcher, "status-message", &text, NULL);
-    gs_manager_set_status_message(monitor->priv->manager, text);
-    g_free(text);
-}
-
-static void disconnect_watcher_signals(GSMonitor *monitor)
-{
-    g_signal_handlers_disconnect_by_func(monitor->priv->watcher, watcher_idle_cb, monitor);
-    g_signal_handlers_disconnect_by_func(monitor->priv->watcher, watcher_idle_notice_cb, monitor);
-    g_signal_handlers_disconnect_by_func(monitor->priv->watcher, on_watcher_status_message_changed, monitor);
-}
-
-static void connect_watcher_signals(GSMonitor *monitor)
-{
-    g_signal_connect(monitor->priv->watcher, "idle-changed", G_CALLBACK(watcher_idle_cb), monitor);
-    g_signal_connect(monitor->priv->watcher, "idle-notice-changed", G_CALLBACK(watcher_idle_notice_cb), monitor);
-    g_signal_connect(monitor->priv->watcher, "notify::status-message", G_CALLBACK(on_watcher_status_message_changed), monitor);
-
+    g_signal_connect(monitor->priv->listener_x11, "lock",
+                     G_CALLBACK(listener_x11_lock_cb), monitor);
 }
 
 static void disconnect_manager_signals(GSMonitor* monitor)
@@ -410,13 +269,11 @@ static void gs_monitor_init(GSMonitor* monitor)
     connect_prefs_signals(monitor);
 
     monitor->priv->listener = gs_listener_new();
+    monitor->priv->listener_x11 = gs_listener_x11_new();
     connect_listener_signals(monitor);
 
     monitor->priv->fade = gs_fade_new();
     monitor->priv->grab = gs_grab_new();
-
-    monitor->priv->watcher = gs_watcher_new();
-    connect_watcher_signals(monitor);
 
     monitor->priv->manager = gs_manager_new();
     connect_manager_signals(monitor);
@@ -435,15 +292,14 @@ static void gs_monitor_finalize(GObject* object)
 
     g_return_if_fail(monitor->priv != NULL);
 
-    disconnect_watcher_signals(monitor);
     disconnect_listener_signals(monitor);
     disconnect_manager_signals(monitor);
     disconnect_prefs_signals(monitor);
 
     g_object_unref(monitor->priv->fade);
     g_object_unref(monitor->priv->grab);
-    g_object_unref(monitor->priv->watcher);
     g_object_unref(monitor->priv->listener);
+    g_object_unref(monitor->priv->listener_x11);
     g_object_unref(monitor->priv->manager);
     g_object_unref(monitor->priv->prefs);
 
@@ -456,6 +312,8 @@ GSMonitor* gs_monitor_new(void)
 
     monitor = g_object_new(GS_TYPE_MONITOR, NULL);
 
+    gs_listener_x11_set_lock_after(monitor->priv->listener_x11, 1);
+
     return GS_MONITOR(monitor);
 }
 
@@ -467,6 +325,8 @@ gboolean gs_monitor_start(GSMonitor* monitor, GError** error)
     {
         return FALSE;
     }
+
+    gs_listener_x11_acquire(monitor->priv->listener_x11);
 
     return TRUE;
 }
