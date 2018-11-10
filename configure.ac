@@ -15,6 +15,10 @@ AC_CONFIG_HEADERS(config.h)
 
 AM_MAINTAINER_MODE
 
+dnl Silence warning: `ar: 'u' modifier ignored since 'D' is the default`
+dnl SEE https://www.mail-archive.com/automake-patches@gnu.org/msg07705.html
+AC_SUBST(AR_FLAGS, [cr])
+
 IT_PROG_INTLTOOL([0.50.1])
 AC_PROG_CC
 AM_PROG_CC_C_O
