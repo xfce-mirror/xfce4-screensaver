@@ -114,6 +114,20 @@ lock_timer (GSListenerX11 *listener)
     gint  state;
 
     get_x11_idle_info (&idle_time, &state);
+    switch (state)
+    {
+        case ScreenSaverOff:
+            gs_debug("Lock Timeout: %is, Idle: %is, Screensaver: Enabled, Lock State: Unlocked", listener->priv->lock_timeout, idle_time);
+            break;
+
+        case ScreenSaverDisabled:
+            gs_debug("Lock Timeout: %is, Idle: %is, Screensaver: Disabled, Lock State: Unlocked", listener->priv->lock_timeout, idle_time);
+            break;
+
+        case ScreenSaverOn:
+            gs_debug("Lock Timeout: %is, Idle: %is, Screensaver: Enabled, Lock State: Locked", listener->priv->lock_timeout, idle_time);
+            break;
+    }
 
     if (idle_time >= listener->priv->lock_timeout && state != ScreenSaverDisabled)
     {
@@ -252,7 +266,7 @@ void
 gs_listener_x11_set_lock_after (GSListenerX11 *listener,
                 gint lock_after)
 {
-    gs_debug ("Lock timout updated to %i minutes", lock_after);
+    gs_debug ("Lock timeout updated to %i minutes", lock_after);
     listener->priv->lock_timeout = lock_after * 60;
     reset_lock_timer(listener, listener->priv->lock_timeout);
 }
