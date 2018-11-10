@@ -29,11 +29,7 @@
 
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
-#if GTK_CHECK_VERSION(3, 0, 0)
 #include <gtk/gtkx.h>
-#else
-#include <gdk/gdkx.h>
-#endif
 
 #ifdef HAVE_MIT_SAVER_EXTENSION
 #include <X11/extensions/scrnsaver.h>
@@ -49,8 +45,6 @@ static void         gs_listener_x11_finalize        (GObject            *object)
 
 static void         reset_lock_timer                (GSListenerX11      *listener,
                                                      guint               timeout);
-
-#define GS_LISTENER_X11_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GS_TYPE_LISTENER_X11, GSListenerX11Private))
 
     struct GSListenerX11Private
 {
@@ -69,7 +63,7 @@ enum {
 
 static guint         signals [LAST_SIGNAL] = { 0, };
 
-G_DEFINE_TYPE (GSListenerX11, gs_listener_x11, G_TYPE_OBJECT)
+G_DEFINE_TYPE_WITH_PRIVATE (GSListenerX11, gs_listener_x11, G_TYPE_OBJECT)
 
 static void
 gs_listener_x11_class_init (GSListenerX11Class *klass)
@@ -88,8 +82,6 @@ gs_listener_x11_class_init (GSListenerX11Class *klass)
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE,
                       0);
-
-    g_type_class_add_private (klass, sizeof (GSListenerX11Private));
 }
 
 static gboolean
@@ -241,7 +233,7 @@ gs_listener_x11_acquire (GSListenerX11 *listener)
     window = gdk_screen_get_root_window (screen);
 
 #ifdef HAVE_MIT_SAVER_EXTENSION
-    gdk_error_trap_push ();
+    gdk_x11_display_error_trap_push (display);
     if (XScreenSaverQueryExtension (GDK_DISPLAY_XDISPLAY (display), &listener->priv->scrnsaver_event_base, &scrnsaver_error_base)) {
         events = ScreenSaverNotifyMask;
         XScreenSaverSelectInput (GDK_DISPLAY_XDISPLAY (display), GDK_WINDOW_XID (window), events);
@@ -250,11 +242,7 @@ gs_listener_x11_acquire (GSListenerX11 *listener)
         gs_debug ("ScreenSaverExtension not found");
     }
 
-#if GTK_CHECK_VERSION(3, 0, 0)
-    gdk_error_trap_pop_ignored ();
-#else
-    gdk_error_trap_pop ();
-#endif
+    gdk_x11_display_error_trap_pop_ignored (display);
 #endif
 
     gdk_window_add_filter (NULL, (GdkFilterFunc)xroot_filter, listener);
@@ -274,7 +262,7 @@ gs_listener_x11_set_lock_after (GSListenerX11 *listener,
 static void
 gs_listener_x11_init (GSListenerX11 *listener)
 {
-    listener->priv = GS_LISTENER_X11_GET_PRIVATE (listener);
+    listener->priv = gs_listener_x11_get_instance_private (listener);
 
     listener->priv->lock_timeout = 300;
 }
