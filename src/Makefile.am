@@ -150,7 +150,6 @@ xfce4_screensaver_dialog_SOURCES = 	\
 	$(NULL)
 
 EXTRA_xfce4_screensaver_dialog_SOURCES = \
-	gs-auth-pam.c		\
 	gs-auth-helper.c	\
 	gs-auth-pwent.c		\
 	gs-auth-bsdauth.c	\
