@@ -47,9 +47,12 @@ static void         gs_listener_x11_class_init      (GSListenerX11Class *klass);
 static void         gs_listener_x11_init            (GSListenerX11      *listener);
 static void         gs_listener_x11_finalize        (GObject            *object);
 
+static void         reset_lock_timer                (GSListenerX11      *listener,
+                                                     guint               timeout);
+
 #define GS_LISTENER_X11_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), GS_TYPE_LISTENER_X11, GSListenerX11Private))
 
-struct GSListenerX11Private
+    struct GSListenerX11Private
 {
 #ifdef HAVE_MIT_SAVER_EXTENSION
     int scrnsaver_event_base;
@@ -90,51 +93,74 @@ gs_listener_x11_class_init (GSListenerX11Class *klass)
 }
 
 static gboolean
-lock_timer (GSListenerX11 *listener)
+get_x11_idle_info (guint *idle_time,
+                   gint  *state)
 {
     Display *display = gdk_x11_display_get_xdisplay(gdk_display_get_default());
     static XScreenSaverInfo *mit_info = NULL;
-    guint idle_time;
 
     mit_info = XScreenSaverAllocInfo();
     XScreenSaverQueryInfo(display, GDK_ROOT_WINDOW(), mit_info);
-    idle_time = mit_info->idle / 1000; // seconds
+    *idle_time = mit_info->idle / 1000; // seconds
+    *state = mit_info->state;
 
-    if (idle_time >= listener->priv->lock_timeout)
+    return TRUE;
+}
+
+static gboolean
+lock_timer (GSListenerX11 *listener)
+{
+    guint idle_time;
+    gint  state;
+
+    get_x11_idle_info (&idle_time, &state);
+
+    if (idle_time >= listener->priv->lock_timeout && state != ScreenSaverDisabled)
     {
-        listener->priv->lock_timer_id = 0;
-
-        gs_debug("Lock timer");
-
         g_signal_emit(listener, signals[LOCK], 0);
     }
     else
     {
-        gs_debug("Idle time interrupted. Resetting lock timer for %i seconds", listener->priv->lock_timeout - idle_time);
+        switch (state)
+        {
+            case ScreenSaverOff:
+                // Reset the lock timer
+                reset_lock_timer(listener, listener->priv->lock_timeout - idle_time);
+                return FALSE;
+                break;
 
-        listener->priv->lock_timer_id = g_timeout_add_seconds(listener->priv->lock_timeout - idle_time,
-                                      (GSourceFunc)lock_timer,
-                                      listener);
+            case ScreenSaverDisabled:
+                // Disabled, do nothing
+                break;
+
+            case ScreenSaverOn:
+                // lock now!
+                g_signal_emit(listener, signals[LOCK], 0);
+                break;
+        }
+        
     }
 
-    return FALSE;
+    return TRUE;
 }
 
 static void
-remove_lock_timer (GSListenerX11 *listener)
+remove_lock_timer(GSListenerX11 *listener)
 {
-    if (listener->priv->lock_timer_id != 0) {
-        g_source_remove (listener->priv->lock_timer_id);
+    if (listener->priv->lock_timer_id != 0)
+    {
+        g_source_remove(listener->priv->lock_timer_id);
         listener->priv->lock_timer_id = 0;
     }
 }
 
 static void
-reset_lock_timer (GSListenerX11 *listener)
+reset_lock_timer(GSListenerX11 *listener,
+                 guint          timeout)
 {
-    remove_lock_timer (listener);
+    remove_lock_timer(listener);
 
-    listener->priv->lock_timer_id = g_timeout_add_seconds(listener->priv->lock_timeout,
+    listener->priv->lock_timer_id = g_timeout_add_seconds(timeout,
                                                           (GSourceFunc)lock_timer,
                                                           listener);
 }
@@ -162,15 +188,10 @@ xroot_filter (GdkXEvent *xevent,
             XScreenSaverNotifyEvent *xssne = (XScreenSaverNotifyEvent *) ev;
             switch (xssne->state) {
                 case ScreenSaverOff:
+                case ScreenSaverDisabled:
                     // Reset the lock timer
                     gs_debug("ScreenSaver timer reset");
-                    reset_lock_timer (listener);
-                    break;
-
-                case ScreenSaverDisabled:
-                    // Disable the lock timer
-                    gs_debug ("ScreenSaver timer disabled");
-                    remove_lock_timer (listener);
+                    reset_lock_timer(listener, listener->priv->lock_timeout);
                     break;
 
                 case ScreenSaverOn:
@@ -178,7 +199,6 @@ xroot_filter (GdkXEvent *xevent,
                     gs_debug("ScreenSaver on");
                     g_signal_emit (listener, signals [LOCK], 0);
                     break;
-
             }
         }
 #endif
@@ -234,7 +254,7 @@ gs_listener_x11_set_lock_after (GSListenerX11 *listener,
 {
     gs_debug ("Lock timout updated to %i minutes", lock_after);
     listener->priv->lock_timeout = lock_after * 60;
-    reset_lock_timer(listener);
+    reset_lock_timer(listener, listener->priv->lock_timeout);
 }
 
 static void
