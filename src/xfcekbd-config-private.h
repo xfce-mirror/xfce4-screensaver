@@ -29,33 +29,33 @@
 /**
  * KBD/General: Default group, assigned on window creation
  */
-#define KEY_KBD_DEFAULT_GROUP "/kbd/general/default-group"
+#define KEY_KBD_DEFAULT_GROUP "/xkb/default-group"
 #define DEFAULT_KEY_KBD_DEFAULT_GROUP -1
 
 /**
  * KBD/General: Keep and manage separate group per window
  */
-#define KEY_KBD_GROUP_PER_WINDOW "/kbd/general/group-per-window"
+#define KEY_KBD_GROUP_PER_WINDOW "/xkb/group-per-window"
 #define DEFAULT_KEY_KBD_GROUP_PER_WINDOW TRUE
 
 /**
  * KBD/General: Save/restore indicators together with layout groups
  */
-#define KEY_KBD_HANDLE_INDICATORS "/kbd/general/handle-indicators"
+#define KEY_KBD_HANDLE_INDICATORS "/xkb/handle-indicators"
 #define DEFAULT_KEY_KBD_HANDLE_INDICATORS FALSE
 
 /**
  * KBD/General: Load extra configuration items
  * Load exotic, rarely used layouts and options
  */
-#define KEY_KBD_LOAD_EXTRA_ITEMS "/kbd/general/load-extra-items"
+#define KEY_KBD_LOAD_EXTRA_ITEMS "/xkb/load-extra-items"
 #define DEFAULT_KEY_KBD_LOAD_EXTRA_ITEMS FALSE
 
 /**
  * KBD/Indicator: Secondary groups
  */
-#define KEY_KBD_INDICATOR_SECONDARIES "/kbd/indicator/secondary"
-#define DEFAULT_KEY_KBD_INDICATOR_SECONDARIES 0
+#define KEY_KBD_SECONDARY_GROUPS "/xkb/secondary-groups"
+#define DEFAULT_KEY_KBD_SECONDARY_GROUPS 0
 
 /**
  * General config functions (private)

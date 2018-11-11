@@ -36,7 +36,6 @@ struct _XfcekbdDesktopConfig {
     gint           default_group;
     gboolean       group_per_app;
     gboolean       handle_indicators;
-    gboolean       layout_names_as_group_names;
     gboolean       load_extra_items;
 
     /* private, transient */

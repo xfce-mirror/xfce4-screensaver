@@ -404,9 +404,6 @@ key_changed_cb (XfconfChannel *channel,
 
         enabled = xfconf_channel_get_bool (channel, property, DEFAULT_KEY_USER_SWITCH_ENABLED);
         _gs_prefs_set_user_switch_enabled (prefs, enabled);
-
-    } else {
-        g_warning ("Config key not handled: %s", property);
     }
 
     g_signal_emit (prefs, signals[CHANGED], 0);

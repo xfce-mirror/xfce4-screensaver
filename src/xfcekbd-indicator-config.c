@@ -58,8 +58,8 @@ void
 xfcekbd_indicator_config_load_from_xfconf (XfcekbdIndicatorConfig * ind_config) {
     ind_config->secondary_groups_mask =
         xfconf_channel_get_int (ind_config->channel,
-                KEY_KBD_INDICATOR_SECONDARIES,
-                DEFAULT_KEY_KBD_INDICATOR_SECONDARIES);
+                KEY_KBD_SECONDARY_GROUPS,
+                DEFAULT_KEY_KBD_SECONDARY_GROUPS);
 }
 
 void
