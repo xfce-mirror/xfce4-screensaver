@@ -18,11 +18,11 @@
  * Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __XFCEKBD_CONFIG_PRIVATE_H__
-#define __XFCEKBD_CONFIG_PRIVATE_H__
+#ifndef SRC_XFCEKBD_CONFIG_PRIVATE_H_
+#define SRC_XFCEKBD_CONFIG_PRIVATE_H_
 
-#include "xfcekbd-desktop-config.h"
-#include "xfcekbd-keyboard-config.h"
+#include "src/xfcekbd-desktop-config.h"
+#include "src/xfcekbd-keyboard-config.h"
 
 #define SETTINGS_XFCONF_CHANNEL "xfce4-screensaver"
 
@@ -105,4 +105,4 @@ extern void xfcekbd_keyboard_config_options_set (XfcekbdKeyboardConfig  *kbd_con
                                                  const gchar            *group_name,
                                                  const gchar            *option_name);
 
-#endif
+#endif /* SRC_XFCEKBD_CONFIG_PRIVATE_H_ */

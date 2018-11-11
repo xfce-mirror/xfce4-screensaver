@@ -18,8 +18,8 @@
  * Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __XFCEKBD_KEYBOARD_CONFIG_H__
-#define __XFCEKBD_KEYBOARD_CONFIG_H__
+#ifndef SRC_XFCEKBD_KEYBOARD_CONFIG_H_
+#define SRC_XFCEKBD_KEYBOARD_CONFIG_H_
 
 #include <X11/Xlib.h>
 #include <glib.h>
@@ -61,4 +61,4 @@ extern gboolean         xfcekbd_keyboard_config_split_items             (const g
 extern const gchar *    xfcekbd_keyboard_config_format_full_layout      (const gchar            *layout_descr,
                                                                          const gchar            *variant_descr);
 
-#endif
+#endif /* SRC_XFCEKBD_KEYBOARD_CONFIG_H_ */

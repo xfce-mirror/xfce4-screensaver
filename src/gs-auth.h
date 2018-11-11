@@ -19,8 +19,8 @@
  *
  */
 
-#ifndef __GS_AUTH_H
-#define __GS_AUTH_H
+#ifndef SRC_GS_AUTH_H_
+#define SRC_GS_AUTH_H_
 
 #include <glib.h>
 
@@ -64,4 +64,4 @@ gboolean gs_auth_verify_user (const char         *username,
 
 G_END_DECLS
 
-#endif /* __GS_AUTH_H */
+#endif /* SRC_GS_AUTH_H_ */

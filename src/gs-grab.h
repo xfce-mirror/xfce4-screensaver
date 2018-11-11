@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef __GS_GRAB_H
-#define __GS_GRAB_H
+#ifndef SRC_GS_GRAB_H_
+#define SRC_GS_GRAB_H_
 
 #include <glib.h>
 #include <gdk/gdk.h>
@@ -46,7 +46,6 @@ typedef struct
 typedef struct
 {
     GObjectClass   parent_class;
-
 } GSGrabClass;
 
 GType     gs_grab_get_type         (void);
@@ -79,4 +78,4 @@ void      gs_grab_reset            (GSGrab      *grab);
 
 G_END_DECLS
 
-#endif /* __GS_GRAB_H */
+#endif /* SRC_GS_GRAB_H_ */

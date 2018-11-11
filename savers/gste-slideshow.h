@@ -20,12 +20,13 @@
  *
  */
 
-#ifndef __GSTE_SLIDESHOW_H
-#define __GSTE_SLIDESHOW_H
+#ifndef SAVERS_GSTE_SLIDESHOW_H_
+#define SAVERS_GSTE_SLIDESHOW_H_
 
 #include <glib.h>
 #include <gdk/gdk.h>
-#include "gs-theme-engine.h"
+
+#include "savers/gs-theme-engine.h"
 
 G_BEGIN_DECLS
 
@@ -66,4 +67,4 @@ void            gste_slideshow_set_no_stretch_hint  (GSTESlideshow *show,
 
 G_END_DECLS
 
-#endif /* __GSTE_SLIDESHOW_H */
+#endif /* SAVERS_GSTE_SLIDESHOW_H_ */

@@ -20,10 +20,10 @@
  *
  */
 
-#ifndef __GS_MANAGER_H
-#define __GS_MANAGER_H
+#ifndef SRC_GS_MANAGER_H_
+#define SRC_GS_MANAGER_H_
 
-#include "gs-prefs.h"
+#include "src/gs-prefs.h"
 
 G_BEGIN_DECLS
 
@@ -50,7 +50,6 @@ typedef struct
     void            (* deactivated)        (GSManager *manager);
     void            (* auth_request_begin) (GSManager *manager);
     void            (* auth_request_end)   (GSManager *manager);
-
 } GSManagerClass;
 
 GType       gs_manager_get_type                (void);
@@ -104,4 +103,4 @@ void        gs_manager_cancel_unlock_request   (GSManager   *manager);
 
 G_END_DECLS
 
-#endif /* __GS_MANAGER_H */
+#endif /* SRC_GS_MANAGER_H_ */

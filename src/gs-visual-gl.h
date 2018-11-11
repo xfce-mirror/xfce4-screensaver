@@ -18,8 +18,8 @@
  *
  */
 
-#ifndef __GS_VISUAL_GL_H
-#define __GS_VISUAL_GL_H
+#ifndef SRC_GS_VISUAL_GL_H_
+#define SRC_GS_VISUAL_GL_H_
 
 #include <gdk/gdk.h>
 
@@ -29,4 +29,4 @@ GdkVisual   *gs_visual_gl_get_best_for_display (GdkDisplay *display);
 
 G_END_DECLS
 
-#endif /* __GS_VISUAL_GL_H */
+#endif /* SRC_GS_VISUAL_GL_H_ */

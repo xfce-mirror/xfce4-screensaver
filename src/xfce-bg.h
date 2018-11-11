@@ -23,8 +23,8 @@
             Jasmine Hassan <jasmine.aura@gmail.com>
 */
 
-#ifndef __XFCE_BG_H__
-#define __XFCE_BG_H__
+#ifndef SRC_XFCE_BG_H_
+#define SRC_XFCE_BG_H_
 
 #include <glib.h>
 #include <gdk/gdk.h>
@@ -96,4 +96,4 @@ GdkPixbuf *       xfce_bg_get_pixbuf            (XfceBG     *bg,
 
 G_END_DECLS
 
-#endif
+#endif /* SRC_XFCE_BG_H_ */

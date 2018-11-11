@@ -17,8 +17,8 @@
  * 02110-1301, USA.
 **/
 
-#ifndef __COPY_THEME_DIALOG_H__
-#define __COPY_THEME_DIALOG_H__
+#ifndef SRC_COPY_THEME_DIALOG_H_
+#define SRC_COPY_THEME_DIALOG_H_
 
 #include <gtk/gtk.h>
 
@@ -53,4 +53,4 @@ void        copy_theme_dialog_begin    (CopyThemeDialog *dialog);
 
 G_END_DECLS
 
-#endif /* __COPY_THEME_DIALOG_H__ */
+#endif /* SRC_COPY_THEME_DIALOG_H_ */

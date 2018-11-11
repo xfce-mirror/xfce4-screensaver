@@ -13,8 +13,8 @@
  * implied warranty.
  */
 
-#ifndef __GS_SUBPROCS_H
-#define __GS_SUBPROCS_H
+#ifndef SRC_SUBPROCS_H_
+#define SRC_SUBPROCS_H_
 
 #include <signal.h>
 #include <glib.h>
@@ -37,4 +37,4 @@ void await_dying_children (int      pid,
 
 G_END_DECLS
 
-#endif /* __GS_SUBPROCS_H */
+#endif /* SRC_SUBPROCS_H_ */

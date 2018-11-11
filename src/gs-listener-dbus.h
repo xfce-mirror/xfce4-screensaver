@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef __GS_LISTENER_H
-#define __GS_LISTENER_H
+#ifndef SRC_GS_LISTENER_DBUS_H_
+#define SRC_GS_LISTENER_DBUS_H_
 
 #include <glib.h>
 
@@ -58,7 +58,6 @@ typedef struct
                                                   const char *summary,
                                                   const char *body,
                                                   const char *icon);
-
 } GSListenerClass;
 
 typedef enum
@@ -76,16 +75,16 @@ GType       gs_listener_get_type                (void);
 
 GSListener *gs_listener_new                     (void);
 gboolean    gs_listener_acquire                 (GSListener *listener,
-        GError    **error);
+                                                 GError    **error);
 gboolean    gs_listener_set_active              (GSListener *listener,
-        gboolean    active);
+                                                 gboolean    active);
 gboolean    gs_listener_set_session_idle        (GSListener *listener,
-        gboolean    idle);
+                                                 gboolean    idle);
 void        gs_listener_set_activation_enabled  (GSListener *listener,
-        gboolean    enabled);
+                                                 gboolean    enabled);
 gboolean    gs_listener_get_activation_enabled  (GSListener *listener);
 gboolean    gs_listener_is_inhibited            (GSListener *listener);
 
 G_END_DECLS
 
-#endif /* __GS_LISTENER_H */
+#endif /* SRC_GS_LISTENER_DBUS_H_ */

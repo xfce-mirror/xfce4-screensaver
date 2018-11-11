@@ -23,8 +23,8 @@
  * Originally written by: Ray Strode <rstrode@redhat.com>
  */
 
-#ifndef GS_THEME_WINDOW_H
-#define GS_THEME_WINDOW_H
+#ifndef SAVERS_GS_THEME_WINDOW_H_
+#define SAVERS_GS_THEME_WINDOW_H_
 
 #include <glib.h>
 #include <glib-object.h>
@@ -69,4 +69,4 @@ GtkWidget    *gs_theme_window_new      (void);
 #endif
 
 G_END_DECLS
-#endif /* GS_THEME_WINDOW_H */
+#endif /* SAVERS_GS_THEME_WINDOW_H_ */

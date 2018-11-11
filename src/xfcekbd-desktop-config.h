@@ -18,8 +18,8 @@
  * Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __XFCEKBD_DESKTOP_CONFIG_H__
-#define __XFCEKBD_DESKTOP_CONFIG_H__
+#ifndef SRC_XFCEKBD_DESKTOP_CONFIG_H_
+#define SRC_XFCEKBD_DESKTOP_CONFIG_H_
 
 #include <X11/Xlib.h>
 #include <glib.h>
@@ -71,4 +71,4 @@ extern void         xfcekbd_desktop_config_start_listen             (XfcekbdDesk
 
 extern void         xfcekbd_desktop_config_stop_listen              (XfcekbdDesktopConfig   *config);
 
-#endif
+#endif /* SRC_XFCEKBD_DESKTOP_CONFIG_H_ */

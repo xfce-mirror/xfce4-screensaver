@@ -18,13 +18,13 @@
  * Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __XFCEKBD_INDICATOR_CONFIG_H__
-#define __XFCEKBD_INDICATOR_CONFIG_H__
+#ifndef SRC_XFCEKBD_INDICATOR_CONFIG_H_
+#define SRC_XFCEKBD_INDICATOR_CONFIG_H_
 
 #include <gtk/gtk.h>
 #include <xfconf/xfconf.h>
 
-#include "xfcekbd-keyboard-config.h"
+#include "src/xfcekbd-keyboard-config.h"
 
 /*
  * Indicator configuration
@@ -70,4 +70,4 @@ void    xfcekbd_indicator_config_start_listen           (XfcekbdIndicatorConfig 
 
 void    xfcekbd_indicator_config_stop_listen            (XfcekbdIndicatorConfig  *applet_config);
 
-#endif
+#endif /* SRC_XFCEKBD_INDICATOR_CONFIG_H_ */

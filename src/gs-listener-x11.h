@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef __GS_LISTENER_X11_H
-#define __GS_LISTENER_X11_H
+#ifndef SRC_GS_LISTENER_X11_H_
+#define SRC_GS_LISTENER_X11_H_
 
 G_BEGIN_DECLS
 
@@ -45,7 +45,6 @@ typedef struct
     GObjectClass          parent_class;
 
     void         (* lock) (GSListenerX11 *listener);
-
 } GSListenerX11Class;
 
 GType                     gs_listener_x11_get_type          (void);
@@ -57,4 +56,4 @@ void                      gs_listener_x11_set_lock_after    (GSListenerX11 *list
 
 G_END_DECLS
 
-#endif /* __GS_LISTENER_X11_H */
+#endif /* SRC_GS_LISTENER_X11_H_ */

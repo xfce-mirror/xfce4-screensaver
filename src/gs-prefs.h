@@ -21,8 +21,8 @@
  *
  */
 
-#ifndef __GS_PREFS_H
-#define __GS_PREFS_H
+#ifndef SRC_GS_PREFS_H_
+#define SRC_GS_PREFS_H_
 
 #include <glib.h>
 
@@ -203,4 +203,4 @@ void        gs_prefs_load            (GSPrefs *prefs);
 
 G_END_DECLS
 
-#endif /* __GS_PREFS_H */
+#endif /* SRC_GS_PREFS_H_ */

@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef __GS_MONITOR_H
-#define __GS_MONITOR_H
+#ifndef SRC_GS_MONITOR_H_
+#define SRC_GS_MONITOR_H_
 
 #include <glib.h>
 
@@ -56,4 +56,4 @@ void        gs_monitor_set_lock_enabled (GSMonitor  *monitor,
                                          gboolean    lock_enabled);
 G_END_DECLS
 
-#endif /* __GS_MONITOR_H */
+#endif /* SRC_GS_MONITOR_H_ */

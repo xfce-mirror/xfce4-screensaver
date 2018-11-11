@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef __GS_THEME_ENGINE_H
-#define __GS_THEME_ENGINE_H
+#ifndef SAVERS_GS_THEME_ENGINE_H_
+#define SAVERS_GS_THEME_ENGINE_H_
 
 #include <glib.h>
 #include <gdk/gdk.h>
@@ -85,4 +85,4 @@ void            _gs_theme_engine_profile_log    (const char *func,
 
 G_END_DECLS
 
-#endif /* __GS_THEME_ENGINE_H */
+#endif /* SAVERS_GS_THEME_ENGINE_H_ */

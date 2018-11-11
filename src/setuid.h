@@ -11,8 +11,8 @@
  * implied warranty.
  */
 
-#ifndef __GS_SETUID_H
-#define __GS_SETUID_H
+#ifndef SRC_SETUID_H_
+#define SRC_SETUID_H_
 
 #include <glib.h>
 
@@ -24,4 +24,4 @@ gboolean hack_uid (char **nolock_reason,
 
 G_END_DECLS
 
-#endif /* __GS_SETUID_H */
+#endif /* SRC_SETUID_H_ */

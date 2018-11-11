@@ -20,8 +20,8 @@
  *
  * Author: Soren Sandmann <sandmann@redhat.com>
  */
-#ifndef XFCE_RR_H
-#define XFCE_RR_H
+#ifndef SRC_XFCE_RR_H_
+#define SRC_XFCE_RR_H_
 
 #include <glib.h>
 #include <gdk/gdk.h>
@@ -106,4 +106,4 @@ void            xfce_rr_crtc_set_gamma          (XfceRRCrtc      *crtc,
                                                  unsigned short  *red,
                                                  unsigned short  *green,
                                                  unsigned short  *blue);
-#endif /* XFCE_RR_H */
+#endif /* SRC_XFCE_RR_H_ */

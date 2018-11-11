@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef __GS_JOB_H
-#define __GS_JOB_H
+#ifndef SRC_GS_JOB_H_
+#define SRC_GS_JOB_H_
 
 #include <gtk/gtk.h>
 
@@ -66,4 +66,4 @@ gboolean        gs_job_set_command               (GSJob      *job,
 
 G_END_DECLS
 
-#endif /* __GS_JOB_H */
+#endif /* SRC_GS_JOB_H_ */

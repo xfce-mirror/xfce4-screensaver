@@ -20,12 +20,13 @@
  *
  */
 
-#ifndef __GSTE_POPSQUARES_H
-#define __GSTE_POPSQUARES_H
+#ifndef SAVERS_GSTE_POPSQUARES_H_
+#define SAVERS_GSTE_POPSQUARES_H_
 
 #include <glib.h>
 #include <gdk/gdk.h>
-#include "gs-theme-engine.h"
+
+#include "savers/gs-theme-engine.h"
 
 G_BEGIN_DECLS
 
@@ -54,4 +55,4 @@ GSThemeEngine  *gste_popsquares_new      (void);
 
 G_END_DECLS
 
-#endif /* __GSTE_POPSQUARES_H */
+#endif /* SAVERS_GSTE_POPSQUARES_H_ */

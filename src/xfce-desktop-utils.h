@@ -23,8 +23,8 @@
   @NOTATION@
  */
 
-#ifndef XFCE_DESKTOP_UTILS_H
-#define XFCE_DESKTOP_UTILS_H
+#ifndef SRC_XFCE_DESKTOP_UTILS_H_
+#define SRC_XFCE_DESKTOP_UTILS_H_
 
 #include <glib.h>
 #include <gdk/gdk.h>
@@ -39,4 +39,4 @@ gboolean xfce_gdk_spawn_command_line_on_screen (GdkScreen    *screen,
 
 G_END_DECLS
 
-#endif /* XFCE_DESKTOP_UTILS_H */
+#endif /* SRC_XFCE_DESKTOP_UTILS_H_ */

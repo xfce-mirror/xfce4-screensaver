@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef __GS_DEBUG_H
-#define __GS_DEBUG_H
+#ifndef SRC_GS_DEBUG_H_
+#define SRC_GS_DEBUG_H_
 
 #include <stdarg.h>
 #include <glib.h>
@@ -68,4 +68,4 @@ void       _gs_profile_log     (const char *func,
 
 G_END_DECLS
 
-#endif /* __GS_DEBUG_H */
+#endif /* SRC_GS_DEBUG_H_ */

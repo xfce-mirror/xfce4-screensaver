@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef __GS_LOCK_PLUG_H
-#define __GS_LOCK_PLUG_H
+#ifndef SRC_GS_LOCK_PLUG_H_
+#define SRC_GS_LOCK_PLUG_H_
 
 #include <glib.h>
 
@@ -58,7 +58,6 @@ typedef struct
 
     /* Keybinding signals */
     void (* close)    (GSLockPlug *plug);
-
 } GSLockPlugClass;
 
 GType       gs_lock_plug_get_type       (void);
@@ -81,4 +80,4 @@ void        gs_lock_plug_show_message   (GSLockPlug  *plug,
 
 G_END_DECLS
 
-#endif /* __GS_LOCK_PLUG_H */
+#endif /* SRC_GS_LOCK_PLUG_H_ */

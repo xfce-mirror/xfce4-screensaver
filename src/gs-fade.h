@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef __GS_FADE_H
-#define __GS_FADE_H
+#ifndef SRC_GS_FADE_H_
+#define SRC_GS_FADE_H_
 
 #include <glib.h>
 
@@ -76,4 +76,4 @@ void        gs_fade_set_enabled      (GSFade         *fade,
 
 G_END_DECLS
 
-#endif /* __GS_FADE_H */
+#endif /* SRC_GS_FADE_H_ */

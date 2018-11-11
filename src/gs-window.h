@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef __GS_WINDOW_H
-#define __GS_WINDOW_H
+#ifndef SRC_GS_WINDOW_H_
+#define SRC_GS_WINDOW_H_
 
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
@@ -101,4 +101,4 @@ void        gs_window_clear                   (GSWindow        *window);
 
 G_END_DECLS
 
-#endif /* __GS_WINDOW_H */
+#endif /* SRC_GS_WINDOW_H_ */

@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef __GS_THEME_MANAGER_H
-#define __GS_THEME_MANAGER_H
+#ifndef SRC_GS_THEME_MANAGER_H_
+#define SRC_GS_THEME_MANAGER_H_
 
 #include <glib.h>
 
@@ -64,4 +64,4 @@ const char        *gs_theme_info_get_exec             (GSThemeInfo    *info);
 
 G_END_DECLS
 
-#endif /* __GS_THEME_MANAGER_H */
+#endif /* SRC_GS_THEME_MANAGER_H_ */

@@ -20,8 +20,8 @@
  *
  */
 
-#ifndef __XFCE_SCREENSAVER_H
-#define __XFCE_SCREENSAVER_H
+#ifndef SRC_XFCE4_SCREENSAVER_H_
+#define SRC_XFCE4_SCREENSAVER_H_
 
 #include <glib.h>
 
@@ -31,4 +31,4 @@ void xfce4_screensaver_quit(void);
 
 G_END_DECLS
 
-#endif
+#endif /* SRC_XFCE4_SCREENSAVER_H_ */

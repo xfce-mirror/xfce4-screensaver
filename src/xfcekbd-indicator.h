@@ -18,8 +18,8 @@
  * Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef __XFCEKBD_INDICATOR_H__
-#define __XFCEKBD_INDICATOR_H__
+#ifndef SRC_XFCEKBD_INDICATOR_H_
+#define SRC_XFCEKBD_INDICATOR_H_
 
 #include <gtk/gtk.h>
 
@@ -34,11 +34,14 @@ typedef struct _XfcekbdIndicatorPrivate XfcekbdIndicatorPrivate;
 typedef struct _XfcekbdIndicatorClass XfcekbdIndicatorClass;
 
 #define XFCEKBD_TYPE_INDICATOR             (xfcekbd_indicator_get_type ())
-#define XFCEKBD_INDICATOR(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), XFCEKBD_TYPE_INDICATOR, XfcekbdIndicator))
-#define XFCEKBD_INDICATOR_CLASS(obj)       (G_TYPE_CHECK_CLASS_CAST ((obj), XFCEKBD_TYPE_INDICATOR,  XfcekbdIndicatorClass))
+#define XFCEKBD_INDICATOR(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), XFCEKBD_TYPE_INDICATOR, \
+                                            XfcekbdIndicator))
+#define XFCEKBD_INDICATOR_CLASS(obj)       (G_TYPE_CHECK_CLASS_CAST ((obj), XFCEKBD_TYPE_INDICATOR, \
+                                            XfcekbdIndicatorClass))
 #define XFCEKBD_IS_INDICATOR(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), XFCEKBD_TYPE_INDICATOR))
 #define XFCEKBD_IS_INDICATOR_CLASS(obj)    (G_TYPE_CHECK_CLASS_TYPE ((obj), XFCEKBD_TYPE_INDICATOR))
-#define XFCEKBD_INDICATOR_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), XFCEKBD_TYPE_INDICATOR, XfcekbdIndicatorClass))
+#define XFCEKBD_INDICATOR_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), XFCEKBD_TYPE_INDICATOR, \
+                                            XfcekbdIndicatorClass))
 
 struct _XfcekbdIndicator {
     GtkNotebook              parent;
@@ -61,4 +64,4 @@ extern void         xfcekbd_indicator_set_parent_tooltips   (XfcekbdIndicator *g
 #ifdef __cplusplus
 }
 #endif
-#endif
+#endif /* SRC_XFCEKBD_INDICATOR_H_ */
