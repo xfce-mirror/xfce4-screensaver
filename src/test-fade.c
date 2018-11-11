@@ -21,7 +21,7 @@
  *
  */
 
-#include "config.h"
+#include <config.h>
 
 #include <stdlib.h>
 #include <string.h>
@@ -31,30 +31,29 @@
 #include <termios.h>
 #include <unistd.h>
 
-#include <libxfce4util/libxfce4util.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 
-#include "gs-fade.h"
-#include "gs-debug.h"
+#include <libxfce4util/libxfce4util.h>
 
 #ifdef HAVE_XF86VMODE_GAMMA
-# include <X11/extensions/xf86vmode.h>
+#include <X11/extensions/xf86vmode.h>
 #endif
+
+#include "src/gs-fade.h"
+#include "src/gs-debug.h"
 
 #define XF86_VIDMODE_NAME "XFree86-VidModeExtension"
 
 static void
-test_fade (void)
-{
+test_fade (void) {
     GSFade *fade;
     int     reps = 2;
     int     delay = 2;
 
     fade = gs_fade_new ();
 
-    while (reps-- > 0)
-    {
+    while (reps-- > 0) {
         g_print ("fading out...");
         gs_fade_sync (fade, 1000);
         g_print ("done.\n");
@@ -63,8 +62,7 @@ test_fade (void)
         gs_fade_reset (fade);
         g_print ("done.\n");
 
-        if (delay)
-        {
+        if (delay) {
             sleep (delay);
         }
     }
@@ -74,8 +72,7 @@ test_fade (void)
 
 int
 main (int    argc,
-      char **argv)
-{
+      char **argv) {
     GError *error = NULL;
     int     op, event, err;
 
@@ -87,35 +84,27 @@ main (int    argc,
     textdomain (GETTEXT_PACKAGE);
 #endif
 
-    if (error)
-    {
+    if (error) {
         fprintf (stderr, "%s\n", error->message);
         exit (1);
     }
 
-    if (! gtk_init_with_args (&argc, &argv, NULL, NULL, NULL, &error))
-    {
+    if (!gtk_init_with_args (&argc, &argv, NULL, NULL, NULL, &error)) {
         fprintf (stderr, "%s", error->message);
         g_error_free (error);
         exit (1);
     }
 
-    if (! XQueryExtension (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), XF86_VIDMODE_NAME, &op, &event, &err))
-    {
+    if (!XQueryExtension (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), XF86_VIDMODE_NAME, &op, &event, &err)) {
         g_message ("no " XF86_VIDMODE_NAME " extension");
-    }
-    else
-    {
+    } else {
 # ifdef HAVE_XF86VMODE_GAMMA
         int major;
         int minor;
 
-        if (! XF86VidModeQueryVersion (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &major, &minor))
-        {
+        if (!XF86VidModeQueryVersion (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()), &major, &minor)) {
             g_message ("unable to get " XF86_VIDMODE_NAME " version");
-        }
-        else
-        {
+        } else {
             g_message (XF86_VIDMODE_NAME " version %d.%d", major, minor);
         }
 # else /* !HAVE_XF86VMODE_GAMMA */

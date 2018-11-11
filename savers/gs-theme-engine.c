@@ -20,7 +20,7 @@
  *
  */
 
-#include "config.h"
+#include <config.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -29,15 +29,14 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 
-#include "gs-theme-engine.h"
-#include "gs-theme-engine-marshal.h"
+#include "savers/gs-theme-engine.h"
+#include "savers/gs-theme-engine-marshal.h"
 
 static void     gs_theme_engine_class_init (GSThemeEngineClass *klass);
 static void     gs_theme_engine_init       (GSThemeEngine      *engine);
 static void     gs_theme_engine_finalize   (GObject            *object);
 
-struct GSThemeEnginePrivate
-{
+struct GSThemeEnginePrivate {
     gpointer reserved;
 };
 
@@ -49,8 +48,7 @@ void
 _gs_theme_engine_profile_log (const char *func,
                               const char *note,
                               const char *format,
-                              ...)
-{
+                              ...) {
     va_list args;
     char   *str;
     char   *formatted;
@@ -59,12 +57,9 @@ _gs_theme_engine_profile_log (const char *func,
     formatted = g_strdup_vprintf (format, args);
     va_end (args);
 
-    if (func != NULL)
-    {
+    if (func != NULL) {
         str = g_strdup_printf ("MARK: %s %s: %s %s", g_get_prgname(), func, note ? note : "", formatted);
-    }
-    else
-    {
+    } else {
         str = g_strdup_printf ("MARK: %s: %s %s", g_get_prgname(), note ? note : "", formatted);
     }
 
@@ -78,12 +73,10 @@ static void
 gs_theme_engine_set_property (GObject      *object,
                               guint         prop_id,
                               const GValue *value,
-                              GParamSpec   *pspec)
-{
+                              GParamSpec   *pspec) {
     GS_THEME_ENGINE (object);
 
-    switch (prop_id)
-    {
+    switch (prop_id) {
     default:
         G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
         break;
@@ -94,12 +87,10 @@ static void
 gs_theme_engine_get_property (GObject    *object,
                               guint       prop_id,
                               GValue     *value,
-                              GParamSpec *pspec)
-{
+                              GParamSpec *pspec) {
     GS_THEME_ENGINE (object);
 
-    switch (prop_id)
-    {
+    switch (prop_id) {
     default:
         G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
         break;
@@ -108,8 +99,7 @@ gs_theme_engine_get_property (GObject    *object,
 
 static gboolean
 gs_theme_engine_real_draw (GtkWidget *widget,
-                           cairo_t   *cr)
-{
+                           cairo_t   *cr) {
     cairo_set_operator (cr, CAIRO_OPERATOR_OVER);
     cairo_set_source_rgb (cr, 0, 0, 0);
     cairo_paint (cr);
@@ -118,8 +108,7 @@ gs_theme_engine_real_draw (GtkWidget *widget,
 }
 
 static void
-gs_theme_engine_class_init (GSThemeEngineClass *klass)
-{
+gs_theme_engine_class_init (GSThemeEngineClass *klass) {
     GObjectClass   *object_class = G_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
@@ -133,14 +122,12 @@ gs_theme_engine_class_init (GSThemeEngineClass *klass)
 }
 
 static void
-gs_theme_engine_init (GSThemeEngine *engine)
-{
+gs_theme_engine_init (GSThemeEngine *engine) {
     engine->priv = gs_theme_engine_get_instance_private (engine);
 }
 
 static void
-gs_theme_engine_finalize (GObject *object)
-{
+gs_theme_engine_finalize (GObject *object) {
     GSThemeEngine *engine;
 
     g_return_if_fail (object != NULL);
@@ -156,21 +143,17 @@ gs_theme_engine_finalize (GObject *object)
 void
 gs_theme_engine_get_window_size (GSThemeEngine *engine,
                                  int           *width,
-                                 int           *height)
-{
-    if (width != NULL)
-    {
+                                 int           *height) {
+    if (width != NULL) {
         *width = 0;
     }
-    if (height != NULL)
-    {
+    if (height != NULL) {
         *height = 0;
     }
 
     g_return_if_fail (GS_IS_THEME_ENGINE (engine));
 
-    if (! gtk_widget_get_visible (GTK_WIDGET (engine)))
-    {
+    if (!gtk_widget_get_visible (GTK_WIDGET (engine))) {
         return;
     }
 
@@ -182,8 +165,7 @@ gs_theme_engine_get_window_size (GSThemeEngine *engine,
 }
 
 GdkWindow *
-gs_theme_engine_get_window (GSThemeEngine *engine)
-{
+gs_theme_engine_get_window (GSThemeEngine *engine) {
     g_return_val_if_fail (GS_IS_THEME_ENGINE (engine), NULL);
 
     return gtk_widget_get_window (GTK_WIDGET (engine));

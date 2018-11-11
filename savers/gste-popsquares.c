@@ -20,18 +20,18 @@
  *
  */
 
-#include "config.h"
+#include <config.h>
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
+#include <unistd.h>
 
 #include <glib.h>
 #include <gtk/gtk.h>
 
-#include "gs-theme-engine.h"
-#include "gste-popsquares.h"
+#include "savers/gs-theme-engine.h"
+#include "savers/gste-popsquares.h"
 
 static void     gste_popsquares_class_init (GSTEPopsquaresClass *klass);
 static void     gste_popsquares_init       (GSTEPopsquares      *engine);
@@ -39,14 +39,12 @@ static void     gste_popsquares_finalize   (GObject             *object);
 static void     draw_frame                 (GSTEPopsquares      *pop,
                                             cairo_t             *cr);
 
-typedef struct _square
-{
+typedef struct _square {
     int x, y, w, h;
     int color;
 } square;
 
-struct GSTEPopsquaresPrivate
-{
+struct GSTEPopsquaresPrivate {
     guint      timeout_id;
 
     int        ncolors;
@@ -66,27 +64,22 @@ hsv_to_rgb (int     h,
             double  v,
             double *r,
             double *g,
-            double *b)
-{
+            double *b) {
     double H, S, V, R, G, B;
     double p1, p2, p3;
     double f;
     int    i;
 
-    if (s < 0)
-    {
+    if (s < 0) {
         s = 0;
     }
-    if (v < 0)
-    {
+    if (v < 0) {
         v = 0;
     }
-    if (s > 1)
-    {
+    if (s > 1) {
         s = 1;
     }
-    if (v > 1)
-    {
+    if (v > 1) {
         v = 1;
     }
 
@@ -99,38 +92,27 @@ hsv_to_rgb (int     h,
     p2 = V * (1 - (S * f));
     p3 = V * (1 - (S * (1 - f)));
 
-    if (i == 0)
-    {
+    if (i == 0) {
         R = V;
         G = p3;
         B = p1;
-    }
-    else if (i == 1)
-    {
+    } else if (i == 1) {
         R = p2;
         G = V;
         B = p1;
-    }
-    else if (i == 2)
-    {
+    } else if (i == 2) {
         R = p1;
         G = V;
         B = p3;
-    }
-    else if (i == 3)
-    {
+    } else if (i == 3) {
         R = p1;
         G = p2;
         B = V;
-    }
-    else if (i == 4)
-    {
+    } else if (i == 4) {
         R = p3;
         G = p1;
         B = V;
-    }
-    else
-    {
+    } else {
         R = V;
         G = p1;
         B = p2;
@@ -147,8 +129,7 @@ rgb_to_hsv (double  r,
             double  b,
             int    *h,
             double *s,
-            double *v)
-{
+            double *v) {
     double R, G, B, H, S, V;
     double cmax, cmin;
     double cmm;
@@ -161,48 +142,36 @@ rgb_to_hsv (double  r,
     cmin = G;
     imax = 1;
 
-    if (cmax < G)
-    {
+    if (cmax < G) {
         cmax = G;
         cmin = R;
         imax = 2;
     }
-    if (cmax < B)
-    {
+    if (cmax < B) {
         cmax = B;
         imax = 3;
     }
-    if (cmin > B)
-    {
+    if (cmin > B) {
         cmin = B;
     }
 
     cmm = cmax - cmin;
     V = cmax;
 
-    if (cmm == 0)
-    {
+    if (cmm == 0) {
         S = H = 0;
-    }
-    else
-    {
+    } else {
         S = cmm / cmax;
-        if (imax == 1)
-        {
+        if (imax == 1) {
             H = (G - B) / cmm;
-        }
-        else if (imax == 2)
-        {
+        } else if (imax == 2) {
             H = 2.0 + (B - R) / cmm;
-        }
-        else
-        {
+        } else {
             /*if (imax == 3)*/
             H = 4.0 + (R - G) / cmm;
         }
 
-        if (H < 0)
-        {
+        if (H < 0) {
             H += 6.0;
         }
     }
@@ -221,16 +190,14 @@ make_color_ramp (int       h1,
                  double    v2,
                  GdkRGBA  *colors,
                  int       n_colors,
-                 gboolean  closed)
-{
+                 gboolean  closed) {
     double dh, ds, dv;        /* deltas */
     int    i;
     int    ncolors, wanted;
     int    total_ncolors = n_colors;
 
     wanted = total_ncolors;
-    if (closed)
-    {
+    if (closed) {
         wanted = (wanted / 2) + 1;
     }
 
@@ -238,8 +205,7 @@ make_color_ramp (int       h1,
 
     memset (colors, 0, n_colors * sizeof (*colors));
 
-    if (closed)
-    {
+    if (closed) {
         ncolors = (ncolors / 2) + 1;
     }
 
@@ -252,39 +218,33 @@ make_color_ramp (int       h1,
     ds = (s2 - s1) / ncolors;
     dv = (v2 - v1) / ncolors;
 
-    for (i = 0; i < ncolors; i++)
-    {
+    for (i = 0; i < ncolors; i++) {
         hsv_to_rgb ((int) (h1 + (i * dh)),
                     (s1 + (i * ds)),
                     (v1 + (i * dv)),
-                    &colors [i].red,
-                    &colors [i].green,
-                    &colors [i].blue);
-        colors [i].alpha = 1.0;
+                    &colors[i].red,
+                    &colors[i].green,
+                    &colors[i].blue);
+        colors[i].alpha = 1.0;
     }
 
-    if (closed)
-    {
-        for (i = ncolors; i < n_colors; i++)
-        {
-            colors [i] = colors [n_colors - i];
+    if (closed) {
+        for (i = ncolors; i < n_colors; i++) {
+            colors[i] = colors[n_colors - i];
         }
     }
-
 }
 
 static void
 randomize_square_colors (square *squares,
                          int     nsquares,
-                         int     ncolors)
-{
+                         int     ncolors) {
     int     i;
     square *s;
 
     s = squares;
 
-    for (i = 0; i < nsquares; i++)
-    {
+    for (i = 0; i < nsquares; i++) {
         s[i].color = g_random_int_range (0, ncolors);
     }
 }
@@ -292,8 +252,7 @@ randomize_square_colors (square *squares,
 static void
 set_colors (GtkWidget *widget,
             GdkRGBA   *fg,
-            GdkRGBA   *bg)
-{
+            GdkRGBA   *bg) {
     GtkStyleContext  *style;
 
     style = gtk_widget_get_style_context (widget);
@@ -305,8 +264,7 @@ set_colors (GtkWidget *widget,
                                             gtk_style_context_get_state (style),
                                             bg);
     G_GNUC_END_IGNORE_DEPRECATIONS
-    if (bg->alpha == 0.0)
-    {
+    if (bg->alpha == 0.0) {
         gtk_style_context_add_class (style, GTK_STYLE_CLASS_VIEW);
         G_GNUC_BEGIN_IGNORE_DEPRECATIONS /* GTK 3.16 */
         gtk_style_context_get_background_color (style,
@@ -326,12 +284,10 @@ static void
 gste_popsquares_set_property (GObject      *object,
                               guint         prop_id,
                               const GValue *value,
-                              GParamSpec   *pspec)
-{
+                              GParamSpec   *pspec) {
     GSTE_POPSQUARES (object);
 
-    switch (prop_id)
-    {
+    switch (prop_id) {
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
             break;
@@ -342,12 +298,10 @@ static void
 gste_popsquares_get_property (GObject    *object,
                               guint       prop_id,
                               GValue     *value,
-                              GParamSpec *pspec)
-{
+                              GParamSpec *pspec) {
     GSTE_POPSQUARES (object);
 
-    switch (prop_id)
-    {
+    switch (prop_id) {
     default:
         G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
         break;
@@ -355,8 +309,7 @@ gste_popsquares_get_property (GObject    *object,
 }
 
 static void
-setup_squares (GSTEPopsquares *pop)
-{
+setup_squares (GSTEPopsquares *pop) {
     int       window_width;
     int       window_height;
     int       nsquares;
@@ -366,8 +319,7 @@ setup_squares (GSTEPopsquares *pop)
 
     window = gs_theme_engine_get_window (GS_THEME_ENGINE (pop));
 
-    if (window == NULL)
-    {
+    if (window == NULL) {
         return;
     }
 
@@ -380,17 +332,14 @@ setup_squares (GSTEPopsquares *pop)
     gh = pop->priv->subdivision;
     nsquares = gw * gh;
 
-    if (pop->priv->squares)
-    {
+    if (pop->priv->squares) {
         g_free (pop->priv->squares);
     }
     pop->priv->squares = g_new0 (square, nsquares);
 
-    for (y = 0; y < gh; y++)
-    {
-        for (x = 0; x < gw; x++)
-        {
-            square *s = (square *) &pop->priv->squares [gw * y + x];
+    for (y = 0; y < gh; y++) {
+        for (x = 0; x < gw; x++) {
+            square *s = (square *) &pop->priv->squares[gw * y + x];
             s->w = sw;
             s->h = sh;
             s->x = x * sw;
@@ -400,8 +349,7 @@ setup_squares (GSTEPopsquares *pop)
 }
 
 static void
-setup_colors (GSTEPopsquares *pop)
-{
+setup_colors (GSTEPopsquares *pop) {
     double    s1, v1, s2, v2 = 0;
     int       h1, h2 = 0;
     int       nsquares;
@@ -411,15 +359,13 @@ setup_colors (GSTEPopsquares *pop)
 
     window = gs_theme_engine_get_window (GS_THEME_ENGINE (pop));
 
-    if (window == NULL)
-    {
+    if (window == NULL) {
         return;
     }
 
     set_colors (GTK_WIDGET (pop), &fg, &bg);
 
-    if (pop->priv->colors)
-    {
+    if (pop->priv->colors) {
         g_free (pop->priv->colors);
     }
     pop->priv->colors = g_new0 (GdkRGBA, pop->priv->ncolors);
@@ -439,24 +385,21 @@ setup_colors (GSTEPopsquares *pop)
 }
 
 static void
-gste_popsquares_real_show (GtkWidget *widget)
-{
+gste_popsquares_real_show (GtkWidget *widget) {
     GSTEPopsquares *pop = GSTE_POPSQUARES (widget);
 
     /* start */
     setup_squares (pop);
     setup_colors (pop);
 
-    if (GTK_WIDGET_CLASS (parent_class)->show)
-    {
+    if (GTK_WIDGET_CLASS (parent_class)->show) {
         GTK_WIDGET_CLASS (parent_class)->show (widget);
     }
 }
 
 static gboolean
 gste_popsquares_real_draw (GtkWidget *widget,
-                           cairo_t   *cr)
-{
+                           cairo_t   *cr) {
     if (GTK_WIDGET_CLASS (parent_class)->draw) {
         GTK_WIDGET_CLASS (parent_class)->draw (widget, cr);
     }
@@ -468,8 +411,7 @@ gste_popsquares_real_draw (GtkWidget *widget,
 
 static gboolean
 gste_popsquares_real_configure (GtkWidget         *widget,
-                                GdkEventConfigure *event)
-{
+                                GdkEventConfigure *event) {
     GSTEPopsquares *pop = GSTE_POPSQUARES (widget);
     gboolean        handled = FALSE;
 
@@ -482,8 +424,7 @@ gste_popsquares_real_configure (GtkWidget         *widget,
     /* schedule a redraw */
     gtk_widget_queue_draw (widget);
 
-    if (GTK_WIDGET_CLASS (parent_class)->configure_event)
-    {
+    if (GTK_WIDGET_CLASS (parent_class)->configure_event) {
         handled = GTK_WIDGET_CLASS (parent_class)->configure_event (widget, event);
     }
 
@@ -491,8 +432,7 @@ gste_popsquares_real_configure (GtkWidget         *widget,
 }
 
 static void
-gste_popsquares_class_init (GSTEPopsquaresClass *klass)
-{
+gste_popsquares_class_init (GSTEPopsquaresClass *klass) {
     GObjectClass   *object_class = G_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
@@ -509,8 +449,7 @@ gste_popsquares_class_init (GSTEPopsquaresClass *klass)
 
 static void
 draw_frame (GSTEPopsquares *pop,
-            cairo_t        *cr)
-{
+            cairo_t        *cr) {
     int      border = 1;
     gboolean twitch = FALSE;
     int      x, y;
@@ -522,8 +461,7 @@ draw_frame (GSTEPopsquares *pop,
 
     window = gs_theme_engine_get_window (GS_THEME_ENGINE (pop));
 
-    if (window == NULL)
-    {
+    if (window == NULL) {
         return;
     }
 
@@ -535,27 +473,21 @@ draw_frame (GSTEPopsquares *pop,
     gh = pop->priv->subdivision;
     nsquares = gw * gh;
 
-    for (y = 0; y < gh; y++)
-    {
-        for (x = 0; x < gw; x++)
-        {
-            square *s = (square *) &pop->priv->squares [gw * y + x];
+    for (y = 0; y < gh; y++) {
+        for (x = 0; x < gw; x++) {
+            square *s = (square *) &pop->priv->squares[gw * y + x];
 
-            gdk_cairo_set_source_rgba (cr, &(pop->priv->colors [s->color]));
+            gdk_cairo_set_source_rgba (cr, &(pop->priv->colors[s->color]));
             cairo_rectangle (cr, s->x, s->y,
                              border ? s->w - border : s->w,
                              border ? s->h - border : s->h);
             cairo_fill (cr);
             s->color++;
 
-            if (s->color == pop->priv->ncolors)
-            {
-                if (twitch && ((g_random_int_range (0, 4)) == 0))
-                {
+            if (s->color == pop->priv->ncolors) {
+                if (twitch && ((g_random_int_range (0, 4)) == 0)) {
                     randomize_square_colors (pop->priv->squares, nsquares, pop->priv->ncolors);
-                }
-                else
-                {
+                } else {
                     s->color = g_random_int_range (0, pop->priv->ncolors);
                 }
             }
@@ -564,15 +496,13 @@ draw_frame (GSTEPopsquares *pop,
 }
 
 static gboolean
-draw_iter (GSTEPopsquares *pop)
-{
+draw_iter (GSTEPopsquares *pop) {
     gtk_widget_queue_draw (GTK_WIDGET (pop));
     return TRUE;
 }
 
 static void
-gste_popsquares_init (GSTEPopsquares *pop)
-{
+gste_popsquares_init (GSTEPopsquares *pop) {
     int delay;
 
     pop->priv = gste_popsquares_get_instance_private (pop);
@@ -585,8 +515,7 @@ gste_popsquares_init (GSTEPopsquares *pop)
 }
 
 static void
-gste_popsquares_finalize (GObject *object)
-{
+gste_popsquares_finalize (GObject *object) {
     GSTEPopsquares *pop;
 
     g_return_if_fail (object != NULL);
@@ -596,8 +525,7 @@ gste_popsquares_finalize (GObject *object)
 
     g_return_if_fail (pop->priv != NULL);
 
-    if (pop->priv->timeout_id > 0)
-    {
+    if (pop->priv->timeout_id > 0) {
         g_source_remove (pop->priv->timeout_id);
         pop->priv->timeout_id = 0;
     }

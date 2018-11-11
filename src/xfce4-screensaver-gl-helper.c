@@ -19,21 +19,21 @@
  *
  */
 
-#include "config.h"
+#include <config.h>
 
 #include <stdlib.h>
+
 #include <glib.h>
+#include <gdk/gdkx.h>
+#include <gtk/gtk.h>
+
 #include <libxfce4util/libxfce4util.h>
 
-#include <gtk/gtk.h>
-#include <gdk/gdkx.h>
-
-#include "gs-visual-gl.h"
+#include "src/gs-visual-gl.h"
 
 int
 main (int    argc,
-      char **argv)
-{
+      char **argv) {
     GdkDisplay *display;
     GdkVisual  *visual;
     Visual     *xvisual;
@@ -48,15 +48,11 @@ main (int    argc,
 #endif
 
     g_set_prgname (argv[0]);
-    if (! gtk_init_with_args (&argc, &argv, NULL, NULL, NULL, &error))
-    {
-        if (error != NULL)
-        {
+    if (!gtk_init_with_args (&argc, &argv, NULL, NULL, NULL, &error)) {
+        if (error != NULL) {
             g_warning ("%s", error->message);
             g_error_free (error);
-        }
-        else
-        {
+        } else {
             g_warning ("Unable to initialize GTK+");
         }
         exit (1);
@@ -65,13 +61,10 @@ main (int    argc,
     display = gdk_display_get_default ();
     visual = gs_visual_gl_get_best_for_display (display);
 
-    if (visual != NULL)
-    {
+    if (visual != NULL) {
         xvisual = gdk_x11_visual_get_xvisual (visual);
         printf ("0x%x\n", (unsigned int) XVisualIDFromVisual (xvisual));
-    }
-    else
-    {
+    } else {
         printf ("none\n");
     }
 

@@ -19,31 +19,31 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#include "config.h"
+#include <config.h>
 
-#include <stdio.h>
+#include <pwd.h>
 #include <signal.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/types.h>
+
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
-#include <pwd.h>
-#include <sys/types.h>
 
 #include <login_cap.h>
 #include <bsd_auth.h>
 
-#include "gs-auth.h"
-#include "subprocs.h"
+#include "src/gs-auth.h"
+#include "src/subprocs.h"
 
 static gboolean verbose_enabled = FALSE;
 
 GQuark
-gs_auth_error_quark (void)
-{
+gs_auth_error_quark (void) {
     static GQuark quark = 0;
-    if (! quark) {
+    if (!quark) {
         quark = g_quark_from_static_string ("gs_auth_error");
     }
 
@@ -51,14 +51,12 @@ gs_auth_error_quark (void)
 }
 
 void
-gs_auth_set_verbose (gboolean enabled)
-{
+gs_auth_set_verbose (gboolean enabled) {
     verbose_enabled = enabled;
 }
 
 gboolean
-gs_auth_get_verbose (void)
-{
+gs_auth_get_verbose (void) {
     return verbose_enabled;
 }
 
@@ -67,8 +65,7 @@ gs_auth_verify_user (const char        *username,
                      const char        *display,
                      GSAuthMessageFunc  func,
                      gpointer           data,
-                     GError           **error)
-{
+                     GError           **error) {
     int res;
     char *password;
 
@@ -91,13 +88,11 @@ gs_auth_verify_user (const char        *username,
 }
 
 gboolean
-gs_auth_init (void)
-{
+gs_auth_init (void) {
     return TRUE;
 }
 
 gboolean
-gs_auth_priv_init (void)
-{
+gs_auth_priv_init (void) {
     return TRUE;
 }

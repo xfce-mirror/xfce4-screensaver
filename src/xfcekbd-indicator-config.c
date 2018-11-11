@@ -21,36 +21,33 @@
 #include <config.h>
 
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
+
 #include <X11/keysym.h>
 
+#include <gdk/gdkx.h>
 #include <pango/pango.h>
 
 #include <libxfce4util/libxfce4util.h>
-#include <gdk/gdkx.h>
-
 #include <xfconf/xfconf.h>
 
-#include "xfcekbd-keyboard-config.h"
-#include "xfcekbd-indicator-config.h"
-
-#include "xfcekbd-config-private.h"
+#include "src/xfcekbd-keyboard-config.h"
+#include "src/xfcekbd-indicator-config.h"
+#include "src/xfcekbd-config-private.h"
 
 /*
  * static applet config functions
  */
 static void
-xfcekbd_indicator_config_load_font (XfcekbdIndicatorConfig *ind_config)
-{
+xfcekbd_indicator_config_load_font (XfcekbdIndicatorConfig *ind_config) {
     ind_config->font_family =
         xfconf_channel_get_string(ind_config->channel,
                                   KEY_KBD_INDICATOR_FONT_FAMILY,
                                   DEFAULT_KEY_KBD_INDICATOR_FONT_FAMILY);
 
     if (ind_config->font_family == NULL ||
-            ind_config->font_family[0] == '\0')
-    {
+            ind_config->font_family[0] == '\0') {
         PangoFontDescription *fd = NULL;
         GtkWidgetPath *widget_path = gtk_widget_path_new ();
         GtkStyleContext *context = gtk_style_context_new ();
@@ -80,8 +77,7 @@ xfcekbd_indicator_config_load_font (XfcekbdIndicatorConfig *ind_config)
 }
 
 static void
-xfcekbd_indicator_config_load_colors (XfcekbdIndicatorConfig *ind_config)
-{
+xfcekbd_indicator_config_load_colors (XfcekbdIndicatorConfig *ind_config) {
     ind_config->foreground_color =
         xfconf_channel_get_string(ind_config->channel,
                                   KEY_KBD_INDICATOR_FOREGROUND_COLOR,
@@ -124,8 +120,7 @@ xfcekbd_indicator_config_load_colors (XfcekbdIndicatorConfig *ind_config)
 static gchar *
 xfcekbd_indicator_config_get_images_file (XfcekbdIndicatorConfig *ind_config,
                                           XfcekbdKeyboardConfig  *kbd_config,
-                                          int                     group)
-{
+                                          int                     group) {
     char        *image_file = NULL;
     GtkIconInfo *icon_info = NULL;
 
@@ -173,8 +168,7 @@ void
 xfcekbd_indicator_config_load_image_filenames (XfcekbdIndicatorConfig *
                                                ind_config,
                                                XfcekbdKeyboardConfig *
-                                               kbd_config)
-{
+                                               kbd_config) {
     int i;
     ind_config->image_filenames = NULL;
 
@@ -194,8 +188,7 @@ xfcekbd_indicator_config_load_image_filenames (XfcekbdIndicatorConfig *
 }
 
 void
-xfcekbd_indicator_config_free_image_filenames (XfcekbdIndicatorConfig *ind_config)
-{
+xfcekbd_indicator_config_free_image_filenames (XfcekbdIndicatorConfig *ind_config) {
     while (ind_config->image_filenames) {
         if (ind_config->image_filenames->data)
             g_free (ind_config->image_filenames->data);
@@ -207,8 +200,7 @@ xfcekbd_indicator_config_free_image_filenames (XfcekbdIndicatorConfig *ind_confi
 
 void
 xfcekbd_indicator_config_init (XfcekbdIndicatorConfig *ind_config,
-                               XklEngine              *engine)
-{
+                               XklEngine              *engine) {
     gchar *sp;
 
     memset (ind_config, 0, sizeof (*ind_config));
@@ -240,8 +232,7 @@ xfcekbd_indicator_config_init (XfcekbdIndicatorConfig *ind_config,
 }
 
 void
-xfcekbd_indicator_config_term (XfcekbdIndicatorConfig *ind_config)
-{
+xfcekbd_indicator_config_term (XfcekbdIndicatorConfig *ind_config) {
     g_free (ind_config->font_family);
     ind_config->font_family = NULL;
 
@@ -260,8 +251,7 @@ xfcekbd_indicator_config_term (XfcekbdIndicatorConfig *ind_config)
 }
 
 void
-xfcekbd_indicator_config_load_from_xfconf (XfcekbdIndicatorConfig * ind_config)
-{
+xfcekbd_indicator_config_load_from_xfconf (XfcekbdIndicatorConfig * ind_config) {
     ind_config->secondary_groups_mask =
         xfconf_channel_get_int (ind_config->channel,
                 KEY_KBD_INDICATOR_SECONDARIES,
@@ -274,12 +264,10 @@ xfcekbd_indicator_config_load_from_xfconf (XfcekbdIndicatorConfig * ind_config)
 
     xfcekbd_indicator_config_load_font (ind_config);
     xfcekbd_indicator_config_load_colors (ind_config);
-
 }
 
 void
-xfcekbd_indicator_config_activate (XfcekbdIndicatorConfig * ind_config)
-{
+xfcekbd_indicator_config_activate (XfcekbdIndicatorConfig * ind_config) {
     xkl_engine_set_secondary_groups_mask (ind_config->engine,
                           ind_config->secondary_groups_mask);
 }
@@ -291,8 +279,7 @@ xfcekbd_indicator_config_activate (XfcekbdIndicatorConfig * ind_config)
 void
 xfcekbd_indicator_config_start_listen (XfcekbdIndicatorConfig *ind_config,
                                        GCallback               func,
-                                       gpointer                user_data)
-{
+                                       gpointer                user_data) {
     ind_config->config_listener_id =
         g_signal_connect (ind_config->channel,
                           "property-changed",
@@ -301,8 +288,7 @@ xfcekbd_indicator_config_start_listen (XfcekbdIndicatorConfig *ind_config,
 }
 
 void
-xfcekbd_indicator_config_stop_listen (XfcekbdIndicatorConfig *ind_config)
-{
+xfcekbd_indicator_config_stop_listen (XfcekbdIndicatorConfig *ind_config) {
     g_signal_handler_disconnect (ind_config->channel,
                                  ind_config->config_listener_id);
     ind_config->config_listener_id = 0;

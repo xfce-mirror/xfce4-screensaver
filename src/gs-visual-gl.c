@@ -21,11 +21,11 @@
  *
  */
 
-#include "config.h"
+#include <config.h>
 
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
+#include <unistd.h>
 
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
@@ -35,12 +35,11 @@
 #include <GL/glx.h>
 #endif /* HAVE_GL */
 
-#include "gs-visual-gl.h"
-#include "gs-debug.h"
+#include "src/gs-visual-gl.h"
+#include "src/gs-debug.h"
 
 GdkVisual *
-gs_visual_gl_get_best_for_display (GdkDisplay *display)
-{
+gs_visual_gl_get_best_for_display (GdkDisplay *display) {
     GdkVisual *visual;
 #ifdef HAVE_LIBGL
     Display   *xdisplay;
@@ -56,22 +55,21 @@ gs_visual_gl_get_best_for_display (GdkDisplay *display)
 # define DB GLX_DOUBLEBUFFER
 # define ST GLX_STENCIL_SIZE
 
-    static int attrs [][20] =
-    {
-        { GLX_RGBA, R, 8, G, 8, B, 8, D, 8, DB, ST,1, 0 }, /* rgb double, stencil */
-        { GLX_RGBA, R, 4, G, 4, B, 4, D, 4, DB, ST,1, 0 },
-        { GLX_RGBA, R, 2, G, 2, B, 2, D, 2, DB, ST,1, 0 },
-        { GLX_RGBA, R, 8, G, 8, B, 8, D, 8, DB,       0 }, /* rgb double */
-        { GLX_RGBA, R, 4, G, 4, B, 4, D, 4, DB,       0 },
-        { GLX_RGBA, R, 2, G, 2, B, 2, D, 2, DB,       0 },
-        { GLX_RGBA, R, 8, G, 8, B, 8, D, 8,           0 }, /* rgb single */
-        { GLX_RGBA, R, 4, G, 4, B, 4, D, 4,           0 },
-        { GLX_RGBA, R, 2, G, 2, B, 2, D, 2,           0 },
-        { I, 8,                       D, 8, DB,       0 }, /* cmap double */
-        { I, 4,                       D, 4, DB,       0 },
-        { I, 8,                       D, 8,           0 }, /* cmap single */
-        { I, 4,                       D, 4,           0 },
-        { GLX_RGBA, R, 1, G, 1, B, 1, D, 1,           0 }  /* monochrome */
+    static int attrs[][20] = {
+        { GLX_RGBA, R, 8, G, 8, B, 8, D, 8, DB, ST, 1, 0 }, /* rgb double, stencil */
+        { GLX_RGBA, R, 4, G, 4, B, 4, D, 4, DB, ST, 1, 0 },
+        { GLX_RGBA, R, 2, G, 2, B, 2, D, 2, DB, ST, 1, 0 },
+        { GLX_RGBA, R, 8, G, 8, B, 8, D, 8, DB,        0 }, /* rgb double */
+        { GLX_RGBA, R, 4, G, 4, B, 4, D, 4, DB,        0 },
+        { GLX_RGBA, R, 2, G, 2, B, 2, D, 2, DB,        0 },
+        { GLX_RGBA, R, 8, G, 8, B, 8, D, 8,            0 }, /* rgb single */
+        { GLX_RGBA, R, 4, G, 4, B, 4, D, 4,            0 },
+        { GLX_RGBA, R, 2, G, 2, B, 2, D, 2,            0 },
+        { I, 8,                       D, 8, DB,        0 }, /* cmap double */
+        { I, 4,                       D, 4, DB,        0 },
+        { I, 8,                       D, 8,            0 }, /* cmap single */
+        { I, 4,                       D, 4,            0 },
+        { GLX_RGBA, R, 1, G, 1, B, 1, D, 1,            0 }  /* monochrome */
     };
 
     g_return_val_if_fail (display != NULL, NULL);
@@ -83,14 +81,12 @@ gs_visual_gl_get_best_for_display (GdkDisplay *display)
     gdk_x11_display_error_trap_push (display);
 
     visual = NULL;
-    for (i = 0; i < G_N_ELEMENTS (attrs); i++)
-    {
+    for (i = 0; i < G_N_ELEMENTS (attrs); i++) {
         XVisualInfo *vi;
 
-        vi = glXChooseVisual (xdisplay, screen_num, attrs [i]);
+        vi = glXChooseVisual (xdisplay, screen_num, attrs[i]);
 
-        if (vi != NULL)
-        {
+        if (vi != NULL) {
             VisualID   vid;
 
             vid = XVisualIDFromVisual (vi->visual);
@@ -99,8 +95,7 @@ gs_visual_gl_get_best_for_display (GdkDisplay *display)
 
             XFree (vi);
 
-            if (visual != NULL)
-            {
+            if (visual != NULL) {
                 break;
             }
         }

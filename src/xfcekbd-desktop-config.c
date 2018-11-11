@@ -21,16 +21,18 @@
 #include <config.h>
 
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
+
 #include <X11/keysym.h>
 
-#include <xfconf/xfconf.h>
+#include <gio/gio.h>
 
 #include <libxfce4util/libxfce4util.h>
-#include <gio/gio.h>
-#include "xfcekbd-desktop-config.h"
-#include "xfcekbd-config-private.h"
+#include <xfconf/xfconf.h>
+
+#include "src/xfcekbd-desktop-config.h"
+#include "src/xfcekbd-config-private.h"
 
 /*
  * static common functions
@@ -44,8 +46,7 @@ xfcekbd_desktop_config_get_lv_descriptions (XfcekbdDesktopConfig   *config,
                                             gchar                ***short_layout_descriptions,
                                             gchar                ***long_layout_descriptions,
                                             gchar                ***short_variant_descriptions,
-                                            gchar                ***long_variant_descriptions)
-{
+                                            gchar                ***long_variant_descriptions) {
     const gchar   **pl, **pv;
     guint           total_layouts;
     gchar         **sld, **lld, **svd, **lvd;
@@ -63,7 +64,6 @@ xfcekbd_desktop_config_get_lv_descriptions (XfcekbdDesktopConfig   *config,
     lvd = *long_variant_descriptions = g_new0 (gchar *, total_layouts + 1);
 
     while (pl != NULL && *pl != NULL) {
-
         xkl_debug (100, "ids: [%s][%s]\n", *pl, pv == NULL ? NULL : *pv);
 
         g_snprintf (item->name, sizeof item->name, "%s", *pl);
@@ -110,23 +110,20 @@ xfcekbd_desktop_config_get_lv_descriptions (XfcekbdDesktopConfig   *config,
  */
 void
 xfcekbd_desktop_config_init (XfcekbdDesktopConfig *config,
-                             XklEngine            *engine)
-{
+                             XklEngine            *engine) {
     memset (config, 0, sizeof (*config));
     config->channel = xfconf_channel_get (SETTINGS_XFCONF_CHANNEL);
     config->engine = engine;
 }
 
 void
-xfcekbd_desktop_config_term (XfcekbdDesktopConfig *config)
-{
+xfcekbd_desktop_config_term (XfcekbdDesktopConfig *config) {
     g_object_unref (config->channel);
     config->channel = NULL;
 }
 
 void
-xfcekbd_desktop_config_load_from_xfconf (XfcekbdDesktopConfig *config)
-{
+xfcekbd_desktop_config_load_from_xfconf (XfcekbdDesktopConfig *config) {
     config->group_per_app =
         xfconf_channel_get_bool(config->channel,
                                 KEY_KBD_GROUP_PER_WINDOW,
@@ -158,16 +155,14 @@ xfcekbd_desktop_config_load_from_xfconf (XfcekbdDesktopConfig *config)
 
     if (config->default_group < -1
             || config->default_group >=
-            xkl_engine_get_max_num_groups (config->engine))
-    {
+            xkl_engine_get_max_num_groups (config->engine)) {
         config->default_group = -1;
     }
     xkl_debug (150, "default_group: %d\n", config->default_group);
 }
 
 gboolean
-xfcekbd_desktop_config_activate (XfcekbdDesktopConfig *config)
-{
+xfcekbd_desktop_config_activate (XfcekbdDesktopConfig *config) {
     gboolean rv = TRUE;
 
     xkl_engine_set_group_per_toplevel_window (config->engine,
@@ -181,8 +176,7 @@ xfcekbd_desktop_config_activate (XfcekbdDesktopConfig *config)
 }
 
 void
-xfcekbd_desktop_config_lock_next_group (XfcekbdDesktopConfig *config)
-{
+xfcekbd_desktop_config_lock_next_group (XfcekbdDesktopConfig *config) {
     int group = xkl_engine_get_next_group (config->engine);
     xkl_engine_lock_group (config->engine, group);
 }
@@ -194,16 +188,14 @@ xfcekbd_desktop_config_lock_next_group (XfcekbdDesktopConfig *config)
 void
 xfcekbd_desktop_config_start_listen (XfcekbdDesktopConfig *config,
                                      GCallback             func,
-                                     gpointer              user_data)
-{
+                                     gpointer              user_data) {
     config->config_listener_id =
         g_signal_connect (config->channel, "property-changed", func,
                   user_data);
 }
 
 void
-xfcekbd_desktop_config_stop_listen (XfcekbdDesktopConfig *config)
-{
+xfcekbd_desktop_config_stop_listen (XfcekbdDesktopConfig *config) {
     g_signal_handler_disconnect (config->channel,
                                  config->config_listener_id);
     config->config_listener_id = 0;
@@ -215,8 +207,7 @@ xfcekbd_desktop_config_load_group_descriptions (XfcekbdDesktopConfig   *config,
                                                 const gchar           **layout_ids,
                                                 const gchar           **variant_ids,
                                                 gchar                ***short_group_names,
-                                                gchar                ***full_group_names)
-{
+                                                gchar                ***full_group_names) {
     gchar **sld, **lld, **svd, **lvd;
     gchar **psld, **plld, **plvd;
     gchar **psgn, **pfgn, **psvd;
@@ -229,8 +220,7 @@ xfcekbd_desktop_config_load_group_descriptions (XfcekbdDesktopConfig   *config,
                                                      &sld,
                                                      &lld,
                                                      &svd,
-                                                     &lvd))
-    {
+                                                     &lvd)) {
         return False;
     }
 

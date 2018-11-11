@@ -19,7 +19,7 @@
  *
  */
 
-#include "config.h"
+#include <config.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,19 +27,18 @@
 #include <unistd.h>
 
 #include <glib.h>
-#include <libxfce4util/libxfce4util.h>
 #include <glib/gstdio.h>
 #include <gtk/gtk.h>
 
-#include "gs-theme-window.h"
-#include "gs-theme-engine.h"
-#include "gste-slideshow.h"
+#include <libxfce4util/libxfce4util.h>
 
-#include "xdg-user-dir-lookup.h"
+#include "savers/gs-theme-window.h"
+#include "savers/gs-theme-engine.h"
+#include "savers/gste-slideshow.h"
+#include "savers/xdg-user-dir-lookup.h"
 
 int
-main (int argc, char **argv)
-{
+main (int argc, char **argv) {
     GSThemeEngine *engine;
     GtkWidget     *window;
     GError        *error;
@@ -48,8 +47,7 @@ main (int argc, char **argv)
     char          *background_color = NULL;
     gboolean       sort_images = FALSE;
     gboolean       no_stretch = FALSE;
-    GOptionEntry   entries [] =
-    {
+    GOptionEntry   entries[] = {
         {
             "location", 0, 0, G_OPTION_ARG_STRING, &location,
             N_("Location to get images from"), N_("PATH")
@@ -80,8 +78,7 @@ main (int argc, char **argv)
                               entries,
                               NULL,
                               &error);
-    if (! ret)
-    {
+    if (!ret) {
         g_message ("%s", error->message);
         g_error_free (error);
         exit (1);
@@ -97,35 +94,29 @@ main (int argc, char **argv)
 
     engine = g_object_new (GSTE_TYPE_SLIDESHOW, NULL);
 
-    if (location == NULL)
-    {
+    if (location == NULL) {
         location = xdg_user_dir_lookup ("PICTURES");
         if (location == NULL ||
                 strcmp (location, "/tmp") == 0 ||
-                strcmp (location, g_get_home_dir ()) == 0)
-        {
+                strcmp (location, g_get_home_dir ()) == 0) {
             free (location);
             location = g_build_filename (g_get_home_dir (), "Pictures", NULL);
         }
     }
 
-    if (location != NULL)
-    {
+    if (location != NULL) {
         g_object_set (engine, "images-location", location, NULL);
     }
 
-    if (sort_images)
-    {
+    if (sort_images) {
         g_object_set (engine, "sort-images", sort_images, NULL);
     }
 
-    if (background_color != NULL)
-    {
+    if (background_color != NULL) {
         g_object_set (engine, "background-color", background_color, NULL);
     }
 
-    if (no_stretch)
-    {
+    if (no_stretch) {
         g_object_set (engine, "no-stretch", no_stretch, NULL);
     }
 

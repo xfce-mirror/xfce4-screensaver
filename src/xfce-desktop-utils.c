@@ -24,11 +24,13 @@
  */
 
 #include <config.h>
-#include <glib.h>
+
 #include <gio/gio.h>
-#include <libxfce4util/libxfce4util.h>
+#include <glib.h>
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
+
+#include <libxfce4util/libxfce4util.h>
 
 #include <xfce-desktop-utils.h>
 
@@ -56,8 +58,7 @@
 gboolean
 xfce_gdk_spawn_command_line_on_screen (GdkScreen    *screen,
                                        const gchar  *command,
-                                       GError      **error)
-{
+                                       GError      **error) {
     GAppInfo            *appinfo = NULL;
     GdkAppLaunchContext *context = NULL;
     gboolean             res = FALSE;

@@ -21,36 +21,34 @@
  *
  */
 
-#include "config.h"
+#include <config.h>
 
-#include <stdlib.h>
-#include <unistd.h>
+#include <errno.h>
 #include <signal.h>
+#include <stdlib.h>
+#include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include <errno.h>
-#include <string.h>
-
-#if defined(HAVE_SETPRIORITY) && defined(PRIO_PROCESS)
-#include <sys/resource.h>
-#endif
+#include <unistd.h>
 
 #include <glib.h>
 #include <glib/gstdio.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 
-#include "gs-debug.h"
-#include "gs-job.h"
+#if defined(HAVE_SETPRIORITY) && defined(PRIO_PROCESS)
+#include <sys/resource.h>
+#endif
 
-#include "subprocs.h"
+#include "src/gs-debug.h"
+#include "src/gs-job.h"
+#include "src/subprocs.h"
 
 static void gs_job_class_init (GSJobClass *klass);
 static void gs_job_init       (GSJob      *job);
 static void gs_job_finalize   (GObject    *object);
 
-typedef enum
-{
+typedef enum {
     GS_JOB_INVALID,
     GS_JOB_RUNNING,
     GS_JOB_STOPPED,
@@ -58,8 +56,7 @@ typedef enum
     GS_JOB_DEAD
 } GSJobStatus;
 
-struct GSJobPrivate
-{
+struct GSJobPrivate {
     GtkWidget      *widget;
 
     GSJobStatus     status;
@@ -72,8 +69,7 @@ struct GSJobPrivate
 G_DEFINE_TYPE_WITH_PRIVATE (GSJob, gs_job, G_TYPE_OBJECT)
 
 static char *
-widget_get_id_string (GtkWidget *widget)
-{
+widget_get_id_string (GtkWidget *widget) {
     char *id = NULL;
 
     g_return_val_if_fail (widget != NULL, NULL);
@@ -84,38 +80,29 @@ widget_get_id_string (GtkWidget *widget)
 }
 
 static void
-gs_job_class_init (GSJobClass *klass)
-{
+gs_job_class_init (GSJobClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
     object_class->finalize = gs_job_finalize;
 }
 
 static void
-gs_job_init (GSJob *job)
-{
+gs_job_init (GSJob *job) {
     job->priv = gs_job_get_instance_private (job);
 }
 
 /* adapted from gspawn.c */
 static int
-wait_on_child (int pid)
-{
+wait_on_child (int pid) {
     int status;
 
 wait_again:
-    if (waitpid (pid, &status, 0) < 0)
-    {
-        if (errno == EINTR)
-        {
+    if (waitpid (pid, &status, 0) < 0) {
+        if (errno == EINTR) {
             goto wait_again;
-        }
-        else if (errno == ECHILD)
-        {
-            ; /* do nothing, child already reaped */
-        }
-        else
-        {
+        } else if (errno == ECHILD) {
+            /* do nothing, child already reaped */
+        } else {
             gs_debug ("waitpid () should not fail in 'GSJob'");
         }
     }
@@ -124,10 +111,8 @@ wait_again:
 }
 
 static void
-gs_job_died (GSJob *job)
-{
-    if (job->priv->pid > 0)
-    {
+gs_job_died (GSJob *job) {
+    if (job->priv->pid > 0) {
         int exit_status;
 
         gs_debug ("Waiting on process %d", job->priv->pid);
@@ -135,12 +120,9 @@ gs_job_died (GSJob *job)
 
         job->priv->status = GS_JOB_DEAD;
 
-        if (WIFEXITED (exit_status) && (WEXITSTATUS (exit_status) != 0))
-        {
+        if (WIFEXITED (exit_status) && (WEXITSTATUS (exit_status) != 0)) {
             gs_debug ("Wait on child process failed");
-        }
-        else
-        {
+        } else {
             /* exited normally */
         }
     }
@@ -151,8 +133,7 @@ gs_job_died (GSJob *job)
 }
 
 static void
-gs_job_finalize (GObject *object)
-{
+gs_job_finalize (GObject *object) {
     GSJob *job;
 
     g_return_if_fail (object != NULL);
@@ -162,8 +143,7 @@ gs_job_finalize (GObject *object)
 
     g_return_if_fail (job->priv != NULL);
 
-    if (job->priv->pid > 0)
-    {
+    if (job->priv->pid > 0) {
         signal_pid (job->priv->pid, SIGTERM);
         gs_job_died (job);
     }
@@ -176,18 +156,15 @@ gs_job_finalize (GObject *object)
 
 void
 gs_job_set_widget  (GSJob     *job,
-                    GtkWidget *widget)
-{
+                    GtkWidget *widget) {
     g_return_if_fail (job != NULL);
     g_return_if_fail (GS_IS_JOB (job));
 
-    if (widget != job->priv->widget)
-    {
+    if (widget != job->priv->widget) {
         job->priv->widget = widget;
 
         /* restart job */
-        if (gs_job_is_running (job))
-        {
+        if (gs_job_is_running (job)) {
             gs_job_stop (job);
             gs_job_start (job);
         }
@@ -196,8 +173,7 @@ gs_job_set_widget  (GSJob     *job,
 
 gboolean
 gs_job_set_command  (GSJob      *job,
-                     const char *command)
-{
+                     const char *command) {
     g_return_val_if_fail (GS_IS_JOB (job), FALSE);
 
     gs_debug ("Setting command for job: '%s'",
@@ -210,8 +186,7 @@ gs_job_set_command  (GSJob      *job,
 }
 
 GSJob *
-gs_job_new (void)
-{
+gs_job_new (void) {
     GObject *job;
 
     job = g_object_new (GS_TYPE_JOB, NULL);
@@ -220,8 +195,7 @@ gs_job_new (void)
 }
 
 GSJob *
-gs_job_new_for_widget (GtkWidget *widget)
-{
+gs_job_new_for_widget (GtkWidget *widget) {
     GObject *job;
 
     job = g_object_new (GS_TYPE_JOB, NULL);
@@ -233,19 +207,16 @@ gs_job_new_for_widget (GtkWidget *widget)
 
 static void
 nice_process (int pid,
-              int nice_level)
-{
+              int nice_level) {
     g_return_if_fail (pid > 0);
 
-    if (nice_level == 0)
-    {
+    if (nice_level == 0) {
         return;
     }
 
 #if defined(HAVE_SETPRIORITY) && defined(PRIO_PROCESS)
     gs_debug ("Setting child process priority to: %d", nice_level);
-    if (setpriority (PRIO_PROCESS, pid, nice_level) != 0)
-    {
+    if (setpriority (PRIO_PROCESS, pid, nice_level) != 0) {
         gs_debug ("setpriority(PRIO_PROCESS, %lu, %d) failed",
                   (unsigned long) pid, nice_level);
     }
@@ -255,14 +226,12 @@ nice_process (int pid,
 }
 
 static GPtrArray *
-get_env_vars (GtkWidget *widget)
-{
+get_env_vars (GtkWidget *widget) {
     GPtrArray         *env;
     const gchar       *display_name;
     gchar             *str;
     int                i;
-    static const char *allowed_env_vars [] =
-    {
+    static const char *allowed_env_vars[] = {
         "PATH",
         "SESSION_MANAGER",
         "XAUTHORITY",
@@ -280,14 +249,12 @@ get_env_vars (GtkWidget *widget)
     g_ptr_array_add (env, g_strdup_printf ("HOME=%s",
                                            g_get_home_dir ()));
 
-    for (i = 0; i < G_N_ELEMENTS (allowed_env_vars); i++)
-    {
+    for (i = 0; i < G_N_ELEMENTS (allowed_env_vars); i++) {
         const char *var;
         const char *val;
-        var = allowed_env_vars [i];
+        var = allowed_env_vars[i];
         val = g_getenv (var);
-        if (val != NULL)
-        {
+        if (val != NULL) {
             g_ptr_array_add (env, g_strdup_printf ("%s=%s",
                                                    var,
                                                    val));
@@ -309,8 +276,7 @@ spawn_on_widget (GtkWidget  *widget,
                  int        *pid,
                  GIOFunc     watch_func,
                  gpointer    user_data,
-                 guint      *watch_id)
-{
+                 guint      *watch_id) {
     char       **argv;
     GPtrArray   *env;
     gboolean     result;
@@ -321,13 +287,11 @@ spawn_on_widget (GtkWidget  *widget,
     int          id;
     int          i;
 
-    if (command == NULL)
-    {
+    if (command == NULL) {
         return FALSE;
     }
 
-    if (! g_shell_parse_argv (command, NULL, &argv, &error))
-    {
+    if (!g_shell_parse_argv (command, NULL, &argv, &error)) {
         gs_debug ("Could not parse command: %s", error->message);
         g_error_free (error);
         return FALSE;
@@ -348,14 +312,12 @@ spawn_on_widget (GtkWidget  *widget,
                                        &standard_error,
                                        &error);
 
-    for (i = 0; i < env->len; i++)
-    {
+    for (i = 0; i < env->len; i++) {
         g_free (g_ptr_array_index (env, i));
     }
     g_ptr_array_free (env, TRUE);
 
-    if (! result)
-    {
+    if (!result) {
         gs_debug ("Could not start command '%s': %s", command, error->message);
         g_error_free (error);
         g_strfreev (argv);
@@ -366,12 +328,9 @@ spawn_on_widget (GtkWidget  *widget,
 
     nice_process (child_pid, 10);
 
-    if (pid != NULL)
-    {
+    if (pid != NULL) {
         *pid = child_pid;
-    }
-    else
-    {
+    } else {
         g_spawn_close_pid (child_pid);
     }
 
@@ -384,8 +343,7 @@ spawn_on_widget (GtkWidget  *widget,
                          G_IO_IN | G_IO_HUP | G_IO_ERR | G_IO_NVAL,
                          watch_func,
                          user_data);
-    if (watch_id != NULL)
-    {
+    if (watch_id != NULL) {
         *watch_id = id;
     }
 
@@ -397,45 +355,35 @@ spawn_on_widget (GtkWidget  *widget,
 static gboolean
 command_watch (GIOChannel   *source,
                GIOCondition  condition,
-               GSJob        *job)
-{
+               GSJob        *job) {
     GIOStatus  status;
     GError    *error = NULL;
     gboolean   done  = FALSE;
 
     g_return_val_if_fail (job != NULL, FALSE);
 
-    if (condition & G_IO_IN)
-    {
+    if (condition & G_IO_IN) {
         char *str;
 
         status = g_io_channel_read_line (source, &str, NULL, NULL, &error);
 
-        if (status == G_IO_STATUS_NORMAL)
-        {
+        if (status == G_IO_STATUS_NORMAL) {
             gs_debug ("command output: %s", str);
 
-        }
-        else if (status == G_IO_STATUS_EOF)
-        {
+        } else if (status == G_IO_STATUS_EOF) {
             done = TRUE;
 
-        }
-        else if (error != NULL)
-        {
+        } else if (error != NULL) {
             gs_debug ("command error: %s", error->message);
             g_error_free (error);
         }
 
         g_free (str);
-    }
-    else if (condition & G_IO_HUP)
-    {
+    } else if (condition & G_IO_HUP) {
         done = TRUE;
     }
 
-    if (done)
-    {
+    if (done) {
         gs_job_died (job);
 
         job->priv->watch_id = 0;
@@ -446,8 +394,7 @@ command_watch (GIOChannel   *source,
 }
 
 gboolean
-gs_job_is_running (GSJob *job)
-{
+gs_job_is_running (GSJob *job) {
     gboolean running;
 
     g_return_val_if_fail (GS_IS_JOB (job), FALSE);
@@ -458,8 +405,7 @@ gs_job_is_running (GSJob *job)
 }
 
 gboolean
-gs_job_start (GSJob *job)
-{
+gs_job_start (GSJob *job) {
     gboolean result;
 
     g_return_val_if_fail (job != NULL, FALSE);
@@ -467,20 +413,17 @@ gs_job_start (GSJob *job)
 
     gs_debug ("starting job");
 
-    if (job->priv->pid != 0)
-    {
+    if (job->priv->pid != 0) {
         gs_debug ("Cannot restart active job.");
         return FALSE;
     }
 
-    if (job->priv->widget == NULL)
-    {
+    if (job->priv->widget == NULL) {
         gs_debug ("Could not start job: screensaver window is not set.");
         return FALSE;
     }
 
-    if (job->priv->command == NULL)
-    {
+    if (job->priv->command == NULL) {
         /* no warning here because a NULL command is interpreted
            as a no-op job */
         gs_debug ("No command set for job.");
@@ -494,8 +437,7 @@ gs_job_start (GSJob *job)
                               job,
                               &job->priv->watch_id);
 
-    if (result)
-    {
+    if (result) {
         job->priv->status = GS_JOB_RUNNING;
     }
 
@@ -503,31 +445,26 @@ gs_job_start (GSJob *job)
 }
 
 static void
-remove_command_watch (GSJob *job)
-{
-    if (job->priv->watch_id != 0)
-    {
+remove_command_watch (GSJob *job) {
+    if (job->priv->watch_id != 0) {
         g_source_remove (job->priv->watch_id);
         job->priv->watch_id = 0;
     }
 }
 
 gboolean
-gs_job_stop (GSJob *job)
-{
+gs_job_stop (GSJob *job) {
     g_return_val_if_fail (job != NULL, FALSE);
     g_return_val_if_fail (GS_IS_JOB (job), FALSE);
 
     gs_debug ("stopping job");
 
-    if (job->priv->pid == 0)
-    {
+    if (job->priv->pid == 0) {
         gs_debug ("Could not stop job: pid not defined");
         return FALSE;
     }
 
-    if (job->priv->status == GS_JOB_STOPPED)
-    {
+    if (job->priv->status == GS_JOB_STOPPED) {
         gs_job_suspend (job, FALSE);
     }
 
@@ -544,15 +481,13 @@ gs_job_stop (GSJob *job)
 
 gboolean
 gs_job_suspend (GSJob    *job,
-                gboolean  suspend)
-{
+                gboolean  suspend) {
     g_return_val_if_fail (job != NULL, FALSE);
     g_return_val_if_fail (GS_IS_JOB (job), FALSE);
 
     gs_debug ("suspending job");
 
-    if (job->priv->pid == 0)
-    {
+    if (job->priv->pid == 0) {
         return FALSE;
     }
 

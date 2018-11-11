@@ -20,19 +20,19 @@
  *
  */
 
-#include "config.h"
+#include <config.h>
 
+#include <signal.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
-#include <stdarg.h>
-#include <signal.h>
 #include <time.h>
 #include <unistd.h>
 
 #include <glib.h>
 #include <glib/gstdio.h>
 
-#include "gs-debug.h"
+#include "src/gs-debug.h"
 
 static gboolean debugging = FALSE;
 static FILE    *debug_out = NULL;
@@ -45,10 +45,9 @@ void
 gs_debug_real (const char *func,
                const char *file,
                const int   line,
-               const char *format, ...)
-{
+               const char *format, ...) {
     va_list args;
-    char    buffer [1025];
+    char    buffer[1025];
     char   *str_time;
     time_t  the_time;
 
@@ -57,7 +56,7 @@ gs_debug_real (const char *func,
 
     va_start (args, format);
 
-    g_vsnprintf (buffer, 1024, format, args);
+    g_vsnprintf (buffer, sizeof(buffer), format, args);
 
     va_end (args);
 
@@ -76,32 +75,27 @@ gs_debug_real (const char *func,
 }
 
 gboolean
-gs_debug_enabled (void)
-{
+gs_debug_enabled (void) {
     return debugging;
 }
 
 void
 gs_debug_init (gboolean debug,
-               gboolean to_file)
-{
+               gboolean to_file) {
     /* return if already initialized */
-    if (debugging == TRUE)
-    {
+    if (debugging == TRUE) {
         return;
     }
 
     debugging = debug;
 
-    if (debug && to_file)
-    {
-        const char path [50] = "xfce4_screensaver_debug_XXXXXX";
+    if (debug && to_file) {
+        const char path[50] = "xfce4_screensaver_debug_XXXXXX";
         int        fd;
 
         fd = g_file_open_tmp (path, NULL, NULL);
 
-        if (fd >= 0)
-        {
+        if (fd >= 0) {
             debug_out = fdopen (fd, "a");
         }
     }
@@ -110,17 +104,15 @@ gs_debug_init (gboolean debug,
 }
 
 void
-gs_debug_shutdown (void)
-{
-    if (! debugging)
+gs_debug_shutdown (void) {
+    if (!debugging)
         return;
 
     gs_debug ("Shutting down debugging");
 
     debugging = FALSE;
 
-    if (debug_out != NULL)
-    {
+    if (debug_out != NULL) {
         fclose (debug_out);
         debug_out = NULL;
     }
@@ -130,29 +122,22 @@ void
 _gs_profile_log (const char *func,
                  const char *note,
                  const char *format,
-                 ...)
-{
+                 ...) {
     va_list args;
     char   *str;
     char   *formatted;
 
-    if (format == NULL)
-    {
+    if (format == NULL) {
         formatted = g_strdup ("");
-    }
-    else
-    {
+    } else {
         va_start (args, format);
         formatted = g_strdup_vprintf (format, args);
         va_end (args);
     }
 
-    if (func != NULL)
-    {
+    if (func != NULL) {
         str = g_strdup_printf ("MARK: %s %s: %s %s", g_get_prgname(), func, note ? note : "", formatted);
-    }
-    else
-    {
+    } else {
         str = g_strdup_printf ("MARK: %s: %s %s", g_get_prgname(), note ? note : "", formatted);
     }
 

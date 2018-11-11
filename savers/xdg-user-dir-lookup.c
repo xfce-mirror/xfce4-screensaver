@@ -29,7 +29,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "xdg-user-dir-lookup.h"
+#include "savers/xdg-user-dir-lookup.h"
 
 char *
 xdg_user_dir_lookup (const char *type)
@@ -48,14 +48,11 @@ xdg_user_dir_lookup (const char *type)
         return strdup ("/tmp");
 
     config_home = getenv ("XDG_CONFIG_HOME");
-    if (config_home == NULL || config_home[0] == 0)
-    {
+    if (config_home == NULL || config_home[0] == 0) {
         config_file = malloc (strlen (home_dir) + strlen ("/.config/user-dirs.dirs") + 1);
         strcpy (config_file, home_dir);
         strcat (config_file, "/.config/user-dirs.dirs");
-    }
-    else
-    {
+    } else {
         config_file = malloc (strlen (config_home) + strlen ("/user-dirs.dirs") + 1);
         strcpy (config_file, config_home);
         strcat (config_file, "/user-dirs.dirs");
@@ -103,22 +100,18 @@ xdg_user_dir_lookup (const char *type)
         p++;
 
         relative = 0;
-        if (strncmp (p, "$HOME/", 6) == 0)
-        {
+        if (strncmp (p, "$HOME/", 6) == 0) {
             p += 6;
             relative = 1;
-        }
-        else if (*p != '/')
+        } else if (*p != '/') {
             continue;
+        }
 
-        if (relative)
-        {
+        if (relative) {
             user_dir = malloc (strlen (home_dir) + 1 + strlen (p) + 1);
             strcpy (user_dir, home_dir);
             strcat (user_dir, "/");
-        }
-        else
-        {
+        } else {
             user_dir = malloc (strlen (p) + 1);
             *user_dir = 0;
         }
@@ -139,15 +132,14 @@ xdg_user_dir_lookup (const char *type)
 
 error:
     /* Special case desktop for historical compatibility */
-    if (strcmp (type, "DESKTOP") == 0)
-    {
+    if (strcmp (type, "DESKTOP") == 0) {
         user_dir = malloc (strlen (home_dir) + strlen ("/Desktop") + 1);
         strcpy (user_dir, home_dir);
         strcat (user_dir, "/Desktop");
         return user_dir;
-    }
-    else
+    } else {
         return strdup (home_dir);
+    }
 }
 
 #ifdef STANDALONE
@@ -155,8 +147,7 @@ error:
 int
 main (int argc, char *argv[])
 {
-    if (argc != 2)
-    {
+    if (argc != 2) {
         fprintf (stderr, "Usage %s <dir-type>\n", argv[0]);
         exit (1);
     }

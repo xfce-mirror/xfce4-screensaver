@@ -14,32 +14,31 @@
  * implied warranty.
  */
 
-#include "config.h"
+#include <config.h>
 
-#include <stdlib.h>
 #include <ctype.h>
+#include <signal.h> /* for the signal names */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-
-#ifndef ESRCH
-# include <errno.h>
-#endif
-
-#include <sys/time.h>       /* sys/resource.h needs this for timeval */
-# include <sys/wait.h>      /* for waitpid() and associated macros */
-
-#ifdef VMS
-# include <processes.h>
-# include <unixio.h>        /* for close */
-# include <unixlib.h>       /* for getpid */
-# define pid_t int
-# define fork  vfork
-#endif /* VMS */
-
-#include <signal.h>     /* for the signal names */
+#include <sys/time.h> /* sys/resource.h needs this for timeval */
+#include <sys/wait.h> /* for waitpid() and associated macros */
 
 #include <glib.h>
-#include "subprocs.h"
+
+#ifndef ESRCH
+#include <errno.h>
+#endif
+
+#ifdef VMS
+#include <processes.h>
+#include <unixio.h>  /* for close */
+#include <unixlib.h> /* for getpid */
+#define pid_t int
+#define fork vfork
+#endif /* VMS */
+
+#include "src/subprocs.h"
 
 #if !defined(SIGCHLD) && defined(SIGCLD)
 # define SIGCHLD SIGCLD
@@ -56,8 +55,7 @@ sigset_t
 #else  /* !HAVE_SIGACTION */
 int
 #endif /* !HAVE_SIGACTION */
-block_sigchld (void)
-{
+block_sigchld (void) {
 #ifdef HAVE_SIGACTION
     sigset_t child_set;
     sigemptyset (&child_set);
@@ -76,8 +74,7 @@ block_sigchld (void)
 }
 
 void
-unblock_sigchld (void)
-{
+unblock_sigchld (void) {
 #ifdef HAVE_SIGACTION
     sigset_t child_set;
     sigemptyset (&child_set);
@@ -91,8 +88,7 @@ unblock_sigchld (void)
 
 int
 signal_pid (int pid,
-            int signal)
-{
+            int signal) {
     int status = -1;
     gboolean verbose = TRUE;
 
@@ -104,14 +100,12 @@ signal_pid (int pid,
 
     status = kill (pid, signal);
 
-    if (verbose && status < 0)
-    {
-        if (errno == ESRCH)
+    if (verbose && status < 0) {
+        if (errno == ESRCH) {
             g_message ("Child process %lu was already dead.",
                        (unsigned long) pid);
-        else
-        {
-            char buf [1024];
+        } else {
+            char buf[1024];
             snprintf (buf, sizeof (buf), "Couldn't kill child process %lu",
                       (unsigned long) pid);
             perror (buf);
@@ -130,18 +124,15 @@ signal_pid (int pid,
 
 void
 await_dying_children (int      pid,
-                      gboolean debug)
-{
-    while (1)
-    {
+                      gboolean debug) {
+    while (1) {
         int wait_status = 0;
         pid_t kid;
 
         errno = 0;
         kid = waitpid (-1, &wait_status, WNOHANG|WUNTRACED);
 
-        if (debug)
-        {
+        if (debug) {
             if (kid < 0 && errno)
                 g_message ("waitpid(%d) ==> %ld (%d)", pid, (long) kid, errno);
             else if (kid != 0)
@@ -158,8 +149,7 @@ await_dying_children (int      pid,
 
 
 #else  /* VMS */
-static void await_dying_children (saver_info *si)
-{
+static void await_dying_children (saver_info *si) {
     return;
 }
 #endif /* VMS */

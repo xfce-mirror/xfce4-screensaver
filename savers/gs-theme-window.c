@@ -24,18 +24,17 @@
  * Originally written by: Ray Strode <rstrode@redhat.com>
  */
 
-#include "config.h"
+#include <config.h>
 
 #include <errno.h>
 #include <stdlib.h>
 
 #include <glib.h>
 #include <glib-object.h>
-
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 
-#include "gs-theme-window.h"
+#include "savers/gs-theme-window.h"
 
 static void gs_theme_window_finalize     (GObject *object);
 static void gs_theme_window_real_realize (GtkWidget *widget);
@@ -47,8 +46,7 @@ G_DEFINE_TYPE (GSThemeWindow, gs_theme_window, GTK_TYPE_WINDOW)
 #define MIN_SIZE 10
 
 static void
-gs_theme_window_class_init (GSThemeWindowClass *klass)
-{
+gs_theme_window_class_init (GSThemeWindowClass *klass) {
     GObjectClass   *object_class;
     GtkWidgetClass *widget_class;
 
@@ -63,14 +61,12 @@ gs_theme_window_class_init (GSThemeWindowClass *klass)
 }
 
 static void
-gs_theme_window_init (GSThemeWindow *window)
-{
+gs_theme_window_init (GSThemeWindow *window) {
     gtk_widget_set_app_paintable (GTK_WIDGET (window), TRUE);
 }
 
 static void
-gs_theme_window_finalize (GObject *object)
-{
+gs_theme_window_finalize (GObject *object) {
     GObjectClass  *parent_class;
 
     GS_THEME_WINDOW (object);
@@ -82,8 +78,7 @@ gs_theme_window_finalize (GObject *object)
 }
 
 static void
-gs_theme_window_real_realize (GtkWidget *widget)
-{
+gs_theme_window_real_realize (GtkWidget *widget) {
     GdkWindow      *window;
     Window          remote_xwindow;
     GtkRequisition  requisition;
@@ -99,19 +94,16 @@ gs_theme_window_real_realize (GtkWidget *widget)
     window = NULL;
     preview_xid = g_getenv ("XSCREENSAVER_WINDOW");
 
-    if (preview_xid != NULL)
-    {
+    if (preview_xid != NULL) {
         char *end;
 
         remote_xwindow = (Window) strtoul (preview_xid, &end, 0);
 
         if ((remote_xwindow != 0) && (end != NULL) &&
                 ((*end == ' ') || (*end == '\0')) &&
-                ((remote_xwindow < G_MAXULONG) || (errno != ERANGE)))
-        {
+                ((remote_xwindow < G_MAXULONG) || (errno != ERANGE))) {
             window = gdk_x11_window_foreign_new_for_display (gdk_display_get_default (), remote_xwindow);
-            if (window != NULL)
-            {
+            if (window != NULL) {
                 /* This is a kludge; we need to set the same
                  * flags gs-window-x11.c does, to ensure they
                  * don't get unset by gtk_window_map() later.
@@ -131,8 +123,7 @@ gs_theme_window_real_realize (GtkWidget *widget)
         }
     }
 
-    if (window == NULL)
-    {
+    if (window == NULL) {
         GtkWidgetClass *parent_class;
 
         parent_class = GTK_WIDGET_CLASS (gs_theme_window_parent_class);
@@ -156,8 +147,7 @@ gs_theme_window_real_realize (GtkWidget *widget)
 
     gdk_window_get_geometry (window, &x, &y, &width, &height);
 
-    if (width < MIN_SIZE || height < MIN_SIZE)
-    {
+    if (width < MIN_SIZE || height < MIN_SIZE) {
         g_critical ("This window is way too small to use");
         exit (1);
     }
@@ -172,8 +162,7 @@ gs_theme_window_real_realize (GtkWidget *widget)
 }
 
 GtkWidget *
-gs_theme_window_new (void)
-{
+gs_theme_window_new (void) {
     GSThemeWindow *window;
 
     window = g_object_new (GS_TYPE_THEME_WINDOW,

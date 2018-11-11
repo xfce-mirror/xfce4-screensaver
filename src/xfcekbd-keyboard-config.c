@@ -21,14 +21,15 @@
 #include <config.h>
 
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
+
 #include <X11/keysym.h>
 
 #include <libxfce4util/libxfce4util.h>
 
-#include "xfcekbd-keyboard-config.h"
-#include "xfcekbd-config-private.h"
+#include "src/xfcekbd-config-private.h"
+#include "src/xfcekbd-keyboard-config.h"
 
 /*
  * XfcekbdKeyboardConfig
@@ -39,8 +40,7 @@
  */
 static const gchar *
 xfcekbd_keyboard_config_merge_items (const gchar *parent,
-                                     const gchar *child)
-{
+                                     const gchar *child) {
     static gchar buffer[XKL_MAX_CI_NAME_LENGTH * 2 - 1];
     *buffer = '\0';
     if (parent != NULL) {
@@ -60,8 +60,7 @@ xfcekbd_keyboard_config_merge_items (const gchar *parent,
 gboolean
 xfcekbd_keyboard_config_split_items (const gchar  *merged,
                                      gchar       **parent,
-                                     gchar       **child)
-{
+                                     gchar       **child) {
     static gchar  pbuffer[XKL_MAX_CI_NAME_LENGTH];
     static gchar  cbuffer[XKL_MAX_CI_NAME_LENGTH];
     int           plen, clen;
@@ -94,8 +93,7 @@ xfcekbd_keyboard_config_split_items (const gchar  *merged,
  */
 static void
 xfcekbd_keyboard_config_copy_from_xkl_config (XfcekbdKeyboardConfig *kbd_config,
-                                              XklConfigRec          *pdata)
-{
+                                              XklConfigRec          *pdata) {
     char **p, **p1;
     int    i;
 
@@ -161,15 +159,13 @@ xfcekbd_keyboard_config_copy_from_xkl_config (XfcekbdKeyboardConfig *kbd_config,
  */
 void
 xfcekbd_keyboard_config_init (XfcekbdKeyboardConfig *kbd_config,
-                              XklEngine             *engine)
-{
+                              XklEngine             *engine) {
     memset (kbd_config, 0, sizeof (*kbd_config));
     kbd_config->engine = engine;
 }
 
 void
-xfcekbd_keyboard_config_term (XfcekbdKeyboardConfig *kbd_config)
-{
+xfcekbd_keyboard_config_term (XfcekbdKeyboardConfig *kbd_config) {
     xfcekbd_keyboard_config_model_set (kbd_config, NULL);
 
     g_strfreev (kbd_config->layouts_variants);
@@ -180,8 +176,7 @@ xfcekbd_keyboard_config_term (XfcekbdKeyboardConfig *kbd_config)
 
 void
 xfcekbd_keyboard_config_load_from_x_current (XfcekbdKeyboardConfig *kbd_config,
-                                             XklConfigRec          *data)
-{
+                                             XklConfigRec          *data) {
     gboolean own_data = data == NULL;
     xkl_debug (150, "Copying config from X(current)\n");
     if (own_data)
@@ -199,8 +194,7 @@ xfcekbd_keyboard_config_load_from_x_current (XfcekbdKeyboardConfig *kbd_config,
 
 void
 xfcekbd_keyboard_config_model_set (XfcekbdKeyboardConfig *kbd_config,
-                                   const gchar           *model_name)
-{
+                                   const gchar           *model_name) {
     if (kbd_config->model != NULL)
         g_free (kbd_config->model);
     kbd_config->model =
@@ -212,8 +206,7 @@ void
 xfcekbd_keyboard_config_options_set (XfcekbdKeyboardConfig *kbd_config,
                                      gint                   idx,
                                      const gchar           *group_name,
-                                     const gchar           *option_name)
-{
+                                     const gchar           *option_name) {
     const gchar *merged;
     if (group_name == NULL || option_name == NULL)
         return;
@@ -226,8 +219,7 @@ xfcekbd_keyboard_config_options_set (XfcekbdKeyboardConfig *kbd_config,
 
 const gchar *
 xfcekbd_keyboard_config_format_full_layout (const gchar *layout_descr,
-                                            const gchar *variant_descr)
-{
+                                            const gchar *variant_descr) {
     static gchar full_descr[XKL_MAX_CI_DESC_LENGTH * 2];
     if (variant_descr == NULL || variant_descr[0] == 0)
         g_snprintf (full_descr, sizeof (full_descr), "%s",

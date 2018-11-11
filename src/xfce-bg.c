@@ -30,28 +30,27 @@ Authors: Soren Sandmann <sandmann@redhat.com>
 
 */
 
-#include <string.h>
+#include <fcntl.h>
 #include <math.h>
 #include <stdarg.h>
 #include <stdlib.h>
-#include <fcntl.h>
-#include <sys/types.h>
+#include <string.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 
+#include <gio/gio.h>
 #include <glib/gprintf.h>
 #include <glib/gstdio.h>
-#include <gio/gio.h>
 
+#include <cairo.h>
+#include <cairo-xlib.h>
 #include <gdk/gdkx.h>
+
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
 
-#include <cairo.h>
-
 #include <xfce-bg.h>
 #include <xfconf/xfconf.h>
-
-#include <cairo-xlib.h>
 
 #define XFCE_BG_CACHE_DIR "xfce/background"
 #define XFCE_BG_FALLBACK_IMG "xfce-teal.jpg"
@@ -202,8 +201,7 @@ static void        xfce_bg_set_filename     (XfceBG           *bg,
 
 static void        color_from_rgba_array    (XfconfChannel    *channel,
                                              const gchar      *property,
-                                             GdkRGBA          *colorp)
-{
+                                             GdkRGBA          *colorp) {
     gdouble r, g, b, a;
 
     /* If all else fails use Xfdesktop's default */
@@ -228,8 +226,7 @@ static void        color_from_rgba_array    (XfconfChannel    *channel,
 
 static void        color_from_color_array   (XfconfChannel    *channel,
                                              const gchar      *property,
-                                             GdkRGBA          *colorp)
-{
+                                             GdkRGBA          *colorp) {
     guint   rc, gc, bc, ac;
 
     /* If all else fails use Xfdesktop's default */
@@ -253,8 +250,7 @@ static void        color_from_color_array   (XfconfChannel    *channel,
 }
 
 static gboolean
-do_changed (XfceBG *bg)
-{
+do_changed (XfceBG *bg) {
     bg->changed_id = 0;
 
     g_signal_emit (G_OBJECT (bg), signals[CHANGED], 0);
@@ -263,8 +259,7 @@ do_changed (XfceBG *bg)
 }
 
 static void
-queue_changed (XfceBG *bg)
-{
+queue_changed (XfceBG *bg) {
     if (bg->changed_id > 0) {
         g_source_remove (bg->changed_id);
     }
@@ -277,8 +272,7 @@ queue_changed (XfceBG *bg)
 }
 
 static gboolean
-do_transitioned (XfceBG *bg)
-{
+do_transitioned (XfceBG *bg) {
     bg->transitioned_id = 0;
 
     if (bg->pixbuf_cache) {
@@ -292,8 +286,7 @@ do_transitioned (XfceBG *bg)
 }
 
 static void
-queue_transitioned (XfceBG *bg)
-{
+queue_transitioned (XfceBG *bg) {
     if (bg->transitioned_id > 0) {
         g_source_remove (bg->transitioned_id);
     }
@@ -306,30 +299,28 @@ queue_transitioned (XfceBG *bg)
 }
 
 static gchar *
-find_system_backgrounds (void)
-{
-	const gchar * const *dirs;
-	gchar               *path;
-	gint                 i;
+find_system_backgrounds (void) {
+    const gchar * const *dirs;
+    gchar               *path;
+    gint                 i;
 
-	dirs = g_get_system_data_dirs ();
-	for (i = 0; dirs[i]; i++) {
-		path = g_build_path (G_DIR_SEPARATOR_S, dirs[i],
+    dirs = g_get_system_data_dirs ();
+    for (i = 0; dirs[i]; i++) {
+        path = g_build_path (G_DIR_SEPARATOR_S, dirs[i],
                              "backgrounds", "xfce", NULL);
-		if (g_file_test (path, G_FILE_TEST_IS_DIR))
-			return path;
-		else
-			g_free (path);
-	}
+        if (g_file_test (path, G_FILE_TEST_IS_DIR))
+            return path;
+        else
+            g_free (path);
+    }
 
-	return NULL;
+    return NULL;
 }
 
 /* This function loads the user's preferences */
 void
 xfce_bg_load_from_preferences (XfceBG     *bg,
-                               GdkMonitor *monitor)
-{
+                               GdkMonitor *monitor) {
     XfconfChannel *channel;
 
     channel = xfconf_channel_get ("xfce4-desktop");
@@ -341,8 +332,7 @@ xfce_bg_load_from_preferences (XfceBG     *bg,
 
 static gboolean
 xfce_bg_check_property_prefix (XfconfChannel *channel,
-                               gchar         *prefix)
-{
+                               gchar         *prefix) {
     gchar *property;
 
     property = g_strconcat (prefix, "/last-image", NULL);
@@ -392,30 +382,26 @@ xfce_bg_check_property_prefix (XfconfChannel *channel,
 
 static gchar*
 xfce_bg_get_property_prefix (XfconfChannel *channel,
-                             const gchar   *monitor_name)
-{
+                             const gchar   *monitor_name) {
     gchar *prefix;
 
     /* Check for workspace usage */
     prefix = g_strconcat("/backdrop/screen0/monitor", monitor_name, "/workspace0", NULL);
-    if (xfce_bg_check_property_prefix (channel, prefix))
-    {
+    if (xfce_bg_check_property_prefix (channel, prefix)) {
         return prefix;
     }
     g_free(prefix);
 
     /* Check for non-workspace usage */
     prefix = g_strconcat("/backdrop/screen0/monitor", monitor_name, NULL);
-    if (xfce_bg_check_property_prefix (channel, prefix))
-    {
+    if (xfce_bg_check_property_prefix (channel, prefix)) {
         return prefix;
     }
     g_free(prefix);
 
     /* Check defaults */
     prefix = g_strdup("/backdrop/screen0/monitor0/workspace0");
-    if (xfce_bg_check_property_prefix (channel, prefix))
-    {
+    if (xfce_bg_check_property_prefix (channel, prefix)) {
         return prefix;
     }
     g_free(prefix);
@@ -427,8 +413,7 @@ xfce_bg_get_property_prefix (XfconfChannel *channel,
 static void
 xfce_bg_load_from_xfconf (XfceBG        *bg,
                           XfconfChannel *channel,
-                          GdkMonitor    *monitor)
-{
+                          GdkMonitor    *monitor) {
     char            *tmp;
     char            *filename;
     XfceBGColorType  ctype;
@@ -441,17 +426,13 @@ xfce_bg_load_from_xfconf (XfceBG        *bg,
 
     g_return_if_fail(XFCE_IS_BG(bg));
 
-    if (monitor == NULL)
-    {
+    if (monitor == NULL) {
         GdkDisplay *display = gdk_display_get_default();
         mon = gdk_display_get_primary_monitor(display);
-        if (mon == NULL)
-        {
+        if (mon == NULL) {
             mon = gdk_display_get_monitor(display, 0);
         }
-    }
-    else
-    {
+    } else {
         mon = monitor;
     }
 
@@ -547,13 +528,11 @@ xfce_bg_load_from_xfconf (XfceBG        *bg,
 }
 
 static void
-xfce_bg_init (XfceBG *bg)
-{
+xfce_bg_init (XfceBG *bg) {
 }
 
 static void
-xfce_bg_dispose (GObject *object)
-{
+xfce_bg_dispose (GObject *object) {
     XfceBG *bg = XFCE_BG (object);
 
     if (bg->file_monitor) {
@@ -567,8 +546,7 @@ xfce_bg_dispose (GObject *object)
 }
 
 static void
-xfce_bg_finalize (GObject *object)
-{
+xfce_bg_finalize (GObject *object) {
     XfceBG *bg = XFCE_BG (object);
 
     if (bg->changed_id != 0) {
@@ -593,8 +571,7 @@ xfce_bg_finalize (GObject *object)
 }
 
 static void
-xfce_bg_class_init (XfceBGClass *klass)
-{
+xfce_bg_class_init (XfceBGClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
     object_class->dispose = xfce_bg_dispose;
@@ -618,8 +595,7 @@ xfce_bg_class_init (XfceBGClass *klass)
 }
 
 XfceBG *
-xfce_bg_new (void)
-{
+xfce_bg_new (void) {
     return g_object_new (XFCE_TYPE_BG, NULL);
 }
 
@@ -627,15 +603,13 @@ static void
 xfce_bg_set_color (XfceBG          *bg,
                    XfceBGColorType  type,
                    GdkRGBA         *primary,
-                   GdkRGBA         *secondary)
-{
+                   GdkRGBA         *secondary) {
     g_return_if_fail (bg != NULL);
     g_return_if_fail (primary != NULL);
 
     if (bg->color_type != type ||
             !gdk_rgba_equal (&bg->primary, primary) ||
-            (secondary && !gdk_rgba_equal (&bg->secondary, secondary)))
-    {
+            (secondary && !gdk_rgba_equal (&bg->secondary, secondary))) {
         bg->color_type = type;
         bg->primary = *primary;
         if (secondary) {
@@ -648,8 +622,7 @@ xfce_bg_set_color (XfceBG          *bg,
 
 static void
 xfce_bg_set_placement (XfceBG          *bg,
-                       XfceBGPlacement  placement)
-{
+                       XfceBGPlacement  placement) {
     g_return_if_fail (bg != NULL);
 
     if (bg->placement != placement) {
@@ -660,8 +633,7 @@ xfce_bg_set_placement (XfceBG          *bg,
 }
 
 static inline gchar *
-get_wallpaper_cache_dir ()
-{
+get_wallpaper_cache_dir () {
     return g_build_filename (g_get_user_cache_dir(), XFCE_BG_CACHE_DIR, NULL);
 }
 
@@ -669,8 +641,7 @@ static inline gchar *
 get_wallpaper_cache_prefix_name (gint            num_monitor,
                                  XfceBGPlacement placement,
                                  gint            width,
-                                 gint            height)
-{
+                                 gint            height) {
     return g_strdup_printf ("%i_%i_%i_%i", num_monitor, (gint) placement, width, height);
 }
 
@@ -679,8 +650,7 @@ get_wallpaper_cache_filename (const char      *filename,
                               gint             num_monitor,
                               XfceBGPlacement  placement,
                               gint             width,
-                              gint             height)
-{
+                              gint             height) {
     gchar *cache_filename;
     gchar *cache_prefix_name;
     gchar *md5_filename;
@@ -704,8 +674,7 @@ get_wallpaper_cache_filename (const char      *filename,
 
 static void
 cleanup_cache_for_monitor (gchar *cache_dir,
-                           gint   num_monitor)
-{
+                           gint   num_monitor) {
     GDir        *g_cache_dir;
     gchar       *monitor_prefix;
     const gchar *file;
@@ -733,8 +702,7 @@ cleanup_cache_for_monitor (gchar *cache_dir,
 
 static gboolean
 cache_file_is_valid (const char *filename,
-                     const char *cache_filename)
-{
+                     const char *cache_filename) {
     time_t mtime;
     time_t cache_mtime;
 
@@ -752,8 +720,7 @@ refresh_cache_file (XfceBG    *bg,
                     GdkPixbuf *new_pixbuf,
                     gint       num_monitor,
                     gint       width,
-                    gint       height)
-{
+                    gint       height) {
     gchar           *cache_filename;
     gchar           *cache_dir;
     GdkPixbufFormat *format;
@@ -799,8 +766,7 @@ file_changed (GFileMonitor      *file_monitor,
               GFile             *child,
               GFile             *other_file,
               GFileMonitorEvent  event_type,
-              gpointer           user_data)
-{
+              gpointer           user_data) {
     XfceBG *bg = XFCE_BG (user_data);
 
     clear_cache (bg);
@@ -809,8 +775,7 @@ file_changed (GFileMonitor      *file_monitor,
 
 static void
 xfce_bg_set_filename (XfceBG     *bg,
-                      const char *filename)
-{
+                      const char *filename) {
     g_return_if_fail (bg != NULL);
 
     if (is_different (bg, filename)) {
@@ -843,8 +808,7 @@ xfce_bg_set_filename (XfceBG     *bg,
 static void
 draw_color_area (XfceBG       *bg,
                  GdkPixbuf    *dest,
-                 GdkRectangle *rect)
-{
+                 GdkRectangle *rect) {
     guint32 pixel;
     GdkRectangle extent;
 
@@ -881,8 +845,7 @@ draw_color_area (XfceBG       *bg,
 
 static void
 draw_color (XfceBG    *bg,
-            GdkPixbuf *dest)
-{
+            GdkPixbuf *dest) {
     GdkRectangle rect;
 
     rect.x = 0;
@@ -895,8 +858,7 @@ draw_color (XfceBG    *bg,
 static GdkPixbuf *
 pixbuf_clip_to_fit (GdkPixbuf *src,
                     int        max_width,
-                    int        max_height)
-{
+                    int        max_height) {
     int src_width, src_height;
     int w, h;
     int src_x, src_y;
@@ -933,8 +895,7 @@ get_scaled_pixbuf (XfceBGPlacement  placement,
                    int             *x,
                    int             *y,
                    int             *w,
-                   int             *h)
-{
+                   int             *h) {
     GdkPixbuf *new;
 
 #if 0
@@ -981,8 +942,7 @@ draw_image_area (XfceBG       *bg,
                  gint          num_monitor,
                  GdkPixbuf    *pixbuf,
                  GdkPixbuf    *dest,
-                 GdkRectangle *area)
-{
+                 GdkRectangle *area) {
     int dest_width = area->width;
     int dest_height = area->height;
     int x, y, w, h;
@@ -1018,8 +978,7 @@ draw_image_area (XfceBG       *bg,
 
 static void
 draw_once (XfceBG    *bg,
-           GdkPixbuf *dest)
-{
+           GdkPixbuf *dest) {
     GdkRectangle  rect;
     GdkPixbuf    *pixbuf;
     gint          monitor;
@@ -1041,8 +1000,7 @@ draw_once (XfceBG    *bg,
 
 static void
 xfce_bg_draw (XfceBG    *bg,
-              GdkPixbuf *dest)
-{
+              GdkPixbuf *dest) {
     if (!bg)
         return;
 
@@ -1057,8 +1015,7 @@ xfce_bg_get_pixmap_size (XfceBG   *bg,
                          int       width,
                          int       height,
                          int      *pixmap_width,
-                         int      *pixmap_height)
-{
+                         int      *pixmap_height) {
     int dummy;
 
     if (!pixmap_width)
@@ -1101,8 +1058,7 @@ xfce_bg_create_surface (XfceBG    *bg,
                         int        screen_width,
                         int        screen_height,
                         int        monitor_width,
-                        int        monitor_height)
-{
+                        int        monitor_height) {
     return xfce_bg_create_surface_scale (bg,
                                          window,
                                          screen_width,
@@ -1117,19 +1073,15 @@ xfce_bg_get_pixbuf(XfceBG *bg,
                    int     screen_width,
                    int     screen_height,
                    int     monitor_width,
-                   int     monitor_height)
-{
+                   int     monitor_height) {
     GdkPixbuf *pixbuf;
     gint       width;
     gint       height;
 
-    if (bg->placement == XFCE_BG_PLACEMENT_SPANNED)
-    {
+    if (bg->placement == XFCE_BG_PLACEMENT_SPANNED) {
         width = screen_width;
         height = screen_height;
-    }
-    else
-    {
+    } else {
         width = monitor_width;
         height = monitor_height;
     }
@@ -1159,8 +1111,7 @@ xfce_bg_create_surface_scale (XfceBG    *bg,
                               int        screen_height,
                               int        monitor_width,
                               int        monitor_height,
-                              int        scale)
-{
+                              int        scale) {
     int              pm_width, pm_height;
     int              width, height;
 
@@ -1180,8 +1131,7 @@ xfce_bg_create_surface_scale (XfceBG    *bg,
 
     if (bg->pixbuf_cache &&
         (gdk_pixbuf_get_width(bg->pixbuf_cache) != width ||
-            gdk_pixbuf_get_height(bg->pixbuf_cache) != height))
-    {
+            gdk_pixbuf_get_height(bg->pixbuf_cache) != height)) {
         g_object_unref(bg->pixbuf_cache);
         bg->pixbuf_cache = NULL;
     }
@@ -1196,9 +1146,7 @@ xfce_bg_create_surface_scale (XfceBG    *bg,
 
     if (!bg->filename && bg->color_type == XFCE_BG_COLOR_SOLID) {
         gdk_cairo_set_source_rgba (cr, &(bg->primary));
-    }
-    else
-    {
+    } else {
         GdkPixbuf *pixbuf = xfce_bg_get_pixbuf(bg, screen_width, screen_height, monitor_width, monitor_height);
         gdk_cairo_set_source_pixbuf (cr, pixbuf, 0, 0);
         g_object_unref (pixbuf);
@@ -1212,8 +1160,7 @@ xfce_bg_create_surface_scale (XfceBG    *bg,
 }
 
 /* Implementation of the pixbuf cache */
-struct _SlideShow
-{
+struct _SlideShow {
     gint      ref_count;
     double    start_time;
     double    total_duration;
@@ -1228,8 +1175,7 @@ struct _SlideShow
 };
 
 static double
-now (void)
-{
+now (void) {
     GTimeVal tv;
 
     g_get_current_time (&tv);
@@ -1239,8 +1185,7 @@ now (void)
 
 static Slide *
 get_current_slide (SlideShow *show,
-                   double    *alpha)
-{
+                   double    *alpha) {
     double  delta = fmod (now() - show->start_time, show->total_duration);
     GList  *list;
     double  elapsed;
@@ -1275,8 +1220,7 @@ get_current_slide (SlideShow *show,
 static GdkPixbuf *
 blend (GdkPixbuf *p1,
        GdkPixbuf *p2,
-       double     alpha)
-{
+       double     alpha) {
     GdkPixbuf *result = gdk_pixbuf_copy (p1);
     GdkPixbuf *tmp;
 
@@ -1286,8 +1230,7 @@ blend (GdkPixbuf *p1,
                            gdk_pixbuf_get_width (p1),
                            gdk_pixbuf_get_height (p1),
                            GDK_INTERP_BILINEAR);
-    }
-        else {
+    } else {
         tmp = g_object_ref (p2);
     }
 
@@ -1304,8 +1247,7 @@ typedef enum {
     THUMBNAIL
 } FileType;
 
-struct FileCacheEntry
-{
+struct FileCacheEntry {
     FileType type;
     char *filename;
     union {
@@ -1316,8 +1258,7 @@ struct FileCacheEntry
 };
 
 static void
-file_cache_entry_delete (FileCacheEntry *ent)
-{
+file_cache_entry_delete (FileCacheEntry *ent) {
     g_free (ent->filename);
 
     switch (ent->type) {
@@ -1336,8 +1277,7 @@ file_cache_entry_delete (FileCacheEntry *ent)
 }
 
 static void
-bound_cache (XfceBG *bg)
-{
+bound_cache (XfceBG *bg) {
       while (g_list_length (bg->file_cache) >= CACHE_SIZE) {
           GList *last_link = g_list_last (bg->file_cache);
           FileCacheEntry *ent = last_link->data;
@@ -1351,8 +1291,7 @@ bound_cache (XfceBG *bg)
 static const FileCacheEntry *
 file_cache_lookup (XfceBG     *bg,
                    FileType    type,
-                   const char *filename)
-{
+                   const char *filename) {
     GList *list;
 
     for (list = bg->file_cache; list != NULL; list = list->next) {
@@ -1370,8 +1309,7 @@ file_cache_lookup (XfceBG     *bg,
 static FileCacheEntry *
 file_cache_entry_new (XfceBG     *bg,
                       FileType    type,
-                      const char *filename)
-{
+                      const char *filename) {
     FileCacheEntry *ent = g_new0 (FileCacheEntry, 1);
 
     g_assert (!file_cache_lookup (bg, type, filename));
@@ -1389,8 +1327,7 @@ file_cache_entry_new (XfceBG     *bg,
 static void
 file_cache_add_pixbuf (XfceBG     *bg,
                        const char *filename,
-                       GdkPixbuf  *pixbuf)
-{
+                       GdkPixbuf  *pixbuf) {
     FileCacheEntry *ent = file_cache_entry_new (bg, PIXBUF, filename);
     ent->u.pixbuf = g_object_ref (pixbuf);
 }
@@ -1398,8 +1335,7 @@ file_cache_add_pixbuf (XfceBG     *bg,
 static void
 file_cache_add_slide_show (XfceBG     *bg,
                            const char *filename,
-                           SlideShow  *show)
-{
+                           SlideShow  *show) {
     FileCacheEntry *ent = file_cache_entry_new (bg, SLIDESHOW, filename);
     ent->u.slideshow = slideshow_ref (show);
 }
@@ -1409,8 +1345,7 @@ load_from_cache_file (XfceBG     *bg,
                       const char *filename,
                       gint        num_monitor,
                       gint        best_width,
-                      gint        best_height)
-{
+                      gint        best_height) {
     GdkPixbuf *pixbuf = NULL;
     gchar *cache_filename;
 
@@ -1430,8 +1365,7 @@ get_as_pixbuf_for_size (XfceBG     *bg,
                         const char *filename,
                         gint        monitor,
                         gint        best_width,
-                        gint        best_height)
-{
+                        gint        best_height) {
     const FileCacheEntry *ent;
 
     if ((ent = file_cache_lookup (bg, PIXBUF, filename))) {
@@ -1457,8 +1391,7 @@ get_as_pixbuf_for_size (XfceBG     *bg,
                 (best_width > 0 && best_height > 0) &&
                 (bg->placement == XFCE_BG_PLACEMENT_FILL_SCREEN ||
                  bg->placement == XFCE_BG_PLACEMENT_SCALED ||
-                 bg->placement == XFCE_BG_PLACEMENT_ZOOMED))
-            {
+                 bg->placement == XFCE_BG_PLACEMENT_ZOOMED)) {
                 pixbuf = gdk_pixbuf_new_from_file_at_size (filename,
                                        best_width,
                                        best_height, NULL);
@@ -1483,13 +1416,11 @@ get_as_pixbuf_for_size (XfceBG     *bg,
 
 static SlideShow *
 get_as_slideshow (XfceBG     *bg,
-                  const char *filename)
-{
+                  const char *filename) {
     const FileCacheEntry *ent;
     if ((ent = file_cache_lookup (bg, SLIDESHOW, filename))) {
         return slideshow_ref (ent->u.slideshow);
-    }
-    else {
+    } else {
         SlideShow *show = read_slideshow_file (filename, NULL);
 
         if (show)
@@ -1500,8 +1431,7 @@ get_as_slideshow (XfceBG     *bg,
 }
 
 static gboolean
-blow_expensive_caches (gpointer data)
-{
+blow_expensive_caches (gpointer data) {
     XfceBG *bg = data;
     GList  *list;
 
@@ -1528,8 +1458,7 @@ blow_expensive_caches (gpointer data)
 }
 
 static void
-blow_expensive_caches_in_idle (XfceBG *bg)
-{
+blow_expensive_caches_in_idle (XfceBG *bg) {
     if (bg->blow_caches_id == 0) {
         bg->blow_caches_id =
             g_idle_add (blow_expensive_caches,
@@ -1539,8 +1468,7 @@ blow_expensive_caches_in_idle (XfceBG *bg)
 
 
 static gboolean
-on_timeout (gpointer data)
-{
+on_timeout (gpointer data) {
     XfceBG *bg = data;
 
     bg->timeout_id = 0;
@@ -1551,8 +1479,7 @@ on_timeout (gpointer data)
 }
 
 static double
-get_slide_timeout (Slide   *slide)
-{
+get_slide_timeout (Slide *slide) {
     double timeout;
     if (slide->fixed) {
         timeout = slide->duration;
@@ -1576,8 +1503,7 @@ get_slide_timeout (Slide   *slide)
 
 static void
 ensure_timeout (XfceBG *bg,
-                Slide  *slide)
-{
+                Slide  *slide) {
     if (!bg->timeout_id) {
         double timeout = get_slide_timeout (slide);
 
@@ -1587,13 +1513,11 @@ ensure_timeout (XfceBG *bg,
                 G_PRIORITY_LOW,
                 timeout * 1000, on_timeout, bg, NULL);
         }
-
     }
 }
 
 static time_t
-get_mtime (const char *filename)
-{
+get_mtime (const char *filename) {
     GFile     *file;
     GFileInfo *info;
     time_t     mtime;
@@ -1626,8 +1550,7 @@ get_mtime (const char *filename)
 static FileSize *
 find_best_size (GSList *sizes,
                 gint    width,
-                gint    height)
-{
+                gint    height) {
     GSList   *s;
     gdouble   a, d, distance;
     FileSize *best = NULL;
@@ -1647,8 +1570,7 @@ find_best_size (GSList *sizes,
             if (d < distance) {
                 distance = d;
                 best = size;
-            }
-            else if (d == distance) {
+            } else if (d == distance) {
                 if (abs (size->width - width) < abs (best->width - width)) {
                     best = size;
                 }
@@ -1666,8 +1588,7 @@ static GdkPixbuf *
 get_pixbuf_for_size (XfceBG *bg,
                      gint    monitor,
                      gint    best_width,
-                     gint    best_height)
-{
+                     gint    best_height) {
     guint time_until_next_change;
     gboolean hit_cache = FALSE;
 
@@ -1749,18 +1670,14 @@ get_pixbuf_for_size (XfceBG *bg,
 
 static gboolean
 is_different (XfceBG     *bg,
-              const char *filename)
-{
+              const char *filename) {
     if (!filename && bg->filename) {
         return TRUE;
-    }
-    else if (filename && !bg->filename) {
+    } else if (filename && !bg->filename) {
         return TRUE;
-    }
-    else if (!filename && !bg->filename) {
+    } else if (!filename && !bg->filename) {
         return FALSE;
-    }
-    else {
+    } else {
         time_t mtime = get_mtime (filename);
 
         if (mtime != bg->file_mtime)
@@ -1774,8 +1691,7 @@ is_different (XfceBG     *bg,
 }
 
 static void
-clear_cache (XfceBG *bg)
-{
+clear_cache (XfceBG *bg) {
     GList *list;
 
     if (bg->file_cache) {
@@ -1804,8 +1720,7 @@ clear_cache (XfceBG *bg)
 static GdkPixbuf *
 pixbuf_scale_to_fit (GdkPixbuf *src,
                      int        max_width,
-                     int        max_height)
-{
+                     int        max_height) {
     double factor;
     int    src_width, src_height;
     int    new_width, new_height;
@@ -1824,8 +1739,7 @@ pixbuf_scale_to_fit (GdkPixbuf *src,
 static GdkPixbuf *
 pixbuf_scale_to_min (GdkPixbuf *src,
                      int        min_width,
-                     int        min_height)
-{
+                     int        min_height) {
     double     factor;
     int        src_width, src_height;
     int        new_width, new_height;
@@ -1860,8 +1774,7 @@ pixbuf_scale_to_min (GdkPixbuf *src,
 static guchar *
 create_gradient (const GdkRGBA *primary,
                  const GdkRGBA *secondary,
-                 int            n_pixels)
-{
+                 int            n_pixels) {
     guchar *result = g_malloc (n_pixels * 3);
     int     i;
 
@@ -1881,8 +1794,7 @@ pixbuf_draw_gradient (GdkPixbuf    *pixbuf,
                       gboolean      horizontal,
                       GdkRGBA      *primary,
                       GdkRGBA      *secondary,
-                      GdkRectangle *rect)
-{
+                      GdkRectangle *rect) {
     int     width;
     int     height;
     int     rowstride;
@@ -1938,8 +1850,7 @@ pixbuf_blend (GdkPixbuf *src,
               int        src_height,
               int        dest_x,
               int        dest_y,
-              double     alpha)
-{
+              double     alpha) {
     int dest_width = gdk_pixbuf_get_width (dest);
     int dest_height = gdk_pixbuf_get_height (dest);
     int offset_x = dest_x - src_x;
@@ -1975,8 +1886,7 @@ pixbuf_blend (GdkPixbuf *src,
 
 static void
 pixbuf_tile (GdkPixbuf *src,
-             GdkPixbuf *dest)
-{
+             GdkPixbuf *dest) {
     int x, y;
     int tile_width, tile_height;
     int dest_width = gdk_pixbuf_get_width (dest);
@@ -2004,8 +1914,7 @@ handle_start_element (GMarkupParseContext  *context,
                       const gchar         **attr_names,
                       const gchar         **attr_values,
                       gpointer              user_data,
-                      GError              **err)
-{
+                      GError              **err) {
     SlideShow *parser = user_data;
     gint       i;
 
@@ -2016,8 +1925,7 @@ handle_start_element (GMarkupParseContext  *context,
             slide->fixed = TRUE;
 
         g_queue_push_tail (parser->slides, slide);
-    }
-    else if (strcmp (name, "size") == 0) {
+    } else if (strcmp (name, "size") == 0) {
         Slide *slide = parser->slides->tail->data;
         FileSize *size = g_new0 (FileSize, 1);
         for (i = 0; attr_names[i]; i++) {
@@ -2030,8 +1938,7 @@ handle_start_element (GMarkupParseContext  *context,
             (strcmp (parser->stack->tail->data, "file") == 0 ||
              strcmp (parser->stack->tail->data, "from") == 0)) {
             slide->file1 = g_slist_prepend (slide->file1, size);
-        }
-        else if (parser->stack->tail &&
+        } else if (parser->stack->tail &&
              strcmp (parser->stack->tail->data, "to") == 0) {
             slide->file2 = g_slist_prepend (slide->file2, size);
         }
@@ -2043,8 +1950,7 @@ static void
 handle_end_element (GMarkupParseContext  *context,
                     const gchar          *name,
                     gpointer              user_data,
-                    GError              **err)
-{
+                    GError              **err) {
     SlideShow *parser = user_data;
 
     g_free (g_queue_pop_tail (parser->stack));
@@ -2053,8 +1959,7 @@ handle_end_element (GMarkupParseContext  *context,
 static gboolean
 stack_is (SlideShow  *parser,
           const char *s1,
-          ...)
-{
+          ...) {
     GList      *stack = NULL;
     const char *s;
     GList      *l1, *l2;
@@ -2091,8 +1996,7 @@ stack_is (SlideShow  *parser,
 }
 
 static int
-parse_int (const char *text)
-{
+parse_int (const char *text) {
     return strtol (text, NULL, 0);
 }
 
@@ -2101,8 +2005,7 @@ handle_text (GMarkupParseContext  *context,
              const gchar          *text,
              gsize                 text_len,
              gpointer              user_data,
-             GError              **err)
-{
+             GError              **err) {
     SlideShow *parser = user_data;
     FileSize  *fs;
     gint       i;
@@ -2114,30 +2017,23 @@ handle_text (GMarkupParseContext  *context,
 
     if (stack_is (parser, "year", "starttime", "background", NULL)) {
         parser->start_tm.tm_year = parse_int (text) - 1900;
-    }
-    else if (stack_is (parser, "month", "starttime", "background", NULL)) {
+    } else if (stack_is (parser, "month", "starttime", "background", NULL)) {
         parser->start_tm.tm_mon = parse_int (text) - 1;
-    }
-    else if (stack_is (parser, "day", "starttime", "background", NULL)) {
+    } else if (stack_is (parser, "day", "starttime", "background", NULL)) {
         parser->start_tm.tm_mday = parse_int (text);
-    }
-    else if (stack_is (parser, "hour", "starttime", "background", NULL)) {
+    } else if (stack_is (parser, "hour", "starttime", "background", NULL)) {
         parser->start_tm.tm_hour = parse_int (text) - 1;
-    }
-    else if (stack_is (parser, "minute", "starttime", "background", NULL)) {
+    } else if (stack_is (parser, "minute", "starttime", "background", NULL)) {
         parser->start_tm.tm_min = parse_int (text);
-    }
-    else if (stack_is (parser, "second", "starttime", "background", NULL)) {
+    } else if (stack_is (parser, "second", "starttime", "background", NULL)) {
         parser->start_tm.tm_sec = parse_int (text);
-    }
-    else if (stack_is (parser, "duration", "static", "background", NULL) ||
+    } else if (stack_is (parser, "duration", "static", "background", NULL) ||
          stack_is (parser, "duration", "transition", "background", NULL)) {
         g_return_if_fail (slide != NULL);
 
         slide->duration = g_strtod (text, NULL);
         parser->total_duration += slide->duration;
-    }
-    else if (stack_is (parser, "file", "static", "background", NULL) ||
+    } else if (stack_is (parser, "file", "static", "background", NULL) ||
          stack_is (parser, "from", "transition", "background", NULL)) {
         g_return_if_fail (slide != NULL);
 
@@ -2154,8 +2050,7 @@ handle_text (GMarkupParseContext  *context,
         slide->file1 = g_slist_prepend (slide->file1, fs);
         if (slide->file1->next != NULL)
             parser->has_multiple_sizes = TRUE;
-    }
-    else if (stack_is (parser, "size", "file", "static", "background", NULL) ||
+    } else if (stack_is (parser, "size", "file", "static", "background", NULL) ||
          stack_is (parser, "size", "from", "transition", "background", NULL)) {
         g_return_if_fail (slide != NULL);
 
@@ -2163,8 +2058,7 @@ handle_text (GMarkupParseContext  *context,
         fs->file = g_strdup (text);
         if (slide->file1->next != NULL)
             parser->has_multiple_sizes = TRUE;
-    }
-    else if (stack_is (parser, "to", "transition", "background", NULL)) {
+    } else if (stack_is (parser, "to", "transition", "background", NULL)) {
         g_return_if_fail (slide != NULL);
 
         for (i = 0; text[i]; i++) {
@@ -2180,8 +2074,7 @@ handle_text (GMarkupParseContext  *context,
         slide->file2 = g_slist_prepend (slide->file2, fs);
         if (slide->file2->next != NULL)
             parser->has_multiple_sizes = TRUE;
-    }
-    else if (stack_is (parser, "size", "to", "transition", "background", NULL)) {
+    } else if (stack_is (parser, "size", "to", "transition", "background", NULL)) {
         g_return_if_fail (slide != NULL);
 
         fs = slide->file2->data;
@@ -2192,15 +2085,13 @@ handle_text (GMarkupParseContext  *context,
 }
 
 static SlideShow *
-slideshow_ref (SlideShow *show)
-{
+slideshow_ref (SlideShow *show) {
     show->ref_count++;
     return show;
 }
 
 static void
-slideshow_unref (SlideShow *show)
-{
+slideshow_unref (SlideShow *show) {
     GList    *list;
     GSList   *slist;
     FileSize *size;
@@ -2238,14 +2129,12 @@ slideshow_unref (SlideShow *show)
 }
 
 static void
-dump_bg (SlideShow *show)
-{
+dump_bg (SlideShow *show) {
 #if 0
     GList  *list;
     GSList *slist;
 
-    for (list = show->slides->head; list != NULL; list = list->next)
-    {
+    for (list = show->slides->head; list != NULL; list = list->next) {
         Slide *slide = list->data;
 
         g_print ("\nSlide: %s\n", slide->fixed? "fixed" : "transition");
@@ -2268,8 +2157,7 @@ dump_bg (SlideShow *show)
 
 static void
 threadsafe_localtime (time_t     time,
-                      struct tm *tm)
-{
+                      struct tm *tm) {
     struct tm *res;
 
     G_LOCK_DEFINE_STATIC (localtime_mutex);
@@ -2286,8 +2174,7 @@ threadsafe_localtime (time_t     time,
 
 static SlideShow *
 read_slideshow_file (const char  *filename,
-                     GError     **err)
-{
+                     GError     **err) {
     GMarkupParser parser = {
         handle_start_element,
         handle_end_element,

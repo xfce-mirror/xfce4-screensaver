@@ -23,54 +23,45 @@
  *
  */
 
-#include "config.h"
+#include <config.h>
 
 #define _GNU_SOURCE
-#include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>          /* For uid_t, gid_t */
+#include <unistd.h>
 
+#include <gio/gio.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 #include <gtk/gtkx.h>
 
-#include <gio/gio.h>
-
 #include <libxfce4ui/libxfce4ui.h>
-
-#include "xfce-desktop-utils.h"
-
-#include "gs-debug.h"
-
-#include "copy-theme-dialog.h"
-
-#include "gs-theme-manager.h"
-#include "gs-job.h"
-#include "gs-prefs.h" /* for GS_MODE enum */
-
-#include "xfce4-screensaver-preferences-ui.h"
-
 #include <xfconf/xfconf.h>
+
+#include "src/copy-theme-dialog.h"
+#include "src/gs-debug.h"
+#include "src/gs-job.h"
+#include "src/gs-prefs.h" /* for GS_MODE enum */
+#include "src/gs-theme-manager.h"
+#include "src/xfce-desktop-utils.h"
+#include "src/xfce4-screensaver-preferences-ui.h"
 
 #define GPM_COMMAND "xfce4-power-manager-settings"
 
-enum
-{
+enum {
     NAME_COLUMN = 0,
     ID_COLUMN,
     N_COLUMNS
 };
 
 /* Drag and drop info */
-enum
-{
+enum {
     TARGET_URI_LIST,
     TARGET_NS_URL
 };
 
-static GtkTargetEntry drop_types [] =
-{
+static GtkTargetEntry drop_types[] = {
     { "text/uri-list", 0, TARGET_URI_LIST },
     { "_NETSCAPE_URL", 0, TARGET_NS_URL }
 };
@@ -81,27 +72,24 @@ static GSJob          *job = NULL;
 static XfconfChannel  *screensaver_channel = NULL;
 
 static gint opt_socket_id = 0;
-static GOptionEntry entries[] =
-{
-    { "socket-id", 's', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_INT, &opt_socket_id, N_("Settings manager socket"), N_("SOCKET ID") },
+static GOptionEntry entries[] = {
+    { "socket-id", 's', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_INT, &opt_socket_id,
+        N_("Settings manager socket"), N_("SOCKET ID") },
     { NULL }
 };
 
 static gint32
-config_get_activate_delay (gboolean *is_writable)
-{
+config_get_activate_delay (gboolean *is_writable) {
     gint32 delay;
 
-    if (is_writable)
-    {
+    if (is_writable) {
         *is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
                        KEY_IDLE_DELAY);
     }
 
     delay = xfconf_channel_get_int (screensaver_channel, KEY_IDLE_DELAY, DEFAULT_KEY_IDLE_DELAY);
 
-    if (delay < 1)
-    {
+    if (delay < 1) {
         delay = 1;
     }
 
@@ -109,18 +97,15 @@ config_get_activate_delay (gboolean *is_writable)
 }
 
 static void
-config_set_activate_delay (gint32 timeout)
-{
+config_set_activate_delay (gint32 timeout) {
     xfconf_channel_set_int (screensaver_channel, KEY_IDLE_DELAY, timeout);
 }
 
 static int
-config_get_mode (gboolean *is_writable)
-{
+config_get_mode (gboolean *is_writable) {
     int mode;
 
-    if (is_writable)
-    {
+    if (is_writable) {
         *is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
                        KEY_MODE);
     }
@@ -131,50 +116,40 @@ config_get_mode (gboolean *is_writable)
 }
 
 static void
-config_set_mode (int mode)
-{
+config_set_mode (int mode) {
     xfconf_channel_set_int (screensaver_channel, KEY_MODE, mode);
 }
 
 static char *
-config_get_theme (gboolean *is_writable)
-{
+config_get_theme (gboolean *is_writable) {
     char *name;
     int   mode;
 
-    if (is_writable)
-    {
+    if (is_writable) {
         gboolean can_write_theme = TRUE;
         gboolean can_write_mode = TRUE;
 
         can_write_theme = !xfconf_channel_is_property_locked (screensaver_channel,
                                                               KEY_THEMES);
         can_write_mode = !xfconf_channel_is_property_locked (screensaver_channel,
-                                                              KEY_MODE);
+                                                             KEY_MODE);
         *is_writable = can_write_theme && can_write_mode;
     }
 
     mode = config_get_mode (NULL);
 
     name = NULL;
-    if (mode == GS_MODE_BLANK_ONLY)
-    {
+    if (mode == GS_MODE_BLANK_ONLY) {
         name = g_strdup ("__blank-only");
-    }
-    else if (mode == GS_MODE_RANDOM)
-    {
+    } else if (mode == GS_MODE_RANDOM) {
         name = g_strdup ("__random");
-    }
-    else
-    {
+    } else {
         gchar **strv;
         strv = xfconf_channel_get_string_list (screensaver_channel,
                                                KEY_THEMES);
         if (strv != NULL) {
             name = g_strdup (strv[0]);
-        }
-        else
-        {
+        } else {
             /* TODO: handle error */
             /* default to blank */
             name = g_strdup ("__blank-only");
@@ -187,8 +162,7 @@ config_get_theme (gboolean *is_writable)
 }
 
 static gchar **
-get_all_theme_ids (GSThemeManager *theme_manager)
-{
+get_all_theme_ids (GSThemeManager *theme_manager) {
     gchar  **ids = NULL;
     GSList  *entries;
     GSList  *l;
@@ -196,8 +170,7 @@ get_all_theme_ids (GSThemeManager *theme_manager)
 
     entries = gs_theme_manager_get_info_list (theme_manager);
     ids = g_new0 (gchar *, g_slist_length (entries) + 1);
-    for (l = entries; l; l = l->next)
-    {
+    for (l = entries; l; l = l->next) {
         GSThemeInfo *info = l->data;
 
         ids[idx++] = g_strdup (gs_theme_info_get_id (info));
@@ -209,24 +182,18 @@ get_all_theme_ids (GSThemeManager *theme_manager)
 }
 
 static void
-config_set_theme (const char *theme_id)
-{
+config_set_theme (const char *theme_id) {
     gchar **strv = NULL;
     int     mode;
 
-    if (theme_id && strcmp (theme_id, "__blank-only") == 0)
-    {
+    if (theme_id && strcmp (theme_id, "__blank-only") == 0) {
         mode = GS_MODE_BLANK_ONLY;
-    }
-    else if (theme_id && strcmp (theme_id, "__random") == 0)
-    {
+    } else if (theme_id && strcmp (theme_id, "__random") == 0) {
         mode = GS_MODE_RANDOM;
 
         /* set the themes key to contain all available screensavers */
         strv = get_all_theme_ids (theme_manager);
-    }
-    else
-    {
+    } else {
         mode = GS_MODE_SINGLE;
         strv = g_strsplit (theme_id, "%%%", 1);
     }
@@ -241,12 +208,10 @@ config_set_theme (const char *theme_id)
 }
 
 static gboolean
-config_get_enabled (gboolean *is_writable)
-{
+config_get_enabled (gboolean *is_writable) {
     int enabled;
 
-    if (is_writable)
-    {
+    if (is_writable) {
         *is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
                                                            KEY_LOCK_ENABLED);
     }
@@ -259,20 +224,17 @@ config_get_enabled (gboolean *is_writable)
 }
 
 static void
-config_set_enabled (gboolean enabled)
-{
+config_set_enabled (gboolean enabled) {
     xfconf_channel_set_bool (screensaver_channel,
                              KEY_IDLE_ACTIVATION_ENABLED,
                              enabled);
 }
 
 static gboolean
-config_get_lock (gboolean *is_writable)
-{
+config_get_lock (gboolean *is_writable) {
     gboolean lock;
 
-    if (is_writable)
-    {
+    if (is_writable) {
         *is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
                                                            KEY_LOCK_ENABLED);
     }
@@ -285,30 +247,26 @@ config_get_lock (gboolean *is_writable)
 }
 
 static void
-config_set_lock (gboolean lock)
-{
+config_set_lock (gboolean lock) {
     xfconf_channel_set_bool (screensaver_channel, KEY_LOCK_ENABLED, lock);
 }
 
 static void
 job_set_theme (GSJob      *job,
-               const char *theme)
-{
+               const char *theme) {
     GSThemeInfo *info;
     const char  *command;
 
     command = NULL;
 
     info = gs_theme_manager_lookup_theme_info (theme_manager, theme);
-    if (info != NULL)
-    {
+    if (info != NULL) {
         command = gs_theme_info_get_exec (info);
     }
 
     gs_job_set_command (job, command);
 
-    if (info != NULL)
-    {
+    if (info != NULL) {
         gs_theme_info_unref (info);
     }
 }
@@ -316,10 +274,8 @@ job_set_theme (GSJob      *job,
 static gboolean
 preview_on_draw (GtkWidget *widget,
                  cairo_t   *cr,
-                 gpointer   data)
-{
-    if (job == NULL || !gs_job_is_running (job))
-    {
+                 gpointer   data) {
+    if (job == NULL || !gs_job_is_running (job)) {
         cairo_set_operator (cr, CAIRO_OPERATOR_OVER);
         cairo_set_source_rgb (cr, 0, 0, 0);
         cairo_paint (cr);
@@ -331,13 +287,11 @@ preview_on_draw (GtkWidget *widget,
 static void
 preview_set_theme (GtkWidget  *widget,
                    const char *theme,
-                   const char *name)
-{
+                   const char *name) {
     GtkWidget *label;
     char      *markup;
 
-    if (job != NULL)
-    {
+    if (job != NULL) {
         gs_job_stop (job);
     }
 
@@ -348,17 +302,13 @@ preview_set_theme (GtkWidget  *widget,
     gtk_label_set_markup (GTK_LABEL (label), markup);
     g_free (markup);
 
-    if ((theme && strcmp (theme, "__blank-only") == 0))
-    {
-
-    }
-    else if (theme && strcmp (theme, "__random") == 0)
-    {
+    if ((theme && strcmp (theme, "__blank-only") == 0)) {
+        /* Do nothing */
+    } else if (theme && strcmp (theme, "__random") == 0) {
         gchar **themes;
 
         themes = get_all_theme_ids (theme_manager);
-        if (themes != NULL)
-        {
+        if (themes != NULL) {
             gint32  i;
 
             i = g_random_int_range (0, g_strv_length (themes));
@@ -367,17 +317,14 @@ preview_set_theme (GtkWidget  *widget,
 
             gs_job_start (job);
         }
-    }
-    else
-    {
+    } else {
         job_set_theme (job, theme);
         gs_job_start (job);
     }
 }
 
 static void
-help_display (void)
-{
+help_display (void) {
     GError *error;
 
     error = NULL;
@@ -386,8 +333,7 @@ help_display (void)
                             GDK_CURRENT_TIME,
                             &error);
 
-    if (error != NULL)
-    {
+    if (error != NULL) {
         GtkWidget *d;
 
         d = gtk_message_dialog_new (NULL,
@@ -398,50 +344,39 @@ help_display (void)
         gtk_widget_destroy (d);
         g_error_free (error);
     }
-
 }
 
 static void
 response_cb (GtkWidget *widget,
-             int        response_id)
-{
-
-    if (response_id == GTK_RESPONSE_HELP)
-    {
+             int        response_id) {
+    if (response_id == GTK_RESPONSE_HELP) {
         help_display ();
-    }
-    else if (response_id == GTK_RESPONSE_REJECT)
-    {
+    } else if (response_id == GTK_RESPONSE_REJECT) {
         GError  *error;
         gboolean res;
 
         error = NULL;
 
         res = xfce_gdk_spawn_command_line_on_screen (gdk_screen_get_default (),
-                                                GPM_COMMAND,
-                                                &error);
-        if (! res)
-        {
+                                                     GPM_COMMAND,
+                                                     &error);
+        if (!res) {
             g_warning ("Unable to start power management preferences: %s", error->message);
             g_error_free (error);
         }
-    }
-    else
-    {
+    } else {
         gtk_widget_destroy (widget);
         gtk_main_quit ();
     }
 }
 
 static GSList *
-get_theme_info_list (void)
-{
+get_theme_info_list (void) {
     return gs_theme_manager_get_info_list (theme_manager);
 }
 
 static void
-populate_model (GtkTreeStore *store)
-{
+populate_model (GtkTreeStore *store) {
     GtkTreeIter  iter;
     GSList      *themes = NULL;
     GSList      *l;
@@ -466,19 +401,16 @@ populate_model (GtkTreeStore *store)
 
     themes = get_theme_info_list ();
 
-    if (themes == NULL)
-    {
+    if (themes == NULL) {
         return;
     }
 
-    for (l = themes; l; l = l->next)
-    {
+    for (l = themes; l; l = l->next) {
         const char  *name;
         const char  *id;
         GSThemeInfo *info = l->data;
 
-        if (info == NULL)
-        {
+        if (info == NULL) {
             continue;
         }
 
@@ -498,33 +430,28 @@ populate_model (GtkTreeStore *store)
 }
 
 static void
-tree_selection_previous (GtkTreeSelection *selection)
-{
+tree_selection_previous (GtkTreeSelection *selection) {
     GtkTreeIter   iter;
     GtkTreeModel *model;
     GtkTreePath  *path;
 
-    if (! gtk_tree_selection_get_selected (selection, &model, &iter))
-    {
+    if (!gtk_tree_selection_get_selected (selection, &model, &iter)) {
         return;
     }
 
     path = gtk_tree_model_get_path (model, &iter);
-    if (gtk_tree_path_prev (path))
-    {
+    if (gtk_tree_path_prev (path)) {
         gtk_tree_selection_select_path (selection, path);
     }
 }
 
 static void
-tree_selection_next (GtkTreeSelection *selection)
-{
+tree_selection_next (GtkTreeSelection *selection) {
     GtkTreeIter   iter;
     GtkTreeModel *model;
     GtkTreePath  *path;
 
-    if (! gtk_tree_selection_get_selected (selection, &model, &iter))
-    {
+    if (!gtk_tree_selection_get_selected (selection, &model, &iter)) {
         return;
     }
 
@@ -535,22 +462,19 @@ tree_selection_next (GtkTreeSelection *selection)
 
 static void
 tree_selection_changed_cb (GtkTreeSelection *selection,
-                           GtkWidget        *preview)
-{
+                           GtkWidget        *preview) {
     GtkTreeIter   iter;
     GtkTreeModel *model;
     char         *theme;
     char         *name;
 
-    if (! gtk_tree_selection_get_selected (selection, &model, &iter))
-    {
+    if (!gtk_tree_selection_get_selected (selection, &model, &iter)) {
         return;
     }
 
     gtk_tree_model_get (model, &iter, ID_COLUMN, &theme, NAME_COLUMN, &name, -1);
 
-    if (theme == NULL)
-    {
+    if (theme == NULL) {
         g_free (name);
         return;
     }
@@ -564,8 +488,7 @@ tree_selection_changed_cb (GtkTreeSelection *selection,
 
 static void
 activate_delay_value_changed_cb (GtkRange *range,
-                                 gpointer  user_data)
-{
+                                 gpointer  user_data) {
     gdouble value;
 
     value = gtk_range_get_value (range);
@@ -576,48 +499,30 @@ static int
 compare_theme_names (char *name_a,
                      char *name_b,
                      char *id_a,
-                     char *id_b)
-{
-    if (id_a == NULL)
-    {
+                     char *id_b) {
+    if (id_a == NULL) {
         return 1;
-    }
-    else if (id_b == NULL)
-    {
+    } else if (id_b == NULL) {
         return -1;
     }
 
-    if (strcmp (id_a, "__blank-only") == 0)
-    {
+    if (strcmp (id_a, "__blank-only") == 0) {
         return -1;
-    }
-    else if (strcmp (id_b, "__blank-only") == 0)
-    {
+    } else if (strcmp (id_b, "__blank-only") == 0) {
         return 1;
-    }
-    else if (strcmp (id_a, "__random") == 0)
-    {
+    } else if (strcmp (id_a, "__random") == 0) {
         return -1;
-    }
-    else if (strcmp (id_b, "__random") == 0)
-    {
+    } else if (strcmp (id_b, "__random") == 0) {
         return 1;
-    }
-    else if (strcmp (id_a, "__separator") == 0)
-    {
+    } else if (strcmp (id_a, "__separator") == 0) {
         return -1;
-    }
-    else if (strcmp (id_b, "__separator") == 0)
-    {
+    } else if (strcmp (id_b, "__separator") == 0) {
         return 1;
     }
 
-    if (name_a == NULL)
-    {
+    if (name_a == NULL) {
         return 1;
-    }
-    else if (name_b == NULL)
-    {
+    } else if (name_b == NULL) {
         return -1;
     }
 
@@ -628,8 +533,7 @@ static int
 compare_theme  (GtkTreeModel *model,
                 GtkTreeIter  *a,
                 GtkTreeIter  *b,
-                gpointer      user_data)
-{
+                gpointer      user_data) {
     char *name_a;
     char *name_b;
     char *id_a;
@@ -654,15 +558,13 @@ compare_theme  (GtkTreeModel *model,
 static gboolean
 separator_func (GtkTreeModel *model,
                 GtkTreeIter  *iter,
-                gpointer      data)
-{
+                gpointer      data) {
     int   column = GPOINTER_TO_INT (data);
     char *text;
 
     gtk_tree_model_get (model, iter, column, &text, -1);
 
-    if (text != NULL && strcmp (text, "__separator") == 0)
-    {
+    if (text != NULL && strcmp (text, "__separator") == 0) {
         return TRUE;
     }
 
@@ -673,8 +575,7 @@ separator_func (GtkTreeModel *model,
 
 static void
 setup_treeview (GtkWidget *tree,
-                GtkWidget *preview)
-{
+                GtkWidget *preview) {
     GtkTreeStore      *store;
     GtkTreeViewColumn *column;
     GtkCellRenderer   *renderer;
@@ -717,12 +618,10 @@ setup_treeview (GtkWidget *tree,
     g_signal_connect (G_OBJECT (select), "changed",
                       G_CALLBACK (tree_selection_changed_cb),
                       preview);
-
 }
 
 static void
-setup_treeview_selection (GtkWidget *tree)
-{
+setup_treeview_selection (GtkWidget *tree) {
     char         *theme;
     GtkTreeModel *model;
     GtkTreeIter   iter;
@@ -731,18 +630,14 @@ setup_treeview_selection (GtkWidget *tree)
 
     theme = config_get_theme (&is_writable);
 
-    if (! is_writable)
-    {
+    if (!is_writable) {
         gtk_widget_set_sensitive (tree, FALSE);
     }
 
     model = gtk_tree_view_get_model (GTK_TREE_VIEW (tree));
 
-    if (theme && gtk_tree_model_get_iter_first (model, &iter))
-    {
-
-        do
-        {
+    if (theme && gtk_tree_model_get_iter_first (model, &iter)) {
+        do {
             char *id;
             gboolean found;
 
@@ -751,18 +646,14 @@ setup_treeview_selection (GtkWidget *tree)
             found = (id && strcmp (id, theme) == 0);
             g_free (id);
 
-            if (found)
-            {
+            if (found) {
                 path = gtk_tree_model_get_path (model, &iter);
                 break;
             }
-
-        }
-        while (gtk_tree_model_iter_next (model, &iter));
+        } while (gtk_tree_model_iter_next (model, &iter));
     }
 
-    if (path)
-    {
+    if (path) {
         gtk_tree_view_set_cursor (GTK_TREE_VIEW (tree),
                                   path,
                                   NULL,
@@ -775,8 +666,7 @@ setup_treeview_selection (GtkWidget *tree)
 }
 
 static void
-reload_themes (void)
-{
+reload_themes (void) {
     GtkWidget    *treeview;
     GtkTreeModel *model;
 
@@ -791,16 +681,14 @@ reload_themes (void)
 
 static void
 theme_copy_complete_cb (GtkWidget *dialog,
-                        gpointer   user_data)
-{
+                        gpointer   user_data) {
     reload_themes ();
     gtk_widget_destroy (dialog);
 }
 
 static void
 theme_installer_run (GtkWidget *prefs_dialog,
-                     GList     *files)
-{
+                     GList     *files) {
     GtkWidget *copy_dialog;
 
     copy_dialog = copy_theme_dialog_new (files);
@@ -825,8 +713,7 @@ drag_motion_cb (GtkWidget      *widget,
                 int             x,
                 int             y,
                 guint           time,
-                gpointer        data)
-{
+                gpointer        data) {
     return FALSE;
 }
 
@@ -835,8 +722,7 @@ static void
 drag_leave_cb (GtkWidget      *widget,
                GdkDragContext *context,
                guint           time,
-               gpointer        data)
-{
+               gpointer        data) {
     gtk_widget_queue_draw (widget);
 }
 
@@ -844,8 +730,7 @@ drag_leave_cb (GtkWidget      *widget,
  * and re-work to create GFiles.
 **/
 static GList *
-uri_list_parse (const gchar *uri_list)
-{
+uri_list_parse (const gchar *uri_list) {
     const gchar *p, *q;
     gchar       *retval;
     GFile       *file;
@@ -860,10 +745,8 @@ uri_list_parse (const gchar *uri_list)
      * comments and trim whitespace off the ends.  We also
      * allow LF delimination as well as the specified CRLF.
      */
-    while (p != NULL)
-    {
-        if (*p != '#')
-        {
+    while (p != NULL) {
+        if (*p != '#') {
             while (g_ascii_isspace (*p))
                 p++;
 
@@ -873,8 +756,7 @@ uri_list_parse (const gchar *uri_list)
                     && (*q != '\r'))
                 q++;
 
-            if (q > p)
-            {
+            if (q > p) {
                 q--;
                 while (q > p
                         && g_ascii_isspace (*q))
@@ -909,16 +791,14 @@ drag_data_received_cb (GtkWidget        *widget,
                        GtkSelectionData *selection_data,
                        guint             info,
                        guint             time,
-                       gpointer          data)
-{
+                       gpointer          data) {
     GList     *files;
 
     if (!(info == TARGET_URI_LIST || info == TARGET_NS_URL))
         return;
 
     files = uri_list_parse ((char *) gtk_selection_data_get_data (selection_data));
-    if (files != NULL)
-    {
+    if (files != NULL) {
         GtkWidget *prefs_dialog;
 
         prefs_dialog = GTK_WIDGET (gtk_builder_get_object (builder, "prefs_dialog"));
@@ -928,8 +808,7 @@ drag_data_received_cb (GtkWidget        *widget,
 
 /* Adapted from totem_time_to_string_text */
 static char *
-time_to_string_text (long time)
-{
+time_to_string_text (long time) {
     char *secs, *mins, *hours, *string;
     int   sec, min, hour;
     int   n, inc_len, len_minutes;
@@ -957,18 +836,14 @@ time_to_string_text (long time)
 
     len_minutes = 0;
 
-    for (n = 2; n < 60; n++)
-    {
-        if (n < 10)
-        {
+    for (n = 2; n < 60; n++) {
+        if (n < 10) {
             if ((strlen (g_str_to_ascii (g_strdup_printf (ngettext ("%d minute",
                                                                     "%d minutes", n), n), NULL)) - 2) > len_minutes)
 
                 len_minutes = strlen (g_str_to_ascii (g_strdup_printf (ngettext ("%d minute",
                                                                                  "%d minutes", n), n), NULL)) - 2;
-        }
-        else
-        {
+        } else {
             if ((strlen (g_str_to_ascii (g_strdup_printf (ngettext ("%d minute",
                                                                     "%d minutes", n), n), NULL)) - 3) > len_minutes)
 
@@ -986,59 +861,43 @@ time_to_string_text (long time)
     if (len_minutes < 1)
         len_minutes = 1;
 
-    if (hour > 0)
-    {
-        if (sec > 0)
-        {
+    if (hour > 0) {
+        if (sec > 0) {
             /* hour:minutes:seconds */
             string = g_strdup_printf (_("%s %s %s"), hours, mins, secs);
-        }
-        else if (min > 0)
-        {
+        } else if (min > 0) {
             /* hour:minutes */
             string = g_strdup_printf (_("%s %s"), hours, mins);
-        }
-        else
-        {
+        } else {
             /* hour */
             string = g_strdup_printf (_("%s"), hours);
         }
-    }
-    else if (min > 0)
-    {
-        if (sec > 0)
-        {
+    } else if (min > 0) {
+        if (sec > 0) {
             /* minutes:seconds */
             string = g_strdup_printf (_("%s %s"), mins, secs);
-        }
-        else
-        {
+        } else {
             /* minutes */
             string = g_strdup_printf (_("%s"), mins);
 
-            if (min < 10)
-            {
-                if (min == 1)
-                    while (strlen (string) != (len_minutes + inc_len + 3))
-                    {
+            if (min < 10) {
+                if (min == 1) {
+                    while (strlen (string) != (len_minutes + inc_len + 3)) {
                         if (strlen (string) % 2 == 0)
                             string = g_strconcat (string, " ", NULL);
                         else
                             string = g_strconcat (" " , string, NULL);
                     }
-                else
-                    while (strlen (string) != (len_minutes + inc_len))
-                    {
+                } else {
+                    while (strlen (string) != (len_minutes + inc_len)) {
                         if (strlen (string) % 2 == 0)
                             string = g_strconcat (string, " ", NULL);
                         else
                             string = g_strconcat (" " , string, NULL);
                     }
-            }
-            else
-            {
-                while (strlen (string) != (len_minutes + inc_len - 1))
-                {
+                }
+            } else {
+                while (strlen (string) != (len_minutes + inc_len - 1)) {
                     if (strlen (string) % 2 == 0)
                         string = g_strconcat (string, " ", NULL);
                     else
@@ -1046,9 +905,7 @@ time_to_string_text (long time)
                 }
             }
         }
-    }
-    else
-    {
+    } else {
         /* seconds */
         string = g_strdup_printf (_("%s"), secs);
     }
@@ -1062,8 +919,7 @@ time_to_string_text (long time)
 
 static char *
 format_value_callback_time (GtkScale *scale,
-                            gdouble   value)
-{
+                            gdouble   value) {
     if (value == 0)
         return g_strdup_printf (_("Never"));
 
@@ -1071,57 +927,49 @@ format_value_callback_time (GtkScale *scale,
 }
 
 static void
-lock_checkbox_toggled (GtkToggleButton *button, gpointer user_data)
-{
+lock_checkbox_toggled (GtkToggleButton *button, gpointer user_data) {
     config_set_lock (gtk_toggle_button_get_active (button));
 }
 
 static void
-enabled_checkbox_toggled (GtkToggleButton *button, gpointer user_data)
-{
+enabled_checkbox_toggled (GtkToggleButton *button, gpointer user_data) {
     config_set_enabled (gtk_toggle_button_get_active (button));
 }
 
 static void
-ui_set_lock (gboolean enabled)
-{
+ui_set_lock (gboolean enabled) {
     GtkWidget *widget;
     gboolean   active;
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_checkbox"));
 
     active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
-    if (active != enabled)
-    {
+    if (active != enabled) {
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), enabled);
     }
 }
 
 static void
-ui_set_enabled (gboolean enabled)
-{
+ui_set_enabled (gboolean enabled) {
     GtkWidget *widget;
     gboolean   active;
     gboolean   is_writable;
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "enable_checkbox"));
     active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
-    if (active != enabled)
-    {
+    if (active != enabled) {
         gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), enabled);
     }
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_checkbox"));
     config_get_lock (&is_writable);
-    if (is_writable)
-    {
+    if (is_writable) {
         gtk_widget_set_sensitive (widget, enabled);
     }
 }
 
 static void
-ui_set_delay (int delay)
-{
+ui_set_delay (int delay) {
     GtkWidget *widget;
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "activate_delay_hscale"));
@@ -1129,42 +977,31 @@ ui_set_delay (int delay)
 }
 
 static void
-key_changed_cb (XfconfChannel *channel, const gchar *key, gpointer data)
-{
-    if (strcmp (key, KEY_IDLE_ACTIVATION_ENABLED) == 0)
-    {
+key_changed_cb (XfconfChannel *channel, const gchar *key, gpointer data) {
+    if (strcmp (key, KEY_IDLE_ACTIVATION_ENABLED) == 0) {
         gboolean enabled;
         enabled = xfconf_channel_get_bool (channel, key, DEFAULT_KEY_IDLE_ACTIVATION_ENABLED);
         ui_set_enabled (enabled);
-    }
-    else if (strcmp (key, KEY_LOCK_ENABLED) == 0)
-    {
+    } else if (strcmp (key, KEY_LOCK_ENABLED) == 0) {
         gboolean enabled;
         enabled = xfconf_channel_get_bool (channel, key, DEFAULT_KEY_LOCK_ENABLED);
         ui_set_lock (enabled);
-    }
-    else if (strcmp (key, KEY_THEMES) == 0)
-    {
+    } else if (strcmp (key, KEY_THEMES) == 0) {
         GtkWidget *treeview;
         treeview = GTK_WIDGET (gtk_builder_get_object (builder, "savers_treeview"));
         setup_treeview_selection (treeview);
-    }
-    else if (strcmp (key, KEY_IDLE_DELAY) == 0)
-    {
+    } else if (strcmp (key, KEY_IDLE_DELAY) == 0) {
         int delay;
         delay = xfconf_channel_get_int (channel, key, DEFAULT_KEY_IDLE_DELAY);
         ui_set_delay (delay);
-    }
-    else
-    {
+    } else {
         /*g_warning ("Config key not handled: %s", key);*/
     }
 }
 
 static void
 fullscreen_preview_previous_cb (GtkWidget *fullscreen_preview_window,
-                                gpointer   user_data)
-{
+                                gpointer   user_data) {
     GtkWidget        *treeview;
     GtkTreeSelection *selection;
 
@@ -1175,8 +1012,7 @@ fullscreen_preview_previous_cb (GtkWidget *fullscreen_preview_window,
 
 static void
 fullscreen_preview_next_cb (GtkWidget *fullscreen_preview_window,
-                            gpointer   user_data)
-{
+                            gpointer   user_data) {
     GtkWidget        *treeview;
     GtkTreeSelection *selection;
 
@@ -1187,9 +1023,7 @@ fullscreen_preview_next_cb (GtkWidget *fullscreen_preview_window,
 
 static void
 fullscreen_preview_cancelled_cb (GtkWidget *button,
-                                 gpointer   user_data)
-{
-
+                                 gpointer   user_data) {
     GtkWidget *fullscreen_preview_area;
     GtkWidget *fullscreen_preview_window;
     GtkWidget *preview_area;
@@ -1211,8 +1045,7 @@ fullscreen_preview_cancelled_cb (GtkWidget *button,
 
 static void
 fullscreen_preview_start_cb (GtkWidget *widget,
-                             gpointer   user_data)
-{
+                             gpointer   user_data) {
     GtkWidget *fullscreen_preview_area;
     GtkWidget *fullscreen_preview_window;
     GtkWidget *dialog;
@@ -1236,8 +1069,7 @@ fullscreen_preview_start_cb (GtkWidget *widget,
 static void
 constrain_list_size (GtkWidget      *widget,
                      GtkAllocation  *allocation,
-                     GtkWidget      *to_size)
-{
+                     GtkWidget      *to_size) {
     GtkRequisition req;
     int            max_height;
 
@@ -1250,15 +1082,13 @@ constrain_list_size (GtkWidget      *widget,
 
 static void
 setup_list_size_constraint (GtkWidget *widget,
-                            GtkWidget *to_size)
-{
+                            GtkWidget *to_size) {
     g_signal_connect (widget, "size-allocate",
                       G_CALLBACK (constrain_list_size), to_size);
 }
 
 static gboolean
-check_is_root_user (void)
-{
+check_is_root_user (void) {
 #ifndef G_OS_WIN32
     uid_t ruid, euid, suid; /* Real, effective and saved user ID's */
     gid_t rgid, egid, sgid; /* Real, effective and saved group ID's */
@@ -1274,18 +1104,16 @@ check_is_root_user (void)
         egid = getegid ();
     }
 
-    if (ruid == 0)
-    {
+    if (ruid == 0) {
         return TRUE;
     }
 
-#endif
+#endif /* G_OS_WIN32 */
     return FALSE;
 }
 
 static void
-setup_for_root_user (void)
-{
+setup_for_root_user (void) {
     GtkWidget *lock_checkbox;
     GtkWidget *infobar;
 
@@ -1300,23 +1128,20 @@ setup_for_root_user (void)
 
 static void
 resolve_lid_switch_cb (GtkWidget *widget,
-                       gpointer   user_data)
-{
+                       gpointer   user_data) {
     XfconfChannel *channel = xfconf_channel_get("xfce4-power-manager");
     const gchar   *property = "/xfce4-power-manager/logind-handle-lid-switch";
     gboolean       locked = xfconf_channel_is_property_locked(channel, property);
     GtkWidget     *infobar = GTK_WIDGET (gtk_builder_get_object (builder, "logind_lid_infobar"));
 
-    if (!locked)
-    {
+    if (!locked) {
         xfconf_channel_set_bool(channel, property, FALSE);
         gtk_widget_hide (GTK_WIDGET (infobar));
     }
 }
 
 static void
-setup_for_lid_switch (void)
-{
+setup_for_lid_switch (void) {
     XfconfChannel *channel = xfconf_channel_get ("xfce4-power-manager");
     const gchar   *property = "/xfce4-power-manager/logind-handle-lid-switch";
     gboolean       handled = xfconf_channel_get_bool (channel, property, FALSE);
@@ -1327,21 +1152,15 @@ setup_for_lid_switch (void)
     infobar = GTK_WIDGET (gtk_builder_get_object (builder, "logind_lid_infobar"));
     button = GTK_WIDGET (gtk_builder_get_object (builder, "logind_lid_resolve"));
 
-    if (handled)
-    {
+    if (handled) {
         gtk_widget_show (infobar);
-        if (locked)
-        {
+        if (locked) {
             gtk_widget_hide (button);
-        }
-        else
-        {
+        } else {
             gtk_widget_show (button);
             g_signal_connect (button, "clicked", G_CALLBACK (resolve_lid_switch_cb), NULL);
         }
-    }
-    else
-    {
+    } else {
         gtk_widget_hide (infobar);
     }
 }
@@ -1351,8 +1170,7 @@ extern char **environ;
 
 static gchar **
 spawn_make_environment_for_display (GdkDisplay  *display,
-                                    gchar      **envp)
-{
+                                    gchar      **envp) {
     gchar        **retval = NULL;
     const gchar  *display_name;
     gint          display_index = -1;
@@ -1389,16 +1207,14 @@ spawn_command_line_on_display_sync (GdkDisplay  *display,
                                     char        **standard_output,
                                     char        **standard_error,
                                     int          *exit_status,
-                                    GError      **error)
-{
+                                    GError      **error) {
     char     **argv = NULL;
     char     **envp = NULL;
     gboolean   retval;
 
     g_return_val_if_fail (command_line != NULL, FALSE);
 
-    if (! g_shell_parse_argv (command_line, NULL, &argv, error))
-    {
+    if (!g_shell_parse_argv (command_line, NULL, &argv, error)) {
         return FALSE;
     }
 
@@ -1423,8 +1239,7 @@ spawn_command_line_on_display_sync (GdkDisplay  *display,
 
 
 static GdkVisual *
-get_best_visual_for_display (GdkDisplay *display)
-{
+get_best_visual_for_display (GdkDisplay *display) {
     GdkScreen     *screen;
     char          *command;
     char          *std_output;
@@ -1448,17 +1263,14 @@ get_best_visual_for_display (GdkDisplay *display)
                                               NULL,
                                               &exit_status,
                                               &error);
-    if (! res)
-    {
+    if (!res) {
         gs_debug ("Could not run command '%s': %s", command, error->message);
         g_error_free (error);
         goto out;
     }
 
-    if (1 == sscanf (std_output, "0x%lx %c", &v, &c))
-    {
-        if (v != 0)
-        {
+    if (1 == sscanf (std_output, "0x%lx %c", &v, &c)) {
+        if (v != 0) {
             VisualID visual_id;
 
             visual_id = (VisualID) v;
@@ -1478,23 +1290,20 @@ out:
 
 
 static void
-widget_set_best_visual (GtkWidget *widget)
-{
+widget_set_best_visual (GtkWidget *widget) {
     GdkVisual *visual;
 
     g_return_if_fail (widget != NULL);
 
     visual = get_best_visual_for_display (gtk_widget_get_display (widget));
-    if (visual != NULL)
-    {
+    if (visual != NULL) {
         gtk_widget_set_visual (widget, visual);
         g_object_unref (visual);
     }
 }
 
 static gboolean
-setup_treeview_idle (gpointer data)
-{
+setup_treeview_idle (gpointer data) {
     GtkWidget *preview;
     GtkWidget *treeview;
 
@@ -1508,23 +1317,18 @@ setup_treeview_idle (gpointer data)
 }
 
 static gboolean
-is_program_in_path (const char *program)
-{
+is_program_in_path (const char *program) {
     char *tmp = g_find_program_in_path (program);
-    if (tmp != NULL)
-    {
+    if (tmp != NULL) {
         g_free (tmp);
         return TRUE;
-    }
-    else
-    {
+    } else {
         return FALSE;
     }
 }
 
 static void
-configure_capplet (void)
-{
+configure_capplet (void) {
     GtkWidget *dialog;
     GtkWidget *plug_child;
     GtkWidget *preview;
@@ -1546,20 +1350,17 @@ configure_capplet (void)
     gdouble    activate_delay;
     gboolean   enabled;
     gboolean   is_writable;
-    GError    *error=NULL;
+    GError    *error = NULL;
     gint       mode;
 
     builder = gtk_builder_new();
     if (!gtk_builder_add_from_string (builder, xfce4_screensaver_preferences_ui,
-                                      xfce4_screensaver_preferences_ui_length, &error))
-    {
+                                      xfce4_screensaver_preferences_ui_length, &error)) {
         g_warning ("Error loading UI: %s", error->message);
         g_error_free(error);
     }
 
-    if (builder == NULL)
-    {
-
+    if (builder == NULL) {
         dialog = gtk_message_dialog_new (NULL,
                                          0, GTK_MESSAGE_ERROR,
                                          GTK_BUTTONS_OK,
@@ -1600,8 +1401,7 @@ configure_capplet (void)
     gtk_widget_set_no_show_all (root_warning_infobar, TRUE);
     widget_set_best_visual (preview);
 
-    if (! is_program_in_path (GPM_COMMAND))
-    {
+    if (!is_program_in_path (GPM_COMMAND)) {
         gtk_widget_set_no_show_all (gpm_button, TRUE);
         gtk_widget_hide (gpm_button);
     }
@@ -1614,16 +1414,14 @@ configure_capplet (void)
 
     activate_delay = config_get_activate_delay (&is_writable);
     ui_set_delay (activate_delay);
-    if (! is_writable)
-    {
+    if (!is_writable) {
         gtk_widget_set_sensitive (activate_delay_hbox, FALSE);
     }
     g_signal_connect (activate_delay_hscale, "format-value",
                       G_CALLBACK (format_value_callback_time), NULL);
 
     gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (lock_checkbox), config_get_lock (&is_writable));
-    if (! is_writable)
-    {
+    if (!is_writable) {
         gtk_widget_set_sensitive (lock_checkbox, FALSE);
     }
     g_signal_connect (lock_checkbox, "toggled",
@@ -1631,8 +1429,7 @@ configure_capplet (void)
 
     enabled = config_get_enabled (&is_writable);
     ui_set_enabled (enabled);
-    if (! is_writable)
-    {
+    if (!is_writable) {
         gtk_widget_set_sensitive (enabled_checkbox, FALSE);
     }
     g_signal_connect (enabled_checkbox, "toggled",
@@ -1672,8 +1469,7 @@ configure_capplet (void)
 
     setup_for_lid_switch ();
 
-    if (check_is_root_user ())
-    {
+    if (check_is_root_user ()) {
         setup_for_root_user ();
     }
 
@@ -1695,15 +1491,13 @@ configure_capplet (void)
 }
 
 static void
-finalize_capplet (void)
-{
+finalize_capplet (void) {
     g_object_unref (screensaver_channel);
 }
 
 int
 main (int    argc,
-      char **argv)
-{
+      char **argv) {
     GtkWidget *plug;
     GObject   *plug_child;
     GError    *error = NULL;
@@ -1716,16 +1510,12 @@ main (int    argc,
     textdomain (GETTEXT_PACKAGE);
 #endif
 
-    if (!gtk_init_with_args (&argc, &argv, "", entries, NULL, &error))
-    {
-        if (G_LIKELY (error))
-        {
+    if (!gtk_init_with_args (&argc, &argv, "", entries, NULL, &error)) {
+        if (G_LIKELY (error)) {
             /* print error */
             g_error ("%s\n", error->message);
             g_error_free (error);
-        }
-        else
-        {
+        } else {
             g_error ("Unable to open display.");
         }
 
@@ -1736,8 +1526,7 @@ main (int    argc,
     if (xfce_titled_dialog_get_type() == 0)
         exit(1);
 
-    if (!xfconf_init(&error))
-    {
+    if (!xfconf_init(&error)) {
         g_error("Failed to connect to xfconf daemon: %s.", error->message);
         g_error_free(error);
 
@@ -1749,8 +1538,7 @@ main (int    argc,
 
     configure_capplet ();
 
-    if (G_UNLIKELY(opt_socket_id == 0))
-    {
+    if (G_UNLIKELY(opt_socket_id == 0)) {
         GtkWidget *dialog = GTK_WIDGET (gtk_builder_get_object (builder, "prefs_dialog"));
 
         g_signal_connect(dialog, "response",
@@ -1762,9 +1550,7 @@ main (int    argc,
         gdk_x11_set_sm_client_id("FAKE ID");
 
         gtk_main();
-    }
-    else
-    {
+    } else {
         /* Create plug widget */
         plug = gtk_plug_new(opt_socket_id);
         g_signal_connect(plug, "delete-event", G_CALLBACK(gtk_main_quit), NULL);

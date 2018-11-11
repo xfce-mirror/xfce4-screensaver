@@ -23,31 +23,32 @@
  *
  */
 
-#include "config.h"
+#include <config.h>
 
-#include <stdlib.h>
-#ifdef HAVE_UNISTD_H
-# include <unistd.h>
-#endif
-
+#include <errno.h>
 #include <fcntl.h>
+#include <grp.h>
+#include <pwd.h>
+#include <signal.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
-#include <pwd.h>
-#include <grp.h>
+
 #include <security/pam_appl.h>
-#include <signal.h>
-#include <errno.h>
 
 #include <glib.h>
 #include <glib/gstdio.h>
-#include <libxfce4util/libxfce4util.h>
 #include <gtk/gtk.h>
 
-#include "gs-auth.h"
+#include <libxfce4util/libxfce4util.h>
 
-#include "subprocs.h"
+#ifdef HAVE_UNISTD_H
+#include <unistd.h>
+#endif
+
+#include "src/gs-auth.h"
+#include "src/subprocs.h"
 
 /* Some time between Red Hat 4.2 and 7.0, the words were transposed
    in the various PAM_x_CRED macro names.  Yay!
@@ -81,8 +82,7 @@ static gboolean      verbose_enabled = FALSE;
 static pam_handle_t *pam_handle = NULL;
 static gboolean      did_we_ask_for_password = FALSE;
 
-struct pam_closure
-{
+struct pam_closure {
     const char        *username;
     GSAuthMessageFunc  cb_func;
     gpointer           cb_data;
@@ -90,8 +90,7 @@ struct pam_closure
     int                result;
 };
 
-typedef struct
-{
+typedef struct {
     struct pam_closure  *closure;
     GSAuthMessageStyle   style;
     const char          *msg;
@@ -103,11 +102,9 @@ static GCond  message_handled_condition;
 static GMutex message_handler_mutex;
 
 GQuark
-gs_auth_error_quark (void)
-{
+gs_auth_error_quark (void) {
     static GQuark quark = 0;
-    if (! quark)
-    {
+    if (!quark) {
         quark = g_quark_from_static_string ("gs_auth_error");
     }
 
@@ -115,24 +112,20 @@ gs_auth_error_quark (void)
 }
 
 void
-gs_auth_set_verbose (gboolean enabled)
-{
+gs_auth_set_verbose (gboolean enabled) {
     verbose_enabled = enabled;
 }
 
 gboolean
-gs_auth_get_verbose (void)
-{
+gs_auth_get_verbose (void) {
     return verbose_enabled;
 }
 
 static GSAuthMessageStyle
-pam_style_to_gs_style (int pam_style)
-{
+pam_style_to_gs_style (int pam_style) {
     GSAuthMessageStyle style;
 
-    switch (pam_style)
-    {
+    switch (pam_style) {
     case PAM_PROMPT_ECHO_ON:
         style = GS_AUTH_MESSAGE_PROMPT_ECHO_ON;
         break;
@@ -157,48 +150,42 @@ static gboolean
 auth_message_handler (GSAuthMessageStyle   style,
                       const char          *msg,
                       char               **response,
-                      gpointer             data)
-{
+                      gpointer             data) {
     gboolean ret;
 
     ret = TRUE;
     *response = NULL;
 
-    switch (style)
-    {
-    case GS_AUTH_MESSAGE_PROMPT_ECHO_ON:
-        break;
-    case GS_AUTH_MESSAGE_PROMPT_ECHO_OFF:
-        if (msg != NULL && g_str_has_prefix (msg, _("Password:")))
-        {
-            did_we_ask_for_password = TRUE;
-        }
-        break;
-    case GS_AUTH_MESSAGE_ERROR_MSG:
-        break;
-    case GS_AUTH_MESSAGE_TEXT_INFO:
-        break;
-    default:
-        g_assert_not_reached ();
+    switch (style) {
+        case GS_AUTH_MESSAGE_PROMPT_ECHO_ON:
+            break;
+        case GS_AUTH_MESSAGE_PROMPT_ECHO_OFF:
+            if (msg != NULL && g_str_has_prefix (msg, _("Password:"))) {
+                did_we_ask_for_password = TRUE;
+            }
+            break;
+        case GS_AUTH_MESSAGE_ERROR_MSG:
+            break;
+        case GS_AUTH_MESSAGE_TEXT_INFO:
+            break;
+        default:
+            g_assert_not_reached ();
     }
 
     return ret;
 }
 
 static gboolean
-gs_auth_queued_message_handler (GsAuthMessageHandlerData *data)
-{
+gs_auth_queued_message_handler (GsAuthMessageHandlerData *data) {
     gboolean res;
 
-    if (gs_auth_get_verbose ())
-    {
+    if (gs_auth_get_verbose ()) {
         g_message ("Waiting for lock");
     }
 
     g_mutex_lock (&message_handler_mutex);
 
-    if (gs_auth_get_verbose ())
-    {
+    if (gs_auth_get_verbose ()) {
         g_message ("Waiting for response");
     }
 
@@ -212,8 +199,7 @@ gs_auth_queued_message_handler (GsAuthMessageHandlerData *data)
     g_cond_signal (&message_handled_condition);
     g_mutex_unlock (&message_handler_mutex);
 
-    if (gs_auth_get_verbose ())
-    {
+    if (gs_auth_get_verbose ()) {
         g_message ("Got response");
     }
 
@@ -224,8 +210,7 @@ static gboolean
 gs_auth_run_message_handler (struct pam_closure  *c,
                              GSAuthMessageStyle   style,
                              const char          *msg,
-                             char               **resp)
-{
+                             char               **resp) {
     GsAuthMessageHandlerData data;
 
     data.closure = c;
@@ -240,8 +225,7 @@ gs_auth_run_message_handler (struct pam_closure  *c,
      */
     g_idle_add ((GSourceFunc) gs_auth_queued_message_handler, &data);
 
-    if (gs_auth_get_verbose ())
-    {
+    if (gs_auth_get_verbose ()) {
         g_message ("Waiting for respose to message style %d: '%s'", style, msg);
     }
 
@@ -251,8 +235,7 @@ gs_auth_run_message_handler (struct pam_closure  *c,
                  &message_handler_mutex);
     g_mutex_unlock (&message_handler_mutex);
 
-    if (gs_auth_get_verbose ())
-    {
+    if (gs_auth_get_verbose ()) {
         g_message ("Got respose to message style %d: interrupt:%d", style, data.should_interrupt_stack);
     }
 
@@ -263,8 +246,7 @@ static int
 pam_conversation (int                        nmsgs,
                   const struct pam_message **msg,
                   struct pam_response      **resp,
-                  void                      *closure)
-{
+                  void                      *closure) {
     int                  replies = 0;
     struct pam_response *reply = NULL;
     struct pam_closure  *c = (struct pam_closure *) closure;
@@ -273,22 +255,20 @@ pam_conversation (int                        nmsgs,
 
     reply = (struct pam_response *) calloc (nmsgs, sizeof (*reply));
 
-    if (reply == NULL)
-    {
+    if (reply == NULL) {
         return PAM_CONV_ERR;
     }
 
     res = TRUE;
     ret = PAM_SUCCESS;
 
-    for (replies = 0; replies < nmsgs && ret == PAM_SUCCESS; replies++)
-    {
+    for (replies = 0; replies < nmsgs && ret == PAM_SUCCESS; replies++) {
         GSAuthMessageStyle style;
         char              *utf8_msg;
 
-        style = pam_style_to_gs_style (msg [replies]->msg_style);
+        style = pam_style_to_gs_style (msg[replies]->msg_style);
 
-        utf8_msg = g_locale_to_utf8 (msg [replies]->msg,
+        utf8_msg = g_locale_to_utf8 (msg[replies]->msg,
                                      -1,
                                      NULL,
                                      NULL,
@@ -296,16 +276,14 @@ pam_conversation (int                        nmsgs,
 
         /* if we couldn't convert text from locale then
          * assume utf-8 and hope for the best */
-        if (utf8_msg == NULL)
-        {
+        if (utf8_msg == NULL) {
             char *p;
             char *q;
 
-            utf8_msg = g_strdup (msg [replies]->msg);
+            utf8_msg = g_strdup (msg[replies]->msg);
 
             p = utf8_msg;
-            while (*p != '\0' && !g_utf8_validate ((const char *)p, -1, (const char **)&q))
-            {
+            while (*p != '\0' && !g_utf8_validate ((const char *)p, -1, (const char **)&q)) {
                 *q = '?';
                 p = q + 1;
             }
@@ -314,13 +292,11 @@ pam_conversation (int                        nmsgs,
         /* handle message locally first */
         auth_message_handler (style,
                               utf8_msg,
-                              &reply [replies].resp,
+                              &reply[replies].resp,
                               NULL);
 
-        if (c->cb_func != NULL)
-        {
-            if (gs_auth_get_verbose ())
-            {
+        if (c->cb_func != NULL) {
+            if (gs_auth_get_verbose ()) {
                 g_message ("Handling message style %d: '%s'", style, utf8_msg);
             }
 
@@ -329,24 +305,19 @@ pam_conversation (int                        nmsgs,
             res = gs_auth_run_message_handler (c,
                                                style,
                                                utf8_msg,
-                                               &reply [replies].resp);
+                                               &reply[replies].resp);
 
-            if (gs_auth_get_verbose ())
-            {
+            if (gs_auth_get_verbose ()) {
                 g_message ("Msg handler returned %d", res);
             }
 
             /* If the handler returns FALSE - interrupt the PAM stack */
-            if (res)
-            {
-                reply [replies].resp_retcode = PAM_SUCCESS;
-            }
-            else
-            {
+            if (res) {
+                reply[replies].resp_retcode = PAM_SUCCESS;
+            } else {
                 int i;
-                for (i = 0; i <= replies; i++)
-                {
-                    free (reply [i].resp);
+                for (i = 0; i <= replies; i++) {
+                    free (reply[i].resp);
                 }
                 free (reply);
                 reply = NULL;
@@ -363,18 +334,14 @@ pam_conversation (int                        nmsgs,
 }
 
 static gboolean
-close_pam_handle (int status)
-{
-
-    if (pam_handle != NULL)
-    {
+close_pam_handle (int status) {
+    if (pam_handle != NULL) {
         int status2;
 
         status2 = pam_end (pam_handle, status);
         pam_handle = NULL;
 
-        if (gs_auth_get_verbose ())
-        {
+        if (gs_auth_get_verbose ()) {
             g_message (" pam_end (...) ==> %d (%s)",
                        status2,
                        (status2 == PAM_SUCCESS ? "Success" : "Failure"));
@@ -388,15 +355,13 @@ static gboolean
 create_pam_handle (const char      *username,
                    const char      *display,
                    struct pam_conv *conv,
-                   int             *status_code)
-{
+                   int             *status_code) {
     int         status;
     const char *service = PAM_SERVICE_NAME;
     char       *disp;
     gboolean    ret;
 
-    if (pam_handle != NULL)
-    {
+    if (pam_handle != NULL) {
         g_warning ("create_pam_handle: Stale pam handle around, cleaning up");
         close_pam_handle (PAM_SUCCESS);
     }
@@ -408,15 +373,13 @@ create_pam_handle (const char      *username,
     ret = TRUE;
 
     /* Initialize a PAM session for the user */
-    if ((status = pam_start (service, username, conv, &pam_handle)) != PAM_SUCCESS)
-    {
+    if ((status = pam_start (service, username, conv, &pam_handle)) != PAM_SUCCESS) {
         pam_handle = NULL;
         g_warning (_("Unable to establish service %s: %s\n"),
                    service,
                    PAM_STRERROR (NULL, status));
 
-        if (status_code != NULL)
-        {
+        if (status_code != NULL) {
             *status_code = status;
         }
 
@@ -424,8 +387,7 @@ create_pam_handle (const char      *username,
         goto out;
     }
 
-    if (gs_auth_get_verbose ())
-    {
+    if (gs_auth_get_verbose ()) {
         g_message ("pam_start (\"%s\", \"%s\", ...) ==> %d (%s)",
                    service,
                    username,
@@ -434,17 +396,14 @@ create_pam_handle (const char      *username,
     }
 
     disp = g_strdup (display);
-    if (disp == NULL)
-    {
+    if (disp == NULL) {
         disp = g_strdup (":0.0");
     }
 
-    if ((status = pam_set_item (pam_handle, PAM_TTY, disp)) != PAM_SUCCESS)
-    {
+    if ((status = pam_set_item (pam_handle, PAM_TTY, disp)) != PAM_SUCCESS) {
         g_warning (_("Can't set PAM_TTY=%s"), display);
 
-        if (status_code != NULL)
-        {
+        if (status_code != NULL) {
             *status_code = status;
         }
 
@@ -457,8 +416,7 @@ create_pam_handle (const char      *username,
     g_mutex_init (&message_handler_mutex);
 
 out:
-    if (status_code != NULL)
-    {
+    if (status_code != NULL) {
         *status_code = status;
     }
 
@@ -469,18 +427,13 @@ out:
 
 static void
 set_pam_error (GError **error,
-               int      status)
-{
-    if (status == PAM_AUTH_ERR || status == PAM_USER_UNKNOWN)
-    {
+               int      status) {
+    if (status == PAM_AUTH_ERR || status == PAM_USER_UNKNOWN) {
         char *msg;
 
-        if (did_we_ask_for_password)
-        {
+        if (did_we_ask_for_password) {
             msg = g_strdup (_("Incorrect password."));
-        }
-        else
-        {
+        } else {
             msg = g_strdup (_("Authentication failed."));
         }
 
@@ -490,29 +443,23 @@ set_pam_error (GError **error,
                      "%s",
                      msg);
         g_free (msg);
-    }
-    else if (status == PAM_PERM_DENIED)
-    {
+    } else if (status == PAM_PERM_DENIED) {
         g_set_error (error,
                      GS_AUTH_ERROR,
                      GS_AUTH_ERROR_AUTH_DENIED,
                      "%s",
                      _("Not permitted to gain access at this time."));
-    }
-    else if (status == PAM_ACCT_EXPIRED)
-    {
+    } else if (status == PAM_ACCT_EXPIRED) {
         g_set_error (error,
                      GS_AUTH_ERROR,
                      GS_AUTH_ERROR_AUTH_DENIED,
                      "%s",
                      _("No longer permitted to access the system."));
     }
-
 }
 
 static int
-gs_auth_thread_func (int auth_operation_fd)
-{
+gs_auth_thread_func (int auth_operation_fd) {
     static const int  flags = 0;
     int               status;
     int               status2;
@@ -530,20 +477,17 @@ gs_auth_thread_func (int auth_operation_fd)
     sigtimedwait (&set, NULL, &timeout);
     unblock_sigchld ();
 
-    if (gs_auth_get_verbose ())
-    {
+    if (gs_auth_get_verbose ()) {
         g_message ("   pam_authenticate (...) ==> %d (%s)",
                    status,
                    PAM_STRERROR (pam_handle, status));
     }
 
-    if (status != PAM_SUCCESS)
-    {
+    if (status != PAM_SUCCESS) {
         goto done;
     }
 
-    if ((status = pam_get_item (pam_handle, PAM_USER, &p)) != PAM_SUCCESS)
-    {
+    if ((status = pam_get_item (pam_handle, PAM_USER, &p)) != PAM_SUCCESS) {
         /* is not really an auth problem, but it will
            pretty much look as such, it shouldn't really
            happen */
@@ -556,16 +500,14 @@ gs_auth_thread_func (int auth_operation_fd)
      */
     status2 = pam_acct_mgmt (pam_handle, 0);
 
-    if (gs_auth_get_verbose ())
-    {
+    if (gs_auth_get_verbose ()) {
         g_message ("pam_acct_mgmt (...) ==> %d (%s)\n",
                    status2,
                    PAM_STRERROR (pam_handle, status2));
     }
 
     /* FIXME: should we handle these? */
-    switch (status2)
-    {
+    switch (status2) {
         case PAM_SUCCESS:
             break;
         case PAM_NEW_AUTHTOK_REQD:
@@ -590,8 +532,7 @@ gs_auth_thread_func (int auth_operation_fd)
        credentials when using PAM_REINITIALIZE_CRED.
     */
     status2 = pam_setcred (pam_handle, PAM_REINITIALIZE_CRED);
-    if (gs_auth_get_verbose ())
-    {
+    if (gs_auth_get_verbose ()) {
         g_message ("   pam_setcred (...) ==> %d (%s)",
                    status2,
                    PAM_STRERROR (pam_handle, status2));
@@ -609,8 +550,7 @@ done:
 static gboolean
 gs_auth_loop_quit (GIOChannel   *source,
                    GIOCondition  condition,
-                   gboolean     *thread_done)
-{
+                   gboolean     *thread_done) {
     *thread_done = TRUE;
     gtk_main_quit ();
     return FALSE;
@@ -618,8 +558,7 @@ gs_auth_loop_quit (GIOChannel   *source,
 
 static gboolean
 gs_auth_pam_verify_user (pam_handle_t *handle,
-                         int          *status)
-{
+                         int          *status) {
     GThread    *auth_thread;
     GIOChannel *channel;
     guint       watch_id;
@@ -635,20 +574,17 @@ gs_auth_pam_verify_user (pam_handle_t *handle,
      * the event loop to be notified when our helper thread
      * is ready to be reaped.
      */
-    if (pipe (auth_operation_fds) < 0)
-    {
+    if (pipe (auth_operation_fds) < 0) {
         goto out;
     }
 
-    if (fcntl (auth_operation_fds[0], F_SETFD, FD_CLOEXEC) < 0)
-    {
+    if (fcntl (auth_operation_fds[0], F_SETFD, FD_CLOEXEC) < 0) {
         close (auth_operation_fds[0]);
         close (auth_operation_fds[1]);
         goto out;
     }
 
-    if (fcntl (auth_operation_fds[1], F_SETFD, FD_CLOEXEC) < 0)
-    {
+    if (fcntl (auth_operation_fds[1], F_SETFD, FD_CLOEXEC) < 0) {
         close (auth_operation_fds[0]);
         close (auth_operation_fds[1]);
         goto out;
@@ -668,8 +604,7 @@ gs_auth_pam_verify_user (pam_handle_t *handle,
                                 (GThreadFunc) gs_auth_thread_func,
                                 GINT_TO_POINTER (auth_operation_fds[1]));
 
-    if (auth_thread == NULL)
-    {
+    if (auth_thread == NULL) {
         goto out;
     }
 
@@ -684,27 +619,23 @@ gs_auth_pam_verify_user (pam_handle_t *handle,
      * so we can just exit.  An alternative option would be to switch to
      * using pthreads directly and calling pthread_cancel.
      */
-    if (!thread_done)
-    {
+    if (!thread_done) {
         raise (SIGTERM);
     }
 
     auth_status = GPOINTER_TO_INT (g_thread_join (auth_thread));
 
 out:
-    if (watch_id != 0)
-    {
-        //g_source_remove (watch_id);
+    if (watch_id != 0) {
+        // g_source_remove (watch_id);
         watch_id = 0;
     }
 
-    if (channel != NULL)
-    {
+    if (channel != NULL) {
         g_io_channel_unref (channel);
     }
 
-    if (status)
-    {
+    if (status) {
         *status = auth_status;
     }
 
@@ -716,16 +647,14 @@ gs_auth_verify_user (const char         *username,
                      const char         *display,
                      GSAuthMessageFunc   func,
                      gpointer            data,
-                     GError            **error)
-{
+                     GError            **error) {
     int                status = -1;
     struct pam_conv    conv;
     struct pam_closure c;
     struct passwd     *pwent;
 
     pwent = getpwnam (username);
-    if (pwent == NULL)
-    {
+    if (pwent == NULL) {
         return FALSE;
     }
 
@@ -738,8 +667,7 @@ gs_auth_verify_user (const char         *username,
 
     /* Initialize PAM. */
     create_pam_handle (username, display, &conv, &status);
-    if (status != PAM_SUCCESS)
-    {
+    if (status != PAM_SUCCESS) {
         goto done;
     }
 
@@ -748,14 +676,12 @@ gs_auth_verify_user (const char         *username,
     PAM_NO_DELAY(pam_handle);
 
     did_we_ask_for_password = FALSE;
-    if (! gs_auth_pam_verify_user (pam_handle, &status))
-    {
+    if (!gs_auth_pam_verify_user (pam_handle, &status)) {
         goto done;
     }
 
 done:
-    if (status != PAM_SUCCESS)
-    {
+    if (status != PAM_SUCCESS) {
         set_pam_error (error, status);
     }
 
@@ -765,14 +691,12 @@ done:
 }
 
 gboolean
-gs_auth_init (void)
-{
+gs_auth_init (void) {
     return TRUE;
 }
 
 gboolean
-gs_auth_priv_init (void)
-{
+gs_auth_priv_init (void) {
     /* We have nothing to do at init-time.
        However, we might as well do some error checking.
        If "/etc/pam.d" exists and is a directory, but "/etc/pam.d/xlock"
@@ -781,48 +705,38 @@ gs_auth_priv_init (void)
        This is a priv-init instead of a non-priv init in case the directory
        is unreadable or something (don't know if that actually happens.)
     */
-    const char   dir [] = "/etc/pam.d";
-    const char  file [] = "/etc/pam.d/" PAM_SERVICE_NAME;
-    const char file2 [] = "/etc/pam.conf";
+    const char   dir[] = "/etc/pam.d";
+    const char  file[] = "/etc/pam.d/" PAM_SERVICE_NAME;
+    const char file2[] = "/etc/pam.conf";
     struct stat st;
 
-    if (g_stat (dir, &st) == 0 && st.st_mode & S_IFDIR)
-    {
-        if (g_stat (file, &st) != 0)
-        {
+    if (g_stat (dir, &st) == 0 && st.st_mode & S_IFDIR) {
+        if (g_stat (file, &st) != 0) {
             g_warning ("%s does not exist.\n"
                        "Authentication via PAM is unlikely to work.",
                        file);
         }
-    }
-    else if (g_stat (file2, &st) == 0)
-    {
+    } else if (g_stat (file2, &st) == 0) {
         FILE *f = g_fopen (file2, "r");
-        if (f)
-        {
+        if (f) {
             gboolean ok = FALSE;
             char buf[255];
-            while (fgets (buf, sizeof(buf), f))
-            {
-                if (strstr (buf, PAM_SERVICE_NAME))
-                {
+            while (fgets (buf, sizeof(buf), f)) {
+                if (strstr (buf, PAM_SERVICE_NAME)) {
                     ok = TRUE;
                     break;
                 }
             }
 
             fclose (f);
-            if (!ok)
-            {
+            if (!ok) {
                 g_warning ("%s does not list the `%s' service.\n"
                            "Authentication via PAM is unlikely to work.",
                            file2, PAM_SERVICE_NAME);
             }
         }
         /* else warn about file2 existing but being unreadable? */
-    }
-    else
-    {
+    } else {
         g_warning ("Neither %s nor %s exist.\n"
                    "Authentication via PAM is unlikely to work.",
                    file2, file);

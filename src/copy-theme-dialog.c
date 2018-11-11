@@ -19,19 +19,20 @@
  * 02110-1301, USA.
 **/
 
-#include "config.h"
+#include <config.h>
 
 #include <limits.h>
 #include <string.h>
 #include <sys/stat.h>
 
+#include <gio/gio.h>
 #include <glib.h>
 #include <glib/gstdio.h>
-#include <libxfce4util/libxfce4util.h>
 #include <gtk/gtk.h>
-#include <gio/gio.h>
 
-#include "copy-theme-dialog.h"
+#include <libxfce4util/libxfce4util.h>
+
+#include "src/copy-theme-dialog.h"
 
 static void
 copy_theme_dialog_class_init (CopyThemeDialogClass *klass);
@@ -65,15 +66,13 @@ create_titled_label (GtkGrid    *grid,
 
 static GObjectClass *parent_class = NULL;
 
-enum
-{
+enum {
     CANCELLED = 0,
     COMPLETE,
     SIGNAL_COUNT
 };
 
-struct _CopyThemeDialogPrivate
-{
+struct _CopyThemeDialogPrivate {
     GtkWidget    *progress;
     GtkWidget    *status;
     GtkWidget    *current;
@@ -91,14 +90,11 @@ struct _CopyThemeDialogPrivate
 guint signals[SIGNAL_COUNT] = {0, 0};
 
 GType
-copy_theme_dialog_get_type (void)
-{
+copy_theme_dialog_get_type (void) {
     static GType copy_theme_dialog_type = 0;
 
-    if (!copy_theme_dialog_type)
-    {
-        static GTypeInfo copy_theme_dialog_info =
-        {
+    if (!copy_theme_dialog_type) {
+        static GTypeInfo copy_theme_dialog_info = {
             sizeof (CopyThemeDialogClass),
             NULL, /* GBaseInitFunc */
             NULL, /* GBaseFinalizeFunc */
@@ -121,8 +117,7 @@ copy_theme_dialog_get_type (void)
 }
 
 static void
-copy_theme_dialog_class_init (CopyThemeDialogClass *klass)
-{
+copy_theme_dialog_class_init (CopyThemeDialogClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
     G_GNUC_BEGIN_IGNORE_DEPRECATIONS /* GObject 2.58 */
@@ -154,8 +149,7 @@ copy_theme_dialog_class_init (CopyThemeDialogClass *klass)
 }
 
 GtkWidget*
-copy_theme_dialog_new (GList *files)
-{
+copy_theme_dialog_new (GList *files) {
     GtkWidget              *dialog;
     CopyThemeDialogPrivate *priv;
 
@@ -175,15 +169,13 @@ copy_theme_dialog_new (GList *files)
 }
 
 static gboolean
-copy_finished (CopyThemeDialog *dialog)
-{
+copy_finished (CopyThemeDialog *dialog) {
     return (g_cancellable_is_cancelled (dialog->priv->cancellable) ||
             dialog->priv->file == NULL);
 }
 
 static void
-copy_theme_dialog_init (CopyThemeDialog *dlg)
-{
+copy_theme_dialog_init (CopyThemeDialog *dlg) {
     GtkWidget *vbox;
     GtkWidget *hbox;
     GtkWidget *progress_vbox;
@@ -271,8 +263,7 @@ copy_theme_dialog_init (CopyThemeDialog *dlg)
 
 static void
 add_file_to_dialog (gpointer data,
-                    gpointer user_data)
-{
+                    gpointer user_data) {
     CopyThemeDialogPrivate *priv;
     GFile                  *file;
     gchar                  *basename = NULL, *raw_basename;
@@ -281,8 +272,7 @@ add_file_to_dialog (gpointer data,
     file = G_FILE (data);
 
     raw_basename = g_file_get_basename (file);
-    if (g_str_has_suffix (raw_basename, ".desktop"))
-    {
+    if (g_str_has_suffix (raw_basename, ".desktop")) {
         /* FIXME: validate key file? */
         basename = g_strndup (raw_basename,
                               /* 8 = strlen (".desktop") */
@@ -290,16 +280,12 @@ add_file_to_dialog (gpointer data,
     }
     g_free (raw_basename);
 
-    if (basename)
-    {
+    if (basename) {
         g_object_ref (file);
         priv->all_files = g_slist_append (priv->all_files, file);
         priv->all_basenames = g_slist_append (priv->all_basenames, basename);
         priv->total_files++;
-    }
-
-    else
-    {
+    } else {
         GtkWidget *dialog;
         gchar     *uri;
 
@@ -324,24 +310,18 @@ add_file_to_dialog (gpointer data,
 static void
 single_copy_complete (GObject      *source_object,
                       GAsyncResult *res,
-                      gpointer      user_data)
-{
+                      gpointer      user_data) {
     GError          *error = NULL;
     gboolean         should_continue = FALSE;
     CopyThemeDialog *dialog = COPY_THEME_DIALOG (user_data);
 
-    if (g_file_copy_finish (G_FILE (source_object), res, &error))
-    {
+    if (g_file_copy_finish (G_FILE (source_object), res, &error)) {
         should_continue = TRUE;
-    }
-
-    else
-    {
+    } else {
         /* If the file already exists, generate a new random name
          * and try again.
         **/
-        if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_EXISTS))
-        {
+        if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_EXISTS)) {
             GFile *file, *destination;
             gchar *basename, *full_basename;
             g_error_free (error);
@@ -364,21 +344,14 @@ single_copy_complete (GObject      *source_object,
                                dialog->priv->cancellable,
                                NULL, NULL,
                                single_copy_complete, dialog);
-        }
-
-        else
-        {
+        } else {
             if (g_error_matches (error, G_IO_ERROR,
-                                 G_IO_ERROR_CANCELLED))
-            {
+                                 G_IO_ERROR_CANCELLED)) {
                 /* User has cancelled the theme copy */
                 g_signal_emit (G_OBJECT (dialog),
                                signals[CANCELLED],
                                0, NULL);
-            }
-
-            else
-            {
+            } else {
                 /* Some other error occurred, ignore and
                  * try to copy remaining files
                 **/
@@ -392,8 +365,7 @@ single_copy_complete (GObject      *source_object,
     /* Update informational widgets and, if needed, signal
      * copy completion.
     **/
-    if (should_continue)
-    {
+    if (should_continue) {
         dialog->priv->index++;
         dialog->priv->file = dialog->priv->file->next;
         dialog->priv->basename = dialog->priv->basename->next;
@@ -408,13 +380,11 @@ single_copy_complete (GObject      *source_object,
  * appended to the filename.
 **/
 static void
-copy_theme_dialog_copy_next (CopyThemeDialog *dialog)
-{
+copy_theme_dialog_copy_next (CopyThemeDialog *dialog) {
     GFile *file, *destination;
     gchar *basename, *full_basename;
 
-    if (copy_finished (dialog))
-    {
+    if (copy_finished (dialog)) {
         g_signal_emit (G_OBJECT (dialog), signals[COMPLETE],
                        0, NULL);
         return;
@@ -436,13 +406,10 @@ copy_theme_dialog_copy_next (CopyThemeDialog *dialog)
 }
 
 static gboolean
-timeout_display_dialog (gpointer data)
-{
-    if (IS_COPY_THEME_DIALOG (data))
-    {
+timeout_display_dialog (gpointer data) {
+    if (IS_COPY_THEME_DIALOG (data)) {
         CopyThemeDialog *dialog = COPY_THEME_DIALOG (data);
-        if (!copy_finished (dialog))
-        {
+        if (!copy_finished (dialog)) {
             gtk_widget_show (GTK_WIDGET (dialog));
 
             g_signal_connect (dialog, "response",
@@ -454,8 +421,7 @@ timeout_display_dialog (gpointer data)
 }
 
 void
-copy_theme_dialog_begin (CopyThemeDialog *dialog)
-{
+copy_theme_dialog_begin (CopyThemeDialog *dialog) {
     gtk_widget_hide (GTK_WIDGET (dialog));
 
     /* If the copy operation takes more than half a second to
@@ -467,14 +433,12 @@ copy_theme_dialog_begin (CopyThemeDialog *dialog)
 }
 
 static void
-copy_theme_dialog_cancel (CopyThemeDialog *dialog)
-{
+copy_theme_dialog_cancel (CopyThemeDialog *dialog) {
     g_cancellable_cancel (dialog->priv->cancellable);
 }
 
 static void
-copy_theme_dialog_finalize (GObject *obj)
-{
+copy_theme_dialog_finalize (GObject *obj) {
     CopyThemeDialog *dlg = COPY_THEME_DIALOG (obj);
 
     g_object_unref (dlg->priv->theme_dir);
@@ -489,8 +453,7 @@ copy_theme_dialog_finalize (GObject *obj)
 }
 
 static void
-copy_theme_dialog_update_num_files (CopyThemeDialog *dlg)
-{
+copy_theme_dialog_update_num_files (CopyThemeDialog *dlg) {
     gchar *str = g_strdup_printf (_("Copying file: %u of %u"),
                                   dlg->priv->index, dlg->priv->total_files);
     gtk_progress_bar_set_text (GTK_PROGRESS_BAR (dlg->priv->progress), str);
@@ -498,8 +461,7 @@ copy_theme_dialog_update_num_files (CopyThemeDialog *dlg)
 }
 
 static void
-copy_theme_dialog_response (GtkDialog *dialog, gint response_id)
-{
+copy_theme_dialog_response (GtkDialog *dialog, gint response_id) {
     g_cancellable_cancel (COPY_THEME_DIALOG (dialog)->priv->cancellable);
 }
 
@@ -510,8 +472,7 @@ copy_theme_dialog_response (GtkDialog *dialog, gint response_id)
  * @label: The label.
  **/
 static void
-eel_gtk_label_make_bold (GtkLabel *label)
-{
+eel_gtk_label_make_bold (GtkLabel *label) {
     PangoFontDescription *font_desc;
     PangoAttrList        *attrlist;
     PangoAttribute       *attr;
@@ -539,8 +500,7 @@ static void
 create_titled_label (GtkGrid    *grid,
                      int         row,
                      GtkWidget **title_widget,
-                     GtkWidget **label_text_widget)
-{
+                     GtkWidget **label_text_widget) {
     *title_widget = gtk_label_new ("");
     eel_gtk_label_make_bold (GTK_LABEL (*title_widget));
     gtk_widget_set_halign (*title_widget, GTK_ALIGN_END);

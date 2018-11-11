@@ -22,32 +22,31 @@
  *
  */
 
-#include "config.h"
+#include <config.h>
+
+#include <errno.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <errno.h>
 #include <sys/time.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <unistd.h>
 
-#include <libxfce4util/libxfce4util.h>
 #include <gtk/gtk.h>
 
-#include "xfce4-screensaver.h"
-#include "gs-monitor.h"
-#include "gs-debug.h"
-
+#include <libxfce4util/libxfce4util.h>
 #include <xfconf/xfconf.h>
 
-void xfce4_screensaver_quit(void)
-{
+#include "src/gs-monitor.h"
+#include "src/gs-debug.h"
+#include "src/xfce4-screensaver.h"
+
+void xfce4_screensaver_quit(void) {
     gtk_main_quit();
 }
 
 int main(int    argc,
-         char **argv)
-{
+         char **argv) {
     GSMonitor *monitor;
     GError    *error = NULL;
 
@@ -70,29 +69,23 @@ int main(int    argc,
         textdomain(GETTEXT_PACKAGE);
     #endif
 
-    if (!gtk_init_with_args(&argc, &argv, NULL, entries, NULL, &error))
-    {
-        if (error)
-        {
+    if (!gtk_init_with_args(&argc, &argv, NULL, entries, NULL, &error)) {
+        if (error) {
             g_warning("%s", error->message);
             g_error_free(error);
-        }
-        else
-        {
+        } else {
             g_warning("Unable to initialize GTK+");
         }
 
         exit(1);
     }
 
-    if (show_version)
-    {
+    if (show_version) {
         g_print("%s %s\n", argv[0], VERSION);
         exit(1);
     }
 
-    if (!xfconf_init(&error))
-    {
+    if (!xfconf_init(&error)) {
         g_error("Failed to connect to xfconf daemon: %s.", error->message);
         g_error_free(error);
 
@@ -105,22 +98,17 @@ int main(int    argc,
 
     monitor = gs_monitor_new();
 
-    if (monitor == NULL)
-    {
+    if (monitor == NULL) {
         exit (1);
     }
 
     error = NULL;
 
-    if (!gs_monitor_start(monitor, &error))
-    {
-        if (error)
-        {
+    if (!gs_monitor_start(monitor, &error)) {
+        if (error) {
             g_warning("%s", error->message);
             g_error_free(error);
-        }
-        else
-        {
+        } else {
             g_warning("Unable to start screensaver");
         }
 

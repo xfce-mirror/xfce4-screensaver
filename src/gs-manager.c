@@ -21,33 +21,29 @@
  *
  */
 
-#include "config.h"
+#include <config.h>
 
 #include <time.h>
+
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
-
 #include <gio/gio.h>
 
-
-#include "xfce-bg.h"
-
-#include "gs-prefs.h"        /* for GSSaverMode */
-
-#include "gs-manager.h"
-#include "gs-window.h"
-#include "gs-theme-manager.h"
-#include "gs-job.h"
-#include "gs-grab.h"
-#include "gs-fade.h"
-#include "gs-debug.h"
+#include "src/gs-debug.h"
+#include "src/gs-grab.h"
+#include "src/gs-fade.h"
+#include "src/gs-job.h"
+#include "src/gs-manager.h"
+#include "src/gs-prefs.h"        /* for GSSaverMode */
+#include "src/gs-theme-manager.h"
+#include "src/gs-window.h"
+#include "src/xfce-bg.h"
 
 static void gs_manager_class_init (GSManagerClass *klass);
 static void gs_manager_init       (GSManager      *manager);
 static void gs_manager_finalize   (GObject        *object);
 
-struct GSManagerPrivate
-{
+struct GSManagerPrivate {
     GSList         *windows;
     GHashTable     *jobs;
 
@@ -89,8 +85,7 @@ struct GSManagerPrivate
     guint           unfade_idle_id;
 };
 
-enum
-{
+enum {
     ACTIVATED,
     DEACTIVATED,
     AUTH_REQUEST_BEGIN,
@@ -98,8 +93,7 @@ enum
     LAST_SIGNAL
 };
 
-enum
-{
+enum {
     PROP_0,
     PROP_LOCK_ENABLED,
     PROP_LOGOUT_ENABLED,
@@ -117,17 +111,15 @@ enum
 
 #define FADE_TIMEOUT 1000
 
-static guint         signals [LAST_SIGNAL] = { 0, };
+static guint         signals[LAST_SIGNAL] = { 0, };
 
 G_DEFINE_TYPE_WITH_PRIVATE (GSManager, gs_manager, G_TYPE_OBJECT)
 
 static void
 manager_add_job_for_window (GSManager *manager,
                             GSWindow  *window,
-                            GSJob     *job)
-{
-    if (manager->priv->jobs == NULL)
-    {
+                            GSJob     *job) {
+    if (manager->priv->jobs == NULL) {
         return;
     }
 
@@ -135,24 +127,20 @@ manager_add_job_for_window (GSManager *manager,
 }
 
 static const char *
-select_theme (GSManager *manager)
-{
+select_theme (GSManager *manager) {
     const char *theme = NULL;
 
     g_return_val_if_fail (manager != NULL, NULL);
     g_return_val_if_fail (GS_IS_MANAGER (manager), NULL);
 
-    if (manager->priv->saver_mode == GS_MODE_BLANK_ONLY)
-    {
+    if (manager->priv->saver_mode == GS_MODE_BLANK_ONLY) {
         return NULL;
     }
 
-    if (manager->priv->themes)
-    {
+    if (manager->priv->themes) {
         int number = 0;
 
-        if (manager->priv->saver_mode == GS_MODE_RANDOM)
-        {
+        if (manager->priv->saver_mode == GS_MODE_RANDOM) {
             g_random_set_seed (time (NULL));
             number = g_random_int_range (0, g_slist_length (manager->priv->themes));
         }
@@ -164,12 +152,10 @@ select_theme (GSManager *manager)
 
 static GSJob *
 lookup_job_for_window (GSManager *manager,
-                       GSWindow  *window)
-{
+                       GSWindow  *window) {
     GSJob *job;
 
-    if (manager->priv->jobs == NULL)
-    {
+    if (manager->priv->jobs == NULL) {
         return NULL;
     }
 
@@ -180,14 +166,12 @@ lookup_job_for_window (GSManager *manager,
 
 static void
 manager_maybe_stop_job_for_window (GSManager *manager,
-                                   GSWindow  *window)
-{
+                                   GSWindow  *window) {
     GSJob *job;
 
     job = lookup_job_for_window (manager, window);
 
-    if (job == NULL)
-    {
+    if (job == NULL) {
         gs_debug ("Job not found for window");
         return;
     }
@@ -197,86 +181,63 @@ manager_maybe_stop_job_for_window (GSManager *manager,
 
 static void
 manager_maybe_start_job_for_window (GSManager *manager,
-                                    GSWindow  *window)
-{
+                                    GSWindow  *window) {
     GSJob *job;
 
     job = lookup_job_for_window (manager, window);
 
-    if (job == NULL)
-    {
+    if (job == NULL) {
         gs_debug ("Job not found for window");
         return;
     }
 
-    if (! manager->priv->dialog_up)
-    {
-        if (! manager->priv->throttled)
-        {
-            if (! gs_job_is_running (job))
-            {
-                if (! gs_window_is_obscured (window))
-                {
+    if (!manager->priv->dialog_up) {
+        if (!manager->priv->throttled) {
+            if (!gs_job_is_running (job)) {
+                if (!gs_window_is_obscured (window)) {
                     gs_debug ("Starting job for window");
                     gs_job_start (job);
-                }
-                else
-                {
+                } else {
                     gs_debug ("Window is obscured deferring start of job");
                 }
-            }
-            else
-            {
+            } else {
                 gs_debug ("Not starting job because job is running");
             }
-        }
-        else
-        {
+        } else {
             gs_debug ("Not starting job because throttled");
         }
-    }
-    else
-    {
+    } else {
         gs_debug ("Not starting job because dialog is up");
     }
 }
 
 static void
 manager_select_theme_for_job (GSManager *manager,
-                              GSJob     *job)
-{
+                              GSJob     *job) {
     const char *theme;
 
     theme = select_theme (manager);
 
-    if (theme != NULL)
-    {
+    if (theme != NULL) {
         GSThemeInfo    *info;
         const char     *command;
 
         command = NULL;
 
         info = gs_theme_manager_lookup_theme_info (manager->priv->theme_manager, theme);
-        if (info != NULL)
-        {
+        if (info != NULL) {
             command = gs_theme_info_get_exec (info);
-        }
-        else
-        {
+        } else {
             gs_debug ("Could not find information for theme: %s",
                       theme);
         }
 
         gs_job_set_command (job, command);
 
-
-        if (info != NULL)
-        {
+        if (info != NULL) {
             gs_theme_info_unref (info);
         }
-    }
-    else
-    {
+    } else {
         gs_job_set_command (job, NULL);
     }
 }
@@ -284,18 +245,15 @@ manager_select_theme_for_job (GSManager *manager,
 static void
 cycle_job (GSWindow  *window,
            GSJob     *job,
-           GSManager *manager)
-{
+           GSManager *manager) {
     gs_job_stop (job);
     manager_select_theme_for_job (manager, job);
     manager_maybe_start_job_for_window (manager, window);
 }
 
 static void
-manager_cycle_jobs (GSManager *manager)
-{
-    if (manager->priv->jobs != NULL)
-    {
+manager_cycle_jobs (GSManager *manager) {
+    if (manager->priv->jobs != NULL) {
         g_hash_table_foreach (manager->priv->jobs, (GHFunc) cycle_job, manager);
     }
 }
@@ -303,23 +261,17 @@ manager_cycle_jobs (GSManager *manager)
 static void
 throttle_job (GSWindow  *window,
               GSJob     *job,
-              GSManager *manager)
-{
-    if (manager->priv->throttled)
-    {
+              GSManager *manager) {
+    if (manager->priv->throttled) {
         gs_job_stop (job);
-    }
-    else
-    {
+    } else {
         manager_maybe_start_job_for_window (manager, window);
     }
 }
 
 static void
-manager_throttle_jobs (GSManager *manager)
-{
-    if (manager->priv->jobs != NULL)
-    {
+manager_throttle_jobs (GSManager *manager) {
+    if (manager->priv->jobs != NULL) {
         g_hash_table_foreach (manager->priv->jobs, (GHFunc) throttle_job, manager);
     }
 }
@@ -327,23 +279,17 @@ manager_throttle_jobs (GSManager *manager)
 static void
 resume_job (GSWindow  *window,
             GSJob     *job,
-            GSManager *manager)
-{
-    if (gs_job_is_running (job))
-    {
+            GSManager *manager) {
+    if (gs_job_is_running (job)) {
         gs_job_suspend (job, FALSE);
-    }
-    else
-    {
+    } else {
         manager_maybe_start_job_for_window (manager, window);
     }
 }
 
 static void
-manager_resume_jobs (GSManager *manager)
-{
-    if (manager->priv->jobs != NULL)
-    {
+manager_resume_jobs (GSManager *manager) {
+    if (manager->priv->jobs != NULL) {
         g_hash_table_foreach (manager->priv->jobs, (GHFunc) resume_job, manager);
     }
 }
@@ -351,45 +297,36 @@ manager_resume_jobs (GSManager *manager)
 static void
 suspend_job (GSWindow  *window,
              GSJob     *job,
-             GSManager *manager)
-{
+             GSManager *manager) {
     gs_job_suspend (job, TRUE);
 }
 
 static void
-manager_suspend_jobs (GSManager *manager)
-{
-    if (manager->priv->jobs != NULL)
-    {
+manager_suspend_jobs (GSManager *manager) {
+    if (manager->priv->jobs != NULL) {
         g_hash_table_foreach (manager->priv->jobs, (GHFunc) suspend_job, manager);
     }
 }
 
 static void
-manager_stop_jobs (GSManager *manager)
-{
-    if (manager->priv->jobs != NULL)
-    {
+manager_stop_jobs (GSManager *manager) {
+    if (manager->priv->jobs != NULL) {
         g_hash_table_destroy (manager->priv->jobs);
-
     }
     manager->priv->jobs = NULL;
 }
 
 void
 gs_manager_set_mode (GSManager  *manager,
-                     GSSaverMode mode)
-{
+                     GSSaverMode mode) {
     g_return_if_fail (GS_IS_MANAGER (manager));
 
     manager->priv->saver_mode = mode;
 }
 
 static void
-free_themes (GSManager *manager)
-{
-    if (manager->priv->themes)
-    {
+free_themes (GSManager *manager) {
+    if (manager->priv->themes) {
         g_slist_foreach (manager->priv->themes, (GFunc)g_free, NULL);
         g_slist_free (manager->priv->themes);
     }
@@ -397,8 +334,7 @@ free_themes (GSManager *manager)
 
 void
 gs_manager_set_themes (GSManager *manager,
-                       GSList    *themes)
-{
+                       GSList    *themes) {
     GSList *l;
 
     g_return_if_fail (GS_IS_MANAGER (manager));
@@ -406,31 +342,25 @@ gs_manager_set_themes (GSManager *manager,
     free_themes (manager);
     manager->priv->themes = NULL;
 
-    for (l = themes; l; l = l->next)
-    {
+    for (l = themes; l; l = l->next) {
         manager->priv->themes = g_slist_append (manager->priv->themes, g_strdup (l->data));
     }
 }
 
 void
 gs_manager_set_throttled (GSManager *manager,
-                          gboolean   throttled)
-{
+                          gboolean   throttled) {
     g_return_if_fail (GS_IS_MANAGER (manager));
 
-    if (manager->priv->throttled != throttled)
-    {
+    if (manager->priv->throttled != throttled) {
         GSList *l;
 
         manager->priv->throttled = throttled;
 
-        if (! manager->priv->dialog_up)
-        {
-
+        if (!manager->priv->dialog_up) {
             manager_throttle_jobs (manager);
 
-            for (l = manager->priv->windows; l; l = l->next)
-            {
+            for (l = manager->priv->windows; l; l = l->next) {
                 gs_window_clear (l->data);
             }
         }
@@ -439,77 +369,64 @@ gs_manager_set_throttled (GSManager *manager,
 
 void
 gs_manager_get_lock_active (GSManager *manager,
-                            gboolean  *lock_active)
-{
-    if (lock_active != NULL)
-    {
+                            gboolean  *lock_active) {
+    if (lock_active != NULL) {
         *lock_active = FALSE;
     }
 
     g_return_if_fail (GS_IS_MANAGER (manager));
 
-    if (lock_active != NULL)
-    {
+    if (lock_active != NULL) {
         *lock_active = manager->priv->lock_active;
     }
 }
 
 void
 gs_manager_set_lock_active (GSManager *manager,
-                            gboolean   lock_active)
-{
+                            gboolean   lock_active) {
     g_return_if_fail (GS_IS_MANAGER (manager));
 
     gs_debug ("Setting lock active: %d", lock_active);
 
-    if (manager->priv->lock_active != lock_active)
-    {
+    if (manager->priv->lock_active != lock_active) {
         manager->priv->lock_active = lock_active;
     }
 }
 
 void
 gs_manager_get_lock_enabled (GSManager *manager,
-                             gboolean  *lock_enabled)
-{
-    if (lock_enabled != NULL)
-    {
+                             gboolean  *lock_enabled) {
+    if (lock_enabled != NULL) {
         *lock_enabled = FALSE;
     }
 
     g_return_if_fail (GS_IS_MANAGER (manager));
 
-    if (lock_enabled != NULL)
-    {
+    if (lock_enabled != NULL) {
         *lock_enabled = manager->priv->lock_enabled;
     }
 }
 
 void
 gs_manager_set_lock_enabled (GSManager *manager,
-                             gboolean   lock_enabled)
-{
+                             gboolean   lock_enabled) {
     g_return_if_fail (GS_IS_MANAGER (manager));
 
-    if (manager->priv->lock_enabled != lock_enabled)
-    {
+    if (manager->priv->lock_enabled != lock_enabled) {
         manager->priv->lock_enabled = lock_enabled;
     }
 }
 
 void
 gs_manager_set_logout_enabled (GSManager *manager,
-                               gboolean   logout_enabled)
-{
+                               gboolean   logout_enabled) {
     g_return_if_fail (GS_IS_MANAGER (manager));
 
-    if (manager->priv->logout_enabled != logout_enabled)
-    {
+    if (manager->priv->logout_enabled != logout_enabled) {
         GSList *l;
 
         manager->priv->logout_enabled = logout_enabled;
-        for (l = manager->priv->windows; l; l = l->next)
-        {
+        for (l = manager->priv->windows; l; l = l->next) {
             gs_window_set_logout_enabled (l->data, logout_enabled);
         }
     }
@@ -517,17 +434,14 @@ gs_manager_set_logout_enabled (GSManager *manager,
 
 void
 gs_manager_set_keyboard_enabled (GSManager *manager,
-                                 gboolean   enabled)
-{
+                                 gboolean   enabled) {
     g_return_if_fail (GS_IS_MANAGER (manager));
 
-    if (manager->priv->keyboard_enabled != enabled)
-    {
+    if (manager->priv->keyboard_enabled != enabled) {
         GSList *l;
 
         manager->priv->keyboard_enabled = enabled;
-        for (l = manager->priv->windows; l; l = l->next)
-        {
+        for (l = manager->priv->windows; l; l = l->next) {
             gs_window_set_keyboard_enabled (l->data, enabled);
         }
     }
@@ -535,27 +449,22 @@ gs_manager_set_keyboard_enabled (GSManager *manager,
 
 void
 gs_manager_set_user_switch_enabled (GSManager *manager,
-                                    gboolean   user_switch_enabled)
-{
+                                    gboolean   user_switch_enabled) {
     g_return_if_fail (GS_IS_MANAGER (manager));
 
-    if (manager->priv->user_switch_enabled != user_switch_enabled)
-    {
+    if (manager->priv->user_switch_enabled != user_switch_enabled) {
         GSList *l;
 
         manager->priv->user_switch_enabled = user_switch_enabled;
-        for (l = manager->priv->windows; l; l = l->next)
-        {
+        for (l = manager->priv->windows; l; l = l->next) {
             gs_window_set_user_switch_enabled (l->data, user_switch_enabled);
         }
     }
 }
 
 static gboolean
-activate_lock_timeout (GSManager *manager)
-{
-    if (manager->priv->lock_enabled)
-    {
+activate_lock_timeout (GSManager *manager) {
+    if (manager->priv->lock_enabled) {
         gs_manager_set_lock_active (manager, TRUE);
     }
 
@@ -565,10 +474,8 @@ activate_lock_timeout (GSManager *manager)
 }
 
 static void
-remove_lock_timer (GSManager *manager)
-{
-    if (manager->priv->lock_timeout_id != 0)
-    {
+remove_lock_timer (GSManager *manager) {
+    if (manager->priv->lock_timeout_id != 0) {
         g_source_remove (manager->priv->lock_timeout_id);
         manager->priv->lock_timeout_id = 0;
     }
@@ -576,8 +483,7 @@ remove_lock_timer (GSManager *manager)
 
 static void
 add_lock_timer (GSManager *manager,
-                glong      timeout)
-{
+                glong      timeout) {
     manager->priv->lock_timeout_id = g_timeout_add (timeout,
                                                     (GSourceFunc)activate_lock_timeout,
                                                     manager);
@@ -585,30 +491,22 @@ add_lock_timer (GSManager *manager,
 
 void
 gs_manager_set_lock_timeout (GSManager *manager,
-                             glong      lock_timeout)
-{
+                             glong      lock_timeout) {
     g_return_if_fail (GS_IS_MANAGER (manager));
 
-    if (manager->priv->lock_timeout != lock_timeout)
-    {
-
+    if (manager->priv->lock_timeout != lock_timeout) {
         manager->priv->lock_timeout = lock_timeout;
 
         if (manager->priv->active
-                && ! manager->priv->lock_active
-                && (lock_timeout >= 0))
-        {
-
+                && !manager->priv->lock_active
+                && (lock_timeout >= 0)) {
             glong elapsed = (time (NULL) - manager->priv->activate_time) * 1000;
 
             remove_lock_timer (manager);
 
-            if (elapsed >= lock_timeout)
-            {
+            if (elapsed >= lock_timeout) {
                 activate_lock_timeout (manager);
-            }
-            else
-            {
+            } else {
                 add_lock_timer (manager, lock_timeout - elapsed);
             }
         }
@@ -617,17 +515,14 @@ gs_manager_set_lock_timeout (GSManager *manager,
 
 void
 gs_manager_set_logout_timeout (GSManager *manager,
-                               glong      logout_timeout)
-{
+                               glong      logout_timeout) {
     g_return_if_fail (GS_IS_MANAGER (manager));
 
-    if (manager->priv->logout_timeout != logout_timeout)
-    {
+    if (manager->priv->logout_timeout != logout_timeout) {
         GSList *l;
 
         manager->priv->logout_timeout = logout_timeout;
-        for (l = manager->priv->windows; l; l = l->next)
-        {
+        for (l = manager->priv->windows; l; l = l->next) {
             gs_window_set_logout_timeout (l->data, logout_timeout);
         }
     }
@@ -635,58 +530,47 @@ gs_manager_set_logout_timeout (GSManager *manager,
 
 void
 gs_manager_set_logout_command (GSManager  *manager,
-                               const char *command)
-{
+                               const char *command) {
     GSList *l;
 
     g_return_if_fail (GS_IS_MANAGER (manager));
 
     g_free (manager->priv->logout_command);
 
-    if (command)
-    {
+    if (command) {
         manager->priv->logout_command = g_strdup (command);
-    }
-    else
-    {
+    } else {
         manager->priv->logout_command = NULL;
     }
 
-    for (l = manager->priv->windows; l; l = l->next)
-    {
+    for (l = manager->priv->windows; l; l = l->next) {
         gs_window_set_logout_command (l->data, manager->priv->logout_command);
     }
 }
 
 void
 gs_manager_set_keyboard_command (GSManager  *manager,
-                                 const char *command)
-{
+                                 const char *command) {
     GSList *l;
 
     g_return_if_fail (GS_IS_MANAGER (manager));
 
     g_free (manager->priv->keyboard_command);
 
-    if (command)
-    {
+    if (command) {
         manager->priv->keyboard_command = g_strdup (command);
-    }
-    else
-    {
+    } else {
         manager->priv->keyboard_command = NULL;
     }
 
-    for (l = manager->priv->windows; l; l = l->next)
-    {
+    for (l = manager->priv->windows; l; l = l->next) {
         gs_window_set_keyboard_command (l->data, manager->priv->keyboard_command);
     }
 }
 
 void
 gs_manager_set_status_message (GSManager  *manager,
-                               const char *status_message)
-{
+                               const char *status_message) {
     GSList *l;
 
     g_return_if_fail (GS_IS_MANAGER (manager));
@@ -695,32 +579,27 @@ gs_manager_set_status_message (GSManager  *manager,
 
     manager->priv->status_message = g_strdup (status_message);
 
-    for (l = manager->priv->windows; l; l = l->next)
-    {
+    for (l = manager->priv->windows; l; l = l->next) {
         gs_window_set_status_message (l->data, manager->priv->status_message);
     }
 }
 
 gboolean
-gs_manager_cycle (GSManager *manager)
-{
+gs_manager_cycle (GSManager *manager) {
     g_return_val_if_fail (manager != NULL, FALSE);
     g_return_val_if_fail (GS_IS_MANAGER (manager), FALSE);
 
     gs_debug ("cycling jobs");
 
-    if (! manager->priv->active)
-    {
+    if (!manager->priv->active) {
         return FALSE;
     }
 
-    if (manager->priv->dialog_up)
-    {
+    if (manager->priv->dialog_up) {
         return FALSE;
     }
 
-    if (manager->priv->throttled)
-    {
+    if (manager->priv->throttled) {
         return FALSE;
     }
 
@@ -730,13 +609,11 @@ gs_manager_cycle (GSManager *manager)
 }
 
 static gboolean
-cycle_timeout (GSManager *manager)
-{
+cycle_timeout (GSManager *manager) {
     g_return_val_if_fail (manager != NULL, FALSE);
     g_return_val_if_fail (GS_IS_MANAGER (manager), FALSE);
 
-    if (! manager->priv->dialog_up)
-    {
+    if (!manager->priv->dialog_up) {
         gs_manager_cycle (manager);
     }
 
@@ -744,10 +621,8 @@ cycle_timeout (GSManager *manager)
 }
 
 static void
-remove_cycle_timer (GSManager *manager)
-{
-    if (manager->priv->cycle_timeout_id != 0)
-    {
+remove_cycle_timer (GSManager *manager) {
+    if (manager->priv->cycle_timeout_id != 0) {
         g_source_remove (manager->priv->cycle_timeout_id);
         manager->priv->cycle_timeout_id = 0;
     }
@@ -755,8 +630,7 @@ remove_cycle_timer (GSManager *manager)
 
 static void
 add_cycle_timer (GSManager *manager,
-                 glong      timeout)
-{
+                 glong      timeout) {
     manager->priv->cycle_timeout_id = g_timeout_add (timeout,
                                                      (GSourceFunc)cycle_timeout,
                                                      manager);
@@ -764,33 +638,25 @@ add_cycle_timer (GSManager *manager,
 
 void
 gs_manager_set_cycle_timeout (GSManager *manager,
-                              glong      cycle_timeout)
-{
+                              glong      cycle_timeout) {
     g_return_if_fail (GS_IS_MANAGER (manager));
 
-    if (manager->priv->cycle_timeout != cycle_timeout)
-    {
-
+    if (manager->priv->cycle_timeout != cycle_timeout) {
         manager->priv->cycle_timeout = cycle_timeout;
 
-        if (manager->priv->active && (cycle_timeout >= 0))
-        {
+        if (manager->priv->active && (cycle_timeout >= 0)) {
             glong timeout;
             glong elapsed = (time (NULL) - manager->priv->activate_time) * 1000;
 
             remove_cycle_timer (manager);
 
-            if (elapsed >= cycle_timeout)
-            {
+            if (elapsed >= cycle_timeout) {
                 timeout = 0;
-            }
-            else
-            {
+            } else {
                 timeout = cycle_timeout - elapsed;
             }
 
             add_cycle_timer (manager, timeout);
-
         }
     }
 }
@@ -799,14 +665,12 @@ static void
 gs_manager_set_property (GObject      *object,
                          guint         prop_id,
                          const GValue *value,
-                         GParamSpec   *pspec)
-{
+                         GParamSpec   *pspec) {
     GSManager *self;
 
     self = GS_MANAGER (object);
 
-    switch (prop_id)
-    {
+    switch (prop_id) {
         case PROP_THROTTLED:
             gs_manager_set_throttled (self, g_value_get_boolean (value));
             break;
@@ -850,14 +714,12 @@ static void
 gs_manager_get_property (GObject    *object,
                          guint       prop_id,
                          GValue     *value,
-                         GParamSpec *pspec)
-{
+                         GParamSpec *pspec) {
     GSManager *self;
 
     self = GS_MANAGER (object);
 
-    switch (prop_id)
-    {
+    switch (prop_id) {
         case PROP_THROTTLED:
             g_value_set_boolean (value, self->priv->throttled);
             break;
@@ -901,15 +763,14 @@ gs_manager_get_property (GObject    *object,
 }
 
 static void
-gs_manager_class_init (GSManagerClass *klass)
-{
+gs_manager_class_init (GSManagerClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
     object_class->finalize     = gs_manager_finalize;
     object_class->get_property = gs_manager_get_property;
     object_class->set_property = gs_manager_set_property;
 
-    signals [ACTIVATED] =
+    signals[ACTIVATED] =
         g_signal_new ("activated",
                       G_TYPE_FROM_CLASS (object_class),
                       G_SIGNAL_RUN_LAST,
@@ -919,7 +780,7 @@ gs_manager_class_init (GSManagerClass *klass)
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE,
                       0);
-    signals [DEACTIVATED] =
+    signals[DEACTIVATED] =
         g_signal_new ("deactivated",
                       G_TYPE_FROM_CLASS (object_class),
                       G_SIGNAL_RUN_LAST,
@@ -929,7 +790,7 @@ gs_manager_class_init (GSManagerClass *klass)
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE,
                       0);
-    signals [AUTH_REQUEST_BEGIN] =
+    signals[AUTH_REQUEST_BEGIN] =
         g_signal_new ("auth-request-begin",
                       G_TYPE_FROM_CLASS (object_class),
                       G_SIGNAL_RUN_LAST,
@@ -939,7 +800,7 @@ gs_manager_class_init (GSManagerClass *klass)
                       g_cclosure_marshal_VOID__VOID,
                       G_TYPE_NONE,
                       0);
-    signals [AUTH_REQUEST_END] =
+    signals[AUTH_REQUEST_END] =
         g_signal_new ("auth-request-end",
                       G_TYPE_FROM_CLASS (object_class),
                       G_SIGNAL_RUN_LAST,
@@ -1024,14 +885,12 @@ gs_manager_class_init (GSManagerClass *klass)
 
 static void
 on_bg_changed (XfceBG    *bg,
-               GSManager *manager)
-{
+               GSManager *manager) {
     gs_debug ("background changed");
 }
 
 static void
-gs_manager_init (GSManager *manager)
-{
+gs_manager_init (GSManager *manager) {
     manager->priv = gs_manager_get_instance_private (manager);
 
     manager->priv->fade = gs_fade_new ();
@@ -1049,17 +908,14 @@ gs_manager_init (GSManager *manager)
 }
 
 static void
-remove_timers (GSManager *manager)
-{
+remove_timers (GSManager *manager) {
     remove_lock_timer (manager);
     remove_cycle_timer (manager);
 }
 
 static void
-remove_unfade_idle (GSManager *manager)
-{
-    if (manager->priv->unfade_idle_id > 0)
-    {
+remove_unfade_idle (GSManager *manager) {
+    if (manager->priv->unfade_idle_id > 0) {
         g_source_remove (manager->priv->unfade_idle_id);
         manager->priv->unfade_idle_id = 0;
     }
@@ -1067,22 +923,20 @@ remove_unfade_idle (GSManager *manager)
 
 
 static gboolean
-window_deactivated_idle (GSManager *manager)
-{
+window_deactivated_idle (GSManager *manager) {
     g_return_val_if_fail (manager != NULL, FALSE);
     g_return_val_if_fail (GS_IS_MANAGER (manager), FALSE);
 
     /* don't deactivate directly but only emit a signal
        so that we let the parent deactivate */
-    g_signal_emit (manager, signals [DEACTIVATED], 0);
+    g_signal_emit (manager, signals[DEACTIVATED], 0);
 
     return FALSE;
 }
 
 static void
 window_deactivated_cb (GSWindow  *window,
-                       GSManager *manager)
-{
+                       GSManager *manager) {
     g_return_if_fail (manager != NULL);
     g_return_if_fail (GS_IS_MANAGER (manager));
 
@@ -1090,8 +944,7 @@ window_deactivated_cb (GSWindow  *window,
 }
 
 static GSWindow *
-find_window_at_pointer (GSManager *manager)
-{
+find_window_at_pointer (GSManager *manager) {
     GdkDisplay *display;
     GdkDevice  *device;
     GdkMonitor *monitor;
@@ -1107,25 +960,20 @@ find_window_at_pointer (GSManager *manager)
 
     /* Find the gs-window that is on that monitor */
     window = NULL;
-    for (l = manager->priv->windows; l; l = l->next)
-    {
+    for (l = manager->priv->windows; l; l = l->next) {
         GSWindow *win = GS_WINDOW (l->data);
         if (gs_window_get_display (win) == display &&
-            gs_window_get_monitor (win) == monitor)
-        {
+                gs_window_get_monitor (win) == monitor) {
             window = win;
         }
     }
 
-    if (window == NULL)
-    {
+    if (window == NULL) {
         gs_debug ("WARNING: Could not find the GSWindow for display %s",
                   gdk_display_get_name (display));
         /* take the first one */
         window = manager->priv->windows->data;
-    }
-    else
-    {
+    } else {
         gs_debug ("Requesting unlock for display %s",
                   gdk_display_get_name (display));
     }
@@ -1137,8 +985,7 @@ void
 gs_manager_show_message (GSManager  *manager,
                          const char *summary,
                          const char *body,
-                         const char *icon)
-{
+                         const char *icon) {
     GSWindow *window;
 
     g_return_if_fail (GS_IS_MANAGER (manager));
@@ -1151,8 +998,7 @@ gs_manager_show_message (GSManager  *manager,
 
 static gboolean
 manager_maybe_grab_window (GSManager *manager,
-                           GSWindow  *window)
-{
+                           GSWindow  *window) {
     GdkDisplay *display;
     GdkDevice  *device;
     GdkMonitor *monitor;
@@ -1167,8 +1013,7 @@ manager_maybe_grab_window (GSManager *manager,
     gdk_display_flush (display);
     grabbed = FALSE;
     if (gs_window_get_display (window) == display &&
-        gs_window_get_monitor (window) == monitor)
-    {
+            gs_window_get_monitor (window) == monitor) {
         gs_debug ("Initiate grab move to %p", window);
         gs_grab_move_to_window (manager->priv->grab,
                                 gs_window_get_gdk_window (window),
@@ -1183,8 +1028,7 @@ manager_maybe_grab_window (GSManager *manager,
 static void
 window_grab_broken_cb (GSWindow           *window,
                        GdkEventGrabBroken *event,
-                       GSManager          *manager)
-{
+                       GSManager          *manager) {
     GdkDisplay *display;
     GdkSeat    *seat;
     GdkDevice  *device;
@@ -1192,15 +1036,12 @@ window_grab_broken_cb (GSWindow           *window,
     display = gdk_window_get_display (gs_window_get_gdk_window (window));
     seat = gdk_display_get_default_seat (display);
 
-    if (event->keyboard)
-    {
+    if (event->keyboard) {
         gs_debug ("KEYBOARD GRAB BROKEN!");
         device = gdk_seat_get_pointer (seat);
         if (!gdk_display_device_is_grabbed (display, device))
             gs_grab_reset (manager->priv->grab);
-    }
-    else
-    {
+    } else {
         gs_debug ("POINTER GRAB BROKEN!");
         device = gdk_seat_get_keyboard (seat);
         if (!gdk_display_device_is_grabbed (display, device))
@@ -1209,18 +1050,15 @@ window_grab_broken_cb (GSWindow           *window,
 }
 
 static gboolean
-unfade_idle (GSManager *manager)
-{
+unfade_idle (GSManager *manager) {
     gs_debug ("resetting fade");
     gs_fade_reset (manager->priv->fade);
     manager->priv->unfade_idle_id = 0;
     return FALSE;
 }
 
-
 static void
-add_unfade_idle (GSManager *manager)
-{
+add_unfade_idle (GSManager *manager) {
     remove_unfade_idle (manager);
     manager->priv->unfade_idle_id = g_timeout_add (500, (GSourceFunc)unfade_idle, manager);
 }
@@ -1228,8 +1066,7 @@ add_unfade_idle (GSManager *manager)
 static gboolean
 window_map_event_cb (GSWindow  *window,
                      GdkEvent  *event,
-                     GSManager *manager)
-{
+                     GSManager *manager) {
     gs_debug ("Handling window map_event event");
 
     manager_maybe_grab_window (manager, window);
@@ -1241,22 +1078,19 @@ window_map_event_cb (GSWindow  *window,
 
 static void
 window_map_cb (GSWindow  *window,
-               GSManager *manager)
-{
+               GSManager *manager) {
     gs_debug ("Handling window map event");
 }
 
 static void
 window_unmap_cb (GSWindow  *window,
-                 GSManager *manager)
-{
+                 GSManager *manager) {
     gs_debug ("window unmapped!");
 }
 
 static void
 apply_background_to_window (GSManager *manager,
-                            GSWindow  *window)
-{
+                            GSWindow  *window) {
     cairo_surface_t *surface;
     GdkMonitor      *monitor;
     GdkRectangle     geometry;
@@ -1267,8 +1101,7 @@ apply_background_to_window (GSManager *manager,
 
     xfce_bg_load_from_preferences (manager->priv->bg, monitor);
 
-    if (manager->priv->bg == NULL)
-    {
+    if (manager->priv->bg == NULL) {
         gs_debug ("No background available");
         gs_window_set_background_surface (window, NULL);
     }
@@ -1291,8 +1124,7 @@ apply_background_to_window (GSManager *manager,
 
 static void
 manager_show_window (GSManager *manager,
-                     GSWindow  *window)
-{
+                     GSWindow  *window) {
     GSJob *job;
 
     apply_background_to_window (manager, window);
@@ -1304,14 +1136,12 @@ manager_show_window (GSManager *manager,
 
     manager->priv->activate_time = time (NULL);
 
-    if (manager->priv->lock_timeout >= 0)
-    {
+    if (manager->priv->lock_timeout >= 0) {
         remove_lock_timer (manager);
         add_lock_timer (manager, manager->priv->lock_timeout);
     }
 
-    if (manager->priv->cycle_timeout >= 10000)
-    {
+    if (manager->priv->cycle_timeout >= 10000) {
         remove_cycle_timer (manager);
         add_cycle_timer (manager, manager->priv->cycle_timeout);
     }
@@ -1319,14 +1149,12 @@ manager_show_window (GSManager *manager,
     add_unfade_idle (manager);
 
     /* FIXME: only emit signal once */
-    g_signal_emit (manager, signals [ACTIVATED], 0);
+    g_signal_emit (manager, signals[ACTIVATED], 0);
 }
 
 static void
 window_show_cb (GSWindow  *window,
-                GSManager *manager)
-{
-
+                GSManager *manager) {
     g_return_if_fail (manager != NULL);
     g_return_if_fail (GS_IS_MANAGER (manager));
     g_return_if_fail (window != NULL);
@@ -1339,14 +1167,10 @@ window_show_cb (GSWindow  *window,
 static void
 maybe_set_window_throttle (GSManager *manager,
                            GSWindow  *window,
-                           gboolean   throttled)
-{
-    if (throttled)
-    {
+                           gboolean   throttled) {
+    if (throttled) {
         manager_maybe_stop_job_for_window (manager, window);
-    }
-    else
-    {
+    } else {
         manager_maybe_start_job_for_window (manager, window);
     }
 }
@@ -1354,8 +1178,7 @@ maybe_set_window_throttle (GSManager *manager,
 static void
 window_obscured_cb (GSWindow   *window,
                     GParamSpec *pspec,
-                    GSManager  *manager)
-{
+                    GSManager  *manager) {
     gboolean obscured;
 
     obscured = gs_window_is_obscured (window);
@@ -1366,8 +1189,7 @@ window_obscured_cb (GSWindow   *window,
 
 static void
 handle_window_dialog_up (GSManager *manager,
-                         GSWindow  *window)
-{
+                         GSWindow  *window) {
     GSList *l;
 
     g_return_if_fail (manager != NULL);
@@ -1375,14 +1197,12 @@ handle_window_dialog_up (GSManager *manager,
 
     gs_debug ("Handling dialog up");
 
-    g_signal_emit (manager, signals [AUTH_REQUEST_BEGIN], 0);
+    g_signal_emit (manager, signals[AUTH_REQUEST_BEGIN], 0);
 
     manager->priv->dialog_up = TRUE;
     /* make all other windows insensitive to not get events */
-    for (l = manager->priv->windows; l; l = l->next)
-    {
-        if (l->data != window)
-        {
+    for (l = manager->priv->windows; l; l = l->next) {
+        if (l->data != window) {
             gtk_widget_set_sensitive (GTK_WIDGET (l->data), FALSE);
         }
     }
@@ -1396,8 +1216,7 @@ handle_window_dialog_up (GSManager *manager,
                             gs_window_get_display (window),
                             TRUE, FALSE);
 
-    if (! manager->priv->throttled)
-    {
+    if (!manager->priv->throttled) {
         gs_debug ("Suspending jobs");
 
         manager_suspend_jobs (manager);
@@ -1406,8 +1225,7 @@ handle_window_dialog_up (GSManager *manager,
 
 static void
 handle_window_dialog_down (GSManager *manager,
-                           GSWindow  *window)
-{
+                           GSWindow  *window) {
     GSList *l;
 
     g_return_if_fail (manager != NULL);
@@ -1422,44 +1240,37 @@ handle_window_dialog_down (GSManager *manager,
                             FALSE, FALSE);
 
     /* make all windows sensitive to get events */
-    for (l = manager->priv->windows; l; l = l->next)
-    {
+    for (l = manager->priv->windows; l; l = l->next) {
         gtk_widget_set_sensitive (GTK_WIDGET (l->data), TRUE);
     }
 
     manager->priv->dialog_up = FALSE;
 
-    if (! manager->priv->throttled)
-    {
+    if (!manager->priv->throttled) {
         manager_resume_jobs (manager);
     }
 
-    g_signal_emit (manager, signals [AUTH_REQUEST_END], 0);
+    g_signal_emit (manager, signals[AUTH_REQUEST_END], 0);
 }
 
 static void
 window_dialog_up_changed_cb (GSWindow   *window,
                              GParamSpec *pspec,
-                             GSManager  *manager)
-{
+                             GSManager  *manager) {
     gboolean up;
 
     up = gs_window_is_dialog_up (window);
     gs_debug ("Handling window dialog up changed: %s", up ? "up" : "down");
-    if (up)
-    {
+    if (up) {
         handle_window_dialog_up (manager, window);
-    }
-    else
-    {
+    } else {
         handle_window_dialog_down (manager, window);
     }
 }
 
 static gboolean
 window_activity_cb (GSWindow  *window,
-                    GSManager *manager)
-{
+                    GSManager *manager) {
     gboolean handled;
     handled = gs_manager_request_unlock (manager);
 
@@ -1468,8 +1279,7 @@ window_activity_cb (GSWindow  *window,
 
 static void
 disconnect_window_signals (GSManager *manager,
-                           GSWindow  *window)
-{
+                           GSWindow  *window) {
     g_signal_handlers_disconnect_by_func (window, window_deactivated_cb, manager);
     g_signal_handlers_disconnect_by_func (window, window_activity_cb, manager);
     g_signal_handlers_disconnect_by_func (window, window_show_cb, manager);
@@ -1483,15 +1293,13 @@ disconnect_window_signals (GSManager *manager,
 
 static void
 window_destroyed_cb (GtkWindow *window,
-                     GSManager *manager)
-{
+                     GSManager *manager) {
     disconnect_window_signals (manager, GS_WINDOW (window));
 }
 
 static void
 connect_window_signals (GSManager *manager,
-                        GSWindow  *window)
-{
+                        GSWindow  *window) {
     g_signal_connect_object (window, "destroy",
                              G_CALLBACK (window_destroyed_cb), manager, 0);
     g_signal_connect_object (window, "activity",
@@ -1516,8 +1324,7 @@ connect_window_signals (GSManager *manager,
 
 static void
 gs_manager_create_window_for_monitor (GSManager  *manager,
-                                      GdkMonitor *monitor)
-{
+                                      GdkMonitor *monitor) {
     GSWindow    *window;
     GdkRectangle rect;
 
@@ -1540,8 +1347,7 @@ gs_manager_create_window_for_monitor (GSManager  *manager,
 
     manager->priv->windows = g_slist_append (manager->priv->windows, window);
 
-    if (manager->priv->active && !manager->priv->fading)
-    {
+    if (manager->priv->active && !manager->priv->fading) {
         gtk_widget_show (GTK_WIDGET (window));
     }
 }
@@ -1549,8 +1355,7 @@ gs_manager_create_window_for_monitor (GSManager  *manager,
 static void
 on_display_monitor_added (GdkDisplay *display,
                           GdkMonitor *monitor,
-                          GSManager  *manager)
-{
+                          GSManager  *manager) {
     GSList     *l;
     int         n_monitors;
 
@@ -1566,8 +1371,7 @@ on_display_monitor_added (GdkDisplay *display,
      * to the new monitor
      */
     l = manager->priv->windows;
-    while (l != NULL)
-    {
+    while (l != NULL) {
         gs_window_cancel_unlock_request (GS_WINDOW (l->data));
         l = l->next;
     }
@@ -1576,8 +1380,7 @@ on_display_monitor_added (GdkDisplay *display,
 static void
 on_display_monitor_removed (GdkDisplay *display,
                             GdkMonitor *monitor,
-                            GSManager  *manager)
-{
+                            GSManager  *manager) {
     GSList     *l;
     int         n_monitors;
     GdkMonitor *last_monitor = NULL;
@@ -1591,24 +1394,20 @@ on_display_monitor_removed (GdkDisplay *display,
 
     /* remove the now extra window */
     l = manager->priv->windows;
-    while (l != NULL)
-    {
+    while (l != NULL) {
         GdkDisplay *this_display;
         GdkMonitor *this_monitor;
         GSList     *next = l->next;
 
         this_display = gs_window_get_display (GS_WINDOW (l->data));
         this_monitor = gs_window_get_monitor (GS_WINDOW (l->data));
-        if (this_display == display && this_monitor == monitor)
-        {
+        if (this_display == display && this_monitor == monitor) {
             manager_maybe_stop_job_for_window (manager,
                                                GS_WINDOW (l->data));
             g_hash_table_remove (manager->priv->jobs, l->data);
             gs_window_destroy (GS_WINDOW (l->data));
             manager->priv->windows = g_slist_delete_link (manager->priv->windows, l);
-        }
-        else
-        {
+        } else {
             last_monitor = this_monitor;
             gs_window_cancel_unlock_request (GS_WINDOW (l->data));
         }
@@ -1627,16 +1426,14 @@ on_display_monitor_removed (GdkDisplay *display,
 }
 
 static void
-gs_manager_destroy_windows (GSManager *manager)
-{
+gs_manager_destroy_windows (GSManager *manager) {
     GdkDisplay  *display;
     GSList      *l;
 
     g_return_if_fail (manager != NULL);
     g_return_if_fail (GS_IS_MANAGER (manager));
 
-    if (manager->priv->windows == NULL)
-    {
+    if (manager->priv->windows == NULL) {
         return;
     }
 
@@ -1649,8 +1446,7 @@ gs_manager_destroy_windows (GSManager *manager)
                                           on_display_monitor_added,
                                           manager);
 
-    for (l = manager->priv->windows; l; l = l->next)
-    {
+    for (l = manager->priv->windows; l; l = l->next) {
         gs_window_destroy (l->data);
     }
     g_slist_free (manager->priv->windows);
@@ -1658,8 +1454,7 @@ gs_manager_destroy_windows (GSManager *manager)
 }
 
 static void
-gs_manager_finalize (GObject *object)
-{
+gs_manager_finalize (GObject *object) {
     GSManager *manager;
 
     g_return_if_fail (object != NULL);
@@ -1669,8 +1464,7 @@ gs_manager_finalize (GObject *object)
 
     g_return_if_fail (manager->priv != NULL);
 
-    if (manager->priv->bg != NULL)
-    {
+    if (manager->priv->bg != NULL) {
         g_object_unref (manager->priv->bg);
     }
 
@@ -1701,8 +1495,7 @@ gs_manager_finalize (GObject *object)
 
 static void
 gs_manager_create_windows_for_display (GSManager  *manager,
-                                       GdkDisplay *display)
-{
+                                       GdkDisplay *display) {
     int n_monitors;
     int i;
 
@@ -1718,8 +1511,7 @@ gs_manager_create_windows_for_display (GSManager  *manager,
     gs_debug ("Creating %d windows for display %s",
               n_monitors, gdk_display_get_name (display));
 
-    for (i = 0; i < n_monitors; i++)
-    {
+    for (i = 0; i < n_monitors; i++) {
         GdkMonitor *mon = gdk_display_get_monitor (display, i);
         gs_manager_create_window_for_monitor (manager, mon);
     }
@@ -1729,8 +1521,7 @@ gs_manager_create_windows_for_display (GSManager  *manager,
 }
 
 static void
-gs_manager_create_windows (GSManager *manager)
-{
+gs_manager_create_windows (GSManager *manager) {
     GdkDisplay  *display;
 
     g_return_if_fail (manager != NULL);
@@ -1750,8 +1541,7 @@ gs_manager_create_windows (GSManager *manager)
 }
 
 GSManager *
-gs_manager_new (void)
-{
+gs_manager_new (void) {
     GObject *manager;
 
     manager = g_object_new (GS_TYPE_MANAGER, NULL);
@@ -1760,21 +1550,17 @@ gs_manager_new (void)
 }
 
 static void
-show_windows (GSList *windows)
-{
+show_windows (GSList *windows) {
     GSList *l;
 
-    for (l = windows; l; l = l->next)
-    {
+    for (l = windows; l; l = l->next) {
         gtk_widget_show (GTK_WIDGET (l->data));
     }
 }
 
 static void
-remove_job (GSJob *job)
-{
-    if (job == NULL)
-    {
+remove_job (GSJob *job) {
+    if (job == NULL) {
         return;
     }
 
@@ -1784,36 +1570,31 @@ remove_job (GSJob *job)
 
 static void
 fade_done_cb (GSFade    *fade,
-              GSManager *manager)
-{
+              GSManager *manager) {
     gs_debug ("fade completed, showing windows");
     show_windows (manager->priv->windows);
     manager->priv->fading = FALSE;
 }
 
 static gboolean
-gs_manager_activate (GSManager *manager)
-{
+gs_manager_activate (GSManager *manager) {
     gboolean    do_fade;
     gboolean    res;
 
     g_return_val_if_fail (manager != NULL, FALSE);
     g_return_val_if_fail (GS_IS_MANAGER (manager), FALSE);
 
-    if (manager->priv->active)
-    {
+    if (manager->priv->active) {
         gs_debug ("Trying to activate manager when already active");
         return FALSE;
     }
 
     res = gs_grab_grab_root (manager->priv->grab, FALSE, FALSE);
-    if (! res)
-    {
+    if (!res) {
         return FALSE;
     }
 
-    if (manager->priv->windows == NULL)
-    {
+    if (manager->priv->windows == NULL) {
         gs_manager_create_windows (GS_MANAGER (manager));
     }
 
@@ -1826,8 +1607,7 @@ gs_manager_activate (GSManager *manager)
 
     /* fade to black and show windows */
     do_fade = TRUE;
-    if (do_fade)
-    {
+    if (do_fade) {
         manager->priv->fading = TRUE;
         gs_debug ("fading out");
         gs_fade_async (manager->priv->fade,
@@ -1835,13 +1615,10 @@ gs_manager_activate (GSManager *manager)
                        (GSFadeDoneFunc)fade_done_cb,
                        manager);
 
-        while (manager->priv->fading)
-        {
+        while (manager->priv->fading) {
             gtk_main_iteration ();
         }
-    }
-    else
-    {
+    } else {
         show_windows (manager->priv->windows);
     }
 
@@ -1849,13 +1626,11 @@ gs_manager_activate (GSManager *manager)
 }
 
 static gboolean
-gs_manager_deactivate (GSManager *manager)
-{
+gs_manager_deactivate (GSManager *manager) {
     g_return_val_if_fail (manager != NULL, FALSE);
     g_return_val_if_fail (GS_IS_MANAGER (manager), FALSE);
 
-    if (! manager->priv->active)
-    {
+    if (!manager->priv->active) {
         gs_debug ("Trying to deactivate a screensaver that is not active");
         return FALSE;
     }
@@ -1882,16 +1657,12 @@ gs_manager_deactivate (GSManager *manager)
 
 gboolean
 gs_manager_set_active (GSManager *manager,
-                       gboolean   active)
-{
+                       gboolean   active) {
     gboolean res;
 
-    if (active)
-    {
+    if (active) {
         res = gs_manager_activate (manager);
-    }
-    else
-    {
+    } else {
         res = gs_manager_deactivate (manager);
     }
 
@@ -1899,8 +1670,7 @@ gs_manager_set_active (GSManager *manager,
 }
 
 gboolean
-gs_manager_get_active (GSManager *manager)
-{
+gs_manager_get_active (GSManager *manager) {
     g_return_val_if_fail (manager != NULL, FALSE);
     g_return_val_if_fail (GS_IS_MANAGER (manager), FALSE);
 
@@ -1908,33 +1678,28 @@ gs_manager_get_active (GSManager *manager)
 }
 
 gboolean
-gs_manager_request_unlock (GSManager *manager)
-{
+gs_manager_request_unlock (GSManager *manager) {
     GSWindow *window;
 
     g_return_val_if_fail (manager != NULL, FALSE);
     g_return_val_if_fail (GS_IS_MANAGER (manager), FALSE);
 
-    if (! manager->priv->active)
-    {
+    if (!manager->priv->active) {
         gs_debug ("Request unlock but manager is not active");
         return FALSE;
     }
 
-    if (manager->priv->dialog_up)
-    {
+    if (manager->priv->dialog_up) {
         gs_debug ("Request unlock but dialog is already up");
         return FALSE;
     }
 
-    if (manager->priv->fading)
-    {
+    if (manager->priv->fading) {
         gs_debug ("Request unlock so finishing fade");
         gs_fade_finish (manager->priv->fade);
     }
 
-    if (manager->priv->windows == NULL)
-    {
+    if (manager->priv->windows == NULL) {
         gs_debug ("We don't have any windows!");
         return FALSE;
     }
@@ -1948,11 +1713,9 @@ gs_manager_request_unlock (GSManager *manager)
 }
 
 void
-gs_manager_cancel_unlock_request (GSManager *manager)
-{
+gs_manager_cancel_unlock_request (GSManager *manager) {
     GSList *l;
-    for (l = manager->priv->windows; l; l = l->next)
-    {
+    for (l = manager->priv->windows; l; l = l->next) {
         gs_window_cancel_unlock_request (l->data);
     }
 }

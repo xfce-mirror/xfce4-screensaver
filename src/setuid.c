@@ -13,26 +13,26 @@
  * implied warranty.
  */
 
-#include "config.h"
+#include <config.h>
+
+#include <grp.h> /* for getgrgid() and struct group */
+#include <pwd.h> /* for getpwnam() and struct passwd */
+#include <stdio.h>
+#include <string.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+#include <glib.h>
 
 #ifndef EPERM
 #include <errno.h>
 #endif
 
-#include <stdio.h>
-#include <string.h>
-#include <sys/types.h>
-#include <unistd.h>
-#include <pwd.h>        /* for getpwnam() and struct passwd */
-#include <grp.h>        /* for getgrgid() and struct group */
-#include <glib.h>
-
-#include "setuid.h"
+#include "src/setuid.h"
 
 static char *
 uid_gid_string (uid_t uid,
-                gid_t gid)
-{
+                gid_t gid) {
     static char   *buf;
     struct passwd *p = NULL;
     struct group  *g = NULL;
@@ -51,8 +51,7 @@ uid_gid_string (uid_t uid,
 static gboolean
 set_ids_by_number (uid_t   uid,
                    gid_t   gid,
-                   char  **message_ret)
-{
+                   char  **message_ret) {
     int            uid_errno = 0;
     int            gid_errno = 0;
     int            sgs_errno = 0;
@@ -85,8 +84,7 @@ set_ids_by_number (uid_t   uid,
     if (setuid (uid) != 0)
         uid_errno = errno ? errno : -1;
 
-    if (uid_errno == 0 && gid_errno == 0 && sgs_errno == 0)
-    {
+    if (uid_errno == 0 && gid_errno == 0 && sgs_errno == 0) {
         static char *reason;
         reason = g_strdup_printf ("changed uid/gid to %s/%s (%ld/%ld).",
                                   (p && p->pw_name ? p->pw_name : "???"),
@@ -98,20 +96,16 @@ set_ids_by_number (uid_t   uid,
         g_free (reason);
 
         return TRUE;
-    }
-    else
-    {
+    } else {
         char *reason = NULL;
 
-        if (sgs_errno)
-        {
+        if (sgs_errno) {
             reason = g_strdup_printf ("couldn't setgroups to %s (%ld)",
                                       (g && g->gr_name ? g->gr_name : "???"),
                                       (long) gid);
-            if (sgs_errno == -1)
+            if (sgs_errno == -1) {
                 fprintf (stderr, "%s: unknown error\n", reason);
-            else
-            {
+            } else {
                 errno = sgs_errno;
                 perror (reason);
             }
@@ -119,15 +113,13 @@ set_ids_by_number (uid_t   uid,
             reason = NULL;
         }
 
-        if (gid_errno)
-        {
+        if (gid_errno) {
             reason = g_strdup_printf ("couldn't set gid to %s (%ld)",
                                       (g && g->gr_name ? g->gr_name : "???"),
                                       (long) gid);
-            if (gid_errno == -1)
+            if (gid_errno == -1) {
                 fprintf (stderr, "%s: unknown error\n", reason);
-            else
-            {
+            } else {
                 errno = gid_errno;
                 perror (reason);
             }
@@ -135,15 +127,13 @@ set_ids_by_number (uid_t   uid,
             reason = NULL;
         }
 
-        if (uid_errno)
-        {
+        if (uid_errno) {
             reason = g_strdup_printf ("couldn't set uid to %s (%ld)",
                                       (p && p->pw_name ? p->pw_name : "???"),
                                       (long) uid);
-            if (uid_errno == -1)
+            if (uid_errno == -1) {
                 fprintf (stderr, "%s: unknown error\n", reason);
-            else
-            {
+            } else {
                 errno = uid_errno;
                 perror (reason);
             }
@@ -172,24 +162,20 @@ set_ids_by_number (uid_t   uid,
 gboolean
 hack_uid (char **nolock_reason,
           char **orig_uid,
-          char **uid_message)
-{
+          char **uid_message) {
     char     *reason;
     gboolean  ret;
 
     ret = TRUE;
     reason = NULL;
 
-    if (nolock_reason != NULL)
-    {
+    if (nolock_reason != NULL) {
         *nolock_reason = NULL;
     }
-    if (orig_uid != NULL)
-    {
+    if (orig_uid != NULL) {
         *orig_uid = NULL;
     }
-    if (uid_message != NULL)
-    {
+    if (uid_message != NULL) {
         *uid_message = NULL;
     }
 
@@ -202,13 +188,11 @@ hack_uid (char **nolock_reason,
         uid_t uid  = getuid ();
         gid_t gid  = getgid ();
 
-        if (orig_uid != NULL)
-        {
+        if (orig_uid != NULL) {
             *orig_uid = uid_gid_string (euid, egid);
         }
 
-        if (uid != euid || gid != egid)
-        {
+        if (uid != euid || gid != egid) {
 #ifdef HAVE_BSDAUTH /* we need to setgid auth to run the bsd_auth(3) login_* helpers */
             struct group *authg = getgrnam("auth");
             if (!authg || !authg->gr_name || !*authg->gr_name) {
@@ -218,8 +202,7 @@ hack_uid (char **nolock_reason,
             }
             gid = authg->gr_gid;
 #endif /* !HAVE_BSDAUTH */
-            if (! set_ids_by_number (uid, gid, uid_message))
-            {
+            if (!set_ids_by_number (uid, gid, uid_message)) {
                 reason = g_strdup ("unable to discard privileges.");
 
                 ret = FALSE;
@@ -238,16 +221,14 @@ hack_uid (char **nolock_reason,
        of the xscreensaver manual titled "LOCKING AND ROOT LOGINS",
        and "USING XDM".
     */
-    if (getuid () == (uid_t) 0)
-    {
+    if (getuid () == (uid_t) 0) {
         reason = g_strdup ("running as root");
         ret = FALSE;
         goto out;
     }
 
 out:
-    if (nolock_reason != NULL)
-    {
+    if (nolock_reason != NULL) {
         *nolock_reason = g_strdup (reason);
     }
     g_free (reason);

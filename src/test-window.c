@@ -21,42 +21,39 @@
  *
  */
 
-#include "config.h"
+#include <config.h>
 
 #include <stdlib.h>
 
-#include <libxfce4util/libxfce4util.h>
 #include <gtk/gtk.h>
 
-#include "gs-window.h"
-#include "gs-grab.h"
-#include "gs-debug.h"
+#include <libxfce4util/libxfce4util.h>
+
+#include "src/gs-debug.h"
+#include "src/gs-grab.h"
+#include "src/gs-window.h"
 
 static GSGrab *grab = NULL;
 
 static void
 window_deactivated_cb (GSWindow *window,
-                       gpointer  data)
-{
+                       gpointer  data) {
     gs_window_destroy (window);
 }
 
 static void
 window_dialog_up_cb (GSWindow *window,
-                     gpointer  data)
-{
+                     gpointer  data) {
 }
 
 static void
 window_dialog_down_cb (GSWindow *window,
-                       gpointer  data)
-{
+                       gpointer  data) {
 }
 
 static void
 window_show_cb (GSWindow *window,
-                gpointer  data)
-{
+                gpointer  data) {
     /* move devices grab so that dialog can be used */
     gs_grab_move_to_window (grab,
                             gs_window_get_gdk_window (window),
@@ -66,16 +63,14 @@ window_show_cb (GSWindow *window,
 
 static gboolean
 window_activity_cb (GSWindow *window,
-                    gpointer  data)
-{
+                    gpointer  data) {
     gs_window_request_unlock (window);
 
     return TRUE;
 }
 
 static void
-disconnect_window_signals (GSWindow *window)
-{
+disconnect_window_signals (GSWindow *window) {
     gpointer data;
 
     data = NULL;
@@ -88,16 +83,14 @@ disconnect_window_signals (GSWindow *window)
 
 static void
 window_destroyed_cb (GtkWindow *window,
-                     gpointer   data)
-{
+                     gpointer   data) {
     disconnect_window_signals (GS_WINDOW (window));
     gs_grab_release (grab, TRUE);
     gtk_main_quit ();
 }
 
 static void
-connect_window_signals (GSWindow *window)
-{
+connect_window_signals (GSWindow *window) {
     gpointer data;
 
     data = NULL;
@@ -117,8 +110,7 @@ connect_window_signals (GSWindow *window)
 }
 
 static void
-test_window (void)
-{
+test_window (void) {
     GSWindow   *window;
     gboolean    lock_active;
     gboolean    user_switch_enabled;
@@ -141,8 +133,7 @@ test_window (void)
 
 int
 main (int    argc,
-      char **argv)
-{
+      char **argv) {
     GError *error = NULL;
 
 #ifdef ENABLE_NLS
@@ -153,8 +144,7 @@ main (int    argc,
     textdomain (GETTEXT_PACKAGE);
 #endif
 
-    if (! gtk_init_with_args (&argc, &argv, NULL, NULL, NULL, &error))
-    {
+    if (!gtk_init_with_args (&argc, &argv, NULL, NULL, NULL, &error)) {
         fprintf (stderr, "%s", error->message);
         g_error_free (error);
         exit (1);

@@ -19,22 +19,22 @@
  *
  */
 
-#include "config.h"
+#include <config.h>
 
 #include <stdlib.h>
 #include <string.h>
+
 #include <gtk/gtk.h>
 
 #include <libxfce4util/libxfce4util.h>
 
-#include "gs-theme-window.h"
-#include "gs-theme-engine.h"
-#include "gste-popsquares.h"
+#include "savers/gs-theme-window.h"
+#include "savers/gs-theme-engine.h"
+#include "savers/gste-popsquares.h"
 
 int
 main (int    argc,
-      char **argv)
-{
+      char **argv) {
     GSThemeEngine *engine;
     GtkWidget     *window;
     GError        *error;
@@ -45,8 +45,7 @@ main (int    argc,
 
     error = NULL;
 
-    if (!gtk_init_with_args (&argc, &argv, NULL, NULL, NULL, &error))
-    {
+    if (!gtk_init_with_args (&argc, &argv, NULL, NULL, NULL, &error)) {
         g_printerr (_("%s. See --help for usage information.\n"),
                     error->message);
         g_error_free (error);
