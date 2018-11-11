@@ -39,83 +39,6 @@
 /*
  * static applet config functions
  */
-static void
-xfcekbd_indicator_config_load_font (XfcekbdIndicatorConfig *ind_config) {
-    ind_config->font_family =
-        xfconf_channel_get_string(ind_config->channel,
-                                  KEY_KBD_INDICATOR_FONT_FAMILY,
-                                  DEFAULT_KEY_KBD_INDICATOR_FONT_FAMILY);
-
-    if (ind_config->font_family == NULL ||
-            ind_config->font_family[0] == '\0') {
-        PangoFontDescription *fd = NULL;
-        GtkWidgetPath *widget_path = gtk_widget_path_new ();
-        GtkStyleContext *context = gtk_style_context_new ();
-
-        gtk_widget_path_append_type (widget_path, GTK_TYPE_WINDOW);
-        gtk_widget_path_iter_set_name (widget_path, -1 , "PanelWidget");
-
-        gtk_style_context_set_path (context, widget_path);
-        gtk_style_context_set_screen (context, gdk_screen_get_default ());
-        gtk_style_context_set_state (context, GTK_STATE_FLAG_NORMAL);
-        gtk_style_context_add_class (context, GTK_STYLE_CLASS_DEFAULT);
-        gtk_style_context_add_class (context, "gnome-panel-menu-bar");
-        gtk_style_context_add_class (context, "xfce-panel-menu-bar");
-
-        gtk_style_context_get (context, GTK_STATE_FLAG_NORMAL,
-                               GTK_STYLE_PROPERTY_FONT, &fd, NULL);
-
-        if (fd != NULL) {
-            ind_config->font_family =
-                g_strdup (pango_font_description_to_string(fd));
-        }
-
-        g_object_unref (G_OBJECT (context));
-        gtk_widget_path_unref (widget_path);
-    }
-    xkl_debug (150, "font: [%s]\n", ind_config->font_family);
-}
-
-static void
-xfcekbd_indicator_config_load_colors (XfcekbdIndicatorConfig *ind_config) {
-    ind_config->foreground_color =
-        xfconf_channel_get_string(ind_config->channel,
-                                  KEY_KBD_INDICATOR_FOREGROUND_COLOR,
-                                  DEFAULT_KEY_KBD_INDICATOR_FOREGROUND_COLOR);
-
-    if (ind_config->foreground_color == NULL ||
-            ind_config->foreground_color[0] == '\0') {
-        GtkWidgetPath *widget_path = gtk_widget_path_new ();
-        GtkStyleContext *context = gtk_style_context_new ();
-        GdkRGBA fg_color;
-
-        gtk_widget_path_append_type (widget_path, GTK_TYPE_WINDOW);
-        gtk_widget_path_iter_set_name (widget_path, -1 , "PanelWidget");
-
-        gtk_style_context_set_path (context, widget_path);
-        gtk_style_context_set_screen (context, gdk_screen_get_default ());
-        gtk_style_context_set_state (context, GTK_STATE_FLAG_NORMAL);
-        gtk_style_context_add_class (context, GTK_STYLE_CLASS_DEFAULT);
-        gtk_style_context_add_class (context, "gnome-panel-menu-bar");
-        gtk_style_context_add_class (context, "xfce-panel-menu-bar");
-
-        gtk_style_context_get_color (context,
-                                     GTK_STATE_FLAG_NORMAL, &fg_color);
-        ind_config->foreground_color =
-            g_strdup_printf ("%g %g %g",
-                             fg_color.red,
-                             fg_color.green,
-                             fg_color.blue);
-
-        g_object_unref (G_OBJECT (context));
-        gtk_widget_path_unref (widget_path);
-    }
-
-    ind_config->background_color =
-        xfconf_channel_get_string(ind_config->channel,
-                                  KEY_KBD_INDICATOR_BACKGROUND_COLOR,
-                                  DEFAULT_KEY_KBD_INDICATOR_BACKGROUND_COLOR);
-}
 
 static gchar *
 xfcekbd_indicator_config_get_images_file (XfcekbdIndicatorConfig *ind_config,
@@ -236,12 +159,6 @@ xfcekbd_indicator_config_term (XfcekbdIndicatorConfig *ind_config) {
     g_free (ind_config->font_family);
     ind_config->font_family = NULL;
 
-    g_free (ind_config->foreground_color);
-    ind_config->foreground_color = NULL;
-
-    g_free (ind_config->background_color);
-    ind_config->background_color = NULL;
-
     ind_config->icon_theme = NULL;
 
     xfcekbd_indicator_config_free_image_filenames (ind_config);
@@ -261,9 +178,6 @@ xfcekbd_indicator_config_load_from_xfconf (XfcekbdIndicatorConfig * ind_config) 
         xfconf_channel_get_bool (ind_config->channel,
                  KEY_KBD_INDICATOR_SHOW_FLAGS,
                  DEFAULT_KEY_KBD_INDICATOR_SHOW_FLAGS);
-
-    xfcekbd_indicator_config_load_font (ind_config);
-    xfcekbd_indicator_config_load_colors (ind_config);
 }
 
 void

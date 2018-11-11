@@ -136,12 +136,6 @@ xfcekbd_desktop_config_load_from_xfconf (XfcekbdDesktopConfig *config) {
                                 DEFAULT_KEY_KBD_HANDLE_INDICATORS);
     xkl_debug (150, "handle_indicators: %d\n", config->handle_indicators);
 
-    config->layout_names_as_group_names =
-        xfconf_channel_get_bool(config->channel,
-                                KEY_KBD_LAYOUT_NAMES_AS_GROUP_NAMES,
-                                DEFAULT_KEY_KBD_LAYOUT_NAMES_AS_GROUP_NAMES);
-    xkl_debug (150, "layout_names_as_group_names: %d\n", config->layout_names_as_group_names);
-
     config->load_extra_items =
         xfconf_channel_get_bool(config->channel,
                                 KEY_KBD_LOAD_EXTRA_ITEMS,
