@@ -35,7 +35,6 @@ struct _XfcekbdIndicatorConfig {
 
     /* private, transient */
     XfconfChannel *channel;
-    GtkIconTheme  *icon_theme;
     int            config_listener_id;
     XklEngine     *engine;
 };
