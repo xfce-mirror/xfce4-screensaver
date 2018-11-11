@@ -34,10 +34,6 @@ struct _XfcekbdIndicatorConfig {
     int            secondary_groups_mask;
     gboolean       show_flags;
 
-    gchar         *font_family;
-    gchar         *foreground_color;
-    gchar         *background_color;
-
     /* private, transient */
     XfconfChannel *channel;
     GSList        *image_filenames;

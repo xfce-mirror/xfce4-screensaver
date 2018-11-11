@@ -156,9 +156,6 @@ xfcekbd_indicator_config_init (XfcekbdIndicatorConfig *ind_config,
 
 void
 xfcekbd_indicator_config_term (XfcekbdIndicatorConfig *ind_config) {
-    g_free (ind_config->font_family);
-    ind_config->font_family = NULL;
-
     ind_config->icon_theme = NULL;
 
     xfcekbd_indicator_config_free_image_filenames (ind_config);
