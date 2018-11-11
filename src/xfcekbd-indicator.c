@@ -79,85 +79,6 @@ static void        xfcekbd_indicator_fill                           (XfcekbdIndi
 static void        xfcekbd_indicator_set_tooltips                   (XfcekbdIndicator *gki,
                                                                      const char       *str);
 
-static void
-xfcekbd_indicator_load_images () {
-    int     i;
-    GSList *image_filename;
-
-    globals.images = NULL;
-    xfcekbd_indicator_config_load_image_filenames (&globals.ind_cfg,
-                            &globals.kbd_cfg);
-
-    if (!globals.ind_cfg.show_flags)
-        return;
-
-    image_filename = globals.ind_cfg.image_filenames;
-
-    for (i = xkl_engine_get_max_num_groups (globals.engine);
-         --i >= 0; image_filename = image_filename->next) {
-        GdkPixbuf *image = NULL;
-        char *image_file = (char *) image_filename->data;
-
-        if (image_file != NULL) {
-            GError *gerror = NULL;
-            image =
-                gdk_pixbuf_new_from_file (image_file, &gerror);
-            if (image == NULL) {
-                GtkWidget *dialog =
-                    gtk_message_dialog_new (NULL,
-                                            GTK_DIALOG_DESTROY_WITH_PARENT,
-                                            GTK_MESSAGE_ERROR,
-                                            GTK_BUTTONS_OK,
-                                            _("There was an error loading an image: %s"),
-                                            gerror->
-                                            message);
-                g_signal_connect (G_OBJECT (dialog),
-                                  "response",
-                                  G_CALLBACK
-                                  (gtk_widget_destroy),
-                                  NULL);
-
-                gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
-
-                gtk_widget_show (dialog);
-                g_error_free (gerror);
-            }
-            xkl_debug (150,
-                       "Image %d[%s] loaded -> %p[%dx%d]\n",
-                       i, image_file, image,
-                       gdk_pixbuf_get_width (image),
-                       gdk_pixbuf_get_height (image));
-        }
-        /* We append the image anyway - even if it is NULL! */
-        globals.images = g_slist_append (globals.images, image);
-    }
-}
-
-static void
-xfcekbd_indicator_free_images () {
-    GdkPixbuf *pi;
-    GSList    *img_node;
-
-    xfcekbd_indicator_config_free_image_filenames (&globals.ind_cfg);
-
-    while ((img_node = globals.images) != NULL) {
-        pi = GDK_PIXBUF (img_node->data);
-        /* It can be NULL - some images may be missing */
-        if (pi != NULL) {
-            g_object_unref (pi);
-        }
-        globals.images =
-            g_slist_remove_link (globals.images, img_node);
-        g_slist_free_1 (img_node);
-    }
-}
-
-static void
-xfcekbd_indicator_update_images (void) {
-    xfcekbd_indicator_free_images ();
-    xfcekbd_indicator_load_images ();
-}
-
 void
 xfcekbd_indicator_set_tooltips (XfcekbdIndicator *gki,
                                 const char       *str) {
@@ -235,32 +156,6 @@ xfcekbd_indicator_button_pressed (GtkWidget        *widget,
         return TRUE;
     }
     return FALSE;
-}
-
-static void
-draw_flag (GtkWidget *flag,
-           cairo_t   *cr,
-           GdkPixbuf *image) {
-    /* Image width and height */
-    int           iw = gdk_pixbuf_get_width (image);
-    int           ih = gdk_pixbuf_get_height (image);
-    GtkAllocation allocation;
-    double        xwiratio, ywiratio, wiratio;
-
-    gtk_widget_get_allocation (flag, &allocation);
-
-    /* widget-to-image scales, X and Y */
-    xwiratio = 1.0 * allocation.width / iw;
-    ywiratio = 1.0 * allocation.height / ih;
-    wiratio = xwiratio < ywiratio ? xwiratio : ywiratio;
-
-    /* transform cairo context */
-    cairo_translate (cr, allocation.width / 2.0, allocation.height / 2.0);
-    cairo_scale (cr, wiratio, wiratio);
-    cairo_translate (cr, - iw / 2.0, - ih / 2.0);
-
-    gdk_cairo_set_source_pixbuf (cr, image, 0, 0);
-    cairo_paint (cr);
 }
 
 static gchar *
@@ -344,59 +239,44 @@ xfcekbd_indicator_create_label_title (int          group,
 static GtkWidget *
 xfcekbd_indicator_prepare_drawing (XfcekbdIndicator *gki,
                                    int               group) {
-    gpointer   pimage;
-    GdkPixbuf *image;
     GtkWidget *ebox;
 
-    pimage = g_slist_nth_data (globals.images, group);
+    char *lbl_title = NULL;
+    char *layout_name = NULL;
+    GtkWidget *label;
+    static GHashTable *ln2cnt_map = NULL;
+
     ebox = gtk_event_box_new ();
     gtk_event_box_set_visible_window (GTK_EVENT_BOX (ebox), FALSE);
-    if (globals.ind_cfg.show_flags) {
-        GtkWidget *flag;
-        if (pimage == NULL)
-            return NULL;
-        image = GDK_PIXBUF (pimage);
-        flag = gtk_drawing_area_new ();
-        gtk_widget_add_events (GTK_WIDGET (flag),
-                       GDK_BUTTON_PRESS_MASK);
-        g_signal_connect (G_OBJECT (flag), "draw",
-                          G_CALLBACK (draw_flag), image);
-        gtk_container_add (GTK_CONTAINER (ebox), flag);
-    } else {
-        char              *lbl_title = NULL;
-        char              *layout_name = NULL;
-        GtkWidget         *label;
-        static GHashTable *ln2cnt_map = NULL;
 
-        layout_name =
-            xfcekbd_indicator_extract_layout_name (group,
-                                                   globals.engine,
-                                                   &globals.kbd_cfg,
-                                                   globals.short_group_names,
-                                                   globals.full_group_names);
+    layout_name =
+        xfcekbd_indicator_extract_layout_name (group,
+                                                globals.engine,
+                                                &globals.kbd_cfg,
+                                                globals.short_group_names,
+                                                globals.full_group_names);
 
-        lbl_title =
-            xfcekbd_indicator_create_label_title (group,
-                                                  &ln2cnt_map,
-                                                  layout_name);
+    lbl_title =
+        xfcekbd_indicator_create_label_title (group,
+                                                &ln2cnt_map,
+                                                layout_name);
 
-        label = gtk_label_new (lbl_title);
-        gtk_widget_set_halign (label, GTK_ALIGN_CENTER);
-        gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
-        gtk_widget_set_margin_start (label, 2);
-        gtk_widget_set_margin_end (label, 2);
-        gtk_widget_set_margin_top (label, 2);
-        gtk_widget_set_margin_bottom (label, 2);
-        g_free (lbl_title);
-        gtk_label_set_angle (GTK_LABEL (label), gki->priv->angle);
+    label = gtk_label_new (lbl_title);
+    gtk_widget_set_halign (label, GTK_ALIGN_CENTER);
+    gtk_widget_set_valign (label, GTK_ALIGN_CENTER);
+    gtk_widget_set_margin_start (label, 2);
+    gtk_widget_set_margin_end (label, 2);
+    gtk_widget_set_margin_top (label, 2);
+    gtk_widget_set_margin_bottom (label, 2);
+    g_free (lbl_title);
+    gtk_label_set_angle (GTK_LABEL (label), gki->priv->angle);
 
-        if (group + 1 == xkl_engine_get_num_groups (globals.engine)) {
-            g_hash_table_destroy (ln2cnt_map);
-            ln2cnt_map = NULL;
-        }
-
-        gtk_container_add (GTK_CONTAINER (ebox), label);
+    if (group + 1 == xkl_engine_get_num_groups (globals.engine)) {
+        g_hash_table_destroy (ln2cnt_map);
+        ln2cnt_map = NULL;
     }
+
+    gtk_container_add (GTK_CONTAINER (ebox), label);
 
     g_signal_connect (G_OBJECT (ebox),
                       "button_press_event",
@@ -464,7 +344,6 @@ xfcekbd_indicator_ind_cfg_changed (XfconfChannel *channel,
                                   gpointer        user_data) {
     xkl_debug (100, "Applet configuration changed in Xfconf - reiniting...\n");
     xfcekbd_indicator_config_load_from_xfconf (&globals.ind_cfg);
-    xfcekbd_indicator_update_images ();
     xfcekbd_indicator_config_activate (&globals.ind_cfg);
 
     ForAllIndicators () {
@@ -506,7 +385,6 @@ xfcekbd_indicator_kbd_cfg_callback (XfcekbdIndicator *gki) {
     xkl_debug (100, "XKB configuration changed on X Server - reiniting...\n");
 
     xfcekbd_keyboard_config_load_from_x_current (&globals.kbd_cfg, xklrec);
-    xfcekbd_indicator_update_images ();
 
     g_strfreev (globals.full_group_names);
     globals.full_group_names = NULL;
@@ -779,7 +657,6 @@ xfcekbd_indicator_global_init (void) {
     xfcekbd_keyboard_config_load_from_x_current (&globals.kbd_cfg, xklrec);
 
     xfcekbd_indicator_config_load_from_xfconf (&globals.ind_cfg);
-    xfcekbd_indicator_update_images ();
     xfcekbd_indicator_config_activate (&globals.ind_cfg);
 
     xfcekbd_indicator_load_group_names ((const gchar **) xklrec->layouts,

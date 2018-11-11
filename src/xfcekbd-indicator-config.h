@@ -32,11 +32,9 @@
 typedef struct _XfcekbdIndicatorConfig XfcekbdIndicatorConfig;
 struct _XfcekbdIndicatorConfig {
     int            secondary_groups_mask;
-    gboolean       show_flags;
 
     /* private, transient */
     XfconfChannel *channel;
-    GSList        *image_filenames;
     GtkIconTheme  *icon_theme;
     int            config_listener_id;
     XklEngine     *engine;
@@ -52,10 +50,6 @@ void    xfcekbd_indicator_config_init                   (XfcekbdIndicatorConfig 
 void    xfcekbd_indicator_config_term                   (XfcekbdIndicatorConfig  *applet_config);
 
 void    xfcekbd_indicator_config_load_from_xfconf       (XfcekbdIndicatorConfig  *applet_config);
-
-void    xfcekbd_indicator_config_load_image_filenames   (XfcekbdIndicatorConfig  *applet_config,
-                                                         XfcekbdKeyboardConfig   *kbd_config);
-void    xfcekbd_indicator_config_free_image_filenames   (XfcekbdIndicatorConfig  *applet_config);
 
 /* Should be updated on Indicator/Xfconf configuration change */
 void    xfcekbd_indicator_config_activate               (XfcekbdIndicatorConfig  *applet_config);

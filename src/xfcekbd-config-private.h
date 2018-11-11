@@ -52,12 +52,6 @@
 #define DEFAULT_KEY_KBD_LOAD_EXTRA_ITEMS FALSE
 
 /**
- * KBD/Indicator: Show flags instead of language code
- */
-#define KEY_KBD_INDICATOR_SHOW_FLAGS "/kbd/indicator/show-flags"
-#define DEFAULT_KEY_KBD_INDICATOR_SHOW_FLAGS FALSE
-
-/**
  * KBD/Indicator: Secondary groups
  */
 #define KEY_KBD_INDICATOR_SECONDARIES "/kbd/indicator/secondary"
