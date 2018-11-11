@@ -114,21 +114,6 @@ _gs_prefs_set_timeout (GSPrefs *prefs,
 }
 
 static void
-_gs_prefs_set_power_timeout (GSPrefs *prefs,
-                             int      value) {
-    if (value < 1)
-        value = 60;
-
-    /* pick a reasonable large number for the
-       upper bound */
-    if (value > 480)
-        value = 480;
-
-    /* this value is in seconds - others are in minutes */
-    prefs->power_timeout = value * 1000;
-}
-
-static void
 _gs_prefs_set_lock_timeout (GSPrefs *prefs,
                             int      value) {
     if (value < 0)
@@ -280,11 +265,6 @@ gs_prefs_load_from_settings (GSPrefs *prefs) {
     _gs_prefs_set_timeout (prefs, value);
 
     value = xfconf_channel_get_int (prefs->priv->channel,
-                                    KEY_POWER_DELAY,
-                                    DEFAULT_KEY_POWER_DELAY);
-    _gs_prefs_set_power_timeout (prefs, value);
-
-    value = xfconf_channel_get_int (prefs->priv->channel,
                                     KEY_LOCK_DELAY,
                                     DEFAULT_KEY_LOCK_DELAY);
     _gs_prefs_set_lock_timeout (prefs, value);
@@ -368,11 +348,6 @@ key_changed_cb (XfconfChannel *channel,
 
         delay = xfconf_channel_get_int (channel, property, DEFAULT_KEY_IDLE_DELAY);
         _gs_prefs_set_timeout (prefs, delay);
-    } else if (strcmp (property, KEY_POWER_DELAY) == 0) {
-        int delay;
-
-        delay = xfconf_channel_get_int (channel, property, DEFAULT_KEY_POWER_DELAY);
-        _gs_prefs_set_power_timeout (prefs, delay);
     } else if (strcmp (property, KEY_LOCK_DELAY) == 0) {
         int delay;
 
@@ -453,7 +428,6 @@ gs_prefs_init (GSPrefs *prefs) {
     prefs->user_switch_enabled     = FALSE;
 
     prefs->timeout                 = 600000;
-    prefs->power_timeout           = 60000;
     prefs->lock_timeout            = 0;
     prefs->logout_timeout          = 14400000;
     prefs->cycle                   = 600000;

@@ -55,14 +55,6 @@ G_BEGIN_DECLS
 #define DEFAULT_KEY_IDLE_DELAY 5
 
 /**
- * Time before power management baseline
- * The number of seconds of inactivity before signalling to power management.
- * This key is set and maintained by the session power management agent.
- */
-#define KEY_POWER_DELAY "/power-management-delay"
-#define DEFAULT_KEY_POWER_DELAY 30
-
-/**
  * Time before locking
  * The number of minutes after screensaver activation before locking the screen.
  */
@@ -177,7 +169,6 @@ typedef struct
     guint            user_switch_enabled : 1;  /* Whether to offer the user switch option */
     guint            keyboard_enabled : 1;       /* Whether to try to embed a keyboard */
     guint            status_message_enabled : 1; /* show the status message in the lock */
-    guint            power_timeout;  /* how much idle time before power management */
     guint            timeout;        /* how much idle time before activation */
     guint            lock_timeout;   /* how long after activation locking starts */
     guint            logout_timeout; /* how long until the logout option appears */
