@@ -492,20 +492,20 @@ msgstr "Insira o seu contrasinal"
 
 #: ../src/xfce4-screensaver-dialog.ui.h:4
 msgid "You have the Caps Lock key on."
-msgstr ""
+msgstr "A tecla Bloq. Maiús. está activada."
 
 #: ../src/xfce4-screensaver-dialog.ui.h:5
 msgid "_Switch User"
-msgstr ""
+msgstr "_Trocar de usuario "
 
 #: ../src/xfce4-screensaver-dialog.ui.h:6
 msgid "_Log Out"
-msgstr ""
+msgstr "Sai_r"
 
 #: ../src/xfce4-screensaver-dialog.ui.h:10
 #, no-c-format
 msgid "<b>%h</b>"
-msgstr ""
+msgstr "<b>%h</b>"
 
 #: ../src/xfce4-screensaver-dialog.ui.h:12
 #, no-c-format
