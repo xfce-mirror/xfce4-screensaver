@@ -617,7 +617,7 @@ msgstr "Activar o bloqueo da pantalla"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:20
 msgid "Session Status Messages"
-msgstr ""
+msgstr "Mensaxes de estado da sesión"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:21
 msgid "User Switching"
