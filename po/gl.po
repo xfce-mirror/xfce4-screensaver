@@ -4,8 +4,8 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Xosé, 2018
 # Nick Schermer <nick@xfce.org>, 2018
+# Xosé, 2018
 # Daniel Muñiz Fontoira <dani@damufo.com>, 2018
 # 
 #, fuzzy
@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-12 00:31+0100\n"
+"POT-Creation-Date: 2018-11-14 06:31+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Daniel Muñiz Fontoira <dani@damufo.com>, 2018\n"
 "Language-Team: Galician (https://www.transifex.com/xfce/teams/16840/gl/)\n"
@@ -24,6 +24,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:1
+#: ../src/xfce4-screensaver-preferences.ui.h:18
 #: ../src/xfce4-screensaver.desktop.in.in.h:1
 msgid "Screensaver"
 msgstr "Protector de pantalla"
@@ -512,147 +513,146 @@ msgstr "<b>%h</b>"
 msgid "<b>%s</b>"
 msgstr "<b>%s</b>"
 
-#: ../src/xfce4-screensaver-preferences.c:77
+#: ../src/xfce4-screensaver-preferences.c:83
 msgid "Settings manager socket"
-msgstr "Socket do xestor de configuración"
+msgstr "Toma («socket») do xestor de configuración"
 
-#: ../src/xfce4-screensaver-preferences.c:77
+#: ../src/xfce4-screensaver-preferences.c:83
 msgid "SOCKET ID"
-msgstr ""
+msgstr "ID TOMA"
 
-#: ../src/xfce4-screensaver-preferences.c:386
+#: ../src/xfce4-screensaver-preferences.c:594
 msgid "Blank screen"
-msgstr ""
+msgstr "Escurecer a pantalla"
 
-#: ../src/xfce4-screensaver-preferences.c:392
+#: ../src/xfce4-screensaver-preferences.c:600
 msgid "Random"
 msgstr "Aleatorio"
 
-#: ../src/xfce4-screensaver-preferences.c:822
-#: ../src/xfce4-screensaver-preferences.c:832
-#, c-format
-msgid "%d hour"
-msgid_plural "%d hours"
-msgstr[0] ""
-msgstr[1] ""
+#: ../src/xfce4-screensaver-preferences.c:1677
+msgid "Setting locked by administrator."
+msgstr "Axuste bloqueado polo administrador."
 
-#: ../src/xfce4-screensaver-preferences.c:825
-#: ../src/xfce4-screensaver-preferences.c:834
-#: ../src/xfce4-screensaver-preferences.c:841
-#: ../src/xfce4-screensaver-preferences.c:844
-#: ../src/xfce4-screensaver-preferences.c:847
-#: ../src/xfce4-screensaver-preferences.c:850
-#: ../src/xfce4-screensaver-preferences.c:855
-#: ../src/xfce4-screensaver-preferences.c:858
-#, c-format
-msgid "%d minute"
-msgid_plural "%d minutes"
-msgstr[0] ""
-msgstr[1] ""
-
-#: ../src/xfce4-screensaver-preferences.c:828
-#, c-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] ""
-msgstr[1] ""
-
-#. hour:minutes
-#. minutes:seconds
-#: ../src/xfce4-screensaver-preferences.c:831
-#: ../src/xfce4-screensaver-preferences.c:870
-#: ../src/xfce4-screensaver-preferences.c:878
-#, c-format
-msgid "%s %s"
-msgstr ""
-
-#. hour:minutes:seconds
-#: ../src/xfce4-screensaver-preferences.c:867
-#, c-format
-msgid "%s %s %s"
-msgstr ""
-
-#. hour
-#. minutes
-#. seconds
-#: ../src/xfce4-screensaver-preferences.c:873
-#: ../src/xfce4-screensaver-preferences.c:881
-#: ../src/xfce4-screensaver-preferences.c:910
-#, c-format
-msgid "%s"
-msgstr ""
-
-#: ../src/xfce4-screensaver-preferences.c:924
-#, c-format
-msgid "Never"
-msgstr "Nunca"
-
-#: ../src/xfce4-screensaver-preferences.c:1367
+#: ../src/xfce4-screensaver-preferences.c:1717
 msgid "Could not load the main interface"
-msgstr ""
+msgstr "Non se puido cargar a interface principal"
 
-#: ../src/xfce4-screensaver-preferences.c:1369
+#: ../src/xfce4-screensaver-preferences.c:1719
 msgid "Please make sure that the screensaver is properly installed"
-msgstr ""
+msgstr "Asegúrese de que o protector de pantalla está instalado correctamente"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:1
 msgid "Screensaver Preview"
-msgstr ""
+msgstr "Visualizar o protector de pantalla"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:2
 msgid "<b>Screensaver preview</b>"
-msgstr ""
+msgstr "<b>Visualizar o protector de pantalla</b>"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:3
 msgid "Screensaver Preferences"
-msgstr ""
+msgstr "Preferencias so protector de pantalla"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:4
 msgid "Configure your screensaver and locker"
-msgstr ""
+msgstr "Configure o seu protector de pantalla e bloqueo"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:5
 msgid "Power _Management"
-msgstr ""
+msgstr "Xestor de _enerxía"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:6
-msgid "_Preview"
-msgstr "_Previsualización"
+msgid "Preview"
+msgstr "Vista previa"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:7
 msgid "Running as root"
-msgstr ""
+msgstr "Executar como administrador"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:8
 msgid "The screen will not be locked for the root user."
-msgstr ""
+msgstr "Non se bloqueará a pantalla para o usuario administrador."
 
 #: ../src/xfce4-screensaver-preferences.ui.h:9
 msgid "Resolve"
-msgstr ""
+msgstr "Soluciona"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:10
 msgid "Xfce Power Manager is not configured to handle laptop lid events"
 msgstr ""
+"O xestor de enerxía do Xfce non está configurada para manexar as accións da "
+"tampa da computadora"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:11
 msgid "Your computer may not be locked when you close the lid."
-msgstr ""
+msgstr "Pode que a súa computadora non se bloquee ao pechar a tampa."
 
 #: ../src/xfce4-screensaver-preferences.ui.h:12
-msgid "_Screensaver theme:"
-msgstr ""
+msgid "Enable Screensaver"
+msgstr "Activar o protector de pantalla"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:13
-msgid "Regard the computer as _idle after:"
-msgstr ""
+msgid "Theme"
+msgstr "Tema"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:14
-msgid "_Activate screensaver when computer is idle"
-msgstr ""
+msgid "Change theme after:"
+msgstr "Trocar o tema despois de:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:15
-msgid "_Lock screen when screensaver is active"
+msgid "Activate screensaver when computer is idle"
+msgstr "Activar o protector de pantalla cando a computadora estea inactiva"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:16
+msgid "Regard the computer as _idle after:"
+msgstr "Considerar que a computadora está _inactiva despois de:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:17
+msgid "minutes"
+msgstr "minutos"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:19
+msgid "Enable Lock Screen"
+msgstr "Activar o bloqueo da pantalla"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:20
+msgid "Session Status Messages"
+msgstr ""
+
+#: ../src/xfce4-screensaver-preferences.ui.h:21
+msgid "User Switching"
+msgstr ""
+
+#: ../src/xfce4-screensaver-preferences.ui.h:22
+msgid "Logout"
+msgstr ""
+
+#: ../src/xfce4-screensaver-preferences.ui.h:23
+msgid "Logout command:"
+msgstr ""
+
+#: ../src/xfce4-screensaver-preferences.ui.h:24
+msgid "Enable logout after:"
+msgstr ""
+
+#: ../src/xfce4-screensaver-preferences.ui.h:25
+msgid "Lock the screen after the screensaver is active for:"
+msgstr ""
+
+#: ../src/xfce4-screensaver-preferences.ui.h:26
+msgid "Lock Screen with Screensaver"
+msgstr ""
+
+#: ../src/xfce4-screensaver-preferences.ui.h:27
+msgid "On Screen Keyboard"
+msgstr ""
+
+#: ../src/xfce4-screensaver-preferences.ui.h:28
+msgid "On screen keyboard command:"
+msgstr ""
+
+#: ../src/xfce4-screensaver-preferences.ui.h:29
+msgid "Lock Screen"
 msgstr ""
 
 #: ../src/xfce4-screensaver.c:59
