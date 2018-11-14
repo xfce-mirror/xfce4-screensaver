@@ -52,8 +52,9 @@ struct GSListenerX11Private {
     int scrnsaver_event_base;
 #endif
 
-    gint lock_timeout;
-    guint lock_timer_id;
+    gint     lock_timeout;
+    guint    lock_timer_id;
+    gboolean idle_activation_enabled;
 };
 
 enum {
@@ -103,30 +104,26 @@ lock_timer (GSListenerX11 *listener) {
     gint  state;
 
     get_x11_idle_info (&idle_time, &state);
-    switch (state) {
-        case ScreenSaverOff:
-            gs_debug("Lock Timeout: %is, Idle: %is, Screensaver: Enabled, Lock State: Unlocked",
-                     listener->priv->lock_timeout, idle_time);
-            break;
+    gs_debug("Lock Timeout: %is, Idle: %is, Idle Activation: %s, Screensaver: %s, Lock State: %s",
+             listener->priv->lock_timeout,
+             idle_time,
+             listener->priv->idle_activation_enabled ? "Enabled" : "Disabled",
+             state == ScreenSaverDisabled ? "Disabled" : "Enabled",
+             state == ScreenSaverOn ? "Locked" : "Unlocked");
 
-        case ScreenSaverDisabled:
-            gs_debug("Lock Timeout: %is, Idle: %is, Screensaver: Disabled, Lock State: Unlocked",
-                     listener->priv->lock_timeout, idle_time);
-            break;
-
-        case ScreenSaverOn:
-            gs_debug("Lock Timeout: %is, Idle: %is, Screensaver: Enabled, Lock State: Locked",
-                     listener->priv->lock_timeout, idle_time);
-            break;
-    }
-
-    if (idle_time >= listener->priv->lock_timeout && state != ScreenSaverDisabled) {
+    if (listener->priv->idle_activation_enabled &&
+            idle_time >= listener->priv->lock_timeout &&
+            state != ScreenSaverDisabled) {
         g_signal_emit(listener, signals[LOCK], 0);
     } else {
         switch (state) {
             case ScreenSaverOff:
                 // Reset the lock timer
-                reset_lock_timer(listener, listener->priv->lock_timeout - idle_time);
+                if (idle_time < listener->priv->lock_timeout) {
+                    reset_lock_timer(listener, listener->priv->lock_timeout - idle_time);
+                } else {
+                    reset_lock_timer(listener, 30);
+                }
                 return FALSE;
                 break;
 
@@ -247,6 +244,12 @@ gs_listener_x11_set_lock_after (GSListenerX11 *listener,
     gs_debug ("Lock timeout updated to %i minutes", lock_after);
     listener->priv->lock_timeout = lock_after * 60;
     reset_lock_timer(listener, listener->priv->lock_timeout);
+}
+
+void
+gs_listener_x11_set_activation_enabled (GSListenerX11 *listener,
+                                        gboolean       enabled) {
+    listener->priv->idle_activation_enabled = enabled;
 }
 
 static void

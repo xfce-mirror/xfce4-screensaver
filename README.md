@@ -24,7 +24,6 @@ Known Issues
 ============
 
  - Time before locking after the screensaver, /lock-delay, is currently ignored. Instead, the screen is immediately locked.
- - Activate when idle, /idle-activation-enabled, is currently ignored. Unless the screensaver is inhibited, the screensaver will always activate after the idle timeout.
  - Allow embedding a keyboard into the window, /embedded-keyboard-enabled, may be non-functional. Onboard crashes when embedded.
  - Allow the session status message to be displayed, /status-message-enabled, is currently ignored. The status message is always displayed when received.
 
