@@ -71,6 +71,12 @@ static GSThemeManager *theme_manager = NULL;
 static GSJob          *job = NULL;
 static XfconfChannel  *screensaver_channel = NULL;
 
+static gboolean        idle_delay_writable;
+static gboolean        lock_delay_writable;
+static gboolean        keyboard_command_writable;
+static gboolean        logout_command_writable;
+static gboolean        logout_delay_writable;
+
 static gint opt_socket_id = 0;
 static GOptionEntry entries[] = {
     { "socket-id", 's', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_INT, &opt_socket_id,
@@ -79,7 +85,7 @@ static GOptionEntry entries[] = {
 };
 
 static gint32
-config_get_activate_delay (gboolean *is_writable) {
+config_get_idle_delay (gboolean *is_writable) {
     gint32 delay;
 
     if (is_writable) {
@@ -97,8 +103,77 @@ config_get_activate_delay (gboolean *is_writable) {
 }
 
 static void
-config_set_activate_delay (gint32 timeout) {
+config_set_idle_delay (gint32 timeout) {
     xfconf_channel_set_int (screensaver_channel, KEY_IDLE_DELAY, timeout);
+}
+
+static gint32
+config_get_lock_delay (gboolean *is_writable) {
+    gint32 delay;
+
+    if (is_writable) {
+        *is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
+                       KEY_LOCK_DELAY);
+    }
+
+    delay = xfconf_channel_get_int (screensaver_channel, KEY_LOCK_DELAY, DEFAULT_KEY_LOCK_DELAY);
+
+    if (delay < 1) {
+        delay = 1;
+    }
+
+    return delay;
+}
+
+static void
+config_set_lock_delay (gint32 timeout) {
+    xfconf_channel_set_int (screensaver_channel, KEY_LOCK_DELAY, timeout);
+}
+
+static gint32
+config_get_cycle_delay (gboolean *is_writable) {
+    gint32 delay;
+
+    if (is_writable) {
+        *is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
+                       KEY_CYCLE_DELAY);
+    }
+
+    delay = xfconf_channel_get_int (screensaver_channel, KEY_CYCLE_DELAY, DEFAULT_KEY_CYCLE_DELAY);
+
+    if (delay < 1) {
+        delay = 1;
+    }
+
+    return delay;
+}
+
+static void
+config_set_cycle_delay (gint32 timeout) {
+    xfconf_channel_set_int (screensaver_channel, KEY_CYCLE_DELAY, timeout);
+}
+
+static gint32
+config_get_logout_delay (gboolean *is_writable) {
+    gint32 delay;
+
+    if (is_writable) {
+        *is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
+                       KEY_LOGOUT_DELAY);
+    }
+
+    delay = xfconf_channel_get_int (screensaver_channel, KEY_LOGOUT_DELAY, DEFAULT_KEY_LOGOUT_DELAY);
+
+    if (delay < 1) {
+        delay = 1;
+    }
+
+    return delay;
+}
+
+static void
+config_set_logout_delay (gint32 timeout) {
+    xfconf_channel_set_int (screensaver_channel, KEY_LOGOUT_DELAY, timeout);
 }
 
 static int
@@ -118,6 +193,13 @@ config_get_mode (gboolean *is_writable) {
 static void
 config_set_mode (int mode) {
     xfconf_channel_set_int (screensaver_channel, KEY_MODE, mode);
+
+    gtk_widget_set_visible (GTK_WIDGET (gtk_builder_get_object (builder, "cycle_delay_label_left")),
+                            mode == GS_MODE_RANDOM);
+    gtk_widget_set_visible (GTK_WIDGET (gtk_builder_get_object (builder, "cycle_delay")),
+                            mode == GS_MODE_RANDOM);
+    gtk_widget_set_visible (GTK_WIDGET (gtk_builder_get_object (builder, "cycle_delay_label_right")),
+                            mode == GS_MODE_RANDOM);
 }
 
 static char *
@@ -208,12 +290,12 @@ config_set_theme (const char *theme_id) {
 }
 
 static gboolean
-config_get_enabled (gboolean *is_writable) {
+config_get_idle_activation_enabled (gboolean *is_writable) {
     int enabled;
 
     if (is_writable) {
         *is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
-                                                           KEY_LOCK_ENABLED);
+                                                           KEY_IDLE_ACTIVATION_ENABLED);
     }
 
     enabled = xfconf_channel_get_bool (screensaver_channel,
@@ -224,14 +306,14 @@ config_get_enabled (gboolean *is_writable) {
 }
 
 static void
-config_set_enabled (gboolean enabled) {
+config_set_idle_activation_enabled (gboolean enabled) {
     xfconf_channel_set_bool (screensaver_channel,
                              KEY_IDLE_ACTIVATION_ENABLED,
                              enabled);
 }
 
 static gboolean
-config_get_lock (gboolean *is_writable) {
+config_get_lock_enabled (gboolean *is_writable) {
     gboolean lock;
 
     if (is_writable) {
@@ -247,8 +329,134 @@ config_get_lock (gboolean *is_writable) {
 }
 
 static void
-config_set_lock (gboolean lock) {
+config_set_lock_enabled (gboolean lock) {
     xfconf_channel_set_bool (screensaver_channel, KEY_LOCK_ENABLED, lock);
+}
+
+static gboolean
+config_get_keyboard_enabled (gboolean *is_writable) {
+    gboolean enabled;
+
+    if (is_writable) {
+        *is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
+                                                           KEY_KEYBOARD_ENABLED);
+    }
+
+    enabled = xfconf_channel_get_bool (screensaver_channel,
+                                       KEY_KEYBOARD_ENABLED,
+                                       DEFAULT_KEY_KEYBOARD_ENABLED);
+
+    return enabled;
+}
+
+static void
+config_set_keyboard_enabled (gboolean enabled) {
+    xfconf_channel_set_bool (screensaver_channel, KEY_KEYBOARD_ENABLED, enabled);
+}
+
+static gboolean
+config_get_status_message_enabled (gboolean *is_writable) {
+    gboolean enabled;
+
+    if (is_writable) {
+        *is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
+                                                           KEY_STATUS_MESSAGE_ENABLED);
+    }
+
+    enabled = xfconf_channel_get_bool (screensaver_channel,
+                                       KEY_STATUS_MESSAGE_ENABLED,
+                                       DEFAULT_KEY_STATUS_MESSAGE_ENABLED);
+
+    return enabled;
+}
+
+static void
+config_set_status_message_enabled (gboolean enabled) {
+    xfconf_channel_set_bool (screensaver_channel, KEY_STATUS_MESSAGE_ENABLED, enabled);
+}
+
+static gboolean
+config_get_logout_enabled (gboolean *is_writable) {
+    gboolean enabled;
+
+    if (is_writable) {
+        *is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
+                                                           KEY_LOGOUT_ENABLED);
+    }
+
+    enabled = xfconf_channel_get_bool (screensaver_channel,
+                                       KEY_LOGOUT_ENABLED,
+                                       DEFAULT_KEY_LOGOUT_ENABLED);
+
+    return enabled;
+}
+
+static void
+config_set_logout_enabled (gboolean enabled) {
+    xfconf_channel_set_bool (screensaver_channel, KEY_LOGOUT_ENABLED, enabled);
+}
+
+static gboolean
+config_get_user_switch_enabled (gboolean *is_writable) {
+    gboolean enabled;
+
+    if (is_writable) {
+        *is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
+                                                           KEY_USER_SWITCH_ENABLED);
+    }
+
+    enabled = xfconf_channel_get_bool (screensaver_channel,
+                                       KEY_USER_SWITCH_ENABLED,
+                                       DEFAULT_KEY_USER_SWITCH_ENABLED);
+
+    return enabled;
+}
+
+static void
+config_set_user_switch_enabled (gboolean enabled) {
+    xfconf_channel_set_bool (screensaver_channel, KEY_USER_SWITCH_ENABLED, enabled);
+}
+
+static gchar*
+config_get_keyboard_command (gboolean *is_writable) {
+    gchar *command;
+
+    if (is_writable) {
+        *is_writable = !xfconf_channel_is_property_locked(screensaver_channel,
+                                                          KEY_KEYBOARD_COMMAND);
+    }
+
+    command = xfconf_channel_get_string (screensaver_channel,
+                                         KEY_KEYBOARD_COMMAND,
+                                         DEFAULT_KEY_KEYBOARD_COMMAND);
+
+    return command;
+}
+
+static void
+config_set_keyboard_command (const gchar *command) {
+    xfconf_channel_set_string (screensaver_channel, KEY_KEYBOARD_COMMAND, command);
+}
+
+static gchar*
+config_get_logout_command (gboolean *is_writable) {
+    gchar *command;
+
+    if (is_writable) {
+        *is_writable = !xfconf_channel_is_property_locked(screensaver_channel,
+                                                          KEY_LOGOUT_COMMAND);
+    }
+
+    command = xfconf_channel_get_string (screensaver_channel,
+                                         KEY_LOGOUT_COMMAND,
+                                         DEFAULT_KEY_LOGOUT_COMMAND);
+
+    return command;
+}
+
+static void
+config_set_logout_command (const gchar *command) {
+    xfconf_channel_set_string (screensaver_channel, KEY_LOGOUT_COMMAND, command);
 }
 
 static void
@@ -487,12 +695,59 @@ tree_selection_changed_cb (GtkTreeSelection *selection,
 }
 
 static void
-activate_delay_value_changed_cb (GtkRange *range,
+idle_delay_value_changed_cb (GtkSpinButton *spin,
                                  gpointer  user_data) {
     gdouble value;
 
-    value = gtk_range_get_value (range);
-    config_set_activate_delay ((gint32)value);
+    value = gtk_spin_button_get_value (spin);
+    config_set_idle_delay ((gint32)value);
+}
+
+static void
+lock_delay_value_changed_cb (GtkSpinButton *spin,
+                                 gpointer  user_data) {
+    gdouble value;
+
+    value = gtk_spin_button_get_value (spin);
+    config_set_lock_delay ((gint32)value);
+}
+
+static void
+cycle_delay_value_changed_cb (GtkSpinButton *spin,
+                                 gpointer  user_data) {
+    gdouble value;
+
+    value = gtk_spin_button_get_value (spin);
+    config_set_cycle_delay ((gint32)value);
+}
+
+static void
+logout_delay_value_changed_cb (GtkSpinButton *spin,
+                                 gpointer  user_data) {
+    gdouble value;
+
+    value = gtk_spin_button_get_value (spin);
+    config_set_logout_delay ((gint32)value);
+}
+
+static void
+keyboard_command_changed_cb (GtkEntry *widget,
+                             gpointer  user_data)
+{
+    const gchar *value;
+
+    value = gtk_entry_get_text (widget);
+    config_set_keyboard_command (value);
+}
+
+static void
+logout_command_changed_cb (GtkEntry *widget,
+                           gpointer  user_data)
+{
+    const gchar *value;
+
+    value = gtk_entry_get_text (widget);
+    config_set_logout_command (value);
 }
 
 static int
@@ -806,196 +1061,283 @@ drag_data_received_cb (GtkWidget        *widget,
     }
 }
 
-/* Adapted from totem_time_to_string_text */
-static char *
-time_to_string_text (long time) {
-    char *secs, *mins, *hours, *string;
-    int   sec, min, hour;
-    int   n, inc_len, len_minutes;
+static void
+lock_toggled_cb (GtkSwitch *widget, gpointer user_data) {
+    gboolean writable;
 
-    sec = time % 60;
-    time = time - sec;
-    min = (time % (60 * 60)) / 60;
-    time = time - (min * 60);
-    hour = time / (60 * 60);
+    config_set_lock_enabled (gtk_switch_get_active (widget));
 
-    hours = g_strdup_printf (ngettext ("%d hour",
-                                       "%d hours", hour), hour);
+    writable = lock_delay_writable && gtk_switch_get_active (widget);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_delay_label_left")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_delay")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_delay_label_right")), writable);
+}
 
-    mins = g_strdup_printf (ngettext ("%d minute",
-                                      "%d minutes", min), min);
+static void
+idle_activation_toggled_cb (GtkSwitch *widget, gpointer user_data) {
+    gboolean writable;
 
-    secs = g_strdup_printf (ngettext ("%d second",
-                                      "%d seconds", sec), sec);
+    config_set_idle_activation_enabled (gtk_switch_get_active (widget));
 
-    inc_len = strlen (g_strdup_printf (_("%s %s"),
-                      g_strdup_printf (ngettext ("%d hour",
-                                                 "%d hours", 1), 1),
-                      g_strdup_printf (ngettext ("%d minute",
-                                                 "%d minutes", 59), 59))) - 1;
+    writable = idle_delay_writable && gtk_switch_get_active (widget);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "idle_delay_label_left")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "idle_delay")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "idle_delay_label_right")), writable);
+}
 
-    len_minutes = 0;
+static void
+logout_toggled_cb (GtkSwitch *widget, gpointer user_data) {
+    gboolean writable;
 
-    for (n = 2; n < 60; n++) {
-        if (n < 10) {
-            if ((strlen (g_str_to_ascii (g_strdup_printf (ngettext ("%d minute",
-                                                                    "%d minutes", n), n), NULL)) - 2) > len_minutes)
+    config_set_logout_enabled (gtk_switch_get_active (widget));
 
-                len_minutes = strlen (g_str_to_ascii (g_strdup_printf (ngettext ("%d minute",
-                                                                                 "%d minutes", n), n), NULL)) - 2;
-        } else {
-            if ((strlen (g_str_to_ascii (g_strdup_printf (ngettext ("%d minute",
-                                                                    "%d minutes", n), n), NULL)) - 3) > len_minutes)
+    writable = logout_command_writable && gtk_switch_get_active (widget);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "logout_command_label")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "logout_command")), writable);
 
-                len_minutes = strlen (g_str_to_ascii (g_strdup_printf (ngettext ("%d minute",
-                                                                                 "%d minutes", n), n), NULL)) - 3;
-        }
+    writable = logout_delay_writable && gtk_switch_get_active (widget);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "logout_delay_label_left")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "logout_delay")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "logout_delay_label_right")), writable);
+}
+
+static void
+status_message_toggled_cb (GtkSwitch *widget, gpointer user_data) {
+    config_set_status_message_enabled (gtk_switch_get_active (widget));
+}
+
+static void
+user_switch_toggled_cb (GtkSwitch *widget, gpointer user_data) {
+    config_set_user_switch_enabled (gtk_switch_get_active (widget));
+}
+
+static void
+keyboard_toggled_cb (GtkSwitch *widget, gpointer user_data) {
+    gboolean writable;
+
+    config_set_keyboard_enabled (gtk_switch_get_active (widget));
+
+    writable = keyboard_command_writable && gtk_switch_get_active (widget);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "keyboard_command_label")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "keyboard_command")), writable);
+}
+
+static void
+ui_set_lock_enabled (gboolean enabled) {
+    GtkWidget *widget;
+    gboolean   active;
+    gboolean   writable;
+
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_enabled"));
+
+    active = gtk_switch_get_active (GTK_SWITCH (widget));
+    if (active != enabled) {
+        gtk_switch_set_active (GTK_SWITCH (widget), enabled);
     }
 
-    if ((strlen (g_str_to_ascii (g_strdup_printf (ngettext ("%d minute",
-                                                            "%d minutes", 1), 1), NULL)) - 2) > len_minutes)
+    writable = lock_delay_writable && enabled;
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_delay_label_left")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_delay")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_delay_label_right")), writable);
+}
 
-        len_minutes = strlen (g_str_to_ascii (g_strdup_printf (ngettext ("%d minute",
-                                                                         "%d minutes", 1), 1), NULL)) - 2;
+static void
+ui_set_idle_activation_enabled (gboolean enabled) {
+    GtkWidget *widget;
+    gboolean   active;
+    gboolean   writable;
 
-    if (len_minutes < 1)
-        len_minutes = 1;
-
-    if (hour > 0) {
-        if (sec > 0) {
-            /* hour:minutes:seconds */
-            string = g_strdup_printf (_("%s %s %s"), hours, mins, secs);
-        } else if (min > 0) {
-            /* hour:minutes */
-            string = g_strdup_printf (_("%s %s"), hours, mins);
-        } else {
-            /* hour */
-            string = g_strdup_printf (_("%s"), hours);
-        }
-    } else if (min > 0) {
-        if (sec > 0) {
-            /* minutes:seconds */
-            string = g_strdup_printf (_("%s %s"), mins, secs);
-        } else {
-            /* minutes */
-            string = g_strdup_printf (_("%s"), mins);
-
-            if (min < 10) {
-                if (min == 1) {
-                    while (strlen (string) != (len_minutes + inc_len + 3)) {
-                        if (strlen (string) % 2 == 0)
-                            string = g_strconcat (string, " ", NULL);
-                        else
-                            string = g_strconcat (" " , string, NULL);
-                    }
-                } else {
-                    while (strlen (string) != (len_minutes + inc_len)) {
-                        if (strlen (string) % 2 == 0)
-                            string = g_strconcat (string, " ", NULL);
-                        else
-                            string = g_strconcat (" " , string, NULL);
-                    }
-                }
-            } else {
-                while (strlen (string) != (len_minutes + inc_len - 1)) {
-                    if (strlen (string) % 2 == 0)
-                        string = g_strconcat (string, " ", NULL);
-                    else
-                        string = g_strconcat (" " , string, NULL);
-                }
-            }
-        }
-    } else {
-        /* seconds */
-        string = g_strdup_printf (_("%s"), secs);
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "idle_activation_enabled"));
+    active = gtk_switch_get_active (GTK_SWITCH (widget));
+    if (active != enabled) {
+        gtk_switch_set_active (GTK_SWITCH (widget), enabled);
     }
 
-    g_free (hours);
-    g_free (mins);
-    g_free (secs);
-
-    return string;
-}
-
-static char *
-format_value_callback_time (GtkScale *scale,
-                            gdouble   value) {
-    if (value == 0)
-        return g_strdup_printf (_("Never"));
-
-    return time_to_string_text (value * 60.0);
+    writable = idle_delay_writable && enabled;
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "idle_delay_label_left")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "idle_delay")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "idle_delay_label_right")), writable);
 }
 
 static void
-lock_checkbox_toggled (GtkToggleButton *button, gpointer user_data) {
-    config_set_lock (gtk_toggle_button_get_active (button));
+ui_set_keyboard_enabled (gboolean enabled) {
+    GtkWidget *widget;
+    gboolean   active;
+    gboolean   writable;
+
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "keyboard_enabled"));
+
+    active = gtk_switch_get_active (GTK_SWITCH (widget));
+    if (active != enabled) {
+        gtk_switch_set_active (GTK_SWITCH (widget), enabled);
+    }
+
+    writable = keyboard_command_writable && enabled;
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "keyboard_command_label")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "keyboard_command")), writable);
 }
 
 static void
-enabled_checkbox_toggled (GtkToggleButton *button, gpointer user_data) {
-    config_set_enabled (gtk_toggle_button_get_active (button));
+ui_set_logout_enabled (gboolean enabled) {
+    GtkWidget *widget;
+    gboolean   active;
+    gboolean   writable;
+
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "logout_enabled"));
+
+    active = gtk_switch_get_active (GTK_SWITCH (widget));
+    if (active != enabled) {
+        gtk_switch_set_active (GTK_SWITCH (widget), enabled);
+    }
+
+    writable = logout_command_writable && enabled;
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "logout_command_label")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "logout_command")), writable);
+
+    writable = logout_delay_writable && enabled;
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "logout_delay_label_left")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "logout_delay")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "logout_delay_label_right")), writable);
 }
 
 static void
-ui_set_lock (gboolean enabled) {
+ui_set_idle_delay (int delay) {
+    GtkWidget *widget;
+
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "idle_delay"));
+    gtk_spin_button_set_value (GTK_SPIN_BUTTON (widget), delay);
+}
+
+static void
+ui_set_lock_delay (int delay) {
+    GtkWidget *widget;
+
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_delay"));
+    gtk_spin_button_set_value (GTK_SPIN_BUTTON (widget), delay);
+}
+
+static void
+ui_set_cycle_delay (int delay) {
+    GtkWidget *widget;
+
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "cycle_delay"));
+    gtk_spin_button_set_value (GTK_SPIN_BUTTON (widget), delay);
+}
+
+static void
+ui_set_keyboard_command (gchar *command) {
+    GtkWidget   *widget;
+    const gchar *current;
+
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "keyboard_command"));
+
+    current = gtk_entry_get_text (GTK_ENTRY (widget));
+    if (g_strcmp0 (current, command) != 0) {
+        gtk_entry_set_text (GTK_ENTRY (widget), command);
+    }
+}
+
+static void
+ui_set_status_message_enabled (gboolean enabled) {
     GtkWidget *widget;
     gboolean   active;
 
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_checkbox"));
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "status_message_enabled"));
 
-    active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
+    active = gtk_switch_get_active (GTK_SWITCH (widget));
     if (active != enabled) {
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), enabled);
+        gtk_switch_set_active (GTK_SWITCH (widget), enabled);
     }
 }
 
 static void
-ui_set_enabled (gboolean enabled) {
+ui_set_logout_delay (int delay) {
+    GtkWidget *widget;
+
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "logout_delay"));
+    gtk_spin_button_set_value (GTK_SPIN_BUTTON (widget), delay);
+}
+
+static void
+ui_set_logout_command (gchar *command) {
+    GtkWidget   *widget;
+    const gchar *current;
+
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "logout_command"));
+
+    current = gtk_entry_get_text (GTK_ENTRY (widget));
+    if (g_strcmp0 (current, command) != 0) {
+        gtk_entry_set_text (GTK_ENTRY (widget), command);
+    }
+}
+
+static void
+ui_set_user_switch_enabled (gboolean enabled) {
     GtkWidget *widget;
     gboolean   active;
-    gboolean   is_writable;
 
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "enable_checkbox"));
-    active = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (widget));
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "user_switch_enabled"));
+
+    active = gtk_switch_get_active (GTK_SWITCH (widget));
     if (active != enabled) {
-        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (widget), enabled);
+        gtk_switch_set_active (GTK_SWITCH (widget), enabled);
     }
-
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_checkbox"));
-    config_get_lock (&is_writable);
-    if (is_writable) {
-        gtk_widget_set_sensitive (widget, enabled);
-    }
-}
-
-static void
-ui_set_delay (int delay) {
-    GtkWidget *widget;
-
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "activate_delay_hscale"));
-    gtk_range_set_value (GTK_RANGE (widget), delay);
 }
 
 static void
 key_changed_cb (XfconfChannel *channel, const gchar *key, gpointer data) {
-    if (strcmp (key, KEY_IDLE_ACTIVATION_ENABLED) == 0) {
+    if (strcmp (key, KEY_IDLE_DELAY) == 0) {
+        int delay;
+        delay = xfconf_channel_get_int (channel, key, DEFAULT_KEY_IDLE_DELAY);
+        ui_set_idle_delay (delay);
+    } else if (strcmp (key, KEY_LOCK_DELAY) == 0) {
+        int delay;
+        delay = xfconf_channel_get_int (channel, key, DEFAULT_KEY_LOCK_DELAY);
+        ui_set_lock_delay (delay);
+    } else if (strcmp (key, KEY_IDLE_ACTIVATION_ENABLED) == 0) {
         gboolean enabled;
         enabled = xfconf_channel_get_bool (channel, key, DEFAULT_KEY_IDLE_ACTIVATION_ENABLED);
-        ui_set_enabled (enabled);
+        ui_set_idle_activation_enabled (enabled);
     } else if (strcmp (key, KEY_LOCK_ENABLED) == 0) {
         gboolean enabled;
         enabled = xfconf_channel_get_bool (channel, key, DEFAULT_KEY_LOCK_ENABLED);
-        ui_set_lock (enabled);
+        ui_set_lock_enabled (enabled);
+    } else if (strcmp (key, KEY_CYCLE_DELAY) == 0) {
+        int delay;
+        delay = xfconf_channel_get_int (channel, key, DEFAULT_KEY_CYCLE_DELAY);
+        ui_set_cycle_delay (delay);
+    } else if (strcmp (key, KEY_KEYBOARD_ENABLED) == 0) {
+        gboolean enabled;
+        enabled = xfconf_channel_get_bool (channel, key, DEFAULT_KEY_KEYBOARD_ENABLED);
+        ui_set_keyboard_enabled (enabled);
+    } else if (strcmp (key, KEY_KEYBOARD_COMMAND) == 0) {
+        gchar *cmd;
+        cmd = xfconf_channel_get_string (channel, key, DEFAULT_KEY_KEYBOARD_COMMAND);
+        ui_set_keyboard_command (cmd);
+    } else if (strcmp (key, KEY_STATUS_MESSAGE_ENABLED) == 0) {
+        gboolean enabled;
+        enabled = xfconf_channel_get_bool (channel, key, DEFAULT_KEY_STATUS_MESSAGE_ENABLED);
+        ui_set_status_message_enabled (enabled);
+    } else if (strcmp (key, KEY_LOGOUT_ENABLED) == 0) {
+        gboolean enabled;
+        enabled = xfconf_channel_get_bool (channel, key, DEFAULT_KEY_LOGOUT_ENABLED);
+        ui_set_logout_enabled (enabled);
+    } else if (strcmp (key, KEY_LOGOUT_DELAY) == 0) {
+        int delay;
+        delay = xfconf_channel_get_int (channel, key, DEFAULT_KEY_LOGOUT_DELAY);
+        ui_set_logout_delay (delay);
+    } else if (strcmp (key, KEY_LOGOUT_COMMAND) == 0) {
+        gchar *cmd;
+        cmd = xfconf_channel_get_string (channel, key, DEFAULT_KEY_LOGOUT_COMMAND);
+        ui_set_logout_command (cmd);
+    } else if (strcmp (key, KEY_USER_SWITCH_ENABLED) == 0) {
+        gboolean enabled;
+        enabled = xfconf_channel_get_bool (channel, key, DEFAULT_KEY_USER_SWITCH_ENABLED);
+        ui_set_user_switch_enabled (enabled);
     } else if (strcmp (key, KEY_THEMES) == 0) {
         GtkWidget *treeview;
         treeview = GTK_WIDGET (gtk_builder_get_object (builder, "savers_treeview"));
         setup_treeview_selection (treeview);
-    } else if (strcmp (key, KEY_IDLE_DELAY) == 0) {
-        int delay;
-        delay = xfconf_channel_get_int (channel, key, DEFAULT_KEY_IDLE_DELAY);
-        ui_set_delay (delay);
-    } else {
-        /*g_warning ("Config key not handled: %s", key);*/
     }
 }
 
@@ -1117,10 +1459,9 @@ setup_for_root_user (void) {
     GtkWidget *lock_checkbox;
     GtkWidget *infobar;
 
-    lock_checkbox = GTK_WIDGET (gtk_builder_get_object (builder, "lock_checkbox"));
+    lock_checkbox = GTK_WIDGET (gtk_builder_get_object (builder, "lock_enabled"));
     infobar = GTK_WIDGET (gtk_builder_get_object (builder, "root_warning_infobar"));
-
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (lock_checkbox), FALSE);
+    gtk_switch_set_active (GTK_SWITCH (lock_checkbox), FALSE);
     gtk_widget_set_sensitive (lock_checkbox, FALSE);
 
     gtk_widget_show (infobar);
@@ -1328,17 +1669,22 @@ is_program_in_path (const char *program) {
 }
 
 static void
+set_widget_writable (GtkWidget *widget, 
+                     gboolean writable)
+{
+    gtk_widget_set_sensitive (widget, writable);
+    if (!writable) {
+        gtk_widget_set_tooltip_text (widget, _("Setting locked by administrator."));
+    }
+}
+
+static void
 configure_capplet (void) {
     GtkWidget *dialog;
     GtkWidget *plug_child;
     GtkWidget *preview;
     GtkWidget *treeview;
     GtkWidget *list_scroller;
-    GtkWidget *activate_delay_hscale;
-    GtkWidget *activate_delay_hbox;
-    GtkWidget *label;
-    GtkWidget *enabled_checkbox;
-    GtkWidget *lock_checkbox;
     GtkWidget *root_warning_infobar;
     GtkWidget *preview_button;
     GtkWidget *gpm_button;
@@ -1347,9 +1693,13 @@ configure_capplet (void) {
     GtkWidget *fullscreen_preview_previous;
     GtkWidget *fullscreen_preview_next;
     GtkWidget *fullscreen_preview_close;
-    gdouble    activate_delay;
+
+    GtkWidget *widget;
+    gdouble    delay;
     gboolean   enabled;
     gboolean   is_writable;
+    gchar     *command;
+
     GError    *error = NULL;
     gint       mode;
 
@@ -1380,10 +1730,6 @@ configure_capplet (void) {
     plug_child                  = GTK_WIDGET (gtk_builder_get_object (builder, "plug-child"));
     treeview                    = GTK_WIDGET (gtk_builder_get_object (builder, "savers_treeview"));
     list_scroller               = GTK_WIDGET (gtk_builder_get_object (builder, "themes_scrolled_window"));
-    activate_delay_hscale       = GTK_WIDGET (gtk_builder_get_object (builder, "activate_delay_hscale"));
-    activate_delay_hbox         = GTK_WIDGET (gtk_builder_get_object (builder, "activate_delay_hbox"));
-    enabled_checkbox            = GTK_WIDGET (gtk_builder_get_object (builder, "enable_checkbox"));
-    lock_checkbox               = GTK_WIDGET (gtk_builder_get_object (builder, "lock_checkbox"));
     root_warning_infobar        = GTK_WIDGET (gtk_builder_get_object (builder, "root_warning_infobar"));
     preview_button              = GTK_WIDGET (gtk_builder_get_object (builder, "preview_button"));
     gpm_button                  = GTK_WIDGET (gtk_builder_get_object (builder, "gpm_button"));
@@ -1392,11 +1738,6 @@ configure_capplet (void) {
     fullscreen_preview_close    = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_close"));
     fullscreen_preview_previous = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_previous_button"));
     fullscreen_preview_next     = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_next_button"));
-
-    label = GTK_WIDGET (gtk_builder_get_object (builder, "activate_delay_label"));
-    gtk_label_set_mnemonic_widget (GTK_LABEL (label), activate_delay_hscale);
-    label = GTK_WIDGET (gtk_builder_get_object (builder, "savers_label"));
-    gtk_label_set_mnemonic_widget (GTK_LABEL (label), treeview);
 
     gtk_widget_set_no_show_all (root_warning_infobar, TRUE);
     widget_set_best_visual (preview);
@@ -1412,28 +1753,103 @@ configure_capplet (void) {
                       G_CALLBACK (key_changed_cb),
                       NULL);
 
-    activate_delay = config_get_activate_delay (&is_writable);
-    ui_set_delay (activate_delay);
-    if (!is_writable) {
-        gtk_widget_set_sensitive (activate_delay_hbox, FALSE);
-    }
-    g_signal_connect (activate_delay_hscale, "format-value",
-                      G_CALLBACK (format_value_callback_time), NULL);
+    /* Idle delay */
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "idle_delay"));
+    delay = config_get_idle_delay (&idle_delay_writable);
+    ui_set_idle_delay (delay);
+    set_widget_writable (widget, idle_delay_writable);
+    g_signal_connect (widget, "changed",
+                      G_CALLBACK (idle_delay_value_changed_cb), NULL);
 
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (lock_checkbox), config_get_lock (&is_writable));
-    if (!is_writable) {
-        gtk_widget_set_sensitive (lock_checkbox, FALSE);
-    }
-    g_signal_connect (lock_checkbox, "toggled",
-                      G_CALLBACK (lock_checkbox_toggled), NULL);
+    /* Lock delay */
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_delay"));
+    delay = config_get_lock_delay (&lock_delay_writable);
+    ui_set_lock_delay (delay);
+    set_widget_writable (widget, lock_delay_writable);
+    g_signal_connect (widget, "changed",
+                      G_CALLBACK (lock_delay_value_changed_cb), NULL);
 
-    enabled = config_get_enabled (&is_writable);
-    ui_set_enabled (enabled);
-    if (!is_writable) {
-        gtk_widget_set_sensitive (enabled_checkbox, FALSE);
-    }
-    g_signal_connect (enabled_checkbox, "toggled",
-                      G_CALLBACK (enabled_checkbox_toggled), NULL);
+    /* Keyboard command */
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "keyboard_command"));
+    command = config_get_keyboard_command (&keyboard_command_writable);
+    ui_set_keyboard_command (command);
+    set_widget_writable (widget, keyboard_command_writable);
+    g_signal_connect (widget, "changed",
+                      G_CALLBACK (keyboard_command_changed_cb), NULL);
+    g_free (command);
+
+    /* Logout command */
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "logout_command"));
+    command = config_get_logout_command (&logout_command_writable);
+    ui_set_logout_command (command);
+    set_widget_writable (widget, logout_command_writable);
+    g_signal_connect (widget, "changed",
+                      G_CALLBACK (logout_command_changed_cb), NULL);
+    g_free (command);
+
+    /* Logout delay */
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "logout_delay"));
+    delay = config_get_logout_delay (&logout_delay_writable);
+    ui_set_logout_delay (delay);
+    set_widget_writable (widget, logout_delay_writable);
+    g_signal_connect (widget, "changed",
+                      G_CALLBACK (logout_delay_value_changed_cb), NULL);
+
+    /* Idle activation enabled */
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "idle_activation_enabled"));
+    enabled = config_get_idle_activation_enabled (&is_writable);
+    ui_set_idle_activation_enabled (enabled);
+    set_widget_writable (widget, is_writable);
+    g_signal_connect (widget, "notify::active",
+                      G_CALLBACK (idle_activation_toggled_cb), NULL);
+
+    /* Lock enabled */
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_enabled"));
+    enabled = config_get_lock_enabled (&is_writable);
+    ui_set_lock_enabled (enabled);
+    set_widget_writable (widget, is_writable);
+    g_signal_connect (widget, "notify::active",
+                      G_CALLBACK (lock_toggled_cb), NULL);
+
+    /* Cycle delay */
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "cycle_delay"));
+    delay = config_get_cycle_delay (&is_writable);
+    ui_set_cycle_delay (delay);
+    set_widget_writable (widget, is_writable);
+    g_signal_connect (widget, "changed",
+                      G_CALLBACK (cycle_delay_value_changed_cb), NULL);
+
+    /* Keyboard enabled */
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "keyboard_enabled"));
+    enabled = config_get_keyboard_enabled (&is_writable);
+    ui_set_keyboard_enabled (enabled);
+    set_widget_writable (widget, is_writable);
+    g_signal_connect (widget, "notify::active",
+                      G_CALLBACK (keyboard_toggled_cb), NULL);
+
+    /* Status message enabled */
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "status_message_enabled"));
+    enabled = config_get_status_message_enabled (&is_writable);
+    ui_set_status_message_enabled (enabled);
+    set_widget_writable (widget, is_writable);
+    g_signal_connect (widget, "notify::active",
+                      G_CALLBACK (status_message_toggled_cb), NULL);
+
+    /* Status message enabled */
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "logout_enabled"));
+    enabled = config_get_logout_enabled (&is_writable);
+    ui_set_logout_enabled (enabled);
+    set_widget_writable (widget, is_writable);
+    g_signal_connect (widget, "notify::active",
+                      G_CALLBACK (logout_toggled_cb), NULL);
+
+    /* User switch enabled */
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "user_switch_enabled"));
+    enabled = config_get_user_switch_enabled (&is_writable);
+    ui_set_user_switch_enabled (enabled);
+    set_widget_writable (widget, is_writable);
+    g_signal_connect (widget, "notify::active",
+                      G_CALLBACK (user_switch_toggled_cb), NULL);
 
     setup_list_size_constraint (list_scroller, treeview);
     gtk_widget_set_size_request (preview, 480, 300);
@@ -1472,9 +1888,6 @@ configure_capplet (void) {
     if (check_is_root_user ()) {
         setup_for_root_user ();
     }
-
-    g_signal_connect (activate_delay_hscale, "value-changed",
-                      G_CALLBACK (activate_delay_value_changed_cb), NULL);
 
     g_signal_connect (preview_button, "clicked",
                       G_CALLBACK (fullscreen_preview_start_cb),
