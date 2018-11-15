@@ -1669,7 +1669,7 @@ is_program_in_path (const char *program) {
 }
 
 static void
-set_widget_writable (GtkWidget *widget, 
+set_widget_writable (GtkWidget *widget,
                      gboolean writable)
 {
     gtk_widget_set_sensitive (widget, writable);

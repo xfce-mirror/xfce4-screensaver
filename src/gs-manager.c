@@ -390,7 +390,7 @@ gs_manager_set_lock_active (GSManager *manager,
 
     gs_debug ("Setting lock active: %d", lock_active);
 
-    if (manager->priv->lock_active != lock_active) {    
+    if (manager->priv->lock_active != lock_active) {
         manager->priv->lock_active = lock_active;
     }
 
