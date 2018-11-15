@@ -3,13 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# Nick Schermer <nick@xfce.org>, 2018
+# scootergrisen, 2018
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-31 06:31+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2018-11-14 06:31+0100\n"
+"PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: scootergrisen, 2018\n"
 "Language-Team: Danish (https://www.transifex.com/xfce/teams/16840/da/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:1
+#: ../src/xfce4-screensaver-preferences.ui.h:18
 #: ../src/xfce4-screensaver.desktop.in.in.h:1
 msgid "Screensaver"
 msgstr "Pauseskærm"
@@ -35,50 +40,50 @@ msgstr "Pauseskærme"
 msgid "Screensaver themes"
 msgstr "Temaer for pauseskærm"
 
-#: ../savers/floaters.c:91
+#: ../savers/floaters.c:89
 msgid "Show paths that images follow"
 msgstr "Vis stier som billederne følger"
 
-#: ../savers/floaters.c:96
+#: ../savers/floaters.c:94
 msgid "Occasionally rotate images as they move"
 msgstr "Drej af og til billederne efterhånden som de flyttes"
 
-#: ../savers/floaters.c:101
+#: ../savers/floaters.c:99
 msgid "Print out frame rate and other statistics"
 msgstr "Udskriv billedhastighed og anden statistik"
 
-#: ../savers/floaters.c:106
+#: ../savers/floaters.c:104
 msgid "The maximum number of images to keep on screen"
 msgstr "Maksimum antal billeder som skal være på skærmen"
 
-#: ../savers/floaters.c:106
+#: ../savers/floaters.c:104
 msgid "MAX_IMAGES"
 msgstr "MAKS_BILLEDER"
 
-#: ../savers/floaters.c:111
+#: ../savers/floaters.c:109
 msgid "The initial size and position of window"
 msgstr "Den indledende størrelse og placering af vindue"
 
-#: ../savers/floaters.c:111
+#: ../savers/floaters.c:109
 msgid "WIDTHxHEIGHT+X+Y"
 msgstr "BREDDExHØJDE+X+Y"
 
-#: ../savers/floaters.c:116
+#: ../savers/floaters.c:114
 msgid "The source image to use"
 msgstr "Kildebilledet som skal bruges"
 
 #. translators: the word "image" here
 #. * represents a command line argument
-#: ../savers/floaters.c:1186
+#: ../savers/floaters.c:1120
 msgid "image - floats images around the screen"
 msgstr "billede - svæver billeder rundt på skærmen"
 
-#: ../savers/floaters.c:1192 ../savers/popsquares.c:50
+#: ../savers/floaters.c:1124 ../savers/popsquares.c:49
 #, c-format
 msgid "%s. See --help for usage information.\n"
 msgstr "%s. Se --help for anvendelsesinformation.\n"
 
-#: ../savers/floaters.c:1201
+#: ../savers/floaters.c:1132
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr "Du skal angive et billede. Se --help for anvendelsesinformation.\n"
@@ -107,206 +112,206 @@ msgstr "Popkunst-firkanter"
 msgid "A pop-art-ish grid of pulsing colors."
 msgstr "Et popkunst-agtigt gitter af pulserende farver."
 
-#: ../savers/slideshow.c:55
+#: ../savers/slideshow.c:53
 msgid "Location to get images from"
 msgstr "Placering som billeder skal hentes fra"
 
-#: ../savers/slideshow.c:55
+#: ../savers/slideshow.c:53
 msgid "PATH"
 msgstr "STI"
 
-#: ../savers/slideshow.c:59
+#: ../savers/slideshow.c:57
 msgid "Color to use for images background"
 msgstr "Farve som skal bruges til billeders baggrund"
 
-#: ../savers/slideshow.c:59
+#: ../savers/slideshow.c:57
 msgid "\"#rrggbb\""
 msgstr "\"#rrggbb\""
 
-#: ../savers/slideshow.c:63
+#: ../savers/slideshow.c:61
 msgid "Do not randomize pictures from location"
 msgstr "Tilfældiggør ikke billeder fra placering"
 
-#: ../savers/slideshow.c:67
+#: ../savers/slideshow.c:65
 msgid "Do not try to stretch images on screen"
 msgstr "Stræk ikke billeder på skærmen"
 
-#: ../src/copy-theme-dialog.c:222
+#: ../src/copy-theme-dialog.c:214
 msgid "Copying files"
 msgstr "Kopierer filer"
 
-#: ../src/copy-theme-dialog.c:241
+#: ../src/copy-theme-dialog.c:233
 msgid "From:"
 msgstr "Fra:"
 
-#: ../src/copy-theme-dialog.c:245
+#: ../src/copy-theme-dialog.c:237
 msgid "To:"
 msgstr "Til:"
 
-#: ../src/copy-theme-dialog.c:263 ../src/gs-lock-plug.c:1325
+#: ../src/copy-theme-dialog.c:255 ../src/gs-lock-plug.c:1193
 #: ../src/xfce4-screensaver-dialog.ui.h:7
 msgid "_Cancel"
 msgstr "_Annuller"
 
-#: ../src/copy-theme-dialog.c:266
+#: ../src/copy-theme-dialog.c:258
 msgid "Copying themes"
 msgstr "Kopierer temaer"
 
-#: ../src/copy-theme-dialog.c:310
+#: ../src/copy-theme-dialog.c:296
 msgid "Invalid screensaver theme"
 msgstr "Ugyldigt tema for pauseskærm"
 
-#: ../src/copy-theme-dialog.c:313
+#: ../src/copy-theme-dialog.c:299
 #, c-format
 msgid "%s does not appear to be a valid screensaver theme."
 msgstr "%s ser ikke ud til at være et gyldigt tema for pauseskærm."
 
-#: ../src/copy-theme-dialog.c:494
+#: ../src/copy-theme-dialog.c:457
 #, c-format
 msgid "Copying file: %u of %u"
 msgstr "Kopierer fil: %u af %u"
 
-#: ../src/gs-auth-pam.c:172
+#: ../src/gs-auth-pam.c:163
 msgid "Password:"
 msgstr "Adgangskode:"
 
-#: ../src/gs-auth-pam.c:414
+#: ../src/gs-auth-pam.c:378
 #, c-format
 msgid "Unable to establish service %s: %s\n"
 msgstr "Kan ikke etablere tjenesten %s: %s\n"
 
-#: ../src/gs-auth-pam.c:444
+#: ../src/gs-auth-pam.c:404
 #, c-format
 msgid "Can't set PAM_TTY=%s"
 msgstr "Kan ikke sætte PAM_TTY=%s"
 
-#: ../src/gs-auth-pam.c:480
+#: ../src/gs-auth-pam.c:435
 msgid "Incorrect password."
 msgstr "Forkert adgangskode."
 
-#: ../src/gs-auth-pam.c:484 ../src/xfce4-screensaver-dialog.c:315
+#: ../src/gs-auth-pam.c:437 ../src/xfce4-screensaver-dialog.c:313
 msgid "Authentication failed."
 msgstr "Autentifikation mislykkedes."
 
-#: ../src/gs-auth-pam.c:500
+#: ../src/gs-auth-pam.c:451
 msgid "Not permitted to gain access at this time."
 msgstr "Har ikke tilladelse til at tilgå på nuværende tidspunkt."
 
-#: ../src/gs-auth-pam.c:508
+#: ../src/gs-auth-pam.c:457
 msgid "No longer permitted to access the system."
 msgstr "Har ikke længere tilladelse til at tilgå systemet."
 
-#: ../src/gs-auth-pam.c:746
+#: ../src/gs-auth-pam.c:674
 msgid "Username:"
 msgstr "Brugernavn:"
 
-#: ../src/gs-listener-dbus.c:2176
+#: ../src/gs-listener-dbus.c:1950
 msgid "failed to register with the message bus"
 msgstr "kunne ikke registrere med meddelelsesbussen"
 
-#: ../src/gs-listener-dbus.c:2187
+#: ../src/gs-listener-dbus.c:1960
 msgid "not connected to the message bus"
 msgstr "ikke tilsluttet meddelelsesbussen"
 
-#: ../src/gs-listener-dbus.c:2197 ../src/gs-listener-dbus.c:2229
+#: ../src/gs-listener-dbus.c:1969 ../src/gs-listener-dbus.c:1999
 msgid "screensaver already running in this session"
 msgstr "pauseskærm kører allerede i sessionen"
 
-#: ../src/gs-lock-plug.c:293
+#: ../src/gs-lock-plug.c:267
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, %e. %B   %H:%M"
 
-#: ../src/gs-lock-plug.c:388
+#: ../src/gs-lock-plug.c:350
 msgid "Time has expired."
 msgstr "Tiden udløb."
 
-#: ../src/gs-lock-plug.c:1310
+#: ../src/gs-lock-plug.c:1178
 msgid "S_witch User..."
 msgstr "_Skift bruger..."
 
-#: ../src/gs-lock-plug.c:1319
+#: ../src/gs-lock-plug.c:1187
 msgid "Log _Out"
 msgstr "Log _ud"
 
-#: ../src/gs-lock-plug.c:1330 ../src/xfce4-screensaver-dialog.ui.h:8
+#: ../src/gs-lock-plug.c:1198 ../src/xfce4-screensaver-dialog.ui.h:8
 msgid "_Unlock"
 msgstr "_Lås op"
 
 #. To translators: This expands to USERNAME on HOSTNAME
-#: ../src/gs-lock-plug.c:1515
+#: ../src/gs-lock-plug.c:1364
 msgid "%U on %h"
 msgstr "%U på %h"
 
-#: ../src/gs-lock-plug.c:1530
+#: ../src/gs-lock-plug.c:1379
 msgid "Please enter your password."
 msgstr "Indtast venligst din adgangskode."
 
 #. Translators: a CRTC is a CRT Controller (this is X terminology).
-#: ../src/xfce-rr.c:478
+#: ../src/xfce-rr.c:444
 #, c-format
 msgid "could not get the screen resources (CRTCs, outputs, modes)"
 msgstr "kunne ikke hente skærmressourcer (CRTC'ere, outputs, tilstande)"
 
-#: ../src/xfce-rr.c:499
+#: ../src/xfce-rr.c:465
 #, c-format
 msgid "unhandled X error while getting the range of screen sizes"
 msgstr "uhåndteret X-fejl ved hentning af området over skærmstørrelser"
 
-#: ../src/xfce-rr.c:505
+#: ../src/xfce-rr.c:471
 #, c-format
 msgid "could not get the range of screen sizes"
 msgstr "kunne ikke hente området af skærmstørrelser"
 
-#: ../src/xfce-rr.c:730
+#: ../src/xfce-rr.c:682
 #, c-format
 msgid "RANDR extension is not present"
 msgstr "RANDR-udvidelse er ikke tilstede"
 
-#: ../src/xfce-rr.c:1146
+#: ../src/xfce-rr.c:1075
 #, c-format
 msgid "could not get information about output %d"
 msgstr "kunne ikke hente information om outputtet %d"
 
-#: ../src/xfce-rr.c:1389
+#: ../src/xfce-rr.c:1298
 #, c-format
 msgid "could not get information about CRTC %d"
 msgstr "kunne ikke hente information om CRTC'eren %d"
 
-#: ../src/xfce4-screensaver-command.c:59
+#: ../src/xfce4-screensaver-command.c:60
 msgid "Causes the screensaver to exit gracefully"
 msgstr "Får pauseskærmen til at afslutte elegant"
 
-#: ../src/xfce4-screensaver-command.c:63
+#: ../src/xfce4-screensaver-command.c:64
 msgid "Query the state of the screensaver"
 msgstr "Forespørg pauseskærmens tilstand"
 
-#: ../src/xfce4-screensaver-command.c:67
+#: ../src/xfce4-screensaver-command.c:68
 msgid "Query the length of time the screensaver has been active"
 msgstr "Forespørg hvor længe pauseskærmen har været aktiv"
 
-#: ../src/xfce4-screensaver-command.c:71
+#: ../src/xfce4-screensaver-command.c:72
 msgid "Tells the running screensaver process to lock the screen immediately"
 msgstr ""
 "Siger til den kørende pauseskærm-proces at den skal låse skærmen med det "
 "samme"
 
-#: ../src/xfce4-screensaver-command.c:75
+#: ../src/xfce4-screensaver-command.c:76
 msgid "If the screensaver is active then switch to another graphics demo"
 msgstr "Hvis pauseskærmen er aktiv, så skift til en anden grafikdemo"
 
-#: ../src/xfce4-screensaver-command.c:79
+#: ../src/xfce4-screensaver-command.c:80
 msgid "Turn the screensaver on (blank the screen)"
 msgstr "Slå pauseskærmen til (ryd skærmen)"
 
-#: ../src/xfce4-screensaver-command.c:83
+#: ../src/xfce4-screensaver-command.c:84
 msgid "If the screensaver is active then deactivate it (un-blank the screen)"
 msgstr "Hvis pauseskærmen er aktiv, så deaktivér den (ryd ikke skærmen)"
 
-#: ../src/xfce4-screensaver-command.c:87
+#: ../src/xfce4-screensaver-command.c:88
 msgid "Poke the running screensaver to simulate user activity"
 msgstr "Prik til den kørende pauseskærm for at simulere brugeraktivitet"
 
-#: ../src/xfce4-screensaver-command.c:91
+#: ../src/xfce4-screensaver-command.c:92
 msgid ""
 "Inhibit the screensaver from activating.  Command blocks while inhibit is "
 "active."
@@ -314,156 +319,155 @@ msgstr ""
 "Forhindre pauseskærmen i at blive aktiveret. Kommando blokerer mens "
 "forhindring er aktiv."
 
-#: ../src/xfce4-screensaver-command.c:95
+#: ../src/xfce4-screensaver-command.c:96
 msgid "The calling application that is inhibiting the screensaver"
 msgstr "Det kaldende program som forhindre pauseskærmen"
 
-#: ../src/xfce4-screensaver-command.c:99
+#: ../src/xfce4-screensaver-command.c:100
 msgid "The reason for inhibiting the screensaver"
 msgstr "Årsagen til at pauseskærmen forhindres"
 
-#: ../src/xfce4-screensaver-command.c:103 ../src/xfce4-screensaver-dialog.c:65
-#: ../src/xfce4-screensaver.c:59
+#: ../src/xfce4-screensaver-command.c:104 ../src/xfce4-screensaver-dialog.c:65
+#: ../src/xfce4-screensaver.c:58
 msgid "Version of this application"
 msgstr "Programmets version"
 
-#: ../src/xfce4-screensaver-command.c:352
+#: ../src/xfce4-screensaver-command.c:325
 #, c-format
 msgid "The screensaver is %s\n"
 msgstr "Pauseskærmen er %s\n"
 
-#: ../src/xfce4-screensaver-command.c:352
+#: ../src/xfce4-screensaver-command.c:325
 msgid "active"
 msgstr "aktiv"
 
-#: ../src/xfce4-screensaver-command.c:352
+#: ../src/xfce4-screensaver-command.c:325
 msgid "inactive"
 msgstr "inaktiv"
 
-#: ../src/xfce4-screensaver-command.c:368
+#: ../src/xfce4-screensaver-command.c:339
 #, c-format
 msgid "The screensaver is not inhibited\n"
 msgstr "Pauseskærmen forhindres ikke\n"
 
-#: ../src/xfce4-screensaver-command.c:376
+#: ../src/xfce4-screensaver-command.c:345
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
 msgstr "Pauseskærmen forhindres af:\n"
 
-#: ../src/xfce4-screensaver-command.c:411
+#: ../src/xfce4-screensaver-command.c:375
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "Pauseskærmen har været aktiv i %d sekunder.\n"
 
-#: ../src/xfce4-screensaver-command.c:417
+#: ../src/xfce4-screensaver-command.c:379
 #, c-format
 msgid "The screensaver is not currently active.\n"
 msgstr "Pauseskærmen er ikke aktiv i øjeblikket.\n"
 
-#: ../src/xfce4-screensaver-dialog.c:64
+#: ../src/xfce4-screensaver-dialog.c:63
 msgid "Show debugging output"
 msgstr "Vis fejlretningsoutput"
 
-#: ../src/xfce4-screensaver-dialog.c:66
+#: ../src/xfce4-screensaver-dialog.c:67
 msgid "Show the logout button"
 msgstr "Vis log ud-knappen"
 
-#: ../src/xfce4-screensaver-dialog.c:67
+#: ../src/xfce4-screensaver-dialog.c:69
 msgid "Command to invoke from the logout button"
 msgstr "Kommando til at igangsætte fra log ud-knappen"
 
-#: ../src/xfce4-screensaver-dialog.c:68
+#: ../src/xfce4-screensaver-dialog.c:71
 msgid "Show the switch user button"
 msgstr "Vis skift bruger-knappen"
 
-#: ../src/xfce4-screensaver-dialog.c:69
+#: ../src/xfce4-screensaver-dialog.c:73
 msgid "Message to show in the dialog"
 msgstr "Meddelelse som skal vises i dialogen"
 
-#: ../src/xfce4-screensaver-dialog.c:69 ../src/xfce4-screensaver-dialog.c:70
+#: ../src/xfce4-screensaver-dialog.c:73 ../src/xfce4-screensaver-dialog.c:75
 msgid "MESSAGE"
 msgstr "MEDDELELSE"
 
-#: ../src/xfce4-screensaver-dialog.c:70
+#: ../src/xfce4-screensaver-dialog.c:75
 msgid "Not used"
 msgstr "Bruges ikke"
 
-#: ../src/xfce4-screensaver-dialog.c:71
+#: ../src/xfce4-screensaver-dialog.c:77
 msgid "Monitor height"
 msgstr "Skærmhøjde"
 
-#: ../src/xfce4-screensaver-dialog.c:72
+#: ../src/xfce4-screensaver-dialog.c:79
 msgid "Monitor width"
 msgstr "Skærmbredde"
 
-#: ../src/xfce4-screensaver-dialog.c:73
+#: ../src/xfce4-screensaver-dialog.c:81
 msgid "Monitor index"
 msgstr "Skærmindeks"
 
-#. login: is whacked always translate to Username:
-#: ../src/xfce4-screensaver-dialog.c:177 ../src/xfce4-screensaver-dialog.c:178
-#: ../src/xfce4-screensaver-dialog.c:179
+#: ../src/xfce4-screensaver-dialog.c:175 ../src/xfce4-screensaver-dialog.c:177
+#: ../src/xfce4-screensaver-dialog.c:178
 msgid "Please enter your username."
 msgstr "Indtast venligst dit brugernavn."
 
-#: ../src/xfce4-screensaver-dialog.c:182
+#: ../src/xfce4-screensaver-dialog.c:184
 msgid "You are required to change your password immediately (password aged)"
 msgstr ""
 "Du skal ændre din adgangskode med det samme (pga. adgangskodens alder)"
 
-#: ../src/xfce4-screensaver-dialog.c:183
+#: ../src/xfce4-screensaver-dialog.c:186
 msgid "You are required to change your password immediately (root enforced)"
 msgstr "Du skal ændre din adgangskode med det samme (root kræver det)"
 
-#: ../src/xfce4-screensaver-dialog.c:184
+#: ../src/xfce4-screensaver-dialog.c:188
 msgid "Your account has expired; please contact your system administrator"
 msgstr "Din konto er udløbet - kontakt venligst din systemadministrator"
 
-#: ../src/xfce4-screensaver-dialog.c:185
+#: ../src/xfce4-screensaver-dialog.c:190
 msgid "No password supplied."
 msgstr "Der er ikke angivet nogen adgangskode."
 
-#: ../src/xfce4-screensaver-dialog.c:186
+#: ../src/xfce4-screensaver-dialog.c:192
 msgid "Password unchanged."
 msgstr "Adgangskoden er uændret."
 
-#: ../src/xfce4-screensaver-dialog.c:187
+#: ../src/xfce4-screensaver-dialog.c:194
 msgid "Can not get username."
 msgstr "Kan ikke hente brugernavn."
 
-#: ../src/xfce4-screensaver-dialog.c:188
+#: ../src/xfce4-screensaver-dialog.c:196
 msgid "Retype your new password."
 msgstr "Skriv din nye adgangskode igen."
 
-#: ../src/xfce4-screensaver-dialog.c:189
+#: ../src/xfce4-screensaver-dialog.c:198
 msgid "Enter your new password."
 msgstr "Indtast din nye adgangskode."
 
-#: ../src/xfce4-screensaver-dialog.c:190
+#: ../src/xfce4-screensaver-dialog.c:200
 msgid "Enter your current password:"
 msgstr "Indtast din nuværende adgangskode:"
 
-#: ../src/xfce4-screensaver-dialog.c:191
+#: ../src/xfce4-screensaver-dialog.c:202
 msgid "Error while changing NIS password."
 msgstr "Fejl ved ændring af NIS-adgangskode."
 
-#: ../src/xfce4-screensaver-dialog.c:192
+#: ../src/xfce4-screensaver-dialog.c:204
 msgid "You must choose a longer password."
 msgstr "Du skal vælge en længere adgangskode."
 
-#: ../src/xfce4-screensaver-dialog.c:193
+#: ../src/xfce4-screensaver-dialog.c:206
 msgid "Password has been already used. Choose another."
 msgstr "Adgangskoden har allerede været brugt. Vælg en anden."
 
-#: ../src/xfce4-screensaver-dialog.c:194
+#: ../src/xfce4-screensaver-dialog.c:208
 msgid "You must wait longer to change your password."
 msgstr "Du skal vente længere for at ændre din adgangskode."
 
-#: ../src/xfce4-screensaver-dialog.c:195
+#: ../src/xfce4-screensaver-dialog.c:210
 msgid "Sorry, passwords do not match."
 msgstr "Beklager, adgangskoderne er ikke ens."
 
-#: ../src/xfce4-screensaver-dialog.c:269
+#: ../src/xfce4-screensaver-dialog.c:274
 msgid "Checking..."
 msgstr "Tjekker..."
 
@@ -498,86 +502,31 @@ msgstr "<b>%h</b>"
 msgid "<b>%s</b>"
 msgstr "<b>%s</b>"
 
-#: ../src/xfce4-screensaver-preferences.c:86
+#: ../src/xfce4-screensaver-preferences.c:83
 msgid "Settings manager socket"
 msgstr "Sokkel til indstillingshåndtering"
 
-#: ../src/xfce4-screensaver-preferences.c:86
+#: ../src/xfce4-screensaver-preferences.c:83
 msgid "SOCKET ID"
 msgstr "SOKKEL-ID"
 
-#: ../src/xfce4-screensaver-preferences.c:451
+#: ../src/xfce4-screensaver-preferences.c:594
 msgid "Blank screen"
 msgstr "Ryd skærmen"
 
-#: ../src/xfce4-screensaver-preferences.c:457
+#: ../src/xfce4-screensaver-preferences.c:600
 msgid "Random"
 msgstr "Tilfældig"
 
-#: ../src/xfce4-screensaver-preferences.c:943
-#: ../src/xfce4-screensaver-preferences.c:953
-#, c-format
-msgid "%d hour"
-msgid_plural "%d hours"
-msgstr[0] "%d time"
-msgstr[1] "%d timer"
+#: ../src/xfce4-screensaver-preferences.c:1677
+msgid "Setting locked by administrator."
+msgstr "Indstillingen er låst af administrator."
 
-#: ../src/xfce4-screensaver-preferences.c:946
-#: ../src/xfce4-screensaver-preferences.c:955
-#: ../src/xfce4-screensaver-preferences.c:964
-#: ../src/xfce4-screensaver-preferences.c:967
-#: ../src/xfce4-screensaver-preferences.c:972
-#: ../src/xfce4-screensaver-preferences.c:975
-#: ../src/xfce4-screensaver-preferences.c:980
-#: ../src/xfce4-screensaver-preferences.c:983
-#, c-format
-msgid "%d minute"
-msgid_plural "%d minutes"
-msgstr[0] "%d minut"
-msgstr[1] "%d minutter"
-
-#: ../src/xfce4-screensaver-preferences.c:949
-#, c-format
-msgid "%d second"
-msgid_plural "%d seconds"
-msgstr[0] "%d sekund"
-msgstr[1] "%d sekunder"
-
-#. hour:minutes
-#. minutes:seconds
-#: ../src/xfce4-screensaver-preferences.c:952
-#: ../src/xfce4-screensaver-preferences.c:999
-#: ../src/xfce4-screensaver-preferences.c:1012
-#, c-format
-msgid "%s %s"
-msgstr "%s %s"
-
-#. hour:minutes:seconds
-#: ../src/xfce4-screensaver-preferences.c:994
-#, c-format
-msgid "%s %s %s"
-msgstr "%s %s %s"
-
-#. hour
-#. minutes
-#. seconds
-#: ../src/xfce4-screensaver-preferences.c:1004
-#: ../src/xfce4-screensaver-preferences.c:1017
-#: ../src/xfce4-screensaver-preferences.c:1053
-#, c-format
-msgid "%s"
-msgstr "%s"
-
-#: ../src/xfce4-screensaver-preferences.c:1068
-#, c-format
-msgid "Never"
-msgstr "Aldrig"
-
-#: ../src/xfce4-screensaver-preferences.c:1566
+#: ../src/xfce4-screensaver-preferences.c:1717
 msgid "Could not load the main interface"
 msgstr "Kunne ikke indlæse den primære brugerflade"
 
-#: ../src/xfce4-screensaver-preferences.c:1568
+#: ../src/xfce4-screensaver-preferences.c:1719
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "Sørg venligst for at pauseskærmen er installeret korrekt"
 
@@ -602,8 +551,8 @@ msgid "Power _Management"
 msgstr "_Strømstyring"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:6
-msgid "_Preview"
-msgstr "_Forhåndsvisning"
+msgid "Preview"
+msgstr "Forhåndsvisning"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:7
 msgid "Running as root"
@@ -628,26 +577,78 @@ msgid "Your computer may not be locked when you close the lid."
 msgstr "Din computer låses måske ikke hvis du lukker låget."
 
 #: ../src/xfce4-screensaver-preferences.ui.h:12
-msgid "_Screensaver theme:"
-msgstr "_Tema for pauseskærm:"
+msgid "Enable Screensaver"
+msgstr "Aktivér pauseskærm"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:13
+msgid "Theme"
+msgstr "Tema"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:14
+msgid "Change theme after:"
+msgstr "Skift tema efter:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:15
+msgid "Activate screensaver when computer is idle"
+msgstr "Aktivér pauseskærm når computeren er inaktiv"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:16
 msgid "Regard the computer as _idle after:"
 msgstr "Betragt computeren som _inaktiv efter:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:14
-msgid "_Activate screensaver when computer is idle"
-msgstr "_Aktivér pauseskærm når computeren er inaktiv"
+#: ../src/xfce4-screensaver-preferences.ui.h:17
+msgid "minutes"
+msgstr "minutter"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:15
-msgid "_Lock screen when screensaver is active"
-msgstr "_Lås skærmen når pauseskærm er aktiv"
+#: ../src/xfce4-screensaver-preferences.ui.h:19
+msgid "Enable Lock Screen"
+msgstr "Aktivér låseskærm"
 
-#: ../src/xfce4-screensaver.c:60
+#: ../src/xfce4-screensaver-preferences.ui.h:20
+msgid "Session Status Messages"
+msgstr "Meddelelser for sesseionsstatus"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:21
+msgid "User Switching"
+msgstr "Skift af bruger"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:22
+msgid "Logout"
+msgstr "Log ud"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:23
+msgid "Logout command:"
+msgstr "Kommando for udlogning:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:24
+msgid "Enable logout after:"
+msgstr "Aktivér udlogning efter:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:25
+msgid "Lock the screen after the screensaver is active for:"
+msgstr "Lås skærmen når pauseskærmen har været aktiv i:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:26
+msgid "Lock Screen with Screensaver"
+msgstr "Låseskærm med pauseskærm"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:27
+msgid "On Screen Keyboard"
+msgstr "Skærmtastatur"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:28
+msgid "On screen keyboard command:"
+msgstr "Kommando for skærmtastatur:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:29
+msgid "Lock Screen"
+msgstr "Låseskærm"
+
+#: ../src/xfce4-screensaver.c:59
 msgid "Don't become a daemon"
 msgstr "Bliv ikke en dæmon"
 
-#: ../src/xfce4-screensaver.c:61
+#: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "Aktivér fejlretningskode"
 
@@ -655,11 +656,6 @@ msgstr "Aktivér fejlretningskode"
 msgid "Launch screensaver and locker program"
 msgstr "Start pauseskærms- og låserprogram"
 
-#: ../src/xfcekbd-indicator.c:111
-#, c-format
-msgid "There was an error loading an image: %s"
-msgstr "Der opstod en fejl under indlæsning af billede: %s"
-
-#: ../src/xfcekbd-indicator.c:688
+#: ../src/xfcekbd-indicator.c:533
 msgid "XKB initialization error"
 msgstr "Fejl ved initiering af XKB"
