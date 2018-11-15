@@ -1612,7 +1612,7 @@ gs_manager_activate (GSManager *manager) {
     manager->priv->active = TRUE;
 
     /* fade to black and show windows */
-    do_fade = TRUE;
+    do_fade = FALSE;
     if (do_fade) {
         manager->priv->fading = TRUE;
         gs_debug ("fading out");
