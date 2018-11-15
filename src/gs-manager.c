@@ -384,12 +384,18 @@ gs_manager_get_lock_active (GSManager *manager,
 void
 gs_manager_set_lock_active (GSManager *manager,
                             gboolean   lock_active) {
+    GSList *l;
+
     g_return_if_fail (GS_IS_MANAGER (manager));
 
     gs_debug ("Setting lock active: %d", lock_active);
 
-    if (manager->priv->lock_active != lock_active) {
+    if (manager->priv->lock_active != lock_active) {    
         manager->priv->lock_active = lock_active;
+    }
+
+    for (l = manager->priv->windows; l; l = l->next) {
+        gs_window_set_lock_active(l->data, lock_active);
     }
 }
 
@@ -1648,9 +1654,10 @@ gs_manager_deactivate (GSManager *manager) {
     /* reset state */
     manager->priv->active = FALSE;
     manager->priv->activate_time = 0;
-    manager->priv->lock_active = FALSE;
     manager->priv->dialog_up = FALSE;
     manager->priv->fading = FALSE;
+
+    gs_manager_set_lock_active (manager, FALSE);
 
     return TRUE;
 }

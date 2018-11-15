@@ -71,6 +71,7 @@ struct GSWindowPrivate {
     guint            keyboard_enabled : 1;
 
     guint64          logout_timeout;
+    gboolean         lock_active;
     char            *logout_command;
     char            *keyboard_command;
     char            *status_message;
@@ -1614,9 +1615,8 @@ gs_window_request_unlock (GSWindow *window) {
         return;
     }
 
-    if (!window->priv->lock_enabled) {
+    if (!window->priv->lock_active) {
         add_emit_deactivated_idle (window);
-
         return;
     }
 
@@ -1625,6 +1625,14 @@ gs_window_request_unlock (GSWindow *window) {
     }
 
     window_set_dialog_up (window, TRUE);
+}
+
+void
+gs_window_set_lock_active (GSWindow *window,
+                           gboolean  active) {
+    g_return_if_fail (GS_IS_WINDOW (window));
+
+    window->priv->lock_active = active;
 }
 
 void
