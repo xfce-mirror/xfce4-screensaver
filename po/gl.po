@@ -131,7 +131,7 @@ msgstr "\"#rrggbb\""
 
 #: ../savers/slideshow.c:61
 msgid "Do not randomize pictures from location"
-msgstr ""
+msgstr "Non aleatorizar imaxes desde a localización"
 
 #: ../savers/slideshow.c:65
 msgid "Do not try to stretch images on screen"
@@ -621,52 +621,54 @@ msgstr "Mensaxes de estado da sesión"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:21
 msgid "User Switching"
-msgstr ""
+msgstr "Trocando usuario"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:22
 msgid "Logout"
-msgstr ""
+msgstr "Saír"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:23
 msgid "Logout command:"
-msgstr ""
+msgstr "Orde para saír:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:24
 msgid "Enable logout after:"
-msgstr ""
+msgstr "Activar a saída despois de:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:25
 msgid "Lock the screen after the screensaver is active for:"
 msgstr ""
+"Bloquear a pantalla despois de que o protector de pantalla estea activo "
+"durante:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:26
 msgid "Lock Screen with Screensaver"
-msgstr ""
+msgstr "Bloquea a pantalla con protector de pantalla"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:27
 msgid "On Screen Keyboard"
-msgstr ""
+msgstr "Teclado en pantalla"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:28
 msgid "On screen keyboard command:"
-msgstr ""
+msgstr "Orde do teclado en pantalla:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:29
 msgid "Lock Screen"
-msgstr ""
+msgstr "Bloquear a pantalla"
 
 #: ../src/xfce4-screensaver.c:59
 msgid "Don't become a daemon"
-msgstr ""
+msgstr "Non converter nun servizo"
 
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
-msgstr ""
+msgstr "Activar o código de depuración"
 
 #: ../src/xfce4-screensaver.desktop.in.in.h:2
 msgid "Launch screensaver and locker program"
-msgstr ""
+msgstr "Executar o protector de pantalla e o bloqueo"
 
 #: ../src/xfcekbd-indicator.c:533
 msgid "XKB initialization error"
-msgstr ""
+msgstr "Erro de inicialización XKB"
