@@ -526,7 +526,7 @@ msgstr "Atsitiktinė"
 
 #: ../src/xfce4-screensaver-preferences.c:1677
 msgid "Setting locked by administrator."
-msgstr ""
+msgstr "Administratorius užrakino nustatymą."
 
 #: ../src/xfce4-screensaver-preferences.c:1717
 msgid "Could not load the main interface"
@@ -620,35 +620,35 @@ msgstr "Naudotojų perjungimas"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:22
 msgid "Logout"
-msgstr ""
+msgstr "Atsijungti"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:23
 msgid "Logout command:"
-msgstr ""
+msgstr "Atsijungimo komanda:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:24
 msgid "Enable logout after:"
-msgstr ""
+msgstr "Įjungti atsijungimą po:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:25
 msgid "Lock the screen after the screensaver is active for:"
-msgstr ""
+msgstr "Užrakinti ekraną po to, kai ekrano užsklanda yra aktyvi jau:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:26
 msgid "Lock Screen with Screensaver"
-msgstr ""
+msgstr "Užrakinti ekraną naudojant ekrano užsklandą"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:27
 msgid "On Screen Keyboard"
-msgstr ""
+msgstr "Ekraninė klaviatūra"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:28
 msgid "On screen keyboard command:"
-msgstr ""
+msgstr "Ekraninės klaviatūros komanda:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:29
 msgid "Lock Screen"
-msgstr ""
+msgstr "Užrakinti ekraną"
 
 #: ../src/xfce4-screensaver.c:59
 msgid "Don't become a daemon"
