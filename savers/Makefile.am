@@ -16,15 +16,15 @@ AM_CPPFLAGS =							\
 
 DESKTOP_IN_IN_FILES = 			 \
 	xfce-floaters.desktop.in.in	 \
-	personal-slideshow.desktop.in.in \
-	popsquares.desktop.in.in	 \
+	xfce-personal-slideshow.desktop.in.in \
+	xfce-popsquares.desktop.in.in	 \
 	$(NULL)
 
 xfce-floaters.desktop.in: xfce-floaters.desktop.in.in Makefile
 	$(edit) $< >$@
-personal-slideshow.desktop.in: personal-slideshow.desktop.in.in Makefile
+xfce-personal-slideshow.desktop.in: xfce-personal-slideshow.desktop.in.in Makefile
 	$(edit) $< >$@
-popsquares.desktop.in: popsquares.desktop.in.in Makefile
+xfce-popsquares.desktop.in: xfce-popsquares.desktop.in.in Makefile
 	$(edit) $< >$@
 
 @INTLTOOL_DESKTOP_RULE@
@@ -36,8 +36,8 @@ edit = sed \
 themesdir = $(datadir)/applications/screensavers
 themes_in_files = 			\
 	xfce-floaters.desktop.in    \
-	personal-slideshow.desktop.in	\
-	popsquares.desktop.in		\
+	xfce-personal-slideshow.desktop.in	\
+	xfce-popsquares.desktop.in		\
 	$(NULL)
 themes_DATA = $(themes_in_files:.desktop.in=.desktop)
 
@@ -119,8 +119,8 @@ EXTRA_DIST =				\
 CLEANFILES = 				\
 	$(BUILT_SOURCES)		\
 	xfce-floaters.desktop.in	\
-	popsquares.desktop.in		\
-	personal-slideshow.desktop.in	\
+	xfce-popsquares.desktop.in		\
+	xfce-personal-slideshow.desktop.in	\
 	$(NULL)
 
 DISTCLEANFILES = 			\
@@ -131,6 +131,6 @@ MAINTAINERCLEANFILES =			\
 	*~				\
 	Makefile.in			\
 	xfce-floaters.desktop	\
-	personal-slideshow.desktop	\
-	popsquares.desktop		\
+	xfce-personal-slideshow.desktop	\
+	xfce-popsquares.desktop		\
 	$(NULL)
