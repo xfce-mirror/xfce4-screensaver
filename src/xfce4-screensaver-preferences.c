@@ -537,7 +537,7 @@ help_display (void) {
 
     error = NULL;
     gtk_show_uri_on_window (NULL,
-                            "help:xfce-user-guide/prefs-screensaver",
+                            "https://docs.xfce.org/apps/screensaver/start",
                             GDK_CURRENT_TIME,
                             &error);
 
