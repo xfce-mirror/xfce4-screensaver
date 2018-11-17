@@ -3,11 +3,11 @@
 data/xfce4-screensaver-preferences.desktop.in
 data/xfce4-screensaver.directory.in
 savers/floaters.c
-savers/xfce-floaters.desktop.in.in
-savers/personal-slideshow.desktop.in.in
 savers/popsquares.c
-savers/popsquares.desktop.in.in
 savers/slideshow.c
+savers/xfce-floaters.desktop.in.in
+savers/xfce-personal-slideshow.desktop.in.in
+savers/xfce-popsquares.desktop.in.in
 src/copy-theme-dialog.c
 src/gs-auth-pam.c
 src/gs-listener-dbus.c
