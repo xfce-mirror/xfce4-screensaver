@@ -72,6 +72,7 @@ struct GSWindowPrivate {
 
     guint64          logout_timeout;
     gboolean         lock_active;
+    gboolean         saver_active;
     char            *logout_command;
     char            *keyboard_command;
     char            *status_message;
@@ -1632,7 +1633,19 @@ gs_window_set_lock_active (GSWindow *window,
                            gboolean  active) {
     g_return_if_fail (GS_IS_WINDOW (window));
 
+    gs_debug("Setting lock active: %i", active);
+
     window->priv->lock_active = active;
+}
+
+void
+gs_window_set_saver_active (GSWindow *window,
+                            gboolean  active) {
+    g_return_if_fail (GS_IS_WINDOW (window));
+
+    gs_debug("Setting saver active: %i", active);
+
+    window->priv->saver_active = active;
 }
 
 void

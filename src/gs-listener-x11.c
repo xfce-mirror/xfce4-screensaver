@@ -58,6 +58,7 @@ struct GSListenerX11Private {
 };
 
 enum {
+    ACTIVATE,
     LOCK,
     LAST_SIGNAL
 };
@@ -71,6 +72,17 @@ gs_listener_x11_class_init (GSListenerX11Class *klass) {
     GObjectClass   *object_class = G_OBJECT_CLASS (klass);
 
     object_class->finalize       = gs_listener_x11_finalize;
+
+    signals[ACTIVATE] =
+        g_signal_new ("activate",
+                      G_TYPE_FROM_CLASS (object_class),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (GSListenerX11Class, activate),
+                      NULL,
+                      NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE,
+                      0);
 
     signals[LOCK] =
         g_signal_new ("lock",
@@ -114,7 +126,10 @@ lock_timer (GSListenerX11 *listener) {
     if (listener->priv->idle_activation_enabled &&
             idle_time >= listener->priv->lock_timeout &&
             state != ScreenSaverDisabled) {
-        g_signal_emit(listener, signals[LOCK], 0);
+        if (state == ScreenSaverOn)
+            g_signal_emit(listener, signals[LOCK], 0);
+        else
+            g_signal_emit(listener, signals[ACTIVATE], 0);
     } else {
         switch (state) {
             case ScreenSaverOff:

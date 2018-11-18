@@ -69,6 +69,7 @@ struct GSManagerPrivate {
     /* State */
     guint           active : 1;
     guint           lock_active : 1;
+    guint           saver_active : 1;
 
     guint           fading : 1;
     guint           dialog_up : 1;
@@ -396,6 +397,38 @@ gs_manager_set_lock_active (GSManager *manager,
 
     for (l = manager->priv->windows; l; l = l->next) {
         gs_window_set_lock_active(l->data, lock_active);
+    }
+}
+
+void
+gs_manager_get_saver_active (GSManager *manager,
+                             gboolean  *saver_active) {
+    if (saver_active != NULL) {
+        *saver_active = FALSE;
+    }
+
+    g_return_if_fail (GS_IS_MANAGER (manager));
+
+    if (saver_active != NULL) {
+        *saver_active = manager->priv->saver_active;
+    }
+}
+
+void
+gs_manager_set_saver_active (GSManager *manager,
+                             gboolean   saver_active) {
+    GSList *l;
+
+    g_return_if_fail (GS_IS_MANAGER (manager));
+
+    gs_debug ("Setting saver active: %d", saver_active);
+
+    if (manager->priv->saver_active != saver_active) {
+        manager->priv->saver_active = saver_active;
+    }
+
+    for (l = manager->priv->windows; l; l = l->next) {
+        gs_window_set_saver_active(l->data, saver_active);
     }
 }
 
@@ -1348,6 +1381,7 @@ gs_manager_create_window_for_monitor (GSManager  *manager,
     gs_window_set_keyboard_enabled (window, manager->priv->keyboard_enabled);
     gs_window_set_keyboard_command (window, manager->priv->keyboard_command);
     gs_window_set_status_message (window, manager->priv->status_message);
+    gs_window_set_lock_active (window, manager->priv->lock_active);
 
     connect_window_signals (manager, window);
 

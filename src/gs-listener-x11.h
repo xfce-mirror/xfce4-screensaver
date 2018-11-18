@@ -45,6 +45,7 @@ typedef struct
     GObjectClass          parent_class;
 
     void         (* lock) (GSListenerX11 *listener);
+    void         (* activate) (GSListenerX11 *listener);
 } GSListenerX11Class;
 
 GType                     gs_listener_x11_get_type                  (void);

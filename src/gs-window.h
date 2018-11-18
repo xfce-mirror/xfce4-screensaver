@@ -81,6 +81,8 @@ void        gs_window_set_logout_timeout      (GSWindow        *window,
                                                glong            timeout);
 void        gs_window_set_lock_active         (GSWindow        *window,
                                                gboolean         active);
+void        gs_window_set_saver_active        (GSWindow        *window,
+                                               gboolean         active);
 void        gs_window_set_logout_command      (GSWindow        *window,
                                                const char      *command);
 void        gs_window_set_status_message      (GSWindow        *window,

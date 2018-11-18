@@ -98,6 +98,28 @@ static void gs_monitor_lock_screen(GSMonitor* monitor) {
     }
 }
 
+static void gs_monitor_save_screen(GSMonitor* monitor) {
+    gboolean res;
+    gboolean saved;
+    gboolean active;
+
+    /* set lock flag before trying to activate screensaver
+       in case something tries to react to the ActiveChanged signal */
+    gs_manager_get_saver_active(monitor->priv->manager, &saved);
+    gs_manager_set_saver_active(monitor->priv->manager, TRUE);
+    active = gs_manager_get_active(monitor->priv->manager);
+
+    if (!active) {
+        res = gs_listener_set_active(monitor->priv->listener, TRUE);
+
+        if (!res) {
+            /* if we've failed then restore lock status */
+            gs_manager_set_saver_active(monitor->priv->manager, saved);
+            gs_debug("Unable to save the screen");
+        }
+    }
+}
+
 static void gs_monitor_simulate_user_activity(GSMonitor* monitor) {
     Display *display = gdk_x11_display_get_xdisplay (gdk_display_get_default ());
     XScreenSaverSuspend (display, TRUE);
@@ -116,6 +138,10 @@ static void listener_lock_cb(GSListener* listener, GSMonitor* monitor) {
     } else {
         gs_debug("Locking disabled by the administrator");
     }
+}
+
+static void listener_x11_activate_cb(GSListenerX11* listener, GSMonitor* monitor) {
+    gs_monitor_save_screen(monitor);
 }
 
 static void listener_x11_lock_cb(GSListenerX11* listener, GSMonitor* monitor) {
@@ -200,6 +226,7 @@ static void disconnect_listener_signals(GSMonitor* monitor) {
     g_signal_handlers_disconnect_by_func(monitor->priv->listener, listener_simulate_user_activity_cb, monitor);
     g_signal_handlers_disconnect_by_func(monitor->priv->listener, listener_show_message_cb, monitor);
 
+    g_signal_handlers_disconnect_by_func(monitor->priv->listener_x11, listener_x11_activate_cb, monitor);
     g_signal_handlers_disconnect_by_func(monitor->priv->listener_x11, listener_x11_lock_cb, monitor);
 }
 
@@ -219,6 +246,8 @@ static void connect_listener_signals(GSMonitor* monitor) {
     g_signal_connect(monitor->priv->listener, "show-message",
                      G_CALLBACK(listener_show_message_cb), monitor);
 
+    g_signal_connect(monitor->priv->listener_x11, "activate",
+                     G_CALLBACK(listener_x11_activate_cb), monitor);
     g_signal_connect(monitor->priv->listener_x11, "lock",
                      G_CALLBACK(listener_x11_lock_cb), monitor);
 }

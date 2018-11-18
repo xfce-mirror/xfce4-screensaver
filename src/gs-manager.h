@@ -66,6 +66,10 @@ void        gs_manager_get_lock_active         (GSManager   *manager,
                                                 gboolean    *lock_active);
 void        gs_manager_set_lock_active         (GSManager   *manager,
                                                 gboolean     lock_active);
+void        gs_manager_get_saver_active        (GSManager   *manager,
+                                                gboolean    *saver_active);
+void        gs_manager_set_saver_active        (GSManager   *manager,
+                                                gboolean     saver_active);
 void        gs_manager_set_keyboard_enabled    (GSManager   *manager,
                                                 gboolean     enabled);
 void        gs_manager_set_keyboard_command    (GSManager   *manager,
