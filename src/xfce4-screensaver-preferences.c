@@ -118,8 +118,8 @@ config_get_lock_delay (gboolean *is_writable) {
 
     delay = xfconf_channel_get_int (screensaver_channel, KEY_LOCK_DELAY, DEFAULT_KEY_LOCK_DELAY);
 
-    if (delay < 1) {
-        delay = 1;
+    if (delay < 0) {
+        delay = 0;
     }
 
     return delay;
@@ -282,11 +282,16 @@ config_set_theme (const char *theme_id) {
 
     config_set_mode (mode);
 
-    xfconf_channel_set_string_list (screensaver_channel,
-                                    KEY_THEMES,
-                                    (const gchar * const*) strv);
-
-    g_strfreev (strv);
+    if (strv) {
+        xfconf_channel_set_string_list (screensaver_channel,
+                                        KEY_THEMES,
+                                        (const gchar * const*) strv);
+        g_strfreev (strv);
+    } else {
+        xfconf_channel_reset_property (screensaver_channel,
+                                       KEY_THEMES,
+                                       FALSE);
+    }
 }
 
 static gboolean

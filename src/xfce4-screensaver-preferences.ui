@@ -26,42 +26,16 @@ Simon Steinbeiß
 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
-  <requires lib="libxfce4ui-2" version="4.13"/>
+  <requires lib="libxfce4ui-2" version="4.12.1"/>
   <!-- interface-license-type gplv2 -->
   <!-- interface-name xfce4-screensaver -->
   <!-- interface-description screensaver preferences -->
   <!-- interface-copyright 2018 Xfce Developers -->
   <!-- interface-authors Wolfgang Ulbrich (MATE Screensaver)\nSean Davis\nSimon Steinbei\303\237 -->
-  <object class="GtkAdjustment" id="adjustment1">
-    <property name="lower">1</property>
-    <property name="upper">120</property>
-    <property name="value">10</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
-  </object>
-  <object class="GtkAdjustment" id="adjustment2">
+  <object class="GtkAdjustment" id="cycle_delay_adj">
     <property name="lower">1</property>
     <property name="upper">1440</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
-  </object>
-  <object class="GtkAdjustment" id="adjustment3">
-    <property name="upper">100</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
-  </object>
-  <object class="GtkAdjustment" id="adjustment4">
-    <property name="upper">100</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
-  </object>
-  <object class="GtkAdjustment" id="adjustment5">
-    <property name="upper">100</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
-  </object>
-  <object class="GtkAdjustment" id="adjustment6">
-    <property name="upper">100</property>
+    <property name="value">10</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
@@ -222,6 +196,24 @@ Simon Steinbeiß
         </child>
       </object>
     </child>
+  </object>
+  <object class="GtkAdjustment" id="idle_delay_adj">
+    <property name="lower">1</property>
+    <property name="upper">1440</property>
+    <property name="value">5</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="lock_delay_adj">
+    <property name="upper">1440</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="logout_delay_adj">
+    <property name="upper">1440</property>
+    <property name="value">120</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
   </object>
   <object class="GtkImage" id="power_image">
     <property name="can_focus">False</property>
@@ -737,7 +729,7 @@ Simon Steinbeiß
                           <object class="GtkSpinButton" id="cycle_delay">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="adjustment">adjustment5</property>
+                            <property name="adjustment">cycle_delay_adj</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -748,7 +740,7 @@ Simon Steinbeiß
                           <object class="GtkSpinButton" id="idle_delay">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="adjustment">adjustment6</property>
+                            <property name="adjustment">idle_delay_adj</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -989,7 +981,7 @@ Simon Steinbeiß
                           <object class="GtkSpinButton" id="logout_delay">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="adjustment">adjustment4</property>
+                            <property name="adjustment">logout_delay_adj</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -1028,7 +1020,7 @@ Simon Steinbeiß
                           <object class="GtkSpinButton" id="lock_delay">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="adjustment">adjustment3</property>
+                            <property name="adjustment">lock_delay_adj</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
