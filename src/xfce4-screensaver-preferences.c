@@ -1737,7 +1737,7 @@ configure_capplet (void) {
     list_scroller               = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_scrolled_window"));
     root_warning_infobar        = GTK_WIDGET (gtk_builder_get_object (builder, "root_warning_infobar"));
     preview_button              = GTK_WIDGET (gtk_builder_get_object (builder, "preview_button"));
-    gpm_button                  = GTK_WIDGET (gtk_builder_get_object (builder, "gpm_button"));
+    gpm_button                  = GTK_WIDGET (gtk_builder_get_object (builder, "power_management_button"));
     fullscreen_preview_window   = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_window"));
     fullscreen_preview_area     = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_area"));
     fullscreen_preview_close    = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_close"));
