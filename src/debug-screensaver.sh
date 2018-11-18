@@ -33,7 +33,7 @@ export G_DEBUG=fatal_criticals
 xfce4-screensaver-command --exit
 
 # run the daemon in the debugger
-#gdb --args xfce4-screensaver --no-daemon --debug --sync
+#gdb --args xfce4-screensaver --no-daemon --debug
 
 # or if that isn't helpful just get the debug output
 #xfce4-screensaver --no-daemon --debug > /tmp/gs-debug-log.txt 2>&1

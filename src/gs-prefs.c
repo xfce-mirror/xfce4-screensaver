@@ -154,6 +154,7 @@ _gs_prefs_set_themes (GSPrefs  *prefs,
     if (prefs->themes) {
         g_slist_foreach (prefs->themes, (GFunc)g_free, NULL);
         g_slist_free (prefs->themes);
+        prefs->themes = NULL;
     }
 
     if (values == NULL)
@@ -161,7 +162,7 @@ _gs_prefs_set_themes (GSPrefs  *prefs,
 
     /* take ownership of the list */
     prefs->themes = NULL;
-        for (i=0; values[i] != NULL; i++)
+    for (i=0; values[i] != NULL; i++)
         prefs->themes = g_slist_append (prefs->themes, g_strdup (values[i]));
 }
 
