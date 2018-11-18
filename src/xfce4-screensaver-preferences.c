@@ -194,11 +194,11 @@ static void
 config_set_mode (int mode) {
     xfconf_channel_set_int (screensaver_channel, KEY_MODE, mode);
 
-    gtk_widget_set_visible (GTK_WIDGET (gtk_builder_get_object (builder, "cycle_delay_label_left")),
+    gtk_widget_set_visible (GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_cycle_delay_label_left")),
                             mode == GS_MODE_RANDOM);
-    gtk_widget_set_visible (GTK_WIDGET (gtk_builder_get_object (builder, "cycle_delay")),
+    gtk_widget_set_visible (GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_cycle_delay")),
                             mode == GS_MODE_RANDOM);
-    gtk_widget_set_visible (GTK_WIDGET (gtk_builder_get_object (builder, "cycle_delay_label_right")),
+    gtk_widget_set_visible (GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_cycle_delay_label_right")),
                             mode == GS_MODE_RANDOM);
 }
 
@@ -930,7 +930,7 @@ reload_themes (void) {
     GtkWidget    *treeview;
     GtkTreeModel *model;
 
-    treeview = GTK_WIDGET (gtk_builder_get_object (builder, "savers_treeview"));
+    treeview = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_treeview"));
     model = gtk_tree_view_get_model (GTK_TREE_VIEW (treeview));
     gtk_tree_store_clear (GTK_TREE_STORE (model));
     populate_model (GTK_TREE_STORE (model));
@@ -1073,9 +1073,9 @@ lock_toggled_cb (GtkSwitch *widget, gpointer user_data) {
     config_set_lock_enabled (gtk_switch_get_active (widget));
 
     writable = lock_delay_writable && gtk_switch_get_active (widget);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_delay_label_left")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_delay")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_delay_label_right")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_delay_label_left")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_delay")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_delay_label_right")), writable);
 }
 
 static void
@@ -1085,9 +1085,9 @@ idle_activation_toggled_cb (GtkSwitch *widget, gpointer user_data) {
     config_set_idle_activation_enabled (gtk_switch_get_active (widget));
 
     writable = idle_delay_writable && gtk_switch_get_active (widget);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "idle_delay_label_left")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "idle_delay")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "idle_delay_label_right")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "saver_idle_activation_delay_label_left")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "saver_idle_activation_delay")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "saver_idle_activation_delay_label_right")), writable);
 }
 
 static void
@@ -1097,13 +1097,13 @@ logout_toggled_cb (GtkSwitch *widget, gpointer user_data) {
     config_set_logout_enabled (gtk_switch_get_active (widget));
 
     writable = logout_command_writable && gtk_switch_get_active (widget);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "logout_command_label")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "logout_command")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_logout_command_label")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_logout_command")), writable);
 
     writable = logout_delay_writable && gtk_switch_get_active (widget);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "logout_delay_label_left")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "logout_delay")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "logout_delay_label_right")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_logout_delay_label_left")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_logout_delay")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_logout_delay_label_right")), writable);
 }
 
 static void
@@ -1123,8 +1123,8 @@ keyboard_toggled_cb (GtkSwitch *widget, gpointer user_data) {
     config_set_keyboard_enabled (gtk_switch_get_active (widget));
 
     writable = keyboard_command_writable && gtk_switch_get_active (widget);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "keyboard_command_label")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "keyboard_command")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_embedded_keyboard_command_label")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_embedded_keyboard_command")), writable);
 }
 
 static void
@@ -1133,7 +1133,7 @@ ui_set_lock_enabled (gboolean enabled) {
     gboolean   active;
     gboolean   writable;
 
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_enabled"));
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_enabled"));
 
     active = gtk_switch_get_active (GTK_SWITCH (widget));
     if (active != enabled) {
@@ -1141,9 +1141,9 @@ ui_set_lock_enabled (gboolean enabled) {
     }
 
     writable = lock_delay_writable && enabled;
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_delay_label_left")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_delay")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_delay_label_right")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_delay_label_left")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_delay")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_delay_label_right")), writable);
 }
 
 static void
@@ -1152,16 +1152,16 @@ ui_set_idle_activation_enabled (gboolean enabled) {
     gboolean   active;
     gboolean   writable;
 
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "idle_activation_enabled"));
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "saver_idle_activation_enabled"));
     active = gtk_switch_get_active (GTK_SWITCH (widget));
     if (active != enabled) {
         gtk_switch_set_active (GTK_SWITCH (widget), enabled);
     }
 
     writable = idle_delay_writable && enabled;
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "idle_delay_label_left")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "idle_delay")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "idle_delay_label_right")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "saver_idle_activation_delay_label_left")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "saver_idle_activation_delay")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "saver_idle_activation_delay_label_right")), writable);
 }
 
 static void
@@ -1170,7 +1170,7 @@ ui_set_keyboard_enabled (gboolean enabled) {
     gboolean   active;
     gboolean   writable;
 
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "keyboard_enabled"));
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_embedded_keyboard_enabled"));
 
     active = gtk_switch_get_active (GTK_SWITCH (widget));
     if (active != enabled) {
@@ -1178,8 +1178,8 @@ ui_set_keyboard_enabled (gboolean enabled) {
     }
 
     writable = keyboard_command_writable && enabled;
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "keyboard_command_label")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "keyboard_command")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_embedded_keyboard_command_label")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_embedded_keyboard_command")), writable);
 }
 
 static void
@@ -1188,7 +1188,7 @@ ui_set_logout_enabled (gboolean enabled) {
     gboolean   active;
     gboolean   writable;
 
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "logout_enabled"));
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_logout_enabled"));
 
     active = gtk_switch_get_active (GTK_SWITCH (widget));
     if (active != enabled) {
@@ -1196,20 +1196,20 @@ ui_set_logout_enabled (gboolean enabled) {
     }
 
     writable = logout_command_writable && enabled;
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "logout_command_label")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "logout_command")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_logout_command_label")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_logout_command")), writable);
 
     writable = logout_delay_writable && enabled;
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "logout_delay_label_left")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "logout_delay")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "logout_delay_label_right")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_logout_delay_label_left")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_logout_delay")), writable);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_logout_delay_label_right")), writable);
 }
 
 static void
 ui_set_idle_delay (int delay) {
     GtkWidget *widget;
 
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "idle_delay"));
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "saver_idle_activation_delay"));
     gtk_spin_button_set_value (GTK_SPIN_BUTTON (widget), delay);
 }
 
@@ -1217,7 +1217,7 @@ static void
 ui_set_lock_delay (int delay) {
     GtkWidget *widget;
 
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_delay"));
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_delay"));
     gtk_spin_button_set_value (GTK_SPIN_BUTTON (widget), delay);
 }
 
@@ -1225,7 +1225,7 @@ static void
 ui_set_cycle_delay (int delay) {
     GtkWidget *widget;
 
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "cycle_delay"));
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_cycle_delay"));
     gtk_spin_button_set_value (GTK_SPIN_BUTTON (widget), delay);
 }
 
@@ -1234,7 +1234,7 @@ ui_set_keyboard_command (gchar *command) {
     GtkWidget   *widget;
     const gchar *current;
 
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "keyboard_command"));
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_embedded_keyboard_command"));
 
     current = gtk_entry_get_text (GTK_ENTRY (widget));
     if (g_strcmp0 (current, command) != 0) {
@@ -1247,7 +1247,7 @@ ui_set_status_message_enabled (gboolean enabled) {
     GtkWidget *widget;
     gboolean   active;
 
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "status_message_enabled"));
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_status_messages_enabled"));
 
     active = gtk_switch_get_active (GTK_SWITCH (widget));
     if (active != enabled) {
@@ -1259,7 +1259,7 @@ static void
 ui_set_logout_delay (int delay) {
     GtkWidget *widget;
 
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "logout_delay"));
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_logout_delay"));
     gtk_spin_button_set_value (GTK_SPIN_BUTTON (widget), delay);
 }
 
@@ -1268,7 +1268,7 @@ ui_set_logout_command (gchar *command) {
     GtkWidget   *widget;
     const gchar *current;
 
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "logout_command"));
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_logout_command"));
 
     current = gtk_entry_get_text (GTK_ENTRY (widget));
     if (g_strcmp0 (current, command) != 0) {
@@ -1281,7 +1281,7 @@ ui_set_user_switch_enabled (gboolean enabled) {
     GtkWidget *widget;
     gboolean   active;
 
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "user_switch_enabled"));
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_user_switching_enabled"));
 
     active = gtk_switch_get_active (GTK_SWITCH (widget));
     if (active != enabled) {
@@ -1341,7 +1341,7 @@ key_changed_cb (XfconfChannel *channel, const gchar *key, gpointer data) {
         ui_set_user_switch_enabled (enabled);
     } else if (strcmp (key, KEY_THEMES) == 0) {
         GtkWidget *treeview;
-        treeview = GTK_WIDGET (gtk_builder_get_object (builder, "savers_treeview"));
+        treeview = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_treeview"));
         setup_treeview_selection (treeview);
     }
 }
@@ -1352,7 +1352,7 @@ fullscreen_preview_previous_cb (GtkWidget *fullscreen_preview_window,
     GtkWidget        *treeview;
     GtkTreeSelection *selection;
 
-    treeview = GTK_WIDGET (gtk_builder_get_object (builder, "savers_treeview"));
+    treeview = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_treeview"));
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview));
     tree_selection_previous (selection);
 }
@@ -1363,7 +1363,7 @@ fullscreen_preview_next_cb (GtkWidget *fullscreen_preview_window,
     GtkWidget        *treeview;
     GtkTreeSelection *selection;
 
-    treeview = GTK_WIDGET (gtk_builder_get_object (builder, "savers_treeview"));
+    treeview = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_treeview"));
     selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview));
     tree_selection_next (selection);
 }
@@ -1376,7 +1376,7 @@ fullscreen_preview_cancelled_cb (GtkWidget *button,
     GtkWidget *preview_area;
     GtkWidget *dialog;
 
-    preview_area = GTK_WIDGET (gtk_builder_get_object (builder, "preview_area"));
+    preview_area = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_preview_area"));
     gs_job_set_widget (job, preview_area);
 
     fullscreen_preview_area = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_area"));
@@ -1464,7 +1464,7 @@ setup_for_root_user (void) {
     GtkWidget *lock_checkbox;
     GtkWidget *infobar;
 
-    lock_checkbox = GTK_WIDGET (gtk_builder_get_object (builder, "lock_enabled"));
+    lock_checkbox = GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_enabled"));
     infobar = GTK_WIDGET (gtk_builder_get_object (builder, "root_warning_infobar"));
     gtk_switch_set_active (GTK_SWITCH (lock_checkbox), FALSE);
     gtk_widget_set_sensitive (lock_checkbox, FALSE);
@@ -1653,8 +1653,8 @@ setup_treeview_idle (gpointer data) {
     GtkWidget *preview;
     GtkWidget *treeview;
 
-    preview  = GTK_WIDGET (gtk_builder_get_object (builder, "preview_area"));
-    treeview = GTK_WIDGET (gtk_builder_get_object (builder, "savers_treeview"));
+    preview  = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_preview_area"));
+    treeview = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_treeview"));
 
     setup_treeview (treeview, preview);
     setup_treeview_selection (treeview);
@@ -1730,11 +1730,11 @@ configure_capplet (void) {
         exit (1);
     }
 
-    preview                     = GTK_WIDGET (gtk_builder_get_object (builder, "preview_area"));
+    preview                     = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_preview_area"));
     dialog                      = GTK_WIDGET (gtk_builder_get_object (builder, "prefs_dialog"));
     plug_child                  = GTK_WIDGET (gtk_builder_get_object (builder, "plug-child"));
-    treeview                    = GTK_WIDGET (gtk_builder_get_object (builder, "savers_treeview"));
-    list_scroller               = GTK_WIDGET (gtk_builder_get_object (builder, "themes_scrolled_window"));
+    treeview                    = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_treeview"));
+    list_scroller               = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_scrolled_window"));
     root_warning_infobar        = GTK_WIDGET (gtk_builder_get_object (builder, "root_warning_infobar"));
     preview_button              = GTK_WIDGET (gtk_builder_get_object (builder, "preview_button"));
     gpm_button                  = GTK_WIDGET (gtk_builder_get_object (builder, "gpm_button"));
@@ -1759,7 +1759,7 @@ configure_capplet (void) {
                       NULL);
 
     /* Idle delay */
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "idle_delay"));
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "saver_idle_activation_delay"));
     delay = config_get_idle_delay (&idle_delay_writable);
     ui_set_idle_delay (delay);
     set_widget_writable (widget, idle_delay_writable);
@@ -1767,7 +1767,7 @@ configure_capplet (void) {
                       G_CALLBACK (idle_delay_value_changed_cb), NULL);
 
     /* Lock delay */
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_delay"));
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_delay"));
     delay = config_get_lock_delay (&lock_delay_writable);
     ui_set_lock_delay (delay);
     set_widget_writable (widget, lock_delay_writable);
@@ -1775,7 +1775,7 @@ configure_capplet (void) {
                       G_CALLBACK (lock_delay_value_changed_cb), NULL);
 
     /* Keyboard command */
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "keyboard_command"));
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_embedded_keyboard_command"));
     command = config_get_keyboard_command (&keyboard_command_writable);
     ui_set_keyboard_command (command);
     set_widget_writable (widget, keyboard_command_writable);
@@ -1784,7 +1784,7 @@ configure_capplet (void) {
     g_free (command);
 
     /* Logout command */
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "logout_command"));
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_logout_command"));
     command = config_get_logout_command (&logout_command_writable);
     ui_set_logout_command (command);
     set_widget_writable (widget, logout_command_writable);
@@ -1793,7 +1793,7 @@ configure_capplet (void) {
     g_free (command);
 
     /* Logout delay */
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "logout_delay"));
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_logout_delay"));
     delay = config_get_logout_delay (&logout_delay_writable);
     ui_set_logout_delay (delay);
     set_widget_writable (widget, logout_delay_writable);
@@ -1801,7 +1801,7 @@ configure_capplet (void) {
                       G_CALLBACK (logout_delay_value_changed_cb), NULL);
 
     /* Idle activation enabled */
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "idle_activation_enabled"));
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "saver_idle_activation_enabled"));
     enabled = config_get_idle_activation_enabled (&is_writable);
     ui_set_idle_activation_enabled (enabled);
     set_widget_writable (widget, is_writable);
@@ -1809,7 +1809,7 @@ configure_capplet (void) {
                       G_CALLBACK (idle_activation_toggled_cb), NULL);
 
     /* Lock enabled */
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_enabled"));
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_enabled"));
     enabled = config_get_lock_enabled (&is_writable);
     ui_set_lock_enabled (enabled);
     set_widget_writable (widget, is_writable);
@@ -1817,7 +1817,7 @@ configure_capplet (void) {
                       G_CALLBACK (lock_toggled_cb), NULL);
 
     /* Cycle delay */
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "cycle_delay"));
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_cycle_delay"));
     delay = config_get_cycle_delay (&is_writable);
     ui_set_cycle_delay (delay);
     set_widget_writable (widget, is_writable);
@@ -1825,7 +1825,7 @@ configure_capplet (void) {
                       G_CALLBACK (cycle_delay_value_changed_cb), NULL);
 
     /* Keyboard enabled */
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "keyboard_enabled"));
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_embedded_keyboard_enabled"));
     enabled = config_get_keyboard_enabled (&is_writable);
     ui_set_keyboard_enabled (enabled);
     set_widget_writable (widget, is_writable);
@@ -1833,7 +1833,7 @@ configure_capplet (void) {
                       G_CALLBACK (keyboard_toggled_cb), NULL);
 
     /* Status message enabled */
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "status_message_enabled"));
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_status_messages_enabled"));
     enabled = config_get_status_message_enabled (&is_writable);
     ui_set_status_message_enabled (enabled);
     set_widget_writable (widget, is_writable);
@@ -1841,7 +1841,7 @@ configure_capplet (void) {
                       G_CALLBACK (status_message_toggled_cb), NULL);
 
     /* Status message enabled */
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "logout_enabled"));
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_logout_enabled"));
     enabled = config_get_logout_enabled (&is_writable);
     ui_set_logout_enabled (enabled);
     set_widget_writable (widget, is_writable);
@@ -1849,7 +1849,7 @@ configure_capplet (void) {
                       G_CALLBACK (logout_toggled_cb), NULL);
 
     /* User switch enabled */
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "user_switch_enabled"));
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_user_switching_enabled"));
     enabled = config_get_user_switch_enabled (&is_writable);
     ui_set_user_switch_enabled (enabled);
     set_widget_writable (widget, is_writable);

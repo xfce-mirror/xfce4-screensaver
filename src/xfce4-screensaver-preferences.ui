@@ -26,7 +26,7 @@ Simon Steinbeiß
 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
-  <requires lib="libxfce4ui-2" version="4.12.1"/>
+  <requires lib="libxfce4ui-2" version="4.12"/>
   <!-- interface-license-type gplv2 -->
   <!-- interface-name xfce4-screensaver -->
   <!-- interface-description screensaver preferences -->
@@ -573,14 +573,14 @@ Simon Steinbeiß
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkGrid" id="screensaver_grid">
+                      <object class="GtkGrid" id="saver_grid">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="vexpand">True</property>
                         <property name="row_spacing">6</property>
                         <property name="column_spacing">6</property>
                         <child>
-                          <object class="GtkGrid" id="grid1">
+                          <object class="GtkGrid" id="saver_themes_grid">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="margin_top">14</property>
@@ -589,14 +589,14 @@ Simon Steinbeiß
                             <property name="row_spacing">6</property>
                             <property name="column_spacing">12</property>
                             <child>
-                              <object class="GtkScrolledWindow" id="themes_scrolled_window">
+                              <object class="GtkScrolledWindow" id="saver_themes_scrolled_window">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="vexpand">True</property>
                                 <property name="hscrollbar_policy">never</property>
                                 <property name="shadow_type">in</property>
                                 <child>
-                                  <object class="GtkTreeView" id="savers_treeview">
+                                  <object class="GtkTreeView" id="saver_themes_treeview">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="headers_visible">False</property>
@@ -604,7 +604,7 @@ Simon Steinbeiß
                                       <object class="GtkTreeSelection"/>
                                     </child>
                                     <accessibility>
-                                      <relation type="label-for" target="savers_treeview"/>
+                                      <relation type="label-for" target="saver_themes_treeview"/>
                                     </accessibility>
                                   </object>
                                 </child>
@@ -615,7 +615,7 @@ Simon Steinbeiß
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkDrawingArea" id="preview_area">
+                              <object class="GtkDrawingArea" id="saver_themes_preview_area">
                                 <property name="app_paintable">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="hexpand">True</property>
@@ -628,7 +628,7 @@ Simon Steinbeiß
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkLabel">
+                              <object class="GtkLabel" id="saver_themes_theme_label">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Theme</property>
@@ -644,7 +644,7 @@ Simon Steinbeiß
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkLabel">
+                              <object class="GtkLabel" id="saver_themes_preview_label">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Preview</property>
@@ -668,7 +668,7 @@ Simon Steinbeiß
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="cycle_delay_label_left">
+                          <object class="GtkLabel" id="saver_themes_cycle_delay_label_left">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="hexpand">True</property>
@@ -681,7 +681,7 @@ Simon Steinbeiß
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel">
+                          <object class="GtkLabel" id="saver_idle_activation_label">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="margin_top">12</property>
@@ -697,7 +697,7 @@ Simon Steinbeiß
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkSwitch" id="idle_activation_enabled">
+                          <object class="GtkSwitch" id="saver_idle_activation_enabled">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="halign">end</property>
@@ -711,7 +711,7 @@ Simon Steinbeiß
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="idle_delay_label_left">
+                          <object class="GtkLabel" id="saver_idle_activation_delay_label_left">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="margin_left">12</property>
@@ -726,7 +726,7 @@ Simon Steinbeiß
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkSpinButton" id="cycle_delay">
+                          <object class="GtkSpinButton" id="saver_themes_cycle_delay">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="adjustment">cycle_delay_adj</property>
@@ -737,7 +737,7 @@ Simon Steinbeiß
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkSpinButton" id="idle_delay">
+                          <object class="GtkSpinButton" id="saver_idle_activation_delay">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="adjustment">idle_delay_adj</property>
@@ -748,7 +748,7 @@ Simon Steinbeiß
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="cycle_delay_label_right">
+                          <object class="GtkLabel" id="saver_themes_cycle_delay_label_right">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="label" translatable="yes">minutes</property>
@@ -762,7 +762,7 @@ Simon Steinbeiß
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="idle_delay_label_right">
+                          <object class="GtkLabel" id="saver_idle_activation_delay_label_right">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="label" translatable="yes">minutes</property>
@@ -844,13 +844,13 @@ Simon Steinbeiß
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkGrid" id="screenlocker_grid">
+                      <object class="GtkGrid" id="lock_grid">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="row_spacing">6</property>
                         <property name="column_spacing">6</property>
                         <child>
-                          <object class="GtkLabel">
+                          <object class="GtkLabel" id="lock_status_messages_label">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="margin_top">12</property>
@@ -867,7 +867,7 @@ Simon Steinbeiß
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel">
+                          <object class="GtkLabel" id="lock_user_switching_label">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="margin_top">12</property>
@@ -884,7 +884,7 @@ Simon Steinbeiß
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel">
+                          <object class="GtkLabel" id="lock_logout_label">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="margin_top">12</property>
@@ -901,7 +901,7 @@ Simon Steinbeiß
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="logout_command_label">
+                          <object class="GtkLabel" id="lock_logout_command_label">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="margin_left">12</property>
@@ -914,7 +914,7 @@ Simon Steinbeiß
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="logout_delay_label_left">
+                          <object class="GtkLabel" id="lock_logout_delay_label_left">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="margin_left">12</property>
@@ -927,7 +927,7 @@ Simon Steinbeiß
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkSwitch" id="user_switch_enabled">
+                          <object class="GtkSwitch" id="lock_user_switching_enabled">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="halign">end</property>
@@ -940,7 +940,7 @@ Simon Steinbeiß
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkSwitch" id="logout_enabled">
+                          <object class="GtkSwitch" id="lock_logout_enabled">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="halign">end</property>
@@ -953,7 +953,7 @@ Simon Steinbeiß
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkSwitch" id="status_message_enabled">
+                          <object class="GtkSwitch" id="lock_status_messages_enabled">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="halign">end</property>
@@ -967,7 +967,7 @@ Simon Steinbeiß
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkEntry" id="logout_command">
+                          <object class="GtkEntry" id="lock_logout_command">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                           </object>
@@ -978,7 +978,7 @@ Simon Steinbeiß
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkSpinButton" id="logout_delay">
+                          <object class="GtkSpinButton" id="lock_logout_delay">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="adjustment">logout_delay_adj</property>
@@ -989,7 +989,7 @@ Simon Steinbeiß
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="logout_delay_label_right">
+                          <object class="GtkLabel" id="lock_logout_delay_label_right">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="label" translatable="yes">minutes</property>
@@ -1003,7 +1003,7 @@ Simon Steinbeiß
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="lock_delay_label_right">
+                          <object class="GtkLabel" id="lock_saver_activation_delay_label_right">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="label" translatable="yes">minutes</property>
@@ -1017,7 +1017,7 @@ Simon Steinbeiß
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkSpinButton" id="lock_delay">
+                          <object class="GtkSpinButton" id="lock_saver_activation_delay">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="adjustment">lock_delay_adj</property>
@@ -1028,7 +1028,7 @@ Simon Steinbeiß
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="lock_delay_label_left">
+                          <object class="GtkLabel" id="lock_saver_activation_delay_label_left">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="margin_left">12</property>
@@ -1041,7 +1041,7 @@ Simon Steinbeiß
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkSwitch" id="lock_enabled">
+                          <object class="GtkSwitch" id="lock_saver_activation_enabled">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="halign">end</property>
@@ -1054,7 +1054,7 @@ Simon Steinbeiß
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel">
+                          <object class="GtkLabel" id="lock_saver_activation_label">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="margin_top">12</property>
@@ -1071,7 +1071,7 @@ Simon Steinbeiß
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel">
+                          <object class="GtkLabel" id="lock_embedded_keyboard_label">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="margin_top">12</property>
@@ -1088,7 +1088,7 @@ Simon Steinbeiß
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkSwitch" id="keyboard_enabled">
+                          <object class="GtkSwitch" id="lock_embedded_keyboard_enabled">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="halign">end</property>
@@ -1101,7 +1101,7 @@ Simon Steinbeiß
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkLabel" id="keyboard_command_label">
+                          <object class="GtkLabel" id="lock_embedded_keyboard_command_label">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="margin_left">12</property>
@@ -1114,7 +1114,7 @@ Simon Steinbeiß
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkEntry" id="keyboard_command">
+                          <object class="GtkEntry" id="lock_embedded_keyboard_command">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                           </object>

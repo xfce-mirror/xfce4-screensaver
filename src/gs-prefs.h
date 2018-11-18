@@ -44,50 +44,58 @@ G_BEGIN_DECLS
  * theme on activation (specified in "themes" key), and "random" to enable the screensaver
  * using a random theme on activation.
  */
-#define KEY_MODE "/mode"
+#define KEY_MODE "/saver/mode"
 #define DEFAULT_KEY_MODE 0
-
-/**
- * Time before session is considered idle
- * The number of minutes of inactivity before the session is considered idle.
- */
-#define KEY_IDLE_DELAY "/idle-delay"
-#define DEFAULT_KEY_IDLE_DELAY 5
-
-/**
- * Time before locking
- * The number of minutes after screensaver activation before locking the screen.
- */
-#define KEY_LOCK_DELAY "/lock-delay"
-#define DEFAULT_KEY_LOCK_DELAY 0
 
 /**
  * Activate when idle
  * Set this to TRUE to activate the screensaver when the session is idle.
  */
-#define KEY_IDLE_ACTIVATION_ENABLED "/idle-activation-enabled"
+#define KEY_IDLE_ACTIVATION_ENABLED "/saver/idle-activation/enabled"
 #define DEFAULT_KEY_IDLE_ACTIVATION_ENABLED TRUE
 
 /**
- * Lock on activation
- * Set this to TRUE to lock the screen when the screensaver goes active.
+ * Time before session is considered idle
+ * The number of minutes of inactivity before the session is considered idle.
  */
-#define KEY_LOCK_ENABLED "/lock-enabled"
-#define DEFAULT_KEY_LOCK_ENABLED TRUE
+#define KEY_IDLE_DELAY "/saver/idle-activation/delay"
+#define DEFAULT_KEY_IDLE_DELAY 5
+
+/**
+ * Screensaver themes
+ * This key specifies the list of themes to be used by the screensaver. It's ignored
+ * when "mode" key is "blank-only", should provide the theme name when "mode" is "single",
+ * and should provide a list of themes when "mode" is "random".
+ */
+#define KEY_THEMES "/saver/themes/list"
 
 /**
  * Time before theme change
  * The number of minutes to run before changing the screensaver theme.
  */
-#define KEY_CYCLE_DELAY "/cycle-delay"
+#define KEY_CYCLE_DELAY "/saver/themes/cycle-delay"
 #define DEFAULT_KEY_CYCLE_DELAY 10
+
+/**
+ * Lock on activation
+ * Set this to TRUE to lock the screen when the screensaver goes active.
+ */
+#define KEY_LOCK_ENABLED "/lock/saver-activation/enabled"
+#define DEFAULT_KEY_LOCK_ENABLED TRUE
+
+/**
+ * Time before locking
+ * The number of minutes after screensaver activation before locking the screen.
+ */
+#define KEY_LOCK_DELAY "/lock/saver-activation/delay"
+#define DEFAULT_KEY_LOCK_DELAY 0
 
 /**
  * Allow embedding a keyboard into the window
  * Set this to TRUE to allow embedding a keyboard into the window when trying to unlock.
  * The "keyboard_command" key must be set with the appropriate command.
  */
-#define KEY_KEYBOARD_ENABLED "/embedded-keyboard-enabled"
+#define KEY_KEYBOARD_ENABLED "/lock/embedded-keyboard/enabled"
 #define DEFAULT_KEY_KEYBOARD_ENABLED FALSE
 
 /**
@@ -96,14 +104,14 @@ G_BEGIN_DECLS
  * to embed a keyboard widget into the window. This command should implement an XEMBED
  * plug interface and output a window XID on the standard output.
  */
-#define KEY_KEYBOARD_COMMAND "/embedded-keyboard-command"
+#define KEY_KEYBOARD_COMMAND "/lock/embedded-keyboard/command"
 #define DEFAULT_KEY_KEYBOARD_COMMAND ""
 
 /**
  * Allow the session status message to be displayed
  * Allow the session status message to be displayed when the screen is locked.
  */
-#define KEY_STATUS_MESSAGE_ENABLED "/status-message-enabled"
+#define KEY_STATUS_MESSAGE_ENABLED "/lock/status-messages/enabled"
 #define DEFAULT_KEY_STATUS_MESSAGE_ENABLED TRUE
 
 /**
@@ -111,7 +119,7 @@ G_BEGIN_DECLS
  * Set this to TRUE to offer an option in the unlock dialog to allow logging out after a
  * delay. The delay is specified in the "logout_delay" key.
  */
-#define KEY_LOGOUT_ENABLED "/logout-enabled"
+#define KEY_LOGOUT_ENABLED "/lock/logout/enabled"
 #define DEFAULT_KEY_LOGOUT_ENABLED FALSE
 
 /**
@@ -120,7 +128,7 @@ G_BEGIN_DECLS
  * appear in the unlock dialog. This key has effect only if the "logout_enable" key is
  * set to TRUE.
  */
-#define KEY_LOGOUT_DELAY "/logout-delay"
+#define KEY_LOGOUT_DELAY "/lock/logout/delay"
 #define DEFAULT_KEY_LOGOUT_DELAY 120
 
 /**
@@ -129,7 +137,7 @@ G_BEGIN_DECLS
  * log the user out without any interaction. This key has effect only if the
  * "logout_enable" key is set to TRUE.
  */
-#define KEY_LOGOUT_COMMAND "/logout-command"
+#define KEY_LOGOUT_COMMAND "/lock/logout/command"
 #define DEFAULT_KEY_LOGOUT_COMMAND ""
 
 /**
@@ -137,16 +145,8 @@ G_BEGIN_DECLS
  * Set this to TRUE to offer an option in the unlock dialog to switch to a different
  * user account.
  */
-#define KEY_USER_SWITCH_ENABLED "/user-switch-enabled"
+#define KEY_USER_SWITCH_ENABLED "/lock/user-switching/enabled"
 #define DEFAULT_KEY_USER_SWITCH_ENABLED TRUE
-
-/**
- * Screensaver themes
- * This key specifies the list of themes to be used by the screensaver. It's ignored
- * when "mode" key is "blank-only", should provide the theme name when "mode" is "single",
- * and should provide a list of themes when "mode" is "random".
- */
-#define KEY_THEMES "/themes"
 
 typedef enum
 {
