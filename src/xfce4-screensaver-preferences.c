@@ -113,10 +113,10 @@ config_get_lock_delay (gboolean *is_writable) {
 
     if (is_writable) {
         *is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
-                       KEY_LOCK_DELAY);
+                       KEY_LOCK_WITH_SAVER_DELAY);
     }
 
-    delay = xfconf_channel_get_int (screensaver_channel, KEY_LOCK_DELAY, DEFAULT_KEY_LOCK_DELAY);
+    delay = xfconf_channel_get_int (screensaver_channel, KEY_LOCK_WITH_SAVER_DELAY, DEFAULT_KEY_LOCK_WITH_SAVER_DELAY);
 
     if (delay < 0) {
         delay = 0;
@@ -127,7 +127,7 @@ config_get_lock_delay (gboolean *is_writable) {
 
 static void
 config_set_lock_delay (gint32 timeout) {
-    xfconf_channel_set_int (screensaver_channel, KEY_LOCK_DELAY, timeout);
+    xfconf_channel_set_int (screensaver_channel, KEY_LOCK_WITH_SAVER_DELAY, timeout);
 }
 
 static gint32
@@ -336,6 +336,27 @@ config_get_lock_enabled (gboolean *is_writable) {
 static void
 config_set_lock_enabled (gboolean lock) {
     xfconf_channel_set_bool (screensaver_channel, KEY_LOCK_ENABLED, lock);
+}
+
+static gboolean
+config_get_lock_with_saver_enabled (gboolean *is_writable) {
+    gboolean lock;
+
+    if (is_writable) {
+        *is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
+                                                           KEY_LOCK_WITH_SAVER_ENABLED);
+    }
+
+    lock = xfconf_channel_get_bool (screensaver_channel,
+                                    KEY_LOCK_WITH_SAVER_ENABLED,
+                                    DEFAULT_KEY_LOCK_WITH_SAVER_ENABLED);
+
+    return lock;
+}
+
+static void
+config_set_lock_with_saver_enabled (gboolean lock) {
+    xfconf_channel_set_bool (screensaver_channel, KEY_LOCK_WITH_SAVER_ENABLED, lock);
 }
 
 static gboolean
@@ -1072,6 +1093,16 @@ lock_toggled_cb (GtkSwitch *widget, gpointer user_data) {
 
     config_set_lock_enabled (gtk_switch_get_active (widget));
 
+    writable = gtk_switch_get_active (widget);
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_grid")), writable);
+}
+
+static void
+lock_with_saver_toggled_cb (GtkSwitch *widget, gpointer user_data) {
+    gboolean writable;
+
+    config_set_lock_with_saver_enabled (gtk_switch_get_active (widget));
+
     writable = lock_delay_writable && gtk_switch_get_active (widget);
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_delay_label_left")), writable);
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_delay")), writable);
@@ -1129,6 +1160,23 @@ keyboard_toggled_cb (GtkSwitch *widget, gpointer user_data) {
 
 static void
 ui_set_lock_enabled (gboolean enabled) {
+    GtkWidget *widget;
+    gboolean   active;
+    gboolean   writable;
+
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_enabled"));
+
+    active = gtk_switch_get_active (GTK_SWITCH (widget));
+    if (active != enabled) {
+        gtk_switch_set_active (GTK_SWITCH (widget), enabled);
+    }
+
+    writable = enabled;
+    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_grid")), writable);
+}
+
+static void
+ui_set_lock_with_saver_enabled (gboolean enabled) {
     GtkWidget *widget;
     gboolean   active;
     gboolean   writable;
@@ -1295,9 +1343,9 @@ key_changed_cb (XfconfChannel *channel, const gchar *key, gpointer data) {
         int delay;
         delay = xfconf_channel_get_int (channel, key, DEFAULT_KEY_IDLE_DELAY);
         ui_set_idle_delay (delay);
-    } else if (strcmp (key, KEY_LOCK_DELAY) == 0) {
+    } else if (strcmp (key, KEY_LOCK_WITH_SAVER_DELAY) == 0) {
         int delay;
-        delay = xfconf_channel_get_int (channel, key, DEFAULT_KEY_LOCK_DELAY);
+        delay = xfconf_channel_get_int (channel, key, DEFAULT_KEY_LOCK_WITH_SAVER_DELAY);
         ui_set_lock_delay (delay);
     } else if (strcmp (key, KEY_IDLE_ACTIVATION_ENABLED) == 0) {
         gboolean enabled;
@@ -1307,6 +1355,10 @@ key_changed_cb (XfconfChannel *channel, const gchar *key, gpointer data) {
         gboolean enabled;
         enabled = xfconf_channel_get_bool (channel, key, DEFAULT_KEY_LOCK_ENABLED);
         ui_set_lock_enabled (enabled);
+    } else if (strcmp (key, KEY_LOCK_WITH_SAVER_ENABLED) == 0) {
+        gboolean enabled;
+        enabled = xfconf_channel_get_bool (channel, key, DEFAULT_KEY_LOCK_WITH_SAVER_ENABLED);
+        ui_set_lock_with_saver_enabled (enabled);
     } else if (strcmp (key, KEY_CYCLE_DELAY) == 0) {
         int delay;
         delay = xfconf_channel_get_int (channel, key, DEFAULT_KEY_CYCLE_DELAY);
@@ -1809,12 +1861,20 @@ configure_capplet (void) {
                       G_CALLBACK (idle_activation_toggled_cb), NULL);
 
     /* Lock enabled */
-    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_enabled"));
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_enabled"));
     enabled = config_get_lock_enabled (&is_writable);
     ui_set_lock_enabled (enabled);
     set_widget_writable (widget, is_writable);
     g_signal_connect (widget, "notify::active",
                       G_CALLBACK (lock_toggled_cb), NULL);
+
+    /* Lock with saver enabled */
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_enabled"));
+    enabled = config_get_lock_with_saver_enabled (&is_writable);
+    ui_set_lock_with_saver_enabled (enabled);
+    set_widget_writable (widget, is_writable);
+    g_signal_connect (widget, "notify::active",
+                      G_CALLBACK (lock_with_saver_toggled_cb), NULL);
 
     /* Cycle delay */
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_cycle_delay"));

@@ -80,6 +80,10 @@ void        gs_manager_get_lock_enabled        (GSManager   *manager,
                                                 gboolean    *lock_enabled);
 void        gs_manager_set_lock_enabled        (GSManager   *manager,
                                                 gboolean     lock_enabled);
+void        gs_manager_get_lock_with_saver_enabled        (GSManager   *manager,
+                                                gboolean    *lock_with_saver_enabled);
+void        gs_manager_set_lock_with_saver_enabled        (GSManager   *manager,
+                                                gboolean     lock_with_saver_enabled);
 void        gs_manager_set_lock_timeout        (GSManager   *manager,
                                                 glong        lock_timeout);
 void        gs_manager_set_logout_enabled      (GSManager   *manager,
@@ -91,7 +95,7 @@ void        gs_manager_set_logout_timeout      (GSManager   *manager,
 void        gs_manager_set_logout_command      (GSManager   *manager,
                                                 const char  *command);
 void        gs_manager_set_throttled           (GSManager   *manager,
-                                                gboolean     lock_enabled);
+                                                gboolean     lock_with_saver_enabled);
 void        gs_manager_set_cycle_timeout       (GSManager   *manager,
                                                 glong        cycle_timeout);
 void        gs_manager_set_themes              (GSManager   *manager,

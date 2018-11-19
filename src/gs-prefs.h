@@ -77,18 +77,25 @@ G_BEGIN_DECLS
 #define DEFAULT_KEY_CYCLE_DELAY 10
 
 /**
+ * Enable locking
+ * Set this to TRUE to globally enable locking.
+ */
+#define KEY_LOCK_ENABLED "/lock/enabled"
+#define DEFAULT_KEY_LOCK_ENABLED TRUE
+
+/**
  * Lock on activation
  * Set this to TRUE to lock the screen when the screensaver goes active.
  */
-#define KEY_LOCK_ENABLED "/lock/saver-activation/enabled"
-#define DEFAULT_KEY_LOCK_ENABLED TRUE
+#define KEY_LOCK_WITH_SAVER_ENABLED "/lock/saver-activation/enabled"
+#define DEFAULT_KEY_LOCK_WITH_SAVER_ENABLED TRUE
 
 /**
  * Time before locking
  * The number of minutes after screensaver activation before locking the screen.
  */
-#define KEY_LOCK_DELAY "/lock/saver-activation/delay"
-#define DEFAULT_KEY_LOCK_DELAY 0
+#define KEY_LOCK_WITH_SAVER_DELAY "/lock/saver-activation/delay"
+#define DEFAULT_KEY_LOCK_WITH_SAVER_DELAY 0
 
 /**
  * Allow embedding a keyboard into the window
@@ -163,8 +170,10 @@ typedef struct
 
     GSPrefsPrivate  *priv;
 
+    guint            lock_enabled : 1; /* global lock switch */
+
     guint            idle_activation_enabled : 1; /* whether to activate when idle */
-    guint            lock_enabled : 1;           /* whether to lock when active */
+    guint            lock_with_saver_enabled : 1;           /* whether to lock when active */
     guint            logout_enabled : 1;         /* Whether to offer the logout option */
     guint            user_switch_enabled : 1;  /* Whether to offer the user switch option */
     guint            keyboard_enabled : 1;       /* Whether to try to embed a keyboard */

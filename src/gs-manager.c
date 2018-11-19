@@ -56,6 +56,7 @@ struct GSManagerPrivate {
     glong           logout_timeout;
 
     guint           lock_enabled : 1;
+    guint           lock_with_saver_enabled : 1;
     guint           logout_enabled : 1;
     guint           keyboard_enabled : 1;
     guint           user_switch_enabled : 1;
@@ -97,6 +98,7 @@ enum {
 enum {
     PROP_0,
     PROP_LOCK_ENABLED,
+    PROP_LOCK_WITH_SAVER_ENABLED,
     PROP_LOGOUT_ENABLED,
     PROP_USER_SWITCH_ENABLED,
     PROP_KEYBOARD_ENABLED,
@@ -457,6 +459,30 @@ gs_manager_set_lock_enabled (GSManager *manager,
 }
 
 void
+gs_manager_get_lock_with_saver_enabled (GSManager *manager,
+                             gboolean  *lock_with_saver_enabled) {
+    if (lock_with_saver_enabled != NULL) {
+        *lock_with_saver_enabled = FALSE;
+    }
+
+    g_return_if_fail (GS_IS_MANAGER (manager));
+
+    if (lock_with_saver_enabled != NULL) {
+        *lock_with_saver_enabled = manager->priv->lock_with_saver_enabled;
+    }
+}
+
+void
+gs_manager_set_lock_with_saver_enabled (GSManager *manager,
+                             gboolean   lock_with_saver_enabled) {
+    g_return_if_fail (GS_IS_MANAGER (manager));
+
+    if (manager->priv->lock_with_saver_enabled != lock_with_saver_enabled) {
+        manager->priv->lock_with_saver_enabled = lock_with_saver_enabled;
+    }
+}
+
+void
 gs_manager_set_logout_enabled (GSManager *manager,
                                gboolean   logout_enabled) {
     g_return_if_fail (GS_IS_MANAGER (manager));
@@ -503,7 +529,9 @@ gs_manager_set_user_switch_enabled (GSManager *manager,
 
 static gboolean
 activate_lock_timeout (GSManager *manager) {
-    if (manager->priv->lock_enabled) {
+    if (manager->priv->lock_enabled &&
+            manager->priv->lock_with_saver_enabled)
+    {
         gs_manager_set_lock_active (manager, TRUE);
     }
 
@@ -716,6 +744,9 @@ gs_manager_set_property (GObject      *object,
         case PROP_LOCK_ENABLED:
             gs_manager_set_lock_enabled (self, g_value_get_boolean (value));
             break;
+        case PROP_LOCK_WITH_SAVER_ENABLED:
+            gs_manager_set_lock_with_saver_enabled (self, g_value_get_boolean (value));
+            break;
         case PROP_LOCK_TIMEOUT:
             gs_manager_set_lock_timeout (self, g_value_get_long (value));
             break;
@@ -764,6 +795,9 @@ gs_manager_get_property (GObject    *object,
             break;
         case PROP_LOCK_ENABLED:
             g_value_set_boolean (value, self->priv->lock_enabled);
+            break;
+        case PROP_LOCK_WITH_SAVER_ENABLED:
+            g_value_set_boolean (value, self->priv->lock_with_saver_enabled);
             break;
         case PROP_LOCK_TIMEOUT:
             g_value_set_long (value, self->priv->lock_timeout);
@@ -860,6 +894,13 @@ gs_manager_class_init (GSManagerClass *klass) {
     g_object_class_install_property (object_class,
                                      PROP_LOCK_ENABLED,
                                      g_param_spec_boolean ("lock-enabled",
+                                                           NULL,
+                                                           NULL,
+                                                           FALSE,
+                                                           G_PARAM_READWRITE));
+    g_object_class_install_property (object_class,
+                                     PROP_LOCK_WITH_SAVER_ENABLED,
+                                     g_param_spec_boolean ("lock-with-saver-enabled",
                                                            NULL,
                                                            NULL,
                                                            FALSE,
@@ -1372,7 +1413,9 @@ gs_manager_create_window_for_monitor (GSManager  *manager,
     gs_debug ("Creating a window [%d,%d] (%dx%d)",
               rect.x, rect.y, rect.width, rect.height);
 
-    window = gs_window_new (monitor, manager->priv->lock_enabled);
+    window = gs_window_new (monitor,
+                            manager->priv->lock_enabled,
+                            manager->priv->lock_with_saver_enabled);
 
     gs_window_set_user_switch_enabled (window, manager->priv->user_switch_enabled);
     gs_window_set_logout_enabled (window, manager->priv->logout_enabled);
@@ -1403,7 +1446,7 @@ on_display_monitor_added (GdkDisplay *display,
 
     gs_debug ("Monitor added on display %s, now there are %d",
               gdk_display_get_name (display), n_monitors);
-    
+
     if (n_monitors == 1) {
         /* Tidy up from lid-close or other headless event once we have a new monitor.
          * See https://gitlab.gnome.org/GNOME/gtk/issues/1466
@@ -1550,6 +1593,7 @@ gs_manager_finalize (GObject *object) {
     manager->priv->active = FALSE;
     manager->priv->activate_time = 0;
     manager->priv->lock_enabled = FALSE;
+    manager->priv->lock_with_saver_enabled = FALSE;
 
     g_object_unref (manager->priv->fade);
     g_object_unref (manager->priv->grab);

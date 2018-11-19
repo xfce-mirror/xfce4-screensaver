@@ -179,6 +179,12 @@ _gs_prefs_set_lock_enabled (GSPrefs  *prefs,
 }
 
 static void
+_gs_prefs_set_lock_with_saver_enabled (GSPrefs  *prefs,
+                            gboolean  value) {
+    prefs->lock_with_saver_enabled = value;
+}
+
+static void
 _gs_prefs_set_keyboard_enabled (GSPrefs  *prefs,
                                 gboolean  value) {
     prefs->keyboard_enabled = value;
@@ -260,14 +266,19 @@ gs_prefs_load_from_settings (GSPrefs *prefs) {
                                       DEFAULT_KEY_LOCK_ENABLED);
     _gs_prefs_set_lock_enabled (prefs, bvalue);
 
+    bvalue = xfconf_channel_get_bool (prefs->priv->channel,
+                                      KEY_LOCK_WITH_SAVER_ENABLED,
+                                      DEFAULT_KEY_LOCK_WITH_SAVER_ENABLED);
+    _gs_prefs_set_lock_with_saver_enabled (prefs, bvalue);
+
     value = xfconf_channel_get_int (prefs->priv->channel,
                                     KEY_IDLE_DELAY,
                                     DEFAULT_KEY_IDLE_DELAY);
     _gs_prefs_set_timeout (prefs, value);
 
     value = xfconf_channel_get_int (prefs->priv->channel,
-                                    KEY_LOCK_DELAY,
-                                    DEFAULT_KEY_LOCK_DELAY);
+                                    KEY_LOCK_WITH_SAVER_DELAY,
+                                    DEFAULT_KEY_LOCK_WITH_SAVER_DELAY);
     _gs_prefs_set_lock_timeout (prefs, value);
 
     value = xfconf_channel_get_int (prefs->priv->channel,
@@ -349,10 +360,10 @@ key_changed_cb (XfconfChannel *channel,
 
         delay = xfconf_channel_get_int (channel, property, DEFAULT_KEY_IDLE_DELAY);
         _gs_prefs_set_timeout (prefs, delay);
-    } else if (strcmp (property, KEY_LOCK_DELAY) == 0) {
+    } else if (strcmp (property, KEY_LOCK_WITH_SAVER_DELAY) == 0) {
         int delay;
 
-        delay = xfconf_channel_get_int (channel, property, DEFAULT_KEY_LOCK_DELAY);
+        delay = xfconf_channel_get_int (channel, property, DEFAULT_KEY_LOCK_WITH_SAVER_DELAY);
         _gs_prefs_set_lock_timeout (prefs, delay);
     } else if (strcmp (property, KEY_IDLE_ACTIVATION_ENABLED) == 0) {
         gboolean enabled;
@@ -364,6 +375,11 @@ key_changed_cb (XfconfChannel *channel,
 
         enabled = xfconf_channel_get_bool (channel, property, DEFAULT_KEY_LOCK_ENABLED);
         _gs_prefs_set_lock_enabled (prefs, enabled);
+    } else if (strcmp (property, KEY_LOCK_WITH_SAVER_ENABLED) == 0) {
+        gboolean enabled;
+
+        enabled = xfconf_channel_get_bool (channel, property, DEFAULT_KEY_LOCK_WITH_SAVER_ENABLED);
+        _gs_prefs_set_lock_with_saver_enabled (prefs, enabled);
     } else if (strcmp (property, KEY_CYCLE_DELAY) == 0) {
         int delay;
 
@@ -420,8 +436,9 @@ gs_prefs_init (GSPrefs *prefs) {
                       G_CALLBACK (key_changed_cb),
                       prefs);
 
-    prefs->idle_activation_enabled = TRUE;
     prefs->lock_enabled            = TRUE;
+    prefs->idle_activation_enabled = TRUE;
+    prefs->lock_with_saver_enabled = TRUE;
     prefs->logout_enabled          = FALSE;
     prefs->user_switch_enabled     = FALSE;
 

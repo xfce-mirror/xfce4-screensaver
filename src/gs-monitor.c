@@ -194,12 +194,15 @@ static void listener_simulate_user_activity_cb(GSListener* listener, GSMonitor* 
 
 static void _gs_monitor_update_from_prefs(GSMonitor* monitor, GSPrefs* prefs) {
     gboolean lock_enabled;
+    gboolean lock_with_saver_enabled;
     gboolean user_switch_enabled;
 
     lock_enabled = monitor->priv->prefs->lock_enabled;
+    lock_with_saver_enabled = monitor->priv->prefs->lock_with_saver_enabled;
     user_switch_enabled = monitor->priv->prefs->user_switch_enabled;
 
     gs_manager_set_lock_enabled(monitor->priv->manager, lock_enabled);
+    gs_manager_set_lock_with_saver_enabled(monitor->priv->manager, lock_with_saver_enabled);
     gs_manager_set_lock_timeout(monitor->priv->manager, monitor->priv->prefs->lock_timeout);
     gs_manager_set_logout_enabled(monitor->priv->manager, monitor->priv->prefs->logout_enabled);
     gs_manager_set_user_switch_enabled(monitor->priv->manager, user_switch_enabled);

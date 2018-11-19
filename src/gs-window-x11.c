@@ -66,6 +66,7 @@ struct GSWindowPrivate {
     guint            dialog_up : 1;
 
     guint            lock_enabled : 1;
+    guint            lock_with_saver_enabled : 1;
     guint            user_switch_enabled : 1;
     guint            logout_enabled : 1;
     guint            keyboard_enabled : 1;
@@ -128,6 +129,7 @@ enum {
     PROP_OBSCURED,
     PROP_DIALOG_UP,
     PROP_LOCK_ENABLED,
+    PROP_LOCK_WITH_SAVER_ENABLED,
     PROP_LOGOUT_ENABLED,
     PROP_KEYBOARD_ENABLED,
     PROP_KEYBOARD_COMMAND,
@@ -1677,6 +1679,19 @@ gs_window_set_lock_enabled (GSWindow *window,
     g_object_notify (G_OBJECT (window), "lock-enabled");
 }
 
+void
+gs_window_set_lock_with_saver_enabled (GSWindow *window,
+                            gboolean  lock_with_saver_enabled) {
+    g_return_if_fail (GS_IS_WINDOW (window));
+
+    if (window->priv->lock_with_saver_enabled == lock_with_saver_enabled) {
+        return;
+    }
+
+    window->priv->lock_with_saver_enabled = lock_with_saver_enabled;
+    g_object_notify (G_OBJECT (window), "lock-with-saver-enabled");
+}
+
 GdkDisplay *
 gs_window_get_display (GSWindow  *window) {
     g_return_val_if_fail (GS_IS_WINDOW (window), NULL);
@@ -1793,6 +1808,9 @@ gs_window_set_property (GObject      *object,
         case PROP_LOCK_ENABLED:
             gs_window_set_lock_enabled (self, g_value_get_boolean (value));
             break;
+        case PROP_LOCK_WITH_SAVER_ENABLED:
+            gs_window_set_lock_with_saver_enabled (self, g_value_get_boolean (value));
+            break;
         case PROP_KEYBOARD_ENABLED:
             gs_window_set_keyboard_enabled (self, g_value_get_boolean (value));
             break;
@@ -1832,6 +1850,9 @@ gs_window_get_property (GObject    *object,
     switch (prop_id) {
         case PROP_LOCK_ENABLED:
             g_value_set_boolean (value, self->priv->lock_enabled);
+            break;
+        case PROP_LOCK_WITH_SAVER_ENABLED:
+            g_value_set_boolean (value, self->priv->lock_with_saver_enabled);
             break;
         case PROP_KEYBOARD_ENABLED:
             g_value_set_boolean (value, self->priv->keyboard_enabled);
@@ -2174,6 +2195,13 @@ gs_window_class_init (GSWindowClass *klass) {
                                                            FALSE,
                                                            G_PARAM_READWRITE));
     g_object_class_install_property (object_class,
+                                     PROP_LOCK_WITH_SAVER_ENABLED,
+                                     g_param_spec_boolean ("lock-with-saver-enabled",
+                                                           NULL,
+                                                           NULL,
+                                                           FALSE,
+                                                           G_PARAM_READWRITE));
+    g_object_class_install_property (object_class,
                                      PROP_LOGOUT_ENABLED,
                                      g_param_spec_boolean ("logout-enabled",
                                                            NULL,
@@ -2345,7 +2373,8 @@ gs_window_finalize (GObject *object) {
 
 GSWindow *
 gs_window_new (GdkMonitor *monitor,
-               gboolean    lock_enabled) {
+               gboolean    lock_enabled,
+               gboolean    lock_with_saver_enabled) {
     GObject    *result;
     GdkDisplay *display = gdk_monitor_get_display (monitor);
     GdkScreen  *screen = gdk_display_get_default_screen (display);
@@ -2355,6 +2384,7 @@ gs_window_new (GdkMonitor *monitor,
                            "screen", screen,
                            "monitor", monitor,
                            "lock-enabled", lock_enabled,
+                           "lock-with-saver-enabled", lock_with_saver_enabled,
                            "app-paintable", TRUE,
                            NULL);
 
