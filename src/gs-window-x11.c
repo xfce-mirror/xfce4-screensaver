@@ -272,6 +272,11 @@ gs_window_clear (GSWindow *window) {
     gdk_display_flush (display);
 }
 
+void
+gs_window_disconnect_monitor (GSWindow *window) {
+    window->priv->monitor = NULL;
+}
+
 static cairo_region_t *
 get_outside_region (GSWindow *window) {
     GdkDisplay     *display;
@@ -386,8 +391,9 @@ static void
 gs_window_real_unrealize (GtkWidget *widget) {
     GdkMonitor *monitor = GS_WINDOW (widget)->priv->monitor;
 
-    g_signal_handlers_disconnect_by_func (monitor, monitor_geometry_notify,
-                                          widget);
+    if (monitor != NULL)
+        g_signal_handlers_disconnect_by_func (monitor, monitor_geometry_notify,
+                                            widget);
 
     if (GTK_WIDGET_CLASS (gs_window_parent_class)->unrealize) {
         GTK_WIDGET_CLASS (gs_window_parent_class)->unrealize (widget);

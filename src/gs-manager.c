@@ -1403,6 +1403,25 @@ on_display_monitor_added (GdkDisplay *display,
 
     gs_debug ("Monitor added on display %s, now there are %d",
               gdk_display_get_name (display), n_monitors);
+    
+    if (n_monitors == 1) {
+        /* Tidy up from lid-close or other headless event once we have a new monitor.
+         * See https://gitlab.gnome.org/GNOME/gtk/issues/1466
+         */
+        l = manager->priv->windows;
+        while (l != NULL)
+        {
+            GSList *next = l->next;
+
+            manager_maybe_stop_job_for_window(manager,
+                                                GS_WINDOW(l->data));
+            g_hash_table_remove(manager->priv->jobs, l->data);
+            gs_window_disconnect_monitor(GS_WINDOW(l->data));
+            gs_window_destroy(GS_WINDOW(l->data));
+            manager->priv->windows = g_slist_delete_link(manager->priv->windows, l);
+            l = next;
+        }
+    }
 
     /* add a new window */
     gs_manager_create_window_for_monitor (manager, monitor);
@@ -1429,6 +1448,12 @@ on_display_monitor_removed (GdkDisplay *display,
 
     gs_debug ("Monitor removed on display %s, now there are %d",
               gdk_display_get_name (display), n_monitors);
+
+    /* Tidy up from lid-close or other headless event once we have a new monitor.
+     * See https://gitlab.gnome.org/GNOME/gtk/issues/1466
+     */
+    if (n_monitors == 0)
+        return;
 
     gdk_x11_grab_server ();
 
