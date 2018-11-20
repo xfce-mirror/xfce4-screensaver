@@ -46,6 +46,8 @@ typedef struct _gki_globals {
     gchar                  **short_group_names;
     GSList                  *widget_instances;
     GSList                  *images;
+
+    gboolean                 redraw_queued;
 } gki_globals;
 
 struct _XfcekbdIndicatorPrivate {
@@ -134,6 +136,7 @@ static gboolean xfcekbd_indicator_key_pressed (GtkWidget        *widget,
         case GDK_KEY_space:
         case GDK_KEY_KP_Space:
             xfcekbd_desktop_config_lock_next_group(&globals.cfg);
+            globals.redraw_queued = TRUE;
             return TRUE;
         default:
             break;
@@ -146,13 +149,10 @@ static gboolean
 xfcekbd_indicator_button_pressed (GtkWidget        *widget,
                                   GdkEventButton   *event,
                                   XfcekbdIndicator *gki) {
-    GtkWidget     *img = gtk_bin_get_child (GTK_BIN (widget));
-    GtkAllocation  allocation;
-    gtk_widget_get_allocation (img, &allocation);
-    xkl_debug (150, "Flag img size %d x %d\n", allocation.width, allocation.height);
     if (event->button == 1 && event->type == GDK_BUTTON_PRESS) {
         xkl_debug (150, "Mouse button pressed on applet\n");
         xfcekbd_desktop_config_lock_next_group (&globals.cfg);
+        globals.redraw_queued = TRUE;
         return TRUE;
     }
     return FALSE;
@@ -447,11 +447,14 @@ static GdkFilterReturn
 xfcekbd_indicator_filter_x_evt (GdkXEvent *xev,
                                 GdkEvent  *event) {
     XEvent *xevent = (XEvent *) xev;
-
+    
     xkl_engine_filter_events (globals.engine, xevent);
     switch (xevent->type) {
         case ReparentNotify:
             {
+                if (!globals.redraw_queued)
+                    return GDK_FILTER_CONTINUE;
+
                 XReparentEvent *rne = (XReparentEvent *) xev;
 
                 ForAllIndicators () {
@@ -469,6 +472,8 @@ xfcekbd_indicator_filter_x_evt (GdkXEvent *xev,
                     }
                 }
                 NextIndicator ()
+
+                globals.redraw_queued = FALSE;
             }
             break;
     }
@@ -599,6 +604,8 @@ xfcekbd_indicator_class_init (XfcekbdIndicatorClass *klass) {
 
     /* Initing some global vars */
     globals.tooltips_format = "%s";
+
+    globals.redraw_queued = TRUE;
 
     /* Initing vtable */
     object_class->finalize = xfcekbd_indicator_finalize;

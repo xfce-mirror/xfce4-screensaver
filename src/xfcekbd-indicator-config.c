@@ -26,9 +26,6 @@
 
 #include <X11/keysym.h>
 
-#include <gdk/gdkx.h>
-#include <pango/pango.h>
-
 #include <libxfce4util/libxfce4util.h>
 #include <xfconf/xfconf.h>
 
