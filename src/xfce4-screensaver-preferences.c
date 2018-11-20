@@ -1135,9 +1135,15 @@ lock_with_saver_toggled_cb (GtkSwitch *widget, gpointer user_data) {
     config_set_lock_with_saver_enabled (gtk_switch_get_active (widget));
 
     writable = lock_delay_writable && gtk_switch_get_active (widget);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_delay_label_left")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_delay")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_delay_label_right")), writable);
+    gtk_widget_set_sensitive (
+        GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_delay_label_left")),
+        writable);
+    gtk_widget_set_sensitive (
+        GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_delay")),
+        writable);
+    gtk_widget_set_sensitive (
+        GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_delay_label_right")),
+        writable);
 }
 
 static void
@@ -1147,9 +1153,15 @@ idle_activation_toggled_cb (GtkSwitch *widget, gpointer user_data) {
     config_set_idle_activation_enabled (gtk_switch_get_active (widget));
 
     writable = idle_delay_writable && gtk_switch_get_active (widget);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "saver_idle_activation_delay_label_left")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "saver_idle_activation_delay")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "saver_idle_activation_delay_label_right")), writable);
+    gtk_widget_set_sensitive (
+        GTK_WIDGET (gtk_builder_get_object (builder, "saver_idle_activation_delay_label_left")),
+        writable);
+    gtk_widget_set_sensitive (
+        GTK_WIDGET (gtk_builder_get_object (builder, "saver_idle_activation_delay")),
+        writable);
+    gtk_widget_set_sensitive (
+        GTK_WIDGET (gtk_builder_get_object (builder, "saver_idle_activation_delay_label_right")),
+        writable);
 }
 
 static void
@@ -1159,13 +1171,23 @@ logout_toggled_cb (GtkSwitch *widget, gpointer user_data) {
     config_set_logout_enabled (gtk_switch_get_active (widget));
 
     writable = logout_command_writable && gtk_switch_get_active (widget);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_logout_command_label")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_logout_command")), writable);
+    gtk_widget_set_sensitive (
+        GTK_WIDGET (gtk_builder_get_object (builder, "lock_logout_command_label")),
+        writable);
+    gtk_widget_set_sensitive (
+        GTK_WIDGET (gtk_builder_get_object (builder, "lock_logout_command")),
+        writable);
 
     writable = logout_delay_writable && gtk_switch_get_active (widget);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_logout_delay_label_left")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_logout_delay")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_logout_delay_label_right")), writable);
+    gtk_widget_set_sensitive (
+        GTK_WIDGET (gtk_builder_get_object (builder, "lock_logout_delay_label_left")),
+        writable);
+    gtk_widget_set_sensitive (
+        GTK_WIDGET (gtk_builder_get_object (builder, "lock_logout_delay")),
+        writable);
+    gtk_widget_set_sensitive (
+        GTK_WIDGET (gtk_builder_get_object (builder, "lock_logout_delay_label_right")),
+        writable);
 }
 
 static void
@@ -1185,8 +1207,12 @@ keyboard_toggled_cb (GtkSwitch *widget, gpointer user_data) {
     config_set_keyboard_enabled (gtk_switch_get_active (widget));
 
     writable = keyboard_command_writable && gtk_switch_get_active (widget);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_embedded_keyboard_command_label")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_embedded_keyboard_command")), writable);
+    gtk_widget_set_sensitive (
+        GTK_WIDGET (gtk_builder_get_object (builder, "lock_embedded_keyboard_command_label")),
+        writable);
+    gtk_widget_set_sensitive (
+        GTK_WIDGET (gtk_builder_get_object (builder, "lock_embedded_keyboard_command")),
+        writable);
 }
 
 static void
@@ -1237,9 +1263,15 @@ ui_set_lock_with_saver_enabled (gboolean enabled) {
     }
 
     writable = lock_delay_writable && enabled;
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_delay_label_left")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_delay")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_delay_label_right")), writable);
+    gtk_widget_set_sensitive (
+        GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_delay_label_left")),
+        writable);
+    gtk_widget_set_sensitive (
+        GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_delay")),
+        writable);
+    gtk_widget_set_sensitive (
+        GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_delay_label_right")),
+        writable);
 }
 
 static void
@@ -1255,9 +1287,15 @@ ui_set_idle_activation_enabled (gboolean enabled) {
     }
 
     writable = idle_delay_writable && enabled;
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "saver_idle_activation_delay_label_left")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "saver_idle_activation_delay")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "saver_idle_activation_delay_label_right")), writable);
+    gtk_widget_set_sensitive (
+        GTK_WIDGET (gtk_builder_get_object (builder, "saver_idle_activation_delay_label_left")),
+        writable);
+    gtk_widget_set_sensitive (
+        GTK_WIDGET (gtk_builder_get_object (builder, "saver_idle_activation_delay")),
+        writable);
+    gtk_widget_set_sensitive (
+        GTK_WIDGET (gtk_builder_get_object (builder, "saver_idle_activation_delay_label_right")),
+        writable);
 }
 
 static void
@@ -1274,8 +1312,12 @@ ui_set_keyboard_enabled (gboolean enabled) {
     }
 
     writable = keyboard_command_writable && enabled;
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_embedded_keyboard_command_label")), writable);
-    gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "lock_embedded_keyboard_command")), writable);
+    gtk_widget_set_sensitive (
+        GTK_WIDGET (gtk_builder_get_object (builder, "lock_embedded_keyboard_command_label")),
+        writable);
+    gtk_widget_set_sensitive (
+        GTK_WIDGET (gtk_builder_get_object (builder, "lock_embedded_keyboard_command")),
+        writable);
 }
 
 static void
