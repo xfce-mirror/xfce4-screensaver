@@ -917,8 +917,8 @@ Simon Steinbeiß
                         </child>
                         <child>
                           <object class="GtkLabel" id="lock_embedded_keyboard_label">
-                            <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="no_show_all">True</property>
                             <property name="margin_top">12</property>
                             <property name="label" translatable="yes">On Screen Keyboard</property>
                             <property name="xalign">0</property>
@@ -934,8 +934,8 @@ Simon Steinbeiß
                         </child>
                         <child>
                           <object class="GtkSwitch" id="lock_embedded_keyboard_enabled">
-                            <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="no_show_all">True</property>
                             <property name="halign">end</property>
                             <property name="valign">center</property>
                             <property name="margin_top">12</property>
@@ -947,8 +947,8 @@ Simon Steinbeiß
                         </child>
                         <child>
                           <object class="GtkLabel" id="lock_embedded_keyboard_command_label">
-                            <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="no_show_all">True</property>
                             <property name="margin_left">12</property>
                             <property name="label" translatable="yes">On screen keyboard command:</property>
                             <property name="xalign">0</property>
@@ -960,8 +960,8 @@ Simon Steinbeiß
                         </child>
                         <child>
                           <object class="GtkEntry" id="lock_embedded_keyboard_command">
-                            <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="no_show_all">True</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
