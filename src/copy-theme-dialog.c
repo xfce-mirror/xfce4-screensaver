@@ -32,7 +32,7 @@
 
 #include <libxfce4util/libxfce4util.h>
 
-#include "src/copy-theme-dialog.h"
+#include "copy-theme-dialog.h"
 
 static void
 copy_theme_dialog_class_init (CopyThemeDialogClass *klass);

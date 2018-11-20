@@ -36,9 +36,9 @@
 #include <X11/extensions/scrnsaver.h>
 #endif
 
-#include "src/gs-listener-x11.h"
-#include "src/gs-marshal.h"
-#include "src/gs-debug.h"
+#include "gs-listener-x11.h"
+#include "gs-marshal.h"
+#include "gs-debug.h"
 
 static void         gs_listener_x11_class_init      (GSListenerX11Class *klass);
 static void         gs_listener_x11_init            (GSListenerX11      *listener);

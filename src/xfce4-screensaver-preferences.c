@@ -39,13 +39,13 @@
 #include <libxfce4ui/libxfce4ui.h>
 #include <xfconf/xfconf.h>
 
-#include "src/copy-theme-dialog.h"
-#include "src/gs-debug.h"
-#include "src/gs-job.h"
-#include "src/gs-prefs.h" /* for GS_MODE enum */
-#include "src/gs-theme-manager.h"
-#include "src/xfce-desktop-utils.h"
-#include "src/xfce4-screensaver-preferences-ui.h"
+#include "copy-theme-dialog.h"
+#include "gs-debug.h"
+#include "gs-job.h"
+#include "gs-prefs.h" /* for GS_MODE enum */
+#include "gs-theme-manager.h"
+#include "xfce-desktop-utils.h"
+#include "xfce4-screensaver-preferences-ui.h"
 
 #define GPM_COMMAND "xfce4-power-manager-settings"
 

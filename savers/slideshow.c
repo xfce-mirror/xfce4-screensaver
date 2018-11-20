@@ -32,10 +32,10 @@
 
 #include <libxfce4util/libxfce4util.h>
 
-#include "savers/gs-theme-window.h"
-#include "savers/gs-theme-engine.h"
-#include "savers/gste-slideshow.h"
-#include "savers/xdg-user-dir-lookup.h"
+#include "gs-theme-window.h"
+#include "gs-theme-engine.h"
+#include "gste-slideshow.h"
+#include "xdg-user-dir-lookup.h"
 
 int
 main (int argc, char **argv) {

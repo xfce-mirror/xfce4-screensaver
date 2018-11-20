@@ -34,7 +34,7 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 
-#include "savers/gs-theme-window.h"
+#include "gs-theme-window.h"
 
 static void gs_theme_window_finalize     (GObject *object);
 static void gs_theme_window_real_realize (GtkWidget *widget);

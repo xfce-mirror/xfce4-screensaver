@@ -39,11 +39,11 @@
 #include <libxfce4util/libxfce4util.h>
 #include <xfconf/xfconf.h>
 
-#include "src/gs-auth.h"
-#include "src/gs-debug.h"
-#include "src/gs-lock-plug.h"
-#include "src/setuid.h"
-#include "src/xfce4-screensaver-dialog-css.h"
+#include "gs-auth.h"
+#include "gs-debug.h"
+#include "gs-lock-plug.h"
+#include "setuid.h"
+#include "xfce4-screensaver-dialog-css.h"
 
 #define MAX_FAILURES 5
 

@@ -31,8 +31,8 @@
 #include <libxfce4util/libxfce4util.h>
 #include <xfconf/xfconf.h>
 
-#include "src/xfcekbd-desktop-config.h"
-#include "src/xfcekbd-config-private.h"
+#include "xfcekbd-desktop-config.h"
+#include "xfcekbd-config-private.h"
 
 /*
  * static common functions

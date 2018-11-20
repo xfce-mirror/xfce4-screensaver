@@ -28,7 +28,7 @@
 #include <errno.h>
 #endif
 
-#include "src/setuid.h"
+#include "setuid.h"
 
 static char *
 uid_gid_string (uid_t uid,

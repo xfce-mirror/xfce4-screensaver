@@ -32,9 +32,9 @@
 #include <libxfce4util/libxfce4util.h>
 #include <xfconf/xfconf.h>
 
-#include "src/xfcekbd-keyboard-config.h"
-#include "src/xfcekbd-indicator-config.h"
-#include "src/xfcekbd-config-private.h"
+#include "xfcekbd-keyboard-config.h"
+#include "xfcekbd-indicator-config.h"
+#include "xfcekbd-config-private.h"
 
 /*
  * static applet config functions

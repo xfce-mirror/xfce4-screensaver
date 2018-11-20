@@ -29,15 +29,15 @@
 #include <gdk/gdkx.h>
 #include <gio/gio.h>
 
-#include "src/gs-debug.h"
-#include "src/gs-grab.h"
-#include "src/gs-fade.h"
-#include "src/gs-job.h"
-#include "src/gs-manager.h"
-#include "src/gs-prefs.h"        /* for GSSaverMode */
-#include "src/gs-theme-manager.h"
-#include "src/gs-window.h"
-#include "src/xfce-bg.h"
+#include "gs-debug.h"
+#include "gs-grab.h"
+#include "gs-fade.h"
+#include "gs-job.h"
+#include "gs-manager.h"
+#include "gs-prefs.h"        /* for GSSaverMode */
+#include "gs-theme-manager.h"
+#include "gs-window.h"
+#include "xfce-bg.h"
 
 static void gs_manager_class_init (GSManagerClass *klass);
 static void gs_manager_init       (GSManager      *manager);

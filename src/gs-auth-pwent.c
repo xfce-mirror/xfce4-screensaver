@@ -87,7 +87,7 @@
 
 #endif
 
-#include "src/gs-auth.h"
+#include "gs-auth.h"
 
 static gboolean verbose_enabled = FALSE;
 

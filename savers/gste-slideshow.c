@@ -30,8 +30,8 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 
-#include "savers/gs-theme-engine.h"
-#include "savers/gste-slideshow.h"
+#include "gs-theme-engine.h"
+#include "gste-slideshow.h"
 
 static void     gste_slideshow_class_init (GSTESlideshowClass *klass);
 static void     gste_slideshow_init       (GSTESlideshow      *engine);

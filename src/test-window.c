@@ -29,9 +29,9 @@
 
 #include <libxfce4util/libxfce4util.h>
 
-#include "src/gs-debug.h"
-#include "src/gs-grab.h"
-#include "src/gs-window.h"
+#include "gs-debug.h"
+#include "gs-grab.h"
+#include "gs-window.h"
 
 static GSGrab *grab = NULL;
 

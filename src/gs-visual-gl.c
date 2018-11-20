@@ -35,8 +35,8 @@
 #include <GL/glx.h>
 #endif /* HAVE_GL */
 
-#include "src/gs-visual-gl.h"
-#include "src/gs-debug.h"
+#include "gs-visual-gl.h"
+#include "gs-debug.h"
 
 GdkVisual *
 gs_visual_gl_get_best_for_display (GdkDisplay *display) {

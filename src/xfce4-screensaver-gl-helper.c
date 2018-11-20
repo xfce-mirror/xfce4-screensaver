@@ -29,7 +29,7 @@
 
 #include <libxfce4util/libxfce4util.h>
 
-#include "src/gs-visual-gl.h"
+#include "gs-visual-gl.h"
 
 int
 main (int    argc,

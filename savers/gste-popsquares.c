@@ -30,8 +30,8 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 
-#include "savers/gs-theme-engine.h"
-#include "savers/gste-popsquares.h"
+#include "gs-theme-engine.h"
+#include "gste-popsquares.h"
 
 static void     gste_popsquares_class_init (GSTEPopsquaresClass *klass);
 static void     gste_popsquares_init       (GSTEPopsquares      *engine);

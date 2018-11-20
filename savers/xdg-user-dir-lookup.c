@@ -29,7 +29,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "savers/xdg-user-dir-lookup.h"
+#include "xdg-user-dir-lookup.h"
 
 char *
 xdg_user_dir_lookup (const char *type)

@@ -32,7 +32,7 @@
 #include <glib.h>
 #include <glib/gstdio.h>
 
-#include "src/gs-debug.h"
+#include "gs-debug.h"
 
 static gboolean debugging = FALSE;
 static FILE    *debug_out = NULL;

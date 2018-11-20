@@ -28,8 +28,8 @@
 
 #include <libxfce4util/libxfce4util.h>
 
-#include "src/xfcekbd-config-private.h"
-#include "src/xfcekbd-keyboard-config.h"
+#include "xfcekbd-config-private.h"
+#include "xfcekbd-keyboard-config.h"
 
 /*
  * XfcekbdKeyboardConfig

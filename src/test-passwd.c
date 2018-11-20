@@ -34,8 +34,8 @@
 
 #include <libxfce4util/libxfce4util.h>
 
-#include "src/gs-auth.h"
-#include "src/setuid.h"
+#include "gs-auth.h"
+#include "setuid.h"
 
 /* Initializations that potentially take place as a priveleged user:
    If the executable is setuid root, then these initializations

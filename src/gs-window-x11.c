@@ -37,10 +37,10 @@
 #include <X11/extensions/shape.h>
 #endif
 
-#include "src/gs-debug.h"
-#include "src/gs-marshal.h"
-#include "src/gs-window.h"
-#include "src/subprocs.h"
+#include "gs-debug.h"
+#include "gs-marshal.h"
+#include "gs-window.h"
+#include "subprocs.h"
 
 static void     gs_window_class_init     (GSWindowClass *klass);
 static void     gs_window_init           (GSWindow      *window);

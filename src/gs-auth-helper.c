@@ -47,8 +47,8 @@
 #include <glib.h>
 #include <glib/gstdio.h>
 
-#include "src/gs-auth.h"
-#include "src/subprocs.h"
+#include "gs-auth.h"
+#include "subprocs.h"
 
 static gboolean verbose_enabled = FALSE;
 

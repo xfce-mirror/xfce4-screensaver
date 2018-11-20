@@ -41,14 +41,14 @@
 
 #include <libxfce4util/libxfce4util.h>
 
-#include "src/gs-lock-plug.h"
-#include "src/gs-debug.h"
-#include "src/xfce-bg.h"
-#include "src/xfce-desktop-utils.h"
-#include "src/xfce4-screensaver-dialog-ui.h"
+#include "gs-lock-plug.h"
+#include "gs-debug.h"
+#include "xfce-bg.h"
+#include "xfce-desktop-utils.h"
+#include "xfce4-screensaver-dialog-ui.h"
 
 #ifdef WITH_KBD_LAYOUT_INDICATOR
-#include "src/xfcekbd-indicator.h"
+#include "xfcekbd-indicator.h"
 #endif
 
 #define MDM_FLEXISERVER_COMMAND "mdmflexiserver"

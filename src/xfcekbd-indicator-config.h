@@ -24,7 +24,7 @@
 #include <gtk/gtk.h>
 #include <xfconf/xfconf.h>
 
-#include "src/xfcekbd-keyboard-config.h"
+#include "xfcekbd-keyboard-config.h"
 
 /*
  * Indicator configuration

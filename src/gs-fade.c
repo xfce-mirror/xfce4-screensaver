@@ -39,9 +39,9 @@
 #include <unistd.h>
 #endif /* HAVE_UNISTD_H */
 
-#include "src/gs-fade.h"
-#include "src/gs-debug.h"
-#include "src/xfce-rr.h"
+#include "gs-fade.h"
+#include "gs-debug.h"
+#include "xfce-rr.h"
 
 /* XFree86 4.x+ Gamma fading */
 #ifdef HAVE_XF86VMODE_GAMMA

@@ -39,7 +39,7 @@
 
 #include <libxfce4util/libxfce4util.h>
 
-#include "savers/gs-theme-window.h"
+#include "gs-theme-window.h"
 
 #ifndef trunc
 #define trunc(x) (((x) > 0.0) ? floor((x)) : -floor(-(x)))

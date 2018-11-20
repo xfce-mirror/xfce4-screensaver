@@ -40,9 +40,9 @@
 #include <sys/resource.h>
 #endif
 
-#include "src/gs-debug.h"
-#include "src/gs-job.h"
-#include "src/subprocs.h"
+#include "gs-debug.h"
+#include "gs-job.h"
+#include "subprocs.h"
 
 static void gs_job_class_init (GSJobClass *klass);
 static void gs_job_init       (GSJob      *job);

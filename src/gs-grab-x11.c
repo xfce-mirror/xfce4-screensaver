@@ -36,9 +36,9 @@
 # include <X11/extensions/xf86misc.h>
 #endif /* HAVE_XF86MISCSETGRABKEYSSTATE */
 
-#include "src/gs-window.h"
-#include "src/gs-grab.h"
-#include "src/gs-debug.h"
+#include "gs-window.h"
+#include "gs-grab.h"
+#include "gs-debug.h"
 
 static void     gs_grab_class_init (GSGrabClass *klass);
 static void     gs_grab_init       (GSGrab      *grab);

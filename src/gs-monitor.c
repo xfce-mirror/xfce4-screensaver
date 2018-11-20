@@ -34,15 +34,15 @@
 #include <glib-object.h>
 #include <gdk/gdkx.h>
 
-#include "src/gs-debug.h"
-#include "src/gs-fade.h"
-#include "src/gs-grab.h"
-#include "src/gs-listener-dbus.h"
-#include "src/gs-listener-x11.h"
-#include "src/gs-manager.h"
-#include "src/gs-monitor.h"
-#include "src/gs-prefs.h"
-#include "src/xfce4-screensaver.h"
+#include "gs-debug.h"
+#include "gs-fade.h"
+#include "gs-grab.h"
+#include "gs-listener-dbus.h"
+#include "gs-listener-x11.h"
+#include "gs-manager.h"
+#include "gs-monitor.h"
+#include "gs-prefs.h"
+#include "xfce4-screensaver.h"
 
 static void gs_monitor_class_init(GSMonitorClass* klass);
 static void gs_monitor_init(GSMonitor* monitor);

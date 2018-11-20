@@ -26,7 +26,7 @@
 #include <glib.h>
 #include <gdk/gdk.h>
 
-#include "savers/gs-theme-engine.h"
+#include "gs-theme-engine.h"
 
 G_BEGIN_DECLS
 

@@ -40,8 +40,8 @@
 #include <X11/extensions/xf86vmode.h>
 #endif
 
-#include "src/gs-fade.h"
-#include "src/gs-debug.h"
+#include "gs-fade.h"
+#include "gs-debug.h"
 
 #define XF86_VIDMODE_NAME "XFree86-VidModeExtension"
 

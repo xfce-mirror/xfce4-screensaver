@@ -31,7 +31,7 @@
 
 #include <xfconf/xfconf.h>
 
-#include "src/gs-prefs.h"
+#include "gs-prefs.h"
 
 static void gs_prefs_class_init (GSPrefsClass *klass);
 static void gs_prefs_init       (GSPrefs      *prefs);

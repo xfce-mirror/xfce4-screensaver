@@ -29,8 +29,8 @@
 #include <glib.h>
 #include <gtk/gtk.h>
 
-#include "savers/gs-theme-engine.h"
-#include "savers/gs-theme-engine-marshal.h"
+#include "gs-theme-engine.h"
+#include "gs-theme-engine-marshal.h"
 
 static void     gs_theme_engine_class_init (GSThemeEngineClass *klass);
 static void     gs_theme_engine_init       (GSThemeEngine      *engine);

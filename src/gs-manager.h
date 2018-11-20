@@ -23,7 +23,7 @@
 #ifndef SRC_GS_MANAGER_H_
 #define SRC_GS_MANAGER_H_
 
-#include "src/gs-prefs.h"
+#include "gs-prefs.h"
 
 G_BEGIN_DECLS
 

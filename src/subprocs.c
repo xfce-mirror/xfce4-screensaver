@@ -38,7 +38,7 @@
 #define fork vfork
 #endif /* VMS */
 
-#include "src/subprocs.h"
+#include "subprocs.h"
 
 #if !defined(SIGCHLD) && defined(SIGCLD)
 # define SIGCHLD SIGCLD

@@ -35,8 +35,8 @@
 #include <login_cap.h>
 #include <bsd_auth.h>
 
-#include "src/gs-auth.h"
-#include "src/subprocs.h"
+#include "gs-auth.h"
+#include "subprocs.h"
 
 static gboolean verbose_enabled = FALSE;
 

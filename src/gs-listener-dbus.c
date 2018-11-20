@@ -39,9 +39,9 @@
 #include <systemd/sd-login.h>
 #endif
 
-#include "src/gs-listener-dbus.h"
-#include "src/gs-marshal.h"
-#include "src/gs-debug.h"
+#include "gs-listener-dbus.h"
+#include "gs-marshal.h"
+#include "gs-debug.h"
 
 static void              gs_listener_class_init         (GSListenerClass *klass);
 static void              gs_listener_init               (GSListener      *listener);

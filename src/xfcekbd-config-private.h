@@ -21,8 +21,8 @@
 #ifndef SRC_XFCEKBD_CONFIG_PRIVATE_H_
 #define SRC_XFCEKBD_CONFIG_PRIVATE_H_
 
-#include "src/xfcekbd-desktop-config.h"
-#include "src/xfcekbd-keyboard-config.h"
+#include "xfcekbd-desktop-config.h"
+#include "xfcekbd-keyboard-config.h"
 
 #define SETTINGS_XFCONF_CHANNEL "xfce4-screensaver"
 

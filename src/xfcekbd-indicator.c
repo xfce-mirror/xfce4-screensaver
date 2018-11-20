@@ -28,10 +28,10 @@
 
 #include <libxfce4util/libxfce4util.h>
 
-#include "src/xfcekbd-desktop-config.h"
-#include "src/xfcekbd-indicator.h"
-#include "src/xfcekbd-indicator-config.h"
-#include "src/xfcekbd-indicator-marshal.h"
+#include "xfcekbd-desktop-config.h"
+#include "xfcekbd-indicator.h"
+#include "xfcekbd-indicator-config.h"
+#include "xfcekbd-indicator-marshal.h"
 
 typedef struct _gki_globals {
     XklEngine               *engine;

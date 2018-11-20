@@ -37,9 +37,9 @@
 #include <libxfce4util/libxfce4util.h>
 #include <xfconf/xfconf.h>
 
-#include "src/gs-monitor.h"
-#include "src/gs-debug.h"
-#include "src/xfce4-screensaver.h"
+#include "gs-monitor.h"
+#include "gs-debug.h"
+#include "xfce4-screensaver.h"
 
 void xfce4_screensaver_quit(void) {
     gtk_main_quit();

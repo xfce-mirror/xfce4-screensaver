@@ -28,9 +28,9 @@
 
 #include <libxfce4util/libxfce4util.h>
 
-#include "savers/gs-theme-window.h"
-#include "savers/gs-theme-engine.h"
-#include "savers/gste-popsquares.h"
+#include "gs-theme-window.h"
+#include "gs-theme-engine.h"
+#include "gste-popsquares.h"
 
 int
 main (int    argc,

@@ -37,8 +37,8 @@
 
 #include <libxfce4util/libxfce4util.h>
 
-#include "src/xfce-rr.h"
-#include "src/xfce-rr-private.h"
+#include "xfce-rr.h"
+#include "xfce-rr-private.h"
 
 #define DISPLAY(o) ((o)->info->screen->priv->xdisplay)
 
