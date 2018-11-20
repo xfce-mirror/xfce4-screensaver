@@ -38,6 +38,13 @@ G_BEGIN_DECLS
 #define SETTINGS_XFCONF_CHANNEL "xfce4-screensaver"
 
 /**
+ * Enable screensaver
+ * Set this to TRUE to globally enable screensavers.
+ */
+#define KEY_SAVER_ENABLED "/saver/enabled"
+#define DEFAULT_KEY_SAVER_ENABLED TRUE
+
+/**
  * Screensaver theme selection mode
  * The selection mode used by screensaver. May be "blank-only" to enable the screensaver
  * without using any theme on activation, "single" to enable screensaver using only one
@@ -170,6 +177,7 @@ typedef struct
 
     GSPrefsPrivate  *priv;
 
+    guint            saver_enabled : 1; /* global saver switch */
     guint            lock_enabled : 1; /* global lock switch */
 
     guint            idle_activation_enabled : 1; /* whether to activate when idle */

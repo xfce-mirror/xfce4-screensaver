@@ -55,6 +55,7 @@ struct GSManagerPrivate {
     glong           cycle_timeout;
     glong           logout_timeout;
 
+    guint           saver_enabled : 1;
     guint           lock_enabled : 1;
     guint           lock_with_saver_enabled : 1;
     guint           logout_enabled : 1;
@@ -136,7 +137,8 @@ select_theme (GSManager *manager) {
     g_return_val_if_fail (manager != NULL, NULL);
     g_return_val_if_fail (GS_IS_MANAGER (manager), NULL);
 
-    if (manager->priv->saver_mode == GS_MODE_BLANK_ONLY) {
+    if (!manager->priv->saver_enabled ||
+            manager->priv->saver_mode == GS_MODE_BLANK_ONLY) {
         return NULL;
     }
 
@@ -431,6 +433,30 @@ gs_manager_set_saver_active (GSManager *manager,
 
     for (l = manager->priv->windows; l; l = l->next) {
         gs_window_set_saver_active(l->data, saver_active);
+    }
+}
+
+void
+gs_manager_get_saver_enabled (GSManager *manager,
+                              gboolean  *saver_enabled) {
+    if (saver_enabled != NULL) {
+        *saver_enabled = FALSE;
+    }
+
+    g_return_if_fail (GS_IS_MANAGER (manager));
+
+    if (saver_enabled != NULL) {
+        *saver_enabled = manager->priv->saver_enabled;
+    }
+}
+
+void
+gs_manager_set_saver_enabled (GSManager *manager,
+                              gboolean   saver_enabled) {
+    g_return_if_fail (GS_IS_MANAGER (manager));
+
+    if (manager->priv->saver_enabled != saver_enabled) {
+        manager->priv->saver_enabled = saver_enabled;
     }
 }
 

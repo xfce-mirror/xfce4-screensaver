@@ -76,6 +76,10 @@ void        gs_manager_set_keyboard_command    (GSManager   *manager,
                                                 const char  *command);
 void        gs_manager_set_status_message      (GSManager   *manager,
                                                 const char  *message);
+void        gs_manager_get_saver_enabled       (GSManager   *manager,
+                                                gboolean    *saver_enabled);
+void        gs_manager_set_saver_enabled       (GSManager   *manager,
+                                                gboolean     saver_enabled);
 void        gs_manager_get_lock_enabled        (GSManager   *manager,
                                                 gboolean    *lock_enabled);
 void        gs_manager_set_lock_enabled        (GSManager   *manager,

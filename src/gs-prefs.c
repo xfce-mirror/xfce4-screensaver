@@ -173,6 +173,12 @@ _gs_prefs_set_idle_activation_enabled (GSPrefs  *prefs,
 }
 
 static void
+_gs_prefs_set_saver_enabled (GSPrefs  *prefs,
+                            gboolean  value) {
+    prefs->saver_enabled = value;
+}
+
+static void
 _gs_prefs_set_lock_enabled (GSPrefs  *prefs,
                             gboolean  value) {
     prefs->lock_enabled = value;
@@ -260,6 +266,11 @@ gs_prefs_load_from_settings (GSPrefs *prefs) {
                                       KEY_IDLE_ACTIVATION_ENABLED,
                                       DEFAULT_KEY_IDLE_ACTIVATION_ENABLED);
     _gs_prefs_set_idle_activation_enabled (prefs, bvalue);
+
+    bvalue = xfconf_channel_get_bool (prefs->priv->channel,
+                                      KEY_SAVER_ENABLED,
+                                      DEFAULT_KEY_SAVER_ENABLED);
+    _gs_prefs_set_saver_enabled (prefs, bvalue);
 
     bvalue = xfconf_channel_get_bool (prefs->priv->channel,
                                       KEY_LOCK_ENABLED,
@@ -370,6 +381,11 @@ key_changed_cb (XfconfChannel *channel,
 
         enabled = xfconf_channel_get_bool (channel, property, DEFAULT_KEY_IDLE_ACTIVATION_ENABLED);
         _gs_prefs_set_idle_activation_enabled (prefs, enabled);
+    } else if (strcmp (property, KEY_SAVER_ENABLED) == 0) {
+        gboolean enabled;
+
+        enabled = xfconf_channel_get_bool (channel, property, DEFAULT_KEY_SAVER_ENABLED);
+        _gs_prefs_set_saver_enabled (prefs, enabled);
     } else if (strcmp (property, KEY_LOCK_ENABLED) == 0) {
         gboolean enabled;
 
@@ -436,6 +452,7 @@ gs_prefs_init (GSPrefs *prefs) {
                       G_CALLBACK (key_changed_cb),
                       prefs);
 
+    prefs->saver_enabled           = TRUE;
     prefs->lock_enabled            = TRUE;
     prefs->idle_activation_enabled = TRUE;
     prefs->lock_with_saver_enabled = TRUE;

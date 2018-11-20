@@ -55,6 +55,7 @@ struct GSListenerX11Private {
     gint     lock_timeout;
     guint    lock_timer_id;
     gboolean idle_activation_enabled;
+    gboolean saver_enabled;
 };
 
 enum {
@@ -114,6 +115,9 @@ static gboolean
 lock_timer (GSListenerX11 *listener) {
     guint idle_time;
     gint  state;
+
+    if (!listener->priv->saver_enabled)
+        return TRUE;
 
     get_x11_idle_info (&idle_time, &state);
     gs_debug("Lock Timeout: %is, Idle: %is, Idle Activation: %s, Screensaver: %s, Lock State: %s",
@@ -259,6 +263,12 @@ gs_listener_x11_set_lock_after (GSListenerX11 *listener,
     gs_debug ("Lock timeout updated to %i minutes", lock_after);
     listener->priv->lock_timeout = lock_after * 60;
     reset_lock_timer(listener, listener->priv->lock_timeout);
+}
+
+void
+gs_listener_x11_set_saver_enabled (GSListenerX11 *listener,
+                                   gboolean       enabled) {
+    listener->priv->saver_enabled = enabled;
 }
 
 void

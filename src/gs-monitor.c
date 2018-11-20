@@ -212,12 +212,14 @@ static void _gs_monitor_update_from_prefs(GSMonitor* monitor, GSPrefs* prefs) {
     gs_manager_set_keyboard_command(monitor->priv->manager, monitor->priv->prefs->keyboard_command);
     gs_manager_set_cycle_timeout(monitor->priv->manager, monitor->priv->prefs->cycle);
     gs_manager_set_mode(monitor->priv->manager, monitor->priv->prefs->mode);
+    gs_manager_set_saver_enabled(monitor->priv->manager, monitor->priv->prefs->saver_enabled);
     gs_manager_set_themes(monitor->priv->manager, monitor->priv->prefs->themes);
 
     /* enable activation when allowed */
     gs_listener_set_activation_enabled(monitor->priv->listener, monitor->priv->prefs->idle_activation_enabled);
     gs_listener_x11_set_activation_enabled(monitor->priv->listener_x11, monitor->priv->prefs->idle_activation_enabled);
     gs_listener_x11_set_lock_after(monitor->priv->listener_x11, monitor->priv->prefs->timeout);
+    gs_listener_x11_set_saver_enabled(monitor->priv->listener_x11, monitor->priv->prefs->saver_enabled);
 }
 
 static void disconnect_listener_signals(GSMonitor* monitor) {
