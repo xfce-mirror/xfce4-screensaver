@@ -75,6 +75,7 @@ struct GSManagerPrivate {
 
     guint           fading : 1;
     guint           dialog_up : 1;
+    gint            last_monitor_count;
 
     time_t          activate_time;
 
@@ -1473,7 +1474,7 @@ on_display_monitor_added (GdkDisplay *display,
     gs_debug ("Monitor added on display %s, now there are %d",
               gdk_display_get_name (display), n_monitors);
 
-    if (n_monitors == 1) {
+    if (manager->priv->last_monitor_count == 0) {
         /* Tidy up from lid-close or other headless event once we have a new monitor.
          * See https://gitlab.gnome.org/GNOME/gtk/issues/1466
          */
@@ -1491,6 +1492,8 @@ on_display_monitor_added (GdkDisplay *display,
             l = next;
         }
     }
+
+    manager->priv->last_monitor_count = n_monitors;
 
     /* add a new window */
     gs_manager_create_window_for_monitor (manager, monitor);
@@ -1513,7 +1516,7 @@ on_display_monitor_removed (GdkDisplay *display,
     int         n_monitors;
     GdkMonitor *last_monitor = NULL;
 
-    n_monitors = gdk_display_get_n_monitors (display);
+    n_monitors = manager->priv->last_monitor_count = gdk_display_get_n_monitors (display);
 
     gs_debug ("Monitor removed on display %s, now there are %d",
               gdk_display_get_name (display), n_monitors);
@@ -1677,11 +1680,15 @@ gs_manager_create_windows (GSManager *manager) {
 
 GSManager *
 gs_manager_new (void) {
-    GObject *manager;
+    GObject   *manager;
+    GSManager *mgr;
 
     manager = g_object_new (GS_TYPE_MANAGER, NULL);
 
-    return GS_MANAGER (manager);
+    mgr = GS_MANAGER (manager);
+    mgr->priv->last_monitor_count = -1;
+
+    return mgr;
 }
 
 static void
