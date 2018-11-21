@@ -1,3 +1,33 @@
+0.1.3 (beta) (UNRELEASED)
+============
+- Features:
+  - All available settings are now availble in the Preferences dialog
+  - Locking on user inactivity is now based on X11 Screensaver signals
+  - Xfce Screensaver now respects the xdg-screensaver state
+  - Screensaver and lock screen functionality can now be toggled separately
+- Preferences:
+  - Dropped unused preferences
+  - Renamed all Xfconf properties for improved clarity
+  - Embedded keyboard options have been disabled since they are currently
+    non-functional
+- Bug Fixes:
+  - Replaced Help link with a link to the Xfce Documentation (Xfce #14877)
+  - Fixed screen blanking and locking on BSD (Xfce #14846)
+  - Fixed lock screen crash on laptop lid-close events (GTK #1466)
+  - Fixed daemon crash when scrolling through available themes
+  - Renamed screensavers to prevent conflicts with MATE Screensaver
+  - Reduced flicker rate when multiple keyboard layouts are available
+- Build Improvements
+  - Silence warning: "ar: 'u' modifier ignored since 'D' is the default"
+  - Fix warning: "Target given more than once in the same rule"
+- Code Quality:
+  - Applied cpplint fixes and added cpplint configuration file
+  - Cleaned up unused variables, trailing spaces, and deprecated code
+  - Glade templates were cleaned up and organized for easier maintenance
+- Translation Updates:
+  Albanian, Basque, Chinese (China), Chinese (Taiwan), Danish, French, Galician,
+  Hebrew, Icelandic, Italian, Korean, Malay, Polish, Russian, Slovak, Turkish
+
 0.1.2 (alpha)
 =============
 - Bug Fixes:
