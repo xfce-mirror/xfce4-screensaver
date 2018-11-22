@@ -276,7 +276,7 @@ gs_grab_move (GSGrab     *grab,
                   (guint32) GDK_WINDOW_XID (window));
     }
 
-    gs_debug ("*** doing X server grab");
+    gs_debug ("*** Doing X server grab");
     gdk_x11_display_grab (display);
 
     old_window = grab->priv->grab_window;
@@ -306,7 +306,7 @@ gs_grab_move (GSGrab     *grab,
             gs_debug ("Could not grab devices for old window");
     }
 
-    gs_debug ("*** releasing X server grab");
+    gs_debug ("*** Releasing X server grab");
     gdk_x11_display_ungrab (display);
     gdk_display_flush (display);
 

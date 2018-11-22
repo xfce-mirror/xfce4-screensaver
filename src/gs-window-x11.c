@@ -322,7 +322,7 @@ update_geometry (GSWindow *window) {
     outside_region = get_outside_region (window);
 
     gdk_monitor_get_geometry (window->priv->monitor, &geometry);
-    gs_debug ("got geometry for monitor: x=%d y=%d w=%d h=%d",
+    gs_debug ("Got geometry for monitor: x=%d y=%d w=%d h=%d",
               geometry.x,
               geometry.y,
               geometry.width,
@@ -334,7 +334,7 @@ update_geometry (GSWindow *window) {
     cairo_region_get_extents (monitor_region, (cairo_rectangle_int_t *)&geometry);
     cairo_region_destroy (monitor_region);
 
-    gs_debug ("using geometry for monitor: x=%d y=%d w=%d h=%d",
+    gs_debug ("Using geometry for monitor: x=%d y=%d w=%d h=%d",
               geometry.x,
               geometry.y,
               geometry.width,
@@ -665,7 +665,7 @@ gs_window_xevent (GSWindow  *window,
             if (!x11_window_is_ours (xme->window)) {
                 gs_window_raise (window);
             } else {
-                gs_debug ("not raising our windows");
+                gs_debug ("Not raising our windows");
             }
 
             break;
@@ -677,7 +677,7 @@ gs_window_xevent (GSWindow  *window,
             if (!x11_window_is_ours (xce->window)) {
                 gs_window_raise (window);
             } else {
-                gs_debug ("not raising our windows");
+                gs_debug ("Not raising our windows");
             }
 
             break;
@@ -938,7 +938,7 @@ error_watch (GIOChannel   *source,
 
         switch (status) {
             case G_IO_STATUS_NORMAL:
-                gs_debug ("command error output: %s", line);
+                gs_debug ("Command output: %s", line);
                 break;
             case G_IO_STATUS_EOF:
                 finished = TRUE;
@@ -1231,7 +1231,7 @@ keyboard_command_watch (GIOChannel   *source,
             {
                 guint32 id;
                 char    c;
-                gs_debug ("keyboard command output: %s", line);
+                gs_debug ("Keyboard command output: %s", line);
                 if (1 == sscanf (line, " %" G_GUINT32_FORMAT " %c", &id, &c)) {
                     create_keyboard_socket (window, id);
                 }
@@ -1441,7 +1441,7 @@ lock_command_watch (GIOChannel   *source,
 
         switch (status) {
             case G_IO_STATUS_NORMAL:
-                gs_debug ("command output: %s", line);
+                gs_debug ("Command output: %s", line);
 
                 if (strstr (line, "WINDOW ID=") != NULL) {
                     guint32 id;

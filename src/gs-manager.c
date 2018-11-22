@@ -699,7 +699,7 @@ gs_manager_cycle (GSManager *manager) {
     g_return_val_if_fail (manager != NULL, FALSE);
     g_return_val_if_fail (GS_IS_MANAGER (manager), FALSE);
 
-    gs_debug ("cycling jobs");
+    gs_debug ("Cycling jobs");
 
     if (!manager->priv->active) {
         return FALSE;
@@ -1015,7 +1015,8 @@ gs_manager_class_init (GSManagerClass *klass) {
 static void
 on_bg_changed (XfceBG    *bg,
                GSManager *manager) {
-    gs_debug ("background changed");
+    // TODO: cleanup unused code
+    // gs_debug ("background changed");
 }
 
 static void
@@ -1180,7 +1181,6 @@ window_grab_broken_cb (GSWindow           *window,
 
 static gboolean
 unfade_idle (GSManager *manager) {
-    gs_debug ("resetting fade");
     gs_fade_reset (manager->priv->fade);
     manager->priv->unfade_idle_id = 0;
     return FALSE;
@@ -1214,7 +1214,7 @@ window_map_cb (GSWindow  *window,
 static void
 window_unmap_cb (GSWindow  *window,
                  GSManager *manager) {
-    gs_debug ("window unmapped!");
+    gs_debug ("Window unmapped!");
 }
 
 static void
@@ -1736,7 +1736,7 @@ remove_job (GSJob *job) {
 static void
 fade_done_cb (GSFade    *fade,
               GSManager *manager) {
-    gs_debug ("fade completed, showing windows");
+    gs_debug ("Fade completed, showing windows");
     show_windows (manager->priv->windows);
     manager->priv->fading = FALSE;
 }
@@ -1774,7 +1774,7 @@ gs_manager_activate (GSManager *manager) {
     do_fade = FALSE;
     if (do_fade) {
         manager->priv->fading = TRUE;
-        gs_debug ("fading out");
+        gs_debug ("Fading out");
         gs_fade_async (manager->priv->fade,
                        FADE_TIMEOUT,
                        (GSFadeDoneFunc)fade_done_cb,

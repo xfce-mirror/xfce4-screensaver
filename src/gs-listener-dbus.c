@@ -691,7 +691,7 @@ listener_add_ref_entry (GSListener         *listener,
                         GSListenerRefEntry *entry) {
     GHashTable *hash;
 
-    gs_debug ("adding %s from %s for reason '%s' on connection %s",
+    gs_debug ("Adding %s from %s for reason '%s' on connection %s",
               get_name_for_entry_type (entry_type),
               entry->application,
               entry->reason,
@@ -725,7 +725,7 @@ listener_remove_ref_entry (GSListener *listener,
         goto out;
     }
 
-    gs_debug ("removing %s from %s for reason '%s' on connection %s",
+    gs_debug ("Removing %s from %s for reason '%s' on connection %s",
               get_name_for_entry_type (entry_type),
               entry->application,
               entry->reason,
@@ -957,7 +957,7 @@ listener_ref_entry_remove_for_connection (GSListener  *listener,
     while (g_hash_table_iter_next (&iter, NULL, (gpointer *)&entry)) {
         if (entry->connection != NULL &&
                 strcmp (connection, entry->connection) == 0) {
-            gs_debug ("removing %s from %s for reason '%s' on connection %s",
+            gs_debug ("Removing %s from %s for reason '%s' on connection %s",
                       get_name_for_entry_type (entry->entry_type),
                       entry->application,
                       entry->reason,
@@ -990,8 +990,6 @@ listener_service_deleted (GSListener  *listener,
         g_error ("Invalid NameOwnerChanged signal from bus!");
         return;
     }
-
-    gs_debug ("DBUS service deleted: %s", new_service_name);
 
     removed = listener_ref_entry_remove_for_connection (listener, REF_ENTRY_TYPE_THROTTLE, new_service_name);
     if (removed) {
@@ -1474,14 +1472,14 @@ listener_dbus_handle_system_message (DBusConnection *connection,
     if (listener->priv->have_systemd) {
         if (dbus_message_is_signal (message, SYSTEMD_LOGIND_SESSION_INTERFACE, "Unlock")) {
             if (_listener_message_path_is_our_session (listener, message)) {
-                gs_debug ("systemd requested session unlock");
+                gs_debug ("Systemd requested session unlock");
                 gs_listener_set_active (listener, FALSE);
             }
 
             return DBUS_HANDLER_RESULT_HANDLED;
         } else if (dbus_message_is_signal (message, SYSTEMD_LOGIND_SESSION_INTERFACE, "Lock")) {
             if (_listener_message_path_is_our_session (listener, message)) {
-                gs_debug ("systemd requested session lock");
+                gs_debug ("Systemd requested session lock");
                 g_signal_emit (listener, signals[LOCK], 0);
             }
 
@@ -1658,7 +1656,7 @@ gs_listener_dbus_init (GSListener *listener) {
         listener->priv->connection = dbus_bus_get (DBUS_BUS_SESSION, &error);
         if (listener->priv->connection == NULL) {
             if (dbus_error_is_set (&error)) {
-                gs_debug ("couldn't connect to session bus: %s",
+                gs_debug ("Couldn't connect to session bus: %s",
                           error.message);
                 dbus_error_free (&error);
             }
@@ -1673,7 +1671,7 @@ gs_listener_dbus_init (GSListener *listener) {
         listener->priv->system_connection = dbus_bus_get (DBUS_BUS_SYSTEM, &error);
         if (listener->priv->system_connection == NULL) {
             if (dbus_error_is_set (&error)) {
-                gs_debug ("couldn't connect to system bus: %s",
+                gs_debug ("Couldn't connect to system bus: %s",
                           error.message);
                 dbus_error_free (&error);
             }

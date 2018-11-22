@@ -94,7 +94,7 @@ int main(int    argc,
 
     /* debug to a file if in deamon mode */
     gs_debug_init(debug, FALSE);
-    gs_debug("initializing xfce4-screensaver %s", VERSION);
+    gs_debug("Initializing xfce4-screensaver %s", VERSION);
 
     monitor = gs_monitor_new();
 

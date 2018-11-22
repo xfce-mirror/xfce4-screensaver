@@ -816,7 +816,7 @@ gs_fade_init (GSFade *fade) {
     check_randr_extension (fade);
     if (!fade->priv->screen_priv.fade_type)
         check_gamma_extension (fade);
-    gs_debug ("Fade type: %d", fade->priv->screen_priv.fade_type);
+    // gs_debug ("Fade type: %d", fade->priv->screen_priv.fade_type);
 }
 
 static void

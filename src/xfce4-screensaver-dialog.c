@@ -145,7 +145,7 @@ static char* request_response(GSLockPlug* plug,
     gs_lock_plug_enable_prompt(plug, prompt, visible);
     response = gs_lock_plug_run(plug);
 
-    gs_debug ("got response: %d", response);
+    gs_debug ("Got response: %d", response);
 
     text = NULL;
 

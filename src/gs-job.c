@@ -129,7 +129,7 @@ gs_job_died (GSJob *job) {
     g_spawn_close_pid (job->priv->pid);
     job->priv->pid = 0;
 
-    gs_debug ("Job died");
+    gs_debug ("Job finished");
 }
 
 static void
@@ -220,8 +220,6 @@ nice_process (int pid,
         gs_debug ("setpriority(PRIO_PROCESS, %lu, %d) failed",
                   (unsigned long) pid, nice_level);
     }
-#else
-    gs_debug ("don't know how to change process priority on this system.");
 #endif
 }
 
@@ -368,13 +366,13 @@ command_watch (GIOChannel   *source,
         status = g_io_channel_read_line (source, &str, NULL, NULL, &error);
 
         if (status == G_IO_STATUS_NORMAL) {
-            gs_debug ("command output: %s", str);
+            gs_debug ("Command output: %s", str);
 
         } else if (status == G_IO_STATUS_EOF) {
             done = TRUE;
 
         } else if (error != NULL) {
-            gs_debug ("command error: %s", error->message);
+            gs_debug ("Command error: %s", error->message);
             g_error_free (error);
         }
 
@@ -411,7 +409,7 @@ gs_job_start (GSJob *job) {
     g_return_val_if_fail (job != NULL, FALSE);
     g_return_val_if_fail (GS_IS_JOB (job), FALSE);
 
-    gs_debug ("starting job");
+    gs_debug ("Starting job");
 
     if (job->priv->pid != 0) {
         gs_debug ("Cannot restart active job.");
@@ -457,7 +455,7 @@ gs_job_stop (GSJob *job) {
     g_return_val_if_fail (job != NULL, FALSE);
     g_return_val_if_fail (GS_IS_JOB (job), FALSE);
 
-    gs_debug ("stopping job");
+    gs_debug ("Stopping job");
 
     if (job->priv->pid == 0) {
         gs_debug ("Could not stop job: pid not defined");
@@ -485,7 +483,7 @@ gs_job_suspend (GSJob    *job,
     g_return_val_if_fail (job != NULL, FALSE);
     g_return_val_if_fail (GS_IS_JOB (job), FALSE);
 
-    gs_debug ("suspending job");
+    gs_debug ("Suspending job");
 
     if (job->priv->pid == 0) {
         return FALSE;
