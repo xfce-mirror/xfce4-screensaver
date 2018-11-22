@@ -2019,7 +2019,7 @@ configure_capplet (void) {
                       G_CALLBACK (user_switch_toggled_cb), NULL);
 
     setup_list_size_constraint (list_scroller, treeview);
-    gtk_widget_set_size_request (preview, 480, 300);
+    gtk_window_set_default_size (GTK_WINDOW (dialog), 640, 640);
     gtk_window_set_icon_name (GTK_WINDOW (dialog), "preferences-desktop-screensaver");
     gtk_window_set_icon_name (GTK_WINDOW (fullscreen_preview_window), "screensaver");
 

@@ -17,6 +17,7 @@
   - Fixed screen blanking and locking on BSD (Xfce #14846)
   - Fixed lock screen crash on laptop lid-close events (GTK #1466)
   - Fixed daemon crash when scrolling through available themes
+  - Fixed minimum window size to allow resizing much smaller
   - Renamed screensavers to prevent conflicts with MATE Screensaver
   - Reduced flicker rate when multiple keyboard layouts are available
 - Build Improvements
