@@ -70,6 +70,7 @@ struct GSWindowPrivate {
     guint            user_switch_enabled : 1;
     guint            logout_enabled : 1;
     guint            keyboard_enabled : 1;
+    guint            status_message_enabled : 1;
 
     guint64          logout_timeout;
     gboolean         lock_active;
@@ -1526,6 +1527,11 @@ is_user_switch_enabled (GSWindow *window) {
     return window->priv->user_switch_enabled;
 }
 
+static gboolean
+is_status_message_enabled (GSWindow *window) {
+    return window->priv->status_message_enabled;
+}
+
 static gint
 get_monitor_index (GSWindow *window) {
     GdkDisplay *display = gs_window_get_display (window);
@@ -1563,7 +1569,7 @@ popup_dialog (GSWindow *window) {
         g_string_append_printf (command, " --logout-command='%s'", window->priv->logout_command);
     }
 
-    if (window->priv->status_message) {
+    if (is_status_message_enabled(window) && window->priv->status_message) {
         char *quoted;
 
         quoted = g_shell_quote (window->priv->status_message);
@@ -1735,6 +1741,14 @@ gs_window_set_user_switch_enabled (GSWindow *window,
     g_return_if_fail (GS_IS_WINDOW (window));
 
     window->priv->user_switch_enabled = user_switch_enabled;
+}
+
+void
+gs_window_set_status_message_enabled (GSWindow *window,
+                                      gboolean  status_message_enabled) {
+    g_return_if_fail (GS_IS_WINDOW (window));
+
+    window->priv->status_message_enabled = status_message_enabled;
 }
 
 void

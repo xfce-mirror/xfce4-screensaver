@@ -61,6 +61,7 @@ struct GSManagerPrivate {
     guint           logout_enabled : 1;
     guint           keyboard_enabled : 1;
     guint           user_switch_enabled : 1;
+    guint           status_message_enabled : 1;
     guint           throttled : 1;
 
     char           *logout_command;
@@ -109,6 +110,7 @@ enum {
     PROP_LOGOUT_TIMEOUT,
     PROP_LOGOUT_COMMAND,
     PROP_KEYBOARD_COMMAND,
+    PROP_STATUS_MESSAGE_ENABLED,
     PROP_STATUS_MESSAGE,
     PROP_ACTIVE,
     PROP_THROTTLED,
@@ -663,6 +665,20 @@ gs_manager_set_keyboard_command (GSManager  *manager,
 }
 
 void
+gs_manager_set_status_message_enabled (GSManager  *manager,
+                                       gboolean    status_message_enabled) {
+    GSList *l;
+
+    g_return_if_fail (GS_IS_MANAGER (manager));
+
+    manager->priv->status_message_enabled = status_message_enabled;
+
+    for (l = manager->priv->windows; l; l = l->next) {
+        gs_window_set_status_message_enabled (l->data, manager->priv->status_message_enabled);
+    }
+}
+
+void
 gs_manager_set_status_message (GSManager  *manager,
                                const char *status_message) {
     GSList *l;
@@ -795,6 +811,9 @@ gs_manager_set_property (GObject      *object,
         case PROP_KEYBOARD_COMMAND:
             gs_manager_set_keyboard_command (self, g_value_get_string (value));
             break;
+        case PROP_STATUS_MESSAGE_ENABLED:
+            gs_manager_set_status_message_enabled (self, g_value_get_boolean (value));
+            break;
         case PROP_STATUS_MESSAGE:
             gs_manager_set_status_message (self, g_value_get_string (value));
             break;
@@ -846,6 +865,9 @@ gs_manager_get_property (GObject    *object,
             break;
         case PROP_KEYBOARD_COMMAND:
             g_value_set_string (value, self->priv->keyboard_command);
+            break;
+        case PROP_STATUS_MESSAGE_ENABLED:
+            g_value_set_boolean (value, self->priv->status_message_enabled);
             break;
         case PROP_STATUS_MESSAGE:
             g_value_set_string (value, self->priv->status_message);
@@ -1450,6 +1472,7 @@ gs_manager_create_window_for_monitor (GSManager  *manager,
     gs_window_set_logout_command (window, manager->priv->logout_command);
     gs_window_set_keyboard_enabled (window, manager->priv->keyboard_enabled);
     gs_window_set_keyboard_command (window, manager->priv->keyboard_command);
+    gs_window_set_status_message_enabled (window, manager->priv->status_message_enabled);
     gs_window_set_status_message (window, manager->priv->status_message);
     gs_window_set_lock_active (window, manager->priv->lock_active);
 

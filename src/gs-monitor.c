@@ -206,6 +206,7 @@ static void _gs_monitor_update_from_prefs(GSMonitor* monitor, GSPrefs* prefs) {
     gs_manager_set_lock_timeout(monitor->priv->manager, monitor->priv->prefs->lock_timeout);
     gs_manager_set_logout_enabled(monitor->priv->manager, monitor->priv->prefs->logout_enabled);
     gs_manager_set_user_switch_enabled(monitor->priv->manager, user_switch_enabled);
+    gs_manager_set_status_message_enabled(monitor->priv->manager, monitor->priv->prefs->status_message_enabled);
     gs_manager_set_keyboard_enabled(monitor->priv->manager, monitor->priv->prefs->keyboard_enabled);
     gs_manager_set_logout_timeout(monitor->priv->manager, monitor->priv->prefs->logout_timeout);
     gs_manager_set_logout_command(monitor->priv->manager, monitor->priv->prefs->logout_command);

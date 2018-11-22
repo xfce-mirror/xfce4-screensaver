@@ -24,7 +24,6 @@ Known Issues
 ============
 
  - Allow embedding a keyboard into the window, /embedded-keyboard-enabled, may be non-functional. Onboard crashes when embedded.
- - Allow the session status message to be displayed, /status-message-enabled, is currently ignored. The status message is always displayed when received.
 
 Installation
 ============
