@@ -5,6 +5,8 @@
   - Locking on user inactivity is now based on X11 Screensaver signals
   - Xfce Screensaver now respects the xdg-screensaver state
   - Screensaver and lock screen functionality can now be toggled separately
+- General:
+  - Removed deprecated DBUS methods and signals from documentation
 - Preferences:
   - Dropped unused preferences
   - Renamed all Xfconf properties for improved clarity

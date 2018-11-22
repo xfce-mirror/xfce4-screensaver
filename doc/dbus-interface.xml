@@ -294,61 +294,6 @@
         </tgroup>
       </informaltable>
     </sect2>
-
-    <sect2 id="gs-method-GetSessionIdle">
-      <title>
-        <literal>GetSessionIdle</literal>
-      </title>
-      <para>
-        Returns the value of the current state of session idleness.
-      </para>
-      <informaltable>
-        <tgroup cols="2">
-          <thead>
-            <row>
-              <entry>Direction</entry>
-              <entry>Type</entry>
-              <entry>Description</entry>
-            </row>
-          </thead>
-          <tbody>
-            <row>
-              <entry>out</entry>
-              <entry>boolean</entry>
-              <entry>If the session is idle</entry>
-            </row>
-          </tbody>
-        </tgroup>
-      </informaltable>
-    </sect2>
-
-    <sect2 id="gs-method-GetSessionIdleTime">
-      <title>
-        <literal>GetSessionIdleTime</literal>
-      </title>
-      <para>
-        Returns the number of seconds that the session has been idle.
-        Returns zero if the session is not idle.
-      </para>
-      <informaltable>
-        <tgroup cols="2">
-          <thead>
-            <row>
-              <entry>Direction</entry>
-              <entry>Type</entry>
-              <entry>Description</entry>
-            </row>
-          </thead>
-          <tbody>
-            <row>
-              <entry>out</entry>
-              <entry>unsigned integer</entry>
-              <entry>Idle time in seconds</entry>
-            </row>
-          </tbody>
-        </tgroup>
-      </informaltable>
-    </sect2>
   </sect1>
 
   <sect1 id="gs-signals">
@@ -383,68 +328,10 @@
         </tgroup>
       </informaltable>
     </sect2>
-
-    <sect2 id="gs-signal-SessionIdleChanged">
-      <title>
-        <literal>SessionIdleChanged</literal>
-      </title>
-      <para>
-        See method GetActive().
-      </para>
-      <informaltable>
-        <tgroup cols="2">
-          <thead>
-            <row>
-              <entry>Direction</entry>
-              <entry>Type</entry>
-              <entry>Description</entry>
-            </row>
-          </thead>
-          <tbody>
-            <row>
-              <entry>out</entry>
-              <entry>boolean</entry>
-              <entry>Returns the value of the current state of activity.</entry>
-            </row>
-          </tbody>
-        </tgroup>
-      </informaltable>
-    </sect2>
-
-    <sect2 id="gs-signal-AuthenticationRequestBegin">
-      <title>
-        <literal>AuthenticationRequestBegin</literal>
-      </title>
-      <para>
-        Emitted before an authentication request
-      </para>
-    </sect2>
-
-    <sect2 id="gs-signal-AuthenticationRequestEnd">
-      <title>
-        <literal>AuthenticationRequestEnd</literal>
-      </title>
-      <para>
-        Emitted after an authentication request
-      </para>
-    </sect2>
   </sect1>
 
   <sect1 id="gs-examples">
     <title>Examples</title>
-    <para>
-      You can get the number of seconds the screensaver has been active by
-      running the following:
-    </para>
-    <screen>
-dbus-send --session \
-          --dest=org.xfce.ScreenSaver \
-          --type=method_call \
-          --print-reply \
-          --reply-timeout=20000 \
-          /org/xfce/ScreenSaver \
-          org.xfce.ScreenSaver.GetSessionIdleTime
-    </screen>
     <para>
       You can activate the screensaver like so:
     </para>
@@ -465,14 +352,6 @@ dbus-send --session \
     <screen>
 dbus-monitor --session \
           "type='signal',interface='org.xfce.ScreenSaver'"
-    </screen>
-
-    <para>
-      Or watch for a specific screensaver signal:
-    </para>
-    <screen>
-dbus-monitor --session \
-          "type='signal',interface='org.xfce.ScreenSaver',member='SessionIdleChanged'"
     </screen>
   </sect1>
 
