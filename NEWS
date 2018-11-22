@@ -12,6 +12,8 @@
     non-functional
 - Bug Fixes:
   - Replaced Help link with a link to the Xfce Documentation (Xfce #14877)
+  - Added /usr/lib and /usr/libexec as trusted engine paths, enables
+    local installs with access to existing screensavers (Xfce #14883)
   - Fixed screen blanking and locking on BSD (Xfce #14846)
   - Fixed lock screen crash on laptop lid-close events (GTK #1466)
   - Fixed daemon crash when scrolling through available themes

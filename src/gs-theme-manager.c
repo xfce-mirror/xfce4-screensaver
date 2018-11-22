@@ -64,8 +64,9 @@ static const char *known_engine_locations[] = {
 #endif
     LIBEXECDIR "/xscreensaver",
     LIBDIR "/xscreensaver",
-    NULL
-};
+    "/usr/libexec/xscreensaver",
+    "/usr/lib/xscreensaver",
+    NULL};
 
 /* Returns the full path to the queried command */
 static char *
