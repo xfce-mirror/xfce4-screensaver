@@ -447,7 +447,7 @@ static GdkFilterReturn
 xfcekbd_indicator_filter_x_evt (GdkXEvent *xev,
                                 GdkEvent  *event) {
     XEvent *xevent = (XEvent *) xev;
-    
+
     xkl_engine_filter_events (globals.engine, xevent);
     switch (xevent->type) {
         case ReparentNotify:
