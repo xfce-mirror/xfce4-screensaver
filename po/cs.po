@@ -301,14 +301,17 @@ msgstr ""
 #: ../src/xfce4-screensaver-command.c:76
 msgid "If the screensaver is active then switch to another graphics demo"
 msgstr ""
+"Pokud je šetřič obrazovky aktivní, pak přepnout do jiné grafické ukázky"
 
 #: ../src/xfce4-screensaver-command.c:80
 msgid "Turn the screensaver on (blank the screen)"
-msgstr ""
+msgstr "Zapnout šetřič obrazovky (ztmavit obrazovku)"
 
 #: ../src/xfce4-screensaver-command.c:84
 msgid "If the screensaver is active then deactivate it (un-blank the screen)"
 msgstr ""
+"Pokud je šetřič obrazovky aktivní, pak ho deaktivovat (zrušit ztmavení "
+"obrazovky)"
 
 #: ../src/xfce4-screensaver-command.c:88
 msgid "Poke the running screensaver to simulate user activity"
@@ -326,7 +329,7 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-command.c:100
 msgid "The reason for inhibiting the screensaver"
-msgstr ""
+msgstr "Důvod pro odstavení šetřiče"
 
 #: ../src/xfce4-screensaver-command.c:104 ../src/xfce4-screensaver-dialog.c:65
 #: ../src/xfce4-screensaver.c:58
@@ -349,12 +352,12 @@ msgstr "neaktivní"
 #: ../src/xfce4-screensaver-command.c:339
 #, c-format
 msgid "The screensaver is not inhibited\n"
-msgstr ""
+msgstr "Šetřič není odstaven\n"
 
 #: ../src/xfce4-screensaver-command.c:345
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
-msgstr ""
+msgstr "Šetřič je odstaven na žádost:\n"
 
 #: ../src/xfce4-screensaver-command.c:375
 #, c-format
