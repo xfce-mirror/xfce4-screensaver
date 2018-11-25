@@ -1,0 +1,661 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Nick Schermer <nick@xfce.org>, 2018
+# Michal Várady <miko.vaji@gmail.com>, 2018
+# Pavel Borecki <pavel.borecki@gmail.com>, 2018
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-20 06:31+0100\n"
+"PO-Revision-Date: 2018-10-16 16:27+0000\n"
+"Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>, 2018\n"
+"Language-Team: Czech (https://www.transifex.com/xfce/teams/16840/cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+
+#: ../data/xfce4-screensaver-preferences.desktop.in.h:1
+#: ../src/xfce4-screensaver-preferences.ui.h:18
+#: ../src/xfce4-screensaver.desktop.in.in.h:1
+msgid "Screensaver"
+msgstr "Šetřič obrazovky"
+
+#: ../data/xfce4-screensaver-preferences.desktop.in.h:2
+msgid "Set your screensaver preferences"
+msgstr "Nastavte své předvolby pro šetřič obrazovky"
+
+#: ../data/xfce4-screensaver.directory.in.h:1
+msgid "Screensavers"
+msgstr "Šetřiče obrazovky"
+
+#: ../data/xfce4-screensaver.directory.in.h:2
+msgid "Screensaver themes"
+msgstr "Motivy vzhledu šetřiče obrazovky"
+
+#: ../savers/floaters.c:89
+msgid "Show paths that images follow"
+msgstr ""
+
+#: ../savers/floaters.c:94
+msgid "Occasionally rotate images as they move"
+msgstr "Občas při pohybu obrázky otáčet"
+
+#: ../savers/floaters.c:99
+msgid "Print out frame rate and other statistics"
+msgstr ""
+
+#: ../savers/floaters.c:104
+msgid "The maximum number of images to keep on screen"
+msgstr ""
+
+#: ../savers/floaters.c:104
+msgid "MAX_IMAGES"
+msgstr ""
+
+#: ../savers/floaters.c:109
+msgid "The initial size and position of window"
+msgstr "Počáteční velikost a pozice okna"
+
+#: ../savers/floaters.c:109
+msgid "WIDTHxHEIGHT+X+Y"
+msgstr ""
+
+#: ../savers/floaters.c:114
+msgid "The source image to use"
+msgstr "Obrázek který použít jako zdroj"
+
+#. translators: the word "image" here
+#. * represents a command line argument
+#: ../savers/floaters.c:1120
+msgid "image - floats images around the screen"
+msgstr ""
+
+#: ../savers/floaters.c:1124 ../savers/popsquares.c:49
+#, c-format
+msgid "%s. See --help for usage information.\n"
+msgstr ""
+
+#: ../savers/floaters.c:1132
+#, c-format
+msgid "You must specify one image.  See --help for usage information.\n"
+msgstr ""
+
+#: ../savers/slideshow.c:53
+msgid "Location to get images from"
+msgstr "Umístění ze kterého získávat obrázky"
+
+#: ../savers/slideshow.c:53
+msgid "PATH"
+msgstr ""
+
+#: ../savers/slideshow.c:57
+msgid "Color to use for images background"
+msgstr "Barva kterou použít jako pozadí pod obrázky"
+
+#: ../savers/slideshow.c:57
+msgid "\"#rrggbb\""
+msgstr "„#ččzzmm“"
+
+#: ../savers/slideshow.c:61
+msgid "Do not randomize pictures from location"
+msgstr "Nezobrazovat obrázky z umístění v náhodném pořadí"
+
+#: ../savers/slideshow.c:65
+msgid "Do not try to stretch images on screen"
+msgstr "Nepokoušet se roztahovat obrázky na celou obrazovku"
+
+#: ../savers/xfce-floaters.desktop.in.in.h:1
+msgid "Floating Xfce"
+msgstr "Plovoucí Xfce"
+
+#: ../savers/xfce-floaters.desktop.in.in.h:2
+msgid "Bubbles the Xfce logo around the screen"
+msgstr ""
+
+#: ../savers/xfce-personal-slideshow.desktop.in.in.h:1
+msgid "Pictures folder"
+msgstr "Složka s obrázky"
+
+#: ../savers/xfce-personal-slideshow.desktop.in.in.h:2
+msgid "Display a slideshow from your Pictures folder"
+msgstr "Zobrazovat prezentaci ze složky Obrázky"
+
+#: ../savers/xfce-popsquares.desktop.in.in.h:1
+msgid "Pop art squares"
+msgstr ""
+
+#: ../savers/xfce-popsquares.desktop.in.in.h:2
+msgid "A pop-art-ish grid of pulsing colors."
+msgstr ""
+
+#: ../src/copy-theme-dialog.c:214
+msgid "Copying files"
+msgstr "Kopírují se soubory"
+
+#: ../src/copy-theme-dialog.c:233
+msgid "From:"
+msgstr "Z:"
+
+#: ../src/copy-theme-dialog.c:237
+msgid "To:"
+msgstr "Na:"
+
+#: ../src/copy-theme-dialog.c:255 ../src/gs-lock-plug.c:1195
+#: ../src/xfce4-screensaver-dialog.ui.h:7
+msgid "_Cancel"
+msgstr "_Storno"
+
+#: ../src/copy-theme-dialog.c:258
+msgid "Copying themes"
+msgstr "Kopírují se motivy vzhledu"
+
+#: ../src/copy-theme-dialog.c:296
+msgid "Invalid screensaver theme"
+msgstr "Neplatný motiv vzhledu šetřiče obrazovky"
+
+#: ../src/copy-theme-dialog.c:299
+#, c-format
+msgid "%s does not appear to be a valid screensaver theme."
+msgstr "%s se nezdá být platným motivem vzhledu šetřiče obrazovky."
+
+#: ../src/copy-theme-dialog.c:457
+#, c-format
+msgid "Copying file: %u of %u"
+msgstr "Kopíruje se soubor: %u z %u"
+
+#: ../src/gs-auth-pam.c:163
+msgid "Password:"
+msgstr "Heslo:"
+
+#: ../src/gs-auth-pam.c:378
+#, c-format
+msgid "Unable to establish service %s: %s\n"
+msgstr "Nedaří se ustanovit službu %s: %s\n"
+
+#: ../src/gs-auth-pam.c:404
+#, c-format
+msgid "Can't set PAM_TTY=%s"
+msgstr "Nedaří se nastavit PAM_TTY=%s"
+
+#: ../src/gs-auth-pam.c:435
+msgid "Incorrect password."
+msgstr "Nesprávné heslo."
+
+#: ../src/gs-auth-pam.c:437 ../src/xfce4-screensaver-dialog.c:313
+msgid "Authentication failed."
+msgstr "Ověření se nezdařilo."
+
+#: ../src/gs-auth-pam.c:451
+msgid "Not permitted to gain access at this time."
+msgstr ""
+
+#: ../src/gs-auth-pam.c:457
+msgid "No longer permitted to access the system."
+msgstr "Už nemáte oprávnění přistupovat k systému."
+
+#: ../src/gs-auth-pam.c:674
+msgid "Username:"
+msgstr "Uživatelské jméno:"
+
+#: ../src/gs-listener-dbus.c:1950
+msgid "failed to register with the message bus"
+msgstr "nepodařilo se registrovat na sběrnici zpráv"
+
+#: ../src/gs-listener-dbus.c:1960
+msgid "not connected to the message bus"
+msgstr "nepřipojeno ke sběrnici zpráv"
+
+#: ../src/gs-listener-dbus.c:1969 ../src/gs-listener-dbus.c:1999
+msgid "screensaver already running in this session"
+msgstr "v tomto sezení už je šetřič obrazovky spuštěný"
+
+#: ../src/gs-lock-plug.c:269
+msgctxt "Date"
+msgid "%A, %B %e   %H:%M"
+msgstr "%A, %B %e   %H:%M"
+
+#: ../src/gs-lock-plug.c:352
+msgid "Time has expired."
+msgstr "Překročen čas."
+
+#: ../src/gs-lock-plug.c:1180
+msgid "S_witch User..."
+msgstr "_Přepnout uživatele…"
+
+#: ../src/gs-lock-plug.c:1189
+msgid "Log _Out"
+msgstr "_Odhlásit"
+
+#: ../src/gs-lock-plug.c:1200 ../src/xfce4-screensaver-dialog.ui.h:8
+msgid "_Unlock"
+msgstr "_Odemknout"
+
+#. To translators: This expands to USERNAME on HOSTNAME
+#: ../src/gs-lock-plug.c:1366
+msgid "%U on %h"
+msgstr "%U na %h"
+
+#: ../src/gs-lock-plug.c:1381
+msgid "Please enter your password."
+msgstr "Zadejte své heslo."
+
+#. Translators: a CRTC is a CRT Controller (this is X terminology).
+#: ../src/xfce-rr.c:444
+#, c-format
+msgid "could not get the screen resources (CRTCs, outputs, modes)"
+msgstr ""
+
+#: ../src/xfce-rr.c:465
+#, c-format
+msgid "unhandled X error while getting the range of screen sizes"
+msgstr ""
+"neošetřená chyba grafického serveru X při získávání rozsahu rozměrů "
+"obrazovky"
+
+#: ../src/xfce-rr.c:471
+#, c-format
+msgid "could not get the range of screen sizes"
+msgstr "nedaří se získat rozsah rozměrů obrazovky"
+
+#: ../src/xfce-rr.c:682
+#, c-format
+msgid "RANDR extension is not present"
+msgstr "Rozšíření RANDR není přítomno"
+
+#: ../src/xfce-rr.c:1075
+#, c-format
+msgid "could not get information about output %d"
+msgstr "nedaří se získat informace o výstupu %d"
+
+#: ../src/xfce-rr.c:1298
+#, c-format
+msgid "could not get information about CRTC %d"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:60
+msgid "Causes the screensaver to exit gracefully"
+msgstr "Způsobí, že šetřič obrazovky se v pořádku ukončí"
+
+#: ../src/xfce4-screensaver-command.c:64
+msgid "Query the state of the screensaver"
+msgstr "Dotázat stav šetřiče obrazovky"
+
+#: ../src/xfce4-screensaver-command.c:68
+msgid "Query the length of time the screensaver has been active"
+msgstr "Dotázat jak dlouho byl šetřič obrazovky aktivní"
+
+#: ../src/xfce4-screensaver-command.c:72
+msgid "Tells the running screensaver process to lock the screen immediately"
+msgstr ""
+"Sdělí procesu spuštěného šetřiče obrazovky aby okamžitě uzamkl obrazovku"
+
+#: ../src/xfce4-screensaver-command.c:76
+msgid "If the screensaver is active then switch to another graphics demo"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:80
+msgid "Turn the screensaver on (blank the screen)"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:84
+msgid "If the screensaver is active then deactivate it (un-blank the screen)"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:88
+msgid "Poke the running screensaver to simulate user activity"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:92
+msgid ""
+"Inhibit the screensaver from activating.  Command blocks while inhibit is "
+"active."
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:96
+msgid "The calling application that is inhibiting the screensaver"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:100
+msgid "The reason for inhibiting the screensaver"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:104 ../src/xfce4-screensaver-dialog.c:65
+#: ../src/xfce4-screensaver.c:58
+msgid "Version of this application"
+msgstr "Verze této aplikace"
+
+#: ../src/xfce4-screensaver-command.c:325
+#, c-format
+msgid "The screensaver is %s\n"
+msgstr "Šetřič obrazovky je %s\n"
+
+#: ../src/xfce4-screensaver-command.c:325
+msgid "active"
+msgstr "aktivní"
+
+#: ../src/xfce4-screensaver-command.c:325
+msgid "inactive"
+msgstr "neaktivní"
+
+#: ../src/xfce4-screensaver-command.c:339
+#, c-format
+msgid "The screensaver is not inhibited\n"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:345
+#, c-format
+msgid "The screensaver is being inhibited by:\n"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:375
+#, c-format
+msgid "The screensaver has been active for %d seconds.\n"
+msgstr ""
+
+#: ../src/xfce4-screensaver-command.c:379
+#, c-format
+msgid "The screensaver is not currently active.\n"
+msgstr ""
+
+#: ../src/xfce4-screensaver-dialog.c:63
+msgid "Show debugging output"
+msgstr "Zobrazit ladící výstup"
+
+#: ../src/xfce4-screensaver-dialog.c:67
+msgid "Show the logout button"
+msgstr "Zobrazovat tlačítko odhlásit"
+
+#: ../src/xfce4-screensaver-dialog.c:69
+msgid "Command to invoke from the logout button"
+msgstr ""
+
+#: ../src/xfce4-screensaver-dialog.c:71
+msgid "Show the switch user button"
+msgstr ""
+
+#: ../src/xfce4-screensaver-dialog.c:73
+msgid "Message to show in the dialog"
+msgstr ""
+
+#: ../src/xfce4-screensaver-dialog.c:73 ../src/xfce4-screensaver-dialog.c:75
+msgid "MESSAGE"
+msgstr ""
+
+#: ../src/xfce4-screensaver-dialog.c:75
+msgid "Not used"
+msgstr "Nepoužito"
+
+#: ../src/xfce4-screensaver-dialog.c:77
+msgid "Monitor height"
+msgstr "Výška monitoru"
+
+#: ../src/xfce4-screensaver-dialog.c:79
+msgid "Monitor width"
+msgstr "Šířka monitoru"
+
+#: ../src/xfce4-screensaver-dialog.c:81
+msgid "Monitor index"
+msgstr "Pořadové číslo monitoru"
+
+#: ../src/xfce4-screensaver-dialog.c:175 ../src/xfce4-screensaver-dialog.c:177
+#: ../src/xfce4-screensaver-dialog.c:178
+msgid "Please enter your username."
+msgstr "Zadejte své uživatelské jméno."
+
+#: ../src/xfce4-screensaver-dialog.c:184
+msgid "You are required to change your password immediately (password aged)"
+msgstr "Je třeba, abyste si změnili heslo (jeho platnost skončila)"
+
+#: ../src/xfce4-screensaver-dialog.c:186
+msgid "You are required to change your password immediately (root enforced)"
+msgstr "Je třeba, abyste si změnili heslo (vynutil správce systému)"
+
+#: ../src/xfce4-screensaver-dialog.c:188
+msgid "Your account has expired; please contact your system administrator"
+msgstr "Platnost vašeho účtu skončila, obraťte se na správce svého systému"
+
+#: ../src/xfce4-screensaver-dialog.c:190
+msgid "No password supplied."
+msgstr "Nebylo zadáno žádné heslo."
+
+#: ../src/xfce4-screensaver-dialog.c:192
+msgid "Password unchanged."
+msgstr "Heslo nebylo změněno."
+
+#: ../src/xfce4-screensaver-dialog.c:194
+msgid "Can not get username."
+msgstr "Nedaří se získat uživatelské jméno."
+
+#: ../src/xfce4-screensaver-dialog.c:196
+msgid "Retype your new password."
+msgstr "Zopakujte zadání nového hesla."
+
+#: ../src/xfce4-screensaver-dialog.c:198
+msgid "Enter your new password."
+msgstr "Zadejte své nové heslo."
+
+#: ../src/xfce4-screensaver-dialog.c:200
+msgid "Enter your current password:"
+msgstr "Zadejte své stávající heslo:"
+
+#: ../src/xfce4-screensaver-dialog.c:202
+msgid "Error while changing NIS password."
+msgstr "Chyba při změně NIS hesla."
+
+#: ../src/xfce4-screensaver-dialog.c:204
+msgid "You must choose a longer password."
+msgstr "Je třeba zvolit delší heslo."
+
+#: ../src/xfce4-screensaver-dialog.c:206
+msgid "Password has been already used. Choose another."
+msgstr "Heslo už bylo použito. Zvolte jiné."
+
+#: ../src/xfce4-screensaver-dialog.c:208
+msgid "You must wait longer to change your password."
+msgstr ""
+
+#: ../src/xfce4-screensaver-dialog.c:210
+msgid "Sorry, passwords do not match."
+msgstr "Je nám líto, zadání hesla se neshodují"
+
+#: ../src/xfce4-screensaver-dialog.c:274
+msgid "Checking..."
+msgstr "Kontroluje se…"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:2
+#, no-c-format
+msgid "%U"
+msgstr "%U"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:3
+msgid "Enter your password"
+msgstr "Zadejte své heslo"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:4
+msgid "You have the Caps Lock key on."
+msgstr "Máte zapnutou klávesu Caps Lock."
+
+#: ../src/xfce4-screensaver-dialog.ui.h:5
+msgid "_Switch User"
+msgstr "_Přepnout uživatele"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:6
+msgid "_Log Out"
+msgstr "Oh_lásit"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:10
+#, no-c-format
+msgid "<b>%h</b>"
+msgstr "<b>%h</b>"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:12
+#, no-c-format
+msgid "<b>%s</b>"
+msgstr "<b>%s</b>"
+
+#: ../src/xfce4-screensaver-preferences.c:83
+msgid "Settings manager socket"
+msgstr "Soket správce nastavení"
+
+#: ../src/xfce4-screensaver-preferences.c:83
+msgid "SOCKET ID"
+msgstr ""
+
+#: ../src/xfce4-screensaver-preferences.c:641
+msgid "Blank screen"
+msgstr ""
+
+#: ../src/xfce4-screensaver-preferences.c:647
+msgid "Random"
+msgstr "Náhodně"
+
+#: ../src/xfce4-screensaver-preferences.c:1828
+msgid "Setting locked by administrator."
+msgstr "Nastavení uzamčeno správcem systému."
+
+#: ../src/xfce4-screensaver-preferences.c:1868
+msgid "Could not load the main interface"
+msgstr "Nedaří se načíst hlavní rozhraní"
+
+#: ../src/xfce4-screensaver-preferences.c:1870
+msgid "Please make sure that the screensaver is properly installed"
+msgstr ""
+
+#: ../src/xfce4-screensaver-preferences.ui.h:1
+msgid "Screensaver Preview"
+msgstr "Náhled šetřiče obrazovky"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:2
+msgid "<b>Screensaver preview</b>"
+msgstr "<b>Náhled šetřiče obrazovky</b>"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:3
+msgid "Screensaver Preferences"
+msgstr "Předvolby šetřiče obrazovky"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:4
+msgid "Configure your screensaver and locker"
+msgstr "Nastavit šetřiče a zámek obrazovky"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:5
+msgid "Power _Management"
+msgstr "Správa _napájení"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:6
+msgid "Preview"
+msgstr "Náhled"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:7
+msgid "Running as root"
+msgstr "Spuštěno s právy správce systému"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:8
+msgid "The screen will not be locked for the root user."
+msgstr ""
+
+#: ../src/xfce4-screensaver-preferences.ui.h:9
+msgid "Resolve"
+msgstr "Přeložit"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:10
+msgid "Xfce Power Manager is not configured to handle laptop lid events"
+msgstr ""
+"Xfce správa napájení není nastavena tak, aby reagovala na události ohledně "
+"víka notebooku"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:11
+msgid "Your computer may not be locked when you close the lid."
+msgstr "Váš počítač nejspíš nebude při zavření víka uzamčen."
+
+#: ../src/xfce4-screensaver-preferences.ui.h:12
+msgid "Enable Screensaver"
+msgstr "Zapnout šetřič obrazovky"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:13
+msgid "Theme"
+msgstr "Motiv vzhledu"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:14
+msgid "Change theme after:"
+msgstr "Změnit motiv vzhledu po:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:15
+msgid "minutes"
+msgstr "minutách"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:16
+msgid "Activate screensaver when computer is idle"
+msgstr "Zapnout šetřič obrazovky při nečinnosti počítače"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:17
+msgid "Regard the computer as _idle after:"
+msgstr "Považovat počítač za neč_inný po uplynutí:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:19
+msgid "Enable Lock Screen"
+msgstr "Zamykat obrazovku"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:20
+msgid "Lock Screen with Screensaver"
+msgstr "Zámek obrazovky s jejím šetřičem"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:21
+msgid "Lock the screen after the screensaver is active for:"
+msgstr "Zamknout obrazovku poté, co je šetřič obrazovky aktivní po dobu:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:22
+msgid "On Screen Keyboard"
+msgstr "Klávesnice na obrazovce"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:23
+msgid "On screen keyboard command:"
+msgstr "Povely klávesnice na obrazovce:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:24
+msgid "Session Status Messages"
+msgstr "Zprávy stavu sezení"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:25
+msgid "Logout"
+msgstr "Odhlásit"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:26
+msgid "Logout command:"
+msgstr "Příkaz pro odhlášení:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:27
+msgid "Enable logout after:"
+msgstr "Zapnout odhlášení po uplynutí:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:28
+msgid "User Switching"
+msgstr "Přepínání uživatelů"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:29
+msgid "Lock Screen"
+msgstr "Zamknout obrazovku"
+
+#: ../src/xfce4-screensaver.c:59
+msgid "Don't become a daemon"
+msgstr "Nepřecházet v proces služby"
+
+#: ../src/xfce4-screensaver.c:60
+msgid "Enable debugging code"
+msgstr "Zapnout ladící kód"
+
+#: ../src/xfce4-screensaver.desktop.in.in.h:2
+msgid "Launch screensaver and locker program"
+msgstr "Spustit program šetřiče a zámku obrazovky"
+
+#: ../src/xfcekbd-indicator.c:533
+msgid "XKB initialization error"
+msgstr "Chyba inicializace XKB"
