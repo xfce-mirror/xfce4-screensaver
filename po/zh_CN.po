@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 06:31+0100\n"
+"POT-Creation-Date: 2018-11-20 06:31+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: 玉堂白鹤 <yjwork@qq.com>, 2018\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/xfce/teams/16840/zh_CN/)\n"
@@ -89,30 +89,6 @@ msgstr "%s。有关用法信息，请参阅  --help\n"
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr "您必须指定一个图像。有关用法信息，请参阅 --help。\n"
 
-#: ../savers/xfce-floaters.desktop.in.in.h:1
-msgid "Floating Xfce"
-msgstr "浮动 Xfce"
-
-#: ../savers/xfce-floaters.desktop.in.in.h:2
-msgid "Bubbles the Xfce logo around the screen"
-msgstr "在屏幕四周冒出 Xfce 徽标的气泡"
-
-#: ../savers/personal-slideshow.desktop.in.in.h:1
-msgid "Pictures folder"
-msgstr "图片文件夹"
-
-#: ../savers/personal-slideshow.desktop.in.in.h:2
-msgid "Display a slideshow from your Pictures folder"
-msgstr "从您的图片文件夹显示幻灯片"
-
-#: ../savers/popsquares.desktop.in.in.h:1
-msgid "Pop art squares"
-msgstr "流行艺术方块"
-
-#: ../savers/popsquares.desktop.in.in.h:2
-msgid "A pop-art-ish grid of pulsing colors."
-msgstr "脉冲色彩的流行艺术网格。"
-
 #: ../savers/slideshow.c:53
 msgid "Location to get images from"
 msgstr "获取图片的位置"
@@ -137,6 +113,30 @@ msgstr "不要从选定的位置随机挑选图片"
 msgid "Do not try to stretch images on screen"
 msgstr "不要试图在屏幕上拉伸图像"
 
+#: ../savers/xfce-floaters.desktop.in.in.h:1
+msgid "Floating Xfce"
+msgstr "浮动 Xfce"
+
+#: ../savers/xfce-floaters.desktop.in.in.h:2
+msgid "Bubbles the Xfce logo around the screen"
+msgstr "在屏幕四周冒出 Xfce 徽标的气泡"
+
+#: ../savers/xfce-personal-slideshow.desktop.in.in.h:1
+msgid "Pictures folder"
+msgstr "图片文件夹"
+
+#: ../savers/xfce-personal-slideshow.desktop.in.in.h:2
+msgid "Display a slideshow from your Pictures folder"
+msgstr "从您的图片文件夹显示幻灯片"
+
+#: ../savers/xfce-popsquares.desktop.in.in.h:1
+msgid "Pop art squares"
+msgstr "流行艺术方块"
+
+#: ../savers/xfce-popsquares.desktop.in.in.h:2
+msgid "A pop-art-ish grid of pulsing colors."
+msgstr "脉冲色彩的流行艺术网格。"
+
 #: ../src/copy-theme-dialog.c:214
 msgid "Copying files"
 msgstr "正在复制文件"
@@ -149,7 +149,7 @@ msgstr "从："
 msgid "To:"
 msgstr "至："
 
-#: ../src/copy-theme-dialog.c:255 ../src/gs-lock-plug.c:1193
+#: ../src/copy-theme-dialog.c:255 ../src/gs-lock-plug.c:1195
 #: ../src/xfce4-screensaver-dialog.ui.h:7
 msgid "_Cancel"
 msgstr "取消(_C)"
@@ -218,32 +218,33 @@ msgstr "没有连接到消息总线"
 msgid "screensaver already running in this session"
 msgstr "屏幕保护程序已在此会话中运行"
 
-#: ../src/gs-lock-plug.c:267
+#: ../src/gs-lock-plug.c:269
+msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, %B %e   %H:%M"
 
-#: ../src/gs-lock-plug.c:350
+#: ../src/gs-lock-plug.c:352
 msgid "Time has expired."
 msgstr "时间已过期。"
 
-#: ../src/gs-lock-plug.c:1178
+#: ../src/gs-lock-plug.c:1180
 msgid "S_witch User..."
 msgstr "切换用户(_W)..."
 
-#: ../src/gs-lock-plug.c:1187
+#: ../src/gs-lock-plug.c:1189
 msgid "Log _Out"
 msgstr "注销(_O)"
 
-#: ../src/gs-lock-plug.c:1198 ../src/xfce4-screensaver-dialog.ui.h:8
+#: ../src/gs-lock-plug.c:1200 ../src/xfce4-screensaver-dialog.ui.h:8
 msgid "_Unlock"
 msgstr "解锁(_U)"
 
 #. To translators: This expands to USERNAME on HOSTNAME
-#: ../src/gs-lock-plug.c:1364
+#: ../src/gs-lock-plug.c:1366
 msgid "%U on %h"
 msgstr "%U 位于 %h"
 
-#: ../src/gs-lock-plug.c:1379
+#: ../src/gs-lock-plug.c:1381
 msgid "Please enter your password."
 msgstr "请输入您的密码。"
 
@@ -506,23 +507,23 @@ msgstr "设置管理器套接字"
 msgid "SOCKET ID"
 msgstr "SOCKET ID"
 
-#: ../src/xfce4-screensaver-preferences.c:594
+#: ../src/xfce4-screensaver-preferences.c:641
 msgid "Blank screen"
 msgstr "黑屏"
 
-#: ../src/xfce4-screensaver-preferences.c:600
+#: ../src/xfce4-screensaver-preferences.c:647
 msgid "Random"
 msgstr "随机"
 
-#: ../src/xfce4-screensaver-preferences.c:1677
+#: ../src/xfce4-screensaver-preferences.c:1828
 msgid "Setting locked by administrator."
 msgstr "设置由管理员锁定。"
 
-#: ../src/xfce4-screensaver-preferences.c:1717
+#: ../src/xfce4-screensaver-preferences.c:1868
 msgid "Could not load the main interface"
 msgstr "无法加载主界面"
 
-#: ../src/xfce4-screensaver-preferences.c:1719
+#: ../src/xfce4-screensaver-preferences.c:1870
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "请确保正确安装了屏幕保护程序"
 
@@ -580,59 +581,59 @@ msgstr "主题"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:14
 msgid "Change theme after:"
-msgstr ""
+msgstr "切换主题时间："
 
 #: ../src/xfce4-screensaver-preferences.ui.h:15
+msgid "minutes"
+msgstr " 分钟"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:16
 msgid "Activate screensaver when computer is idle"
 msgstr "计算机空闲时激活屏幕保护程序"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:16
+#: ../src/xfce4-screensaver-preferences.ui.h:17
 msgid "Regard the computer as _idle after:"
 msgstr "将计算机视为空闲的时间(_I)："
-
-#: ../src/xfce4-screensaver-preferences.ui.h:17
-msgid "minutes"
-msgstr " 分钟"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:19
 msgid "Enable Lock Screen"
 msgstr "启用锁屏"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:20
-msgid "Session Status Messages"
-msgstr ""
+msgid "Lock Screen with Screensaver"
+msgstr "屏保程序锁屏"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:21
-msgid "User Switching"
-msgstr "用户切换"
+msgid "Lock the screen after the screensaver is active for:"
+msgstr "锁定屏幕,当屏幕保护程序激活时间达到："
 
 #: ../src/xfce4-screensaver-preferences.ui.h:22
+msgid "On Screen Keyboard"
+msgstr "开启屏幕键盘"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:23
+msgid "On screen keyboard command:"
+msgstr "开启屏幕键盘命令："
+
+#: ../src/xfce4-screensaver-preferences.ui.h:24
+msgid "Session Status Messages"
+msgstr "会话状态信息"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:25
 msgid "Logout"
 msgstr "注销"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:23
+#: ../src/xfce4-screensaver-preferences.ui.h:26
 msgid "Logout command:"
 msgstr "注销命令"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:24
-msgid "Enable logout after:"
-msgstr ""
-
-#: ../src/xfce4-screensaver-preferences.ui.h:25
-msgid "Lock the screen after the screensaver is active for:"
-msgstr ""
-
-#: ../src/xfce4-screensaver-preferences.ui.h:26
-msgid "Lock Screen with Screensaver"
-msgstr ""
-
 #: ../src/xfce4-screensaver-preferences.ui.h:27
-msgid "On Screen Keyboard"
-msgstr ""
+msgid "Enable logout after:"
+msgstr "启用注销，当时间达到："
 
 #: ../src/xfce4-screensaver-preferences.ui.h:28
-msgid "On screen keyboard command:"
-msgstr ""
+msgid "User Switching"
+msgstr "用户切换"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:29
 msgid "Lock Screen"
