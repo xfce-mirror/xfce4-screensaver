@@ -7,18 +7,19 @@
 # Xfce Bot <transifex@xfce.org>, 2018
 # Nick Schermer <nick@xfce.org>, 2018
 # Charles Monzat <c.monzat@laposte.net>, 2018
-# nodiscc <nodiscc@gmail.com>, 2018
 # David MARMONT <it@marmont.fr>, 2018
 # Yannick Le Guen <leguen.yannick@gmail.com>, 2018
+# nodiscc <nodiscc@gmail.com>, 2018
+# David D, 2018
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 06:31+0100\n"
+"POT-Creation-Date: 2018-11-20 06:31+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Yannick Le Guen <leguen.yannick@gmail.com>, 2018\n"
+"Last-Translator: David D, 2018\n"
 "Language-Team: French (https://www.transifex.com/xfce/teams/16840/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -94,30 +95,6 @@ msgstr ""
 "Vous devez spécifier une image. Consulter --help pour les infos "
 "d’utilisation.\n"
 
-#: ../savers/xfce-floaters.desktop.in.in.h:1
-msgid "Floating Xfce"
-msgstr "Xfce flottant"
-
-#: ../savers/xfce-floaters.desktop.in.in.h:2
-msgid "Bubbles the Xfce logo around the screen"
-msgstr "Fait bouillonner le logo Xfce sur l’écran"
-
-#: ../savers/personal-slideshow.desktop.in.in.h:1
-msgid "Pictures folder"
-msgstr "Dossier des images"
-
-#: ../savers/personal-slideshow.desktop.in.in.h:2
-msgid "Display a slideshow from your Pictures folder"
-msgstr "Afficher un diaporama à partir de votre dossier d’images"
-
-#: ../savers/popsquares.desktop.in.in.h:1
-msgid "Pop art squares"
-msgstr "Carrés pop art"
-
-#: ../savers/popsquares.desktop.in.in.h:2
-msgid "A pop-art-ish grid of pulsing colors."
-msgstr "Une grille pop-art de couleurs vibrantes."
-
 #: ../savers/slideshow.c:53
 msgid "Location to get images from"
 msgstr "Emplacement depuis lequel obtenir les images"
@@ -142,6 +119,30 @@ msgstr "Pas d'ordre aléatoire depuis l'emplacement"
 msgid "Do not try to stretch images on screen"
 msgstr "Ne pas essayer d’étirer les images à l’écran"
 
+#: ../savers/xfce-floaters.desktop.in.in.h:1
+msgid "Floating Xfce"
+msgstr "Xfce flottant"
+
+#: ../savers/xfce-floaters.desktop.in.in.h:2
+msgid "Bubbles the Xfce logo around the screen"
+msgstr "Fait bouillonner le logo Xfce sur l’écran"
+
+#: ../savers/xfce-personal-slideshow.desktop.in.in.h:1
+msgid "Pictures folder"
+msgstr "Dossier des images"
+
+#: ../savers/xfce-personal-slideshow.desktop.in.in.h:2
+msgid "Display a slideshow from your Pictures folder"
+msgstr "Afficher un diaporama à partir de votre dossier d’images"
+
+#: ../savers/xfce-popsquares.desktop.in.in.h:1
+msgid "Pop art squares"
+msgstr "Carrés pop art"
+
+#: ../savers/xfce-popsquares.desktop.in.in.h:2
+msgid "A pop-art-ish grid of pulsing colors."
+msgstr "Une grille pop-art de couleurs vibrantes."
+
 #: ../src/copy-theme-dialog.c:214
 msgid "Copying files"
 msgstr "Copie des fichiers"
@@ -154,7 +155,7 @@ msgstr "Depuis :"
 msgid "To:"
 msgstr "Vers :"
 
-#: ../src/copy-theme-dialog.c:255 ../src/gs-lock-plug.c:1193
+#: ../src/copy-theme-dialog.c:255 ../src/gs-lock-plug.c:1195
 #: ../src/xfce4-screensaver-dialog.ui.h:7
 msgid "_Cancel"
 msgstr "A_nnuler"
@@ -223,32 +224,33 @@ msgstr "déconnecté du bus de messages"
 msgid "screensaver already running in this session"
 msgstr "économiseur d’écran déjà lancé dans cette session"
 
-#: ../src/gs-lock-plug.c:267
+#: ../src/gs-lock-plug.c:269
+msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, %B %e   %H:%M"
 
-#: ../src/gs-lock-plug.c:350
+#: ../src/gs-lock-plug.c:352
 msgid "Time has expired."
 msgstr "Le délai a expiré."
 
-#: ../src/gs-lock-plug.c:1178
+#: ../src/gs-lock-plug.c:1180
 msgid "S_witch User..."
 msgstr "_Changer d’utilisateur…"
 
-#: ../src/gs-lock-plug.c:1187
+#: ../src/gs-lock-plug.c:1189
 msgid "Log _Out"
 msgstr "Déc_onnexion"
 
-#: ../src/gs-lock-plug.c:1198 ../src/xfce4-screensaver-dialog.ui.h:8
+#: ../src/gs-lock-plug.c:1200 ../src/xfce4-screensaver-dialog.ui.h:8
 msgid "_Unlock"
 msgstr "Déverro_uiller"
 
 #. To translators: This expands to USERNAME on HOSTNAME
-#: ../src/gs-lock-plug.c:1364
+#: ../src/gs-lock-plug.c:1366
 msgid "%U on %h"
 msgstr "%U sur %h"
 
-#: ../src/gs-lock-plug.c:1379
+#: ../src/gs-lock-plug.c:1381
 msgid "Please enter your password."
 msgstr "Veuillez saisir votre mot de passe."
 
@@ -522,23 +524,23 @@ msgstr "Socket du gestionnaire de paramètres"
 msgid "SOCKET ID"
 msgstr "ID SOCKET"
 
-#: ../src/xfce4-screensaver-preferences.c:594
+#: ../src/xfce4-screensaver-preferences.c:641
 msgid "Blank screen"
 msgstr "Écran vide"
 
-#: ../src/xfce4-screensaver-preferences.c:600
+#: ../src/xfce4-screensaver-preferences.c:647
 msgid "Random"
 msgstr "Aléatoire"
 
-#: ../src/xfce4-screensaver-preferences.c:1677
+#: ../src/xfce4-screensaver-preferences.c:1828
 msgid "Setting locked by administrator."
 msgstr "Réglage verrouillé par l’administrateur."
 
-#: ../src/xfce4-screensaver-preferences.c:1717
+#: ../src/xfce4-screensaver-preferences.c:1868
 msgid "Could not load the main interface"
 msgstr "Impossible de charger l’interface principale"
 
-#: ../src/xfce4-screensaver-preferences.c:1719
+#: ../src/xfce4-screensaver-preferences.c:1870
 msgid "Please make sure that the screensaver is properly installed"
 msgstr ""
 "Veuillez vous assurer que l’économiseur d’écran est correctement installé"
@@ -603,62 +605,62 @@ msgid "Change theme after:"
 msgstr "Changer le thème après :"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:15
+msgid "minutes"
+msgstr "minutes"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:16
 msgid "Activate screensaver when computer is idle"
 msgstr "Activer l’économiseur d’écran quand l’ordinateur est inactif"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:16
+#: ../src/xfce4-screensaver-preferences.ui.h:17
 msgid "Regard the computer as _idle after:"
 msgstr "Considérer l’ordinateur comme _inactif après :"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:17
-msgid "minutes"
-msgstr "minutes"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:19
 msgid "Enable Lock Screen"
 msgstr "Activer le verrouillage d’écran"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:20
-msgid "Session Status Messages"
-msgstr ""
+msgid "Lock Screen with Screensaver"
+msgstr "Verrouiller l’écran avec l’économiseur d'écran"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:21
-msgid "User Switching"
-msgstr ""
-
-#: ../src/xfce4-screensaver-preferences.ui.h:22
-msgid "Logout"
-msgstr ""
-
-#: ../src/xfce4-screensaver-preferences.ui.h:23
-msgid "Logout command:"
-msgstr ""
-
-#: ../src/xfce4-screensaver-preferences.ui.h:24
-msgid "Enable logout after:"
-msgstr ""
-
-#: ../src/xfce4-screensaver-preferences.ui.h:25
 msgid "Lock the screen after the screensaver is active for:"
 msgstr ""
 "Verrouiller l’écran après une période d’activité de l’économiseur d’écran de"
 " :"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:26
-msgid "Lock Screen with Screensaver"
-msgstr ""
-
-#: ../src/xfce4-screensaver-preferences.ui.h:27
+#: ../src/xfce4-screensaver-preferences.ui.h:22
 msgid "On Screen Keyboard"
 msgstr ""
 
-#: ../src/xfce4-screensaver-preferences.ui.h:28
+#: ../src/xfce4-screensaver-preferences.ui.h:23
 msgid "On screen keyboard command:"
 msgstr ""
 
+#: ../src/xfce4-screensaver-preferences.ui.h:24
+msgid "Session Status Messages"
+msgstr "Messages de statut de la session"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:25
+msgid "Logout"
+msgstr "Déconnexion"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:26
+msgid "Logout command:"
+msgstr "Commande de déconnexion :"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:27
+msgid "Enable logout after:"
+msgstr "Permettre déconnexion après :"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:28
+msgid "User Switching"
+msgstr "Basculer d'utilisateur"
+
 #: ../src/xfce4-screensaver-preferences.ui.h:29
 msgid "Lock Screen"
-msgstr ""
+msgstr "Verrouiller l'écran"
 
 #: ../src/xfce4-screensaver.c:59
 msgid "Don't become a daemon"
