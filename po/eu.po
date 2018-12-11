@@ -60,7 +60,7 @@ msgstr "Pantailan mantenduko diren gehienezko irudi kopurua"
 
 #: ../savers/floaters.c:104
 msgid "MAX_IMAGES"
-msgstr ""
+msgstr "GEHIENEZKO_IRUDIAK"
 
 #: ../savers/floaters.c:109
 msgid "The initial size and position of window"
@@ -68,7 +68,7 @@ msgstr "Leihoaren hasierako neurria eta kokapena"
 
 #: ../savers/floaters.c:109
 msgid "WIDTHxHEIGHT+X+Y"
-msgstr ""
+msgstr "ZABALERAxALTUERA+X+Y"
 
 #: ../savers/floaters.c:114
 msgid "The source image to use"
@@ -78,7 +78,7 @@ msgstr "Erabiliko den jatorrizko irudia"
 #. * represents a command line argument
 #: ../savers/floaters.c:1120
 msgid "image - floats images around the screen"
-msgstr ""
+msgstr "irudia - irudiak flotatzen erakusten ditu pantailan zehar"
 
 #: ../savers/floaters.c:1124 ../savers/popsquares.c:49
 #, c-format
@@ -98,7 +98,7 @@ msgstr "Irudiak eskuratzeko kokapena"
 
 #: ../savers/slideshow.c:53
 msgid "PATH"
-msgstr ""
+msgstr "BIDEA"
 
 #: ../savers/slideshow.c:57
 msgid "Color to use for images background"
@@ -110,7 +110,7 @@ msgstr "\"#rrggbb\""
 
 #: ../savers/slideshow.c:61
 msgid "Do not randomize pictures from location"
-msgstr ""
+msgstr "Ez hartu ausaz kokapeneko irudiak"
 
 #: ../savers/slideshow.c:65
 msgid "Do not try to stretch images on screen"
