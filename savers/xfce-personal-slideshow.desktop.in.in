@@ -1,6 +1,7 @@
 [Desktop Entry]
 _Name=Pictures folder
 _Comment=Display a slideshow from your Pictures folder
+NoDisplay=true
 Exec=@SAVERDIR@/slideshow
 TryExec=@SAVERDIR@/slideshow
 StartupNotify=false

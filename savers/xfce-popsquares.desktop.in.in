@@ -1,6 +1,7 @@
 [Desktop Entry]
 _Name=Pop art squares
 _Comment=A pop-art-ish grid of pulsing colors.
+NoDisplay=true
 Exec=@SAVERDIR@/popsquares
 TryExec=@SAVERDIR@/popsquares
 StartupNotify=false
