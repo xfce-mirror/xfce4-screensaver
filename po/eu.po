@@ -114,7 +114,7 @@ msgstr "Ez hartu ausaz kokapeneko irudiak"
 
 #: ../savers/slideshow.c:65
 msgid "Do not try to stretch images on screen"
-msgstr ""
+msgstr "Ez saiatu irudiak luzatzen pantailan"
 
 #: ../savers/xfce-floaters.desktop.in.in.h:1
 msgid "Floating Xfce"
@@ -130,7 +130,7 @@ msgstr "Irudien karpeta"
 
 #: ../savers/xfce-personal-slideshow.desktop.in.in.h:2
 msgid "Display a slideshow from your Pictures folder"
-msgstr ""
+msgstr "Diapositibak erakutsi zure Irudiak karpetatik"
 
 #: ../savers/xfce-popsquares.desktop.in.in.h:1
 msgid "Pop art squares"
@@ -163,12 +163,12 @@ msgstr "Gaiak kopiatzen"
 
 #: ../src/copy-theme-dialog.c:296
 msgid "Invalid screensaver theme"
-msgstr ""
+msgstr "Pantaila-babesle gai ez balioduna"
 
 #: ../src/copy-theme-dialog.c:299
 #, c-format
 msgid "%s does not appear to be a valid screensaver theme."
-msgstr ""
+msgstr "%s ez du ematen pantaila-babesle gai baliodun bat denik."
 
 #: ../src/copy-theme-dialog.c:457
 #, c-format
@@ -187,7 +187,7 @@ msgstr "Ezin izan da %s zerbitzua ezarri: %s\n"
 #: ../src/gs-auth-pam.c:404
 #, c-format
 msgid "Can't set PAM_TTY=%s"
-msgstr ""
+msgstr "Ezin da ezarri PAM_TTY=%s"
 
 #: ../src/gs-auth-pam.c:435
 msgid "Incorrect password."
@@ -199,11 +199,11 @@ msgstr "Autentifikazioak huts egin du."
 
 #: ../src/gs-auth-pam.c:451
 msgid "Not permitted to gain access at this time."
-msgstr ""
+msgstr "Ezin da sarbidea lortu une honetan."
 
 #: ../src/gs-auth-pam.c:457
 msgid "No longer permitted to access the system."
-msgstr ""
+msgstr "Ezin da gehiago sisteman sartu."
 
 #: ../src/gs-auth-pam.c:674
 msgid "Username:"
@@ -211,15 +211,15 @@ msgstr "Erabiltzaile-izena:"
 
 #: ../src/gs-listener-dbus.c:1950
 msgid "failed to register with the message bus"
-msgstr ""
+msgstr "ezin izan da mezuen busarekin erregistratu"
 
 #: ../src/gs-listener-dbus.c:1960
 msgid "not connected to the message bus"
-msgstr ""
+msgstr "mezuen busarekin ez konektatuta"
 
 #: ../src/gs-listener-dbus.c:1969 ../src/gs-listener-dbus.c:1999
 msgid "screensaver already running in this session"
-msgstr ""
+msgstr "pantaila-babeslea dagoeneko martxan da saio honetan"
 
 #: ../src/gs-lock-plug.c:269
 msgctxt "Date"
@@ -245,7 +245,7 @@ msgstr "_Desblokeatu"
 #. To translators: This expands to USERNAME on HOSTNAME
 #: ../src/gs-lock-plug.c:1366
 msgid "%U on %h"
-msgstr ""
+msgstr "%U %h(e)n"
 
 #: ../src/gs-lock-plug.c:1381
 msgid "Please enter your password."
@@ -320,14 +320,16 @@ msgid ""
 "Inhibit the screensaver from activating.  Command blocks while inhibit is "
 "active."
 msgstr ""
+"Eragotzi pantaila-babeslea aktibatzea. Komandoak blokeatzen ditu eragoztea "
+"aktibo dagoen bitartean."
 
 #: ../src/xfce4-screensaver-command.c:96
 msgid "The calling application that is inhibiting the screensaver"
-msgstr ""
+msgstr "Pantaila-babeslea eragozten ari den aplikazioa"
 
 #: ../src/xfce4-screensaver-command.c:100
 msgid "The reason for inhibiting the screensaver"
-msgstr ""
+msgstr "Pantaila-babeslea eragozteko arrazoia"
 
 #: ../src/xfce4-screensaver-command.c:104 ../src/xfce4-screensaver-dialog.c:65
 #: ../src/xfce4-screensaver.c:58
@@ -350,12 +352,12 @@ msgstr "ez aktiboa"
 #: ../src/xfce4-screensaver-command.c:339
 #, c-format
 msgid "The screensaver is not inhibited\n"
-msgstr ""
+msgstr "Pantaila-babeslea ez dago eragotzita\n"
 
 #: ../src/xfce4-screensaver-command.c:345
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
-msgstr ""
+msgstr "Pantaila-babeslea honegatik ari da eragotzia izaten:\n"
 
 #: ../src/xfce4-screensaver-command.c:375
 #, c-format
@@ -389,7 +391,7 @@ msgstr "Dialogoan ikusiko den mezua"
 
 #: ../src/xfce4-screensaver-dialog.c:73 ../src/xfce4-screensaver-dialog.c:75
 msgid "MESSAGE"
-msgstr ""
+msgstr "MEZUA"
 
 #: ../src/xfce4-screensaver-dialog.c:75
 msgid "Not used"
@@ -511,7 +513,7 @@ msgstr "Ezarpena kudeatzaile socket-a"
 
 #: ../src/xfce4-screensaver-preferences.c:83
 msgid "SOCKET ID"
-msgstr ""
+msgstr "SOCKETaren IDa"
 
 #: ../src/xfce4-screensaver-preferences.c:641
 msgid "Blank screen"
@@ -563,7 +565,7 @@ msgstr "root bezala exekutatzen"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:8
 msgid "The screen will not be locked for the root user."
-msgstr ""
+msgstr "Pantaila ez da blokeatuko root erabiltzailearentzat."
 
 #: ../src/xfce4-screensaver-preferences.ui.h:9
 msgid "Resolve"
@@ -572,10 +574,12 @@ msgstr "Konpondu"
 #: ../src/xfce4-screensaver-preferences.ui.h:10
 msgid "Xfce Power Manager is not configured to handle laptop lid events"
 msgstr ""
+"Xfce energia kudeatzailea ez dago konfiguratuta eramangarriaren estalkiaren "
+"gertaerak kudeatzeko"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:11
 msgid "Your computer may not be locked when you close the lid."
-msgstr ""
+msgstr "Baliteke zure ordenagailua ez blokeatzea estalkia ixten duzunean."
 
 #: ../src/xfce4-screensaver-preferences.ui.h:12
 msgid "Enable Screensaver"
@@ -595,7 +599,7 @@ msgstr "minutu"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:16
 msgid "Activate screensaver when computer is idle"
-msgstr ""
+msgstr "Pantaila-babeslea aktibatu ordenagailua geldirik dagoenean"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:17
 msgid "Regard the computer as _idle after:"
@@ -607,11 +611,12 @@ msgstr "Pantailaren blokeoa gaitu"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:20
 msgid "Lock Screen with Screensaver"
-msgstr ""
+msgstr "Pantaila blokeatu pantaila-babeslearekin"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:21
 msgid "Lock the screen after the screensaver is active for:"
 msgstr ""
+"Pantaila blokeatu pantaila-babeslea denbora honetan aktibo egon eta gero:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:22
 msgid "On Screen Keyboard"
@@ -623,7 +628,7 @@ msgstr "Pantaila gaineko teklatuaren komandoa:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:24
 msgid "Session Status Messages"
-msgstr ""
+msgstr "Saioaren egoera mezuak"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:25
 msgid "Logout"
@@ -635,7 +640,7 @@ msgstr "Saioa amaitzeko komandoa:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:27
 msgid "Enable logout after:"
-msgstr ""
+msgstr "Saioa amaitzea baimendu honen ostean:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:28
 msgid "User Switching"
