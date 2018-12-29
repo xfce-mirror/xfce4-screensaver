@@ -1256,8 +1256,6 @@ manager_show_window (GSManager *manager,
                      GSWindow  *window) {
     GSJob *job;
 
-    apply_background_to_window (manager, window);
-
     job = gs_job_new_for_widget (gs_window_get_drawing_area (window));
 
     manager_select_theme_for_job (manager, job);
