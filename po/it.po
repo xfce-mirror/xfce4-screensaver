@@ -42,23 +42,23 @@ msgstr "Salvaschermi"
 
 #: ../data/xfce4-screensaver.directory.in.h:2
 msgid "Screensaver themes"
-msgstr "Temi del salvaschermo"
+msgstr "Temi salvaschermo"
 
 #: ../savers/floaters.c:89
 msgid "Show paths that images follow"
-msgstr "Mostra percorso dell'immagine"
+msgstr "Mostra il percorso dell'immagine"
 
 #: ../savers/floaters.c:94
 msgid "Occasionally rotate images as they move"
-msgstr "Ruota occasionalmente l'immagine quando loro si muovo "
+msgstr "Ruota occasionalmente le immagini durante il movimento"
 
 #: ../savers/floaters.c:99
 msgid "Print out frame rate and other statistics"
-msgstr "Stampa la frequenza dei fotogrammi ed altre statistiche"
+msgstr "Stampa la frequenza dei fotogrammi e altre statistiche"
 
 #: ../savers/floaters.c:104
 msgid "The maximum number of images to keep on screen"
-msgstr "Il massimo numero di immagini da tenere sullo schermo"
+msgstr "Il numero massino di immagini da tenere sullo schermo"
 
 #: ../savers/floaters.c:104
 msgid "MAX_IMAGES"
@@ -85,14 +85,14 @@ msgstr "image - immagini galleggianti intorno allo schermo"
 #: ../savers/floaters.c:1124 ../savers/popsquares.c:49
 #, c-format
 msgid "%s. See --help for usage information.\n"
-msgstr "%s. Specificare --help per le informazioni di utilizzo.\n"
+msgstr "%s. Utilizzare --help per ottenere le informazioni di utilizzo.\n"
 
 #: ../savers/floaters.c:1132
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr ""
-"È necessario specificare un'immagine. Specificare --help per le informazioni"
-" di utilizzo.\n"
+"È necessario specificare un'immagine. Utilizzare --help per ottenere le "
+"informazioni di utilizzo.\n"
 
 #: ../savers/slideshow.c:53
 msgid "Location to get images from"
@@ -104,7 +104,7 @@ msgstr "PERCORSO"
 
 #: ../savers/slideshow.c:57
 msgid "Color to use for images background"
-msgstr "Colore da usare per le immagini di sfondo"
+msgstr "Colore da usare per lo sfondo delle immagini"
 
 #: ../savers/slideshow.c:57
 msgid "\"#rrggbb\""
@@ -140,7 +140,7 @@ msgstr "Quadrati in stile pop art"
 
 #: ../savers/xfce-popsquares.desktop.in.in.h:2
 msgid "A pop-art-ish grid of pulsing colors."
-msgstr "Una griglia in stile pop art di colori pulsanti."
+msgstr "Una griglia in stile pop art con colori pulsanti."
 
 #: ../src/copy-theme-dialog.c:214
 msgid "Copying files"
@@ -197,7 +197,7 @@ msgstr "Password incorretta."
 
 #: ../src/gs-auth-pam.c:437 ../src/xfce4-screensaver-dialog.c:313
 msgid "Authentication failed."
-msgstr "Impossibile eseguire l'autenticazione."
+msgstr "Autenticazione fallita."
 
 #: ../src/gs-auth-pam.c:451
 msgid "Not permitted to gain access at this time."
@@ -251,7 +251,7 @@ msgstr "%U su %h"
 
 #: ../src/gs-lock-plug.c:1381
 msgid "Please enter your password."
-msgstr "Inserisci la tua password."
+msgstr "Inserire la propria password."
 
 #. Translators: a CRTC is a CRT Controller (this is X terminology).
 #: ../src/xfce-rr.c:444
@@ -276,7 +276,7 @@ msgstr "Impossibile determinare i valori delle dimensioni dello schermo"
 #: ../src/xfce-rr.c:682
 #, c-format
 msgid "RANDR extension is not present"
-msgstr "estensione RANDR non presente."
+msgstr "estensione RANDR non presente"
 
 #: ../src/xfce-rr.c:1075
 #, c-format
@@ -286,11 +286,12 @@ msgstr "Impossibile determinare le informazioni riguardo l'output %d"
 #: ../src/xfce-rr.c:1298
 #, c-format
 msgid "could not get information about CRTC %d"
-msgstr "Impossibile determinare le informazioni riguardo CRTC %d"
+msgstr ""
+"Impossibile determinare le informazioni riguardo il controllore CRTC %d"
 
 #: ../src/xfce4-screensaver-command.c:60
 msgid "Causes the screensaver to exit gracefully"
-msgstr "Ha causato l'uscita del salvaschermo in maniera con grazia"
+msgstr "Ha causato l'uscita del salvaschermo in maniera normale"
 
 #: ../src/xfce4-screensaver-command.c:64
 msgid "Query the state of the screensaver"
