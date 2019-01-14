@@ -5,7 +5,6 @@
 # 
 # Translators:
 # Nick Schermer <nick@xfce.org>, 2018
-# Davidmp <medipas@gmail.com>, 2018
 # Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2018
 # 
 #, fuzzy
@@ -120,7 +119,7 @@ msgstr "Xfce flotant"
 
 #: ../savers/xfce-floaters.desktop.in.in.h:2
 msgid "Bubbles the Xfce logo around the screen"
-msgstr "Bombolles amb el logotip d'Xfce per tota la pantalla"
+msgstr "Bombolles amb el logotip de Xfce per tota la pantalla"
 
 #: ../savers/xfce-personal-slideshow.desktop.in.in.h:1
 msgid "Pictures folder"
@@ -582,7 +581,7 @@ msgstr "Soluciona"
 #: ../src/xfce4-screensaver-preferences.ui.h:10
 msgid "Xfce Power Manager is not configured to handle laptop lid events"
 msgstr ""
-"El gestor d'energia d'Xfce no està configurat per gestionar els "
+"El gestor d'energia de Xfce no està configurat per gestionar els "
 "esdeveniments de la tapa del portàtil"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:11
