@@ -60,7 +60,7 @@ msgstr "O número máximo de imagens a manter no ecrã"
 
 #: ../savers/floaters.c:104
 msgid "MAX_IMAGES"
-msgstr ""
+msgstr "MAX_IMAGES"
 
 #: ../savers/floaters.c:109
 msgid "The initial size and position of window"
@@ -68,17 +68,17 @@ msgstr "Tamanho inicial e posição da janela"
 
 #: ../savers/floaters.c:109
 msgid "WIDTHxHEIGHT+X+Y"
-msgstr ""
+msgstr "LARGURAxALTURA+X+Y"
 
 #: ../savers/floaters.c:114
 msgid "The source image to use"
-msgstr ""
+msgstr "A fonte da imagem a usar"
 
 #. translators: the word "image" here
 #. * represents a command line argument
 #: ../savers/floaters.c:1120
 msgid "image - floats images around the screen"
-msgstr ""
+msgstr "imagem - imagens flutuantes no ecrã"
 
 #: ../savers/floaters.c:1124 ../savers/popsquares.c:49
 #, c-format
@@ -98,7 +98,7 @@ msgstr "Local onde obter imagens"
 
 #: ../savers/slideshow.c:53
 msgid "PATH"
-msgstr ""
+msgstr "CAMINHO"
 
 #: ../savers/slideshow.c:57
 msgid "Color to use for images background"
@@ -106,23 +106,23 @@ msgstr "Cor a usar para fundo das imagens"
 
 #: ../savers/slideshow.c:57
 msgid "\"#rrggbb\""
-msgstr ""
+msgstr "\"#rrggbb\""
 
 #: ../savers/slideshow.c:61
 msgid "Do not randomize pictures from location"
-msgstr ""
+msgstr "Não tornar aleatória as imagens desde a localização "
 
 #: ../savers/slideshow.c:65
 msgid "Do not try to stretch images on screen"
-msgstr ""
+msgstr "Não tentar esticar imagens no ecrã"
 
 #: ../savers/xfce-floaters.desktop.in.in.h:1
 msgid "Floating Xfce"
-msgstr ""
+msgstr "Xfce flutuante"
 
 #: ../savers/xfce-floaters.desktop.in.in.h:2
 msgid "Bubbles the Xfce logo around the screen"
-msgstr ""
+msgstr "Bolhas do logo do Xfce à volta do ecrã"
 
 #: ../savers/xfce-personal-slideshow.desktop.in.in.h:1
 msgid "Pictures folder"
@@ -187,7 +187,7 @@ msgstr "Incapaz de estabelecer o serviço %s: %s\n"
 #: ../src/gs-auth-pam.c:404
 #, c-format
 msgid "Can't set PAM_TTY=%s"
-msgstr ""
+msgstr "Incapaz de definir PAM_TTY=%s"
 
 #: ../src/gs-auth-pam.c:435
 msgid "Incorrect password."
@@ -199,11 +199,11 @@ msgstr "Falha na autenticação."
 
 #: ../src/gs-auth-pam.c:451
 msgid "Not permitted to gain access at this time."
-msgstr ""
+msgstr "Não é permitido ter acesso neste momento."
 
 #: ../src/gs-auth-pam.c:457
 msgid "No longer permitted to access the system."
-msgstr ""
+msgstr "Não é mais permitido ter acesso ao sistema."
 
 #: ../src/gs-auth-pam.c:674
 msgid "Username:"
@@ -232,7 +232,7 @@ msgstr "O tempo expirou."
 
 #: ../src/gs-lock-plug.c:1180
 msgid "S_witch User..."
-msgstr "_Mudar de utilizador..."
+msgstr "_Trocar de utilizador..."
 
 #: ../src/gs-lock-plug.c:1189
 msgid "Log _Out"
@@ -284,7 +284,7 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-command.c:60
 msgid "Causes the screensaver to exit gracefully"
-msgstr ""
+msgstr "Leva a proteção de ecrã a sair suavemente"
 
 #: ../src/xfce4-screensaver-command.c:64
 msgid "Query the state of the screensaver"
@@ -297,6 +297,7 @@ msgstr ""
 #: ../src/xfce4-screensaver-command.c:72
 msgid "Tells the running screensaver process to lock the screen immediately"
 msgstr ""
+"Indica ao processo da proteção de ecrã para bloquear o ecrã imediatamente"
 
 #: ../src/xfce4-screensaver-command.c:76
 msgid "If the screensaver is active then switch to another graphics demo"
@@ -322,11 +323,11 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-command.c:96
 msgid "The calling application that is inhibiting the screensaver"
-msgstr ""
+msgstr "A aplicação responsável pela inibição da proteção de ecrã"
 
 #: ../src/xfce4-screensaver-command.c:100
 msgid "The reason for inhibiting the screensaver"
-msgstr ""
+msgstr "A razão para a inibição da proteção de ecrã"
 
 #: ../src/xfce4-screensaver-command.c:104 ../src/xfce4-screensaver-dialog.c:65
 #: ../src/xfce4-screensaver.c:58
@@ -336,7 +337,7 @@ msgstr "Versão desta aplicação"
 #: ../src/xfce4-screensaver-command.c:325
 #, c-format
 msgid "The screensaver is %s\n"
-msgstr "A protecção de ecrã %s\n"
+msgstr "A protecção de ecrã está %s\n"
 
 #: ../src/xfce4-screensaver-command.c:325
 msgid "active"
@@ -349,12 +350,12 @@ msgstr "inactiva"
 #: ../src/xfce4-screensaver-command.c:339
 #, c-format
 msgid "The screensaver is not inhibited\n"
-msgstr ""
+msgstr "A proteção de ecrã não está inibida\n"
 
 #: ../src/xfce4-screensaver-command.c:345
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
-msgstr ""
+msgstr "A proteção de ecrã está inibida por:\n"
 
 #: ../src/xfce4-screensaver-command.c:375
 #, c-format
@@ -417,11 +418,12 @@ msgstr "Tem de alterar a sua senha imediatamente (senha expirou)"
 
 #: ../src/xfce4-screensaver-dialog.c:186
 msgid "You are required to change your password immediately (root enforced)"
-msgstr ""
+msgstr "Tem de mudar a sua senha imediatamente (obrigado pelo root)"
 
 #: ../src/xfce4-screensaver-dialog.c:188
 msgid "Your account has expired; please contact your system administrator"
 msgstr ""
+"A sua conta expirou; por favor, contacte o seu administrador de sistema"
 
 #: ../src/xfce4-screensaver-dialog.c:190
 msgid "No password supplied."
@@ -504,7 +506,7 @@ msgstr "<b>%s</b>"
 
 #: ../src/xfce4-screensaver-preferences.c:83
 msgid "Settings manager socket"
-msgstr "\"Socket\" do gestor de definições"
+msgstr "Socket do gestor de definições"
 
 #: ../src/xfce4-screensaver-preferences.c:83
 msgid "SOCKET ID"
@@ -512,7 +514,7 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-preferences.c:641
 msgid "Blank screen"
-msgstr ""
+msgstr "Ecrã vazio"
 
 #: ../src/xfce4-screensaver-preferences.c:647
 msgid "Random"
@@ -520,7 +522,7 @@ msgstr "Aleatório"
 
 #: ../src/xfce4-screensaver-preferences.c:1828
 msgid "Setting locked by administrator."
-msgstr ""
+msgstr "Definição bloqueada pelo administrador."
 
 #: ../src/xfce4-screensaver-preferences.c:1868
 msgid "Could not load the main interface"
@@ -528,7 +530,7 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-preferences.c:1870
 msgid "Please make sure that the screensaver is properly installed"
-msgstr ""
+msgstr "Por favor verifique se a proteção de ecrã está bem instalada"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:1
 msgid "Screensaver Preview"
@@ -544,7 +546,7 @@ msgstr "Preferências da Protecção de ecrã"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:4
 msgid "Configure your screensaver and locker"
-msgstr ""
+msgstr "Configurar a proteção de ecrã e bloqueio"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:5
 msgid "Power _Management"
@@ -560,23 +562,24 @@ msgstr "Em execução como root"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:8
 msgid "The screen will not be locked for the root user."
-msgstr ""
+msgstr "O ecrã não será bloqueado para o utilizador root."
 
 #: ../src/xfce4-screensaver-preferences.ui.h:9
 msgid "Resolve"
-msgstr ""
+msgstr "Resolver"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:10
 msgid "Xfce Power Manager is not configured to handle laptop lid events"
 msgstr ""
+"Gestão de energia Xfce não configurada para lidar com tampa do portátil"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:11
 msgid "Your computer may not be locked when you close the lid."
-msgstr ""
+msgstr "O computador pode não ser bloqueado ao fechar a tampa."
 
 #: ../src/xfce4-screensaver-preferences.ui.h:12
 msgid "Enable Screensaver"
-msgstr "Activar Protecção de ecrã"
+msgstr "Ativar Protecção de ecrã"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:13
 msgid "Theme"
@@ -592,15 +595,15 @@ msgstr "minutos"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:16
 msgid "Activate screensaver when computer is idle"
-msgstr ""
+msgstr "Ativar proteção de ecrã quando computador estiver inativo"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:17
 msgid "Regard the computer as _idle after:"
-msgstr ""
+msgstr "Considerar computador como _inativo após:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:19
 msgid "Enable Lock Screen"
-msgstr "Activar Bloquear ecrã"
+msgstr "Ativar Bloquear ecrã"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:20
 msgid "Lock Screen with Screensaver"
@@ -652,7 +655,7 @@ msgstr ""
 
 #: ../src/xfce4-screensaver.desktop.in.in.h:2
 msgid "Launch screensaver and locker program"
-msgstr ""
+msgstr "Lançar proteção de ecrã e programa de bloqueio"
 
 #: ../src/xfcekbd-indicator.c:533
 msgid "XKB initialization error"
