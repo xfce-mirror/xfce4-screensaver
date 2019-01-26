@@ -48,7 +48,7 @@ msgstr "Mostrar os caminhos para as imagens"
 
 #: ../savers/floaters.c:94
 msgid "Occasionally rotate images as they move"
-msgstr ""
+msgstr "Ocasionalmente rodas as imagens ao mover"
 
 #: ../savers/floaters.c:99
 msgid "Print out frame rate and other statistics"
@@ -126,7 +126,7 @@ msgstr ""
 
 #: ../savers/xfce-personal-slideshow.desktop.in.in.h:1
 msgid "Pictures folder"
-msgstr ""
+msgstr "Pasta de imagens"
 
 #: ../savers/xfce-personal-slideshow.desktop.in.in.h:2
 msgid "Display a slideshow from your Pictures folder"
@@ -364,7 +364,7 @@ msgstr "A proteção de ecrã esteve ativa por %d segundos.\n"
 #: ../src/xfce4-screensaver-command.c:379
 #, c-format
 msgid "The screensaver is not currently active.\n"
-msgstr ""
+msgstr "A proteção de ecrã não está ativa.\n"
 
 #: ../src/xfce4-screensaver-dialog.c:63
 msgid "Show debugging output"
@@ -372,7 +372,7 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-dialog.c:67
 msgid "Show the logout button"
-msgstr ""
+msgstr "Mostrar o botão de sair"
 
 #: ../src/xfce4-screensaver-dialog.c:69
 msgid "Command to invoke from the logout button"
@@ -380,7 +380,7 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-dialog.c:71
 msgid "Show the switch user button"
-msgstr ""
+msgstr "Mostrar o botão trocar de utilizador"
 
 #: ../src/xfce4-screensaver-dialog.c:73
 msgid "Message to show in the dialog"
@@ -409,11 +409,11 @@ msgstr ""
 #: ../src/xfce4-screensaver-dialog.c:175 ../src/xfce4-screensaver-dialog.c:177
 #: ../src/xfce4-screensaver-dialog.c:178
 msgid "Please enter your username."
-msgstr ""
+msgstr "Por favor, digite o nome de utilizador."
 
 #: ../src/xfce4-screensaver-dialog.c:184
 msgid "You are required to change your password immediately (password aged)"
-msgstr ""
+msgstr "Tem de alterar a sua senha imediatamente (senha expirou)"
 
 #: ../src/xfce4-screensaver-dialog.c:186
 msgid "You are required to change your password immediately (root enforced)"
@@ -474,7 +474,7 @@ msgstr "Verificando..."
 #: ../src/xfce4-screensaver-dialog.ui.h:2
 #, no-c-format
 msgid "%U"
-msgstr ""
+msgstr "%U"
 
 #: ../src/xfce4-screensaver-dialog.ui.h:3
 msgid "Enter your password"
@@ -486,7 +486,7 @@ msgstr "Tem a tecla Caps Lock ativa."
 
 #: ../src/xfce4-screensaver-dialog.ui.h:5
 msgid "_Switch User"
-msgstr "_Mudar de utilizador"
+msgstr "_Trocar utilizador"
 
 #: ../src/xfce4-screensaver-dialog.ui.h:6
 msgid "_Log Out"
@@ -628,7 +628,7 @@ msgstr "Sair"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:26
 msgid "Logout command:"
-msgstr ""
+msgstr "Comando de saída:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:27
 msgid "Enable logout after:"
@@ -636,7 +636,7 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-preferences.ui.h:28
 msgid "User Switching"
-msgstr ""
+msgstr "Trocar de utilizador"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:29
 msgid "Lock Screen"
@@ -644,7 +644,7 @@ msgstr "Bloquear ecrã"
 
 #: ../src/xfce4-screensaver.c:59
 msgid "Don't become a daemon"
-msgstr ""
+msgstr "Não ficar em segundo plano"
 
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
