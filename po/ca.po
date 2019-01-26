@@ -50,7 +50,7 @@ msgstr "Gira de vegades les imatges a mesura que es mouen"
 
 #: ../savers/floaters.c:99
 msgid "Print out frame rate and other statistics"
-msgstr "Imprimeix la velocitats dels fotogrames i altres estadístiques"
+msgstr "Imprimeix la velocitat dels fotogrames i altres estadístiques"
 
 #: ../savers/floaters.c:104
 msgid "The maximum number of images to keep on screen"
