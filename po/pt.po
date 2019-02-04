@@ -53,7 +53,7 @@ msgstr "Ocasionalmente rodas as imagens ao mover"
 
 #: ../savers/floaters.c:99
 msgid "Print out frame rate and other statistics"
-msgstr ""
+msgstr "Mostrar taxa de fotogramas e outras estatísticas"
 
 #: ../savers/floaters.c:104
 msgid "The maximum number of images to keep on screen"
@@ -131,7 +131,7 @@ msgstr "Pasta de imagens"
 
 #: ../savers/xfce-personal-slideshow.desktop.in.in.h:2
 msgid "Display a slideshow from your Pictures folder"
-msgstr ""
+msgstr "Criar uma apresentação da pasta Imagens"
 
 #: ../savers/xfce-popsquares.desktop.in.in.h:1
 msgid "Pop art squares"
@@ -139,7 +139,7 @@ msgstr "Quadrados Arte pop"
 
 #: ../savers/xfce-popsquares.desktop.in.in.h:2
 msgid "A pop-art-ish grid of pulsing colors."
-msgstr ""
+msgstr "Uma grelha de cores em pulsação em arte pop."
 
 #: ../src/copy-theme-dialog.c:214
 msgid "Copying files"
@@ -289,11 +289,11 @@ msgstr "Leva a proteção de ecrã a sair suavemente"
 
 #: ../src/xfce4-screensaver-command.c:64
 msgid "Query the state of the screensaver"
-msgstr ""
+msgstr "Obter o estado da proteção de ecrã"
 
 #: ../src/xfce4-screensaver-command.c:68
 msgid "Query the length of time the screensaver has been active"
-msgstr ""
+msgstr "Obter o período de tempo em que a proteção de ecrã esteve ativa"
 
 #: ../src/xfce4-screensaver-command.c:72
 msgid "Tells the running screensaver process to lock the screen immediately"
@@ -303,6 +303,7 @@ msgstr ""
 #: ../src/xfce4-screensaver-command.c:76
 msgid "If the screensaver is active then switch to another graphics demo"
 msgstr ""
+"Se a proteção de ecrã está ativa, trocar para outra demostração gráfica"
 
 #: ../src/xfce4-screensaver-command.c:80
 msgid "Turn the screensaver on (blank the screen)"
@@ -314,13 +315,15 @@ msgstr "Se a proteção de ecrã está ativa, desativa-a (ecrã com imagem)"
 
 #: ../src/xfce4-screensaver-command.c:88
 msgid "Poke the running screensaver to simulate user activity"
-msgstr ""
+msgstr "Impelir a proteção de ecrã a simular a atividade do utilizador"
 
 #: ../src/xfce4-screensaver-command.c:92
 msgid ""
 "Inhibit the screensaver from activating.  Command blocks while inhibit is "
 "active."
 msgstr ""
+"Inibir a proteção de ecrã de ativar. Comando bloqueia enquanto a inibição "
+"está ativa."
 
 #: ../src/xfce4-screensaver-command.c:96
 msgid "The calling application that is inhibiting the screensaver"
@@ -406,7 +409,7 @@ msgstr "Largura do monitor"
 
 #: ../src/xfce4-screensaver-dialog.c:81
 msgid "Monitor index"
-msgstr ""
+msgstr "Índice de monitor"
 
 #: ../src/xfce4-screensaver-dialog.c:175 ../src/xfce4-screensaver-dialog.c:177
 #: ../src/xfce4-screensaver-dialog.c:178
@@ -616,15 +619,15 @@ msgstr "Bloquear o ecrã após a proteção de ecrã estiver ativa por:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:22
 msgid "On Screen Keyboard"
-msgstr ""
+msgstr "Teclado virtual"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:23
 msgid "On screen keyboard command:"
-msgstr ""
+msgstr "Comando do teclado virtual:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:24
 msgid "Session Status Messages"
-msgstr ""
+msgstr "Mensagens de estado da sessão"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:25
 msgid "Logout"
@@ -652,7 +655,7 @@ msgstr "Não ficar em segundo plano"
 
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
-msgstr ""
+msgstr "Ativar código de depuração"
 
 #: ../src/xfce4-screensaver.desktop.in.in.h:2
 msgid "Launch screensaver and locker program"
@@ -660,4 +663,4 @@ msgstr "Lançar proteção de ecrã e programa de bloqueio"
 
 #: ../src/xfcekbd-indicator.c:533
 msgid "XKB initialization error"
-msgstr ""
+msgstr "Erro de inicialização do XKB"
