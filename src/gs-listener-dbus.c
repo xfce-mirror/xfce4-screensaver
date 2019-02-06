@@ -1484,6 +1484,22 @@ listener_dbus_handle_system_message (DBusConnection *connection,
             }
 
             return DBUS_HANDLER_RESULT_HANDLED;
+        } else if (dbus_message_is_signal (message, SYSTEMD_LOGIND_INTERFACE, "PrepareForSleep")) {
+            gboolean  active = 0;
+            DBusError error;
+
+            dbus_error_init (&error);
+            dbus_message_get_args (message, &error, DBUS_TYPE_BOOLEAN, &active, DBUS_TYPE_INVALID);
+            if (active) {
+                gs_debug ("Logind requested session lock");
+                g_signal_emit (listener, signals[LOCK], 0);
+            } else {
+                gs_debug ("Logind requested session unlock");
+                //FIXME: there is no signal to request password prompt
+                g_signal_emit (listener, signals[SHOW_MESSAGE], 0, NULL, NULL, NULL);
+            }
+
+            return DBUS_HANDLER_RESULT_HANDLED;
         } else if (dbus_message_is_signal (message, DBUS_INTERFACE_PROPERTIES, "PropertiesChanged")) {
             if (_listener_message_path_is_our_session (listener, message)) {
                 if (properties_changed_match (message, "Active")) {
@@ -2027,6 +2043,12 @@ gs_listener_acquire (GSListener  *listener,
                                 ",sender='"SYSTEMD_LOGIND_SERVICE"'"
                                 ",interface='"SYSTEMD_LOGIND_SESSION_INTERFACE"'"
                                 ",member='Lock'",
+                                NULL);
+            dbus_bus_add_match (listener->priv->system_connection,
+                                "type='signal'"
+                                ",sender='"SYSTEMD_LOGIND_SERVICE"'"
+                                ",interface='"SYSTEMD_LOGIND_INTERFACE"'"
+                                ",member='PrepareForSleep'",
                                 NULL);
             dbus_bus_add_match (listener->priv->system_connection,
                                 "type='signal'"
