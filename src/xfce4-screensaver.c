@@ -61,6 +61,8 @@ int main(int    argc,
         {NULL}
     };
 
+    g_setenv ("GTK_THEME", "Greybird", TRUE);
+
     #ifdef ENABLE_NLS
         bindtextdomain(GETTEXT_PACKAGE, XFCELOCALEDIR);
         #ifdef HAVE_BIND_TEXTDOMAIN_CODESET
