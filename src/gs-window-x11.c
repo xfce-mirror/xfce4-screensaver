@@ -1593,6 +1593,7 @@ popup_dialog (GSWindow *window) {
     window->priv->dialog_quit_requested = FALSE;
     window->priv->dialog_shake_in_progress = FALSE;
 
+    gs_debug ("Executing %s", command->str);
     result = spawn_on_window (window,
                               command->str,
                               &window->priv->lock_pid,

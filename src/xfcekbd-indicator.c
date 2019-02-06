@@ -452,7 +452,7 @@ xfcekbd_indicator_filter_x_evt (GdkXEvent *xev,
     switch (xevent->type) {
         case ReparentNotify:
             {
-                if (!globals.redraw_queued)
+                //if (!globals.redraw_queued)
                     return GDK_FILTER_CONTINUE;
 
                 XReparentEvent *rne = (XReparentEvent *) xev;
