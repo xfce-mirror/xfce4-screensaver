@@ -1218,40 +1218,6 @@ window_unmap_cb (GSWindow  *window,
 }
 
 static void
-apply_background_to_window (GSManager *manager,
-                            GSWindow  *window) {
-    cairo_surface_t *surface;
-    GdkMonitor      *monitor;
-    GdkRectangle     geometry;
-    int              width, m_width;
-    int              height, m_height;
-
-    monitor = gs_window_get_monitor (window);
-
-    xfce_bg_load_from_preferences (manager->priv->bg, monitor);
-
-    if (manager->priv->bg == NULL) {
-        gs_debug ("No background available");
-        gs_window_set_background_surface (window, NULL);
-    }
-
-    gdk_monitor_get_geometry (monitor, &geometry);
-    m_width = geometry.width;
-    m_height = geometry.height;
-    gtk_widget_get_preferred_width (GTK_WIDGET (window), &width, NULL);
-    gtk_widget_get_preferred_height (GTK_WIDGET (window), &height, NULL);
-    gs_debug ("Creating background (Screen: w:%d h:%d, Monitor: w:%d h: %d)", width, height, m_width, m_height);
-    surface = xfce_bg_create_surface (manager->priv->bg,
-                                      gs_window_get_gdk_window (window),
-                                      width,
-                                      height,
-                                      m_width,
-                                      m_height);
-    gs_window_set_background_surface (window, surface);
-    cairo_surface_destroy (surface);
-}
-
-static void
 manager_show_window (GSManager *manager,
                      GSWindow  *window) {
     GSJob *job;
@@ -1870,7 +1836,6 @@ gs_manager_request_unlock (GSManager *manager) {
 
     /* Find the GSWindow that contains the pointer */
     window = find_window_at_pointer (manager);
-        apply_background_to_window (manager, window);
     gs_window_request_unlock (window);
 
     return TRUE;

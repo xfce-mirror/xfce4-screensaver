@@ -65,7 +65,6 @@ enum {
 #define DIALOG_TIMEOUT_MSEC 60000
 
 static void gs_lock_plug_finalize   (GObject         *object);
-static void redraw_background       (GSLockPlug      *plug);
 
 struct GSLockPlugPrivate {
     GtkWidget   *vbox;
@@ -717,7 +716,6 @@ gs_lock_plug_set_monitor_index (GSLockPlug *plug,
     plug->priv->monitor_index = monitor_index;
     g_object_notify (G_OBJECT (plug), "monitor-index");
 
-    redraw_background (plug);
 }
 
 static void
@@ -1483,6 +1481,7 @@ redraw_background (GSLockPlug *plug) {
     GdkPixbuf *pixbuf;
     gint       screen_width, screen_height, monitor_width, monitor_height;
 
+    gs_debug ("Redrawing background");
     bg = xfce_bg_new();
     get_draw_dimensions(plug, bg, &screen_width, &screen_height, &monitor_width, &monitor_height);
     pixbuf = xfce_bg_get_pixbuf(bg, screen_width, screen_height, monitor_width, monitor_height);
