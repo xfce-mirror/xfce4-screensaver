@@ -22,11 +22,13 @@
 
 #include <config.h>
 
+#include <sys/time.h>
 #include <signal.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include <math.h>
 #include <unistd.h>
 
 #include <glib.h>
@@ -48,8 +50,11 @@ gs_debug_real (const char *func,
                const char *format, ...) {
     va_list args;
     char    buffer[1025];
-    char   *str_time;
-    time_t  the_time;
+    char    *str_time;
+    int     millisec;
+    struct  tm* tm_info;
+    struct  timeval tv;
+
 
     if (debugging == FALSE)
         return;
@@ -60,13 +65,20 @@ gs_debug_real (const char *func,
 
     va_end (args);
 
-    time (&the_time);
+    gettimeofday(&tv, NULL);
+    millisec = lrint(tv.tv_usec/1000.0);
+    if (millisec>=1000) {
+        millisec -=1000;
+        tv.tv_sec++;
+    }
+
+    tm_info = localtime(&tv.tv_sec);
     str_time = g_new0 (char, 255);
-    strftime (str_time, 254, "%H:%M:%S", localtime (&the_time));
+    strftime (str_time, 254, "%H:%M:%S", tm_info);
 
     fprintf ((debug_out ? debug_out : stderr),
-             "[%s] %s:%d (%s):\t %s\n",
-             func, file, line, str_time, buffer);
+             "[%s] %s:%d (%s.%03d):\t %s\n",
+             func, file, line, str_time, millisec, buffer);
 
     if (debug_out)
         fflush (debug_out);
