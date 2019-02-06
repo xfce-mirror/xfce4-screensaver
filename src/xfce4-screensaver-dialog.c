@@ -299,8 +299,6 @@ static gboolean do_auth_check(GSLockPlug* plug) {
 
     error = NULL;
 
-    gs_lock_plug_disable_prompt(plug);
-    gs_lock_plug_set_busy(plug);
     res = gs_auth_verify_user(g_get_user_name(), g_getenv("DISPLAY"), auth_message_handler, plug, &error);
 
     gs_debug("Verify user returned: %s", res ? "TRUE" : "FALSE");
@@ -418,6 +416,7 @@ static gboolean popup_dialog_idle(void) {
                                                GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
     gtk_widget_realize(widget);
+    gtk_widget_show(widget);
 
     g_idle_add((GSourceFunc) auth_check_idle, widget);
 
