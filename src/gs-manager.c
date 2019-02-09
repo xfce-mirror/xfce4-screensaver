@@ -1092,7 +1092,7 @@ find_window_at_pointer (GSManager *manager) {
     for (l = manager->priv->windows; l; l = l->next) {
         GSWindow *win = GS_WINDOW (l->data);
         if (gs_window_get_display (win) == display &&
-                gs_window_get_monitor (win) == monitor) {
+                g_strcmp0 (gs_window_get_monitor_model (win), gdk_monitor_get_model (monitor)) == 0) {
             window = win;
         }
     }
@@ -1419,6 +1419,20 @@ gs_manager_create_window_for_monitor (GSManager  *manager,
                                       GdkMonitor *monitor) {
     GSWindow    *window;
     GdkRectangle rect;
+    GSList      *l;
+    GdkDisplay  *display = gdk_monitor_get_display (monitor);
+
+    for (l = manager->priv->windows; l; l = l->next) {
+        GdkDisplay *this_display;
+        const gchar *this_monitor_model;
+
+        this_display = gs_window_get_display (GS_WINDOW (l->data));
+        this_monitor_model = gs_window_get_monitor_model (GS_WINDOW (l->data));
+        if (this_display == display && g_strcmp0 (this_monitor_model, gdk_monitor_get_model(monitor)) == 0) {
+            gs_debug ("Found already created window for this Monitor");
+            return;
+        }
+    }
 
     gdk_monitor_get_geometry (monitor, &rect);
 
