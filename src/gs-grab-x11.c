@@ -40,6 +40,7 @@
 #include "gs-grab.h"
 #include "gs-debug.h"
 
+#define SLEEPTIMEOUT 100000
 static void     gs_grab_class_init (GSGrabClass *klass);
 static void     gs_grab_init       (GSGrab      *grab);
 static void     gs_grab_finalize   (GObject     *object);
@@ -291,7 +292,7 @@ gs_grab_move (GSGrab     *grab,
                           no_pointer_grab, hide_cursor);
 
     if (result != GDK_GRAB_SUCCESS) {
-        g_usleep (G_USEC_PER_SEC);
+        g_usleep (SLEEPTIMEOUT);
         result = gs_grab_get (grab, window, display,
                               no_pointer_grab, hide_cursor);
     }
@@ -350,7 +351,7 @@ gs_grab_grab_window (GSGrab     *grab,
         }
 
         /* else, wait a second and try to grab again */
-        g_usleep (G_USEC_PER_SEC);
+        g_usleep (SLEEPTIMEOUT);
     }
 
     if (status != GDK_GRAB_SUCCESS) {
