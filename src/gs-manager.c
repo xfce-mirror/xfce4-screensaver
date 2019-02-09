@@ -1449,6 +1449,32 @@ gs_manager_create_window_for_monitor (GSManager  *manager,
     }
 }
 
+static gboolean
+gs_manager_is_real_monitor (GdkMonitor *monitor) {
+    // avoiding some weird gdk bug
+    // federico> avb: or if you don't care about a little unexplained messiness, just discard monitors where both fields are null? :)
+    if (gdk_monitor_get_manufacturer(monitor) == NULL && gdk_monitor_get_model(monitor) == NULL)
+        return FALSE;
+    return TRUE;
+}
+
+static int
+gs_manager_get_n_monitors (GdkDisplay *display) {
+    // Since gdk_display_get_n_monitors return wrong monitor count
+    // this is a workaround for the problem
+    GdkMonitor *monitor;
+    int        n_monitors;
+    int        i, count = 0;
+
+    n_monitors = gdk_display_get_n_monitors (display);
+    for (i = 0; i < n_monitors; i++) {
+        monitor = gdk_display_get_monitor(display, i);
+        if (gs_manager_is_real_monitor (monitor))
+            count++;
+    }
+    return count;
+}
+
 static void
 on_display_monitor_added (GdkDisplay *display,
                           GdkMonitor *monitor,
@@ -1456,7 +1482,9 @@ on_display_monitor_added (GdkDisplay *display,
     GSList     *l;
     int         n_monitors;
 
-    n_monitors = gdk_display_get_n_monitors (display);
+    g_return_if_fail (gs_manager_is_real_monitor(monitor));
+
+    n_monitors = gs_manager_get_n_monitors (display);
 
     gs_debug ("Monitor added on display %s, now there are %d",
               gdk_display_get_name (display), n_monitors);
@@ -1503,7 +1531,9 @@ on_display_monitor_removed (GdkDisplay *display,
     int         n_monitors;
     GdkMonitor *last_monitor = NULL;
 
-    n_monitors = manager->priv->last_monitor_count = gdk_display_get_n_monitors (display);
+    g_return_if_fail (gs_manager_is_real_monitor(monitor));
+
+    n_monitors = manager->priv->last_monitor_count = gs_manager_get_n_monitors (display);
 
     gs_debug ("Monitor removed on display %s, now there are %d",
               gdk_display_get_name (display), n_monitors);
