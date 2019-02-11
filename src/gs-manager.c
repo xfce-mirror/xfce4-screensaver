@@ -487,20 +487,6 @@ gs_manager_set_lock_enabled (GSManager *manager,
 }
 
 void
-gs_manager_get_lock_with_saver_enabled (GSManager *manager,
-                             gboolean  *lock_with_saver_enabled) {
-    if (lock_with_saver_enabled != NULL) {
-        *lock_with_saver_enabled = FALSE;
-    }
-
-    g_return_if_fail (GS_IS_MANAGER (manager));
-
-    if (lock_with_saver_enabled != NULL) {
-        *lock_with_saver_enabled = manager->priv->lock_with_saver_enabled;
-    }
-}
-
-void
 gs_manager_set_lock_with_saver_enabled (GSManager *manager,
                              gboolean   lock_with_saver_enabled) {
     g_return_if_fail (GS_IS_MANAGER (manager));
@@ -560,6 +546,7 @@ activate_lock_timeout (GSManager *manager) {
     if (manager->priv->lock_enabled &&
             manager->priv->lock_with_saver_enabled)
     {
+        gs_debug ("Locking screen after idling timeout");
         gs_manager_set_lock_active (manager, TRUE);
     }
 
@@ -579,6 +566,12 @@ remove_lock_timer (GSManager *manager) {
 static void
 add_lock_timer (GSManager *manager,
                 glong      timeout) {
+    if (!manager->priv->lock_enabled)
+        return;
+    if (!manager->priv->lock_with_saver_enabled)
+        return;
+
+    gs_debug ("Scheduling screen lock after screensaver is idling for %i sec", timeout / 1000);
     manager->priv->lock_timeout_id = g_timeout_add (timeout,
                                                     (GSourceFunc)activate_lock_timeout,
                                                     manager);

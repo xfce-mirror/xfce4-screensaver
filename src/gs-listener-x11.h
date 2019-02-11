@@ -52,13 +52,13 @@ GType                     gs_listener_x11_get_type                  (void);
 
 GSListenerX11            *gs_listener_x11_new                       (void);
 gboolean                  gs_listener_x11_acquire                   (GSListenerX11 *listener);
-void                      gs_listener_x11_set_lock_after            (GSListenerX11 *listener,
-                                                                     gint           lock_after);
+void
+                          gs_listener_x11_set_timeout               (GSListenerX11 *listener,
+                                                                     gint           timeout);
 void                      gs_listener_x11_set_saver_enabled         (GSListenerX11 *listener,
                                                                      gboolean       enabled);
 void                      gs_listener_x11_set_activation_enabled    (GSListenerX11 *listener,
                                                                      gboolean       enabled);
-
 G_END_DECLS
 
 #endif /* SRC_GS_LISTENER_X11_H_ */

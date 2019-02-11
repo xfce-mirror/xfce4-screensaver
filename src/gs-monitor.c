@@ -219,7 +219,7 @@ static void _gs_monitor_update_from_prefs(GSMonitor* monitor, GSPrefs* prefs) {
     /* enable activation when allowed */
     gs_listener_set_activation_enabled(monitor->priv->listener, monitor->priv->prefs->idle_activation_enabled);
     gs_listener_x11_set_activation_enabled(monitor->priv->listener_x11, monitor->priv->prefs->idle_activation_enabled);
-    gs_listener_x11_set_lock_after(monitor->priv->listener_x11, monitor->priv->prefs->timeout);
+    gs_listener_x11_set_timeout(monitor->priv->listener_x11, monitor->priv->prefs->timeout);
     gs_listener_x11_set_saver_enabled(monitor->priv->listener_x11, monitor->priv->prefs->saver_enabled);
 }
 
