@@ -1621,7 +1621,6 @@ void
 gs_window_request_unlock (GSWindow *window) {
     g_return_if_fail (GS_IS_WINDOW (window));
 
-    gs_debug ("Requesting unlock");
 
     if (!gtk_widget_get_visible (GTK_WIDGET (window))) {
         gs_debug ("Request unlock but window is not visible!");
@@ -1637,10 +1636,10 @@ gs_window_request_unlock (GSWindow *window) {
         return;
     }
 
+    gs_debug ("Requesting unlock for display %s", window->priv->monitor_model);
     if (window->priv->popup_dialog_idle_id == 0) {
         add_popup_dialog_idle (window);
     }
-
     window_set_dialog_up (window, TRUE);
 }
 
@@ -1791,6 +1790,8 @@ gs_window_set_status_message (GSWindow   *window,
 void
 gs_window_set_monitor (GSWindow   *window,
                        GdkMonitor *monitor) {
+    gint tmp;
+
     g_return_if_fail (GS_IS_WINDOW (window));
 
     if (window->priv->monitor == monitor) {
@@ -1801,6 +1802,7 @@ gs_window_set_monitor (GSWindow   *window,
     window->priv->monitor_model = g_strdup(gdk_monitor_get_model(monitor));
 
     gtk_widget_queue_resize (GTK_WIDGET (window));
+    gtk_widget_get_preferred_width (GTK_WIDGET (window), &tmp, &tmp);
 
     g_object_notify (G_OBJECT (window), "monitor");
 }
@@ -2046,6 +2048,10 @@ gs_window_real_size_request (GtkWidget      *widget,
     window = GS_WINDOW (widget);
     bin = GTK_BIN (widget);
     child = gtk_bin_get_child (bin);
+
+    // monitor been removed, but we will return it later on
+    if (!GDK_IS_MONITOR (window->priv->monitor))
+        return;
 
     if (child && gtk_widget_get_visible (child)) {
         gtk_widget_get_preferred_size (child, requisition, NULL);

@@ -1510,8 +1510,11 @@ on_display_monitor_added (GdkDisplay *display,
         this_display = gs_window_get_display (GS_WINDOW (l->data));
         this_monitor_model = gs_window_get_monitor_model (GS_WINDOW (l->data));
         if (this_display == display && g_strcmp0 (this_monitor_model, gdk_monitor_get_model(monitor)) == 0) {
+            gint tmp;
+
             gs_debug ("Found window for this Monitor");
             gs_window_set_monitor (GS_WINDOW (l->data), monitor);
+            gtk_widget_get_preferred_width (l->data, &tmp, &tmp);
             should_create = FALSE;
         }
     }
