@@ -395,13 +395,13 @@ gs_manager_set_lock_active (GSManager *manager,
 
     g_return_if_fail (GS_IS_MANAGER (manager));
 
-    gs_debug ("Setting lock active: %d", lock_active);
 
     if (manager->priv->lock_active != lock_active) {
         manager->priv->lock_active = lock_active;
     }
 
     for (l = manager->priv->windows; l; l = l->next) {
+        gs_debug ("Setting lock active: %d", lock_active);
         gs_window_set_lock_active(l->data, lock_active);
     }
 }
@@ -569,6 +569,11 @@ add_lock_timer (GSManager *manager,
     if (!manager->priv->lock_enabled)
         return;
     if (!manager->priv->lock_with_saver_enabled)
+        return;
+
+    gboolean locked;
+    gs_manager_get_lock_active (manager, &locked);
+    if (locked)
         return;
 
     gs_debug ("Scheduling screen lock after screensaver is idling for %i sec", timeout / 1000);
