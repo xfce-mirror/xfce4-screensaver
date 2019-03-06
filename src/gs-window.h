@@ -64,8 +64,6 @@ GdkDisplay *gs_window_get_display             (GSWindow        *window);
 void        gs_window_set_monitor             (GSWindow        *window,
                                                GdkMonitor      *monitor);
 GdkMonitor *gs_window_get_monitor             (GSWindow        *window);
-const
-gchar      *gs_window_get_monitor_model       (GSWindow *window);
 
 void        gs_window_set_background_surface  (GSWindow        *window,
                                                cairo_surface_t *surface);

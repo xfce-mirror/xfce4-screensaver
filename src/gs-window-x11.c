@@ -60,7 +60,6 @@ enum {
 
 struct GSWindowPrivate {
     GdkMonitor      *monitor;
-    gchar           *monitor_model;
 
     GdkRectangle     geometry;
     guint            obscured : 1;
@@ -1636,7 +1635,6 @@ gs_window_request_unlock (GSWindow *window) {
         return;
     }
 
-    gs_debug ("Requesting unlock for display %s", window->priv->monitor_model);
     if (window->priv->popup_dialog_idle_id == 0) {
         add_popup_dialog_idle (window);
     }
@@ -1799,7 +1797,6 @@ gs_window_set_monitor (GSWindow   *window,
     }
 
     window->priv->monitor = monitor;
-    window->priv->monitor_model = g_strdup(gdk_monitor_get_model(monitor));
 
     gtk_widget_queue_resize (GTK_WIDGET (window));
     gtk_widget_get_preferred_width (GTK_WIDGET (window), &tmp, &tmp);
@@ -1813,14 +1810,6 @@ gs_window_get_monitor (GSWindow *window) {
 
     return window->priv->monitor;
 }
-
-const gchar *
-gs_window_get_monitor_model (GSWindow *window) {
-    g_return_val_if_fail (GS_IS_WINDOW (window), NULL);
-
-    return window->priv->monitor_model;
-}
-
 
 static void
 gs_window_set_property (GObject      *object,
@@ -2376,7 +2365,6 @@ gs_window_finalize (GObject *object) {
 
     g_free (window->priv->logout_command);
     g_free (window->priv->keyboard_command);
-    g_free (window->priv->monitor_model);
 
     if (window->priv->info_bar_timer_id > 0) {
         g_source_remove (window->priv->info_bar_timer_id);
@@ -2411,7 +2399,6 @@ gs_window_new (GdkMonitor *monitor,
     GdkDisplay *display = gdk_monitor_get_display (monitor);
     GdkScreen  *screen = gdk_display_get_default_screen (display);
 
-    gs_debug ("Creating new GSWindow for %s", gdk_monitor_get_model(monitor));
     result = g_object_new (GS_TYPE_WINDOW,
                            "type", GTK_WINDOW_POPUP,
                            "screen", screen,
