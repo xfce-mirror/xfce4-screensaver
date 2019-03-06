@@ -5,20 +5,20 @@
 # 
 # Translators:
 # Sergey Alyoshin <alyoshin.s@gmail.com>, 2018
-# Aleksandr P, 2018
 # Nick Schermer <nick@xfce.org>, 2018
 # Aleksey Kabanov <ak099@mail.ru>, 2018
-# vladi105 <vladi105@yandex.ru>, 2018
+# Владимир <vladi105@yandex.ru>, 2018
 # Igor <f2404@yandex.ru>, 2018
+# Aleksandr P, 2018
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 06:31+0100\n"
+"POT-Creation-Date: 2018-11-20 06:31+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Igor <f2404@yandex.ru>, 2018\n"
+"Last-Translator: Aleksandr P, 2018\n"
 "Language-Team: Russian (https://www.transifex.com/xfce/teams/16840/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -93,30 +93,6 @@ msgid "You must specify one image.  See --help for usage information.\n"
 msgstr ""
 "Вы должны указать одно изображение. Введите --help для получения справки.\n"
 
-#: ../savers/xfce-floaters.desktop.in.in.h:1
-msgid "Floating Xfce"
-msgstr "Летающий Xfce"
-
-#: ../savers/xfce-floaters.desktop.in.in.h:2
-msgid "Bubbles the Xfce logo around the screen"
-msgstr "Плавающие по экрану логотипы Xfce"
-
-#: ../savers/personal-slideshow.desktop.in.in.h:1
-msgid "Pictures folder"
-msgstr "Каталог Изображения"
-
-#: ../savers/personal-slideshow.desktop.in.in.h:2
-msgid "Display a slideshow from your Pictures folder"
-msgstr "Слайд-шоу из содержимого каталога Изображения"
-
-#: ../savers/popsquares.desktop.in.in.h:1
-msgid "Pop art squares"
-msgstr "Цветные квадраты"
-
-#: ../savers/popsquares.desktop.in.in.h:2
-msgid "A pop-art-ish grid of pulsing colors."
-msgstr "Сетка из ярких мерцающих квадратов."
-
 #: ../savers/slideshow.c:53
 msgid "Location to get images from"
 msgstr "Расположение к изображений"
@@ -141,6 +117,30 @@ msgstr "Не показывать в случайном порядке"
 msgid "Do not try to stretch images on screen"
 msgstr "Не растягивать изображения"
 
+#: ../savers/xfce-floaters.desktop.in.in.h:1
+msgid "Floating Xfce"
+msgstr "Летающий Xfce"
+
+#: ../savers/xfce-floaters.desktop.in.in.h:2
+msgid "Bubbles the Xfce logo around the screen"
+msgstr "Плавающие по экрану логотипы Xfce"
+
+#: ../savers/xfce-personal-slideshow.desktop.in.in.h:1
+msgid "Pictures folder"
+msgstr "Каталог Изображения"
+
+#: ../savers/xfce-personal-slideshow.desktop.in.in.h:2
+msgid "Display a slideshow from your Pictures folder"
+msgstr "Слайд-шоу из содержимого каталога Изображения"
+
+#: ../savers/xfce-popsquares.desktop.in.in.h:1
+msgid "Pop art squares"
+msgstr "Цветные квадраты"
+
+#: ../savers/xfce-popsquares.desktop.in.in.h:2
+msgid "A pop-art-ish grid of pulsing colors."
+msgstr "Сетка из ярких мерцающих квадратов."
+
 #: ../src/copy-theme-dialog.c:214
 msgid "Copying files"
 msgstr "Копирование файлов"
@@ -153,7 +153,7 @@ msgstr "Из:"
 msgid "To:"
 msgstr "В:"
 
-#: ../src/copy-theme-dialog.c:255 ../src/gs-lock-plug.c:1193
+#: ../src/copy-theme-dialog.c:255 ../src/gs-lock-plug.c:1195
 #: ../src/xfce4-screensaver-dialog.ui.h:7
 msgid "_Cancel"
 msgstr "О_тмена"
@@ -222,32 +222,33 @@ msgstr "не удалось подключиться к шине сообщен�
 msgid "screensaver already running in this session"
 msgstr "в этом сеансе уже запущен хранитель экрана"
 
-#: ../src/gs-lock-plug.c:267
+#: ../src/gs-lock-plug.c:269
+msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, %e %B   %H:%M"
 
-#: ../src/gs-lock-plug.c:350
+#: ../src/gs-lock-plug.c:352
 msgid "Time has expired."
 msgstr "Время истекло."
 
-#: ../src/gs-lock-plug.c:1178
+#: ../src/gs-lock-plug.c:1180
 msgid "S_witch User..."
 msgstr "П_ереключить пользователя..."
 
-#: ../src/gs-lock-plug.c:1187
+#: ../src/gs-lock-plug.c:1189
 msgid "Log _Out"
 msgstr "В_ыйти"
 
-#: ../src/gs-lock-plug.c:1198 ../src/xfce4-screensaver-dialog.ui.h:8
+#: ../src/gs-lock-plug.c:1200 ../src/xfce4-screensaver-dialog.ui.h:8
 msgid "_Unlock"
 msgstr "_Разблокировать"
 
 #. To translators: This expands to USERNAME on HOSTNAME
-#: ../src/gs-lock-plug.c:1364
+#: ../src/gs-lock-plug.c:1366
 msgid "%U on %h"
 msgstr "%U на %h"
 
-#: ../src/gs-lock-plug.c:1379
+#: ../src/gs-lock-plug.c:1381
 msgid "Please enter your password."
 msgstr "Введите ваш пароль."
 
@@ -514,23 +515,23 @@ msgstr "Сокет менеджера настроек"
 msgid "SOCKET ID"
 msgstr "ID СОКЕТА"
 
-#: ../src/xfce4-screensaver-preferences.c:594
+#: ../src/xfce4-screensaver-preferences.c:641
 msgid "Blank screen"
 msgstr "Очистка экрана"
 
-#: ../src/xfce4-screensaver-preferences.c:600
+#: ../src/xfce4-screensaver-preferences.c:647
 msgid "Random"
 msgstr "Случайный порядок"
 
-#: ../src/xfce4-screensaver-preferences.c:1677
+#: ../src/xfce4-screensaver-preferences.c:1828
 msgid "Setting locked by administrator."
 msgstr "Настройка заблокирована администратором."
 
-#: ../src/xfce4-screensaver-preferences.c:1717
+#: ../src/xfce4-screensaver-preferences.c:1868
 msgid "Could not load the main interface"
 msgstr "Не удалось загрузить основной интерфейс"
 
-#: ../src/xfce4-screensaver-preferences.c:1719
+#: ../src/xfce4-screensaver-preferences.c:1870
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "Убедитесь, что хранитель экрана правильно установлен"
 
@@ -592,56 +593,56 @@ msgid "Change theme after:"
 msgstr "Изменить тему после:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:15
+msgid "minutes"
+msgstr "минут"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:16
 msgid "Activate screensaver when computer is idle"
 msgstr "Активировать заставку во время простоя ПК"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:16
+#: ../src/xfce4-screensaver-preferences.ui.h:17
 msgid "Regard the computer as _idle after:"
 msgstr "Считать компьютер _неактивным после:"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:17
-msgid "minutes"
-msgstr "минут"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:19
 msgid "Enable Lock Screen"
 msgstr "Включить блокировку экрана"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:20
-msgid "Session Status Messages"
-msgstr "Сообщения о состоянии сеанса"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:21
-msgid "User Switching"
-msgstr "Сменить пользователя"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:22
-msgid "Logout"
-msgstr "Выйти"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:23
-msgid "Logout command:"
-msgstr "Команда выхода:"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:24
-msgid "Enable logout after:"
-msgstr "Включить выход после:"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:25
-msgid "Lock the screen after the screensaver is active for:"
-msgstr "Блокировать экран, если хранитель экрана активен в течение:"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:26
 msgid "Lock Screen with Screensaver"
 msgstr "Блокировать экран хранителем экрана"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:27
+#: ../src/xfce4-screensaver-preferences.ui.h:21
+msgid "Lock the screen after the screensaver is active for:"
+msgstr "Блокировать экран, если хранитель экрана активен в течение:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:22
 msgid "On Screen Keyboard"
 msgstr "Экранная клавиатура"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:28
+#: ../src/xfce4-screensaver-preferences.ui.h:23
 msgid "On screen keyboard command:"
 msgstr "Команда для запуска экранной клавиатуры:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:24
+msgid "Session Status Messages"
+msgstr "Сообщения о состоянии сеанса"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:25
+msgid "Logout"
+msgstr "Выйти"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:26
+msgid "Logout command:"
+msgstr "Команда выхода:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:27
+msgid "Enable logout after:"
+msgstr "Включить выход после:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:28
+msgid "User Switching"
+msgstr "Сменить пользователя"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:29
 msgid "Lock Screen"
