@@ -1,7 +1,7 @@
 0.1.4 (unreleased)
 ==================
 - Features:
-  - Added support for locking on suspend
+  - Added support for locking on suspend (Xfce #15001)
 - General:
   - Faster screen locking when activated
   - Faster renderering of the authentication prompt
