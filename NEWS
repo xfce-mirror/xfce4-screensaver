@@ -1,3 +1,17 @@
+0.1.4 (unreleased)
+==================
+- Features:
+  - Added support for locking on suspend
+- General:
+  - Faster screen locking when activated
+  - Faster renderering of the authentication prompt
+  - Improved support for monitor dis-/connection events
+  - Improved lock screen display on lid open events
+  - Improved idle activation
+- Translation Updates:
+  Belarusian, Catalan, Czech, Spanish, Basque, Malay, Portuguese, Russian,
+  Serbian, Swedish
+
 0.1.3 (beta)
 ============
 - Features:
