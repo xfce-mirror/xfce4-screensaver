@@ -8,6 +8,8 @@
   - Improved support for monitor dis-/connection events
   - Improved lock screen display on lid open events
   - Improved idle activation
+  - Improved low-power state, screensavers are now suspended
+    when monitors are powered off via DPMS (Debian #921835)
 - Translation Updates:
   Belarusian, Catalan, Czech, Spanish, Basque, Malay, Portuguese, Russian,
   Serbian, Swedish

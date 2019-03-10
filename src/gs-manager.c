@@ -29,6 +29,8 @@
 #include <gdk/gdkx.h>
 #include <gio/gio.h>
 
+#include <X11/extensions/dpms.h>
+
 #include "gs-debug.h"
 #include "gs-grab.h"
 #include "gs-fade.h"
@@ -88,6 +90,8 @@ struct GSManagerPrivate {
     GSGrab         *grab;
     GSFade         *fade;
     guint           unfade_idle_id;
+    guint           deepsleep_idle_id;
+    gboolean        deepsleep;
 };
 
 enum {
@@ -121,6 +125,10 @@ enum {
 static guint         signals[LAST_SIGNAL] = { 0, };
 
 G_DEFINE_TYPE_WITH_PRIVATE (GSManager, gs_manager, G_TYPE_OBJECT)
+
+static void         remove_deepsleep_idle   (GSManager *manager);
+static gboolean     deepsleep_idle          (GSManager *manager);
+static void         add_deepsleep_idle      (GSManager *manager);
 
 static void
 manager_add_job_for_window (GSManager *manager,
@@ -1033,6 +1041,8 @@ gs_manager_init (GSManager *manager) {
                       manager);
 
     xfce_bg_load_from_preferences (manager->priv->bg, NULL);
+
+    add_deepsleep_idle(manager);
 }
 
 static void
@@ -1188,6 +1198,47 @@ static void
 add_unfade_idle (GSManager *manager) {
     remove_unfade_idle (manager);
     manager->priv->unfade_idle_id = g_timeout_add (500, (GSourceFunc)unfade_idle, manager);
+}
+
+static void
+remove_deepsleep_idle (GSManager *manager) {
+    if (manager->priv->deepsleep_idle_id > 0) {
+        g_source_remove (manager->priv->deepsleep_idle_id);
+        manager->priv->deepsleep_idle_id = 0;
+    }
+}
+
+static gboolean
+deepsleep_idle (GSManager *manager) {
+    BOOL state;
+    CARD16 power_level;
+
+    if (!DPMSInfo(gdk_x11_get_default_xdisplay(), &power_level, &state)) {
+        if (manager->priv->deepsleep) {
+            gs_debug ("Unable to read DPMS state, exiting deep sleep");
+            manager->priv->deepsleep = FALSE;
+        }
+        return TRUE;
+    }
+
+    if (power_level == DPMSModeOn) {
+        if (manager->priv->deepsleep) {
+            gs_debug ("Exiting deep sleep");
+            manager->priv->deepsleep = FALSE;
+        }
+    } else if (!manager->priv->throttled && !manager->priv->deepsleep) {
+        gs_debug ("Entering deep sleep, suspending jobs");
+        manager->priv->deepsleep = TRUE;
+        manager_suspend_jobs (manager);
+    }
+
+    return TRUE;
+}
+
+static void
+add_deepsleep_idle (GSManager *manager) {
+    remove_deepsleep_idle(manager);
+    manager->priv->deepsleep_idle_id = g_timeout_add (15000, (GSourceFunc)deepsleep_idle, manager);
 }
 
 static gboolean
@@ -1626,7 +1677,8 @@ gs_manager_finalize (GObject *object) {
     g_free (manager->priv->status_message);
 
     remove_unfade_idle (manager);
-    remove_timers (manager);
+    remove_deepsleep_idle (manager);
+    remove_timers(manager);
 
     gs_grab_release (manager->priv->grab, TRUE);
 
