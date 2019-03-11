@@ -715,7 +715,6 @@ gs_lock_plug_set_monitor_index (GSLockPlug *plug,
 
     plug->priv->monitor_index = monitor_index;
     g_object_notify (G_OBJECT (plug), "monitor-index");
-
 }
 
 static void

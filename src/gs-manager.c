@@ -1019,13 +1019,6 @@ gs_manager_class_init (GSManagerClass *klass) {
 }
 
 static void
-on_bg_changed (XfceBG    *bg,
-               GSManager *manager) {
-    // TODO: cleanup unused code
-    // gs_debug ("background changed");
-}
-
-static void
 gs_manager_init (GSManager *manager) {
     manager->priv = gs_manager_get_instance_private (manager);
 
@@ -1034,11 +1027,6 @@ gs_manager_init (GSManager *manager) {
     manager->priv->theme_manager = gs_theme_manager_new ();
 
     manager->priv->bg = xfce_bg_new ();
-
-    g_signal_connect (manager->priv->bg,
-                      "changed",
-                      G_CALLBACK (on_bg_changed),
-                      manager);
 
     xfce_bg_load_from_preferences (manager->priv->bg, NULL);
 
@@ -1501,7 +1489,8 @@ gs_manager_create_window_for_monitor (GSManager  *manager,
 static gboolean
 gs_manager_is_real_monitor (GdkMonitor *monitor) {
     // avoiding some weird gdk bug
-    // federico> avb: or if you don't care about a little unexplained messiness, just discard monitors where both fields are null? :)
+    // federico> avb: or if you don't care about a little unexplained messiness,
+    //                just discard monitors where both fields are null? :)
     if (gdk_monitor_get_manufacturer(monitor) == NULL && gdk_monitor_get_model(monitor) == NULL)
         return FALSE;
     return TRUE;

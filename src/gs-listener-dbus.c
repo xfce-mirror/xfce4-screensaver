@@ -1495,7 +1495,7 @@ listener_dbus_handle_system_message (DBusConnection *connection,
                 g_signal_emit (listener, signals[LOCK], 0);
             } else {
                 gs_debug ("Logind requested session unlock");
-                //FIXME: there is no signal to request password prompt
+                // FIXME: there is no signal to request password prompt
                 g_signal_emit (listener, signals[SHOW_MESSAGE], 0, NULL, NULL, NULL);
             }
 

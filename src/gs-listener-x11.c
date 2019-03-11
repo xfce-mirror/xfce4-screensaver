@@ -162,7 +162,7 @@ gs_listener_x11_set_timeout (GSListenerX11 *listener,
     Display *display = gdk_x11_display_get_xdisplay(gdk_display_get_default());
 
     /* set X server timeouts and disable screen blanking */
-    XSetScreenSaver(display, timeout * 60, timeout * 60, 0,0);
+    XSetScreenSaver(display, timeout * 60, timeout * 60, 0, 0);
     listener->priv->timeout = timeout * 60;
     gs_debug("Screensaver timeout updated to %i minutes", timeout);
 }
