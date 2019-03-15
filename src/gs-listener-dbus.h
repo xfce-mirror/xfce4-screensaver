@@ -69,21 +69,23 @@ typedef enum
 
 #define GS_LISTENER_ERROR gs_listener_error_quark ()
 
-GQuark      gs_listener_error_quark             (void);
+GQuark      gs_listener_error_quark                     (void);
 
-GType       gs_listener_get_type                (void);
+GType       gs_listener_get_type                        (void);
 
-GSListener *gs_listener_new                     (void);
-gboolean    gs_listener_acquire                 (GSListener *listener,
-                                                 GError    **error);
-gboolean    gs_listener_set_active              (GSListener *listener,
-                                                 gboolean    active);
-gboolean    gs_listener_set_session_idle        (GSListener *listener,
-                                                 gboolean    idle);
-void        gs_listener_set_activation_enabled  (GSListener *listener,
-                                                 gboolean    enabled);
-gboolean    gs_listener_get_activation_enabled  (GSListener *listener);
-gboolean    gs_listener_is_inhibited            (GSListener *listener);
+GSListener *gs_listener_new                             (void);
+gboolean    gs_listener_acquire                         (GSListener *listener,
+                                                         GError    **error);
+gboolean    gs_listener_set_active                      (GSListener *listener,
+                                                         gboolean    active);
+gboolean    gs_listener_set_session_idle                (GSListener *listener,
+                                                         gboolean    idle);
+void        gs_listener_set_activation_enabled          (GSListener *listener,
+                                                         gboolean    enabled);
+void        gs_listener_set_sleep_activation_enabled    (GSListener *listener,
+                                                         gboolean    enabled);
+gboolean    gs_listener_get_activation_enabled          (GSListener *listener);
+gboolean    gs_listener_is_inhibited                    (GSListener *listener);
 
 G_END_DECLS
 

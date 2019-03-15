@@ -34,7 +34,6 @@
 #include <dbus/dbus-glib-lowlevel.h>
 
 #include <libxfce4util/libxfce4util.h>
-#include <xfconf/xfconf.h>
 
 #ifdef WITH_SYSTEMD
 #include <systemd/sd-login.h>
@@ -88,6 +87,7 @@ struct GSListenerPrivate {
     guint           session_idle : 1;
     guint           active : 1;
     guint           activation_enabled : 1;
+    guint           sleep_activation_enabled : 1;
     guint           throttled : 1;
     GHashTable     *inhibitors;
     GHashTable     *throttlers;
@@ -128,6 +128,7 @@ enum {
     PROP_ACTIVE,
     PROP_SESSION_IDLE,
     PROP_ACTIVATION_ENABLED,
+    PROP_SLEEP_ACTIVATION_ENABLED,
 };
 
 enum {
@@ -492,6 +493,16 @@ gs_listener_set_activation_enabled (GSListener *listener,
 
     if (listener->priv->activation_enabled != enabled) {
         listener->priv->activation_enabled = enabled;
+    }
+}
+
+void
+gs_listener_set_sleep_activation_enabled (GSListener *listener,
+                                          gboolean    enabled) {
+    g_return_if_fail (GS_IS_LISTENER (listener));
+
+    if (listener->priv->sleep_activation_enabled != enabled) {
+        listener->priv->sleep_activation_enabled = enabled;
     }
 }
 
@@ -1492,10 +1503,7 @@ listener_dbus_handle_system_message (DBusConnection *connection,
             dbus_error_init (&error);
             dbus_message_get_args (message, &error, DBUS_TYPE_BOOLEAN, &active, DBUS_TYPE_INVALID);
             if (active) {
-                XfconfChannel *channel = xfconf_channel_get ("xfce4-power-manager");
-                const gchar *property = "/xfce4-power-manager/lock-screen-suspend-hibernate";
-                gboolean lock_screen = xfconf_channel_get_bool (channel, property, TRUE);
-                if (lock_screen) {
+                if (listener->priv->sleep_activation_enabled) {
                     gs_debug ("Logind requested session lock");
                     g_signal_emit (listener, signals[LOCK], 0);
                 } else {
@@ -1808,6 +1816,9 @@ gs_listener_set_property (GObject      *object,
         case PROP_ACTIVATION_ENABLED:
             gs_listener_set_activation_enabled (self, g_value_get_boolean (value));
             break;
+        case PROP_SLEEP_ACTIVATION_ENABLED:
+            gs_listener_set_sleep_activation_enabled (self, g_value_get_boolean (value));
+            break;
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
             break;
@@ -1832,6 +1843,9 @@ gs_listener_get_property (GObject    *object,
             break;
         case PROP_ACTIVATION_ENABLED:
             g_value_set_boolean (value, self->priv->activation_enabled);
+            break;
+        case PROP_SLEEP_ACTIVATION_ENABLED:
+            g_value_set_boolean (value, self->priv->sleep_activation_enabled);
             break;
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -1933,6 +1947,13 @@ gs_listener_class_init (GSListenerClass *klass) {
     g_object_class_install_property (object_class,
                                      PROP_ACTIVATION_ENABLED,
                                      g_param_spec_boolean ("activation-enabled",
+                                                           NULL,
+                                                           NULL,
+                                                           TRUE,
+                                                           G_PARAM_READWRITE));
+    g_object_class_install_property (object_class,
+                                     PROP_SLEEP_ACTIVATION_ENABLED,
+                                     g_param_spec_boolean ("sleep-activation-enabled",
                                                            NULL,
                                                            NULL,
                                                            TRUE,

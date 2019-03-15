@@ -70,6 +70,7 @@ static GtkBuilder     *builder = NULL;
 static GSThemeManager *theme_manager = NULL;
 static GSJob          *job = NULL;
 static XfconfChannel  *screensaver_channel = NULL;
+static XfconfChannel  *xfpm_channel = NULL;
 
 static gboolean        idle_delay_writable;
 static gboolean        lock_delay_writable;
@@ -336,6 +337,27 @@ config_get_saver_enabled (gboolean *is_writable) {
 static void
 config_set_saver_enabled (gboolean lock) {
     xfconf_channel_set_bool (screensaver_channel, KEY_SAVER_ENABLED, lock);
+}
+
+static gboolean
+config_get_lock_on_suspend_hibernate_enabled (gboolean *is_writable) {
+    gboolean lock;
+
+    if (is_writable) {
+        *is_writable = !xfconf_channel_is_property_locked (xfpm_channel,
+                                                           KEY_LOCK_ON_SLEEP);
+    }
+
+    lock = xfconf_channel_get_bool (xfpm_channel,
+                                    KEY_LOCK_ON_SLEEP,
+                                    DEFAULT_KEY_LOCK_ON_SLEEP);
+
+    return lock;
+}
+
+static void
+config_set_lock_on_suspend_hibernate_enabled (gboolean lock) {
+    xfconf_channel_set_bool (xfpm_channel, KEY_LOCK_ON_SLEEP, lock);
 }
 
 static gboolean
@@ -1119,6 +1141,11 @@ saver_toggled_cb (GtkSwitch *widget, gpointer user_data) {
 }
 
 static void
+lock_on_suspend_hibernate_toggled_cb (GtkSwitch *widget, gpointer user_data) {
+    config_set_lock_on_suspend_hibernate_enabled (gtk_switch_get_active (widget));
+}
+
+static void
 lock_toggled_cb (GtkSwitch *widget, gpointer user_data) {
     gboolean writable;
 
@@ -1230,6 +1257,19 @@ ui_set_saver_enabled (gboolean enabled) {
 
     writable = enabled;
     gtk_widget_set_sensitive (GTK_WIDGET (gtk_builder_get_object (builder, "saver_grid")), writable);
+}
+
+static void
+ui_set_lock_on_suspend_hibernate_enabled (gboolean enabled) {
+    GtkWidget *widget;
+    gboolean   active;
+
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_suspend_hibernate_enabled"));
+
+    active = gtk_switch_get_active (GTK_SWITCH (widget));
+    if (active != enabled) {
+        gtk_switch_set_active (GTK_SWITCH (widget), enabled);
+    }
 }
 
 static void
@@ -1445,6 +1485,10 @@ key_changed_cb (XfconfChannel *channel, const gchar *key, gpointer data) {
         gboolean enabled;
         enabled = xfconf_channel_get_bool (channel, key, DEFAULT_KEY_SAVER_ENABLED);
         ui_set_saver_enabled (enabled);
+    } else if (strcmp (key, KEY_LOCK_ON_SLEEP) == 0) {
+        gboolean enabled;
+        enabled = xfconf_channel_get_bool (channel, key, DEFAULT_KEY_LOCK_ON_SLEEP);
+        ui_set_lock_on_suspend_hibernate_enabled (enabled);
     } else if (strcmp (key, KEY_LOCK_ENABLED) == 0) {
         gboolean enabled;
         enabled = xfconf_channel_get_bool (channel, key, DEFAULT_KEY_LOCK_ENABLED);
@@ -1904,6 +1948,12 @@ configure_capplet (void) {
                       G_CALLBACK (key_changed_cb),
                       NULL);
 
+    xfpm_channel = xfconf_channel_get(XFPM_XFCONF_CHANNEL);
+    g_signal_connect (xfpm_channel,
+                      "property-changed",
+                      G_CALLBACK (key_changed_cb),
+                      NULL);
+
     /* Idle delay */
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "saver_idle_activation_delay"));
     delay = config_get_idle_delay (&idle_delay_writable);
@@ -1961,6 +2011,14 @@ configure_capplet (void) {
     set_widget_writable (widget, is_writable);
     g_signal_connect (widget, "notify::active",
                       G_CALLBACK (saver_toggled_cb), NULL);
+
+    /* Lock on suspend/hibernate enabled */
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_suspend_hibernate_enabled"));
+    enabled = config_get_lock_on_suspend_hibernate_enabled (&is_writable);
+    ui_set_lock_on_suspend_hibernate_enabled (enabled);
+    set_widget_writable (widget, is_writable);
+    g_signal_connect (widget, "notify::active",
+                      G_CALLBACK (lock_on_suspend_hibernate_toggled_cb), NULL);
 
     /* Lock enabled */
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_enabled"));

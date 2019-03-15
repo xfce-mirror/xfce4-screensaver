@@ -39,6 +39,7 @@ static void gs_prefs_finalize   (GObject      *object);
 
 struct GSPrefsPrivate {
     XfconfChannel *channel;
+    XfconfChannel *xfpm_channel;
 };
 
 enum {
@@ -173,6 +174,12 @@ _gs_prefs_set_idle_activation_enabled (GSPrefs  *prefs,
 }
 
 static void
+_gs_prefs_set_sleep_activation_enabled (GSPrefs  *prefs,
+                                        gboolean  value) {
+    prefs->sleep_activation_enabled = value;
+}
+
+static void
 _gs_prefs_set_saver_enabled (GSPrefs  *prefs,
                             gboolean  value) {
     prefs->saver_enabled = value;
@@ -266,6 +273,11 @@ gs_prefs_load_from_settings (GSPrefs *prefs) {
                                       KEY_IDLE_ACTIVATION_ENABLED,
                                       DEFAULT_KEY_IDLE_ACTIVATION_ENABLED);
     _gs_prefs_set_idle_activation_enabled (prefs, bvalue);
+
+    bvalue = xfconf_channel_get_bool (prefs->priv->xfpm_channel,
+                                      KEY_LOCK_ON_SLEEP,
+                                      DEFAULT_KEY_LOCK_ON_SLEEP);
+    _gs_prefs_set_sleep_activation_enabled (prefs, bvalue);
 
     bvalue = xfconf_channel_get_bool (prefs->priv->channel,
                                       KEY_SAVER_ENABLED,
@@ -381,6 +393,11 @@ key_changed_cb (XfconfChannel *channel,
 
         enabled = xfconf_channel_get_bool (channel, property, DEFAULT_KEY_IDLE_ACTIVATION_ENABLED);
         _gs_prefs_set_idle_activation_enabled (prefs, enabled);
+    } else if (strcmp (property, KEY_LOCK_ON_SLEEP) == 0) {
+        gboolean enabled;
+
+        enabled = xfconf_channel_get_bool (channel, property, DEFAULT_KEY_LOCK_ON_SLEEP);
+        _gs_prefs_set_sleep_activation_enabled (prefs, enabled);
     } else if (strcmp (property, KEY_SAVER_ENABLED) == 0) {
         gboolean enabled;
 
@@ -452,19 +469,26 @@ gs_prefs_init (GSPrefs *prefs) {
                       G_CALLBACK (key_changed_cb),
                       prefs);
 
-    prefs->saver_enabled           = TRUE;
-    prefs->lock_enabled            = TRUE;
-    prefs->idle_activation_enabled = TRUE;
-    prefs->lock_with_saver_enabled = TRUE;
-    prefs->logout_enabled          = FALSE;
-    prefs->user_switch_enabled     = FALSE;
+    prefs->priv->xfpm_channel = xfconf_channel_get (XFPM_XFCONF_CHANNEL);
+    g_signal_connect (prefs->priv->xfpm_channel,
+                      "property-changed",
+                      G_CALLBACK (key_changed_cb),
+                      prefs);
 
-    prefs->timeout                 = 600000;
-    prefs->lock_timeout            = 0;
-    prefs->logout_timeout          = 14400000;
-    prefs->cycle                   = 600000;
+    prefs->saver_enabled            = TRUE;
+    prefs->lock_enabled             = TRUE;
+    prefs->idle_activation_enabled  = TRUE;
+    prefs->sleep_activation_enabled = TRUE;
+    prefs->lock_with_saver_enabled  = TRUE;
+    prefs->logout_enabled           = FALSE;
+    prefs->user_switch_enabled      = FALSE;
 
-    prefs->mode                    = GS_MODE_SINGLE;
+    prefs->timeout                  = 600000;
+    prefs->lock_timeout             = 0;
+    prefs->logout_timeout           = 14400000;
+    prefs->cycle                    = 600000;
+
+    prefs->mode                     = GS_MODE_SINGLE;
 
     gs_prefs_load_from_settings (prefs);
 }
@@ -483,6 +507,11 @@ gs_prefs_finalize (GObject *object) {
     if (prefs->priv->channel) {
         g_object_unref (prefs->priv->channel);
         prefs->priv->channel = NULL;
+    }
+
+    if (prefs->priv->xfpm_channel) {
+        g_object_unref (prefs->priv->xfpm_channel);
+        prefs->priv->xfpm_channel = NULL;
     }
 
     if (prefs->themes) {

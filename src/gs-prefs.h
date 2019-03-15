@@ -36,6 +36,7 @@ G_BEGIN_DECLS
 #define GS_PREFS_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GS_TYPE_PREFS, GSPrefsClass))
 
 #define SETTINGS_XFCONF_CHANNEL "xfce4-screensaver"
+#define XFPM_XFCONF_CHANNEL "xfce4-power-manager"
 
 /**
  * Enable screensaver
@@ -103,6 +104,14 @@ G_BEGIN_DECLS
  */
 #define KEY_LOCK_WITH_SAVER_DELAY "/lock/saver-activation/delay"
 #define DEFAULT_KEY_LOCK_WITH_SAVER_DELAY 0
+
+/**
+ * Lock on suspend/hibernate
+ * Set this to TRUE to lock the screen when the system goes to sleep
+ * Shared with Xfce Power Manager
+ */
+#define KEY_LOCK_ON_SLEEP "/xfce4-power-manager/lock-screen-suspend-hibernate"
+#define DEFAULT_KEY_LOCK_ON_SLEEP TRUE
 
 /**
  * Allow embedding a keyboard into the window
@@ -181,6 +190,7 @@ typedef struct
     guint            lock_enabled : 1; /* global lock switch */
 
     guint            idle_activation_enabled : 1; /* whether to activate when idle */
+    guint            sleep_activation_enabled : 1; /* whether to activate on suspend/hibernate */
     guint            lock_with_saver_enabled : 1;           /* whether to lock when active */
     guint            logout_enabled : 1;         /* Whether to offer the logout option */
     guint            user_switch_enabled : 1;  /* Whether to offer the user switch option */
