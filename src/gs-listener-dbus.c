@@ -34,6 +34,7 @@
 #include <dbus/dbus-glib-lowlevel.h>
 
 #include <libxfce4util/libxfce4util.h>
+#include <xfconf/xfconf.h>
 
 #ifdef WITH_SYSTEMD
 #include <systemd/sd-login.h>
@@ -1491,8 +1492,15 @@ listener_dbus_handle_system_message (DBusConnection *connection,
             dbus_error_init (&error);
             dbus_message_get_args (message, &error, DBUS_TYPE_BOOLEAN, &active, DBUS_TYPE_INVALID);
             if (active) {
-                gs_debug ("Logind requested session lock");
-                g_signal_emit (listener, signals[LOCK], 0);
+                XfconfChannel *channel = xfconf_channel_get ("xfce4-power-manager");
+                const gchar *property = "/xfce4-power-manager/lock-screen-suspend-hibernate";
+                gboolean lock_screen = xfconf_channel_get_bool (channel, property, TRUE);
+                if (lock_screen) {
+                    gs_debug ("Logind requested session lock");
+                    g_signal_emit (listener, signals[LOCK], 0);
+                } else {
+                    gs_debug ("Logind requested session lock, but lock on suspend is disabled");
+                }
             } else {
                 gs_debug ("Logind requested session unlock");
                 // FIXME: there is no signal to request password prompt
