@@ -5,16 +5,16 @@
 # 
 # Translators:
 # Nick Schermer <nick@xfce.org>, 2018
-# Jeff Huang <s8321414@gmail.com>, 2018
+# Jeff Huang <s8321414@gmail.com>, 2019
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 06:31+0100\n"
+"POT-Creation-Date: 2019-03-15 06:31+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Jeff Huang <s8321414@gmail.com>, 2018\n"
+"Last-Translator: Jeff Huang <s8321414@gmail.com>, 2019\n"
 "Language-Team: Chinese (Taiwan) (https://www.transifex.com/xfce/teams/16840/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -88,30 +88,6 @@ msgstr "%s。請見 --help 來取得使用方法資訊。\n"
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr "您必須指定一張圖片。請見 --help 來取得使用方法資訊。\n"
 
-#: ../savers/xfce-floaters.desktop.in.in.h:1
-msgid "Floating Xfce"
-msgstr "浮動的 Xfce"
-
-#: ../savers/xfce-floaters.desktop.in.in.h:2
-msgid "Bubbles the Xfce logo around the screen"
-msgstr "在整個畫面上充滿 Xfce logo 的泡泡"
-
-#: ../savers/personal-slideshow.desktop.in.in.h:1
-msgid "Pictures folder"
-msgstr "圖片資料夾"
-
-#: ../savers/personal-slideshow.desktop.in.in.h:2
-msgid "Display a slideshow from your Pictures folder"
-msgstr "從您的圖片資料夾中顯示幻燈片"
-
-#: ../savers/popsquares.desktop.in.in.h:1
-msgid "Pop art squares"
-msgstr "流行藝術方塊"
-
-#: ../savers/popsquares.desktop.in.in.h:2
-msgid "A pop-art-ish grid of pulsing colors."
-msgstr "脈衝色彩的流行藝術網格。"
-
 #: ../savers/slideshow.c:53
 msgid "Location to get images from"
 msgstr "取得圖片的位置從"
@@ -136,6 +112,30 @@ msgstr "不要從選定的位置隨機挑選圖片"
 msgid "Do not try to stretch images on screen"
 msgstr "不要嘗試在畫面上伸展圖片"
 
+#: ../savers/xfce-floaters.desktop.in.in.h:1
+msgid "Floating Xfce"
+msgstr "浮動的 Xfce"
+
+#: ../savers/xfce-floaters.desktop.in.in.h:2
+msgid "Bubbles the Xfce logo around the screen"
+msgstr "在整個畫面上充滿 Xfce logo 的泡泡"
+
+#: ../savers/xfce-personal-slideshow.desktop.in.in.h:1
+msgid "Pictures folder"
+msgstr "圖片資料夾"
+
+#: ../savers/xfce-personal-slideshow.desktop.in.in.h:2
+msgid "Display a slideshow from your Pictures folder"
+msgstr "從您的圖片資料夾中顯示幻燈片"
+
+#: ../savers/xfce-popsquares.desktop.in.in.h:1
+msgid "Pop art squares"
+msgstr "流行藝術方塊"
+
+#: ../savers/xfce-popsquares.desktop.in.in.h:2
+msgid "A pop-art-ish grid of pulsing colors."
+msgstr "脈衝色彩的流行藝術網格。"
+
 #: ../src/copy-theme-dialog.c:214
 msgid "Copying files"
 msgstr "正在複製檔案"
@@ -148,7 +148,7 @@ msgstr "從："
 msgid "To:"
 msgstr "到："
 
-#: ../src/copy-theme-dialog.c:255 ../src/gs-lock-plug.c:1193
+#: ../src/copy-theme-dialog.c:255 ../src/gs-lock-plug.c:1192
 #: ../src/xfce4-screensaver-dialog.ui.h:7
 msgid "_Cancel"
 msgstr "取消(_C)"
@@ -189,7 +189,7 @@ msgstr "無法設定 PAM_TTY=%s"
 msgid "Incorrect password."
 msgstr "密碼不正確。"
 
-#: ../src/gs-auth-pam.c:437 ../src/xfce4-screensaver-dialog.c:313
+#: ../src/gs-auth-pam.c:437 ../src/xfce4-screensaver-dialog.c:311
 msgid "Authentication failed."
 msgstr "驗證失敗。"
 
@@ -205,44 +205,45 @@ msgstr "不再允許存取系統。"
 msgid "Username:"
 msgstr "使用者名稱："
 
-#: ../src/gs-listener-dbus.c:1950
+#: ../src/gs-listener-dbus.c:1993
 msgid "failed to register with the message bus"
 msgstr "使用訊息匯流排註冊失敗"
 
-#: ../src/gs-listener-dbus.c:1960
+#: ../src/gs-listener-dbus.c:2003
 msgid "not connected to the message bus"
 msgstr "未連線至訊息匯流排"
 
-#: ../src/gs-listener-dbus.c:1969 ../src/gs-listener-dbus.c:1999
+#: ../src/gs-listener-dbus.c:2012 ../src/gs-listener-dbus.c:2042
 msgid "screensaver already running in this session"
 msgstr "螢幕保護程式已經在此工作階段中執行"
 
-#: ../src/gs-lock-plug.c:267
+#: ../src/gs-lock-plug.c:268
+msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, %B %e   %H:%M"
 
-#: ../src/gs-lock-plug.c:350
+#: ../src/gs-lock-plug.c:351
 msgid "Time has expired."
 msgstr "時間已過期。"
 
-#: ../src/gs-lock-plug.c:1178
+#: ../src/gs-lock-plug.c:1177
 msgid "S_witch User..."
 msgstr "切換使用者……(_W)"
 
-#: ../src/gs-lock-plug.c:1187
+#: ../src/gs-lock-plug.c:1186
 msgid "Log _Out"
 msgstr "登出(_O)"
 
-#: ../src/gs-lock-plug.c:1198 ../src/xfce4-screensaver-dialog.ui.h:8
+#: ../src/gs-lock-plug.c:1197 ../src/xfce4-screensaver-dialog.ui.h:8
 msgid "_Unlock"
 msgstr "解鎖(_U)"
 
 #. To translators: This expands to USERNAME on HOSTNAME
-#: ../src/gs-lock-plug.c:1364
+#: ../src/gs-lock-plug.c:1363
 msgid "%U on %h"
 msgstr "在 %h 上的 %U"
 
-#: ../src/gs-lock-plug.c:1379
+#: ../src/gs-lock-plug.c:1378
 msgid "Please enter your password."
 msgstr "請輸入您的密碼。"
 
@@ -497,31 +498,31 @@ msgstr "<b>%h</b>"
 msgid "<b>%s</b>"
 msgstr "<b>%s</b>"
 
-#: ../src/xfce4-screensaver-preferences.c:83
+#: ../src/xfce4-screensaver-preferences.c:84
 msgid "Settings manager socket"
 msgstr "設定值管理員 socket"
 
-#: ../src/xfce4-screensaver-preferences.c:83
+#: ../src/xfce4-screensaver-preferences.c:84
 msgid "SOCKET ID"
 msgstr "SOCKET ID"
 
-#: ../src/xfce4-screensaver-preferences.c:594
+#: ../src/xfce4-screensaver-preferences.c:663
 msgid "Blank screen"
 msgstr "空白畫面"
 
-#: ../src/xfce4-screensaver-preferences.c:600
+#: ../src/xfce4-screensaver-preferences.c:669
 msgid "Random"
 msgstr "隨機"
 
-#: ../src/xfce4-screensaver-preferences.c:1677
+#: ../src/xfce4-screensaver-preferences.c:1872
 msgid "Setting locked by administrator."
 msgstr "設定被管理員鎖定。"
 
-#: ../src/xfce4-screensaver-preferences.c:1717
+#: ../src/xfce4-screensaver-preferences.c:1912
 msgid "Could not load the main interface"
 msgstr "無法載入主介面"
 
-#: ../src/xfce4-screensaver-preferences.c:1719
+#: ../src/xfce4-screensaver-preferences.c:1914
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "請確定螢幕保護程式已正確安裝"
 
@@ -582,58 +583,62 @@ msgid "Change theme after:"
 msgstr "在多久之後變更佈景主題："
 
 #: ../src/xfce4-screensaver-preferences.ui.h:15
+msgid "minutes"
+msgstr "分鐘"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:16
 msgid "Activate screensaver when computer is idle"
 msgstr "當電腦閒置時啟動螢幕保護程式"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:16
+#: ../src/xfce4-screensaver-preferences.ui.h:17
 msgid "Regard the computer as _idle after:"
 msgstr "在多久之後將電腦視為閒置：(_I)"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:17
-msgid "minutes"
-msgstr "分鐘"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:19
 msgid "Enable Lock Screen"
 msgstr "啟用鎖定螢幕"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:20
-msgid "Session Status Messages"
-msgstr "工作階段狀態訊息"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:21
-msgid "User Switching"
-msgstr "使用者切換"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:22
-msgid "Logout"
-msgstr "登出"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:23
-msgid "Logout command:"
-msgstr "登出指令："
-
-#: ../src/xfce4-screensaver-preferences.ui.h:24
-msgid "Enable logout after:"
-msgstr "在多久之後啟用登出："
-
-#: ../src/xfce4-screensaver-preferences.ui.h:25
-msgid "Lock the screen after the screensaver is active for:"
-msgstr "在螢幕保護程式活躍多久之後鎖定螢幕："
-
-#: ../src/xfce4-screensaver-preferences.ui.h:26
 msgid "Lock Screen with Screensaver"
 msgstr "以螢幕保護程式鎖定螢幕"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:27
+#: ../src/xfce4-screensaver-preferences.ui.h:21
+msgid "Lock the screen after the screensaver is active for:"
+msgstr "在螢幕保護程式活躍多久之後鎖定螢幕："
+
+#: ../src/xfce4-screensaver-preferences.ui.h:22
 msgid "On Screen Keyboard"
 msgstr "螢幕上的鍵盤"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:28
+#: ../src/xfce4-screensaver-preferences.ui.h:23
 msgid "On screen keyboard command:"
 msgstr "螢幕上的鍵盤指令："
 
+#: ../src/xfce4-screensaver-preferences.ui.h:24
+msgid "Session Status Messages"
+msgstr "工作階段狀態訊息"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:25
+msgid "Logout"
+msgstr "登出"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:26
+msgid "Logout command:"
+msgstr "登出指令："
+
+#: ../src/xfce4-screensaver-preferences.ui.h:27
+msgid "Enable logout after:"
+msgstr "在多久之後啟用登出："
+
+#: ../src/xfce4-screensaver-preferences.ui.h:28
+msgid "User Switching"
+msgstr "使用者切換"
+
 #: ../src/xfce4-screensaver-preferences.ui.h:29
+msgid "Lock Screen with System Sleep"
+msgstr "帶有系統睡眠的鎖定螢幕"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:30
 msgid "Lock Screen"
 msgstr "鎖定螢幕"
 
@@ -649,6 +654,6 @@ msgstr "啟用除錯程式碼"
 msgid "Launch screensaver and locker program"
 msgstr "啟動螢幕保護程式與鎖定程式"
 
-#: ../src/xfcekbd-indicator.c:533
+#: ../src/xfcekbd-indicator.c:538
 msgid "XKB initialization error"
 msgstr "XKB 初始化錯誤"
