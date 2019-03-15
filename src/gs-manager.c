@@ -1097,6 +1097,10 @@ find_window_at_pointer (GSManager *manager) {
     if (window == NULL) {
         gs_debug ("WARNING: Could not find the GSWindow for display %s",
                   gdk_display_get_name (display));
+        /* bail if there are no windows available */
+        if (manager->priv->windows == NULL)
+            return NULL;
+
         /* take the first one */
         window = manager->priv->windows->data;
     } else {
@@ -1118,6 +1122,9 @@ gs_manager_show_message (GSManager  *manager,
 
     /* Find the GSWindow that contains the pointer */
     window = find_window_at_pointer (manager);
+    if (window == NULL)
+        return;
+
     gs_window_show_message (window, summary, body, icon);
     gs_manager_request_unlock (manager);
 }
