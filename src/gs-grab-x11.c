@@ -330,13 +330,26 @@ gs_grab_nuke_focus (GdkDisplay *display) {
     gdk_x11_display_error_trap_pop_ignored (display);
 }
 
+static void
+gs_grab_restore_focus (GdkDisplay *display, GdkWindow *window) {
+    gs_debug ("Restoring focus");
+
+    gdk_x11_display_error_trap_push (display);
+
+    XSetInputFocus (GDK_DISPLAY_XDISPLAY (display), GDK_WINDOW_XID (window),
+                    RevertToParent, CurrentTime);
+
+    gdk_x11_display_error_trap_pop_ignored (display);
+}
+
 gboolean
 gs_grab_grab_window (GSGrab     *grab,
                      GdkWindow  *window,
                      GdkDisplay *display,
                      gboolean    no_pointer_grab,
                      gboolean    hide_cursor) {
-    gboolean    status = FALSE;
+    gint        status = FALSE;
+    gboolean    nuked = FALSE;
     int         i;
     int         retries = 12;
 
@@ -348,10 +361,29 @@ gs_grab_grab_window (GSGrab     *grab,
         } else if (i == (int) (retries / 2)) {
             /* try nuking focus in the middle */
             gs_grab_nuke_focus (display);
+            nuked = TRUE;
         }
 
         /* else, wait a second and try to grab again */
         g_usleep (SLEEPTIMEOUT);
+    }
+
+    /* Something else has grab. Begin aggressive grab cycle. */
+    while (status == GDK_GRAB_ALREADY_GRABBED) {
+        for (i = 0; i < retries; i++) {
+            status = gs_grab_get (grab, window, display,
+                                no_pointer_grab, hide_cursor);
+            if (status == GDK_GRAB_SUCCESS) {
+                break;
+            } else if (i == (int) (retries / 2)) {
+                /* try nuking focus in the middle */
+                gs_grab_nuke_focus (display);
+                nuked = TRUE;
+            }
+
+            /* else, wait a second and try to grab again */
+            g_usleep (SLEEPTIMEOUT);
+        }
     }
 
     if (status != GDK_GRAB_SUCCESS) {
@@ -360,6 +392,10 @@ gs_grab_grab_window (GSGrab     *grab,
 
         /* do not blank without a devices grab */
         return FALSE;
+    }
+
+    if (nuked) {
+        gs_grab_restore_focus (display, window);
     }
 
     /* grab is good, go ahead and blank  */

@@ -2,6 +2,8 @@
 ==================
 - Features:
   - Added support for locking on suspend (Xfce #15001)
+- Bug Fixes:
+  - Fix password entry after stealing focus (Xfce #15042)
 - General:
   - Faster screen locking when activated
   - Faster renderering of the authentication prompt
