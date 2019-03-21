@@ -643,7 +643,7 @@ msgstr "Skift af bruger"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:29
 msgid "Lock Screen with System Sleep"
-msgstr "Låseskærm når systemet går i dvale"
+msgstr "Låseskærm når systemet suspenderes"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:30
 msgid "Lock Screen"
