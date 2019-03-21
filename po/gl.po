@@ -6,16 +6,16 @@
 # Translators:
 # Nick Schermer <nick@xfce.org>, 2018
 # Xosé, 2018
-# Daniel Muñiz Fontoira <dani@damufo.com>, 2018
+# Daniel Muñiz Fontoira <dani@damufo.com>, 2019
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 06:31+0100\n"
+"POT-Creation-Date: 2019-03-15 06:31+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Daniel Muñiz Fontoira <dani@damufo.com>, 2018\n"
+"Last-Translator: Daniel Muñiz Fontoira <dani@damufo.com>, 2019\n"
 "Language-Team: Galician (https://www.transifex.com/xfce/teams/16840/gl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -89,30 +89,6 @@ msgstr "%s. Ver --help para a información de uso.\n"
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr "Debe especificar unha imaxe. Ver --help para a información de uso.\n"
 
-#: ../savers/xfce-floaters.desktop.in.in.h:1
-msgid "Floating Xfce"
-msgstr "Xfce flotante"
-
-#: ../savers/xfce-floaters.desktop.in.in.h:2
-msgid "Bubbles the Xfce logo around the screen"
-msgstr "Burbullas co logotipo de Xfce pola pantalla"
-
-#: ../savers/personal-slideshow.desktop.in.in.h:1
-msgid "Pictures folder"
-msgstr "Cartafol de fotos"
-
-#: ../savers/personal-slideshow.desktop.in.in.h:2
-msgid "Display a slideshow from your Pictures folder"
-msgstr "Mostrar unha presentación de diapositivas do seu cartafol fotos"
-
-#: ../savers/popsquares.desktop.in.in.h:1
-msgid "Pop art squares"
-msgstr "Cadros de arte pop"
-
-#: ../savers/popsquares.desktop.in.in.h:2
-msgid "A pop-art-ish grid of pulsing colors."
-msgstr "Unha grade de cores de pulsación de estilo arte pop."
-
 #: ../savers/slideshow.c:53
 msgid "Location to get images from"
 msgstr "Localización de onde obter as  imaxes"
@@ -137,6 +113,30 @@ msgstr "Non aleatorizar imaxes desde a localización"
 msgid "Do not try to stretch images on screen"
 msgstr "Non intentar estricar as imaxes na pantalla"
 
+#: ../savers/xfce-floaters.desktop.in.in.h:1
+msgid "Floating Xfce"
+msgstr "Xfce flotante"
+
+#: ../savers/xfce-floaters.desktop.in.in.h:2
+msgid "Bubbles the Xfce logo around the screen"
+msgstr "Burbullas co logotipo de Xfce pola pantalla"
+
+#: ../savers/xfce-personal-slideshow.desktop.in.in.h:1
+msgid "Pictures folder"
+msgstr "Cartafol de fotos"
+
+#: ../savers/xfce-personal-slideshow.desktop.in.in.h:2
+msgid "Display a slideshow from your Pictures folder"
+msgstr "Mostrar unha presentación de diapositivas do seu cartafol fotos"
+
+#: ../savers/xfce-popsquares.desktop.in.in.h:1
+msgid "Pop art squares"
+msgstr "Cadros de arte pop"
+
+#: ../savers/xfce-popsquares.desktop.in.in.h:2
+msgid "A pop-art-ish grid of pulsing colors."
+msgstr "Unha grade de cores de pulsación de estilo arte pop."
+
 #: ../src/copy-theme-dialog.c:214
 msgid "Copying files"
 msgstr "Copiando ficheiros"
@@ -149,7 +149,7 @@ msgstr "De:"
 msgid "To:"
 msgstr "Para:"
 
-#: ../src/copy-theme-dialog.c:255 ../src/gs-lock-plug.c:1193
+#: ../src/copy-theme-dialog.c:255 ../src/gs-lock-plug.c:1192
 #: ../src/xfce4-screensaver-dialog.ui.h:7
 msgid "_Cancel"
 msgstr "_Cancelar"
@@ -190,7 +190,7 @@ msgstr "Non se pode configurar PAM_TTY=%s"
 msgid "Incorrect password."
 msgstr "O contrasinal é incorrecto"
 
-#: ../src/gs-auth-pam.c:437 ../src/xfce4-screensaver-dialog.c:313
+#: ../src/gs-auth-pam.c:437 ../src/xfce4-screensaver-dialog.c:311
 msgid "Authentication failed."
 msgstr "Fallou a autenticación."
 
@@ -206,44 +206,45 @@ msgstr "Xa non se permite acceder ao sistema."
 msgid "Username:"
 msgstr "Nome de usuario:"
 
-#: ../src/gs-listener-dbus.c:1950
+#: ../src/gs-listener-dbus.c:1993
 msgid "failed to register with the message bus"
 msgstr "non se puido rexistrar co «bus» de mensaxes"
 
-#: ../src/gs-listener-dbus.c:1960
+#: ../src/gs-listener-dbus.c:2003
 msgid "not connected to the message bus"
 msgstr "non conectado ao «bus» de mensaxes"
 
-#: ../src/gs-listener-dbus.c:1969 ../src/gs-listener-dbus.c:1999
+#: ../src/gs-listener-dbus.c:2012 ../src/gs-listener-dbus.c:2042
 msgid "screensaver already running in this session"
 msgstr "o protector de pantalla xa está en execución nesta sesión"
 
-#: ../src/gs-lock-plug.c:267
+#: ../src/gs-lock-plug.c:268
+msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, %B %e   %H:%M"
 
-#: ../src/gs-lock-plug.c:350
+#: ../src/gs-lock-plug.c:351
 msgid "Time has expired."
 msgstr "O tempo caducou."
 
-#: ../src/gs-lock-plug.c:1178
+#: ../src/gs-lock-plug.c:1177
 msgid "S_witch User..."
 msgstr "_Trocar de usuario..."
 
-#: ../src/gs-lock-plug.c:1187
+#: ../src/gs-lock-plug.c:1186
 msgid "Log _Out"
 msgstr "Saí_r"
 
-#: ../src/gs-lock-plug.c:1198 ../src/xfce4-screensaver-dialog.ui.h:8
+#: ../src/gs-lock-plug.c:1197 ../src/xfce4-screensaver-dialog.ui.h:8
 msgid "_Unlock"
 msgstr "_Desbloquear"
 
 #. To translators: This expands to USERNAME on HOSTNAME
-#: ../src/gs-lock-plug.c:1364
+#: ../src/gs-lock-plug.c:1363
 msgid "%U on %h"
 msgstr "%U a %h"
 
-#: ../src/gs-lock-plug.c:1379
+#: ../src/gs-lock-plug.c:1378
 msgid "Please enter your password."
 msgstr "Insira o seu contrasinal."
 
@@ -513,31 +514,31 @@ msgstr "<b>%h</b>"
 msgid "<b>%s</b>"
 msgstr "<b>%s</b>"
 
-#: ../src/xfce4-screensaver-preferences.c:83
+#: ../src/xfce4-screensaver-preferences.c:84
 msgid "Settings manager socket"
 msgstr "Toma («socket») do xestor de configuración"
 
-#: ../src/xfce4-screensaver-preferences.c:83
+#: ../src/xfce4-screensaver-preferences.c:84
 msgid "SOCKET ID"
 msgstr "ID TOMA"
 
-#: ../src/xfce4-screensaver-preferences.c:594
+#: ../src/xfce4-screensaver-preferences.c:663
 msgid "Blank screen"
 msgstr "Escurecer a pantalla"
 
-#: ../src/xfce4-screensaver-preferences.c:600
+#: ../src/xfce4-screensaver-preferences.c:669
 msgid "Random"
 msgstr "Aleatorio"
 
-#: ../src/xfce4-screensaver-preferences.c:1677
+#: ../src/xfce4-screensaver-preferences.c:1872
 msgid "Setting locked by administrator."
 msgstr "Axuste bloqueado polo administrador."
 
-#: ../src/xfce4-screensaver-preferences.c:1717
+#: ../src/xfce4-screensaver-preferences.c:1912
 msgid "Could not load the main interface"
 msgstr "Non se puido cargar a interface principal"
 
-#: ../src/xfce4-screensaver-preferences.c:1719
+#: ../src/xfce4-screensaver-preferences.c:1914
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "Asegúrese de que o protector de pantalla está instalado correctamente"
 
@@ -600,60 +601,64 @@ msgid "Change theme after:"
 msgstr "Trocar o tema despois de:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:15
+msgid "minutes"
+msgstr "minutos"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:16
 msgid "Activate screensaver when computer is idle"
 msgstr "Activar o protector de pantalla cando a computadora estea inactiva"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:16
+#: ../src/xfce4-screensaver-preferences.ui.h:17
 msgid "Regard the computer as _idle after:"
 msgstr "Considerar que a computadora está _inactiva despois de:"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:17
-msgid "minutes"
-msgstr "minutos"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:19
 msgid "Enable Lock Screen"
 msgstr "Activar o bloqueo da pantalla"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:20
-msgid "Session Status Messages"
-msgstr "Mensaxes de estado da sesión"
+msgid "Lock Screen with Screensaver"
+msgstr "Bloquea a pantalla con protector de pantalla"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:21
-msgid "User Switching"
-msgstr "Trocando usuario"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:22
-msgid "Logout"
-msgstr "Saír"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:23
-msgid "Logout command:"
-msgstr "Orde para saír:"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:24
-msgid "Enable logout after:"
-msgstr "Activar a saída despois de:"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:25
 msgid "Lock the screen after the screensaver is active for:"
 msgstr ""
 "Bloquear a pantalla despois de que o protector de pantalla estea activo "
 "durante:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:26
-msgid "Lock Screen with Screensaver"
-msgstr "Bloquea a pantalla con protector de pantalla"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:27
+#: ../src/xfce4-screensaver-preferences.ui.h:22
 msgid "On Screen Keyboard"
 msgstr "Teclado en pantalla"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:28
+#: ../src/xfce4-screensaver-preferences.ui.h:23
 msgid "On screen keyboard command:"
 msgstr "Orde do teclado en pantalla:"
 
+#: ../src/xfce4-screensaver-preferences.ui.h:24
+msgid "Session Status Messages"
+msgstr "Mensaxes de estado da sesión"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:25
+msgid "Logout"
+msgstr "Saír"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:26
+msgid "Logout command:"
+msgstr "Orde para saír:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:27
+msgid "Enable logout after:"
+msgstr "Activar a saída despois de:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:28
+msgid "User Switching"
+msgstr "Trocando usuario"
+
 #: ../src/xfce4-screensaver-preferences.ui.h:29
+msgid "Lock Screen with System Sleep"
+msgstr "Bloquear a pantalla cando se suspende o sistema"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:30
 msgid "Lock Screen"
 msgstr "Bloquear a pantalla"
 
@@ -669,6 +674,6 @@ msgstr "Activar o código de depuración"
 msgid "Launch screensaver and locker program"
 msgstr "Executar o protector de pantalla e o bloqueo"
 
-#: ../src/xfcekbd-indicator.c:533
+#: ../src/xfcekbd-indicator.c:538
 msgid "XKB initialization error"
 msgstr "Erro de inicialización XKB"
