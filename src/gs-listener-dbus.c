@@ -38,6 +38,9 @@
 #ifdef WITH_SYSTEMD
 #include <systemd/sd-login.h>
 #endif
+#ifdef WITH_ELOGIND
+#include <elogind/sd-login.h>
+#endif
 
 #include "gs-listener-dbus.h"
 #include "gs-marshal.h"
@@ -61,12 +64,12 @@ static DBusHandlerResult gs_listener_message_handler    (DBusConnection  *connec
 #define HAL_DEVICE_INTERFACE "org.freedesktop.Hal.Device"
 
 /* systemd logind */
-#define SYSTEMD_LOGIND_SERVICE   "org.freedesktop.login1"
-#define SYSTEMD_LOGIND_PATH      "/org/freedesktop/login1"
-#define SYSTEMD_LOGIND_INTERFACE "org.freedesktop.login1.Manager"
+#define LOGIND_SERVICE   "org.freedesktop.login1"
+#define LOGIND_PATH      "/org/freedesktop/login1"
+#define LOGIND_INTERFACE "org.freedesktop.login1.Manager"
 
-#define SYSTEMD_LOGIND_SESSION_INTERFACE "org.freedesktop.login1.Session"
-#define SYSTEMD_LOGIND_SESSION_PATH      "/org/freedesktop/login1/session"
+#define LOGIND_SESSION_INTERFACE "org.freedesktop.login1.Session"
+#define LOGIND_SESSION_PATH      "/org/freedesktop/login1/session"
 
 /* consolekit */
 #define CK_NAME              "org.freedesktop.ConsoleKit"
@@ -91,8 +94,8 @@ struct GSListenerPrivate {
     time_t          session_idle_start;
     char           *session_id;
 
-#ifdef WITH_SYSTEMD
-    gboolean have_systemd;
+#if defined(WITH_SYSTEMD) || defined(WITH_ELOGIND)
+    gboolean have_logind;
 #endif
 
     guint32         ck_throttle_cookie;
@@ -1368,7 +1371,7 @@ _listener_message_path_is_our_session (GSListener  *listener,
     return FALSE;
 }
 
-#ifdef WITH_SYSTEMD
+#if defined(WITH_SYSTEMD) || defined(WITH_ELOGIND)
 static gboolean
 properties_changed_match (DBusMessage *message,
                           const char  *property) {
@@ -1455,23 +1458,23 @@ listener_dbus_handle_system_message (DBusConnection *connection,
               dbus_message_get_destination (message));
 #endif
 
-#ifdef WITH_SYSTEMD
-    if (listener->priv->have_systemd) {
-        if (dbus_message_is_signal (message, SYSTEMD_LOGIND_SESSION_INTERFACE, "Unlock")) {
+#if defined(WITH_SYSTEMD) || defined(WITH_ELOGIND)
+    if (listener->priv->have_logind) {
+        if (dbus_message_is_signal (message, LOGIND_SESSION_INTERFACE, "Unlock")) {
             if (_listener_message_path_is_our_session (listener, message)) {
                 gs_debug ("Systemd requested session unlock");
                 gs_listener_set_active (listener, FALSE);
             }
 
             return DBUS_HANDLER_RESULT_HANDLED;
-        } else if (dbus_message_is_signal (message, SYSTEMD_LOGIND_SESSION_INTERFACE, "Lock")) {
+        } else if (dbus_message_is_signal (message, LOGIND_SESSION_INTERFACE, "Lock")) {
             if (_listener_message_path_is_our_session (listener, message)) {
                 gs_debug ("Systemd requested session lock");
                 g_signal_emit (listener, signals[LOCK], 0);
             }
 
             return DBUS_HANDLER_RESULT_HANDLED;
-        } else if (dbus_message_is_signal (message, SYSTEMD_LOGIND_INTERFACE, "PrepareForSleep")) {
+        } else if (dbus_message_is_signal (message, LOGIND_INTERFACE, "PrepareForSleep")) {
             gboolean  active = 0;
             DBusError error;
 
@@ -2034,29 +2037,29 @@ gs_listener_acquire (GSListener  *listener,
                                     listener_dbus_system_filter_function,
                                     listener,
                                     NULL);
-#ifdef WITH_SYSTEMD
-        if (listener->priv->have_systemd) {
+#if defined(WITH_SYSTEMD) || defined(WITH_ELOGIND)
+        if (listener->priv->have_logind) {
             dbus_bus_add_match (listener->priv->system_connection,
                                 "type='signal'"
-                                ",sender='"SYSTEMD_LOGIND_SERVICE"'"
-                                ",interface='"SYSTEMD_LOGIND_SESSION_INTERFACE"'"
+                                ",sender='"LOGIND_SERVICE"'"
+                                ",interface='"LOGIND_SESSION_INTERFACE"'"
                                 ",member='Unlock'",
                                 NULL);
             dbus_bus_add_match (listener->priv->system_connection,
                                 "type='signal'"
-                                ",sender='"SYSTEMD_LOGIND_SERVICE"'"
-                                ",interface='"SYSTEMD_LOGIND_SESSION_INTERFACE"'"
+                                ",sender='"LOGIND_SERVICE"'"
+                                ",interface='"LOGIND_SESSION_INTERFACE"'"
                                 ",member='Lock'",
                                 NULL);
             dbus_bus_add_match (listener->priv->system_connection,
                                 "type='signal'"
-                                ",sender='"SYSTEMD_LOGIND_SERVICE"'"
-                                ",interface='"SYSTEMD_LOGIND_INTERFACE"'"
+                                ",sender='"LOGIND_SERVICE"'"
+                                ",interface='"LOGIND_INTERFACE"'"
                                 ",member='PrepareForSleep'",
                                 NULL);
             dbus_bus_add_match (listener->priv->system_connection,
                                 "type='signal'"
-                                ",sender='"SYSTEMD_LOGIND_SERVICE"'"
+                                ",sender='"LOGIND_SERVICE"'"
                                 ",interface='"DBUS_INTERFACE_PROPERTIES"'"
                                 ",member='PropertiesChanged'",
                                 NULL);
@@ -2109,14 +2112,14 @@ query_session_id (GSListener *listener) {
 
     dbus_error_init (&error);
 
-#ifdef WITH_SYSTEMD
-    if (listener->priv->have_systemd) {
+#if defined(WITH_SYSTEMD) || defined(WITH_ELOGIND)
+    if (listener->priv->have_logind) {
         dbus_uint32_t pid = getpid();
 
-        message = dbus_message_new_method_call (SYSTEMD_LOGIND_SERVICE,
-                                                SYSTEMD_LOGIND_PATH,
-                            SYSTEMD_LOGIND_INTERFACE,
-                            "GetSessionByPID");
+        message = dbus_message_new_method_call (LOGIND_SERVICE,
+                                                LOGIND_PATH,
+                                                LOGIND_INTERFACE,
+                                                "GetSessionByPID");
         if (message == NULL) {
             gs_debug ("Couldn't allocate the dbus message");
             return NULL;
@@ -2191,9 +2194,9 @@ static void
 gs_listener_init (GSListener *listener) {
     listener->priv = gs_listener_get_instance_private (listener);
 
-#ifdef WITH_SYSTEMD
+#if defined(WITH_SYSTEMD) || defined(WITH_ELOGIND)
     /* check if logind is running */
-    listener->priv->have_systemd = (access("/run/systemd/seats/", F_OK) >= 0);
+    listener->priv->have_logind = (access("/run/systemd/seats/", F_OK) >= 0);
 #endif
 
     gs_listener_dbus_init (listener);

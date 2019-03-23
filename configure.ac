@@ -985,6 +985,37 @@ AC_SUBST(SYSTEMD_CFLAGS)
 AC_SUBST(SYSTEMD_LIBS)
 
 dnl ---------------------------------------------------------------------------
+dnl elogind
+dnl ---------------------------------------------------------------------------
+
+AC_ARG_WITH(elogind,
+            AS_HELP_STRING([--with-elogind],
+            [Add elogind support]),
+            [with_elogind=$withval], [with_elogind=auto])
+
+PKG_CHECK_MODULES(ELOGIND, [libelogind], [have_elogind=yes], [have_elogind=no])
+
+if test "x$with_elogind" = "xauto" ; then
+        if test x$have_elogind = xno ; then
+                use_elogind=no
+        else
+                use_elogind=yes
+        fi
+else
+	use_elogind=$with_elogind
+fi
+
+if test "x$use_elogind" = "xyes"; then
+        if test "x$have_elogind" = "xno"; then
+                AC_MSG_ERROR([Elogind support explicitly required, but elogind not found])
+        fi
+
+        AC_DEFINE(WITH_ELOGIND, 1, [elogind support])
+fi
+AC_SUBST(ELOGIND_CFLAGS)
+AC_SUBST(ELOGIND_LIBS)
+
+dnl ---------------------------------------------------------------------------
 dnl libxfcekbd
 dnl ---------------------------------------------------------------------------
 
@@ -1175,6 +1206,7 @@ echo "
         Screen locking enabled:   ${enable_locking}
         Show keyboard indicator:  ${with_kbd_layout_indicator}
         systemd support:          ${use_systemd}
+        elogind support:          ${use_elogind}
         ConsoleKit support:       ${use_console_kit}
         PAM support:              ${have_pam}
         PAM auth type:            ${PAM_AUTH_TYPE}
