@@ -567,6 +567,77 @@ gs_lock_plug_run (GSLockPlug *plug) {
     return ri.response_id;
 }
 
+static GdkPixbuf *
+get_user_icon_from_accounts_service (void) {
+    GDBusConnection *bus;
+    GError          *error = NULL;
+    GVariant        *variant, *res;
+    const gchar     *user_path;
+    GdkPixbuf       *pixbuf = NULL; 
+
+    bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, &error);
+    if (bus == NULL) {
+        g_warning ("Failed to get system bus: %s", error->message);
+        g_error_free (error);
+        return NULL;
+    }
+
+    variant = g_dbus_connection_call_sync (bus,
+                                           "org.freedesktop.Accounts",
+                                           "/org/freedesktop/Accounts",
+                                           "org.freedesktop.Accounts",
+                                           "FindUserByName",
+                                           g_variant_new ("(s)",
+                                                          g_get_user_name ()),
+                                           G_VARIANT_TYPE ("(o)"),
+                                           G_DBUS_CALL_FLAGS_NONE,
+                                           -1, NULL, &error);
+    if (variant == NULL) {
+        g_warning ("Could not find user: %s", error->message);
+        g_error_free (error);
+        g_object_unref (bus);
+        return NULL;
+    }
+
+    user_path = g_variant_get_string (g_variant_get_child_value (variant,
+                                                                 0),
+                                      NULL);
+    g_variant_unref (variant);
+    variant = g_dbus_connection_call_sync (bus,
+                                           "org.freedesktop.Accounts",
+                                           user_path,
+                                           "org.freedesktop.DBus.Properties",
+                                           "Get",
+                                           g_variant_new ("(ss)",
+                                                          "org.freedesktop.Accounts.User",
+                                                          "IconFile"),
+                                           G_VARIANT_TYPE ("(v)"),
+                                           G_DBUS_CALL_FLAGS_NONE,
+                                           -1, NULL, &error);
+    if (variant == NULL) {
+        g_warning ("Could not find user icon: %s", error->message);
+        g_error_free (error);
+        g_object_unref (bus);
+        return NULL;
+    }
+
+    g_variant_get_child (variant, 0, "v", &res);
+    pixbuf = gdk_pixbuf_new_from_file_at_scale (g_variant_get_string (res,
+                                                                      NULL),
+                                                80, 80, FALSE,
+                                                &error);
+    if (pixbuf == NULL) {
+        g_warning ("Could not load user avatar: %s", error->message);
+        g_error_free (error);
+    }
+
+    g_variant_unref (res);
+    g_variant_unref (variant);
+    g_object_unref (bus);
+
+    return pixbuf;
+}
+
 static gboolean
 set_face_image (GSLockPlug *plug) {
     GdkPixbuf  *pixbuf = NULL;
@@ -574,17 +645,19 @@ set_face_image (GSLockPlug *plug) {
     char       *path;
     GError     *error = NULL;
 
-    homedir = g_get_home_dir ();
-    path = g_build_filename (homedir, ".face", NULL);
-
-    pixbuf = gdk_pixbuf_new_from_file_at_scale (path, 80, 80, FALSE, &error);
-
-    g_free (path);
-
+    pixbuf = get_user_icon_from_accounts_service ();
     if (pixbuf == NULL) {
-        g_warning ("Could not load the user avatar: %s", error->message);
-        g_error_free (error);
-        return FALSE;
+        homedir = g_get_home_dir ();
+        path = g_build_filename (homedir, ".face", NULL);
+
+        pixbuf = gdk_pixbuf_new_from_file_at_scale (path, 80, 80, FALSE,
+                                                    &error);
+        if (pixbuf == NULL) {
+            g_warning ("Could not load the user avatar: %s",
+                       error->message);
+            g_error_free (error);
+            return FALSE;
+        }
     }
 
     gtk_image_set_from_pixbuf (GTK_IMAGE (plug->priv->auth_face_image), pixbuf);
