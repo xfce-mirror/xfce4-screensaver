@@ -7,17 +7,17 @@
 # Cybertramp <paran_son@outlook.com>, 2018
 # Nick Schermer <nick@xfce.org>, 2018
 # Xfce Bot <transifex@xfce.org>, 2018
-# Seong-ho Cho <darkcircle.0426@gmail.com>, 2018
 # 박정규(Jung-Kyu Park) <bagjunggyu@gmail.com>, 2018
+# Seong-ho Cho <darkcircle.0426@gmail.com>, 2019
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-20 06:31+0100\n"
+"POT-Creation-Date: 2019-03-15 06:31+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: 박정규(Jung-Kyu Park) <bagjunggyu@gmail.com>, 2018\n"
+"Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>, 2019\n"
 "Language-Team: Korean (https://www.transifex.com/xfce/teams/16840/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -151,7 +151,7 @@ msgstr "원본:"
 msgid "To:"
 msgstr "대상:"
 
-#: ../src/copy-theme-dialog.c:255 ../src/gs-lock-plug.c:1195
+#: ../src/copy-theme-dialog.c:255 ../src/gs-lock-plug.c:1192
 #: ../src/xfce4-screensaver-dialog.ui.h:7
 msgid "_Cancel"
 msgstr "취소(_C)"
@@ -192,7 +192,7 @@ msgstr "PAM_TTY=%s 값을 설정할 수 없습니다"
 msgid "Incorrect password."
 msgstr "잘못된 암호입니다."
 
-#: ../src/gs-auth-pam.c:437 ../src/xfce4-screensaver-dialog.c:313
+#: ../src/gs-auth-pam.c:437 ../src/xfce4-screensaver-dialog.c:311
 msgid "Authentication failed."
 msgstr "인증이 실패했습니다."
 
@@ -208,45 +208,45 @@ msgstr "시스템에 더 이상 접근을 허용하지 않습니다."
 msgid "Username:"
 msgstr "사용자 이름:"
 
-#: ../src/gs-listener-dbus.c:1950
+#: ../src/gs-listener-dbus.c:1993
 msgid "failed to register with the message bus"
 msgstr "메세지 버스로의 등록에 실패했습니다"
 
-#: ../src/gs-listener-dbus.c:1960
+#: ../src/gs-listener-dbus.c:2003
 msgid "not connected to the message bus"
 msgstr "메세지 버스에 연결하지 않았습니다"
 
-#: ../src/gs-listener-dbus.c:1969 ../src/gs-listener-dbus.c:1999
+#: ../src/gs-listener-dbus.c:2012 ../src/gs-listener-dbus.c:2042
 msgid "screensaver already running in this session"
 msgstr "이 세션에서 화면 보호기를 이미 실행하고 있습니다"
 
-#: ../src/gs-lock-plug.c:269
+#: ../src/gs-lock-plug.c:268
 msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%B %e일 %A %H:%M"
 
-#: ../src/gs-lock-plug.c:352
+#: ../src/gs-lock-plug.c:351
 msgid "Time has expired."
 msgstr "시간을 초과했습니다."
 
-#: ../src/gs-lock-plug.c:1180
+#: ../src/gs-lock-plug.c:1177
 msgid "S_witch User..."
 msgstr "사용자 전환(_W)..."
 
-#: ../src/gs-lock-plug.c:1189
+#: ../src/gs-lock-plug.c:1186
 msgid "Log _Out"
 msgstr "로그아웃(_O)"
 
-#: ../src/gs-lock-plug.c:1200 ../src/xfce4-screensaver-dialog.ui.h:8
+#: ../src/gs-lock-plug.c:1197 ../src/xfce4-screensaver-dialog.ui.h:8
 msgid "_Unlock"
 msgstr "잠금 해제(_U)"
 
 #. To translators: This expands to USERNAME on HOSTNAME
-#: ../src/gs-lock-plug.c:1366
+#: ../src/gs-lock-plug.c:1363
 msgid "%U on %h"
 msgstr "%h의 %U"
 
-#: ../src/gs-lock-plug.c:1381
+#: ../src/gs-lock-plug.c:1378
 msgid "Please enter your password."
 msgstr "암호를 입력하십시오."
 
@@ -501,31 +501,31 @@ msgstr "<b>%h</b>"
 msgid "<b>%s</b>"
 msgstr "<b>%s</b>"
 
-#: ../src/xfce4-screensaver-preferences.c:83
+#: ../src/xfce4-screensaver-preferences.c:84
 msgid "Settings manager socket"
 msgstr "설정 관리자 소켓"
 
-#: ../src/xfce4-screensaver-preferences.c:83
+#: ../src/xfce4-screensaver-preferences.c:84
 msgid "SOCKET ID"
 msgstr "SOCKET ID"
 
-#: ../src/xfce4-screensaver-preferences.c:641
+#: ../src/xfce4-screensaver-preferences.c:663
 msgid "Blank screen"
 msgstr "빈 화면"
 
-#: ../src/xfce4-screensaver-preferences.c:647
+#: ../src/xfce4-screensaver-preferences.c:669
 msgid "Random"
 msgstr "임의"
 
-#: ../src/xfce4-screensaver-preferences.c:1828
+#: ../src/xfce4-screensaver-preferences.c:1872
 msgid "Setting locked by administrator."
 msgstr "관리자가 설정을 잠갔습니다."
 
-#: ../src/xfce4-screensaver-preferences.c:1868
+#: ../src/xfce4-screensaver-preferences.c:1912
 msgid "Could not load the main interface"
 msgstr "주 인터페이스를 불러올 수 없습니다"
 
-#: ../src/xfce4-screensaver-preferences.c:1870
+#: ../src/xfce4-screensaver-preferences.c:1914
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "화면 보호기 프로그램을 제대로 설치했는지 확인하십시오"
 
@@ -603,7 +603,7 @@ msgstr "화면 잠금 사용"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:20
 msgid "Lock Screen with Screensaver"
-msgstr "컴퓨터가 대기 상태일 때 화면 보호기 실행"
+msgstr "화면 보호기 실행시 화면 잠금"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:21
 msgid "Lock the screen after the screensaver is active for:"
@@ -638,8 +638,12 @@ msgid "User Switching"
 msgstr "사용자 전환"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:29
+msgid "Lock Screen with System Sleep"
+msgstr "컴퓨터가 대기 상태일 때 화면 잠금"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:30
 msgid "Lock Screen"
-msgstr "화면 잠그기"
+msgstr "화면 잠금"
 
 #: ../src/xfce4-screensaver.c:59
 msgid "Don't become a daemon"
@@ -653,6 +657,6 @@ msgstr "디버깅 모드 활성화"
 msgid "Launch screensaver and locker program"
 msgstr "화면 보호기 및 잠금 프로그램 실행"
 
-#: ../src/xfcekbd-indicator.c:533
+#: ../src/xfcekbd-indicator.c:538
 msgid "XKB initialization error"
 msgstr "XKB 초기화 오류"
