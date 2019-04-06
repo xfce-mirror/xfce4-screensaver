@@ -1,0 +1,670 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2018
+# Nick Schermer <nick@xfce.org>, 2018
+# Xfce Bot <transifex@xfce.org>, 2018
+# Pasi Lallinaho <pasi@shimmerproject.org>, 2019
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-03-15 06:31+0100\n"
+"PO-Revision-Date: 2018-10-16 16:27+0000\n"
+"Last-Translator: Pasi Lallinaho <pasi@shimmerproject.org>, 2019\n"
+"Language-Team: Finnish (https://www.transifex.com/xfce/teams/16840/fi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../data/xfce4-screensaver-preferences.desktop.in.h:1
+#: ../src/xfce4-screensaver-preferences.ui.h:18
+#: ../src/xfce4-screensaver.desktop.in.in.h:1
+msgid "Screensaver"
+msgstr "Näytönsäästäjä"
+
+#: ../data/xfce4-screensaver-preferences.desktop.in.h:2
+msgid "Set your screensaver preferences"
+msgstr "Määritä näytönsäästäjän asetukset"
+
+#: ../data/xfce4-screensaver.directory.in.h:1
+msgid "Screensavers"
+msgstr "Näytönsäästäjät"
+
+#: ../data/xfce4-screensaver.directory.in.h:2
+msgid "Screensaver themes"
+msgstr "Näytönsäästäjän teemat"
+
+#: ../savers/floaters.c:89
+msgid "Show paths that images follow"
+msgstr "Näytä polku jota kuvat seuraavat"
+
+#: ../savers/floaters.c:94
+msgid "Occasionally rotate images as they move"
+msgstr "Käännä kuvia satunnaisesti kun ne liikkuvat"
+
+#: ../savers/floaters.c:99
+msgid "Print out frame rate and other statistics"
+msgstr "Tulosta kuvataajuus ja muita tilastoja"
+
+#: ../savers/floaters.c:104
+msgid "The maximum number of images to keep on screen"
+msgstr "Maksimimäärä kuvia, jotka pidetään näytöllä"
+
+#: ../savers/floaters.c:104
+msgid "MAX_IMAGES"
+msgstr "KUVIEN_MAKSIMI"
+
+#: ../savers/floaters.c:109
+msgid "The initial size and position of window"
+msgstr "Ikkunan alkukoko ja -sijainti"
+
+#: ../savers/floaters.c:109
+msgid "WIDTHxHEIGHT+X+Y"
+msgstr "LEVEYSxKORKEUS+X+Y"
+
+#: ../savers/floaters.c:114
+msgid "The source image to use"
+msgstr "Käytettävä lähdekuva"
+
+#. translators: the word "image" here
+#. * represents a command line argument
+#: ../savers/floaters.c:1120
+msgid "image - floats images around the screen"
+msgstr "kuva - kuva kelluu näytöllä"
+
+#: ../savers/floaters.c:1124 ../savers/popsquares.c:49
+#, c-format
+msgid "%s. See --help for usage information.\n"
+msgstr "%s. Katso --help saadaksesi käyttöohjeita.\n"
+
+#: ../savers/floaters.c:1132
+#, c-format
+msgid "You must specify one image.  See --help for usage information.\n"
+msgstr ""
+"Sinun täytyy määrittää yksi kuva. Katso --help saadaksesi käyttöohjeita.\n"
+
+#: ../savers/slideshow.c:53
+msgid "Location to get images from"
+msgstr "Sijainti josta kuvat haetaan"
+
+#: ../savers/slideshow.c:53
+msgid "PATH"
+msgstr "POLKU"
+
+#: ../savers/slideshow.c:57
+msgid "Color to use for images background"
+msgstr "Kuvien taustalla käytettävä väri"
+
+#: ../savers/slideshow.c:57
+msgid "\"#rrggbb\""
+msgstr "\"#rrggbb\""
+
+#: ../savers/slideshow.c:61
+msgid "Do not randomize pictures from location"
+msgstr "Älä valitse kuvia satunnaisesti sijainnista"
+
+#: ../savers/slideshow.c:65
+msgid "Do not try to stretch images on screen"
+msgstr "Älä yritä venyttää kuvia näytölle"
+
+#: ../savers/xfce-floaters.desktop.in.in.h:1
+msgid "Floating Xfce"
+msgstr "Kelluva Xfce"
+
+#: ../savers/xfce-floaters.desktop.in.in.h:2
+msgid "Bubbles the Xfce logo around the screen"
+msgstr "Näyttää Xfce:n logoa ympäri näyttöä"
+
+#: ../savers/xfce-personal-slideshow.desktop.in.in.h:1
+msgid "Pictures folder"
+msgstr "Kuvat-kansio"
+
+#: ../savers/xfce-personal-slideshow.desktop.in.in.h:2
+msgid "Display a slideshow from your Pictures folder"
+msgstr ""
+
+#: ../savers/xfce-popsquares.desktop.in.in.h:1
+msgid "Pop art squares"
+msgstr ""
+
+#: ../savers/xfce-popsquares.desktop.in.in.h:2
+msgid "A pop-art-ish grid of pulsing colors."
+msgstr ""
+
+#: ../src/copy-theme-dialog.c:214
+msgid "Copying files"
+msgstr "Kopioidaan tiedostoja"
+
+#: ../src/copy-theme-dialog.c:233
+msgid "From:"
+msgstr "Keneltä:"
+
+#: ../src/copy-theme-dialog.c:237
+msgid "To:"
+msgstr "Kenelle:"
+
+#: ../src/copy-theme-dialog.c:255 ../src/gs-lock-plug.c:1192
+#: ../src/xfce4-screensaver-dialog.ui.h:7
+msgid "_Cancel"
+msgstr "_Peruuta"
+
+#: ../src/copy-theme-dialog.c:258
+msgid "Copying themes"
+msgstr "Kopioidaan teemoja"
+
+#: ../src/copy-theme-dialog.c:296
+msgid "Invalid screensaver theme"
+msgstr "Viallinen näytönsäästäjän teema"
+
+#: ../src/copy-theme-dialog.c:299
+#, c-format
+msgid "%s does not appear to be a valid screensaver theme."
+msgstr "%s ei vaikuta olevan kelvollinen näytönsäästäjän teema."
+
+#: ../src/copy-theme-dialog.c:457
+#, c-format
+msgid "Copying file: %u of %u"
+msgstr "Kopiodaan tiedostoa: %u / %u"
+
+#: ../src/gs-auth-pam.c:163
+msgid "Password:"
+msgstr "Salasana:"
+
+#: ../src/gs-auth-pam.c:378
+#, c-format
+msgid "Unable to establish service %s: %s\n"
+msgstr "Ei voida luoda palvelua %s: %s\n"
+
+#: ../src/gs-auth-pam.c:404
+#, c-format
+msgid "Can't set PAM_TTY=%s"
+msgstr "Ei voida asettaa PAM_TTY=%s"
+
+#: ../src/gs-auth-pam.c:435
+msgid "Incorrect password."
+msgstr "Virheellinen salasana."
+
+#: ../src/gs-auth-pam.c:437 ../src/xfce4-screensaver-dialog.c:311
+msgid "Authentication failed."
+msgstr "Tunnistus epäonnistui."
+
+#: ../src/gs-auth-pam.c:451
+msgid "Not permitted to gain access at this time."
+msgstr "Ei oikeutta saada pääsyä tähän aikaan."
+
+#: ../src/gs-auth-pam.c:457
+msgid "No longer permitted to access the system."
+msgstr "Ei enää oikeutta pääsyyn tähän järjestelmään."
+
+#: ../src/gs-auth-pam.c:674
+msgid "Username:"
+msgstr "Käyttäjätunnus:"
+
+#: ../src/gs-listener-dbus.c:1993
+msgid "failed to register with the message bus"
+msgstr "ei voitu rekisteröidä istuntoväylän kanssa"
+
+#: ../src/gs-listener-dbus.c:2003
+msgid "not connected to the message bus"
+msgstr "ei yhteyttä istuntoväylään"
+
+#: ../src/gs-listener-dbus.c:2012 ../src/gs-listener-dbus.c:2042
+msgid "screensaver already running in this session"
+msgstr "näytönsäästäjä on jo käynissä tässä istunnossa"
+
+#: ../src/gs-lock-plug.c:268
+msgctxt "Date"
+msgid "%A, %B %e   %H:%M"
+msgstr ""
+
+#: ../src/gs-lock-plug.c:351
+msgid "Time has expired."
+msgstr "Aika on umpeutunut."
+
+#: ../src/gs-lock-plug.c:1177
+msgid "S_witch User..."
+msgstr "_Vaihda käyttäjää..."
+
+#: ../src/gs-lock-plug.c:1186
+msgid "Log _Out"
+msgstr "Kirjaudu _ulos"
+
+#: ../src/gs-lock-plug.c:1197 ../src/xfce4-screensaver-dialog.ui.h:8
+msgid "_Unlock"
+msgstr "_Avaa lukitus"
+
+#. To translators: This expands to USERNAME on HOSTNAME
+#: ../src/gs-lock-plug.c:1363
+msgid "%U on %h"
+msgstr "%U järjestelmässä %h"
+
+#: ../src/gs-lock-plug.c:1378
+msgid "Please enter your password."
+msgstr "Anna salasanasi"
+
+#. Translators: a CRTC is a CRT Controller (this is X terminology).
+#: ../src/xfce-rr.c:444
+#, c-format
+msgid "could not get the screen resources (CRTCs, outputs, modes)"
+msgstr "ei voitu hakea näytön resursseja (CRTC:t, ulostulot, tilat)"
+
+#: ../src/xfce-rr.c:465
+#, c-format
+msgid "unhandled X error while getting the range of screen sizes"
+msgstr "käsittelemätön X:n virhe hakiessa näytön kokoja"
+
+#: ../src/xfce-rr.c:471
+#, c-format
+msgid "could not get the range of screen sizes"
+msgstr "ei voitu hakea näytön kokoja"
+
+#: ../src/xfce-rr.c:682
+#, c-format
+msgid "RANDR extension is not present"
+msgstr "RANDR-lisäosaa ei löydy"
+
+#: ../src/xfce-rr.c:1075
+#, c-format
+msgid "could not get information about output %d"
+msgstr "ei voitu hakea tietoja ulostulosta %d"
+
+#: ../src/xfce-rr.c:1298
+#, c-format
+msgid "could not get information about CRTC %d"
+msgstr "ei voitu hakea tietoja CRTC:stä %d"
+
+#: ../src/xfce4-screensaver-command.c:60
+msgid "Causes the screensaver to exit gracefully"
+msgstr "Aiheuttaa näytönsäästäjän lopettamisen sulavasti"
+
+#: ../src/xfce4-screensaver-command.c:64
+msgid "Query the state of the screensaver"
+msgstr "Tiedustele näytönsäästäjän tilaa"
+
+#: ../src/xfce4-screensaver-command.c:68
+msgid "Query the length of time the screensaver has been active"
+msgstr "Tiedustele kuinka pitkään näytönsäästäjä on ollut aktiivinen"
+
+#: ../src/xfce4-screensaver-command.c:72
+msgid "Tells the running screensaver process to lock the screen immediately"
+msgstr "Käskee käynnissä olevan näytönsäästäjän sulkemaan näytön välittömästi"
+
+#: ../src/xfce4-screensaver-command.c:76
+msgid "If the screensaver is active then switch to another graphics demo"
+msgstr "Jos näytönsäästäjä on aktiivinen, vaihda toiseen grafiikkademoon"
+
+#: ../src/xfce4-screensaver-command.c:80
+msgid "Turn the screensaver on (blank the screen)"
+msgstr "Kytke näytönsäästäjä päälle (tyhjennä näyttö)"
+
+#: ../src/xfce4-screensaver-command.c:84
+msgid "If the screensaver is active then deactivate it (un-blank the screen)"
+msgstr ""
+"Jos näytönsäästäjä on aktiivinen, kykse se pois päältä (poista näytön "
+"tyhjennys)"
+
+#: ../src/xfce4-screensaver-command.c:88
+msgid "Poke the running screensaver to simulate user activity"
+msgstr "Simuloi käyttäjän toimia näytönsäästäjää varten."
+
+#: ../src/xfce4-screensaver-command.c:92
+msgid ""
+"Inhibit the screensaver from activating.  Command blocks while inhibit is "
+"active."
+msgstr ""
+"Estä näytönsäästäjää aktivoitumasta. Komento estää käynnistymisen kun esto "
+"on käytössä."
+
+#: ../src/xfce4-screensaver-command.c:96
+msgid "The calling application that is inhibiting the screensaver"
+msgstr "Sovellus joka estää näytönsäästäjän"
+
+#: ../src/xfce4-screensaver-command.c:100
+msgid "The reason for inhibiting the screensaver"
+msgstr "Syy näytönsäästäjän estämiseen"
+
+#: ../src/xfce4-screensaver-command.c:104 ../src/xfce4-screensaver-dialog.c:65
+#: ../src/xfce4-screensaver.c:58
+msgid "Version of this application"
+msgstr "Sovelluksen versio"
+
+#: ../src/xfce4-screensaver-command.c:325
+#, c-format
+msgid "The screensaver is %s\n"
+msgstr "Näytönsäästäjä on %s\n"
+
+#: ../src/xfce4-screensaver-command.c:325
+msgid "active"
+msgstr "aktiivinen"
+
+#: ../src/xfce4-screensaver-command.c:325
+msgid "inactive"
+msgstr "inaktiivinen"
+
+#: ../src/xfce4-screensaver-command.c:339
+#, c-format
+msgid "The screensaver is not inhibited\n"
+msgstr "Näytönsäästäjää ei ole estetty\n"
+
+#: ../src/xfce4-screensaver-command.c:345
+#, c-format
+msgid "The screensaver is being inhibited by:\n"
+msgstr "Näytönsäästäjää on estetty seuraavien toimesta:\n"
+
+#: ../src/xfce4-screensaver-command.c:375
+#, c-format
+msgid "The screensaver has been active for %d seconds.\n"
+msgstr "Näytönsäästäjä on ollut aktiivinen %d sekuntia.\n"
+
+#: ../src/xfce4-screensaver-command.c:379
+#, c-format
+msgid "The screensaver is not currently active.\n"
+msgstr "Näytönsäästäjä ei ole aktiivinen.\n"
+
+#: ../src/xfce4-screensaver-dialog.c:63
+msgid "Show debugging output"
+msgstr "Näytä virheenjäljitystietoja"
+
+#: ../src/xfce4-screensaver-dialog.c:67
+msgid "Show the logout button"
+msgstr "Näytä uloskirjautumispainike"
+
+#: ../src/xfce4-screensaver-dialog.c:69
+msgid "Command to invoke from the logout button"
+msgstr "Komento joka suoritetaan uloskirjautumispainikkeesta"
+
+#: ../src/xfce4-screensaver-dialog.c:71
+msgid "Show the switch user button"
+msgstr "Näytä käyttäjänvaihtopainike"
+
+#: ../src/xfce4-screensaver-dialog.c:73
+msgid "Message to show in the dialog"
+msgstr "Dialogissa näytettävä viesti"
+
+#: ../src/xfce4-screensaver-dialog.c:73 ../src/xfce4-screensaver-dialog.c:75
+msgid "MESSAGE"
+msgstr "VIESTI"
+
+#: ../src/xfce4-screensaver-dialog.c:75
+msgid "Not used"
+msgstr "Ei käytössä"
+
+#: ../src/xfce4-screensaver-dialog.c:77
+msgid "Monitor height"
+msgstr "Monitorin korkeus"
+
+#: ../src/xfce4-screensaver-dialog.c:79
+msgid "Monitor width"
+msgstr "Monitorin leveys"
+
+#: ../src/xfce4-screensaver-dialog.c:81
+msgid "Monitor index"
+msgstr "Monitorin indeksi"
+
+#: ../src/xfce4-screensaver-dialog.c:175 ../src/xfce4-screensaver-dialog.c:177
+#: ../src/xfce4-screensaver-dialog.c:178
+msgid "Please enter your username."
+msgstr "Anna käyttäjänimesi."
+
+#: ../src/xfce4-screensaver-dialog.c:184
+msgid "You are required to change your password immediately (password aged)"
+msgstr "Sinun täytyy vaihtaa salasanasi välittömästi (salasana vanhentui)"
+
+#: ../src/xfce4-screensaver-dialog.c:186
+msgid "You are required to change your password immediately (root enforced)"
+msgstr ""
+"Sinun täytyy vaihtaa salasanasi välittömästi (järjestelmänvalvojan "
+"pakottama)"
+
+#: ../src/xfce4-screensaver-dialog.c:188
+msgid "Your account has expired; please contact your system administrator"
+msgstr "Tilisi on vanhentunut; ole yhteydessä järjestelmänvalvojaan"
+
+#: ../src/xfce4-screensaver-dialog.c:190
+msgid "No password supplied."
+msgstr "Salasanaa ei annettu."
+
+#: ../src/xfce4-screensaver-dialog.c:192
+msgid "Password unchanged."
+msgstr "Salasana ei muuttunut."
+
+#: ../src/xfce4-screensaver-dialog.c:194
+msgid "Can not get username."
+msgstr "Ei voida hakea käyttäjänimeä."
+
+#: ../src/xfce4-screensaver-dialog.c:196
+msgid "Retype your new password."
+msgstr "Anna uusi salasanasi uudelleen."
+
+#: ../src/xfce4-screensaver-dialog.c:198
+msgid "Enter your new password."
+msgstr "Anna uusi salasanasi."
+
+#: ../src/xfce4-screensaver-dialog.c:200
+msgid "Enter your current password:"
+msgstr "Anna nykyinen salasanasi:"
+
+#: ../src/xfce4-screensaver-dialog.c:202
+msgid "Error while changing NIS password."
+msgstr "Virhe vaihtaessa NIS-salasanaa."
+
+#: ../src/xfce4-screensaver-dialog.c:204
+msgid "You must choose a longer password."
+msgstr "Sinun täytyy valita pidempi salasana."
+
+#: ../src/xfce4-screensaver-dialog.c:206
+msgid "Password has been already used. Choose another."
+msgstr "Salasana on ollut jo käytössä. Valitse toinen."
+
+#: ../src/xfce4-screensaver-dialog.c:208
+msgid "You must wait longer to change your password."
+msgstr "Sinun täytyy odottaa pidempään, jotta voit vaihtaa salasanasi."
+
+#: ../src/xfce4-screensaver-dialog.c:210
+msgid "Sorry, passwords do not match."
+msgstr "Valitettavasti salasanat eivät täsmää toisiaan."
+
+#: ../src/xfce4-screensaver-dialog.c:274
+msgid "Checking..."
+msgstr "Tarkistetaan..."
+
+#: ../src/xfce4-screensaver-dialog.ui.h:2
+#, no-c-format
+msgid "%U"
+msgstr "%U"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:3
+msgid "Enter your password"
+msgstr "Anna salasanasi"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:4
+msgid "You have the Caps Lock key on."
+msgstr "Caps Lock -näppäin on päällä."
+
+#: ../src/xfce4-screensaver-dialog.ui.h:5
+msgid "_Switch User"
+msgstr "_Vaihda käyttäjää"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:6
+msgid "_Log Out"
+msgstr "_Kirjaudu ulos"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:10
+#, no-c-format
+msgid "<b>%h</b>"
+msgstr "<b>%h</b>"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:12
+#, no-c-format
+msgid "<b>%s</b>"
+msgstr "<b>%s</b>"
+
+#: ../src/xfce4-screensaver-preferences.c:84
+msgid "Settings manager socket"
+msgstr "Asetustenhallinnan pistoke"
+
+#: ../src/xfce4-screensaver-preferences.c:84
+msgid "SOCKET ID"
+msgstr "PISTOKKEEN ID"
+
+#: ../src/xfce4-screensaver-preferences.c:663
+msgid "Blank screen"
+msgstr "Tyhjä näyttö"
+
+#: ../src/xfce4-screensaver-preferences.c:669
+msgid "Random"
+msgstr "Satunnainen"
+
+#: ../src/xfce4-screensaver-preferences.c:1872
+msgid "Setting locked by administrator."
+msgstr "Järjestelmänvalvojan lukitsema asetus."
+
+#: ../src/xfce4-screensaver-preferences.c:1912
+msgid "Could not load the main interface"
+msgstr "Ei voitu ladata pääkäyttöliittymää"
+
+#: ../src/xfce4-screensaver-preferences.c:1914
+msgid "Please make sure that the screensaver is properly installed"
+msgstr "Varmista että näytönsäästäjä on asennettu oikein"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:1
+msgid "Screensaver Preview"
+msgstr "Näytönsäästäjän esikatselu"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:2
+msgid "<b>Screensaver preview</b>"
+msgstr "<b>Näytönsäästäjän esikatselu</b>"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:3
+msgid "Screensaver Preferences"
+msgstr "Näytönsäästäjän asetukset"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:4
+msgid "Configure your screensaver and locker"
+msgstr "Muokkaa näytönsäästäjän ja näytönlukituksen asetuksia"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:5
+msgid "Power _Management"
+msgstr "_Virranhallinta"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:6
+msgid "Preview"
+msgstr "Esikatselu"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:7
+msgid "Running as root"
+msgstr "Ajetaan pääkäyttäjänä"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:8
+msgid "The screen will not be locked for the root user."
+msgstr "Näyttöä ei lukita pääkäyttäjälle."
+
+#: ../src/xfce4-screensaver-preferences.ui.h:9
+msgid "Resolve"
+msgstr "Ratkaise"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:10
+msgid "Xfce Power Manager is not configured to handle laptop lid events"
+msgstr ""
+"Xfce:n virranhallintaa ei ole kytketty hallitsemaan kannettavan kannen "
+"tapahtumia"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:11
+msgid "Your computer may not be locked when you close the lid."
+msgstr "Tietokonettasi ei voida lukita kun suljet kannen."
+
+#: ../src/xfce4-screensaver-preferences.ui.h:12
+msgid "Enable Screensaver"
+msgstr "Ota näytönsäästäjä käyttöön"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:13
+msgid "Theme"
+msgstr "Teema"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:14
+msgid "Change theme after:"
+msgstr "Vaihda teemaa aikavälillä:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:15
+msgid "minutes"
+msgstr "minuuttia"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:16
+msgid "Activate screensaver when computer is idle"
+msgstr "Aktivoi näytönsäästäjä kun tietokonetta ei käytetä"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:17
+msgid "Regard the computer as _idle after:"
+msgstr "Tietokone _ei ole käytössä, kun on kulunut:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:19
+msgid "Enable Lock Screen"
+msgstr "Ota lukitusikkuna käyttöön"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:20
+msgid "Lock Screen with Screensaver"
+msgstr "Lukitse näyttö näytönsäästäjällä"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:21
+msgid "Lock the screen after the screensaver is active for:"
+msgstr "Lukitse näyttö kun näytönsäästäjä on ollut aktiivinen:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:22
+msgid "On Screen Keyboard"
+msgstr "Virtuaalinäppäimistö"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:23
+msgid "On screen keyboard command:"
+msgstr "Virtuaalinäppäimistön komento:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:24
+msgid "Session Status Messages"
+msgstr "Istunnon tilaviestit"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:25
+msgid "Logout"
+msgstr "Uloskirjautuminen"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:26
+msgid "Logout command:"
+msgstr "Uloskirjautumiskomento:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:27
+msgid "Enable logout after:"
+msgstr "Salli uloskirjautuminen:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:28
+msgid "User Switching"
+msgstr "Käyttäjänvaihto"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:29
+msgid "Lock Screen with System Sleep"
+msgstr "Lukitse näyttö järjestelmän keskeytys- ja lepotilalla"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:30
+msgid "Lock Screen"
+msgstr "Lukitse näyttö"
+
+#: ../src/xfce4-screensaver.c:59
+msgid "Don't become a daemon"
+msgstr "Älä muutu demoniksi"
+
+#: ../src/xfce4-screensaver.c:60
+msgid "Enable debugging code"
+msgstr "Ota virheenjäljityskoodi käyttöön"
+
+#: ../src/xfce4-screensaver.desktop.in.in.h:2
+msgid "Launch screensaver and locker program"
+msgstr "Käynnistä näytönsäästäjä ja näytönlukitus"
+
+#: ../src/xfcekbd-indicator.c:538
+msgid "XKB initialization error"
+msgstr "XKB-käynnistysvirhe"
