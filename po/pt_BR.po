@@ -307,29 +307,32 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-command.c:80
 msgid "Turn the screensaver on (blank the screen)"
-msgstr ""
+msgstr "Liga o protetor de tela (apaga a tela)"
 
 #: ../src/xfce4-screensaver-command.c:84
 msgid "If the screensaver is active then deactivate it (un-blank the screen)"
-msgstr ""
+msgstr "Se o protetor de tela estiver ativo, desativa-o (liga a tela)"
 
 #: ../src/xfce4-screensaver-command.c:88
 msgid "Poke the running screensaver to simulate user activity"
 msgstr ""
+"Cutuca o protetor de tela em execução para simular atividade de usuário"
 
 #: ../src/xfce4-screensaver-command.c:92
 msgid ""
 "Inhibit the screensaver from activating.  Command blocks while inhibit is "
 "active."
 msgstr ""
+"Inibe o protetor de tela de ativar. Os comandos são bloqueados enquanto "
+"inibição estiver ativa."
 
 #: ../src/xfce4-screensaver-command.c:96
 msgid "The calling application that is inhibiting the screensaver"
-msgstr ""
+msgstr "O aplicativo de chamada que está inibindo o protetor de tela"
 
 #: ../src/xfce4-screensaver-command.c:100
 msgid "The reason for inhibiting the screensaver"
-msgstr ""
+msgstr "O motivo para inibir o protetor de tela"
 
 #: ../src/xfce4-screensaver-command.c:104 ../src/xfce4-screensaver-dialog.c:65
 #: ../src/xfce4-screensaver.c:58
