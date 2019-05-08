@@ -7,16 +7,16 @@
 # Xfce Bot <transifex@xfce.org>, 2018
 # Marcin Mikołajczak <me@m4sk.in>, 2018
 # Nick Schermer <nick@xfce.org>, 2018
-# No Ne, 2018
+# No Ne, 2019
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-14 06:31+0100\n"
+"POT-Creation-Date: 2019-03-15 06:31+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: No Ne, 2018\n"
+"Last-Translator: No Ne, 2019\n"
 "Language-Team: Polish (https://www.transifex.com/xfce/teams/16840/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -92,30 +92,6 @@ msgstr ""
 "Musisz podać jeden obraz. Zobacz --help, aby uzyskać informacje o "
 "użytkowaniu.\n"
 
-#: ../savers/xfce-floaters.desktop.in.in.h:1
-msgid "Floating Xfce"
-msgstr "Pływające Xfce"
-
-#: ../savers/xfce-floaters.desktop.in.in.h:2
-msgid "Bubbles the Xfce logo around the screen"
-msgstr "Wiruje logiem Xfce po ekranie"
-
-#: ../savers/personal-slideshow.desktop.in.in.h:1
-msgid "Pictures folder"
-msgstr "Folder Obrazy"
-
-#: ../savers/personal-slideshow.desktop.in.in.h:2
-msgid "Display a slideshow from your Pictures folder"
-msgstr "Wyświetl pokaz slajdów z folderu Obrazy"
-
-#: ../savers/popsquares.desktop.in.in.h:1
-msgid "Pop art squares"
-msgstr "Kwadraty pop-art"
-
-#: ../savers/popsquares.desktop.in.in.h:2
-msgid "A pop-art-ish grid of pulsing colors."
-msgstr "Pop-artowa siatka pulsujących kolorów."
-
 #: ../savers/slideshow.c:53
 msgid "Location to get images from"
 msgstr "Lokalizacja, z której można uzyskać obrazy"
@@ -140,6 +116,30 @@ msgstr "Nie wybieraj losowo zdjęć z lokalizacji"
 msgid "Do not try to stretch images on screen"
 msgstr "Nie próbuj rozciągać obrazów na ekranie"
 
+#: ../savers/xfce-floaters.desktop.in.in.h:1
+msgid "Floating Xfce"
+msgstr "Pływające Xfce"
+
+#: ../savers/xfce-floaters.desktop.in.in.h:2
+msgid "Bubbles the Xfce logo around the screen"
+msgstr "Wiruje logiem Xfce po ekranie"
+
+#: ../savers/xfce-personal-slideshow.desktop.in.in.h:1
+msgid "Pictures folder"
+msgstr "Folder Obrazy"
+
+#: ../savers/xfce-personal-slideshow.desktop.in.in.h:2
+msgid "Display a slideshow from your Pictures folder"
+msgstr "Wyświetl pokaz slajdów z folderu Obrazy"
+
+#: ../savers/xfce-popsquares.desktop.in.in.h:1
+msgid "Pop art squares"
+msgstr "Kwadraty pop-art"
+
+#: ../savers/xfce-popsquares.desktop.in.in.h:2
+msgid "A pop-art-ish grid of pulsing colors."
+msgstr "Pop-artowa siatka pulsujących kolorów."
+
 #: ../src/copy-theme-dialog.c:214
 msgid "Copying files"
 msgstr "Kopiowanie plików"
@@ -152,7 +152,7 @@ msgstr "Od:"
 msgid "To:"
 msgstr "Do:"
 
-#: ../src/copy-theme-dialog.c:255 ../src/gs-lock-plug.c:1193
+#: ../src/copy-theme-dialog.c:255 ../src/gs-lock-plug.c:1192
 #: ../src/xfce4-screensaver-dialog.ui.h:7
 msgid "_Cancel"
 msgstr "Anu_luj"
@@ -193,7 +193,7 @@ msgstr "Nie można ustawić PAM_TTY=%s"
 msgid "Incorrect password."
 msgstr "Nieprawidłowe hasło."
 
-#: ../src/gs-auth-pam.c:437 ../src/xfce4-screensaver-dialog.c:313
+#: ../src/gs-auth-pam.c:437 ../src/xfce4-screensaver-dialog.c:311
 msgid "Authentication failed."
 msgstr "Nieudane uwierzytelnianie."
 
@@ -209,44 +209,45 @@ msgstr "Nie można już uzyskać dostępu do systemu."
 msgid "Username:"
 msgstr "Nazwa użytkownika:"
 
-#: ../src/gs-listener-dbus.c:1950
+#: ../src/gs-listener-dbus.c:1993
 msgid "failed to register with the message bus"
 msgstr "nie udało się zarejestrować w magistrali komunikatów"
 
-#: ../src/gs-listener-dbus.c:1960
+#: ../src/gs-listener-dbus.c:2003
 msgid "not connected to the message bus"
 msgstr "nie podłączono do magistrali komunikatów"
 
-#: ../src/gs-listener-dbus.c:1969 ../src/gs-listener-dbus.c:1999
+#: ../src/gs-listener-dbus.c:2012 ../src/gs-listener-dbus.c:2042
 msgid "screensaver already running in this session"
 msgstr "wygaszacz ekranu już uruchomiony w tej sesji"
 
-#: ../src/gs-lock-plug.c:267
+#: ../src/gs-lock-plug.c:268
+msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, %B %e   %H:%M"
 
-#: ../src/gs-lock-plug.c:350
+#: ../src/gs-lock-plug.c:351
 msgid "Time has expired."
 msgstr "Upłynął czas."
 
-#: ../src/gs-lock-plug.c:1178
+#: ../src/gs-lock-plug.c:1177
 msgid "S_witch User..."
 msgstr "P_rzełącz użytkownika..."
 
-#: ../src/gs-lock-plug.c:1187
+#: ../src/gs-lock-plug.c:1186
 msgid "Log _Out"
 msgstr "_Wyloguj"
 
-#: ../src/gs-lock-plug.c:1198 ../src/xfce4-screensaver-dialog.ui.h:8
+#: ../src/gs-lock-plug.c:1197 ../src/xfce4-screensaver-dialog.ui.h:8
 msgid "_Unlock"
 msgstr "_Odblokuj"
 
 #. To translators: This expands to USERNAME on HOSTNAME
-#: ../src/gs-lock-plug.c:1364
+#: ../src/gs-lock-plug.c:1363
 msgid "%U on %h"
 msgstr "%U na %h"
 
-#: ../src/gs-lock-plug.c:1379
+#: ../src/gs-lock-plug.c:1378
 msgid "Please enter your password."
 msgstr "Proszę wprowadzić hasło."
 
@@ -509,31 +510,31 @@ msgstr "<b>%h</b>"
 msgid "<b>%s</b>"
 msgstr "<b>%s</b>"
 
-#: ../src/xfce4-screensaver-preferences.c:83
+#: ../src/xfce4-screensaver-preferences.c:84
 msgid "Settings manager socket"
 msgstr "Określa gniazdo menedżera ustawień"
 
-#: ../src/xfce4-screensaver-preferences.c:83
+#: ../src/xfce4-screensaver-preferences.c:84
 msgid "SOCKET ID"
 msgstr "IDENTYFIKATOR GNIAZDA"
 
-#: ../src/xfce4-screensaver-preferences.c:594
+#: ../src/xfce4-screensaver-preferences.c:663
 msgid "Blank screen"
 msgstr "Ciemny ekran"
 
-#: ../src/xfce4-screensaver-preferences.c:600
+#: ../src/xfce4-screensaver-preferences.c:669
 msgid "Random"
 msgstr "Losowo"
 
-#: ../src/xfce4-screensaver-preferences.c:1677
+#: ../src/xfce4-screensaver-preferences.c:1872
 msgid "Setting locked by administrator."
 msgstr "Ustawienie zablokowane przez administratora."
 
-#: ../src/xfce4-screensaver-preferences.c:1717
+#: ../src/xfce4-screensaver-preferences.c:1912
 msgid "Could not load the main interface"
 msgstr "Nie można załadować głównego interfejsu"
 
-#: ../src/xfce4-screensaver-preferences.c:1719
+#: ../src/xfce4-screensaver-preferences.c:1914
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "Upewnij się, że wygaszacz ekranu jest poprawnie zainstalowany"
 
@@ -596,58 +597,62 @@ msgid "Change theme after:"
 msgstr "Zmień motyw po:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:15
+msgid "minutes"
+msgstr "minut"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:16
 msgid "Activate screensaver when computer is idle"
 msgstr "Aktywuj wygaszacz ekranu, gdy komputer jest bezczynny"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:16
+#: ../src/xfce4-screensaver-preferences.ui.h:17
 msgid "Regard the computer as _idle after:"
 msgstr "Uznaj komputer jako _bezczynny po:"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:17
-msgid "minutes"
-msgstr "minut"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:19
 msgid "Enable Lock Screen"
 msgstr "Włącz blokadę ekranu"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:20
-msgid "Session Status Messages"
-msgstr "Komunikaty o statusie sesji"
+msgid "Lock Screen with Screensaver"
+msgstr "Blokada ekranu z wygaszaczem ekranu"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:21
-msgid "User Switching"
-msgstr "Przełączanie użytkowników"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:22
-msgid "Logout"
-msgstr "Wylogowanie"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:23
-msgid "Logout command:"
-msgstr "Polecenie wylogowania:"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:24
-msgid "Enable logout after:"
-msgstr "Włącz wylogowanie po:"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:25
 msgid "Lock the screen after the screensaver is active for:"
 msgstr "Zablokuj ekran po tym, gdy wygaszacz ekranu jest aktywny przez:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:26
-msgid "Lock Screen with Screensaver"
-msgstr "Blokada ekran z wygaszaczem ekranu"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:27
+#: ../src/xfce4-screensaver-preferences.ui.h:22
 msgid "On Screen Keyboard"
 msgstr "Klawiatura ekranowa"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:28
+#: ../src/xfce4-screensaver-preferences.ui.h:23
 msgid "On screen keyboard command:"
 msgstr "Polecenie klawiatury ekranowej:"
 
+#: ../src/xfce4-screensaver-preferences.ui.h:24
+msgid "Session Status Messages"
+msgstr "Komunikaty o statusie sesji"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:25
+msgid "Logout"
+msgstr "Wylogowanie"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:26
+msgid "Logout command:"
+msgstr "Polecenie wylogowania:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:27
+msgid "Enable logout after:"
+msgstr "Włącz wylogowanie po:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:28
+msgid "User Switching"
+msgstr "Przełączanie użytkowników"
+
 #: ../src/xfce4-screensaver-preferences.ui.h:29
+msgid "Lock Screen with System Sleep"
+msgstr "Blokada ekranu z uśpieniem systemu"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:30
 msgid "Lock Screen"
 msgstr "Blokada ekranu"
 
@@ -663,6 +668,6 @@ msgstr "Włącz kod debugowania"
 msgid "Launch screensaver and locker program"
 msgstr "Uruchom wygaszacz ekranu i program blokady"
 
-#: ../src/xfcekbd-indicator.c:533
+#: ../src/xfcekbd-indicator.c:538
 msgid "XKB initialization error"
 msgstr "Błąd inicjalizacji XKB"
