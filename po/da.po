@@ -228,7 +228,7 @@ msgstr "Tiden udløb."
 
 #: ../src/gs-lock-plug.c:1177
 msgid "S_witch User..."
-msgstr "_Skift bruger..."
+msgstr "_Skift bruger ..."
 
 #: ../src/gs-lock-plug.c:1186
 msgid "Log _Out"
@@ -470,7 +470,7 @@ msgstr "Beklager, adgangskoderne er ikke ens."
 
 #: ../src/xfce4-screensaver-dialog.c:274
 msgid "Checking..."
-msgstr "Tjekker..."
+msgstr "Tjekker ..."
 
 #: ../src/xfce4-screensaver-dialog.ui.h:2
 #, no-c-format
