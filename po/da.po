@@ -315,7 +315,7 @@ msgid ""
 "Inhibit the screensaver from activating.  Command blocks while inhibit is "
 "active."
 msgstr ""
-"Forhindre pauseskærmen i at blive aktiveret. Kommandoen blokerer mens "
+"Forhindr pauseskærmen i at blive aktiveret. Kommandoen blokerer mens "
 "forhindringen er aktiv."
 
 #: ../src/xfce4-screensaver-command.c:96
