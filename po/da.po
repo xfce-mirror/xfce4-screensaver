@@ -568,7 +568,7 @@ msgstr "Løs"
 #: ../src/xfce4-screensaver-preferences.ui.h:10
 msgid "Xfce Power Manager is not configured to handle laptop lid events"
 msgstr ""
-"Xfce-strømstyring er ikke konfigureret til at håndtere hændelser for låget "
+"Xfce strømstyring er ikke konfigureret til at håndtere hændelser for låget "
 "på en bærbar"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:11
