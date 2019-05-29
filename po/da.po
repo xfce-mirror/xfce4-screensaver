@@ -81,12 +81,12 @@ msgstr "billede - svæver billeder rundt på skærmen"
 #: ../savers/floaters.c:1124 ../savers/popsquares.c:49
 #, c-format
 msgid "%s. See --help for usage information.\n"
-msgstr "%s. Se --help for information om anvendelse.\n"
+msgstr "%s. Se --help for anvendelsesinformation.\n"
 
 #: ../savers/floaters.c:1132
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
-msgstr "Du skal angive et billede. Se --help for information om anvendelse.\n"
+msgstr "Du skal angive et billede. Se --help for anvendelsesinformation.\n"
 
 #: ../savers/slideshow.c:53
 msgid "Location to get images from"
