@@ -8,3 +8,4 @@ Terminal=false
 Type=Application
 Categories=Screensaver;
 OnlyShowIn=XFCE;
+Hidden=true
