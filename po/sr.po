@@ -260,6 +260,7 @@ msgstr ""
 #, c-format
 msgid "unhandled X error while getting the range of screen sizes"
 msgstr ""
+"десила се неочекивана грешка Икса приликом добављања опсега величине екрана"
 
 #: ../src/xfce-rr.c:471
 #, c-format
@@ -350,17 +351,17 @@ msgstr "нерадан"
 #: ../src/xfce4-screensaver-command.c:339
 #, c-format
 msgid "The screensaver is not inhibited\n"
-msgstr ""
+msgstr "Чувар приказа није заустављен\n"
 
 #: ../src/xfce4-screensaver-command.c:345
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
-msgstr ""
+msgstr "Чувар приказа је заустављен од:\n"
 
 #: ../src/xfce4-screensaver-command.c:375
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
-msgstr ""
+msgstr "Чувар приказа ради већ %d секунди.\n"
 
 #: ../src/xfce4-screensaver-command.c:379
 #, c-format
@@ -377,7 +378,7 @@ msgstr "Приказуј дугме одјаве"
 
 #: ../src/xfce4-screensaver-dialog.c:69
 msgid "Command to invoke from the logout button"
-msgstr ""
+msgstr "Наредба за позивање дугметом одјаве"
 
 #: ../src/xfce4-screensaver-dialog.c:71
 msgid "Show the switch user button"
@@ -414,15 +415,15 @@ msgstr "Унесите своје корисничко име."
 
 #: ../src/xfce4-screensaver-dialog.c:184
 msgid "You are required to change your password immediately (password aged)"
-msgstr ""
+msgstr "Потребно је да одмах промените своју лозинку (лозинка је застарела)"
 
 #: ../src/xfce4-screensaver-dialog.c:186
 msgid "You are required to change your password immediately (root enforced)"
-msgstr ""
+msgstr "Потребно је да одмах промените своју лозинку (руковаоц присиљава)"
 
 #: ../src/xfce4-screensaver-dialog.c:188
 msgid "Your account has expired; please contact your system administrator"
-msgstr ""
+msgstr "Кориснички налог Вам је истекао; обратите се руковаоцу система"
 
 #: ../src/xfce4-screensaver-dialog.c:190
 msgid "No password supplied."
@@ -450,7 +451,7 @@ msgstr "Унесите своју тренутну лозинку:"
 
 #: ../src/xfce4-screensaver-dialog.c:202
 msgid "Error while changing NIS password."
-msgstr ""
+msgstr "Десила се грешка приликом промене лозинке."
 
 #: ../src/xfce4-screensaver-dialog.c:204
 msgid "You must choose a longer password."
@@ -549,7 +550,7 @@ msgstr "Подесите чувара приказа и закључавања"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:5
 msgid "Power _Management"
-msgstr "Управљање напајањем_"
+msgstr "Управљање_ напајањем"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:6
 msgid "Preview"
@@ -570,10 +571,12 @@ msgstr "Разреши"
 #: ../src/xfce4-screensaver-preferences.ui.h:10
 msgid "Xfce Power Manager is not configured to handle laptop lid events"
 msgstr ""
+"Управник напајања ИксФЦЕ-а није подешен да рукује догађајима преклопног "
+"рачунара"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:11
 msgid "Your computer may not be locked when you close the lid."
-msgstr ""
+msgstr "Рачунар се можда неће закључати кад га заклопите"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:12
 msgid "Enable Screensaver"
@@ -581,7 +584,7 @@ msgstr "Омогући чувара приказа"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:13
 msgid "Theme"
-msgstr ""
+msgstr "Тема"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:14
 msgid "Change theme after:"
@@ -617,7 +620,7 @@ msgstr "Тастатура на приказу"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:23
 msgid "On screen keyboard command:"
-msgstr "Наредба за тастатуру на приказу"
+msgstr "Наредба за тастатуру на приказу."
 
 #: ../src/xfce4-screensaver-preferences.ui.h:24
 msgid "Session Status Messages"
@@ -641,11 +644,11 @@ msgstr "Промена корисника"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:29
 msgid "Lock Screen with System Sleep"
-msgstr ""
+msgstr "Закључај приказ када се систем успава"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:30
 msgid "Lock Screen"
-msgstr "Закључај екран"
+msgstr "Закључај приказ"
 
 #: ../src/xfce4-screensaver.c:59
 msgid "Don't become a daemon"
