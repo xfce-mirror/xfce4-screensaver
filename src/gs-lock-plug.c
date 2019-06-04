@@ -573,7 +573,7 @@ get_user_icon_from_accounts_service (void) {
     GError          *error = NULL;
     GVariant        *variant, *res;
     const gchar     *user_path;
-    GdkPixbuf       *pixbuf = NULL; 
+    GdkPixbuf       *pixbuf = NULL;
 
     bus = g_bus_get_sync (G_BUS_TYPE_SYSTEM, NULL, &error);
     if (bus == NULL) {
