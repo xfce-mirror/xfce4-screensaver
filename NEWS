@@ -1,5 +1,18 @@
-0.1.4 (beta)
+0.1.5 (unreleased)
 ==================
+- Bug Fixes:
+  - Fix warning during configure stage (Xfce #15552)
+  - Fix Inhibitor lock (Xfce #15551)
+  - Hide screensaver themes from 'Open with' options (Xfce #15531)
+  - Added categories to display in the Settings Manager (Xfce #15507)
+  - Support AccountsService in order to get user icon (Xfce #15235)
+  - Restored native timer to cover when X11 screensaver timer doesn't notify
+- Translation Updates:
+  be, bg, cs, da, en_AU, es, eu, fr, he, hu, is, it, ko, ms, pl, pt_BR, sk,
+  sq, sr, sv, tr, zh_CN
+
+0.1.4 (beta)
+============
 - Features:
   - Added support for locking on suspend (Xfce #15001)
 - Bug Fixes:
