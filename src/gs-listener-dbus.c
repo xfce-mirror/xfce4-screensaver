@@ -1478,6 +1478,8 @@ listener_dbus_handle_system_message (DBusConnection *connection,
             gboolean  active = 0;
             DBusError error;
 
+            gs_debug ("Handling Logind PrepareForSleep");
+
             dbus_error_init (&error);
             dbus_message_get_args (message, &error, DBUS_TYPE_BOOLEAN, &active, DBUS_TYPE_INVALID);
             if (active) {
@@ -1491,6 +1493,10 @@ listener_dbus_handle_system_message (DBusConnection *connection,
                 gs_debug ("Logind requested session unlock");
                 // FIXME: there is no signal to request password prompt
                 g_signal_emit (listener, signals[SHOW_MESSAGE], 0, NULL, NULL, NULL);
+            }
+
+            if (dbus_error_is_set (&error)) {
+                dbus_error_free (&error);
             }
 
             return DBUS_HANDLER_RESULT_HANDLED;
