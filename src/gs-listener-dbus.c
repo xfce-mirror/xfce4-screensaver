@@ -614,10 +614,10 @@ add_session_inhibit (GSListener         *listener,
 
     dbus_error_init (&error);
 
-#if defined(WITH_SYSTEMD)
-    message = dbus_message_new_method_call (SYSTEMD_LOGIND_SERVICE,
-                                            SYSTEMD_LOGIND_PATH,
-                                            SYSTEMD_LOGIND_INTERFACE,
+#if defined(WITH_SYSTEMD) || defined(WITH_ELOGIND)
+    message = dbus_message_new_method_call (LOGIND_SERVICE,
+                                            LOGIND_PATH,
+                                            LOGIND_INTERFACE,
                                             "Inhibit");
 #elif defined(WITH_CONSOLE_KIT)
     message = dbus_message_new_method_call (CK_NAME,
