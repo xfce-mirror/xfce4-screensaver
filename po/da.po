@@ -296,7 +296,7 @@ msgstr "Fortæl den kørende pauseskærm at den skal låse skærmen med det samm
 
 #: ../src/xfce4-screensaver-command.c:76
 msgid "If the screensaver is active then switch to another graphics demo"
-msgstr "Hvis pauseskærmen er aktiv, så skift til en anden grafikdemo"
+msgstr "Hvis pauseskærmen er aktiv, så skift til en anden grafisk demo"
 
 #: ../src/xfce4-screensaver-command.c:80
 msgid "Turn the screensaver on (blank the screen)"
@@ -366,7 +366,7 @@ msgstr "Pauseskærmen er ikke aktiv i øjeblikket.\n"
 
 #: ../src/xfce4-screensaver-dialog.c:63
 msgid "Show debugging output"
-msgstr "Vis fejlretningsoutput"
+msgstr "Vis fejlsøgningsoutput"
 
 #: ../src/xfce4-screensaver-dialog.c:67
 msgid "Show the logout button"
@@ -653,7 +653,7 @@ msgstr "Bliv ikke en dæmon"
 
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
-msgstr "Aktivér fejlretningskode"
+msgstr "Aktivér fejlsøgningskode"
 
 #: ../src/xfce4-screensaver.desktop.in.in.h:2
 msgid "Launch screensaver and locker program"
