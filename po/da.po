@@ -657,7 +657,7 @@ msgstr "Aktivér fejlsøgningskode"
 
 #: ../src/xfce4-screensaver.desktop.in.in.h:2
 msgid "Launch screensaver and locker program"
-msgstr "Start program til pauseskærm og låser"
+msgstr "Start pauseskærms- og låserprogram"
 
 #: ../src/xfcekbd-indicator.c:538
 msgid "XKB initialization error"
