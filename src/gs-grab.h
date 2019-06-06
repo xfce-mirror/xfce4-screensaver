@@ -64,9 +64,6 @@ gboolean  gs_grab_grab_window      (GSGrab     *grab,
 gboolean  gs_grab_grab_root        (GSGrab     *grab,
                                     gboolean    no_pointer_grab,
                                     gboolean    hide_cursor);
-gboolean  gs_grab_grab_offscreen   (GSGrab     *grab,
-                                    gboolean    no_pointer_grab,
-                                    gboolean    hide_cursor);
 
 void      gs_grab_move_to_window   (GSGrab      *grab,
                                     GdkWindow   *window,

@@ -57,7 +57,7 @@ void            gste_slideshow_set_images_location  (GSTESlideshow *show,
                                                      const char    *location);
 
 void            gste_slideshow_set_sort_images      (GSTESlideshow *show,
-                                                     gboolean       sort_image);
+                                                     gboolean       sort_images);
 
 void            gste_slideshow_set_background_color (GSTESlideshow *show,
                                                      const char    *background_color);

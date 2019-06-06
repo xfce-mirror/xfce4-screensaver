@@ -126,17 +126,17 @@ xorg_lock_smasher_set_active (GSGrab   *grab,
         status = MiscExtGrabStateSuccess;
     }
 
-        if (error == Success) {
-            gs_debug ("XF86MiscSetGrabKeysState(%s) returned %s\n",
-                      active ? "on" : "off",
-                      (status == MiscExtGrabStateSuccess ? "MiscExtGrabStateSuccess" :
-                      status == MiscExtGrabStateLocked  ? "MiscExtGrabStateLocked"  :
-                      status == MiscExtGrabStateAlready ? "MiscExtGrabStateAlready" :
-                      "unknown value"));
-        } else {
-            gs_debug ("XF86MiscSetGrabKeysState(%s) failed with error code %d\n",
-                      active ? "on" : "off", error);
-        }
+    if (error == Success) {
+        gs_debug ("XF86MiscSetGrabKeysState(%s) returned %s\n",
+                    active ? "on" : "off",
+                    (status == MiscExtGrabStateSuccess ? "MiscExtGrabStateSuccess" :
+                    status == MiscExtGrabStateLocked  ? "MiscExtGrabStateLocked"  :
+                    status == MiscExtGrabStateAlready ? "MiscExtGrabStateAlready" :
+                    "unknown value"));
+    } else {
+        gs_debug ("XF86MiscSetGrabKeysState(%s) failed with error code %d\n",
+                    active ? "on" : "off", error);
+    }
 }
 #else
 static void
@@ -421,27 +421,6 @@ gs_grab_grab_root (GSGrab   *grab,
     root = gdk_screen_get_root_window (screen);
 
     res = gs_grab_grab_window (grab, root, display,
-                               no_pointer_grab, hide_cursor);
-
-    return res;
-}
-
-/* this is used to grab devices to an offscreen window */
-gboolean
-gs_grab_grab_offscreen (GSGrab   *grab,
-                        gboolean  no_pointer_grab,
-                        gboolean  hide_cursor) {
-    GdkWindow  *window;
-    GdkDisplay *display;
-    GdkScreen  *screen;
-    gboolean    res;
-
-    gs_debug ("Grabbing an offscreen window");
-
-    window = gtk_widget_get_window (GTK_WIDGET (grab->priv->invisible));
-    screen = gtk_invisible_get_screen (GTK_INVISIBLE (grab->priv->invisible));
-    display = gdk_screen_get_display (screen);
-    res = gs_grab_grab_window (grab, window, display,
                                no_pointer_grab, hide_cursor);
 
     return res;

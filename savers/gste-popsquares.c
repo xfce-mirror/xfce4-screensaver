@@ -193,13 +193,8 @@ make_color_ramp (int       h1,
                  gboolean  closed) {
     double dh, ds, dv;        /* deltas */
     int    i;
-    int    ncolors, wanted;
+    int    ncolors;
     int    total_ncolors = n_colors;
-
-    wanted = total_ncolors;
-    if (closed) {
-        wanted = (wanted / 2) + 1;
-    }
 
     ncolors = total_ncolors;
 
@@ -502,16 +497,16 @@ draw_iter (GSTEPopsquares *pop) {
 }
 
 static void
-gste_popsquares_init (GSTEPopsquares *pop) {
+gste_popsquares_init (GSTEPopsquares *engine) {
     int delay;
 
-    pop->priv = gste_popsquares_get_instance_private (pop);
+    engine->priv = gste_popsquares_get_instance_private (engine);
 
-    pop->priv->ncolors = 128;
-    pop->priv->subdivision = 5;
+    engine->priv->ncolors = 128;
+    engine->priv->subdivision = 5;
 
     delay = 25;
-    pop->priv->timeout_id = g_timeout_add (delay, (GSourceFunc)draw_iter, pop);
+    engine->priv->timeout_id = g_timeout_add (delay, (GSourceFunc)draw_iter, engine);
 }
 
 static void

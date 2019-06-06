@@ -57,7 +57,6 @@ struct GSTESlideshowPrivate {
 
     gint64           fade_ticks;
 
-    GThread         *load_thread;
     GAsyncQueue     *op_q;
     GAsyncQueue     *results_q;
 
@@ -299,10 +298,10 @@ update_display (GSTESlideshow *show) {
 
 static gboolean
 draw_iter (GSTESlideshow *show) {
-    double old_opacity;
-    double new_opacity;
-
     if (show->priv->pat2 != NULL) {
+        double old_opacity;
+        double new_opacity;
+
         gdouble fps;
         gdouble elapsed;
 
@@ -504,7 +503,6 @@ get_pixbuf_from_local_dir (GSTESlideshow *show,
                            const char    *location) {
     GdkPixbuf *pixbuf, *transformed_pixbuf;
     char      *filename;
-    int        i;
     GSList    *l;
 
     /* rebuild the cache */
@@ -522,6 +520,7 @@ get_pixbuf_from_local_dir (GSTESlideshow *show,
 
     /* get a random filename if needed */
     if (!show->priv->sort_images) {
+        int i;
         i = g_random_int_range (0, g_slist_length (show->priv->filename_list));
         l = g_slist_nth (show->priv->filename_list, i);
     } else {
@@ -879,17 +878,17 @@ set_visual (GtkWidget *widget) {
 }
 
 static void
-gste_slideshow_init (GSTESlideshow *show) {
-    show->priv = gste_slideshow_get_instance_private (show);
+gste_slideshow_init (GSTESlideshow *engine) {
+    engine->priv = gste_slideshow_get_instance_private (engine);
 
-    show->priv->images_location = g_strdup (DEFAULT_IMAGES_LOCATION);
+    engine->priv->images_location = g_strdup (DEFAULT_IMAGES_LOCATION);
 
-    show->priv->op_q = g_async_queue_new ();
-    show->priv->results_q = g_async_queue_new ();
+    engine->priv->op_q = g_async_queue_new ();
+    engine->priv->results_q = g_async_queue_new ();
 
-    g_thread_new ("loadthread", (GThreadFunc)load_threadfunc, show->priv->op_q);
+    g_thread_new ("loadthread", (GThreadFunc)load_threadfunc, engine->priv->op_q);
 
-    set_visual (GTK_WIDGET (show));
+    set_visual (GTK_WIDGET (engine));
 }
 
 static void

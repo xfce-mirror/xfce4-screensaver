@@ -448,40 +448,12 @@ gs_manager_set_saver_active (GSManager *manager,
 }
 
 void
-gs_manager_get_saver_enabled (GSManager *manager,
-                              gboolean  *saver_enabled) {
-    if (saver_enabled != NULL) {
-        *saver_enabled = FALSE;
-    }
-
-    g_return_if_fail (GS_IS_MANAGER (manager));
-
-    if (saver_enabled != NULL) {
-        *saver_enabled = manager->priv->saver_enabled;
-    }
-}
-
-void
 gs_manager_set_saver_enabled (GSManager *manager,
                               gboolean   saver_enabled) {
     g_return_if_fail (GS_IS_MANAGER (manager));
 
     if (manager->priv->saver_enabled != saver_enabled) {
         manager->priv->saver_enabled = saver_enabled;
-    }
-}
-
-void
-gs_manager_get_lock_enabled (GSManager *manager,
-                             gboolean  *lock_enabled) {
-    if (lock_enabled != NULL) {
-        *lock_enabled = FALSE;
-    }
-
-    g_return_if_fail (GS_IS_MANAGER (manager));
-
-    if (lock_enabled != NULL) {
-        *lock_enabled = manager->priv->lock_enabled;
     }
 }
 
@@ -686,14 +658,14 @@ gs_manager_set_status_message_enabled (GSManager  *manager,
 
 void
 gs_manager_set_status_message (GSManager  *manager,
-                               const char *status_message) {
+                               const char *message) {
     GSList *l;
 
     g_return_if_fail (GS_IS_MANAGER (manager));
 
     g_free (manager->priv->status_message);
 
-    manager->priv->status_message = g_strdup (status_message);
+    manager->priv->status_message = g_strdup (message);
 
     for (l = manager->priv->windows; l; l = l->next) {
         gs_window_set_status_message (l->data, manager->priv->status_message);
@@ -1507,13 +1479,12 @@ static int
 gs_manager_get_n_monitors (GdkDisplay *display) {
     // Since gdk_display_get_n_monitors return wrong monitor count
     // this is a workaround for the problem
-    GdkMonitor *monitor;
-    int        n_monitors;
-    int        i, count = 0;
+    int n_monitors;
+    int i, count = 0;
 
     n_monitors = gdk_display_get_n_monitors (display);
     for (i = 0; i < n_monitors; i++) {
-        monitor = gdk_display_get_monitor(display, i);
+        GdkMonitor *monitor = gdk_display_get_monitor(display, i);
         if (gs_manager_is_real_monitor (monitor))
             count++;
     }
@@ -1915,12 +1886,4 @@ gs_manager_request_unlock (GSManager *manager) {
     gs_window_request_unlock (window);
 
     return TRUE;
-}
-
-void
-gs_manager_cancel_unlock_request (GSManager *manager) {
-    GSList *l;
-    for (l = manager->priv->windows; l; l = l->next) {
-        gs_window_cancel_unlock_request (l->data);
-    }
 }

@@ -59,7 +59,7 @@ extern GType        xfcekbd_indicator_get_type              (void);
 extern GtkWidget *  xfcekbd_indicator_new                   (void);
 
 extern void         xfcekbd_indicator_set_parent_tooltips   (XfcekbdIndicator *gki,
-                                                             gboolean          ifset);
+                                                             gboolean          spt);
 
 #ifdef __cplusplus
 }

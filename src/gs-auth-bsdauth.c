@@ -51,8 +51,8 @@ gs_auth_error_quark (void) {
 }
 
 void
-gs_auth_set_verbose (gboolean enabled) {
-    verbose_enabled = enabled;
+gs_auth_set_verbose (gboolean verbose) {
+    verbose_enabled = verbose;
 }
 
 gboolean
@@ -67,7 +67,7 @@ gs_auth_verify_user (const char        *username,
                      gpointer           data,
                      GError           **error) {
     int res;
-    char *password;
+    char *password = NULL;
 
     /* ask for the password for user */
     if (func != NULL) {

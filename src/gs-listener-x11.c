@@ -222,7 +222,6 @@ gs_listener_x11_acquire (GSListenerX11 *listener) {
     GdkScreen *screen;
     GdkWindow *window;
     int scrnsaver_error_base;
-    unsigned long events;
 
     g_return_val_if_fail (listener != NULL, FALSE);
 
@@ -234,6 +233,7 @@ gs_listener_x11_acquire (GSListenerX11 *listener) {
     if (XScreenSaverQueryExtension (GDK_DISPLAY_XDISPLAY (display),
                                     &listener->priv->scrnsaver_event_base,
                                     &scrnsaver_error_base)) {
+        unsigned long events;
         events = ScreenSaverNotifyMask;
         XScreenSaverSelectInput (GDK_DISPLAY_XDISPLAY (display), GDK_WINDOW_XID (window), events);
         gs_debug ("ScreenSaver Registered");
@@ -250,18 +250,17 @@ gs_listener_x11_acquire (GSListenerX11 *listener) {
 
 void
 gs_listener_x11_set_timeout (GSListenerX11 *listener,
-                             gint           lock_after) {
+                             gint           timeout) {
     Display *display = gdk_x11_display_get_xdisplay(gdk_display_get_default());
-    gint     timeout = lock_after * 60;
+    gint     lock_timeout = timeout * 60;
 
     /* set X server timeouts and disable screen blanking */
-    XSetScreenSaver(display, timeout, timeout, 0, 0);
+    XSetScreenSaver(display, lock_timeout, lock_timeout, 0, 0);
 
-    if (listener->priv->lock_timeout != timeout) {
-    listener->priv->lock_timeout = timeout;
-        listener->priv->lock_timeout = lock_after * 60;
+    if (listener->priv->lock_timeout != lock_timeout) {
+        listener->priv->lock_timeout = timeout * 60;
         reset_lock_timer(listener, listener->priv->lock_timeout);
-        gs_debug("Lock timeout updated to %i minutes", lock_after);
+        gs_debug("Lock timeout updated to %i minutes", timeout);
     }
 }
 

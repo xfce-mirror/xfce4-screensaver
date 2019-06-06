@@ -36,7 +36,6 @@ main (int    argc,
       char **argv) {
     GdkDisplay *display;
     GdkVisual  *visual;
-    Visual     *xvisual;
     GError     *error = NULL;
 
 #ifdef ENABLE_NLS
@@ -62,6 +61,7 @@ main (int    argc,
     visual = gs_visual_gl_get_best_for_display (display);
 
     if (visual != NULL) {
+        Visual *xvisual;
         xvisual = gdk_x11_visual_get_xvisual (visual);
         printf ("0x%x\n", (unsigned int) XVisualIDFromVisual (xvisual));
     } else {

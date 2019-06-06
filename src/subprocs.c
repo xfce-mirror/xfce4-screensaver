@@ -119,38 +119,3 @@ signal_pid (int pid,
 
     return status;
 }
-
-#ifndef VMS
-
-void
-await_dying_children (int      pid,
-                      gboolean debug) {
-    while (1) {
-        int wait_status = 0;
-        pid_t kid;
-
-        errno = 0;
-        kid = waitpid (-1, &wait_status, WNOHANG|WUNTRACED);
-
-        if (debug) {
-            if (kid < 0 && errno)
-                g_message ("waitpid(%d) ==> %ld (%d)", pid, (long) kid, errno);
-            else if (kid != 0)
-                g_message ("waitpid(%d) ==> %ld", pid, (long) kid);
-        }
-
-        /* 0 means no more children to reap.
-           -1 means error -- except "interrupted system call" isn't a "real"
-           error, so if we get that, we should just try again. */
-        if (kid < 0 && errno != EINTR)
-            break;
-    }
-}
-
-
-#else  /* VMS */
-static void await_dying_children (saver_info *si) {
-    return;
-}
-#endif /* VMS */
-

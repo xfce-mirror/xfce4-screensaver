@@ -68,12 +68,6 @@ void        gs_fade_sync             (GSFade         *fade,
 void        gs_fade_finish           (GSFade         *fade);
 void        gs_fade_reset            (GSFade         *fade);
 
-gboolean    gs_fade_get_active       (GSFade         *fade);
-
-gboolean    gs_fade_get_enabled      (GSFade         *fade);
-void        gs_fade_set_enabled      (GSFade         *fade,
-                                      gboolean        enabled);
-
 G_END_DECLS
 
 #endif /* SRC_GS_FADE_H_ */

@@ -45,7 +45,6 @@ typedef struct _gki_globals {
     gchar                  **full_group_names;
     gchar                  **short_group_names;
     GSList                  *widget_instances;
-    GSList                  *images;
 
     gboolean                 redraw_queued;
 } gki_globals;

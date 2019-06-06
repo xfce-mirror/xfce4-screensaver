@@ -44,19 +44,19 @@ struct _XfcekbdIndicatorConfig {
  * some of them require XfcekbdKeyboardConfig as well -
  * for loading approptiate images
  */
-void    xfcekbd_indicator_config_init                   (XfcekbdIndicatorConfig  *applet_config,
+void    xfcekbd_indicator_config_init                   (XfcekbdIndicatorConfig  *ind_config,
                                                          XklEngine               *engine);
-void    xfcekbd_indicator_config_term                   (XfcekbdIndicatorConfig  *applet_config);
+void    xfcekbd_indicator_config_term                   (XfcekbdIndicatorConfig  *ind_config);
 
-void    xfcekbd_indicator_config_load_from_xfconf       (XfcekbdIndicatorConfig  *applet_config);
+void    xfcekbd_indicator_config_load_from_xfconf       (XfcekbdIndicatorConfig  *ind_config);
 
 /* Should be updated on Indicator/Xfconf configuration change */
-void    xfcekbd_indicator_config_activate               (XfcekbdIndicatorConfig  *applet_config);
+void    xfcekbd_indicator_config_activate               (XfcekbdIndicatorConfig  *ind_config);
 
-void    xfcekbd_indicator_config_start_listen           (XfcekbdIndicatorConfig  *applet_config,
+void    xfcekbd_indicator_config_start_listen           (XfcekbdIndicatorConfig  *ind_config,
                                                          GCallback                func,
                                                          gpointer                 user_data);
 
-void    xfcekbd_indicator_config_stop_listen            (XfcekbdIndicatorConfig  *applet_config);
+void    xfcekbd_indicator_config_stop_listen            (XfcekbdIndicatorConfig  *ind_config);
 
 #endif /* SRC_XFCEKBD_INDICATOR_CONFIG_H_ */

@@ -78,12 +78,8 @@ void        gs_manager_set_status_message_enabled(GSManager *manager,
                                                 gboolean     status_message_enabled);
 void        gs_manager_set_status_message      (GSManager   *manager,
                                                 const char  *message);
-void        gs_manager_get_saver_enabled       (GSManager   *manager,
-                                                gboolean    *saver_enabled);
 void        gs_manager_set_saver_enabled       (GSManager   *manager,
                                                 gboolean     saver_enabled);
-void        gs_manager_get_lock_enabled        (GSManager   *manager,
-                                                gboolean    *lock_enabled);
 void        gs_manager_set_lock_enabled        (GSManager   *manager,
                                                 gboolean     lock_enabled);
 void        gs_manager_get_lock_with_saver_enabled        (GSManager   *manager,
@@ -101,7 +97,7 @@ void        gs_manager_set_logout_timeout      (GSManager   *manager,
 void        gs_manager_set_logout_command      (GSManager   *manager,
                                                 const char  *command);
 void        gs_manager_set_throttled           (GSManager   *manager,
-                                                gboolean     lock_with_saver_enabled);
+                                                gboolean     throttled);
 void        gs_manager_set_cycle_timeout       (GSManager   *manager,
                                                 glong        cycle_timeout);
 void        gs_manager_set_themes              (GSManager   *manager,
@@ -113,7 +109,6 @@ void        gs_manager_show_message            (GSManager   *manager,
                                                 const char  *body,
                                                 const char  *icon);
 gboolean    gs_manager_request_unlock          (GSManager   *manager);
-void        gs_manager_cancel_unlock_request   (GSManager   *manager);
 
 G_END_DECLS
 

@@ -493,7 +493,7 @@ gs_lock_plug_run (GSLockPlug *plug) {
     gulong     response_handler;
     gulong     unmap_handler;
     gulong     destroy_handler;
-    gulong     delete_handler;
+    gulong     deletion_handler;
     gulong     keymap_handler;
     GdkKeymap *keymap;
 
@@ -530,7 +530,7 @@ gs_lock_plug_run (GSLockPlug *plug) {
                           G_CALLBACK (run_unmap_handler),
                           &ri);
 
-    delete_handler =
+    deletion_handler =
         g_signal_connect (plug,
                           "delete_event",
                           G_CALLBACK (run_delete_handler),
@@ -557,7 +557,7 @@ gs_lock_plug_run (GSLockPlug *plug) {
 
         g_signal_handler_disconnect (plug, response_handler);
         g_signal_handler_disconnect (plug, unmap_handler);
-        g_signal_handler_disconnect (plug, delete_handler);
+        g_signal_handler_disconnect (plug, deletion_handler);
         g_signal_handler_disconnect (plug, destroy_handler);
         g_signal_handler_disconnect (keymap, keymap_handler);
     }
@@ -640,13 +640,12 @@ get_user_icon_from_accounts_service (void) {
 
 static gboolean
 set_face_image (GSLockPlug *plug) {
-    GdkPixbuf  *pixbuf = NULL;
-    const char *homedir;
-    char       *path;
-    GError     *error = NULL;
+    GdkPixbuf  *pixbuf = get_user_icon_from_accounts_service ();
 
-    pixbuf = get_user_icon_from_accounts_service ();
     if (pixbuf == NULL) {
+        const char *homedir;
+        char       *path;
+        GError     *error = NULL;
         homedir = g_get_home_dir ();
         path = g_build_filename (homedir, ".face", NULL);
 

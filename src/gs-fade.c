@@ -236,23 +236,6 @@ xf86_whack_gamma (int                         screen,
 # define XF86_VIDMODE_GAMMA_RAMP_MIN_MINOR 1
 
 
-gboolean
-gs_fade_get_enabled (GSFade *fade) {
-    g_return_val_if_fail (GS_IS_FADE (fade), FALSE);
-
-    return fade->priv->enabled;
-}
-
-void
-gs_fade_set_enabled (GSFade   *fade,
-                     gboolean  enabled) {
-    g_return_if_fail (GS_IS_FADE (fade));
-
-    if (fade->priv->enabled != enabled) {
-        fade->priv->enabled = enabled;
-    }
-}
-
 #ifdef HAVE_XF86VMODE_GAMMA
 static gboolean
 gamma_fade_setup (GSFade *fade) {
@@ -514,7 +497,6 @@ static void xrandr_crtc_whack_gamma (XfceRRCrtc         *crtc,
 static gboolean xrandr_fade_set_alpha_gamma (GSFade  *fade,
                                              gdouble  alpha) {
     struct GSFadeScreenPrivate  *screen_priv;
-    struct GSGammaInfo          *info;
     XfceRRCrtc                 **crtcs;
     int                          i;
 
@@ -527,6 +509,7 @@ static gboolean xrandr_fade_set_alpha_gamma (GSFade  *fade,
     i = 0;
 
     while (*crtcs) {
+        struct GSGammaInfo *info;
         info = &screen_priv->info[i];
         xrandr_crtc_whack_gamma (*crtcs, info, alpha);
         i++;
@@ -637,13 +620,6 @@ fade_out_timer (GSFade *fade) {
     return TRUE;
 }
 
-gboolean
-gs_fade_get_active (GSFade *fade) {
-    g_return_val_if_fail (GS_IS_FADE (fade), FALSE);
-
-    return fade->priv->active;
-}
-
 static void
 gs_fade_set_timeout (GSFade *fade,
                      guint   timeout) {
@@ -714,7 +690,7 @@ gs_fade_async_callback (GSFade            *fade,
 void
 gs_fade_async (GSFade         *fade,
                guint           timeout,
-               GSFadeDoneFunc  func,
+               GSFadeDoneFunc  done_cb,
                gpointer        data) {
     g_return_if_fail (GS_IS_FADE (fade));
 
@@ -723,11 +699,11 @@ gs_fade_async (GSFade         *fade,
         gs_fade_stop (fade);
     }
 
-    if (func) {
+    if (done_cb) {
         FadedCallbackData *cb_data;
 
         cb_data = g_new0 (FadedCallbackData, 1);
-        cb_data->done_cb = func;
+        cb_data->done_cb = done_cb;
         cb_data->data = data;
 
         g_signal_connect (fade, "faded",

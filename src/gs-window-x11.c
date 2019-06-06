@@ -147,10 +147,10 @@ G_DEFINE_TYPE_WITH_PRIVATE (GSWindow, gs_window, GTK_TYPE_WINDOW)
 static void
 set_invisible_cursor (GdkWindow *window,
                       gboolean   invisible) {
-    GdkDisplay *display;
     GdkCursor  *cursor = NULL;
 
     if (invisible) {
+        GdkDisplay *display;
         display = gdk_window_get_display (window);
         cursor = gdk_cursor_new_for_display (display, GDK_BLANK_CURSOR);
     }
@@ -233,23 +233,6 @@ widget_clear_all_children (GtkWidget *widget) {
     clear_children (GDK_WINDOW_XID (w));
 
     gdk_x11_display_error_trap_pop_ignored (display);
-}
-
-void
-gs_window_set_background_surface (GSWindow        *window,
-                                  cairo_surface_t *surface) {
-    g_return_if_fail (GS_IS_WINDOW (window));
-
-    if (window->priv->background_surface != NULL) {
-        cairo_surface_destroy (window->priv->background_surface);
-    }
-    window->priv->background_surface = NULL;
-
-    if (surface != NULL) {
-        window->priv->background_surface = cairo_surface_reference (surface);
-    }
-
-    gtk_widget_queue_draw (GTK_WIDGET (window));
 }
 
 void
@@ -727,7 +710,6 @@ select_popup_events (void) {
 static void
 window_select_shape_events (GSWindow *window) {
 #ifdef HAVE_SHAPE_EXT
-    unsigned long  events;
     int            shape_error_base;
     GdkDisplay    *display;
 
@@ -736,7 +718,7 @@ window_select_shape_events (GSWindow *window) {
     gdk_x11_display_error_trap_push (display);
 
     if (XShapeQueryExtension (GDK_DISPLAY_XDISPLAY (display), &window->priv->shape_event_base, &shape_error_base)) {
-        events = ShapeNotifyMask;
+        unsigned long events = ShapeNotifyMask;
         XShapeSelectInput (GDK_DISPLAY_XDISPLAY (display),
                            GDK_WINDOW_XID (gtk_widget_get_window (GTK_WIDGET (window))),
                            events);
@@ -799,9 +781,7 @@ set_info_text_and_icon (GSWindow   *window,
     GtkWidget *image;
     GtkWidget *vbox;
     gchar     *primary_markup;
-    gchar     *secondary_markup;
     GtkWidget *primary_label;
-    GtkWidget *secondary_label;
 
     hbox_content = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 8);
     gtk_widget_show (hbox_content);
@@ -825,6 +805,8 @@ set_info_text_and_icon (GSWindow   *window,
     gtk_widget_set_halign (primary_label, GTK_ALIGN_START);
 
     if (secondary_text != NULL) {
+        gchar     *secondary_markup;
+        GtkWidget *secondary_label;
         secondary_markup = g_strdup_printf ("<small>%s</small>",
                                             secondary_text);
         secondary_label = gtk_label_new (secondary_markup);
@@ -1037,10 +1019,10 @@ spawn_on_window (GSWindow *window,
     g_io_channel_set_flags (channel,
                             g_io_channel_get_flags (channel) | G_IO_FLAG_NONBLOCK,
                             NULL);
-    id = g_io_add_watch (channel,
-                         G_IO_IN | G_IO_HUP | G_IO_ERR | G_IO_NVAL,
-                         error_watch,
-                         NULL);
+    g_io_add_watch (channel,
+                    G_IO_IN | G_IO_HUP | G_IO_ERR | G_IO_NVAL,
+                    error_watch,
+                    NULL);
     g_io_channel_unref (channel);
 
     g_strfreev (argv);
@@ -1535,10 +1517,10 @@ is_status_message_enabled (GSWindow *window) {
 static gint
 get_monitor_index (GSWindow *window) {
     GdkDisplay *display = gs_window_get_display (window);
-    GdkMonitor *monitor;
     gint        idx;
 
     for (idx = 0; idx < gdk_display_get_n_monitors (display); idx++) {
+        GdkMonitor *monitor;
         monitor = gdk_display_get_monitor (display, idx);
         if (g_strcmp0 (gdk_monitor_get_model (monitor), gdk_monitor_get_model (window->priv->monitor)) == 0) {
             return idx;
@@ -1752,13 +1734,13 @@ gs_window_set_status_message_enabled (GSWindow *window,
 
 void
 gs_window_set_logout_timeout (GSWindow *window,
-                              glong     logout_timeout) {
+                              glong     timeout) {
     g_return_if_fail (GS_IS_WINDOW (window));
 
-    if (logout_timeout < 0) {
+    if (timeout < 0) {
         window->priv->logout_timeout = 0;
     } else {
-        window->priv->logout_timeout = logout_timeout;
+        window->priv->logout_timeout = timeout;
     }
 }
 

@@ -247,19 +247,19 @@ config_get_theme (gboolean *is_writable) {
 static gchar **
 get_all_theme_ids (GSThemeManager *theme_manager) {
     gchar  **ids = NULL;
-    GSList  *entries;
+    GSList  *themes;
     GSList  *l;
     guint    idx = 0;
 
-    entries = gs_theme_manager_get_info_list (theme_manager);
-    ids = g_new0 (gchar *, g_slist_length (entries) + 1);
-    for (l = entries; l; l = l->next) {
+    themes = gs_theme_manager_get_info_list (theme_manager);
+    ids = g_new0 (gchar *, g_slist_length (themes) + 1);
+    for (l = themes; l; l = l->next) {
         GSThemeInfo *info = l->data;
 
         ids[idx++] = g_strdup (gs_theme_info_get_id (info));
         gs_theme_info_unref (info);
     }
-    g_slist_free (entries);
+    g_slist_free (themes);
 
     return ids;
 }
@@ -2136,8 +2136,6 @@ finalize_capplet (void) {
 int
 main (int    argc,
       char **argv) {
-    GtkWidget *plug;
-    GObject   *plug_child;
     GError    *error = NULL;
 
 #ifdef ENABLE_NLS
@@ -2189,6 +2187,9 @@ main (int    argc,
 
         gtk_main();
     } else {
+        GtkWidget *plug;
+        GObject   *plug_child;
+
         /* Create plug widget */
         plug = gtk_plug_new(opt_socket_id);
         g_signal_connect(plug, "delete-event", G_CALLBACK(gtk_main_quit), NULL);

@@ -94,7 +94,7 @@ xfcekbd_keyboard_config_split_items (const gchar  *merged,
 static void
 xfcekbd_keyboard_config_copy_from_xkl_config (XfcekbdKeyboardConfig *kbd_config,
                                               XklConfigRec          *pdata) {
-    char **p, **p1;
+    char **p;
     int    i;
 
     xfcekbd_keyboard_config_model_set (kbd_config, pdata->model);
@@ -104,19 +104,17 @@ xfcekbd_keyboard_config_copy_from_xkl_config (XfcekbdKeyboardConfig *kbd_config,
     g_strfreev (kbd_config->layouts_variants);
     kbd_config->layouts_variants = NULL;
     if (pdata->layouts != NULL) {
+        char **p1;
         p = pdata->layouts;
         p1 = pdata->variants;
-        kbd_config->layouts_variants =
-            g_new0 (gchar *, g_strv_length (pdata->layouts) + 1);
+        kbd_config->layouts_variants = g_new0 (gchar *, g_strv_length (pdata->layouts) + 1);
         i = 0;
         while (*p != NULL) {
-            const gchar *full_layout =
-                xfcekbd_keyboard_config_merge_items (*p, *p1);
+            const gchar *full_layout = xfcekbd_keyboard_config_merge_items (*p, *p1);
             xkl_debug (150,
-                   "Loaded Kbd layout (with variant): [%s]\n",
-                   full_layout);
-            kbd_config->layouts_variants[i++] =
-                g_strdup (full_layout);
+                       "Loaded Kbd layout (with variant): [%s]\n",
+                       full_layout);
+            kbd_config->layouts_variants[i++] = g_strdup (full_layout);
             p++;
             p1++;
         }
@@ -128,26 +126,20 @@ xfcekbd_keyboard_config_copy_from_xkl_config (XfcekbdKeyboardConfig *kbd_config,
 
     if (pdata->options != NULL) {
         p = pdata->options;
-        kbd_config->options =
-            g_new0 (gchar *, g_strv_length (pdata->options) + 1);
+        kbd_config->options = g_new0 (gchar *, g_strv_length (pdata->options) + 1);
         i = 0;
         while (*p != NULL) {
-            char group[XKL_MAX_CI_NAME_LENGTH];
             char *option = *p;
-            char *delim =
-                (option != NULL) ? strchr (option, ':') : NULL;
+            char *delim = (option != NULL) ? strchr (option, ':') : NULL;
             int len;
-            if ((delim != NULL) &&
-                ((len =
-                  (delim - option)) <
-                 XKL_MAX_CI_NAME_LENGTH)) {
+            if ((delim != NULL) && ((len = (delim - option)) < XKL_MAX_CI_NAME_LENGTH)) {
+                char group[XKL_MAX_CI_NAME_LENGTH];
                 strncpy (group, option, len);
                 group[len] = 0;
                 xkl_debug (150,
-                       "Loaded Kbd option: [%s][%s]\n",
-                       group, option);
-                xfcekbd_keyboard_config_options_set
-                    (kbd_config, i++, group, option);
+                           "Loaded Kbd option: [%s][%s]\n",
+                           group, option);
+                xfcekbd_keyboard_config_options_set (kbd_config, i++, group, option);
             }
             p++;
         }

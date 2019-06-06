@@ -135,13 +135,13 @@ _gs_profile_log (const char *func,
                  const char *note,
                  const char *format,
                  ...) {
-    va_list args;
     char   *str;
     char   *formatted;
 
     if (format == NULL) {
         formatted = g_strdup ("");
     } else {
+        va_list args;
         va_start (args, format);
         formatted = g_strdup_vprintf (format, args);
         va_end (args);

@@ -67,14 +67,14 @@ gs_theme_window_init (GSThemeWindow *window) {
 
 static void
 gs_theme_window_finalize (GObject *object) {
-    GObjectClass  *parent_class;
+    GObjectClass  *p_class;
 
     GS_THEME_WINDOW (object);
 
-    parent_class = G_OBJECT_CLASS (gs_theme_window_parent_class);
+    p_class = G_OBJECT_CLASS (gs_theme_window_parent_class);
 
-    if (parent_class->finalize != NULL)
-        parent_class->finalize (object);
+    if (p_class->finalize != NULL)
+        p_class->finalize (object);
 }
 
 static void
@@ -124,12 +124,12 @@ gs_theme_window_real_realize (GtkWidget *widget) {
     }
 
     if (window == NULL) {
-        GtkWidgetClass *parent_class;
+        GtkWidgetClass *p_class;
 
-        parent_class = GTK_WIDGET_CLASS (gs_theme_window_parent_class);
+        p_class = GTK_WIDGET_CLASS (gs_theme_window_parent_class);
 
-        if (parent_class->realize != NULL)
-            parent_class->realize (widget);
+        if (p_class->realize != NULL)
+            p_class->realize (widget);
 
         return;
     }

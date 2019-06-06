@@ -56,7 +56,6 @@ GSThemeManager    *gs_theme_manager_new               (void);
 GSList            *gs_theme_manager_get_info_list     (GSThemeManager *manager);
 GSThemeInfo       *gs_theme_manager_lookup_theme_info (GSThemeManager *manager,
                                                        const char     *theme);
-GSThemeInfo       *gs_theme_info_ref                  (GSThemeInfo    *info);
 void               gs_theme_info_unref                (GSThemeInfo    *info);
 const char        *gs_theme_info_get_id               (GSThemeInfo    *info);
 const char        *gs_theme_info_get_name             (GSThemeInfo    *info);

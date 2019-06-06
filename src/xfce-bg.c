@@ -147,17 +147,17 @@ static void        pixbuf_blend             (GdkPixbuf        *src,
                                              GdkPixbuf        *dest,
                                              int               src_x,
                                              int               src_y,
-                                             int               width,
-                                             int               height,
+                                             int               src_width,
+                                             int               src_height,
                                              int               dest_x,
                                              int               dest_y,
                                              double            alpha);
 
 /* Cache */
 static GdkPixbuf * get_pixbuf_for_size      (XfceBG           *bg,
-                                             gint              num_monitor,
-                                             int               width,
-                                             int               height);
+                                             gint              monitor,
+                                             int               best_width,
+                                             int               best_height);
 static void        clear_cache              (XfceBG           *bg);
 static gboolean    is_different             (XfceBG           *bg,
                                              const char       *filename);
@@ -301,11 +301,11 @@ queue_transitioned (XfceBG *bg) {
 static gchar *
 find_system_backgrounds (void) {
     const gchar * const *dirs;
-    gchar               *path;
     gint                 i;
 
     dirs = g_get_system_data_dirs ();
     for (i = 0; dirs[i]; i++) {
+        gchar *path;
         path = g_build_path (G_DIR_SEPARATOR_S, dirs[i],
                              "backgrounds", "xfce", NULL);
         if (g_file_test (path, G_FILE_TEST_IS_DIR))
@@ -723,8 +723,6 @@ refresh_cache_file (XfceBG    *bg,
                     gint       height) {
     gchar           *cache_filename;
     gchar           *cache_dir;
-    GdkPixbufFormat *format;
-    gchar           *format_name;
 
     if ((num_monitor == -1) || (width <= 300) || (height <= 300))
         return;
@@ -735,9 +733,13 @@ refresh_cache_file (XfceBG    *bg,
 
     /* Only refresh scaled file on disk if useful (and don't cache slideshow) */
     if (!cache_file_is_valid (bg->filename, cache_filename)) {
+        GdkPixbufFormat *format;
+
         format = gdk_pixbuf_get_file_info (bg->filename, NULL, NULL);
 
         if (format != NULL) {
+            gchar *format_name;
+
             if (!g_file_test (cache_dir, G_FILE_TEST_IS_DIR)) {
                 g_mkdir_with_parents (cache_dir, 0700);
             } else {
@@ -1189,13 +1191,11 @@ get_current_slide (SlideShow *show,
     double  delta = fmod (now() - show->start_time, show->total_duration);
     GList  *list;
     double  elapsed;
-    int     i;
 
     if (delta < 0)
         delta += show->total_duration;
 
     elapsed = 0;
-    i = 0;
     for (list = show->slides->head; list != NULL; list = list->next) {
         Slide *slide = list->data;
 
@@ -1205,7 +1205,6 @@ get_current_slide (SlideShow *show,
             return slide;
         }
 
-        i++;
         elapsed += slide->duration;
     }
 
@@ -1371,7 +1370,6 @@ get_as_pixbuf_for_size (XfceBG     *bg,
     if ((ent = file_cache_lookup (bg, PIXBUF, filename))) {
         return g_object_ref (ent->u.pixbuf);
     } else {
-        GdkPixbufFormat *format;
         GdkPixbuf       *pixbuf = NULL;
         gchar           *tmp = NULL;
         GdkPixbuf       *tmp_pixbuf;
@@ -1383,6 +1381,7 @@ get_as_pixbuf_for_size (XfceBG     *bg,
 
         if (!pixbuf) {
             /* If scalable choose maximum size */
+            GdkPixbufFormat *format;
             format = gdk_pixbuf_get_file_info (filename, NULL, NULL);
             if (format != NULL)
                 tmp = gdk_pixbuf_format_get_name (format);
@@ -1518,13 +1517,13 @@ ensure_timeout (XfceBG *bg,
 
 static time_t
 get_mtime (const char *filename) {
-    GFile     *file;
-    GFileInfo *info;
-    time_t     mtime;
+    time_t mtime;
 
     mtime = (time_t)-1;
 
     if (filename) {
+        GFile     *file;
+        GFileInfo *info;
         file = g_file_new_for_path (filename);
         info = g_file_query_info (file, G_FILE_ATTRIBUTE_TIME_MODIFIED,
                       G_FILE_QUERY_INFO_NONE, NULL, NULL);
@@ -1792,8 +1791,8 @@ create_gradient (const GdkRGBA *primary,
 static void
 pixbuf_draw_gradient (GdkPixbuf    *pixbuf,
                       gboolean      horizontal,
-                      GdkRGBA      *primary,
-                      GdkRGBA      *secondary,
+                      GdkRGBA      *c1,
+                      GdkRGBA      *c2,
                       GdkRectangle *rect) {
     int     width;
     int     height;
@@ -1807,7 +1806,7 @@ pixbuf_draw_gradient (GdkPixbuf    *pixbuf,
     dst = gdk_pixbuf_get_pixels (pixbuf) + rect->x * n_channels + rowstride * rect->y;
 
     if (horizontal) {
-        guchar *gradient = create_gradient (primary, secondary, width);
+        guchar *gradient = create_gradient (c1, c2, width);
         int copy_bytes_per_row = width * n_channels;
         int i;
 
@@ -1821,7 +1820,7 @@ pixbuf_draw_gradient (GdkPixbuf    *pixbuf,
         guchar *gb, *gradient;
         int i;
 
-        gradient = create_gradient (primary, secondary, height);
+        gradient = create_gradient (c1, c2, height);
         for (i = 0; i < height; i++) {
             int j;
             guchar *d;
@@ -2188,7 +2187,6 @@ read_slideshow_file (const char  *filename,
     gsize                len;
     SlideShow           *show = NULL;
     GMarkupParseContext *context = NULL;
-    time_t               t;
 
     if (!filename)
         return NULL;
@@ -2224,7 +2222,8 @@ read_slideshow_file (const char  *filename,
     g_markup_parse_context_free (context);
 
     if (show) {
-        int len;
+        time_t t;
+        int    qlen;
 
         t = mktime (&show->start_tm);
 
@@ -2232,14 +2231,14 @@ read_slideshow_file (const char  *filename,
 
         dump_bg (show);
 
-        len = g_queue_get_length (show->slides);
+        qlen = g_queue_get_length (show->slides);
 
         /* no slides, that's not a slideshow */
-        if (len == 0) {
+        if (qlen == 0) {
             slideshow_unref (show);
             show = NULL;
         /* one slide, there's no transition */
-        } else if (len == 1) {
+        } else if (qlen == 1) {
             Slide *slide = show->slides->head->data;
             slide->duration = show->total_duration = G_MAXUINT;
         }

@@ -248,10 +248,6 @@ mode_by_id (ScreenInfo *info,
 
 static void
 screen_info_free (ScreenInfo *info) {
-    XfceRROutput **output;
-    XfceRRCrtc   **crtc;
-    XfceRRMode   **mode;
-
     g_assert (info != NULL);
 
 #ifdef HAVE_RANDR
@@ -263,18 +259,21 @@ screen_info_free (ScreenInfo *info) {
 #endif
 
     if (info->outputs) {
+        XfceRROutput **output;
         for (output = info->outputs; *output; ++output)
             output_free (*output);
         g_free (info->outputs);
     }
 
     if (info->crtcs) {
+        XfceRRCrtc **crtc;
         for (crtc = info->crtcs; *crtc; ++crtc)
             crtc_free (*crtc);
         g_free (info->crtcs);
     }
 
     if (info->modes) {
+        XfceRRMode **mode;
         for (mode = info->modes; *mode; ++mode)
             mode_free (*mode);
         g_free (info->modes);
@@ -479,7 +478,6 @@ fill_out_screen_info (Display     *xdisplay,
                                    &(info->max_height));
     }
 
-    info->primary = None;
     display = gdk_display_get_default ();
     gdk_x11_display_error_trap_push (display);
     info->primary = XRRGetOutputPrimary (xdisplay, xroot);

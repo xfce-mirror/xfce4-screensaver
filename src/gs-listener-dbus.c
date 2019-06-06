@@ -164,7 +164,6 @@ gs_listener_ref_entry_free (GSListenerRefEntry *entry) {
     g_free (entry->application);
     g_free (entry->reason);
     g_free (entry);
-    entry = NULL;
 }
 
 static void
@@ -467,24 +466,6 @@ gs_listener_set_session_idle (GSListener *listener,
     return res;
 }
 
-gboolean
-gs_listener_get_activation_enabled (GSListener *listener) {
-    g_return_val_if_fail (GS_IS_LISTENER (listener), FALSE);
-
-    return listener->priv->activation_enabled;
-}
-
-gboolean
-gs_listener_is_inhibited (GSListener *listener) {
-    gboolean inhibited;
-
-    g_return_val_if_fail (GS_IS_LISTENER (listener), FALSE);
-
-    inhibited = listener_ref_entry_is_present (listener, REF_ENTRY_TYPE_INHIBIT);
-
-    return inhibited;
-}
-
 void
 gs_listener_set_activation_enabled (GSListener *listener,
                                     gboolean    enabled) {
@@ -603,7 +584,7 @@ listener_ref_entry_check (GSListener *listener,
 static void
 add_session_inhibit (GSListener         *listener,
                      GSListenerRefEntry *entry) {
-    DBusMessage     *message, *reply;
+    DBusMessage     *message = NULL, *reply = NULL;
     DBusMessageIter  iter, reply_iter;
     DBusError        error;
     const gchar     *mode = "block";
@@ -703,10 +684,8 @@ listener_remove_ref_entry (GSListener *listener,
                            int         entry_type,
                            guint32     cookie) {
     GHashTable         *hash;
-    gboolean            removed;
+    gboolean            removed = FALSE;
     GSListenerRefEntry *entry;
-
-    removed = FALSE;
 
     hash = get_hash_for_entry_type (listener, entry_type);
 

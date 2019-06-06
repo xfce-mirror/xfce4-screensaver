@@ -52,7 +52,7 @@ extern void             xfcekbd_keyboard_config_init                    (Xfcekbd
 extern void             xfcekbd_keyboard_config_term                    (XfcekbdKeyboardConfig  *kbd_config);
 
 extern void             xfcekbd_keyboard_config_load_from_x_current     (XfcekbdKeyboardConfig  *kbd_config,
-                                                                         XklConfigRec           *buf);
+                                                                         XklConfigRec           *data);
 
 extern gboolean         xfcekbd_keyboard_config_split_items             (const gchar            *merged,
                                                                          gchar                 **parent,

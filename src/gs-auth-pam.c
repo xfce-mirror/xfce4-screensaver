@@ -112,8 +112,8 @@ gs_auth_error_quark (void) {
 }
 
 void
-gs_auth_set_verbose (gboolean enabled) {
-    verbose_enabled = enabled;
+gs_auth_set_verbose (gboolean verbose) {
+    verbose_enabled = verbose;
 }
 
 gboolean
@@ -356,10 +356,10 @@ create_pam_handle (const char      *username,
                    const char      *display,
                    struct pam_conv *conv,
                    int             *status_code) {
-    int         status;
+    int         status = -1;
     const char *service = PAM_SERVICE_NAME;
-    char       *disp;
-    gboolean    ret;
+    char       *disp = NULL;
+    gboolean    ret = TRUE;
 
     if (pam_handle != NULL) {
         g_warning ("create_pam_handle: Stale pam handle around, cleaning up");
@@ -368,9 +368,6 @@ create_pam_handle (const char      *username,
 
     /* init things */
     pam_handle = NULL;
-    status = -1;
-    disp = NULL;
-    ret = TRUE;
 
     /* Initialize a PAM session for the user */
     if ((status = pam_start (service, username, conv, &pam_handle)) != PAM_SUCCESS) {
@@ -560,15 +557,11 @@ static gboolean
 gs_auth_pam_verify_user (pam_handle_t *handle,
                          int          *status) {
     GThread    *auth_thread;
-    GIOChannel *channel;
-    guint       watch_id;
+    GIOChannel *channel = NULL;
+    guint       watch_id = 0;
     int         auth_operation_fds[2];
-    int         auth_status;
+    int         auth_status = PAM_AUTH_ERR;
     gboolean    thread_done;
-
-    channel = NULL;
-    watch_id = 0;
-    auth_status = PAM_AUTH_ERR;
 
     /* This pipe gives us a set of fds we can hook into
      * the event loop to be notified when our helper thread

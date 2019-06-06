@@ -63,8 +63,8 @@ gs_auth_error_quark (void) {
 }
 
 void
-gs_auth_set_verbose (gboolean enabled) {
-    verbose_enabled = enabled;
+gs_auth_set_verbose (gboolean verbose) {
+    verbose_enabled = verbose;
 }
 
 gboolean

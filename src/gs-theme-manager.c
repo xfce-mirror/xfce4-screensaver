@@ -151,16 +151,6 @@ add_known_engine_locations_to_path (void) {
     g_string_free (str, TRUE);
 }
 
-GSThemeInfo *
-gs_theme_info_ref (GSThemeInfo *info) {
-    g_return_val_if_fail (info != NULL, NULL);
-    g_return_val_if_fail (info->refcount > 0, NULL);
-
-    info->refcount++;
-
-    return info;
-}
-
 void
 gs_theme_info_unref (GSThemeInfo *info) {
     g_return_if_fail (info != NULL);
@@ -257,16 +247,16 @@ find_info_for_id (GarconMenu *menu,
 }
 
 GSThemeInfo *
-gs_theme_manager_lookup_theme_info (GSThemeManager *theme_manager,
-                                    const char     *name) {
+gs_theme_manager_lookup_theme_info (GSThemeManager *manager,
+                                    const char     *theme) {
     GSThemeInfo *info;
     char        *id;
 
-    g_return_val_if_fail (GS_IS_THEME_MANAGER (theme_manager), NULL);
-    g_return_val_if_fail (name != NULL, NULL);
+    g_return_val_if_fail (GS_IS_THEME_MANAGER (manager), NULL);
+    g_return_val_if_fail (theme != NULL, NULL);
 
-    id = g_strdup_printf ("%s.desktop", name);
-    info = find_info_for_id (theme_manager->priv->menu, id);
+    id = g_strdup_printf ("%s.desktop", theme);
+    info = find_info_for_id (manager->priv->menu, id);
     g_free (id);
 
     return info;
@@ -300,12 +290,12 @@ make_theme_list (GSList     **parent_list,
 }
 
 GSList *
-gs_theme_manager_get_info_list (GSThemeManager *theme_manager) {
+gs_theme_manager_get_info_list (GSThemeManager *manager) {
     GSList             *l = NULL;
 
-    g_return_val_if_fail (GS_IS_THEME_MANAGER (theme_manager), NULL);
+    g_return_val_if_fail (GS_IS_THEME_MANAGER (manager), NULL);
 
-    make_theme_list (&l, theme_manager->priv->menu);
+    make_theme_list (&l, manager->priv->menu);
 
     return l;
 }
