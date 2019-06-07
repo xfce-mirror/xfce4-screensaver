@@ -183,7 +183,7 @@ error:
 char *
 xdg_user_dir_lookup (const char *type)
 {
-    char *dir, *home_dir, *user_dir;
+    char *dir, *home_dir;
 
     dir = xdg_user_dir_lookup_with_fallback (type, NULL);
     if (dir != NULL)
@@ -196,7 +196,7 @@ xdg_user_dir_lookup (const char *type)
 
     /* Special case desktop for historical compatibility */
     if (strcmp(type, "DESKTOP") == 0) {
-        user_dir = (char *) malloc (strlen (home_dir) + strlen ("/Desktop") + 1);
+        char *user_dir = (char *) malloc (strlen (home_dir) + strlen ("/Desktop") + 1);
         if (user_dir == NULL)
             return NULL;
 
