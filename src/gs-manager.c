@@ -33,7 +33,6 @@
 
 #include "gs-debug.h"
 #include "gs-grab.h"
-#include "gs-fade.h"
 #include "gs-job.h"
 #include "gs-manager.h"
 #include "gs-prefs.h"        /* for GSSaverMode */
@@ -76,7 +75,6 @@ struct GSManagerPrivate {
     guint           lock_active : 1;
     guint           saver_active : 1;
 
-    guint           fading : 1;
     guint           dialog_up : 1;
     gint            last_monitor_count;
 
@@ -88,8 +86,6 @@ struct GSManagerPrivate {
     GSList         *themes;
     GSSaverMode     saver_mode;
     GSGrab         *grab;
-    GSFade         *fade;
-    guint           unfade_idle_id;
     guint           deepsleep_idle_id;
     gboolean        deepsleep;
 };
@@ -119,8 +115,6 @@ enum {
     PROP_ACTIVE,
     PROP_THROTTLED,
 };
-
-#define FADE_TIMEOUT 1000
 
 static guint         signals[LAST_SIGNAL] = { 0, };
 
@@ -994,7 +988,6 @@ static void
 gs_manager_init (GSManager *manager) {
     manager->priv = gs_manager_get_instance_private (manager);
 
-    manager->priv->fade = gs_fade_new ();
     manager->priv->grab = gs_grab_new ();
     manager->priv->theme_manager = gs_theme_manager_new ();
 
@@ -1010,15 +1003,6 @@ remove_timers (GSManager *manager) {
     remove_lock_timer (manager);
     remove_cycle_timer (manager);
 }
-
-static void
-remove_unfade_idle (GSManager *manager) {
-    if (manager->priv->unfade_idle_id > 0) {
-        g_source_remove (manager->priv->unfade_idle_id);
-        manager->priv->unfade_idle_id = 0;
-    }
-}
-
 
 static gboolean
 window_deactivated_idle (GSManager *manager) {
@@ -1154,19 +1138,6 @@ window_grab_broken_cb (GSWindow           *window,
     }
 }
 
-static gboolean
-unfade_idle (GSManager *manager) {
-    gs_fade_reset (manager->priv->fade);
-    manager->priv->unfade_idle_id = 0;
-    return FALSE;
-}
-
-static void
-add_unfade_idle (GSManager *manager) {
-    remove_unfade_idle (manager);
-    manager->priv->unfade_idle_id = g_timeout_add (500, (GSourceFunc)unfade_idle, manager);
-}
-
 static void
 remove_deepsleep_idle (GSManager *manager) {
     if (manager->priv->deepsleep_idle_id > 0) {
@@ -1254,8 +1225,6 @@ manager_show_window (GSManager *manager,
         remove_cycle_timer (manager);
         add_cycle_timer (manager, manager->priv->cycle_timeout);
     }
-
-    add_unfade_idle (manager);
 
     /* FIXME: only emit signal once */
     g_signal_emit (manager, signals[ACTIVATED], 0);
@@ -1460,7 +1429,7 @@ gs_manager_create_window_for_monitor (GSManager  *manager,
 
     manager->priv->windows = g_slist_append (manager->priv->windows, window);
 
-    if (manager->priv->active && !manager->priv->fading) {
+    if (manager->priv->active) {
         gtk_widget_show (GTK_WIDGET (window));
     }
 }
@@ -1643,7 +1612,6 @@ gs_manager_finalize (GObject *object) {
     g_free (manager->priv->keyboard_command);
     g_free (manager->priv->status_message);
 
-    remove_unfade_idle (manager);
     remove_deepsleep_idle (manager);
     remove_timers(manager);
 
@@ -1658,7 +1626,6 @@ gs_manager_finalize (GObject *object) {
     manager->priv->lock_enabled = FALSE;
     manager->priv->lock_with_saver_enabled = FALSE;
 
-    g_object_unref (manager->priv->fade);
     g_object_unref (manager->priv->grab);
     g_object_unref (manager->priv->theme_manager);
 
@@ -1744,17 +1711,8 @@ remove_job (GSJob *job) {
     g_object_unref (job);
 }
 
-static void
-fade_done_cb (GSFade    *fade,
-              GSManager *manager) {
-    gs_debug ("Fade completed, showing windows");
-    show_windows (manager->priv->windows);
-    manager->priv->fading = FALSE;
-}
-
 static gboolean
 gs_manager_activate (GSManager *manager) {
-    gboolean    do_fade;
     gboolean    res;
 
     g_return_val_if_fail (manager != NULL, FALSE);
@@ -1781,22 +1739,7 @@ gs_manager_activate (GSManager *manager) {
 
     manager->priv->active = TRUE;
 
-    /* fade to black and show windows */
-    do_fade = FALSE;
-    if (do_fade) {
-        manager->priv->fading = TRUE;
-        gs_debug ("Fading out");
-        gs_fade_async (manager->priv->fade,
-                       FADE_TIMEOUT,
-                       (GSFadeDoneFunc)fade_done_cb,
-                       manager);
-
-        while (manager->priv->fading) {
-            gtk_main_iteration ();
-        }
-    } else {
-        show_windows (manager->priv->windows);
-    }
+    show_windows (manager->priv->windows);
 
     return TRUE;
 }
@@ -1811,8 +1754,6 @@ gs_manager_deactivate (GSManager *manager) {
         return FALSE;
     }
 
-    remove_unfade_idle (manager);
-    gs_fade_reset (manager->priv->fade);
     remove_timers (manager);
 
     gs_grab_release (manager->priv->grab, TRUE);
@@ -1825,7 +1766,6 @@ gs_manager_deactivate (GSManager *manager) {
     manager->priv->active = FALSE;
     manager->priv->activate_time = 0;
     manager->priv->dialog_up = FALSE;
-    manager->priv->fading = FALSE;
 
     gs_manager_set_lock_active (manager, FALSE);
 
@@ -1869,11 +1809,6 @@ gs_manager_request_unlock (GSManager *manager) {
     if (manager->priv->dialog_up) {
         gs_debug ("Request unlock but dialog is already up");
         return FALSE;
-    }
-
-    if (manager->priv->fading) {
-        gs_debug ("Request unlock so finishing fade");
-        gs_fade_finish (manager->priv->fade);
     }
 
     if (manager->priv->windows == NULL) {

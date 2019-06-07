@@ -47,7 +47,6 @@ libexec_PROGRAMS = \
 	$(NULL)
 
 noinst_PROGRAMS = 	\
-	test-fade	\
 	test-passwd	\
 	test-window	\
 	$(NULL)
@@ -68,22 +67,6 @@ xfce4_screensaver_command_LDADD =	\
 AUTH_SOURCES = 			\
 	gs-auth.h		\
 	gs-auth-@AUTH_SCHEME@.c	\
-	$(NULL)
-
-test_fade_SOURCES = 			\
-	test-fade.c 			\
-	gs-fade.c	 		\
-	gs-fade.h	 		\
-	gs-debug.c			\
-	gs-debug.h			\
-	xfce-rr.c			\
-	xfce-rr.h			\
-	xfce-rr-private.h			\
-	$(NULL)
-
-test_fade_LDADD =			\
-	$(XFCE_SCREENSAVER_LIBS)	\
-	$(SAVER_LIBS)			\
 	$(NULL)
 
 test_passwd_SOURCES = 			\
@@ -213,8 +196,6 @@ xfce4_screensaver_SOURCES =	\
 	subprocs.h		\
 	gs-grab-x11.c		\
 	gs-grab.h		\
-	gs-fade.c		\
-	gs-fade.h		\
 	xfce-rr.c		\
 	xfce-rr.h		\
 	xfce-rr-private.h			\

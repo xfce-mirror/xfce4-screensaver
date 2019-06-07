@@ -35,7 +35,6 @@
 #include <gdk/gdkx.h>
 
 #include "gs-debug.h"
-#include "gs-fade.h"
 #include "gs-grab.h"
 #include "gs-listener-dbus.h"
 #include "gs-listener-x11.h"
@@ -53,7 +52,6 @@ struct GSMonitorPrivate {
     GSListenerX11 *listener_x11;
     GSManager* manager;
     GSPrefs* prefs;
-    GSFade* fade;
     GSGrab* grab;
     guint release_grab_id;
 };
@@ -287,7 +285,6 @@ static void gs_monitor_init(GSMonitor* monitor) {
     monitor->priv->listener_x11 = gs_listener_x11_new();
     connect_listener_signals(monitor);
 
-    monitor->priv->fade = gs_fade_new();
     monitor->priv->grab = gs_grab_new();
 
     monitor->priv->manager = gs_manager_new();
@@ -310,7 +307,6 @@ static void gs_monitor_finalize(GObject* object) {
     disconnect_manager_signals(monitor);
     disconnect_prefs_signals(monitor);
 
-    g_object_unref(monitor->priv->fade);
     g_object_unref(monitor->priv->grab);
     g_object_unref(monitor->priv->listener);
     g_object_unref(monitor->priv->listener_x11);

@@ -51,7 +51,6 @@ savers/*.desktop.in
 savers/floaters
 savers/popsquares
 savers/slideshow
-src/test-fade
 src/test-passwd
 src/test-watcher
 src/test-window
