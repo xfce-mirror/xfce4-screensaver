@@ -296,6 +296,9 @@ get_string_from_iter (DBusMessageIter *iter,
     return buffer;
 
 oom:
+    if (buffer != NULL) {
+        free (buffer);
+    }
     g_debug ("%s %d : error allocating memory\n", __FILE__, __LINE__);
     return NULL;
 }
