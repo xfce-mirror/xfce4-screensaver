@@ -109,23 +109,17 @@ lock_initialization (char **nolock_reason) {
        to bring any other Mac program to the front, e.g., Terminal.)
     */
     {
-        gboolean macos = FALSE;
-
 #ifdef __APPLE__
         /* Disable locking if *running* on Apple hardware, since we have no
            reliable way to determine whether the server is running on MacOS.
            Hopefully __APPLE__ means "MacOS" and not "Linux on Mac hardware"
            but I'm not really sure about that.
         */
-        macos = TRUE;
-#endif
-
-        if (macos) {
-            if (nolock_reason) {
-                *nolock_reason = g_strdup ("Cannot lock securely on MacOS X");
-            }
-            return FALSE;
+        if (nolock_reason) {
+            *nolock_reason = g_strdup ("Cannot lock securely on MacOS X");
         }
+        return FALSE;
+#endif
     }
 
 #endif /* NO_LOCKING */
