@@ -446,10 +446,8 @@ static void
 draw_frame (GSTEPopsquares *pop,
             cairo_t        *cr) {
     int      border = 1;
-    gboolean twitch = FALSE;
     int      x, y;
     int      gw, gh;
-    int      nsquares;
     int      window_width;
     int      window_height;
     GdkWindow *window;
@@ -466,7 +464,6 @@ draw_frame (GSTEPopsquares *pop,
 
     gw = pop->priv->subdivision;
     gh = pop->priv->subdivision;
-    nsquares = gw * gh;
 
     for (y = 0; y < gh; y++) {
         for (x = 0; x < gw; x++) {
@@ -480,11 +477,7 @@ draw_frame (GSTEPopsquares *pop,
             s->color++;
 
             if (s->color == pop->priv->ncolors) {
-                if (twitch && ((g_random_int_range (0, 4)) == 0)) {
-                    randomize_square_colors (pop->priv->squares, nsquares, pop->priv->ncolors);
-                } else {
-                    s->color = g_random_int_range (0, pop->priv->ncolors);
-                }
+                s->color = g_random_int_range (0, pop->priv->ncolors);
             }
         }
     }
