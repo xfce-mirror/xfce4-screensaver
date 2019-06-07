@@ -471,8 +471,8 @@ draw_frame (GSTEPopsquares *pop,
 
             gdk_cairo_set_source_rgba (cr, &(pop->priv->colors[s->color]));
             cairo_rectangle (cr, s->x, s->y,
-                             border ? s->w - border : s->w,
-                             border ? s->h - border : s->h);
+                             s->w - border,
+                             s->h - border);
             cairo_fill (cr);
             s->color++;
 
