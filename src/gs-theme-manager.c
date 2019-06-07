@@ -107,18 +107,18 @@ find_command (const char *command) {
 
 static gboolean
 check_command (const char *command) {
-    char *path;
     char **argv;
 
     g_return_val_if_fail (command != NULL, FALSE);
 
-    g_shell_parse_argv (command, NULL, &argv, NULL);
-    path = find_command (argv[0]);
-    g_strfreev (argv);
+    if (g_shell_parse_argv (command, NULL, &argv, NULL)) {
+        char *path = find_command (argv[0]);
+        g_strfreev (argv);
 
-    if (path != NULL) {
-        g_free (path);
-        return TRUE;
+        if (path != NULL) {
+            g_free (path);
+            return TRUE;
+        }
     }
 
     return FALSE;
