@@ -1569,7 +1569,7 @@ find_best_size (GSList *sizes,
             if (d < distance) {
                 distance = d;
                 best = size;
-            } else if (d == distance) {
+            } else if (d == distance && best != NULL) {
                 if (abs (size->width - width) < abs (best->width - width)) {
                     best = size;
                 }
