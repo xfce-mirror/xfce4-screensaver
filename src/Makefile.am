@@ -196,9 +196,6 @@ xfce4_screensaver_SOURCES =	\
 	subprocs.h		\
 	gs-grab-x11.c		\
 	gs-grab.h		\
-	xfce-rr.c		\
-	xfce-rr.h		\
-	xfce-rr-private.h			\
 	xfce-bg.c		\
 	xfce-bg.h		\
 	xfce-desktop-utils.c		\
