@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-15 06:31+0100\n"
+"POT-Creation-Date: 2019-06-07 06:30+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Pjotr <pjotrvertaalt@gmail.com>, 2019\n"
 "Language-Team: Dutch (https://www.transifex.com/xfce/teams/16840/nl/)\n"
@@ -74,16 +74,21 @@ msgstr "De te gebruiken bronafbeelding"
 
 #. translators: the word "image" here
 #. * represents a command line argument
-#: ../savers/floaters.c:1120
+#: ../savers/floaters.c:1121
 msgid "image - floats images around the screen"
 msgstr "image - laat afbeeldingen over het scherm zweven"
 
-#: ../savers/floaters.c:1124 ../savers/popsquares.c:49
+#: ../savers/floaters.c:1125 ../savers/popsquares.c:49
 #, c-format
 msgid "%s. See --help for usage information.\n"
 msgstr "%s. Zie --help voor gebruiksinformatie.\n"
 
 #: ../savers/floaters.c:1132
+#, c-format
+msgid "Failed to initialize the windowing system."
+msgstr "Kon het venstersysteem niet opstarten."
+
+#: ../savers/floaters.c:1138
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr ""
@@ -149,7 +154,7 @@ msgstr "Van:"
 msgid "To:"
 msgstr "Naar:"
 
-#: ../src/copy-theme-dialog.c:255 ../src/gs-lock-plug.c:1192
+#: ../src/copy-theme-dialog.c:255 ../src/gs-lock-plug.c:1264
 #: ../src/xfce4-screensaver-dialog.ui.h:7
 msgid "_Cancel"
 msgstr "_Afbreken"
@@ -176,45 +181,45 @@ msgstr "Bestand kopiëren: %u van %u"
 msgid "Password:"
 msgstr "Wachtwoord:"
 
-#: ../src/gs-auth-pam.c:378
+#: ../src/gs-auth-pam.c:375
 #, c-format
 msgid "Unable to establish service %s: %s\n"
 msgstr "Kon dienst %s niet tot stand brengen: %s\n"
 
-#: ../src/gs-auth-pam.c:404
+#: ../src/gs-auth-pam.c:401
 #, c-format
 msgid "Can't set PAM_TTY=%s"
 msgstr "Niet-instelbare PAM_TTY=%s"
 
-#: ../src/gs-auth-pam.c:435
+#: ../src/gs-auth-pam.c:432
 msgid "Incorrect password."
 msgstr "Onjuist wachtwoord."
 
-#: ../src/gs-auth-pam.c:437 ../src/xfce4-screensaver-dialog.c:311
+#: ../src/gs-auth-pam.c:434 ../src/xfce4-screensaver-dialog.c:311
 msgid "Authentication failed."
 msgstr "Authenticatie is mislukt."
 
-#: ../src/gs-auth-pam.c:451
+#: ../src/gs-auth-pam.c:448
 msgid "Not permitted to gain access at this time."
 msgstr "Op dit tijdstip niet toegestaan om toegang te verkrijgen."
 
-#: ../src/gs-auth-pam.c:457
+#: ../src/gs-auth-pam.c:454
 msgid "No longer permitted to access the system."
 msgstr "Niet langer toegestaan om toegang te krijgen tot het systeem."
 
-#: ../src/gs-auth-pam.c:674
+#: ../src/gs-auth-pam.c:667
 msgid "Username:"
 msgstr "Gebruikersnaam:"
 
-#: ../src/gs-listener-dbus.c:1993
+#: ../src/gs-listener-dbus.c:1956
 msgid "failed to register with the message bus"
 msgstr "kon niet registreren bij de message bus"
 
-#: ../src/gs-listener-dbus.c:2003
+#: ../src/gs-listener-dbus.c:1966
 msgid "not connected to the message bus"
 msgstr "niet verbonden met de message bus"
 
-#: ../src/gs-listener-dbus.c:2012 ../src/gs-listener-dbus.c:2042
+#: ../src/gs-listener-dbus.c:1975 ../src/gs-listener-dbus.c:2005
 msgid "screensaver already running in this session"
 msgstr "schermbeveiliging is reeds actief in deze sessie"
 
@@ -227,56 +232,56 @@ msgstr "%A, %B %e   %H:%M"
 msgid "Time has expired."
 msgstr "Tijd is verlopen."
 
-#: ../src/gs-lock-plug.c:1177
+#: ../src/gs-lock-plug.c:1249
 msgid "S_witch User..."
 msgstr "_Gebruiker omschakelen..."
 
-#: ../src/gs-lock-plug.c:1186
+#: ../src/gs-lock-plug.c:1258
 msgid "Log _Out"
 msgstr "Af_melden"
 
-#: ../src/gs-lock-plug.c:1197 ../src/xfce4-screensaver-dialog.ui.h:8
+#: ../src/gs-lock-plug.c:1269 ../src/xfce4-screensaver-dialog.ui.h:8
 msgid "_Unlock"
 msgstr "Ont_grendelen"
 
 #. To translators: This expands to USERNAME on HOSTNAME
-#: ../src/gs-lock-plug.c:1363
+#: ../src/gs-lock-plug.c:1435
 msgid "%U on %h"
 msgstr "%U op %h"
 
-#: ../src/gs-lock-plug.c:1378
+#: ../src/gs-lock-plug.c:1450
 msgid "Please enter your password."
 msgstr "Voer a.u.b. uw wachtwoord in."
 
 #. Translators: a CRTC is a CRT Controller (this is X terminology).
-#: ../src/xfce-rr.c:444
+#: ../src/xfce-rr.c:443
 #, c-format
 msgid "could not get the screen resources (CRTCs, outputs, modes)"
 msgstr ""
 "kon de schermhulpbronnen niet verkrijgen (CRTC's, uitvoersoorten, modi)"
 
-#: ../src/xfce-rr.c:465
+#: ../src/xfce-rr.c:464
 #, c-format
 msgid "unhandled X error while getting the range of screen sizes"
 msgstr ""
 "niet-opgeloste X-fout bij het verkrijgen van het bereik aan schermgroottes"
 
-#: ../src/xfce-rr.c:471
+#: ../src/xfce-rr.c:470
 #, c-format
 msgid "could not get the range of screen sizes"
 msgstr "kon het bereik van schermgroottes niet verkrijgen"
 
-#: ../src/xfce-rr.c:682
+#: ../src/xfce-rr.c:680
 #, c-format
 msgid "RANDR extension is not present"
 msgstr "RANDR-extensie is niet aanwezig"
 
-#: ../src/xfce-rr.c:1075
+#: ../src/xfce-rr.c:1073
 #, c-format
 msgid "could not get information about output %d"
 msgstr "kon geen informatie verkrijgen over uitvoer %d"
 
-#: ../src/xfce-rr.c:1298
+#: ../src/xfce-rr.c:1296
 #, c-format
 msgid "could not get information about CRTC %d"
 msgstr "kon geen informatie verkrijgen over CRTC %d"
@@ -342,35 +347,35 @@ msgstr "De reden voor het belemmeren van de schermbeveiliging"
 msgid "Version of this application"
 msgstr "Versie van deze toepassing"
 
-#: ../src/xfce4-screensaver-command.c:325
+#: ../src/xfce4-screensaver-command.c:328
 #, c-format
 msgid "The screensaver is %s\n"
 msgstr "De schermbeveiliging is %s\n"
 
-#: ../src/xfce4-screensaver-command.c:325
+#: ../src/xfce4-screensaver-command.c:328
 msgid "active"
 msgstr "actief"
 
-#: ../src/xfce4-screensaver-command.c:325
+#: ../src/xfce4-screensaver-command.c:328
 msgid "inactive"
 msgstr "inactief"
 
-#: ../src/xfce4-screensaver-command.c:339
+#: ../src/xfce4-screensaver-command.c:342
 #, c-format
 msgid "The screensaver is not inhibited\n"
 msgstr "De schermbeveiliging wordt niet belemmerd\n"
 
-#: ../src/xfce4-screensaver-command.c:345
+#: ../src/xfce4-screensaver-command.c:348
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
 msgstr "De schermbeveiliging wordt belemmerd door:\n"
 
-#: ../src/xfce4-screensaver-command.c:375
+#: ../src/xfce4-screensaver-command.c:378
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "De schermbeveiliging is actief geweest gedurende %d seconden.\n"
 
-#: ../src/xfce4-screensaver-command.c:379
+#: ../src/xfce4-screensaver-command.c:382
 #, c-format
 msgid "The screensaver is not currently active.\n"
 msgstr "De schermbeveiliging is thans niet actief.\n"
@@ -678,6 +683,6 @@ msgstr "Foutopsporingscode inschakelen"
 msgid "Launch screensaver and locker program"
 msgstr "Schermbeveiliging en vergrendelprogramma starten"
 
-#: ../src/xfcekbd-indicator.c:538
+#: ../src/xfcekbd-indicator.c:537
 msgid "XKB initialization error"
 msgstr "XKB-initialisatiefout"
