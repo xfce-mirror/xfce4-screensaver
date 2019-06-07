@@ -1105,7 +1105,8 @@ main (int   argc,
     ScreenSaver     *screen_saver;
     GtkWidget       *window;
     GtkWidget       *drawing_area;
-    GError *error;
+    GError          *error;
+    gboolean         success;
 
     error = NULL;
 
@@ -1113,17 +1114,22 @@ main (int   argc,
     bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
     textdomain (GETTEXT_PACKAGE);
 
-    gtk_init_with_args (&argc, &argv,
-                        /* translators: the word "image" here
-                         * represents a command line argument
-                         */
-                        _("image - floats images around the screen"),
-                        options, GETTEXT_PACKAGE, &error);
+    success = gtk_init_with_args (&argc, &argv,
+                                  /* translators: the word "image" here
+                                  * represents a command line argument
+                                  */
+                                  _("image - floats images around the screen"),
+                                  options, GETTEXT_PACKAGE, &error);
 
     if (error != NULL) {
         g_printerr (_("%s. See --help for usage information.\n"),
                     _(error->message));
         g_error_free (error);
+        return EX_SOFTWARE;
+    }
+
+    if (!success) {
+        g_printerr (_("Failed to initialize the windowing system."));
         return EX_SOFTWARE;
     }
 
