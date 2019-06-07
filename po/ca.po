@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-15 06:31+0100\n"
+"POT-Creation-Date: 2019-06-07 06:30+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2019\n"
 "Language-Team: Catalan (https://www.transifex.com/xfce/teams/16840/ca/)\n"
@@ -74,16 +74,21 @@ msgstr "La imatge d'origen a utilitzar"
 
 #. translators: the word "image" here
 #. * represents a command line argument
-#: ../savers/floaters.c:1120
+#: ../savers/floaters.c:1121
 msgid "image - floats images around the screen"
 msgstr "imatge - flota imatges a la pantalla"
 
-#: ../savers/floaters.c:1124 ../savers/popsquares.c:49
+#: ../savers/floaters.c:1125 ../savers/popsquares.c:49
 #, c-format
 msgid "%s. See --help for usage information.\n"
 msgstr "%s. Consulteu --help per a la informació d'ús.\n"
 
 #: ../savers/floaters.c:1132
+#, c-format
+msgid "Failed to initialize the windowing system."
+msgstr "No es pot inicialitzar el sistema de finestres."
+
+#: ../savers/floaters.c:1138
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr ""
@@ -149,7 +154,7 @@ msgstr "De:"
 msgid "To:"
 msgstr "A:"
 
-#: ../src/copy-theme-dialog.c:255 ../src/gs-lock-plug.c:1192
+#: ../src/copy-theme-dialog.c:255 ../src/gs-lock-plug.c:1264
 #: ../src/xfce4-screensaver-dialog.ui.h:7
 msgid "_Cancel"
 msgstr "_Cancel·la"
@@ -176,45 +181,45 @@ msgstr "S'està copiant el fitxer: %u de %u"
 msgid "Password:"
 msgstr "Contrasenya:"
 
-#: ../src/gs-auth-pam.c:378
+#: ../src/gs-auth-pam.c:375
 #, c-format
 msgid "Unable to establish service %s: %s\n"
 msgstr "No es pot establir el servei %s: %s\n"
 
-#: ../src/gs-auth-pam.c:404
+#: ../src/gs-auth-pam.c:401
 #, c-format
 msgid "Can't set PAM_TTY=%s"
 msgstr "No es pot establir PAM_TTY=%s"
 
-#: ../src/gs-auth-pam.c:435
+#: ../src/gs-auth-pam.c:432
 msgid "Incorrect password."
 msgstr "Contrasenya incorrecta."
 
-#: ../src/gs-auth-pam.c:437 ../src/xfce4-screensaver-dialog.c:311
+#: ../src/gs-auth-pam.c:434 ../src/xfce4-screensaver-dialog.c:311
 msgid "Authentication failed."
 msgstr "Ha fallat l'autenticació."
 
-#: ../src/gs-auth-pam.c:451
+#: ../src/gs-auth-pam.c:448
 msgid "Not permitted to gain access at this time."
 msgstr "No es permet accedir en aquest moment."
 
-#: ../src/gs-auth-pam.c:457
+#: ../src/gs-auth-pam.c:454
 msgid "No longer permitted to access the system."
 msgstr "Ja no es permet accedir al sistema."
 
-#: ../src/gs-auth-pam.c:674
+#: ../src/gs-auth-pam.c:667
 msgid "Username:"
 msgstr "Nom d'usuari:"
 
-#: ../src/gs-listener-dbus.c:1993
+#: ../src/gs-listener-dbus.c:1956
 msgid "failed to register with the message bus"
 msgstr "ha fallat el registre amb el bus de missatges"
 
-#: ../src/gs-listener-dbus.c:2003
+#: ../src/gs-listener-dbus.c:1966
 msgid "not connected to the message bus"
 msgstr "no connectat al bus de missatges"
 
-#: ../src/gs-listener-dbus.c:2012 ../src/gs-listener-dbus.c:2042
+#: ../src/gs-listener-dbus.c:1975 ../src/gs-listener-dbus.c:2005
 msgid "screensaver already running in this session"
 msgstr "l'estalvi de pantalla ja s'està executant en aquesta sessió"
 
@@ -227,56 +232,56 @@ msgstr "%A, %e %B, %H:%M"
 msgid "Time has expired."
 msgstr "El temps ha vençut."
 
-#: ../src/gs-lock-plug.c:1177
+#: ../src/gs-lock-plug.c:1249
 msgid "S_witch User..."
 msgstr "Canvia d'u_suari..."
 
-#: ../src/gs-lock-plug.c:1186
+#: ../src/gs-lock-plug.c:1258
 msgid "Log _Out"
 msgstr "_Tanca la sessió"
 
-#: ../src/gs-lock-plug.c:1197 ../src/xfce4-screensaver-dialog.ui.h:8
+#: ../src/gs-lock-plug.c:1269 ../src/xfce4-screensaver-dialog.ui.h:8
 msgid "_Unlock"
 msgstr "_Desbloqueja"
 
 #. To translators: This expands to USERNAME on HOSTNAME
-#: ../src/gs-lock-plug.c:1363
+#: ../src/gs-lock-plug.c:1435
 msgid "%U on %h"
 msgstr "%U a %h"
 
-#: ../src/gs-lock-plug.c:1378
+#: ../src/gs-lock-plug.c:1450
 msgid "Please enter your password."
 msgstr "Introduïu la vostra contrasenya."
 
 #. Translators: a CRTC is a CRT Controller (this is X terminology).
-#: ../src/xfce-rr.c:444
+#: ../src/xfce-rr.c:443
 #, c-format
 msgid "could not get the screen resources (CRTCs, outputs, modes)"
 msgstr ""
 "no s'han pogut obtenir els recursos de la pantalla (CRTC, sortides, modes)"
 
-#: ../src/xfce-rr.c:465
+#: ../src/xfce-rr.c:464
 #, c-format
 msgid "unhandled X error while getting the range of screen sizes"
 msgstr ""
 "s'ha produït un error no gestionat de les X en obtenir les mides de pantalla"
 
-#: ../src/xfce-rr.c:471
+#: ../src/xfce-rr.c:470
 #, c-format
 msgid "could not get the range of screen sizes"
 msgstr "no s'ha pogut obtenir el rang de mides de pantalla"
 
-#: ../src/xfce-rr.c:682
+#: ../src/xfce-rr.c:680
 #, c-format
 msgid "RANDR extension is not present"
 msgstr "L'extensió RANDR no està present"
 
-#: ../src/xfce-rr.c:1075
+#: ../src/xfce-rr.c:1073
 #, c-format
 msgid "could not get information about output %d"
 msgstr "no s'ha pogut obtenir informació sobre la sortida %d"
 
-#: ../src/xfce-rr.c:1298
+#: ../src/xfce-rr.c:1296
 #, c-format
 msgid "could not get information about CRTC %d"
 msgstr "no s'ha pogut obtenir informació sobre el CRTC %d"
@@ -340,35 +345,35 @@ msgstr "El motiu per inhibir l'estalvi de pantalla"
 msgid "Version of this application"
 msgstr "Versió d'aquesta aplicació"
 
-#: ../src/xfce4-screensaver-command.c:325
+#: ../src/xfce4-screensaver-command.c:328
 #, c-format
 msgid "The screensaver is %s\n"
 msgstr "L'estalvi de pantalla està %s\n"
 
-#: ../src/xfce4-screensaver-command.c:325
+#: ../src/xfce4-screensaver-command.c:328
 msgid "active"
 msgstr "actiu"
 
-#: ../src/xfce4-screensaver-command.c:325
+#: ../src/xfce4-screensaver-command.c:328
 msgid "inactive"
 msgstr "inactiu"
 
-#: ../src/xfce4-screensaver-command.c:339
+#: ../src/xfce4-screensaver-command.c:342
 #, c-format
 msgid "The screensaver is not inhibited\n"
 msgstr "L'estalvi de pantalla no està inhibit\n"
 
-#: ../src/xfce4-screensaver-command.c:345
+#: ../src/xfce4-screensaver-command.c:348
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
 msgstr "Està inhibint l'estalvi de pantalla:\n"
 
-#: ../src/xfce4-screensaver-command.c:375
+#: ../src/xfce4-screensaver-command.c:378
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "L'estalvi de pantalla ha estat actiu durant %d segons.\n"
 
-#: ../src/xfce4-screensaver-command.c:379
+#: ../src/xfce4-screensaver-command.c:382
 #, c-format
 msgid "The screensaver is not currently active.\n"
 msgstr "L'estalvi de pantalla no està actiu actualment.\n"
@@ -674,6 +679,6 @@ msgstr "Habilita el codi de depuració"
 msgid "Launch screensaver and locker program"
 msgstr "Llança l'estalvi de pantalla i el programa de bloqueig"
 
-#: ../src/xfcekbd-indicator.c:538
+#: ../src/xfcekbd-indicator.c:537
 msgid "XKB initialization error"
 msgstr "Error d'inicialització de XKB"
