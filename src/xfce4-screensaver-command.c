@@ -382,14 +382,17 @@ do_command (DBusConnection *connection) {
 
     if (do_lock) {
         reply = screensaver_send_message_void (connection, "Lock", FALSE);
+        dbus_message_unref (reply);
     }
 
     if (do_cycle) {
         reply = screensaver_send_message_void (connection, "Cycle", FALSE);
+        dbus_message_unref (reply);
     }
 
     if (do_poke) {
         reply = screensaver_send_message_void (connection, "SimulateUserActivity", FALSE);
+        dbus_message_unref (reply);
     }
 
     if (do_activate) {
