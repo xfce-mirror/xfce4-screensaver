@@ -622,9 +622,7 @@ load_threadfunc (GAsyncQueue *op_q) {
         op_load_image (op->slideshow,
                        op->location);
 
-        if (op->slideshow != NULL) {
-            g_object_unref (op->slideshow);
-        }
+        g_object_unref (op->slideshow);
         g_free (op->location);
         g_free (op);
 
