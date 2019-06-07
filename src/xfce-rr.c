@@ -1066,7 +1066,7 @@ output_initialize (XfceRROutput        *output,
     g_print ("Output %lx Timestamp: %u\n", output->id, (guint32)info->timestamp);
 #endif
 
-    if (!info || !output->info) {
+    if (!info) {
         /* FIXME: see the comment in crtc_initialize() */
         /* Translators: here, an "output" is a video output */
         g_set_error (error, XFCE_RR_ERROR, XFCE_RR_ERROR_RANDR_ERROR,
