@@ -12,7 +12,6 @@ src/copy-theme-dialog.c
 src/gs-auth-pam.c
 src/gs-listener-dbus.c
 src/gs-lock-plug.c
-src/xfce-rr.c
 src/xfce4-screensaver-command.c
 src/xfce4-screensaver-dialog.c
 [type: gettext/glade]src/xfce4-screensaver-dialog.ui
