@@ -126,11 +126,10 @@ static void         add_deepsleep_idle      (GSManager *manager);
 static gint
 manager_get_monitor_index (GdkMonitor *this_monitor) {
     GdkDisplay *display = gdk_monitor_get_display (this_monitor);
-    GdkMonitor *monitor;
     gint        idx;
 
     for (idx = 0; idx < gdk_display_get_n_monitors (display); idx++) {
-        monitor = gdk_display_get_monitor (display, idx);
+        GdkMonitor *monitor = gdk_display_get_monitor (display, idx);
         if (monitor == this_monitor)
             return idx;
     }

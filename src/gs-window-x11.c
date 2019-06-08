@@ -258,11 +258,6 @@ gs_window_clear (GSWindow *window) {
     gdk_display_flush (display);
 }
 
-void
-gs_window_disconnect_monitor (GSWindow *window) {
-    window->priv->monitor = NULL;
-}
-
 static cairo_region_t *
 get_outside_region (GSWindow *window) {
     GdkDisplay     *display;
