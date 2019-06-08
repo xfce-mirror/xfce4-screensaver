@@ -160,6 +160,9 @@ static void listener_show_message_cb(GSListener* listener,
                                      const char* body,
                                      const char* icon,
                                      GSMonitor*  monitor) {
+    if (!monitor->priv->prefs->lock_enabled)
+        return;
+
     gs_manager_show_message(monitor->priv->manager, summary, body, icon);
 }
 

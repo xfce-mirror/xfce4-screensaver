@@ -1522,7 +1522,7 @@ get_monitor_index (GSWindow *window) {
     for (idx = 0; idx < gdk_display_get_n_monitors (display); idx++) {
         GdkMonitor *monitor;
         monitor = gdk_display_get_monitor (display, idx);
-        if (g_strcmp0 (gdk_monitor_get_model (monitor), gdk_monitor_get_model (window->priv->monitor)) == 0) {
+        if (monitor == window->priv->monitor) {
             return idx;
         }
     }

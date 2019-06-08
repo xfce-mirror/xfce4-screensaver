@@ -76,7 +76,6 @@ struct GSManagerPrivate {
     guint           saver_active : 1;
 
     guint           dialog_up : 1;
-    gint            last_monitor_count;
 
     time_t          activate_time;
 
@@ -123,6 +122,20 @@ G_DEFINE_TYPE_WITH_PRIVATE (GSManager, gs_manager, G_TYPE_OBJECT)
 static void         remove_deepsleep_idle   (GSManager *manager);
 static gboolean     deepsleep_idle          (GSManager *manager);
 static void         add_deepsleep_idle      (GSManager *manager);
+
+static gint
+manager_get_monitor_index (GdkMonitor *this_monitor) {
+    GdkDisplay *display = gdk_monitor_get_display (this_monitor);
+    GdkMonitor *monitor;
+    gint        idx;
+
+    for (idx = 0; idx < gdk_display_get_n_monitors (display); idx++) {
+        monitor = gdk_display_get_monitor (display, idx);
+        if (monitor == this_monitor)
+            return idx;
+    }
+    return 0;
+}
 
 static void
 manager_add_job_for_window (GSManager *manager,
@@ -1031,8 +1044,7 @@ find_window_at_pointer (GSManager *manager) {
     GdkDevice  *device;
     GdkMonitor *monitor;
     int         x, y;
-    GSWindow   *window;
-    GSList     *l;
+    GSList     *window;
 
     display = gdk_display_get_default ();
 
@@ -1041,15 +1053,7 @@ find_window_at_pointer (GSManager *manager) {
     monitor = gdk_display_get_monitor_at_point (display, x, y);
 
     /* Find the gs-window that is on that monitor */
-    window = NULL;
-    for (l = manager->priv->windows; l; l = l->next) {
-        GSWindow *win = GS_WINDOW (l->data);
-        if (gs_window_get_display (win) == display &&
-                gs_window_get_monitor (win) == monitor) {
-            window = win;
-        }
-    }
-
+    window = g_slist_nth (manager->priv->windows, manager_get_monitor_index (monitor));
     if (window == NULL) {
         gs_debug ("WARNING: Could not find the GSWindow for display %s",
                   gdk_display_get_name (display));
@@ -1064,7 +1068,7 @@ find_window_at_pointer (GSManager *manager) {
                   gdk_display_get_name (display));
     }
 
-    return window;
+    return GS_WINDOW (window->data);
 }
 
 void
@@ -1406,10 +1410,15 @@ gs_manager_create_window_for_monitor (GSManager  *manager,
     GSWindow    *window;
     GdkRectangle rect;
 
+    if (g_slist_nth (manager->priv->windows, manager_get_monitor_index(monitor))) {
+        gs_debug ("Found already created window for Monitor %d", manager_get_monitor_index(monitor));
+        return;
+    }
+
     gdk_monitor_get_geometry (monitor, &rect);
 
-    gs_debug ("Creating a window [%d,%d] (%dx%d)",
-              rect.x, rect.y, rect.width, rect.height);
+    gs_debug ("Creating a Window [%d,%d] (%dx%d) for monitor %d",
+              rect.x, rect.y, rect.width, rect.height, manager_get_monitor_index (monitor));
 
     window = gs_window_new (monitor,
                             manager->priv->lock_enabled,
@@ -1427,37 +1436,11 @@ gs_manager_create_window_for_monitor (GSManager  *manager,
 
     connect_window_signals (manager, window);
 
-    manager->priv->windows = g_slist_append (manager->priv->windows, window);
+    manager->priv->windows = g_slist_insert (manager->priv->windows, window, manager_get_monitor_index(monitor));
 
     if (manager->priv->active) {
         gtk_widget_show (GTK_WIDGET (window));
     }
-}
-
-static gboolean
-gs_manager_is_real_monitor (GdkMonitor *monitor) {
-    // avoiding some weird gdk bug
-    // federico> avb: or if you don't care about a little unexplained messiness,
-    //                just discard monitors where both fields are null? :)
-    if (gdk_monitor_get_manufacturer(monitor) == NULL && gdk_monitor_get_model(monitor) == NULL)
-        return FALSE;
-    return TRUE;
-}
-
-static int
-gs_manager_get_n_monitors (GdkDisplay *display) {
-    // Since gdk_display_get_n_monitors return wrong monitor count
-    // this is a workaround for the problem
-    int n_monitors;
-    int i, count = 0;
-
-    n_monitors = gdk_display_get_n_monitors (display);
-    for (i = 0; i < n_monitors; i++) {
-        GdkMonitor *monitor = gdk_display_get_monitor(display, i);
-        if (gs_manager_is_real_monitor (monitor))
-            count++;
-    }
-    return count;
 }
 
 static void
@@ -1467,101 +1450,33 @@ on_display_monitor_added (GdkDisplay *display,
     GSList     *l;
     int         n_monitors;
 
-    g_return_if_fail (gs_manager_is_real_monitor(monitor));
+    n_monitors = gdk_display_get_n_monitors (display);
 
-    n_monitors = gs_manager_get_n_monitors (display);
+    gs_debug ("Monitor %s added on display %s, now there are %d",
+              gdk_monitor_get_model(monitor), gdk_display_get_name (display), n_monitors);
 
-    gs_debug ("Monitor added on display %s, now there are %d",
-              gdk_display_get_name (display), n_monitors);
-
-    if (manager->priv->last_monitor_count == 0) {
-        /* Tidy up from lid-close or other headless event once we have a new monitor.
-         * See https://gitlab.gnome.org/GNOME/gtk/issues/1466
-         */
-        l = manager->priv->windows;
-        while (l != NULL)
-        {
-            GSList *next = l->next;
-
-            manager_maybe_stop_job_for_window(manager,
-                                                GS_WINDOW(l->data));
-            g_hash_table_remove(manager->priv->jobs, l->data);
-            gs_window_disconnect_monitor(GS_WINDOW(l->data));
-            gs_window_destroy(GS_WINDOW(l->data));
-            manager->priv->windows = g_slist_delete_link(manager->priv->windows, l);
-            l = next;
-        }
+    l = g_slist_nth (manager->priv->windows, manager_get_monitor_index (monitor));
+    if (l) {
+        gs_debug ("Found window for this Monitor");
+        gs_window_set_monitor (GS_WINDOW (l->data), monitor);
+    } else {
+        gs_debug("Creating new window for Monitor %s", gdk_monitor_get_model (monitor));
+        gs_manager_create_window_for_monitor(manager, monitor);
+        l = g_slist_nth (manager->priv->windows, manager_get_monitor_index (monitor));
     }
-
-    manager->priv->last_monitor_count = n_monitors;
-
-    /* add a new window */
-    gs_manager_create_window_for_monitor (manager, monitor);
-
-    /* Tear down the unlock dialog in case we want to move it
-     * to the new monitor
-     */
-    l = manager->priv->windows;
-    while (l != NULL) {
-        gs_window_cancel_unlock_request (GS_WINDOW (l->data));
-        l = l->next;
-    }
+    gs_window_request_unlock (l->data);
 }
 
 static void
 on_display_monitor_removed (GdkDisplay *display,
                             GdkMonitor *monitor,
                             GSManager  *manager) {
-    GSList     *l;
     int         n_monitors;
-    GdkMonitor *last_monitor = NULL;
 
-    g_return_if_fail (gs_manager_is_real_monitor(monitor));
+    n_monitors = gdk_display_get_n_monitors (display);
 
-    n_monitors = manager->priv->last_monitor_count = gs_manager_get_n_monitors (display);
-
-    gs_debug ("Monitor removed on display %s, now there are %d",
-              gdk_display_get_name (display), n_monitors);
-
-    /* Tidy up from lid-close or other headless event once we have a new monitor.
-     * See https://gitlab.gnome.org/GNOME/gtk/issues/1466
-     */
-    if (n_monitors == 0)
-        return;
-
-    gdk_x11_grab_server ();
-
-    /* remove the now extra window */
-    l = manager->priv->windows;
-    while (l != NULL) {
-        GdkDisplay *this_display;
-        GdkMonitor *this_monitor;
-        GSList     *next = l->next;
-
-        this_display = gs_window_get_display (GS_WINDOW (l->data));
-        this_monitor = gs_window_get_monitor (GS_WINDOW (l->data));
-        if (this_display == display && this_monitor == monitor) {
-            manager_maybe_stop_job_for_window (manager,
-                                               GS_WINDOW (l->data));
-            g_hash_table_remove (manager->priv->jobs, l->data);
-            gs_window_destroy (GS_WINDOW (l->data));
-            manager->priv->windows = g_slist_delete_link (manager->priv->windows, l);
-        } else {
-            last_monitor = this_monitor;
-            gs_window_cancel_unlock_request (GS_WINDOW (l->data));
-        }
-        l = next;
-    }
-
-    gdk_display_flush (display);
-    gdk_x11_ungrab_server ();
-
-    /* add a new window */
-    if (last_monitor)
-        gs_manager_create_window_for_monitor(manager, last_monitor);
-
-    /* and put unlock dialog up whereever it's supposed to be */
-    gs_manager_request_unlock(manager);
+    gs_debug ("Monitor %p removed on display %s, now there are %d",
+              monitor, gdk_display_get_name (display), n_monitors);
 }
 
 static void
@@ -1687,7 +1602,6 @@ gs_manager_new (void) {
     manager = g_object_new (GS_TYPE_MANAGER, NULL);
 
     mgr = GS_MANAGER (manager);
-    mgr->priv->last_monitor_count = -1;
 
     return mgr;
 }
