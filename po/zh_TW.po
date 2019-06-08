@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-15 06:31+0100\n"
+"POT-Creation-Date: 2019-06-08 06:31+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Jeff Huang <s8321414@gmail.com>, 2019\n"
 "Language-Team: Chinese (Taiwan) (https://www.transifex.com/xfce/teams/16840/zh_TW/)\n"
@@ -74,16 +74,21 @@ msgstr "要使用的來源圖片"
 
 #. translators: the word "image" here
 #. * represents a command line argument
-#: ../savers/floaters.c:1120
+#: ../savers/floaters.c:1121
 msgid "image - floats images around the screen"
 msgstr "image - 在畫面上浮動的圖片"
 
-#: ../savers/floaters.c:1124 ../savers/popsquares.c:49
+#: ../savers/floaters.c:1125 ../savers/popsquares.c:49
 #, c-format
 msgid "%s. See --help for usage information.\n"
 msgstr "%s。請見 --help 來取得使用方法資訊。\n"
 
 #: ../savers/floaters.c:1132
+#, c-format
+msgid "Failed to initialize the windowing system."
+msgstr "初始化視窗系統失敗。"
+
+#: ../savers/floaters.c:1138
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr "您必須指定一張圖片。請見 --help 來取得使用方法資訊。\n"
@@ -148,7 +153,7 @@ msgstr "從："
 msgid "To:"
 msgstr "到："
 
-#: ../src/copy-theme-dialog.c:255 ../src/gs-lock-plug.c:1192
+#: ../src/copy-theme-dialog.c:255 ../src/gs-lock-plug.c:1264
 #: ../src/xfce4-screensaver-dialog.ui.h:7
 msgid "_Cancel"
 msgstr "取消(_C)"
@@ -175,45 +180,45 @@ msgstr "正在複製檔案：%u 的 %u"
 msgid "Password:"
 msgstr "密碼："
 
-#: ../src/gs-auth-pam.c:378
+#: ../src/gs-auth-pam.c:375
 #, c-format
 msgid "Unable to establish service %s: %s\n"
 msgstr "無法建立服務 %s：%s\n"
 
-#: ../src/gs-auth-pam.c:404
+#: ../src/gs-auth-pam.c:401
 #, c-format
 msgid "Can't set PAM_TTY=%s"
 msgstr "無法設定 PAM_TTY=%s"
 
-#: ../src/gs-auth-pam.c:435
+#: ../src/gs-auth-pam.c:432
 msgid "Incorrect password."
 msgstr "密碼不正確。"
 
-#: ../src/gs-auth-pam.c:437 ../src/xfce4-screensaver-dialog.c:311
+#: ../src/gs-auth-pam.c:434 ../src/xfce4-screensaver-dialog.c:311
 msgid "Authentication failed."
 msgstr "驗證失敗。"
 
-#: ../src/gs-auth-pam.c:451
+#: ../src/gs-auth-pam.c:448
 msgid "Not permitted to gain access at this time."
 msgstr "此時不允許存取。"
 
-#: ../src/gs-auth-pam.c:457
+#: ../src/gs-auth-pam.c:454
 msgid "No longer permitted to access the system."
 msgstr "不再允許存取系統。"
 
-#: ../src/gs-auth-pam.c:674
+#: ../src/gs-auth-pam.c:667
 msgid "Username:"
 msgstr "使用者名稱："
 
-#: ../src/gs-listener-dbus.c:1993
+#: ../src/gs-listener-dbus.c:1956
 msgid "failed to register with the message bus"
 msgstr "使用訊息匯流排註冊失敗"
 
-#: ../src/gs-listener-dbus.c:2003
+#: ../src/gs-listener-dbus.c:1966
 msgid "not connected to the message bus"
 msgstr "未連線至訊息匯流排"
 
-#: ../src/gs-listener-dbus.c:2012 ../src/gs-listener-dbus.c:2042
+#: ../src/gs-listener-dbus.c:1975 ../src/gs-listener-dbus.c:2005
 msgid "screensaver already running in this session"
 msgstr "螢幕保護程式已經在此工作階段中執行"
 
@@ -226,57 +231,26 @@ msgstr "%A, %B %e   %H:%M"
 msgid "Time has expired."
 msgstr "時間已過期。"
 
-#: ../src/gs-lock-plug.c:1177
+#: ../src/gs-lock-plug.c:1249
 msgid "S_witch User..."
 msgstr "切換使用者……(_W)"
 
-#: ../src/gs-lock-plug.c:1186
+#: ../src/gs-lock-plug.c:1258
 msgid "Log _Out"
 msgstr "登出(_O)"
 
-#: ../src/gs-lock-plug.c:1197 ../src/xfce4-screensaver-dialog.ui.h:8
+#: ../src/gs-lock-plug.c:1269 ../src/xfce4-screensaver-dialog.ui.h:8
 msgid "_Unlock"
 msgstr "解鎖(_U)"
 
 #. To translators: This expands to USERNAME on HOSTNAME
-#: ../src/gs-lock-plug.c:1363
+#: ../src/gs-lock-plug.c:1435
 msgid "%U on %h"
 msgstr "在 %h 上的 %U"
 
-#: ../src/gs-lock-plug.c:1378
+#: ../src/gs-lock-plug.c:1450
 msgid "Please enter your password."
 msgstr "請輸入您的密碼。"
-
-#. Translators: a CRTC is a CRT Controller (this is X terminology).
-#: ../src/xfce-rr.c:444
-#, c-format
-msgid "could not get the screen resources (CRTCs, outputs, modes)"
-msgstr "無法取得畫面資源（CRTC、輸出、模式）"
-
-#: ../src/xfce-rr.c:465
-#, c-format
-msgid "unhandled X error while getting the range of screen sizes"
-msgstr "在取得畫面大小範圍時有無法處理的 X 錯誤"
-
-#: ../src/xfce-rr.c:471
-#, c-format
-msgid "could not get the range of screen sizes"
-msgstr "無法取得畫面大小的範圍"
-
-#: ../src/xfce-rr.c:682
-#, c-format
-msgid "RANDR extension is not present"
-msgstr "RANDR 擴充套件不存在"
-
-#: ../src/xfce-rr.c:1075
-#, c-format
-msgid "could not get information about output %d"
-msgstr "無法取得關於輸出 %d 的資訊"
-
-#: ../src/xfce-rr.c:1298
-#, c-format
-msgid "could not get information about CRTC %d"
-msgstr "無法取得關於 CRTC %d 的資訊"
 
 #: ../src/xfce4-screensaver-command.c:60
 msgid "Causes the screensaver to exit gracefully"
@@ -329,35 +303,35 @@ msgstr "抑制螢幕保護程式的理由"
 msgid "Version of this application"
 msgstr "此應用程式的版本"
 
-#: ../src/xfce4-screensaver-command.c:325
+#: ../src/xfce4-screensaver-command.c:328
 #, c-format
 msgid "The screensaver is %s\n"
 msgstr "螢幕保護程式為 %s\n"
 
-#: ../src/xfce4-screensaver-command.c:325
+#: ../src/xfce4-screensaver-command.c:328
 msgid "active"
 msgstr "活躍"
 
-#: ../src/xfce4-screensaver-command.c:325
+#: ../src/xfce4-screensaver-command.c:328
 msgid "inactive"
 msgstr "不活躍"
 
-#: ../src/xfce4-screensaver-command.c:339
+#: ../src/xfce4-screensaver-command.c:342
 #, c-format
 msgid "The screensaver is not inhibited\n"
 msgstr "螢幕保護程式未被抑制\n"
 
-#: ../src/xfce4-screensaver-command.c:345
+#: ../src/xfce4-screensaver-command.c:348
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
 msgstr "螢幕保護程式抑制由：\n"
 
-#: ../src/xfce4-screensaver-command.c:375
+#: ../src/xfce4-screensaver-command.c:378
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "螢幕保護程式已經活躍 %d 秒。\n"
 
-#: ../src/xfce4-screensaver-command.c:379
+#: ../src/xfce4-screensaver-command.c:382
 #, c-format
 msgid "The screensaver is not currently active.\n"
 msgstr "螢幕保護程式目前不活躍。\n"
@@ -654,6 +628,6 @@ msgstr "啟用除錯程式碼"
 msgid "Launch screensaver and locker program"
 msgstr "啟動螢幕保護程式與鎖定程式"
 
-#: ../src/xfcekbd-indicator.c:538
+#: ../src/xfcekbd-indicator.c:537
 msgid "XKB initialization error"
 msgstr "XKB 初始化錯誤"
