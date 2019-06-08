@@ -1,8 +1,8 @@
 NULL =
 
-SPEC_XML_FILES =			\
-	xfce4-screensaver.xml		\
-	dbus-interface.xml		\
+SPEC_XML_FILES = \
+	xfce4-screensaver.xml  \
+	dbus-interface.xml     \
 	$(NULL)
 
 if DOCBOOK_DOCS_ENABLED
@@ -15,10 +15,10 @@ xfce4-screensaver.html : dbus-interface.xml
 
 endif # DOCBOOK_DOCS_ENABLED
 
-EXTRA_DIST =				\
-	xfce4-screensaver.xml.in	\
-	config.xsl			\
-	docbook.css			\
+EXTRA_DIST = \
+	xfce4-screensaver.xml.in  \
+	config.xsl                \
+	docbook.css               \
 	$(SPEC_XML_FILES)
 	$(NULL)
 

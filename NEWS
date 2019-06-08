@@ -89,6 +89,7 @@
   - UI files are now compiled and included in the binaries
   - Root warning is now an InfoBar to make it more visible
   - Enabled embedding in the Xfce Settings Manager
+  - More consistent spacing in makefiles
 - Bug Fixes:
   - Fix crash with no background placement, fix color settings (Xfce #14769)
   - Redraw the screensaver on monitor configuration events (Xfce #14796)
