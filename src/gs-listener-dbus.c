@@ -1429,7 +1429,7 @@ listener_dbus_handle_system_message (DBusConnection *connection,
     g_return_val_if_fail (connection != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
     g_return_val_if_fail (message != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
 
-#if 1
+#if 0
     gs_debug ("obj_path=%s interface=%s method=%s destination=%s",
               dbus_message_get_path (message),
               dbus_message_get_interface (message),
