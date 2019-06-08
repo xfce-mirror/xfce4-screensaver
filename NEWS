@@ -6,6 +6,7 @@
 - General:
   - Removed a lot of unused code (2,700+ lines)
   - Simplified monitor-handling logic
+  - More consistent spacing in makefiles
 - Bug Fixes:
   - Added categories to display in the Settings Manager (Xfce #15507)
   - Added a fallback idle timer for when X11 screensaver doesn't notify
@@ -89,7 +90,6 @@
   - UI files are now compiled and included in the binaries
   - Root warning is now an InfoBar to make it more visible
   - Enabled embedding in the Xfce Settings Manager
-  - More consistent spacing in makefiles
 - Bug Fixes:
   - Fix crash with no background placement, fix color settings (Xfce #14769)
   - Redraw the screensaver on monitor configuration events (Xfce #14796)
