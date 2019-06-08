@@ -1,15 +1,26 @@
 0.1.5 (unreleased)
 ==================
+- Features:
+  - Added support for elogind (Xfce #15243)
+  - Added support for profile images from AccountsService (Xfce #15235)
+- General:
+  - Removed a lot of unused code (2,700+ lines)
+  - Simplified monitor-handling logic
 - Bug Fixes:
-  - Fix warning during configure stage (Xfce #15552)
-  - Fix Inhibitor lock (Xfce #15551)
-  - Hide screensaver themes from 'Open with' options (Xfce #15531)
   - Added categories to display in the Settings Manager (Xfce #15507)
-  - Support AccountsService in order to get user icon (Xfce #15235)
-  - Restored native timer to cover when X11 screensaver timer doesn't notify
+  - Added a fallback idle timer for when X11 screensaver doesn't notify
+  - Fixed warning during configure stage (Xfce #15552)
+  - Fixed Inhibitor lock (Xfce #15551)
+  - Hid screensaver themes from 'Open with' options (Xfce #15531)
+  - Made numerous cppcheck, cpplint, and Coverity Scan fixes
+    - Constant variables guarding dead code
+    - Dereferencing before/after null
+    - Unchecked return values
+    - Unused variables
+    - Memory leaks
 - Translation Updates:
-  be, bg, cs, da, en_AU, es, eu, fr, he, hu, is, it, ko, ms, pl, pt_BR, sk,
-  sq, sr, sv, tr, zh_CN
+  be, bg, ca, cs, da, de, en_AU, es, eu, fr, he, hu, is, it, ko, lt, ms, nl,
+  pl, pt_BR, sk, sq, sr, sv, tr, zh_CN
 
 0.1.4 (beta)
 ============
