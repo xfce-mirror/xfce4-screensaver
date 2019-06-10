@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-07 06:30+0200\n"
+"POT-Creation-Date: 2019-06-08 06:31+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: scootergrisen, 2019\n"
 "Language-Team: Danish (https://www.transifex.com/xfce/teams/16840/da/)\n"
@@ -251,37 +251,6 @@ msgstr "%U på %h"
 #: ../src/gs-lock-plug.c:1450
 msgid "Please enter your password."
 msgstr "Indtast venligst din adgangskode."
-
-#. Translators: a CRTC is a CRT Controller (this is X terminology).
-#: ../src/xfce-rr.c:443
-#, c-format
-msgid "could not get the screen resources (CRTCs, outputs, modes)"
-msgstr "kunne ikke hente skærmressourcer (CRTC'ere, outputs, tilstande)"
-
-#: ../src/xfce-rr.c:464
-#, c-format
-msgid "unhandled X error while getting the range of screen sizes"
-msgstr "uhåndteret fejl ved X da området med skærmstørrelser skulle hentes"
-
-#: ../src/xfce-rr.c:470
-#, c-format
-msgid "could not get the range of screen sizes"
-msgstr "kunne ikke hente området med skærmstørrelser"
-
-#: ../src/xfce-rr.c:680
-#, c-format
-msgid "RANDR extension is not present"
-msgstr "RANDR-udvidelsen er ikke tilstede"
-
-#: ../src/xfce-rr.c:1073
-#, c-format
-msgid "could not get information about output %d"
-msgstr "kunne ikke hente information om outputtet %d"
-
-#: ../src/xfce-rr.c:1296
-#, c-format
-msgid "could not get information about CRTC %d"
-msgstr "kunne ikke hente information om CRTC'eren %d"
 
 #: ../src/xfce4-screensaver-command.c:60
 msgid "Causes the screensaver to exit gracefully"
@@ -646,7 +615,7 @@ msgstr "Skift af bruger"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:29
 msgid "Lock Screen with System Sleep"
-msgstr "Låseskærm systemhvile"
+msgstr "Låseskærm med systemhvile"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:30
 msgid "Lock Screen"
