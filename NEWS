@@ -1,5 +1,5 @@
-0.1.5 (unreleased)
-==================
+0.1.5 (beta)
+============
 - Features:
   - Added support for elogind (Xfce #15243)
   - Added support for profile images from AccountsService (Xfce #15235)
@@ -20,8 +20,11 @@
     - Unused variables
     - Memory leaks
 - Translation Updates:
-  be, bg, ca, cs, da, de, en_AU, es, eu, fr, he, hu, is, it, ko, lt, ms, nl,
-  pl, pt_BR, sk, sq, sr, sv, tr, zh_CN
+  Albanian, Basque, Belarusian, Bulgarian, Catalan, Chinese (China),
+  Chinese (Taiwan), Czech, Danish, Dutch, English (Australia),
+  French, German, Hebrew, Hungarian, Icelandic, Italian, Korean,
+  Lithuanian, Malay, Polish, Portuguese (Brazil), Serbian, Slovak,
+  Spanish, Swedish, Turkish
 
 0.1.4 (beta)
 ============
