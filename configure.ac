@@ -1173,7 +1173,6 @@ src/Makefile
 src/xfce4-screensaver.desktop.in
 data/Makefile
 data/xfce4-screensavers.menu
-data/xfce4-screensaver.pc
 data/org.xfce.ScreenSaver.service
 data/images/Makefile
 savers/Makefile

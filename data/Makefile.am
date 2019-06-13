@@ -28,9 +28,6 @@ menu_DATA = \
 	xfce4-screensavers.menu  \
 	$(NULL)
 
-pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = xfce4-screensaver.pc
-
 dbussessionservicedir = $(DBUS_SESSION_SERVICE_DIR)
 dbussessionservice_DATA = org.xfce.ScreenSaver.service
 
@@ -42,7 +39,6 @@ EXTRA_DIST = \
 	$(man_MANS)                      \
 	xfce4-screensaver.common-auth    \
 	xfce4-screensaver.system-auth    \
-	xfce4-screensaver.pc.in          \
 	org.xfce.ScreenSaver.service.in  \
 	xscreensaver-config.xsl          \
 	migrate-xscreensaver-config.sh   \
