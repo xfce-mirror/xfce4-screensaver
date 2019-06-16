@@ -238,8 +238,6 @@ xfce4_screensaver_preferences_built_sources = \
 xfce4_screensaver_preferences_SOURCES = \
 	$(xfce4_screensaver_preferences_built_sources)  \
 	xfce4-screensaver-preferences.c                 \
-	copy-theme-dialog.c                             \
-	copy-theme-dialog.h                             \
 	gs-theme-manager.c                              \
 	gs-theme-manager.h                              \
 	gs-job.c                                        \

@@ -39,7 +39,6 @@
 #include <libxfce4ui/libxfce4ui.h>
 #include <xfconf/xfconf.h>
 
-#include "copy-theme-dialog.h"
 #include "gs-debug.h"
 #include "gs-job.h"
 #include "gs-prefs.h" /* for GS_MODE enum */
@@ -59,11 +58,6 @@ enum {
 enum {
     TARGET_URI_LIST,
     TARGET_NS_URL
-};
-
-static GtkTargetEntry drop_types[] = {
-    { "text/uri-list", 0, TARGET_URI_LIST },
-    { "_NETSCAPE_URL", 0, TARGET_NS_URL }
 };
 
 static GtkBuilder     *builder = NULL;
@@ -990,147 +984,6 @@ setup_treeview_selection (GtkWidget *tree) {
 }
 
 static void
-reload_themes (void) {
-    GtkWidget    *treeview;
-    GtkTreeModel *model;
-
-    treeview = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_treeview"));
-    model = gtk_tree_view_get_model (GTK_TREE_VIEW (treeview));
-    gtk_tree_store_clear (GTK_TREE_STORE (model));
-    populate_model (GTK_TREE_STORE (model));
-
-    gtk_tree_view_set_model (GTK_TREE_VIEW (treeview),
-                             GTK_TREE_MODEL (model));
-}
-
-static void
-theme_copy_complete_cb (GtkWidget *dialog,
-                        gpointer   user_data) {
-    reload_themes ();
-    gtk_widget_destroy (dialog);
-}
-
-static void
-theme_installer_run (GtkWidget *prefs_dialog,
-                     GList     *files) {
-    GtkWidget *copy_dialog;
-
-    copy_dialog = copy_theme_dialog_new (files);
-    g_list_foreach (files, (GFunc) (g_object_unref), NULL);
-    g_list_free (files);
-
-    gtk_window_set_transient_for (GTK_WINDOW (copy_dialog),
-                                  GTK_WINDOW (prefs_dialog));
-    gtk_window_set_icon_name (GTK_WINDOW (copy_dialog),
-                              "preferences-desktop-screensaver");
-
-    g_signal_connect (copy_dialog, "complete",
-                      G_CALLBACK (theme_copy_complete_cb), NULL);
-
-    copy_theme_dialog_begin (COPY_THEME_DIALOG (copy_dialog));
-}
-
-/* Callback issued during drag movements */
-static gboolean
-drag_motion_cb (GtkWidget      *widget,
-                GdkDragContext *context,
-                int             x,
-                int             y,
-                guint           time,
-                gpointer        data) {
-    return FALSE;
-}
-
-/* Callback issued during drag leaves */
-static void
-drag_leave_cb (GtkWidget      *widget,
-               GdkDragContext *context,
-               guint           time,
-               gpointer        data) {
-    gtk_widget_queue_draw (widget);
-}
-
-/* GIO has no version of xfce_vfs_uri_list_parse(), so copy from XfceVFS
- * and re-work to create GFiles.
-**/
-static GList *
-uri_list_parse (const gchar *uri_list) {
-    const gchar *p, *q;
-    gchar       *retval;
-    GFile       *file;
-    GList       *result = NULL;
-
-    g_return_val_if_fail (uri_list != NULL, NULL);
-
-    p = uri_list;
-
-    /* We don't actually try to validate the URI according to RFC
-     * 2396, or even check for allowed characters - we just ignore
-     * comments and trim whitespace off the ends.  We also
-     * allow LF delimination as well as the specified CRLF.
-     */
-    while (p != NULL) {
-        if (*p != '#') {
-            while (g_ascii_isspace (*p))
-                p++;
-
-            q = p;
-            while ((*q != '\0')
-                    && (*q != '\n')
-                    && (*q != '\r'))
-                q++;
-
-            if (q > p) {
-                q--;
-                while (q > p
-                        && g_ascii_isspace (*q))
-                    q--;
-
-                retval = g_malloc (q - p + 2);
-                strncpy (retval, p, q - p + 1);
-                retval[q - p + 1] = '\0';
-
-                file = g_file_new_for_uri (retval);
-
-                g_free (retval);
-
-                if (file != NULL)
-                    result = g_list_prepend (result, file);
-            }
-        }
-        p = strchr (p, '\n');
-        if (p != NULL)
-            p++;
-    }
-
-    return g_list_reverse (result);
-}
-
-/* Callback issued on actual drops. Attempts to load the file dropped. */
-static void
-drag_data_received_cb (GtkWidget        *widget,
-                       GdkDragContext   *context,
-                       int               x,
-                       int               y,
-                       GtkSelectionData *selection_data,
-                       guint             info,
-                       guint             time,
-                       gpointer          data) {
-    GList     *files;
-
-    if (!(info == TARGET_URI_LIST || info == TARGET_NS_URL))
-        return;
-
-    files = uri_list_parse ((char *) gtk_selection_data_get_data (selection_data));
-    if (files != NULL) {
-        GtkWidget *prefs_dialog;
-
-        prefs_dialog = GTK_WIDGET (gtk_builder_get_object (builder, "prefs_dialog"));
-        theme_installer_run (prefs_dialog, files);
-    }
-}
-
-static void
 saver_toggled_cb (GtkSwitch *widget, gpointer user_data) {
     gboolean writable;
 
@@ -1876,7 +1729,6 @@ set_widget_writable (GtkWidget *widget,
 static void
 configure_capplet (void) {
     GtkWidget *dialog;
-    GtkWidget *plug_child;
     GtkWidget *preview;
     GtkWidget *treeview;
     GtkWidget *list_scroller;
@@ -1922,7 +1774,6 @@ configure_capplet (void) {
 
     preview                     = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_preview_area"));
     dialog                      = GTK_WIDGET (gtk_builder_get_object (builder, "prefs_dialog"));
-    plug_child                  = GTK_WIDGET (gtk_builder_get_object (builder, "plug-child"));
     treeview                    = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_treeview"));
     list_scroller               = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_scrolled_window"));
     root_warning_infobar        = GTK_WIDGET (gtk_builder_get_object (builder, "root_warning_infobar"));
@@ -2084,17 +1935,6 @@ configure_capplet (void) {
     g_signal_connect (fullscreen_preview_area,
                       "draw", G_CALLBACK (preview_on_draw),
                       NULL);
-
-    gtk_drag_dest_set (plug_child, GTK_DEST_DEFAULT_ALL,
-                       drop_types, G_N_ELEMENTS (drop_types),
-                       GDK_ACTION_COPY | GDK_ACTION_LINK | GDK_ACTION_MOVE);
-
-    g_signal_connect (plug_child, "drag-motion",
-                      G_CALLBACK (drag_motion_cb), NULL);
-    g_signal_connect (plug_child, "drag-leave",
-                      G_CALLBACK (drag_leave_cb), NULL);
-    g_signal_connect (plug_child, "drag-data-received",
-                      G_CALLBACK (drag_data_received_cb), NULL);
 
     /* Update list of themes if using random screensaver */
     mode = xfconf_channel_get_int (screensaver_channel, KEY_MODE, DEFAULT_KEY_MODE);
