@@ -121,13 +121,6 @@ xfce4_screensaver_dialog_SOURCES = \
 	xfce-desktop-utils.h                       \
 	xfcekbd-indicator.c                        \
 	xfcekbd-indicator.h                        \
-	xfcekbd-indicator-config.c                 \
-	xfcekbd-indicator-config.h                 \
-	xfcekbd-config-private.h                   \
-	xfcekbd-desktop-config.c                   \
-	xfcekbd-desktop-config.h                   \
-	xfcekbd-keyboard-config.c                  \
-	xfcekbd-keyboard-config.h                  \
 	xfce-bg.c                                  \
 	xfce-bg.h                                  \
 	$(AUTH_SOURCES)                            \
@@ -141,13 +134,6 @@ EXTRA_xfce4_screensaver_dialog_SOURCES = \
 	xfce-desktop-utils.h        \
 	xfcekbd-indicator.c         \
 	xfcekbd-indicator.h         \
-	xfcekbd-indicator-config.c  \
-	xfcekbd-indicator-config.h  \
-	xfcekbd-config-private.h    \
-	xfcekbd-desktop-config.c    \
-	xfcekbd-desktop-config.h    \
-	xfcekbd-keyboard-config.c   \
-	xfcekbd-keyboard-config.h   \
 	$(NULL)
 
 xfce4_screensaver_dialog_LDADD = \
@@ -161,7 +147,6 @@ xfce4_screensaver_dialog_LDADD = \
 BUILT_SOURCES = \
 	gs-marshal.c                 \
 	gs-marshal.h                 \
-	xfcekbd-indicator-marshal.h  \
 	$(NULL)
 
 gs-marshal.c: gs-marshal.list
@@ -202,13 +187,6 @@ xfce4_screensaver_SOURCES = \
 	xfce-desktop-utils.h        \
 	xfcekbd-indicator.c         \
 	xfcekbd-indicator.h         \
-	xfcekbd-indicator-config.c  \
-	xfcekbd-indicator-config.h  \
-	xfcekbd-config-private.h    \
-	xfcekbd-desktop-config.c    \
-	xfcekbd-desktop-config.h    \
-	xfcekbd-keyboard-config.c   \
-	xfcekbd-keyboard-config.h   \
 	$(BUILT_SOURCES)            \
 	$(NULL)
 
@@ -250,13 +228,6 @@ xfce4_screensaver_preferences_SOURCES = \
 	xfce-desktop-utils.h                            \
 	xfcekbd-indicator.c                             \
 	xfcekbd-indicator.h                             \
-	xfcekbd-indicator-config.c                      \
-	xfcekbd-indicator-config.h                      \
-	xfcekbd-config-private.h                        \
-	xfcekbd-desktop-config.c                        \
-	xfcekbd-desktop-config.h                        \
-	xfcekbd-keyboard-config.c                       \
-	xfcekbd-keyboard-config.h                       \
 	$(NULL)
 
 xfce4_screensaver_preferences_LDADD = \
@@ -287,7 +258,6 @@ endif
 EXTRA_DIST = \
 	debug-screensaver.sh              \
 	gs-marshal.list                   \
-	xfcekbd-indicator-marshal.list    \
 	xfce4-screensaver.desktop.in      \
 	xfce4-screensaver-dialog.css      \
 	xfce4-screensaver-dialog.ui       \
@@ -295,12 +265,6 @@ EXTRA_DIST = \
 	$(NULL)
 
 GLIB_GENMARSHAL = $(shell pkg-config --variable=glib_genmarshal glib-2.0)
-
-xfcekbd-indicator-marshal.h: xfcekbd-indicator-marshal.list
-	$(AM_V_GEN)$(GLIB_GENMARSHAL) --prefix=xfcekbd_indicator $(srcdir)/xfcekbd-indicator-marshal.list --header > $@
-
-xfcekbd-indicator-marshal.c: xfcekbd-indicator-marshal.h
-	$(AM_V_GEN)$(GLIB_GENMARSHAL) --prefix=xfcekbd_indicator $(srcdir)/xfcekbd-indicator-marshal.list --body > $@
 
 CLEANFILES = \
 	$(desktop_DATA)               \
