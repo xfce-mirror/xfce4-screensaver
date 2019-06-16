@@ -28,6 +28,7 @@
 
 #include <libxfce4util/libxfce4util.h>
 
+#include "gs-debug.h"
 #include "xfcekbd-config-private.h"
 #include "xfcekbd-keyboard-config.h"
 
@@ -98,7 +99,7 @@ xfcekbd_keyboard_config_copy_from_xkl_config (XfcekbdKeyboardConfig *kbd_config,
     int    i;
 
     xfcekbd_keyboard_config_model_set (kbd_config, pdata->model);
-    xkl_debug (150, "Loaded Kbd model: [%s]\n", pdata->model);
+    gs_debug("Loaded Kbd model: [%s]\n", pdata->model);
 
     /* Layouts */
     g_strfreev (kbd_config->layouts_variants);
@@ -111,9 +112,7 @@ xfcekbd_keyboard_config_copy_from_xkl_config (XfcekbdKeyboardConfig *kbd_config,
         i = 0;
         while (*p != NULL) {
             const gchar *full_layout = xfcekbd_keyboard_config_merge_items (*p, *p1);
-            xkl_debug (150,
-                       "Loaded Kbd layout (with variant): [%s]\n",
-                       full_layout);
+            gs_debug("Loaded Kbd layout (with variant): [%s]\n", full_layout);
             kbd_config->layouts_variants[i++] = g_strdup (full_layout);
             p++;
             p1++;
@@ -136,9 +135,7 @@ xfcekbd_keyboard_config_copy_from_xkl_config (XfcekbdKeyboardConfig *kbd_config,
                 char group[XKL_MAX_CI_NAME_LENGTH];
                 strncpy (group, option, len);
                 group[len] = 0;
-                xkl_debug (150,
-                           "Loaded Kbd option: [%s][%s]\n",
-                           group, option);
+                gs_debug("Loaded Kbd option: [%s][%s]\n", group, option);
                 xfcekbd_keyboard_config_options_set (kbd_config, i++, group, option);
             }
             p++;
@@ -170,16 +167,14 @@ void
 xfcekbd_keyboard_config_load_from_x_current (XfcekbdKeyboardConfig *kbd_config,
                                              XklConfigRec          *data) {
     gboolean own_data = data == NULL;
-    xkl_debug (150, "Copying config from X(current)\n");
+    gs_debug("Copying config from X(current)\n");
     if (own_data)
         data = xkl_config_rec_new ();
     if (xkl_config_rec_get_from_server (data, kbd_config->engine))
         xfcekbd_keyboard_config_copy_from_xkl_config (kbd_config,
                                data);
     else
-        xkl_debug (150,
-               "Could not load keyboard config from server: [%s]\n",
-               xkl_get_last_error ());
+        gs_debug("Could not load keyboard config from server: [%s]\n", xkl_get_last_error ());
     if (own_data)
         g_object_unref (G_OBJECT (data));
 }

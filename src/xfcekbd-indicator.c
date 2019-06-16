@@ -28,6 +28,7 @@
 
 #include <libxfce4util/libxfce4util.h>
 
+#include "gs-debug.h"
 #include "xfcekbd-desktop-config.h"
 #include "xfcekbd-indicator.h"
 #include "xfcekbd-indicator-config.h"
@@ -149,7 +150,7 @@ xfcekbd_indicator_button_pressed (GtkWidget        *widget,
                                   GdkEventButton   *event,
                                   XfcekbdIndicator *gki) {
     if (event->button == 1 && event->type == GDK_BUTTON_PRESS) {
-        xkl_debug (150, "Mouse button pressed on applet\n");
+        gs_debug("Mouse button pressed on applet\n");
         xfcekbd_desktop_config_lock_next_group (&globals.cfg);
         globals.redraw_queued = TRUE;
         return TRUE;
@@ -328,7 +329,7 @@ static void
 xfcekbd_indicator_cfg_changed (XfconfChannel *channel,
                                gchar         *key,
                                gpointer       user_data) {
-    xkl_debug (100, "General configuration changed in Xfconf - reiniting...\n");
+    gs_debug( "General configuration changed in Xfconf - reiniting...\n");
     xfcekbd_desktop_config_load_from_xfconf (&globals.cfg);
     xfcekbd_desktop_config_activate (&globals.cfg);
     ForAllIndicators () {
@@ -341,7 +342,7 @@ static void
 xfcekbd_indicator_ind_cfg_changed (XfconfChannel *channel,
                                   gchar          *key,
                                   gpointer        user_data) {
-    xkl_debug (100, "Applet configuration changed in Xfconf - reiniting...\n");
+    gs_debug( "Applet configuration changed in Xfconf - reiniting...\n");
     xfcekbd_indicator_config_load_from_xfconf (&globals.ind_cfg);
     xfcekbd_indicator_config_activate (&globals.ind_cfg);
 
@@ -381,7 +382,7 @@ xfcekbd_indicator_load_group_names (const gchar **layout_ids,
 static void
 xfcekbd_indicator_kbd_cfg_callback (XfcekbdIndicator *gki) {
     XklConfigRec *xklrec = xkl_config_rec_new ();
-    xkl_debug (100, "XKB configuration changed on X Server - reiniting...\n");
+    gs_debug( "XKB configuration changed on X Server - reiniting...\n");
 
     xfcekbd_keyboard_config_load_from_x_current (&globals.kbd_cfg, xklrec);
 
@@ -409,11 +410,11 @@ xfcekbd_indicator_state_callback (XklEngine            *engine,
                                   XklEngineStateChange  changeType,
                                   gint                  group,
                                   gboolean              restore) {
-    xkl_debug (150, "group is now %d, restore: %d\n", group, restore);
+    gs_debug("group is now %d, restore: %d\n", group, restore);
 
     if (changeType == GROUP_CHANGED) {
         ForAllIndicators () {
-            xkl_debug (200, "do repaint\n");
+            gs_debug("do repaint\n");
             xfcekbd_indicator_set_current_page_for_group
                 (gki, group);
         }
@@ -434,7 +435,7 @@ xfcekbd_indicator_set_current_page (XfcekbdIndicator *gki) {
 void
 xfcekbd_indicator_set_current_page_for_group (XfcekbdIndicator *gki,
                                               int               group) {
-    xkl_debug (200, "Revalidating for group %d\n", group);
+    gs_debug("Revalidating for group %d\n", group);
 
     gtk_notebook_set_current_page (GTK_NOTEBOOK (gki), group + 1);
 
@@ -523,7 +524,7 @@ static void xfcekbd_indicator_init(XfcekbdIndicator *gki) {
 
     notebook = GTK_NOTEBOOK (gki);
 
-    xkl_debug (100, "Initiating the widget startup process for %p\n", gki);
+    gs_debug( "Initiating the widget startup process for %p\n", gki);
 
     gtk_notebook_set_show_tabs (notebook, FALSE);
     gtk_notebook_set_show_border (notebook, FALSE);
@@ -553,7 +554,7 @@ static void xfcekbd_indicator_init(XfcekbdIndicator *gki) {
 static void
 xfcekbd_indicator_finalize (GObject *obj) {
     XfcekbdIndicator *gki = XFCEKBD_INDICATOR (obj);
-    xkl_debug (100,
+    gs_debug(
                "Starting the xfce-kbd-indicator widget shutdown process for %p\n",
                gki);
 
@@ -562,7 +563,7 @@ xfcekbd_indicator_finalize (GObject *obj) {
 
     xfcekbd_indicator_cleanup (gki);
 
-    xkl_debug (100,
+    gs_debug(
                "The instance of xfce-kbd-indicator successfully finalized\n");
 
     g_free (gki->priv);
@@ -575,7 +576,7 @@ xfcekbd_indicator_finalize (GObject *obj) {
 
 static void
 xfcekbd_indicator_global_term (void) {
-    xkl_debug (100, "*** Last  XfcekbdIndicator instance ***\n");
+    gs_debug( "*** Last  XfcekbdIndicator instance ***\n");
     xfcekbd_indicator_stop_listen ();
 
     xfcekbd_desktop_config_stop_listen (&globals.cfg);
@@ -589,7 +590,7 @@ xfcekbd_indicator_global_term (void) {
     globals.registry = NULL;
     g_object_unref (G_OBJECT (globals.engine));
     globals.engine = NULL;
-    xkl_debug (100, "*** Terminated globals *** \n");
+    gs_debug( "*** Terminated globals *** \n");
 }
 
 static void
@@ -597,7 +598,7 @@ xfcekbd_indicator_class_init (XfcekbdIndicatorClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    xkl_debug (100, "*** First XfcekbdIndicator instance *** \n");
+    gs_debug( "*** First XfcekbdIndicator instance *** \n");
 
     memset (&globals, 0, sizeof (globals));
 
@@ -628,7 +629,7 @@ xfcekbd_indicator_global_init (void) {
     globals.engine = xkl_engine_get_instance(GDK_DISPLAY_XDISPLAY(gdk_display_get_default()));
 
     if (globals.engine == NULL) {
-        xkl_debug (0, "Libxklavier initialization error");
+        gs_debug("Libxklavier initialization error");
         return;
     }
 
@@ -672,7 +673,7 @@ xfcekbd_indicator_global_init (void) {
 
     xfcekbd_indicator_start_listen ();
 
-    xkl_debug (100, "*** Inited globals *** \n");
+    gs_debug( "*** Inited globals *** \n");
 }
 
 GtkWidget *

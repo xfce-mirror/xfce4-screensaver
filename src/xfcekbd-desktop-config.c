@@ -31,6 +31,7 @@
 #include <libxfce4util/libxfce4util.h>
 #include <xfconf/xfconf.h>
 
+#include "gs-debug.h"
 #include "xfcekbd-desktop-config.h"
 #include "xfcekbd-config-private.h"
 
@@ -128,19 +129,19 @@ xfcekbd_desktop_config_load_from_xfconf (XfcekbdDesktopConfig *config) {
         xfconf_channel_get_bool(config->channel,
                                 KEY_KBD_GROUP_PER_WINDOW,
                                 DEFAULT_KEY_KBD_GROUP_PER_WINDOW);
-    xkl_debug (150, "group_per_app: %d\n", config->group_per_app);
+    gs_debug("group_per_app: %d\n", config->group_per_app);
 
     config->handle_indicators =
         xfconf_channel_get_bool(config->channel,
                                 KEY_KBD_HANDLE_INDICATORS,
                                 DEFAULT_KEY_KBD_HANDLE_INDICATORS);
-    xkl_debug (150, "handle_indicators: %d\n", config->handle_indicators);
+    gs_debug("handle_indicators: %d\n", config->handle_indicators);
 
     config->load_extra_items =
         xfconf_channel_get_bool(config->channel,
                                 KEY_KBD_LOAD_EXTRA_ITEMS,
                                 DEFAULT_KEY_KBD_LOAD_EXTRA_ITEMS);
-    xkl_debug (150, "load_extra_items: %d\n", config->load_extra_items);
+    gs_debug("load_extra_items: %d\n", config->load_extra_items);
 
     config->default_group =
         xfconf_channel_get_int(config->channel,
@@ -152,7 +153,7 @@ xfcekbd_desktop_config_load_from_xfconf (XfcekbdDesktopConfig *config) {
             xkl_engine_get_max_num_groups (config->engine)) {
         config->default_group = -1;
     }
-    xkl_debug (150, "default_group: %d\n", config->default_group);
+    gs_debug("default_group: %d\n", config->default_group);
 }
 
 gboolean
