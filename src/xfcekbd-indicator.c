@@ -29,22 +29,11 @@
 #include <libxfce4util/libxfce4util.h>
 
 #include "gs-debug.h"
-#include "xfcekbd-desktop-config.h"
 #include "xfcekbd-indicator.h"
-#include "xfcekbd-indicator-config.h"
-#include "xfcekbd-indicator-marshal.h"
 
 typedef struct _gki_globals {
     XklEngine               *engine;
-    XklConfigRegistry       *registry;
-
-    XfcekbdDesktopConfig     cfg;
-    XfcekbdIndicatorConfig   ind_cfg;
-    XfcekbdKeyboardConfig    kbd_cfg;
-
     const gchar             *tooltips_format;
-    gchar                  **full_group_names;
-    gchar                  **short_group_names;
     GSList                  *widget_instances;
 
     gboolean                 redraw_queued;
@@ -128,6 +117,8 @@ xfcekbd_indicator_fill (XfcekbdIndicator * gki) {
 static gboolean xfcekbd_indicator_key_pressed (GtkWidget        *widget,
                                                GdkEventKey      *event,
                                                XfcekbdIndicator *gki) {
+    int group;
+
     switch (event->keyval) {
         case GDK_KEY_KP_Enter:
         case GDK_KEY_ISO_Enter:
@@ -135,7 +126,9 @@ static gboolean xfcekbd_indicator_key_pressed (GtkWidget        *widget,
         case GDK_KEY_Return:
         case GDK_KEY_space:
         case GDK_KEY_KP_Space:
-            xfcekbd_desktop_config_lock_next_group(&globals.cfg);
+            gs_debug("Switching language");
+            group = xkl_engine_get_next_group (globals.engine);
+            xkl_engine_lock_group (globals.engine, group);
             globals.redraw_queued = TRUE;
             return TRUE;
         default:
@@ -150,8 +143,9 @@ xfcekbd_indicator_button_pressed (GtkWidget        *widget,
                                   GdkEventButton   *event,
                                   XfcekbdIndicator *gki) {
     if (event->button == 1 && event->type == GDK_BUTTON_PRESS) {
-        gs_debug("Mouse button pressed on applet\n");
-        xfcekbd_desktop_config_lock_next_group (&globals.cfg);
+        gs_debug("Switching language");
+        int group = xkl_engine_get_next_group (globals.engine);
+        xkl_engine_lock_group (globals.engine, group);
         globals.redraw_queued = TRUE;
         return TRUE;
     }
@@ -159,45 +153,16 @@ xfcekbd_indicator_button_pressed (GtkWidget        *widget,
 }
 
 static gchar *
-xfcekbd_indicator_extract_layout_name (int                     group,
-                                       XklEngine              *engine,
-                                       XfcekbdKeyboardConfig  *kbd_cfg,
-                                       gchar                 **short_group_names,
-                                       gchar                 **full_group_names) {
-    char *layout_name = NULL;
-    if (group < g_strv_length (short_group_names)) {
-        if (xkl_engine_get_features (engine) & XKLF_MULTIPLE_LAYOUTS_SUPPORTED) {
-            char *full_layout_name = kbd_cfg->layouts_variants[group];
-            char *variant_name;
-            if (!xfcekbd_keyboard_config_split_items (full_layout_name,
-                                                      &layout_name,
-                                                      &variant_name)) {
-                /* just in case */
-                layout_name = full_layout_name;
-            }
+xfcekbd_indicator_extract_layout_name (int groupId) {
+    const gchar** layouts;
 
-            /* make it freeable */
-            layout_name = g_strdup (layout_name);
+    layouts = xkl_engine_get_groups_names (globals.engine);
 
-            if (short_group_names != NULL) {
-                char *short_group_name = short_group_names[group];
-                if (short_group_name != NULL && *short_group_name != '\0') {
-                    /* drop the long name */
-                    g_free (layout_name);
-                    layout_name =
-                        g_strdup (short_group_name);
-                }
-            }
-        } else {
-            layout_name = g_strdup (full_group_names[group]);
-        }
-    }
-
-    if (layout_name == NULL)
-        layout_name = g_strdup ("");
-
-    return layout_name;
+    if (strlen (layouts[groupId]) < 2)
+        return g_strdup ("");
+    return g_strndup (layouts[groupId], 2);
 }
+
 
 static gchar *
 xfcekbd_indicator_create_label_title (int          group,
@@ -238,7 +203,7 @@ xfcekbd_indicator_create_label_title (int          group,
 
 static GtkWidget *
 xfcekbd_indicator_prepare_drawing (XfcekbdIndicator *gki,
-                                   int               group) {
+                                   int               groupId) {
     GtkWidget *ebox;
 
     char *lbl_title = NULL;
@@ -249,17 +214,10 @@ xfcekbd_indicator_prepare_drawing (XfcekbdIndicator *gki,
     ebox = gtk_event_box_new ();
     gtk_event_box_set_visible_window (GTK_EVENT_BOX (ebox), FALSE);
 
-    layout_name =
-        xfcekbd_indicator_extract_layout_name (group,
-                                                globals.engine,
-                                                &globals.kbd_cfg,
-                                                globals.short_group_names,
-                                                globals.full_group_names);
+    layout_name = xfcekbd_indicator_extract_layout_name (groupId);
+    gs_debug ("setting lang to %s", layout_name);
 
-    lbl_title =
-        xfcekbd_indicator_create_label_title (group,
-                                                &ln2cnt_map,
-                                                layout_name);
+    lbl_title = xfcekbd_indicator_create_label_title (groupId, &ln2cnt_map, layout_name);
 
     label = gtk_label_new (lbl_title);
     gtk_widget_set_halign (label, GTK_ALIGN_CENTER);
@@ -271,7 +229,7 @@ xfcekbd_indicator_prepare_drawing (XfcekbdIndicator *gki,
     g_free (lbl_title);
     gtk_label_set_angle (GTK_LABEL (label), gki->priv->angle);
 
-    if (group + 1 == xkl_engine_get_num_groups (globals.engine)) {
+    if (groupId + 1 == xkl_engine_get_num_groups (globals.engine)) {
         g_hash_table_destroy (ln2cnt_map);
         ln2cnt_map = NULL;
     }
@@ -294,15 +252,17 @@ xfcekbd_indicator_prepare_drawing (XfcekbdIndicator *gki,
 static void
 xfcekbd_indicator_update_tooltips (XfcekbdIndicator *gki) {
     XklState *state = xkl_engine_get_current_state (globals.engine);
-    gchar    *buf;
+    const gchar** layouts = xkl_engine_get_groups_names (globals.engine);
+    gchar *buf;
+
     if (state == NULL ||
             state->group < 0 ||
-            state->group >= g_strv_length (globals.full_group_names)) {
+            state->group >= g_strv_length ((gchar **)layouts)) {
         return;
     }
 
-    buf = g_strdup_printf (globals.tooltips_format, globals.full_group_names[state->group]);
-
+    buf = g_strdup_printf (globals.tooltips_format, layouts[state->group]);
+    gs_debug ("setting lang to %s", layouts[state->group]);
     xfcekbd_indicator_set_tooltips (gki, buf);
     g_free (buf);
 }
@@ -311,97 +271,6 @@ static void
 xfcekbd_indicator_parent_set (GtkWidget *gki,
                               GtkWidget *previous_parent) {
     xfcekbd_indicator_update_tooltips (XFCEKBD_INDICATOR (gki));
-}
-
-
-static void
-xfcekbd_indicator_reinit_ui (XfcekbdIndicator *gki) {
-    xfcekbd_indicator_cleanup (gki);
-    xfcekbd_indicator_fill (gki);
-
-    xfcekbd_indicator_set_current_page (gki);
-
-    g_signal_emit_by_name (gki, "reinit-ui");
-}
-
-/* Should be called once for all widgets */
-static void
-xfcekbd_indicator_cfg_changed (XfconfChannel *channel,
-                               gchar         *key,
-                               gpointer       user_data) {
-    gs_debug( "General configuration changed in Xfconf - reiniting...\n");
-    xfcekbd_desktop_config_load_from_xfconf (&globals.cfg);
-    xfcekbd_desktop_config_activate (&globals.cfg);
-    ForAllIndicators () {
-        xfcekbd_indicator_reinit_ui (gki);
-    } NextIndicator ();
-}
-
-/* Should be called once for all widgets */
-static void
-xfcekbd_indicator_ind_cfg_changed (XfconfChannel *channel,
-                                  gchar          *key,
-                                  gpointer        user_data) {
-    gs_debug( "Applet configuration changed in Xfconf - reiniting...\n");
-    xfcekbd_indicator_config_load_from_xfconf (&globals.ind_cfg);
-    xfcekbd_indicator_config_activate (&globals.ind_cfg);
-
-    ForAllIndicators () {
-        xfcekbd_indicator_reinit_ui (gki);
-    } NextIndicator ();
-}
-
-static void
-xfcekbd_indicator_load_group_names (const gchar **layout_ids,
-                                    const gchar **variant_ids) {
-    if (!xfcekbd_desktop_config_load_group_descriptions (&globals.cfg,
-                                                         globals.registry,
-                                                         layout_ids,
-                                                         variant_ids,
-                                                         &globals.short_group_names,
-                                                         &globals.full_group_names)) {
-        /* We just populate no short names (remain NULL) -
-         * full names are going to be used anyway */
-        gint i, total_groups = xkl_engine_get_num_groups (globals.engine);
-        globals.full_group_names = g_new0 (gchar *, total_groups + 1);
-
-        if (xkl_engine_get_features (globals.engine) & XKLF_MULTIPLE_LAYOUTS_SUPPORTED) {
-            gchar **lst = globals.kbd_cfg.layouts_variants;
-            for (i = 0; *lst; lst++, i++) {
-                globals.full_group_names[i] = g_strdup ((char *) *lst);
-            }
-        } else {
-            for (i = total_groups; --i >= 0;) {
-                globals.full_group_names[i] = g_strdup_printf ("Group %d", i);
-            }
-        }
-    }
-}
-
-/* Should be called once for all widgets */
-static void
-xfcekbd_indicator_kbd_cfg_callback (XfcekbdIndicator *gki) {
-    XklConfigRec *xklrec = xkl_config_rec_new ();
-    gs_debug( "XKB configuration changed on X Server - reiniting...\n");
-
-    xfcekbd_keyboard_config_load_from_x_current (&globals.kbd_cfg, xklrec);
-
-    g_strfreev (globals.full_group_names);
-    globals.full_group_names = NULL;
-
-    if (globals.short_group_names != NULL) {
-        g_strfreev (globals.short_group_names);
-        globals.short_group_names = NULL;
-    }
-
-    xfcekbd_indicator_load_group_names ((const gchar **) xklrec->layouts,
-                                        (const gchar **)
-                                        xklrec->variants);
-
-    ForAllIndicators () {
-        xfcekbd_indicator_reinit_ui (gki);
-    } NextIndicator ();
-    g_object_unref (G_OBJECT (xklrec));
 }
 
 /* Should be called once for all applets */
@@ -414,21 +283,18 @@ xfcekbd_indicator_state_callback (XklEngine            *engine,
 
     if (changeType == GROUP_CHANGED) {
         ForAllIndicators () {
-            xfcekbd_indicator_set_current_page_for_group
-                (gki, group);
+            xfcekbd_indicator_set_current_page_for_group (gki, group);
         }
         NextIndicator ();
     }
 }
-
 
 void
 xfcekbd_indicator_set_current_page (XfcekbdIndicator *gki) {
     XklState *cur_state;
     cur_state = xkl_engine_get_current_state (globals.engine);
     if (cur_state->group >= 0)
-        xfcekbd_indicator_set_current_page_for_group (gki,
-                                                      cur_state->group);
+        xfcekbd_indicator_set_current_page_for_group (gki, cur_state->group);
 }
 
 void
@@ -554,17 +420,14 @@ static void xfcekbd_indicator_init(XfcekbdIndicator *gki) {
 static void
 xfcekbd_indicator_finalize (GObject *obj) {
     XfcekbdIndicator *gki = XFCEKBD_INDICATOR (obj);
-    gs_debug(
-               "Starting the xfce-kbd-indicator widget shutdown process for %p\n",
-               gki);
+    gs_debug("Starting the xfce-kbd-indicator widget shutdown process for %p", gki);
 
     /* remove BEFORE all termination work is finished */
     globals.widget_instances = g_slist_remove (globals.widget_instances, gki);
 
     xfcekbd_indicator_cleanup (gki);
 
-    gs_debug(
-               "The instance of xfce-kbd-indicator successfully finalized\n");
+    gs_debug("The instance of xfce-kbd-indicator successfully finalized");
 
     g_free (gki->priv);
 
@@ -579,15 +442,6 @@ xfcekbd_indicator_global_term (void) {
     gs_debug( "*** Last  XfcekbdIndicator instance ***\n");
     xfcekbd_indicator_stop_listen ();
 
-    xfcekbd_desktop_config_stop_listen (&globals.cfg);
-    xfcekbd_indicator_config_stop_listen (&globals.ind_cfg);
-
-    xfcekbd_indicator_config_term (&globals.ind_cfg);
-    xfcekbd_keyboard_config_term (&globals.kbd_cfg);
-    xfcekbd_desktop_config_term (&globals.cfg);
-
-    g_object_unref (G_OBJECT (globals.registry));
-    globals.registry = NULL;
     g_object_unref (G_OBJECT (globals.engine));
     globals.engine = NULL;
     gs_debug( "*** Terminated globals *** \n");
@@ -598,82 +452,31 @@ xfcekbd_indicator_class_init (XfcekbdIndicatorClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    gs_debug( "*** First XfcekbdIndicator instance *** \n");
+    gs_debug( "*** First XfcekbdIndicator instance ***");
 
     memset (&globals, 0, sizeof (globals));
 
     /* Initing some global vars */
     globals.tooltips_format = "%s";
-
     globals.redraw_queued = FALSE;
 
     /* Initing vtable */
     object_class->finalize = xfcekbd_indicator_finalize;
-
     widget_class->scroll_event = xfcekbd_indicator_scroll;
     widget_class->parent_set = xfcekbd_indicator_parent_set;
-
-    /* Signals */
-    g_signal_new ("reinit-ui",
-                  XFCEKBD_TYPE_INDICATOR,
-                  G_SIGNAL_RUN_LAST,
-                  G_STRUCT_OFFSET (XfcekbdIndicatorClass, reinit_ui),
-                  NULL, NULL, xfcekbd_indicator_VOID__VOID,
-                  G_TYPE_NONE, 0);
 }
 
 static void
 xfcekbd_indicator_global_init (void) {
-    XklConfigRec *xklrec = xkl_config_rec_new ();
-
     globals.engine = xkl_engine_get_instance(GDK_DISPLAY_XDISPLAY(gdk_display_get_default()));
-
     if (globals.engine == NULL) {
         gs_debug("Libxklavier initialization error");
         return;
     }
-
-    g_signal_connect (globals.engine,
-                      "X-state-changed",
-                      G_CALLBACK (xfcekbd_indicator_state_callback),
-                      NULL);
-    g_signal_connect (globals.engine,
-                      "X-config-changed",
-                      G_CALLBACK (xfcekbd_indicator_kbd_cfg_callback),
-                      NULL);
-
-    xfcekbd_desktop_config_init (&globals.cfg, globals.engine);
-    xfcekbd_keyboard_config_init (&globals.kbd_cfg, globals.engine);
-    xfcekbd_indicator_config_init (&globals.ind_cfg, globals.engine);
-
-    xfcekbd_desktop_config_start_listen (&globals.cfg,
-                                         (GCallback)
-                                         xfcekbd_indicator_cfg_changed,
-                                         NULL);
-    xfcekbd_indicator_config_start_listen (&globals.ind_cfg,
-                                         (GCallback)
-                                         xfcekbd_indicator_ind_cfg_changed,
-                                         NULL);
-
-    xfcekbd_desktop_config_load_from_xfconf (&globals.cfg);
-    xfcekbd_desktop_config_activate (&globals.cfg);
-
-    globals.registry = xkl_config_registry_get_instance (globals.engine);
-    xkl_config_registry_load (globals.registry, globals.cfg.load_extra_items);
-
-    xfcekbd_keyboard_config_load_from_x_current (&globals.kbd_cfg, xklrec);
-
-    xfcekbd_indicator_config_load_from_xfconf (&globals.ind_cfg);
-    xfcekbd_indicator_config_activate (&globals.ind_cfg);
-
-    xfcekbd_indicator_load_group_names ((const gchar **) xklrec->layouts,
-                                        (const gchar **)
-                                        xklrec->variants);
-    g_object_unref (G_OBJECT (xklrec));
-
+    g_signal_connect (globals.engine, "X-state-changed",
+                      G_CALLBACK (xfcekbd_indicator_state_callback), NULL);
     xfcekbd_indicator_start_listen ();
-
-    gs_debug( "*** Inited globals *** \n");
+    gs_debug( "*** Inited globals ***");
 }
 
 GtkWidget *
