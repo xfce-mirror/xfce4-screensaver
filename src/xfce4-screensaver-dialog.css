@@ -1,2 +1,0 @@
-/* Workaround for Adwaita - and other themes - setting a smaller font for the keycap window */
-#login_window.keycap { font-size: initial; }
