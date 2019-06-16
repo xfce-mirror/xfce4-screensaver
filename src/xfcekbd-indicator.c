@@ -414,7 +414,6 @@ xfcekbd_indicator_state_callback (XklEngine            *engine,
 
     if (changeType == GROUP_CHANGED) {
         ForAllIndicators () {
-            gs_debug("do repaint\n");
             xfcekbd_indicator_set_current_page_for_group
                 (gki, group);
         }
@@ -455,6 +454,7 @@ xfcekbd_indicator_filter_x_evt (GdkXEvent *xev,
                 if (!globals.redraw_queued)
                     return GDK_FILTER_CONTINUE;
 
+                gs_debug("do repaint\n");
                 XReparentEvent *rne = (XReparentEvent *) xev;
 
                 ForAllIndicators () {
@@ -605,7 +605,7 @@ xfcekbd_indicator_class_init (XfcekbdIndicatorClass *klass) {
     /* Initing some global vars */
     globals.tooltips_format = "%s";
 
-    globals.redraw_queued = TRUE;
+    globals.redraw_queued = FALSE;
 
     /* Initing vtable */
     object_class->finalize = xfcekbd_indicator_finalize;
