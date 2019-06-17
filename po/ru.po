@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-15 06:31+0100\n"
+"POT-Creation-Date: 2019-06-08 06:31+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Igor <f2404@yandex.ru>, 2019\n"
 "Language-Team: Russian (https://www.transifex.com/xfce/teams/16840/ru/)\n"
@@ -78,16 +78,21 @@ msgstr "Исходное изображение"
 
 #. translators: the word "image" here
 #. * represents a command line argument
-#: ../savers/floaters.c:1120
+#: ../savers/floaters.c:1121
 msgid "image - floats images around the screen"
 msgstr "image - выводит на экран летающие изображения"
 
-#: ../savers/floaters.c:1124 ../savers/popsquares.c:49
+#: ../savers/floaters.c:1125 ../savers/popsquares.c:49
 #, c-format
 msgid "%s. See --help for usage information.\n"
 msgstr "%s. Введите --help для получения справки.\n"
 
 #: ../savers/floaters.c:1132
+#, c-format
+msgid "Failed to initialize the windowing system."
+msgstr "Не удалось инициализировать оконную систему."
+
+#: ../savers/floaters.c:1138
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr ""
@@ -153,7 +158,7 @@ msgstr "Из:"
 msgid "To:"
 msgstr "В:"
 
-#: ../src/copy-theme-dialog.c:255 ../src/gs-lock-plug.c:1192
+#: ../src/copy-theme-dialog.c:255 ../src/gs-lock-plug.c:1264
 #: ../src/xfce4-screensaver-dialog.ui.h:7
 msgid "_Cancel"
 msgstr "О_тмена"
@@ -180,45 +185,45 @@ msgstr "Копирование файла: %u из %u"
 msgid "Password:"
 msgstr "Пароль:"
 
-#: ../src/gs-auth-pam.c:378
+#: ../src/gs-auth-pam.c:375
 #, c-format
 msgid "Unable to establish service %s: %s\n"
 msgstr "Невозможно установить сервис %s: %s\n"
 
-#: ../src/gs-auth-pam.c:404
+#: ../src/gs-auth-pam.c:401
 #, c-format
 msgid "Can't set PAM_TTY=%s"
 msgstr "Не удалось задать PAM_TTY=%s"
 
-#: ../src/gs-auth-pam.c:435
+#: ../src/gs-auth-pam.c:432
 msgid "Incorrect password."
 msgstr "Неверный пароль."
 
-#: ../src/gs-auth-pam.c:437 ../src/xfce4-screensaver-dialog.c:311
+#: ../src/gs-auth-pam.c:434 ../src/xfce4-screensaver-dialog.c:311
 msgid "Authentication failed."
 msgstr "Ошибка проверки подлинности."
 
-#: ../src/gs-auth-pam.c:451
+#: ../src/gs-auth-pam.c:448
 msgid "Not permitted to gain access at this time."
 msgstr "В настоящий момент вам нельзя войти в систему."
 
-#: ../src/gs-auth-pam.c:457
+#: ../src/gs-auth-pam.c:454
 msgid "No longer permitted to access the system."
 msgstr "Вам больше не разрешено входить в систему."
 
-#: ../src/gs-auth-pam.c:674
+#: ../src/gs-auth-pam.c:667
 msgid "Username:"
 msgstr "Имя пользователя:"
 
-#: ../src/gs-listener-dbus.c:1993
+#: ../src/gs-listener-dbus.c:1956
 msgid "failed to register with the message bus"
 msgstr "не удалось зарегистрироваться на шине сообщений"
 
-#: ../src/gs-listener-dbus.c:2003
+#: ../src/gs-listener-dbus.c:1966
 msgid "not connected to the message bus"
 msgstr "не удалось подключиться к шине сообщений"
 
-#: ../src/gs-listener-dbus.c:2012 ../src/gs-listener-dbus.c:2042
+#: ../src/gs-listener-dbus.c:1975 ../src/gs-listener-dbus.c:2005
 msgid "screensaver already running in this session"
 msgstr "в этом сеансе уже запущен хранитель экрана"
 
@@ -231,57 +236,26 @@ msgstr "%A, %e %B   %H:%M"
 msgid "Time has expired."
 msgstr "Время истекло."
 
-#: ../src/gs-lock-plug.c:1177
+#: ../src/gs-lock-plug.c:1249
 msgid "S_witch User..."
 msgstr "П_ереключить пользователя..."
 
-#: ../src/gs-lock-plug.c:1186
+#: ../src/gs-lock-plug.c:1258
 msgid "Log _Out"
 msgstr "В_ыйти"
 
-#: ../src/gs-lock-plug.c:1197 ../src/xfce4-screensaver-dialog.ui.h:8
+#: ../src/gs-lock-plug.c:1269 ../src/xfce4-screensaver-dialog.ui.h:8
 msgid "_Unlock"
 msgstr "_Разблокировать"
 
 #. To translators: This expands to USERNAME on HOSTNAME
-#: ../src/gs-lock-plug.c:1363
+#: ../src/gs-lock-plug.c:1435
 msgid "%U on %h"
 msgstr "%U на %h"
 
-#: ../src/gs-lock-plug.c:1378
+#: ../src/gs-lock-plug.c:1450
 msgid "Please enter your password."
 msgstr "Введите ваш пароль."
-
-#. Translators: a CRTC is a CRT Controller (this is X terminology).
-#: ../src/xfce-rr.c:444
-#, c-format
-msgid "could not get the screen resources (CRTCs, outputs, modes)"
-msgstr "не удалось узнать свойства экрана (контроллеры, выходы, режимы)"
-
-#: ../src/xfce-rr.c:465
-#, c-format
-msgid "unhandled X error while getting the range of screen sizes"
-msgstr "ошибка X-сервера при получении размеров экрана"
-
-#: ../src/xfce-rr.c:471
-#, c-format
-msgid "could not get the range of screen sizes"
-msgstr "не удалось получить список размеров экрана"
-
-#: ../src/xfce-rr.c:682
-#, c-format
-msgid "RANDR extension is not present"
-msgstr "отсутствует расширение RANDR"
-
-#: ../src/xfce-rr.c:1075
-#, c-format
-msgid "could not get information about output %d"
-msgstr "не удалось получить информацию о выходе %d"
-
-#: ../src/xfce-rr.c:1298
-#, c-format
-msgid "could not get information about CRTC %d"
-msgstr "не удалось получить информацию о контроллере %d"
 
 #: ../src/xfce4-screensaver-command.c:60
 msgid "Causes the screensaver to exit gracefully"
@@ -336,35 +310,35 @@ msgstr "Причина запрета хранителя экрана"
 msgid "Version of this application"
 msgstr "Версия данного приложения"
 
-#: ../src/xfce4-screensaver-command.c:325
+#: ../src/xfce4-screensaver-command.c:328
 #, c-format
 msgid "The screensaver is %s\n"
 msgstr "Хранитель экрана: %s\n"
 
-#: ../src/xfce4-screensaver-command.c:325
+#: ../src/xfce4-screensaver-command.c:328
 msgid "active"
 msgstr "активен"
 
-#: ../src/xfce4-screensaver-command.c:325
+#: ../src/xfce4-screensaver-command.c:328
 msgid "inactive"
 msgstr "неактивен"
 
-#: ../src/xfce4-screensaver-command.c:339
+#: ../src/xfce4-screensaver-command.c:342
 #, c-format
 msgid "The screensaver is not inhibited\n"
 msgstr "Хранитель экрана не запрещен\n"
 
-#: ../src/xfce4-screensaver-command.c:345
+#: ../src/xfce4-screensaver-command.c:348
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
 msgstr "Хранитель экрана запрещён следующими приложениями:\n"
 
-#: ../src/xfce4-screensaver-command.c:375
+#: ../src/xfce4-screensaver-command.c:378
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "Хранитель экрана выполняется %d сек.\n"
 
-#: ../src/xfce4-screensaver-command.c:379
+#: ../src/xfce4-screensaver-command.c:382
 #, c-format
 msgid "The screensaver is not currently active.\n"
 msgstr "Этот хранитель экрана сейчас неактивен.\n"
@@ -664,6 +638,6 @@ msgstr "Включить отладочный код"
 msgid "Launch screensaver and locker program"
 msgstr "Запустить хранитель и блокировщик экрана"
 
-#: ../src/xfcekbd-indicator.c:538
+#: ../src/xfcekbd-indicator.c:537
 msgid "XKB initialization error"
 msgstr "Ошибка инициализации XKB"
