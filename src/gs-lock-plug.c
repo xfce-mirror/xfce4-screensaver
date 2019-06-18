@@ -76,7 +76,7 @@ struct GSLockPlugPrivate {
     GtkWidget   *auth_username_label;
     GtkWidget   *auth_prompt_label;
     GtkWidget   *auth_prompt_entry;
-    GtkWidget   *auth_prompt_box;
+    GtkWidget   *auth_prompt_infobar;
     GtkWidget   *auth_capslock_label;
     GtkWidget   *auth_message_label;
     GtkWidget   *status_message_label;
@@ -152,6 +152,22 @@ gs_lock_plug_style_set (GtkWidget *widget,
 
     gtk_container_set_border_width (GTK_CONTAINER (plug->priv->auth_action_area), 0);
     gtk_box_set_spacing (GTK_BOX (plug->priv->auth_action_area), 5);
+}
+
+static void
+toggle_infobar_visibility (GSLockPlug *plug)
+{
+    gboolean visible = FALSE;
+    if (gtk_widget_get_visible (plug->priv->status_message_label)) {
+        visible = TRUE;
+    } else if (gtk_widget_get_visible (plug->priv->auth_prompt_label)) {
+        visible = TRUE;
+    } else if (gtk_widget_get_visible (plug->priv->auth_capslock_label)) {
+        visible = TRUE;
+    } else if (gtk_widget_get_visible (plug->priv->auth_message_label)) {
+        visible = TRUE;
+    }
+    gtk_widget_set_visible (plug->priv->auth_prompt_infobar, visible);
 }
 
 static gboolean
@@ -253,6 +269,7 @@ set_status_text (GSLockPlug *plug,
         } else {
             gtk_widget_show (GTK_WIDGET (plug->priv->auth_message_label));
         }
+        toggle_infobar_visibility (plug);
     }
 }
 
@@ -377,6 +394,7 @@ capslock_update (GSLockPlug *plug,
     } else {
         gtk_widget_hide (GTK_WIDGET (plug->priv->auth_capslock_label));
     }
+    toggle_infobar_visibility (plug);
 }
 
 static gboolean
@@ -819,6 +837,7 @@ gs_lock_plug_set_status_message (GSLockPlug *plug,
         } else {
             gtk_widget_hide (plug->priv->status_message_label);
         }
+        toggle_infobar_visibility (plug);
     }
 }
 
@@ -1109,6 +1128,7 @@ gs_lock_plug_enable_prompt (GSLockPlug *plug,
     } else {
         gtk_widget_show (GTK_WIDGET (plug->priv->auth_prompt_label));
     }
+    toggle_infobar_visibility (plug);
 
     gtk_entry_set_visibility (GTK_ENTRY (plug->priv->auth_prompt_entry), visible);
     gtk_widget_set_sensitive (plug->priv->auth_prompt_entry, TRUE);
@@ -1577,7 +1597,7 @@ load_theme (GSLockPlug *plug) {
 
     lock_overlay = GTK_WIDGET(gtk_builder_get_object(builder, "lock-overlay"));
     lock_panel = GTK_WIDGET(gtk_builder_get_object(builder, "lock-panel"));
-    lock_dialog = GTK_WIDGET(gtk_builder_get_object(builder, "lock-dialog"));
+    lock_dialog = GTK_WIDGET(gtk_builder_get_object(builder, "login_window"));
 
     gtk_widget_set_halign(GTK_WIDGET(lock_panel), GTK_ALIGN_FILL);
     gtk_widget_set_valign(GTK_WIDGET(lock_panel), GTK_ALIGN_START);
@@ -1596,16 +1616,18 @@ load_theme (GSLockPlug *plug) {
     plug->priv->auth_datetime_label = GTK_WIDGET (gtk_builder_get_object(builder, "auth-date-time-label"));
     plug->priv->auth_realname_label = GTK_WIDGET (gtk_builder_get_object(builder, "auth-realname-label"));
     plug->priv->auth_username_label = GTK_WIDGET (gtk_builder_get_object(builder, "auth-hostname-label"));
-    plug->priv->auth_prompt_label = GTK_WIDGET (gtk_builder_get_object(builder, "auth-prompt-label"));
     plug->priv->auth_prompt_entry = GTK_WIDGET (gtk_builder_get_object(builder, "auth-prompt-entry"));
-    plug->priv->auth_prompt_box = GTK_WIDGET (gtk_builder_get_object(builder, "auth-prompt-box"));
-    plug->priv->auth_capslock_label = GTK_WIDGET (gtk_builder_get_object(builder, "auth-capslock-label"));
-    plug->priv->auth_message_label = GTK_WIDGET (gtk_builder_get_object(builder, "auth-status-label"));
     plug->priv->auth_unlock_button = GTK_WIDGET (gtk_builder_get_object(builder, "auth-unlock-button"));
     plug->priv->auth_cancel_button = GTK_WIDGET (gtk_builder_get_object(builder, "auth-cancel-button"));
     plug->priv->auth_logout_button = GTK_WIDGET (gtk_builder_get_object(builder, "auth-logout-button"));
     plug->priv->auth_switch_button = GTK_WIDGET (gtk_builder_get_object(builder, "auth-switch-button"));
     plug->priv->background_image = GTK_WIDGET (gtk_builder_get_object(builder, "lock-image"));
+
+    plug->priv->auth_prompt_infobar = GTK_WIDGET (gtk_builder_get_object(builder, "greeter_infobar"));
+    plug->priv->status_message_label = GTK_WIDGET (gtk_builder_get_object(builder, "status-message-label"));
+    plug->priv->auth_prompt_label = GTK_WIDGET (gtk_builder_get_object(builder, "auth-prompt-label"));
+    plug->priv->auth_capslock_label = GTK_WIDGET (gtk_builder_get_object(builder, "auth-capslock-label"));
+    plug->priv->auth_message_label = GTK_WIDGET (gtk_builder_get_object(builder, "auth-status-label"));
 
     /* Placeholder for the keyboard indicator */
     plug->priv->auth_prompt_kbd_layout_indicator = GTK_WIDGET (
@@ -1621,8 +1643,6 @@ load_theme (GSLockPlug *plug) {
 
     date_time_update (plug);
     gtk_widget_show_all (lock_dialog);
-
-    plug->priv->status_message_label = GTK_WIDGET (gtk_builder_get_object(builder, "status-message-label"));
 
     return TRUE;
 }
@@ -1647,7 +1667,7 @@ gs_lock_plug_init (GSLockPlug *plug) {
     GtkStyleContext *context;
 
     context = gtk_widget_get_style_context (GTK_WIDGET (plug));
-    gtk_style_context_add_class (context, "lock-dialog");
+    gtk_style_context_add_class (context, "login_window");
 
     if (!load_theme (plug)) {
         gs_debug ("Unable to load theme!");
@@ -1740,6 +1760,7 @@ gs_lock_plug_init (GSLockPlug *plug) {
         } else {
             gtk_widget_hide (plug->priv->status_message_label);
         }
+        toggle_infobar_visibility (plug);
     }
 
     if (plug->priv->auth_switch_button != NULL) {

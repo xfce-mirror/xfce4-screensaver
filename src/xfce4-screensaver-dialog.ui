@@ -2,307 +2,6 @@
 <!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
-  <object class="GtkEventBox" id="lock-dialog">
-    <property name="name">lock_dialog</property>
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <child>
-      <object class="GtkBox">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <child>
-          <object class="GtkBox" id="vbox2">
-            <property name="name">login_window</property>
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="orientation">vertical</property>
-            <property name="spacing">6</property>
-            <child>
-              <object class="GtkBox" id="content-area">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="margin_left">18</property>
-                <property name="margin_right">18</property>
-                <property name="margin_top">18</property>
-                <property name="orientation">vertical</property>
-                <child>
-                  <object class="GtkBox" id="user-box">
-                    <property name="name">content_frame</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="spacing">12</property>
-                    <child>
-                      <object class="GtkImage" id="auth-face-image">
-                        <property name="name">user_image</property>
-                        <property name="width_request">80</property>
-                        <property name="height_request">80</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="valign">center</property>
-                        <property name="pixel_size">80</property>
-                        <property name="icon_name">avatar-default</property>
-                        <property name="icon_size">6</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkBox">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="valign">center</property>
-                        <property name="orientation">vertical</property>
-                        <property name="spacing">6</property>
-                        <child>
-                          <object class="GtkLabel" id="auth-realname-label">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="tooltip_text" translatable="yes">%U</property>
-                            <property name="label">&lt;span size="x-large"&gt;%R&lt;/span&gt;</property>
-                            <property name="use_markup">True</property>
-                            <property name="xalign">0</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">False</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkBox" id="hbox1">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="spacing">6</property>
-                            <child>
-                              <object class="GtkEntry" id="auth-prompt-entry">
-                                <property name="can_focus">True</property>
-                                <property name="visibility">False</property>
-                                <property name="activates_default">True</property>
-                                <property name="primary_icon_activatable">False</property>
-                                <property name="secondary_icon_activatable">False</property>
-                                <property name="placeholder_text" translatable="yes">Enter your password</property>
-                                <property name="input_purpose">password</property>
-                              </object>
-                              <packing>
-                                <property name="expand">True</property>
-                                <property name="fill">True</property>
-                                <property name="position">1</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkBox" id="auth-prompt-kbd-layout-indicator">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <child>
-                                  <placeholder/>
-                                </child>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">2</property>
-                              </packing>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="expand">True</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkBox" id="auth-prompt-box">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="orientation">vertical</property>
-                    <child>
-                      <object class="GtkLabel" id="status-message-label">
-                        <property name="can_focus">False</property>
-                        <property name="no_show_all">True</property>
-                        <property name="wrap">True</property>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="auth-prompt-label">
-                        <property name="can_focus">False</property>
-                        <property name="no_show_all">True</property>
-                        <property name="xalign">0.5</property>
-                        <property name="yalign">0.5</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="auth-capslock-label">
-                        <property name="can_focus">False</property>
-                        <property name="no_show_all">True</property>
-                        <property name="label" translatable="yes">You have the Caps Lock key on.</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
-                        <property name="position">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="auth-status-label">
-                        <property name="can_focus">False</property>
-                        <property name="no_show_all">True</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
-                        <property name="position">3</property>
-                      </packing>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">True</property>
-                    <property name="fill">True</property>
-                    <property name="position">2</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkBox" id="action-buttons">
-                <property name="name">buttonbox_frame</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="orientation">vertical</property>
-                <child>
-                  <object class="GtkButtonBox" id="auth-action-area">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="margin_left">12</property>
-                    <property name="margin_right">12</property>
-                    <property name="margin_bottom">12</property>
-                    <property name="spacing">6</property>
-                    <property name="layout_style">end</property>
-                    <child>
-                      <object class="GtkButton" id="auth-switch-button">
-                        <property name="label" translatable="yes">_Switch User</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="focus_on_click">False</property>
-                        <property name="can_default">True</property>
-                        <property name="receives_default">False</property>
-                        <property name="use_underline">True</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="auth-logout-button">
-                        <property name="label" translatable="yes">_Log Out</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="focus_on_click">False</property>
-                        <property name="can_default">True</property>
-                        <property name="receives_default">False</property>
-                        <property name="use_underline">True</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
-                        <property name="position">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="auth-cancel-button">
-                        <property name="label" translatable="yes">_Cancel</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="focus_on_click">False</property>
-                        <property name="can_default">True</property>
-                        <property name="receives_default">False</property>
-                        <property name="use_underline">True</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
-                        <property name="position">3</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="auth-unlock-button">
-                        <property name="label" translatable="yes">_Unlock</property>
-                        <property name="name">login_button</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="can_default">True</property>
-                        <property name="receives_default">False</property>
-                        <property name="use_underline">True</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
-                        <property name="position">4</property>
-                      </packing>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">6</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-    <style>
-      <class name="background"/>
-      <class name="keycap"/>
-    </style>
-  </object>
   <object class="GtkOverlay" id="lock-overlay">
     <property name="name">screen</property>
     <property name="visible">True</property>
@@ -377,6 +76,337 @@
       <class name="background"/>
       <class name="panel"/>
       <class name="xfce4-panel"/>
+    </style>
+  </object>
+  <object class="GtkEventBox" id="login_window">
+    <property name="name">login_window</property>
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkBox" id="login_box">
+        <property name="name">login_box</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkFrame" id="content_frame">
+            <property name="name">content_frame</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label_xalign">0</property>
+            <property name="shadow_type">none</property>
+            <child>
+              <object class="GtkGrid">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="margin_left">24</property>
+                <property name="margin_right">24</property>
+                <property name="margin_top">24</property>
+                <property name="row_spacing">6</property>
+                <property name="row_homogeneous">True</property>
+                <child>
+                  <object class="GtkFrame" id="user_image_border">
+                    <property name="name">user_image_border</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
+                    <property name="margin_right">18</property>
+                    <property name="label_xalign">0</property>
+                    <property name="shadow_type">none</property>
+                    <child>
+                      <object class="GtkImage" id="auth-face-image">
+                        <property name="name">user_image</property>
+                        <property name="width_request">80</property>
+                        <property name="height_request">80</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="pixel_size">80</property>
+                        <property name="icon_name">avatar-default</property>
+                      </object>
+                    </child>
+                    <child type="label_item">
+                      <placeholder/>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">0</property>
+                    <property name="height">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="auth-realname-label">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="tooltip_text" translatable="yes">%U</property>
+                    <property name="valign">end</property>
+                    <property name="hexpand">True</property>
+                    <property name="vexpand">True</property>
+                    <property name="label">&lt;span size="x-large"&gt;%R&lt;/span&gt;</property>
+                    <property name="use_markup">True</property>
+                    <property name="xalign">0</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="top_attach">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="valign">start</property>
+                    <child>
+                      <object class="GtkEntry" id="auth-prompt-entry">
+                        <property name="name">prompt_entry</property>
+                        <property name="width_request">-1</property>
+                        <property name="can_focus">True</property>
+                        <property name="valign">center</property>
+                        <property name="hexpand">True</property>
+                        <property name="visibility">False</property>
+                        <property name="activates_default">True</property>
+                        <property name="primary_icon_activatable">False</property>
+                        <property name="secondary_icon_activatable">False</property>
+                        <property name="placeholder_text" translatable="yes">Enter your password</property>
+                        <property name="input_purpose">password</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkBox" id="auth-prompt-kbd-layout-indicator">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">end</property>
+                        <property name="valign">center</property>
+                        <child>
+                          <placeholder/>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="top_attach">1</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+            <child type="label_item">
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkInfoBar" id="greeter_infobar">
+            <property name="name">greeter_infobar</property>
+            <property name="can_focus">False</property>
+            <property name="no_show_all">True</property>
+            <child internal-child="action_area">
+              <object class="GtkButtonBox" id="infobar-action_area">
+                <property name="can_focus">False</property>
+                <property name="spacing">6</property>
+                <property name="layout_style">end</property>
+                <child>
+                  <placeholder/>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child internal-child="content_area">
+              <object class="GtkBox" id="infobar-content_area">
+                <property name="can_focus">False</property>
+                <property name="spacing">16</property>
+                <child>
+                  <object class="GtkBox" id="auth-prompt-box">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkLabel" id="status-message-label">
+                        <property name="can_focus">False</property>
+                        <property name="no_show_all">True</property>
+                        <property name="wrap">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="auth-prompt-label">
+                        <property name="can_focus">False</property>
+                        <property name="no_show_all">True</property>
+                        <property name="xalign">0.5</property>
+                        <property name="yalign">0.5</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="auth-capslock-label">
+                        <property name="can_focus">False</property>
+                        <property name="no_show_all">True</property>
+                        <property name="label" translatable="yes">You have the Caps Lock key on.</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">2</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="auth-status-label">
+                        <property name="can_focus">False</property>
+                        <property name="no_show_all">True</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">3</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkFrame" id="buttonbox_frame">
+            <property name="name">buttonbox_frame</property>
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="label_xalign">0</property>
+            <property name="shadow_type">none</property>
+            <child>
+              <object class="GtkBox" id="auth-action-area">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">end</property>
+                <property name="margin_left">24</property>
+                <property name="margin_right">24</property>
+                <property name="margin_bottom">24</property>
+                <property name="spacing">6</property>
+                <property name="homogeneous">True</property>
+                <child>
+                  <object class="GtkButton" id="auth-switch-button">
+                    <property name="label" translatable="yes">_Switch User</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="focus_on_click">False</property>
+                    <property name="can_default">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="use_underline">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="auth-logout-button">
+                    <property name="label" translatable="yes">_Log Out</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="focus_on_click">False</property>
+                    <property name="can_default">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="use_underline">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="auth-cancel-button">
+                    <property name="label" translatable="yes">_Cancel</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="focus_on_click">False</property>
+                    <property name="can_default">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="use_underline">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">3</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkButton" id="auth-unlock-button">
+                    <property name="label" translatable="yes">_Unlock</property>
+                    <property name="name">login_button</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="can_default">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="use_underline">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">4</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+            <child type="label_item">
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <style>
+      <class name="background"/>
+      <class name="keycap"/>
     </style>
   </object>
 </interface>
