@@ -125,9 +125,6 @@
                         <property name="icon_name">avatar-default</property>
                       </object>
                     </child>
-                    <child type="label_item">
-                      <placeholder/>
-                    </child>
                   </object>
                   <packing>
                     <property name="left_attach">0</property>
@@ -201,9 +198,6 @@
                 </child>
               </object>
             </child>
-            <child type="label_item">
-              <placeholder/>
-            </child>
           </object>
           <packing>
             <property name="expand">True</property>
@@ -217,13 +211,8 @@
             <property name="can_focus">False</property>
             <property name="no_show_all">True</property>
             <child internal-child="action_area">
-              <object class="GtkButtonBox" id="infobar-action_area">
+              <object class="GtkButtonBox">
                 <property name="can_focus">False</property>
-                <property name="spacing">6</property>
-                <property name="layout_style">end</property>
-                <child>
-                  <placeholder/>
-                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -239,11 +228,13 @@
                   <object class="GtkBox" id="auth-prompt-box">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="hexpand">True</property>
                     <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkLabel" id="status-message-label">
                         <property name="can_focus">False</property>
                         <property name="no_show_all">True</property>
+                        <property name="hexpand">True</property>
                         <property name="wrap">True</property>
                       </object>
                       <packing>
@@ -256,6 +247,7 @@
                       <object class="GtkLabel" id="auth-prompt-label">
                         <property name="can_focus">False</property>
                         <property name="no_show_all">True</property>
+                        <property name="hexpand">True</property>
                         <property name="xalign">0.5</property>
                         <property name="yalign">0.5</property>
                       </object>
@@ -269,6 +261,7 @@
                       <object class="GtkLabel" id="auth-capslock-label">
                         <property name="can_focus">False</property>
                         <property name="no_show_all">True</property>
+                        <property name="hexpand">True</property>
                         <property name="label" translatable="yes">You have the Caps Lock key on.</property>
                       </object>
                       <packing>
@@ -281,6 +274,7 @@
                       <object class="GtkLabel" id="auth-status-label">
                         <property name="can_focus">False</property>
                         <property name="no_show_all">True</property>
+                        <property name="hexpand">True</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -391,9 +385,6 @@
                   </packing>
                 </child>
               </object>
-            </child>
-            <child type="label_item">
-              <placeholder/>
             </child>
           </object>
           <packing>
