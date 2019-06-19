@@ -65,28 +65,10 @@ void        gs_window_set_monitor             (GSWindow        *window,
                                                GdkMonitor      *monitor);
 GdkMonitor *gs_window_get_monitor             (GSWindow        *window);
 
-void        gs_window_set_lock_enabled        (GSWindow        *window,
-                                               gboolean         lock_enabled);
-void        gs_window_set_lock_with_saver_enabled (GSWindow    *window,
-                                               gboolean         lock_with_saver_enabled);
-void        gs_window_set_logout_enabled      (GSWindow        *window,
-                                               gboolean         logout_enabled);
-void        gs_window_set_keyboard_enabled    (GSWindow        *window,
-                                               gboolean         enabled);
-void        gs_window_set_keyboard_command    (GSWindow        *window,
-                                               const char      *command);
-void        gs_window_set_user_switch_enabled (GSWindow        *window,
-                                               gboolean         user_switch_enabled);
-void        gs_window_set_status_message_enabled (GSWindow     *window,
-                                               gboolean         status_message_enabled);
-void        gs_window_set_logout_timeout      (GSWindow        *window,
-                                               glong            timeout);
 void        gs_window_set_lock_active         (GSWindow        *window,
                                                gboolean         active);
 void        gs_window_set_saver_active        (GSWindow        *window,
                                                gboolean         active);
-void        gs_window_set_logout_command      (GSWindow        *window,
-                                               const char      *command);
 void        gs_window_set_status_message      (GSWindow        *window,
                                                const char      *status_message);
 void        gs_window_show_message            (GSWindow        *window,
@@ -97,9 +79,7 @@ void        gs_window_show_message            (GSWindow        *window,
 void        gs_window_request_unlock          (GSWindow        *window);
 void        gs_window_cancel_unlock_request   (GSWindow        *window);
 
-GSWindow  * gs_window_new                     (GdkMonitor      *monitor,
-                                               gboolean         lock_enabled,
-                                               gboolean         lock_with_saver_enabled);
+GSWindow  * gs_window_new                     (GdkMonitor      *monitor);
 void        gs_window_show                    (GSWindow        *window);
 void        gs_window_destroy                 (GSWindow        *window);
 GdkWindow * gs_window_get_gdk_window          (GSWindow        *window);

@@ -112,22 +112,13 @@ connect_window_signals (GSWindow *window) {
 static void
 test_window (void) {
     GSWindow   *window;
-    gboolean    lock_active;
-    gboolean    lock_with_saver_active;
-    gboolean    user_switch_enabled;
     GdkDisplay *display;
     GdkMonitor *monitor;
 
-    lock_active = TRUE;
-    lock_with_saver_active = TRUE;
-    user_switch_enabled = TRUE;
     display = gdk_display_get_default ();
     monitor = gdk_display_get_primary_monitor (display);
 
-    window = gs_window_new (monitor, lock_active, lock_with_saver_active);
-
-    gs_window_set_user_switch_enabled (window, user_switch_enabled);
-
+    window = gs_window_new (monitor);
     connect_window_signals (window);
 
     gs_window_show (window);

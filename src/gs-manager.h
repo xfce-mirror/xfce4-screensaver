@@ -70,40 +70,14 @@ void        gs_manager_get_saver_active        (GSManager   *manager,
                                                 gboolean    *saver_active);
 void        gs_manager_set_saver_active        (GSManager   *manager,
                                                 gboolean     saver_active);
-void        gs_manager_set_keyboard_enabled    (GSManager   *manager,
-                                                gboolean     enabled);
-void        gs_manager_set_keyboard_command    (GSManager   *manager,
-                                                const char  *command);
-void        gs_manager_set_status_message_enabled(GSManager *manager,
-                                                gboolean     status_message_enabled);
 void        gs_manager_set_status_message      (GSManager   *manager,
                                                 const char  *message);
-void        gs_manager_set_saver_enabled       (GSManager   *manager,
-                                                gboolean     saver_enabled);
-void        gs_manager_set_lock_enabled        (GSManager   *manager,
-                                                gboolean     lock_enabled);
-void        gs_manager_get_lock_with_saver_enabled        (GSManager   *manager,
-                                                gboolean    *lock_with_saver_enabled);
-void        gs_manager_set_lock_with_saver_enabled        (GSManager   *manager,
-                                                gboolean     lock_with_saver_enabled);
 void        gs_manager_set_lock_timeout        (GSManager   *manager,
                                                 glong        lock_timeout);
-void        gs_manager_set_logout_enabled      (GSManager   *manager,
-                                                gboolean     logout_enabled);
-void        gs_manager_set_user_switch_enabled (GSManager   *manager,
-                                                gboolean     user_switch_enabled);
-void        gs_manager_set_logout_timeout      (GSManager   *manager,
-                                                glong        logout_timeout);
-void        gs_manager_set_logout_command      (GSManager   *manager,
-                                                const char  *command);
 void        gs_manager_set_throttled           (GSManager   *manager,
                                                 gboolean     throttled);
 void        gs_manager_set_cycle_timeout       (GSManager   *manager,
                                                 glong        cycle_timeout);
-void        gs_manager_set_themes              (GSManager   *manager,
-                                                GSList      *themes);
-void        gs_manager_set_mode                (GSManager   *manager,
-                                                GSSaverMode  mode);
 void        gs_manager_show_message            (GSManager   *manager,
                                                 const char  *summary,
                                                 const char  *body,

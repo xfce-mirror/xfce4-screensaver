@@ -93,6 +93,8 @@ test_window_SOURCES = \
 	gs-marshal.h     \
 	gs-debug.c       \
 	gs-debug.h       \
+	gs-prefs.c       \
+	gs-prefs.h       \
 	subprocs.c       \
 	subprocs.h       \
 	$(NULL)

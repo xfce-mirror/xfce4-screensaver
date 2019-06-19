@@ -39,6 +39,7 @@
 
 #include "gs-debug.h"
 #include "gs-marshal.h"
+#include "gs-prefs.h"
 #include "gs-window.h"
 #include "subprocs.h"
 
@@ -48,6 +49,8 @@ static void     gs_window_finalize       (GObject       *object);
 
 static gboolean popup_dialog_idle        (GSWindow      *window);
 static void     gs_window_dialog_finish  (GSWindow      *window);
+static void     gs_window_set_obscured   (GSWindow      *window,
+                                          gboolean       obscured);
 static void     remove_command_watches   (GSWindow      *window);
 
 enum {
@@ -65,19 +68,10 @@ struct GSWindowPrivate {
     guint            obscured : 1;
     guint            dialog_up : 1;
 
-    guint            lock_enabled : 1;
-    guint            lock_with_saver_enabled : 1;
-    guint            user_switch_enabled : 1;
-    guint            logout_enabled : 1;
-    guint            keyboard_enabled : 1;
-    guint            status_message_enabled : 1;
-
-    guint64          logout_timeout;
     gboolean         lock_active;
     gboolean         saver_active;
-    char            *logout_command;
-    char            *keyboard_command;
     char            *status_message;
+    GSPrefs         *prefs;
 
     GtkWidget       *vbox;
     GtkWidget       *drawing_area;
@@ -129,15 +123,7 @@ enum {
     PROP_0,
     PROP_OBSCURED,
     PROP_DIALOG_UP,
-    PROP_LOCK_ENABLED,
-    PROP_LOCK_WITH_SAVER_ENABLED,
-    PROP_LOGOUT_ENABLED,
-    PROP_KEYBOARD_ENABLED,
-    PROP_KEYBOARD_COMMAND,
-    PROP_LOGOUT_COMMAND,
-    PROP_LOGOUT_TIMEOUT,
     PROP_MONITOR,
-    PROP_STATUS_MESSAGE
 };
 
 static guint           signals[LAST_SIGNAL] = { 0, };
@@ -1245,24 +1231,24 @@ static void
 embed_keyboard (GSWindow *window) {
     gboolean res;
 
-    if (!window->priv->keyboard_enabled
-            || window->priv->keyboard_command == NULL)
+    if (!window->priv->prefs->keyboard_enabled
+            || window->priv->prefs->keyboard_command == NULL)
         return;
 
     gs_debug ("Adding embedded keyboard widget");
 
     /* FIXME: verify command is safe */
 
-    gs_debug ("Running command: %s", window->priv->keyboard_command);
+    gs_debug ("Running command: %s", window->priv->prefs->keyboard_command);
 
     res = spawn_on_window (window,
-                           window->priv->keyboard_command,
+                           window->priv->prefs->keyboard_command,
                            &window->priv->keyboard_pid,
                            (GIOFunc)keyboard_command_watch,
                            window,
                            &window->priv->keyboard_watch_id);
     if (!res) {
-        gs_debug ("Could not start command: %s", window->priv->keyboard_command);
+        gs_debug ("Could not start command: %s", window->priv->prefs->keyboard_command);
     }
 }
 
@@ -1291,7 +1277,7 @@ create_lock_socket (GSWindow *window,
 
     gtk_socket_add_id (GTK_SOCKET (window->priv->lock_socket), id);
 
-    if (window->priv->keyboard_enabled) {
+    if (window->priv->prefs->keyboard_enabled) {
         embed_keyboard (window);
     }
 }
@@ -1482,17 +1468,17 @@ static gboolean
 is_logout_enabled (GSWindow *window) {
     double elapsed;
 
-    if (!window->priv->logout_enabled) {
+    if (!window->priv->prefs->logout_enabled) {
         return FALSE;
     }
 
-    if (!window->priv->logout_command) {
+    if (!window->priv->prefs->logout_command) {
         return FALSE;
     }
 
     elapsed = g_timer_elapsed (window->priv->timer, NULL);
 
-    if (window->priv->logout_timeout < (elapsed * 1000)) {
+    if (window->priv->prefs->logout_timeout < (elapsed * 1000)) {
         return TRUE;
     }
 
@@ -1501,12 +1487,12 @@ is_logout_enabled (GSWindow *window) {
 
 static gboolean
 is_user_switch_enabled (GSWindow *window) {
-    return window->priv->user_switch_enabled;
+    return window->priv->prefs->user_switch_enabled;
 }
 
 static gboolean
 is_status_message_enabled (GSWindow *window) {
-    return window->priv->status_message_enabled;
+    return window->priv->prefs->status_message_enabled;
 }
 
 static gint
@@ -1543,7 +1529,7 @@ popup_dialog (GSWindow *window) {
 
     if (is_logout_enabled(window)) {
         command = g_string_append (command, " --enable-logout");
-        g_string_append_printf (command, " --logout-command='%s'", window->priv->logout_command);
+        g_string_append_printf (command, " --logout-command='%s'", window->priv->prefs->logout_command);
     }
 
     if (is_status_message_enabled(window) && window->priv->status_message) {
@@ -1648,109 +1634,11 @@ gs_window_cancel_unlock_request (GSWindow  *window) {
     popdown_dialog (window);
 }
 
-void
-gs_window_set_lock_enabled (GSWindow *window,
-                            gboolean  lock_enabled) {
-    g_return_if_fail (GS_IS_WINDOW (window));
-
-    if (window->priv->lock_enabled == lock_enabled) {
-        return;
-    }
-
-    window->priv->lock_enabled = lock_enabled;
-    g_object_notify (G_OBJECT (window), "lock-enabled");
-}
-
-void
-gs_window_set_lock_with_saver_enabled (GSWindow *window,
-                            gboolean  lock_with_saver_enabled) {
-    g_return_if_fail (GS_IS_WINDOW (window));
-
-    if (window->priv->lock_with_saver_enabled == lock_with_saver_enabled) {
-        return;
-    }
-
-    window->priv->lock_with_saver_enabled = lock_with_saver_enabled;
-    g_object_notify (G_OBJECT (window), "lock-with-saver-enabled");
-}
-
 GdkDisplay *
 gs_window_get_display (GSWindow  *window) {
     g_return_val_if_fail (GS_IS_WINDOW (window), NULL);
 
     return gtk_widget_get_display (GTK_WIDGET (window));
-}
-
-void
-gs_window_set_keyboard_enabled (GSWindow *window,
-                                gboolean  enabled) {
-    g_return_if_fail (GS_IS_WINDOW (window));
-
-    window->priv->keyboard_enabled = enabled;
-}
-
-void
-gs_window_set_keyboard_command (GSWindow   *window,
-                                const char *command) {
-    g_return_if_fail (GS_IS_WINDOW (window));
-
-    g_free (window->priv->keyboard_command);
-
-    if (command != NULL) {
-        window->priv->keyboard_command = g_strdup (command);
-    } else {
-        window->priv->keyboard_command = NULL;
-    }
-}
-
-void
-gs_window_set_logout_enabled (GSWindow *window,
-                              gboolean  logout_enabled) {
-    g_return_if_fail (GS_IS_WINDOW (window));
-
-    window->priv->logout_enabled = logout_enabled;
-}
-
-void
-gs_window_set_user_switch_enabled (GSWindow *window,
-                                   gboolean  user_switch_enabled) {
-    g_return_if_fail (GS_IS_WINDOW (window));
-
-    window->priv->user_switch_enabled = user_switch_enabled;
-}
-
-void
-gs_window_set_status_message_enabled (GSWindow *window,
-                                      gboolean  status_message_enabled) {
-    g_return_if_fail (GS_IS_WINDOW (window));
-
-    window->priv->status_message_enabled = status_message_enabled;
-}
-
-void
-gs_window_set_logout_timeout (GSWindow *window,
-                              glong     timeout) {
-    g_return_if_fail (GS_IS_WINDOW (window));
-
-    if (timeout < 0) {
-        window->priv->logout_timeout = 0;
-    } else {
-        window->priv->logout_timeout = timeout;
-    }
-}
-
-void
-gs_window_set_logout_command (GSWindow   *window,
-                              const char *command) {
-    g_return_if_fail (GS_IS_WINDOW (window));
-
-    g_free (window->priv->logout_command);
-
-    if (command) {
-        window->priv->logout_command = g_strdup (command);
-    } else {
-        window->priv->logout_command = NULL;
-    }
 }
 
 void
@@ -1798,32 +1686,14 @@ gs_window_set_property (GObject      *object,
     self = GS_WINDOW (object);
 
     switch (prop_id) {
-        case PROP_LOCK_ENABLED:
-            gs_window_set_lock_enabled (self, g_value_get_boolean (value));
-            break;
-        case PROP_LOCK_WITH_SAVER_ENABLED:
-            gs_window_set_lock_with_saver_enabled (self, g_value_get_boolean (value));
-            break;
-        case PROP_KEYBOARD_ENABLED:
-            gs_window_set_keyboard_enabled (self, g_value_get_boolean (value));
-            break;
-        case PROP_KEYBOARD_COMMAND:
-            gs_window_set_keyboard_command (self, g_value_get_string (value));
-            break;
-        case PROP_LOGOUT_ENABLED:
-            gs_window_set_logout_enabled (self, g_value_get_boolean (value));
-            break;
-        case PROP_LOGOUT_COMMAND:
-            gs_window_set_logout_command (self, g_value_get_string (value));
-            break;
-        case PROP_STATUS_MESSAGE:
-            gs_window_set_status_message (self, g_value_get_string (value));
-            break;
-        case PROP_LOGOUT_TIMEOUT:
-            gs_window_set_logout_timeout (self, g_value_get_long (value));
-            break;
         case PROP_MONITOR:
             gs_window_set_monitor (self, g_value_get_pointer (value));
+            break;
+       case PROP_OBSCURED:
+            gs_window_set_obscured (self, g_value_get_boolean (value));
+            break;
+        case PROP_DIALOG_UP:
+            window_set_dialog_up (self, g_value_get_boolean (value));
             break;
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -1841,30 +1711,6 @@ gs_window_get_property (GObject    *object,
     self = GS_WINDOW (object);
 
     switch (prop_id) {
-        case PROP_LOCK_ENABLED:
-            g_value_set_boolean (value, self->priv->lock_enabled);
-            break;
-        case PROP_LOCK_WITH_SAVER_ENABLED:
-            g_value_set_boolean (value, self->priv->lock_with_saver_enabled);
-            break;
-        case PROP_KEYBOARD_ENABLED:
-            g_value_set_boolean (value, self->priv->keyboard_enabled);
-            break;
-        case PROP_KEYBOARD_COMMAND:
-            g_value_set_string (value, self->priv->keyboard_command);
-            break;
-        case PROP_LOGOUT_ENABLED:
-            g_value_set_boolean (value, self->priv->logout_enabled);
-            break;
-        case PROP_LOGOUT_COMMAND:
-            g_value_set_string (value, self->priv->logout_command);
-            break;
-        case PROP_STATUS_MESSAGE:
-            g_value_set_string (value, self->priv->status_message);
-            break;
-        case PROP_LOGOUT_TIMEOUT:
-            g_value_set_long (value, self->priv->logout_timeout);
-            break;
         case PROP_MONITOR:
             g_value_set_pointer (value, (gpointer) self->priv->monitor);
             break;
@@ -2097,8 +1943,8 @@ gs_window_is_dialog_up (GSWindow *window) {
 }
 
 static void
-window_set_obscured (GSWindow *window,
-                     gboolean  obscured) {
+gs_window_set_obscured (GSWindow *window,
+                        gboolean  obscured) {
     if (window->priv->obscured == obscured) {
         return;
     }
@@ -2112,12 +1958,12 @@ gs_window_real_visibility_notify_event (GtkWidget          *widget,
                                         GdkEventVisibility *event) {
     switch (event->state) {
         case GDK_VISIBILITY_FULLY_OBSCURED:
-            window_set_obscured (GS_WINDOW (widget), TRUE);
+            gs_window_set_obscured (GS_WINDOW (widget), TRUE);
             break;
         case GDK_VISIBILITY_PARTIAL:
             break;
         case GDK_VISIBILITY_UNOBSCURED:
-            window_set_obscured (GS_WINDOW (widget), FALSE);
+            gs_window_set_obscured (GS_WINDOW (widget), FALSE);
             break;
         default:
             break;
@@ -2185,65 +2031,6 @@ gs_window_class_init (GSWindowClass *klass) {
                                                            FALSE,
                                                            G_PARAM_READABLE));
     g_object_class_install_property (object_class,
-                                     PROP_LOCK_ENABLED,
-                                     g_param_spec_boolean ("lock-enabled",
-                                                           NULL,
-                                                           NULL,
-                                                           FALSE,
-                                                           G_PARAM_READWRITE));
-    g_object_class_install_property (object_class,
-                                     PROP_LOCK_WITH_SAVER_ENABLED,
-                                     g_param_spec_boolean ("lock-with-saver-enabled",
-                                                           NULL,
-                                                           NULL,
-                                                           FALSE,
-                                                           G_PARAM_READWRITE));
-    g_object_class_install_property (object_class,
-                                     PROP_LOGOUT_ENABLED,
-                                     g_param_spec_boolean ("logout-enabled",
-                                                           NULL,
-                                                           NULL,
-                                                           FALSE,
-                                                           G_PARAM_READWRITE));
-    g_object_class_install_property (object_class,
-                                     PROP_LOGOUT_TIMEOUT,
-                                     g_param_spec_long ("logout-timeout",
-                                                        NULL,
-                                                        NULL,
-                                                        -1,
-                                                        G_MAXLONG,
-                                                        0,
-                                                        G_PARAM_READWRITE));
-    g_object_class_install_property (object_class,
-                                     PROP_LOGOUT_COMMAND,
-                                     g_param_spec_string ("logout-command",
-                                                          NULL,
-                                                          NULL,
-                                                          NULL,
-                                                          G_PARAM_READWRITE));
-    g_object_class_install_property (object_class,
-                                     PROP_STATUS_MESSAGE,
-                                     g_param_spec_string ("status-message",
-                                                          NULL,
-                                                          NULL,
-                                                          NULL,
-                                                          G_PARAM_READWRITE));
-    g_object_class_install_property (object_class,
-                                     PROP_KEYBOARD_ENABLED,
-                                     g_param_spec_boolean ("keyboard-enabled",
-                                                           NULL,
-                                                           NULL,
-                                                           FALSE,
-                                                           G_PARAM_READWRITE));
-    g_object_class_install_property (object_class,
-                                     PROP_KEYBOARD_COMMAND,
-                                     g_param_spec_string ("keyboard-command",
-                                                          NULL,
-                                                          NULL,
-                                                          NULL,
-                                                          G_PARAM_READWRITE));
-
-    g_object_class_install_property (object_class,
                                      PROP_MONITOR,
                                      g_param_spec_pointer ("monitor",
                                                            "Gdk monitor",
@@ -2279,6 +2066,8 @@ gs_window_init (GSWindow *window) {
 
     window->priv->last_x = -1;
     window->priv->last_y = -1;
+
+    window->priv->prefs = gs_prefs_new();
 
     gtk_window_set_decorated (GTK_WINDOW (window), FALSE);
 
@@ -2340,9 +2129,6 @@ gs_window_finalize (GObject *object) {
 
     g_return_if_fail (window->priv != NULL);
 
-    g_free (window->priv->logout_command);
-    g_free (window->priv->keyboard_command);
-
     if (window->priv->info_bar_timer_id > 0) {
         g_source_remove (window->priv->info_bar_timer_id);
         window->priv->info_bar_timer_id = 0;
@@ -2364,14 +2150,11 @@ gs_window_finalize (GObject *object) {
     if (window->priv->background_surface) {
         cairo_surface_destroy (window->priv->background_surface);
     }
-
     G_OBJECT_CLASS (gs_window_parent_class)->finalize (object);
 }
 
 GSWindow *
-gs_window_new (GdkMonitor *monitor,
-               gboolean    lock_enabled,
-               gboolean    lock_with_saver_enabled) {
+gs_window_new (GdkMonitor *monitor) {
     GObject    *result;
     GdkDisplay *display = gdk_monitor_get_display (monitor);
     GdkScreen  *screen = gdk_display_get_default_screen (display);
@@ -2380,8 +2163,6 @@ gs_window_new (GdkMonitor *monitor,
                            "type", GTK_WINDOW_POPUP,
                            "screen", screen,
                            "monitor", monitor,
-                           "lock-enabled", lock_enabled,
-                           "lock-with-saver-enabled", lock_with_saver_enabled,
                            "app-paintable", TRUE,
                            NULL);
 

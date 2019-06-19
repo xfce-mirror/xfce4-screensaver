@@ -194,35 +194,12 @@ static void listener_simulate_user_activity_cb(GSListener* listener, GSMonitor* 
 }
 
 static void _gs_monitor_update_from_prefs(GSMonitor* monitor, GSPrefs* prefs) {
-    gboolean lock_enabled;
-    gboolean lock_with_saver_enabled;
-    gboolean user_switch_enabled;
-
-    lock_enabled = monitor->priv->prefs->lock_enabled;
-    lock_with_saver_enabled = monitor->priv->prefs->lock_with_saver_enabled;
-    user_switch_enabled = monitor->priv->prefs->user_switch_enabled;
-
-    gs_manager_set_lock_enabled(monitor->priv->manager, lock_enabled);
-    gs_manager_set_lock_with_saver_enabled(monitor->priv->manager, lock_with_saver_enabled);
-    gs_manager_set_lock_timeout(monitor->priv->manager, monitor->priv->prefs->lock_timeout);
-    gs_manager_set_logout_enabled(monitor->priv->manager, monitor->priv->prefs->logout_enabled);
-    gs_manager_set_user_switch_enabled(monitor->priv->manager, user_switch_enabled);
-    gs_manager_set_status_message_enabled(monitor->priv->manager, monitor->priv->prefs->status_message_enabled);
-    gs_manager_set_keyboard_enabled(monitor->priv->manager, monitor->priv->prefs->keyboard_enabled);
-    gs_manager_set_logout_timeout(monitor->priv->manager, monitor->priv->prefs->logout_timeout);
-    gs_manager_set_logout_command(monitor->priv->manager, monitor->priv->prefs->logout_command);
-    gs_manager_set_keyboard_command(monitor->priv->manager, monitor->priv->prefs->keyboard_command);
-    gs_manager_set_cycle_timeout(monitor->priv->manager, monitor->priv->prefs->cycle);
-    gs_manager_set_mode(monitor->priv->manager, monitor->priv->prefs->mode);
-    gs_manager_set_saver_enabled(monitor->priv->manager, monitor->priv->prefs->saver_enabled);
-    gs_manager_set_themes(monitor->priv->manager, monitor->priv->prefs->themes);
-
     /* enable activation when allowed */
-    gs_listener_set_activation_enabled(monitor->priv->listener, monitor->priv->prefs->idle_activation_enabled);
-    gs_listener_set_sleep_activation_enabled(monitor->priv->listener, monitor->priv->prefs->sleep_activation_enabled);
-    gs_listener_x11_set_activation_enabled(monitor->priv->listener_x11, monitor->priv->prefs->idle_activation_enabled);
-    gs_listener_x11_set_timeout(monitor->priv->listener_x11, monitor->priv->prefs->timeout);
-    gs_listener_x11_set_saver_enabled(monitor->priv->listener_x11, monitor->priv->prefs->saver_enabled);
+    gs_listener_set_activation_enabled(monitor->priv->listener, prefs->idle_activation_enabled);
+    gs_listener_set_sleep_activation_enabled(monitor->priv->listener, prefs->sleep_activation_enabled);
+    gs_listener_x11_set_activation_enabled(monitor->priv->listener_x11, prefs->idle_activation_enabled);
+    gs_listener_x11_set_timeout(monitor->priv->listener_x11, prefs->timeout);
+    gs_listener_x11_set_saver_enabled(monitor->priv->listener_x11, prefs->saver_enabled);
 }
 
 static void disconnect_listener_signals(GSMonitor* monitor) {

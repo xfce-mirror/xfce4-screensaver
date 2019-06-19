@@ -35,7 +35,7 @@
 #include "gs-grab.h"
 #include "gs-job.h"
 #include "gs-manager.h"
-#include "gs-prefs.h"        /* for GSSaverMode */
+#include "gs-prefs.h"
 #include "gs-theme-manager.h"
 #include "gs-window.h"
 #include "xfce-bg.h"
@@ -52,22 +52,10 @@ struct GSManagerPrivate {
     XfceBG         *bg;
 
     /* Policy */
+    GSPrefs         *prefs;
     glong           lock_timeout;
     glong           cycle_timeout;
-    glong           logout_timeout;
-
-    guint           saver_enabled : 1;
-    guint           lock_enabled : 1;
-    guint           lock_with_saver_enabled : 1;
-    guint           logout_enabled : 1;
-    guint           keyboard_enabled : 1;
-    guint           user_switch_enabled : 1;
-    guint           status_message_enabled : 1;
     guint           throttled : 1;
-
-    char           *logout_command;
-    char           *keyboard_command;
-
     char           *status_message;
 
     /* State */
@@ -82,8 +70,6 @@ struct GSManagerPrivate {
     guint           lock_timeout_id;
     guint           cycle_timeout_id;
 
-    GSList         *themes;
-    GSSaverMode     saver_mode;
     GSGrab         *grab;
     guint           deepsleep_idle_id;
     gboolean        deepsleep;
@@ -99,17 +85,6 @@ enum {
 
 enum {
     PROP_0,
-    PROP_LOCK_ENABLED,
-    PROP_LOCK_WITH_SAVER_ENABLED,
-    PROP_LOGOUT_ENABLED,
-    PROP_USER_SWITCH_ENABLED,
-    PROP_KEYBOARD_ENABLED,
-    PROP_LOCK_TIMEOUT,
-    PROP_CYCLE_TIMEOUT,
-    PROP_LOGOUT_TIMEOUT,
-    PROP_LOGOUT_COMMAND,
-    PROP_KEYBOARD_COMMAND,
-    PROP_STATUS_MESSAGE_ENABLED,
     PROP_STATUS_MESSAGE,
     PROP_ACTIVE,
     PROP_THROTTLED,
@@ -154,19 +129,18 @@ select_theme (GSManager *manager) {
     g_return_val_if_fail (manager != NULL, NULL);
     g_return_val_if_fail (GS_IS_MANAGER (manager), NULL);
 
-    if (!manager->priv->saver_enabled ||
-            manager->priv->saver_mode == GS_MODE_BLANK_ONLY) {
+    if (!manager->priv->prefs->saver_enabled || manager->priv->prefs->mode == GS_MODE_BLANK_ONLY) {
         return NULL;
     }
 
-    if (manager->priv->themes) {
+    if (manager->priv->prefs->themes) {
         int number = 0;
 
-        if (manager->priv->saver_mode == GS_MODE_RANDOM) {
+        if (manager->priv->prefs->mode == GS_MODE_RANDOM) {
             g_random_set_seed (time (NULL));
-            number = g_random_int_range (0, g_slist_length (manager->priv->themes));
+            number = g_random_int_range (0, g_slist_length (manager->priv->prefs->themes));
         }
-        theme = g_slist_nth_data (manager->priv->themes, number);
+        theme = g_slist_nth_data (manager->priv->prefs->themes, number);
     }
 
     return theme;
@@ -339,37 +313,6 @@ manager_stop_jobs (GSManager *manager) {
 }
 
 void
-gs_manager_set_mode (GSManager  *manager,
-                     GSSaverMode mode) {
-    g_return_if_fail (GS_IS_MANAGER (manager));
-
-    manager->priv->saver_mode = mode;
-}
-
-static void
-free_themes (GSManager *manager) {
-    if (manager->priv->themes) {
-        g_slist_foreach (manager->priv->themes, (GFunc)g_free, NULL);
-        g_slist_free (manager->priv->themes);
-    }
-}
-
-void
-gs_manager_set_themes (GSManager *manager,
-                       GSList    *themes) {
-    GSList *l;
-
-    g_return_if_fail (GS_IS_MANAGER (manager));
-
-    free_themes (manager);
-    manager->priv->themes = NULL;
-
-    for (l = themes; l; l = l->next) {
-        manager->priv->themes = g_slist_append (manager->priv->themes, g_strdup (l->data));
-    }
-}
-
-void
 gs_manager_set_throttled (GSManager *manager,
                           gboolean   throttled) {
     g_return_if_fail (GS_IS_MANAGER (manager));
@@ -453,85 +396,10 @@ gs_manager_set_saver_active (GSManager *manager,
     }
 }
 
-void
-gs_manager_set_saver_enabled (GSManager *manager,
-                              gboolean   saver_enabled) {
-    g_return_if_fail (GS_IS_MANAGER (manager));
-
-    if (manager->priv->saver_enabled != saver_enabled) {
-        manager->priv->saver_enabled = saver_enabled;
-    }
-}
-
-void
-gs_manager_set_lock_enabled (GSManager *manager,
-                             gboolean   lock_enabled) {
-    g_return_if_fail (GS_IS_MANAGER (manager));
-
-    if (manager->priv->lock_enabled != lock_enabled) {
-        manager->priv->lock_enabled = lock_enabled;
-    }
-}
-
-void
-gs_manager_set_lock_with_saver_enabled (GSManager *manager,
-                             gboolean   lock_with_saver_enabled) {
-    g_return_if_fail (GS_IS_MANAGER (manager));
-
-    if (manager->priv->lock_with_saver_enabled != lock_with_saver_enabled) {
-        manager->priv->lock_with_saver_enabled = lock_with_saver_enabled;
-    }
-}
-
-void
-gs_manager_set_logout_enabled (GSManager *manager,
-                               gboolean   logout_enabled) {
-    g_return_if_fail (GS_IS_MANAGER (manager));
-
-    if (manager->priv->logout_enabled != logout_enabled) {
-        GSList *l;
-
-        manager->priv->logout_enabled = logout_enabled;
-        for (l = manager->priv->windows; l; l = l->next) {
-            gs_window_set_logout_enabled (l->data, logout_enabled);
-        }
-    }
-}
-
-void
-gs_manager_set_keyboard_enabled (GSManager *manager,
-                                 gboolean   enabled) {
-    g_return_if_fail (GS_IS_MANAGER (manager));
-
-    if (manager->priv->keyboard_enabled != enabled) {
-        GSList *l;
-
-        manager->priv->keyboard_enabled = enabled;
-        for (l = manager->priv->windows; l; l = l->next) {
-            gs_window_set_keyboard_enabled (l->data, enabled);
-        }
-    }
-}
-
-void
-gs_manager_set_user_switch_enabled (GSManager *manager,
-                                    gboolean   user_switch_enabled) {
-    g_return_if_fail (GS_IS_MANAGER (manager));
-
-    if (manager->priv->user_switch_enabled != user_switch_enabled) {
-        GSList *l;
-
-        manager->priv->user_switch_enabled = user_switch_enabled;
-        for (l = manager->priv->windows; l; l = l->next) {
-            gs_window_set_user_switch_enabled (l->data, user_switch_enabled);
-        }
-    }
-}
-
 static gboolean
 activate_lock_timeout (GSManager *manager) {
-    if (manager->priv->lock_enabled &&
-            manager->priv->lock_with_saver_enabled)
+    if (manager->priv->prefs->lock_enabled &&
+            manager->priv->prefs->lock_with_saver_enabled)
     {
         gs_debug ("Locking screen after idling timeout");
         gs_manager_set_lock_active (manager, TRUE);
@@ -553,9 +421,9 @@ remove_lock_timer (GSManager *manager) {
 static void
 add_lock_timer (GSManager *manager,
                 glong      timeout) {
-    if (!manager->priv->lock_enabled)
+    if (!manager->priv->prefs->lock_enabled)
         return;
-    if (!manager->priv->lock_with_saver_enabled)
+    if (!manager->priv->prefs->lock_with_saver_enabled)
         return;
 
     gboolean locked;
@@ -590,75 +458,6 @@ gs_manager_set_lock_timeout (GSManager *manager,
                 add_lock_timer (manager, lock_timeout - elapsed);
             }
         }
-    }
-}
-
-void
-gs_manager_set_logout_timeout (GSManager *manager,
-                               glong      logout_timeout) {
-    g_return_if_fail (GS_IS_MANAGER (manager));
-
-    if (manager->priv->logout_timeout != logout_timeout) {
-        GSList *l;
-
-        manager->priv->logout_timeout = logout_timeout;
-        for (l = manager->priv->windows; l; l = l->next) {
-            gs_window_set_logout_timeout (l->data, logout_timeout);
-        }
-    }
-}
-
-void
-gs_manager_set_logout_command (GSManager  *manager,
-                               const char *command) {
-    GSList *l;
-
-    g_return_if_fail (GS_IS_MANAGER (manager));
-
-    g_free (manager->priv->logout_command);
-
-    if (command) {
-        manager->priv->logout_command = g_strdup (command);
-    } else {
-        manager->priv->logout_command = NULL;
-    }
-
-    for (l = manager->priv->windows; l; l = l->next) {
-        gs_window_set_logout_command (l->data, manager->priv->logout_command);
-    }
-}
-
-void
-gs_manager_set_keyboard_command (GSManager  *manager,
-                                 const char *command) {
-    GSList *l;
-
-    g_return_if_fail (GS_IS_MANAGER (manager));
-
-    g_free (manager->priv->keyboard_command);
-
-    if (command) {
-        manager->priv->keyboard_command = g_strdup (command);
-    } else {
-        manager->priv->keyboard_command = NULL;
-    }
-
-    for (l = manager->priv->windows; l; l = l->next) {
-        gs_window_set_keyboard_command (l->data, manager->priv->keyboard_command);
-    }
-}
-
-void
-gs_manager_set_status_message_enabled (GSManager  *manager,
-                                       gboolean    status_message_enabled) {
-    GSList *l;
-
-    g_return_if_fail (GS_IS_MANAGER (manager));
-
-    manager->priv->status_message_enabled = status_message_enabled;
-
-    for (l = manager->priv->windows; l; l = l->next) {
-        gs_window_set_status_message_enabled (l->data, manager->priv->status_message_enabled);
     }
 }
 
@@ -755,6 +554,11 @@ gs_manager_set_cycle_timeout (GSManager *manager,
     }
 }
 
+static void _gs_manager_update_from_prefs(GSManager* manager, GSPrefs* prefs) {
+    gs_manager_set_lock_timeout(manager, prefs->lock_timeout);
+    gs_manager_set_cycle_timeout(manager, prefs->cycle);
+}
+
 static void
 gs_manager_set_property (GObject      *object,
                          guint         prop_id,
@@ -768,41 +572,11 @@ gs_manager_set_property (GObject      *object,
         case PROP_THROTTLED:
             gs_manager_set_throttled (self, g_value_get_boolean (value));
             break;
-        case PROP_LOCK_ENABLED:
-            gs_manager_set_lock_enabled (self, g_value_get_boolean (value));
-            break;
-        case PROP_LOCK_WITH_SAVER_ENABLED:
-            gs_manager_set_lock_with_saver_enabled (self, g_value_get_boolean (value));
-            break;
-        case PROP_LOCK_TIMEOUT:
-            gs_manager_set_lock_timeout (self, g_value_get_long (value));
-            break;
-        case PROP_LOGOUT_ENABLED:
-            gs_manager_set_logout_enabled (self, g_value_get_boolean (value));
-            break;
-        case PROP_KEYBOARD_ENABLED:
-            gs_manager_set_keyboard_enabled (self, g_value_get_boolean (value));
-            break;
-        case PROP_USER_SWITCH_ENABLED:
-            gs_manager_set_user_switch_enabled (self, g_value_get_boolean (value));
-            break;
-        case PROP_LOGOUT_TIMEOUT:
-            gs_manager_set_logout_timeout (self, g_value_get_long (value));
-            break;
-        case PROP_LOGOUT_COMMAND:
-            gs_manager_set_logout_command (self, g_value_get_string (value));
-            break;
-        case PROP_KEYBOARD_COMMAND:
-            gs_manager_set_keyboard_command (self, g_value_get_string (value));
-            break;
-        case PROP_STATUS_MESSAGE_ENABLED:
-            gs_manager_set_status_message_enabled (self, g_value_get_boolean (value));
-            break;
         case PROP_STATUS_MESSAGE:
             gs_manager_set_status_message (self, g_value_get_string (value));
             break;
-        case PROP_CYCLE_TIMEOUT:
-            gs_manager_set_cycle_timeout (self, g_value_get_long (value));
+        case PROP_ACTIVE:
+            gs_manager_set_active (self, g_value_get_boolean (value));
             break;
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -823,41 +597,8 @@ gs_manager_get_property (GObject    *object,
         case PROP_THROTTLED:
             g_value_set_boolean (value, self->priv->throttled);
             break;
-        case PROP_LOCK_ENABLED:
-            g_value_set_boolean (value, self->priv->lock_enabled);
-            break;
-        case PROP_LOCK_WITH_SAVER_ENABLED:
-            g_value_set_boolean (value, self->priv->lock_with_saver_enabled);
-            break;
-        case PROP_LOCK_TIMEOUT:
-            g_value_set_long (value, self->priv->lock_timeout);
-            break;
-        case PROP_LOGOUT_ENABLED:
-            g_value_set_boolean (value, self->priv->logout_enabled);
-            break;
-        case PROP_KEYBOARD_ENABLED:
-            g_value_set_boolean (value, self->priv->keyboard_enabled);
-            break;
-        case PROP_USER_SWITCH_ENABLED:
-            g_value_set_boolean (value, self->priv->user_switch_enabled);
-            break;
-        case PROP_LOGOUT_TIMEOUT:
-            g_value_set_long (value, self->priv->logout_timeout);
-            break;
-        case PROP_LOGOUT_COMMAND:
-            g_value_set_string (value, self->priv->logout_command);
-            break;
-        case PROP_KEYBOARD_COMMAND:
-            g_value_set_string (value, self->priv->keyboard_command);
-            break;
-        case PROP_STATUS_MESSAGE_ENABLED:
-            g_value_set_boolean (value, self->priv->status_message_enabled);
-            break;
         case PROP_STATUS_MESSAGE:
             g_value_set_string (value, self->priv->status_message);
-            break;
-        case PROP_CYCLE_TIMEOUT:
-            g_value_set_long (value, self->priv->cycle_timeout);
             break;
         case PROP_ACTIVE:
             g_value_set_boolean (value, self->priv->active);
@@ -925,75 +666,19 @@ gs_manager_class_init (GSManagerClass *klass) {
                                                            FALSE,
                                                            G_PARAM_READABLE));
     g_object_class_install_property (object_class,
-                                     PROP_LOCK_ENABLED,
-                                     g_param_spec_boolean ("lock-enabled",
-                                                           NULL,
-                                                           NULL,
-                                                           FALSE,
-                                                           G_PARAM_READWRITE));
-    g_object_class_install_property (object_class,
-                                     PROP_LOCK_WITH_SAVER_ENABLED,
-                                     g_param_spec_boolean ("lock-with-saver-enabled",
-                                                           NULL,
-                                                           NULL,
-                                                           FALSE,
-                                                           G_PARAM_READWRITE));
-    g_object_class_install_property (object_class,
-                                     PROP_LOCK_TIMEOUT,
-                                     g_param_spec_long ("lock-timeout",
-                                                        NULL,
-                                                        NULL,
-                                                        -1,
-                                                        G_MAXLONG,
-                                                        0,
-                                                        G_PARAM_READWRITE));
-    g_object_class_install_property (object_class,
-                                     PROP_LOGOUT_ENABLED,
-                                     g_param_spec_boolean ("logout-enabled",
-                                                           NULL,
-                                                           NULL,
-                                                           FALSE,
-                                                           G_PARAM_READWRITE));
-    g_object_class_install_property (object_class,
-                                     PROP_USER_SWITCH_ENABLED,
-                                     g_param_spec_boolean ("user-switch-enabled",
-                                                           NULL,
-                                                           NULL,
-                                                           FALSE,
-                                                           G_PARAM_READWRITE));
-
-    g_object_class_install_property (object_class,
-                                     PROP_LOGOUT_TIMEOUT,
-                                     g_param_spec_long ("logout-timeout",
-                                                        NULL,
-                                                        NULL,
-                                                        -1,
-                                                        G_MAXLONG,
-                                                        0,
-                                                        G_PARAM_READWRITE));
-    g_object_class_install_property (object_class,
-                                     PROP_LOGOUT_COMMAND,
-                                     g_param_spec_string ("logout-command",
-                                                          NULL,
-                                                          NULL,
-                                                          NULL,
-                                                          G_PARAM_READWRITE));
-    g_object_class_install_property (object_class,
-                                     PROP_CYCLE_TIMEOUT,
-                                     g_param_spec_long ("cycle-timeout",
-                                                        NULL,
-                                                        NULL,
-                                                        10000,
-                                                        G_MAXLONG,
-                                                        300000,
-                                                        G_PARAM_READWRITE));
-    g_object_class_install_property (object_class,
                                      PROP_THROTTLED,
                                      g_param_spec_boolean ("throttled",
                                                            NULL,
                                                            NULL,
                                                            TRUE,
                                                            G_PARAM_READWRITE));
+    g_object_class_install_property (object_class,
+                                 PROP_STATUS_MESSAGE,
+                                 g_param_spec_string ("status-message",
+                                                      NULL,
+                                                      NULL,
+                                                      NULL,
+                                                      G_PARAM_READWRITE));
 }
 
 static void
@@ -1004,6 +689,10 @@ gs_manager_init (GSManager *manager) {
     manager->priv->theme_manager = gs_theme_manager_new ();
 
     manager->priv->bg = xfce_bg_new ();
+
+    manager->priv->prefs = gs_prefs_new();
+    g_signal_connect_swapped(manager->priv->prefs, "changed", G_CALLBACK(_gs_manager_update_from_prefs), manager);
+    _gs_manager_update_from_prefs (manager, manager->priv->prefs);
 
     xfce_bg_load_from_preferences (manager->priv->bg, NULL);
 
@@ -1403,6 +1092,7 @@ connect_window_signals (GSManager *manager,
                              G_CALLBACK (window_grab_broken_cb), manager, G_CONNECT_AFTER);
 }
 
+
 static void
 gs_manager_create_window_for_monitor (GSManager  *manager,
                                       GdkMonitor *monitor) {
@@ -1419,20 +1109,9 @@ gs_manager_create_window_for_monitor (GSManager  *manager,
     gs_debug ("Creating a Window [%d,%d] (%dx%d) for monitor %d",
               rect.x, rect.y, rect.width, rect.height, manager_get_monitor_index (monitor));
 
-    window = gs_window_new (monitor,
-                            manager->priv->lock_enabled,
-                            manager->priv->lock_with_saver_enabled);
-
-    gs_window_set_user_switch_enabled (window, manager->priv->user_switch_enabled);
-    gs_window_set_logout_enabled (window, manager->priv->logout_enabled);
-    gs_window_set_logout_timeout (window, manager->priv->logout_timeout);
-    gs_window_set_logout_command (window, manager->priv->logout_command);
-    gs_window_set_keyboard_enabled (window, manager->priv->keyboard_enabled);
-    gs_window_set_keyboard_command (window, manager->priv->keyboard_command);
-    gs_window_set_status_message_enabled (window, manager->priv->status_message_enabled);
+    window = gs_window_new (monitor);
     gs_window_set_status_message (window, manager->priv->status_message);
     gs_window_set_lock_active (window, manager->priv->lock_active);
-
     connect_window_signals (manager, window);
 
     manager->priv->windows = g_slist_insert (manager->priv->windows, window, manager_get_monitor_index(monitor));
@@ -1520,11 +1199,7 @@ gs_manager_finalize (GObject *object) {
     if (manager->priv->bg != NULL) {
         g_object_unref (manager->priv->bg);
     }
-
-    free_themes (manager);
-    g_free (manager->priv->logout_command);
-    g_free (manager->priv->keyboard_command);
-    g_free (manager->priv->status_message);
+    g_signal_handlers_disconnect_by_func(manager->priv->prefs, _gs_manager_update_from_prefs, manager);
 
     remove_deepsleep_idle (manager);
     remove_timers(manager);
@@ -1537,8 +1212,6 @@ gs_manager_finalize (GObject *object) {
 
     manager->priv->active = FALSE;
     manager->priv->activate_time = 0;
-    manager->priv->lock_enabled = FALSE;
-    manager->priv->lock_with_saver_enabled = FALSE;
 
     g_object_unref (manager->priv->grab);
     g_object_unref (manager->priv->theme_manager);
