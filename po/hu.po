@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-15 06:31+0100\n"
+"POT-Creation-Date: 2019-06-18 06:31+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Gábor P., 2019\n"
 "Language-Team: Hungarian (https://www.transifex.com/xfce/teams/16840/hu/)\n"
@@ -75,16 +75,21 @@ msgstr "A használandó kép forrása"
 
 #. translators: the word "image" here
 #. * represents a command line argument
-#: ../savers/floaters.c:1120
+#: ../savers/floaters.c:1121
 msgid "image - floats images around the screen"
 msgstr "image – a kép lebegtetése a képernyőn"
 
-#: ../savers/floaters.c:1124 ../savers/popsquares.c:49
+#: ../savers/floaters.c:1125 ../savers/popsquares.c:49
 #, c-format
 msgid "%s. See --help for usage information.\n"
 msgstr "%s. Lásd a --help parancsot a használati információkért.\n"
 
 #: ../savers/floaters.c:1132
+#, c-format
+msgid "Failed to initialize the windowing system."
+msgstr "Nem sikerült inicializálni az ablakkezelő rendszert."
+
+#: ../savers/floaters.c:1138
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr ""
@@ -139,147 +144,85 @@ msgstr "Pop-art négyzetek"
 msgid "A pop-art-ish grid of pulsing colors."
 msgstr "Egy pop-art szerű rács, pulzáló színekkel."
 
-#: ../src/copy-theme-dialog.c:214
-msgid "Copying files"
-msgstr "Fájlok másolása"
-
-#: ../src/copy-theme-dialog.c:233
-msgid "From:"
-msgstr "Innen:"
-
-#: ../src/copy-theme-dialog.c:237
-msgid "To:"
-msgstr "Ide:"
-
-#: ../src/copy-theme-dialog.c:255 ../src/gs-lock-plug.c:1192
-#: ../src/xfce4-screensaver-dialog.ui.h:7
-msgid "_Cancel"
-msgstr "_Mégse"
-
-#: ../src/copy-theme-dialog.c:258
-msgid "Copying themes"
-msgstr "Témák másolása"
-
-#: ../src/copy-theme-dialog.c:296
-msgid "Invalid screensaver theme"
-msgstr "Érvénytelen képernyővédő téma"
-
-#: ../src/copy-theme-dialog.c:299
-#, c-format
-msgid "%s does not appear to be a valid screensaver theme."
-msgstr "A(z) %s nem tűnik érvényes képernyővédő témának."
-
-#: ../src/copy-theme-dialog.c:457
-#, c-format
-msgid "Copying file: %u of %u"
-msgstr "Fájl másolása: %u / %u"
-
 #: ../src/gs-auth-pam.c:163
 msgid "Password:"
 msgstr "Jelszó:"
 
-#: ../src/gs-auth-pam.c:378
+#: ../src/gs-auth-pam.c:375
 #, c-format
 msgid "Unable to establish service %s: %s\n"
 msgstr "A(z) %s szolgáltatás nem létesíthető: %s\n"
 
-#: ../src/gs-auth-pam.c:404
+#: ../src/gs-auth-pam.c:401
 #, c-format
 msgid "Can't set PAM_TTY=%s"
 msgstr "A PAM_TTY=%s nem állítható be"
 
-#: ../src/gs-auth-pam.c:435
+#: ../src/gs-auth-pam.c:432
 msgid "Incorrect password."
 msgstr "Helytelen jelszó."
 
-#: ../src/gs-auth-pam.c:437 ../src/xfce4-screensaver-dialog.c:311
+#: ../src/gs-auth-pam.c:434 ../src/xfce4-screensaver-dialog.c:311
 msgid "Authentication failed."
 msgstr "A hitelesítés meghiúsult."
 
-#: ../src/gs-auth-pam.c:451
+#: ../src/gs-auth-pam.c:448
 msgid "Not permitted to gain access at this time."
 msgstr "Jelenleg nem férhet hozzá."
 
-#: ../src/gs-auth-pam.c:457
+#: ../src/gs-auth-pam.c:454
 msgid "No longer permitted to access the system."
 msgstr "Már nem férhet hozzá a rendszerhez."
 
-#: ../src/gs-auth-pam.c:674
+#: ../src/gs-auth-pam.c:667
 msgid "Username:"
 msgstr "Felhasználónév:"
 
-#: ../src/gs-listener-dbus.c:1993
+#: ../src/gs-listener-dbus.c:1956
 msgid "failed to register with the message bus"
 msgstr "nem sikerült regisztrálni az üzenetbuszra"
 
-#: ../src/gs-listener-dbus.c:2003
+#: ../src/gs-listener-dbus.c:1966
 msgid "not connected to the message bus"
 msgstr "nem kapcsolódott az üzenetbuszhoz"
 
-#: ../src/gs-listener-dbus.c:2012 ../src/gs-listener-dbus.c:2042
+#: ../src/gs-listener-dbus.c:1975 ../src/gs-listener-dbus.c:2005
 msgid "screensaver already running in this session"
 msgstr "a képernyővédő már fut ebben a munkamenetben"
 
-#: ../src/gs-lock-plug.c:268
+#: ../src/gs-lock-plug.c:285
 msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%B %e, %a   %H:%M"
 
-#: ../src/gs-lock-plug.c:351
+#: ../src/gs-lock-plug.c:368
 msgid "Time has expired."
 msgstr "Az idő lejárt."
 
-#: ../src/gs-lock-plug.c:1177
+#: ../src/gs-lock-plug.c:1269
 msgid "S_witch User..."
 msgstr "Felhasználó_váltás…"
 
-#: ../src/gs-lock-plug.c:1186
+#: ../src/gs-lock-plug.c:1278
 msgid "Log _Out"
 msgstr "_Kijelentkezés"
 
-#: ../src/gs-lock-plug.c:1197 ../src/xfce4-screensaver-dialog.ui.h:8
+#: ../src/gs-lock-plug.c:1284 ../src/xfce4-screensaver-dialog.ui.h:11
+msgid "_Cancel"
+msgstr "_Mégse"
+
+#: ../src/gs-lock-plug.c:1289 ../src/xfce4-screensaver-dialog.ui.h:12
 msgid "_Unlock"
 msgstr "_Feloldás"
 
 #. To translators: This expands to USERNAME on HOSTNAME
-#: ../src/gs-lock-plug.c:1363
+#: ../src/gs-lock-plug.c:1455
 msgid "%U on %h"
 msgstr "%U ezen: %h"
 
-#: ../src/gs-lock-plug.c:1378
+#: ../src/gs-lock-plug.c:1470
 msgid "Please enter your password."
 msgstr "Adja meg a jelszót."
-
-#. Translators: a CRTC is a CRT Controller (this is X terminology).
-#: ../src/xfce-rr.c:444
-#, c-format
-msgid "could not get the screen resources (CRTCs, outputs, modes)"
-msgstr "a képernyő-erőforrások (CRTC-k, kimenetek, módok) nem kérhetőek le"
-
-#: ../src/xfce-rr.c:465
-#, c-format
-msgid "unhandled X error while getting the range of screen sizes"
-msgstr "kezeletlen X hiba a képernyőméretek tartományának lekérésekor"
-
-#: ../src/xfce-rr.c:471
-#, c-format
-msgid "could not get the range of screen sizes"
-msgstr "a képernyőméretek tartománya nem kérhető le"
-
-#: ../src/xfce-rr.c:682
-#, c-format
-msgid "RANDR extension is not present"
-msgstr "A RANDR bővítmény nincs jelen"
-
-#: ../src/xfce-rr.c:1075
-#, c-format
-msgid "could not get information about output %d"
-msgstr "nem kérhető le információ a(z) %d. kimenetről"
-
-#: ../src/xfce-rr.c:1298
-#, c-format
-msgid "could not get information about CRTC %d"
-msgstr "nem kérhető le információ a(z) %d. CRTC-ről"
 
 #: ../src/xfce4-screensaver-command.c:60
 msgid "Causes the screensaver to exit gracefully"
@@ -337,35 +280,35 @@ msgstr "A képernyővédő futásának megakadályozásának oka"
 msgid "Version of this application"
 msgstr "Az alkalmazás verziója"
 
-#: ../src/xfce4-screensaver-command.c:325
+#: ../src/xfce4-screensaver-command.c:328
 #, c-format
 msgid "The screensaver is %s\n"
 msgstr "A képernyővédő %s\n"
 
-#: ../src/xfce4-screensaver-command.c:325
+#: ../src/xfce4-screensaver-command.c:328
 msgid "active"
 msgstr "aktív"
 
-#: ../src/xfce4-screensaver-command.c:325
+#: ../src/xfce4-screensaver-command.c:328
 msgid "inactive"
 msgstr "inaktív"
 
-#: ../src/xfce4-screensaver-command.c:339
+#: ../src/xfce4-screensaver-command.c:342
 #, c-format
 msgid "The screensaver is not inhibited\n"
 msgstr "A képernyővédő futása nincs megakadályozva\n"
 
-#: ../src/xfce4-screensaver-command.c:345
+#: ../src/xfce4-screensaver-command.c:348
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
 msgstr "A képernyővédő futását megakadályozza:\n"
 
-#: ../src/xfce4-screensaver-command.c:375
+#: ../src/xfce4-screensaver-command.c:378
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "A képernyővédő %d másodperce aktív.\n"
 
-#: ../src/xfce4-screensaver-command.c:379
+#: ../src/xfce4-screensaver-command.c:382
 #, c-format
 msgid "The screensaver is not currently active.\n"
 msgstr "A képernyővédő jelenleg nem aktív.\n"
@@ -478,60 +421,60 @@ msgstr "Ellenőrzés…"
 
 #: ../src/xfce4-screensaver-dialog.ui.h:2
 #, no-c-format
-msgid "%U"
-msgstr "%U"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:3
-msgid "Enter your password"
-msgstr "Adja meg a jelszót"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:4
-msgid "You have the Caps Lock key on."
-msgstr "A Caps Lock be van kapcsolva."
-
-#: ../src/xfce4-screensaver-dialog.ui.h:5
-msgid "_Switch User"
-msgstr "_Felhasználóváltás"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:6
-msgid "_Log Out"
-msgstr "_Kijelentkezés"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:10
-#, no-c-format
 msgid "<b>%h</b>"
 msgstr "<b>%h</b>"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:12
+#: ../src/xfce4-screensaver-dialog.ui.h:4
 #, no-c-format
 msgid "<b>%s</b>"
 msgstr "<b>%s</b>"
 
-#: ../src/xfce4-screensaver-preferences.c:84
+#: ../src/xfce4-screensaver-dialog.ui.h:6
+#, no-c-format
+msgid "%U"
+msgstr "%U"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:7
+msgid "Enter your password"
+msgstr "Adja meg a jelszót"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:8
+msgid "You have the Caps Lock key on."
+msgstr "A Caps Lock be van kapcsolva."
+
+#: ../src/xfce4-screensaver-dialog.ui.h:9
+msgid "_Switch User"
+msgstr "_Felhasználóváltás"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:10
+msgid "_Log Out"
+msgstr "_Kijelentkezés"
+
+#: ../src/xfce4-screensaver-preferences.c:78
 msgid "Settings manager socket"
 msgstr "Beállításkezelő foglalat"
 
-#: ../src/xfce4-screensaver-preferences.c:84
+#: ../src/xfce4-screensaver-preferences.c:78
 msgid "SOCKET ID"
 msgstr "FOGLALATAZONOSÍTÓ"
 
-#: ../src/xfce4-screensaver-preferences.c:663
+#: ../src/xfce4-screensaver-preferences.c:657
 msgid "Blank screen"
 msgstr "Üres képernyő"
 
-#: ../src/xfce4-screensaver-preferences.c:669
+#: ../src/xfce4-screensaver-preferences.c:663
 msgid "Random"
 msgstr "Véletlen"
 
-#: ../src/xfce4-screensaver-preferences.c:1872
+#: ../src/xfce4-screensaver-preferences.c:1725
 msgid "Setting locked by administrator."
 msgstr "A beállítást a rendszergazda zárolta."
 
-#: ../src/xfce4-screensaver-preferences.c:1912
+#: ../src/xfce4-screensaver-preferences.c:1764
 msgid "Could not load the main interface"
 msgstr "A fő felület nem tölthető be"
 
-#: ../src/xfce4-screensaver-preferences.c:1914
+#: ../src/xfce4-screensaver-preferences.c:1766
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "Győződjön meg róla, hogy a képernyővédő megfelelően van telepítve"
 
@@ -665,6 +608,6 @@ msgstr "Hibakeresési kód engedélyezése"
 msgid "Launch screensaver and locker program"
 msgstr "Képernyővédő és a zárolási program indítása"
 
-#: ../src/xfcekbd-indicator.c:538
+#: ../src/xfcekbd-indicator.c:404
 msgid "XKB initialization error"
 msgstr "XKB előkészítési hiba"
