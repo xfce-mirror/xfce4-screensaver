@@ -72,12 +72,8 @@ void        gs_manager_set_saver_active        (GSManager   *manager,
                                                 gboolean     saver_active);
 void        gs_manager_set_status_message      (GSManager   *manager,
                                                 const char  *message);
-void        gs_manager_set_lock_timeout        (GSManager   *manager,
-                                                glong        lock_timeout);
 void        gs_manager_set_throttled           (GSManager   *manager,
                                                 gboolean     throttled);
-void        gs_manager_set_cycle_timeout       (GSManager   *manager,
-                                                glong        cycle_timeout);
 void        gs_manager_show_message            (GSManager   *manager,
                                                 const char  *summary,
                                                 const char  *body,

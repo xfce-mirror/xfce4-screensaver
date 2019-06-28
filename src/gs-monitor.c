@@ -193,15 +193,6 @@ static void listener_simulate_user_activity_cb(GSListener* listener, GSMonitor* 
     gs_monitor_simulate_user_activity(monitor);
 }
 
-static void _gs_monitor_update_from_prefs(GSMonitor* monitor, GSPrefs* prefs) {
-    /* enable activation when allowed */
-    gs_listener_set_activation_enabled(monitor->priv->listener, prefs->idle_activation_enabled);
-    gs_listener_set_sleep_activation_enabled(monitor->priv->listener, prefs->sleep_activation_enabled);
-    gs_listener_x11_set_activation_enabled(monitor->priv->listener_x11, prefs->idle_activation_enabled);
-    gs_listener_x11_set_timeout(monitor->priv->listener_x11, prefs->timeout);
-    gs_listener_x11_set_saver_enabled(monitor->priv->listener_x11, prefs->saver_enabled);
-}
-
 static void disconnect_listener_signals(GSMonitor* monitor) {
     g_signal_handlers_disconnect_by_func(monitor->priv->listener, listener_lock_cb, monitor);
     g_signal_handlers_disconnect_by_func(monitor->priv->listener, listener_quit_cb, monitor);
@@ -247,19 +238,10 @@ static void connect_manager_signals(GSMonitor* monitor) {
     g_signal_connect(monitor->priv->manager, "deactivated", G_CALLBACK(manager_deactivated_cb), monitor);
 }
 
-static void disconnect_prefs_signals(GSMonitor* monitor) {
-    g_signal_handlers_disconnect_by_func(monitor->priv->prefs, _gs_monitor_update_from_prefs, monitor);
-}
-
-static void connect_prefs_signals(GSMonitor* monitor) {
-    g_signal_connect_swapped(monitor->priv->prefs, "changed", G_CALLBACK(_gs_monitor_update_from_prefs), monitor);
-}
-
 static void gs_monitor_init(GSMonitor* monitor) {
     monitor->priv = gs_monitor_get_instance_private (monitor);
 
     monitor->priv->prefs = gs_prefs_new();
-    connect_prefs_signals(monitor);
 
     monitor->priv->listener = gs_listener_new();
     monitor->priv->listener_x11 = gs_listener_x11_new();
@@ -269,8 +251,6 @@ static void gs_monitor_init(GSMonitor* monitor) {
 
     monitor->priv->manager = gs_manager_new();
     connect_manager_signals(monitor);
-
-    _gs_monitor_update_from_prefs(monitor, monitor->priv->prefs);
 }
 
 static void gs_monitor_finalize(GObject* object) {
@@ -285,7 +265,6 @@ static void gs_monitor_finalize(GObject* object) {
 
     disconnect_listener_signals(monitor);
     disconnect_manager_signals(monitor);
-    disconnect_prefs_signals(monitor);
 
     g_object_unref(monitor->priv->grab);
     g_object_unref(monitor->priv->listener);

@@ -45,6 +45,7 @@
 #include "gs-listener-dbus.h"
 #include "gs-marshal.h"
 #include "gs-debug.h"
+#include "gs-prefs.h"
 
 static void              gs_listener_class_init         (GSListenerClass *klass);
 static void              gs_listener_init               (GSListener      *listener);
@@ -83,10 +84,9 @@ struct GSListenerPrivate {
     DBusConnection *connection;
     DBusConnection *system_connection;
 
+    GSPrefs        *prefs;
     guint           session_idle : 1;
     guint           active : 1;
-    guint           activation_enabled : 1;
-    guint           sleep_activation_enabled : 1;
     guint           throttled : 1;
     GHashTable     *inhibitors;
     GHashTable     *throttlers;
@@ -126,8 +126,6 @@ enum {
     PROP_0,
     PROP_ACTIVE,
     PROP_SESSION_IDLE,
-    PROP_ACTIVATION_ENABLED,
-    PROP_SLEEP_ACTIVATION_ENABLED,
 };
 
 enum {
@@ -310,7 +308,7 @@ listener_check_activation (GSListener *listener) {
 
     gs_debug ("Checking for activation");
 
-    if (!listener->priv->activation_enabled) {
+    if (!listener->priv->prefs->idle_activation_enabled) {
         return TRUE;
     }
 
@@ -464,26 +462,6 @@ gs_listener_set_session_idle (GSListener *listener,
     }
 
     return res;
-}
-
-void
-gs_listener_set_activation_enabled (GSListener *listener,
-                                    gboolean    enabled) {
-    g_return_if_fail (GS_IS_LISTENER (listener));
-
-    if (listener->priv->activation_enabled != enabled) {
-        listener->priv->activation_enabled = enabled;
-    }
-}
-
-void
-gs_listener_set_sleep_activation_enabled (GSListener *listener,
-                                          gboolean    enabled) {
-    g_return_if_fail (GS_IS_LISTENER (listener));
-
-    if (listener->priv->sleep_activation_enabled != enabled) {
-        listener->priv->sleep_activation_enabled = enabled;
-    }
 }
 
 static dbus_bool_t
@@ -1462,7 +1440,7 @@ listener_dbus_handle_system_message (DBusConnection *connection,
             dbus_error_init (&error);
             dbus_message_get_args (message, &error, DBUS_TYPE_BOOLEAN, &active, DBUS_TYPE_INVALID);
             if (active) {
-                if (listener->priv->sleep_activation_enabled) {
+                if (listener->priv->prefs->sleep_activation_enabled) {
                     gs_debug ("Logind requested session lock");
                     g_signal_emit (listener, signals[LOCK], 0);
                 } else {
@@ -1776,12 +1754,6 @@ gs_listener_set_property (GObject      *object,
         case PROP_SESSION_IDLE:
             gs_listener_set_session_idle (self, g_value_get_boolean (value));
             break;
-        case PROP_ACTIVATION_ENABLED:
-            gs_listener_set_activation_enabled (self, g_value_get_boolean (value));
-            break;
-        case PROP_SLEEP_ACTIVATION_ENABLED:
-            gs_listener_set_sleep_activation_enabled (self, g_value_get_boolean (value));
-            break;
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
             break;
@@ -1803,12 +1775,6 @@ gs_listener_get_property (GObject    *object,
             break;
         case PROP_SESSION_IDLE:
             g_value_set_boolean (value, self->priv->session_idle);
-            break;
-        case PROP_ACTIVATION_ENABLED:
-            g_value_set_boolean (value, self->priv->activation_enabled);
-            break;
-        case PROP_SLEEP_ACTIVATION_ENABLED:
-            g_value_set_boolean (value, self->priv->sleep_activation_enabled);
             break;
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -1906,20 +1872,6 @@ gs_listener_class_init (GSListenerClass *klass) {
                                                            NULL,
                                                            NULL,
                                                            FALSE,
-                                                           G_PARAM_READWRITE));
-    g_object_class_install_property (object_class,
-                                     PROP_ACTIVATION_ENABLED,
-                                     g_param_spec_boolean ("activation-enabled",
-                                                           NULL,
-                                                           NULL,
-                                                           TRUE,
-                                                           G_PARAM_READWRITE));
-    g_object_class_install_property (object_class,
-                                     PROP_SLEEP_ACTIVATION_ENABLED,
-                                     g_param_spec_boolean ("sleep-activation-enabled",
-                                                           NULL,
-                                                           NULL,
-                                                           TRUE,
                                                            G_PARAM_READWRITE));
 }
 
@@ -2183,6 +2135,7 @@ gs_listener_init (GSListener *listener) {
     /* check if logind is running */
     listener->priv->have_logind = (access("/run/systemd/seats/", F_OK) >= 0);
 #endif
+    listener->priv->prefs = gs_prefs_new();
 
     gs_listener_dbus_init (listener);
 

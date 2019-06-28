@@ -53,8 +53,6 @@ struct GSManagerPrivate {
 
     /* Policy */
     GSPrefs         *prefs;
-    glong           lock_timeout;
-    glong           cycle_timeout;
     guint           throttled : 1;
     char           *status_message;
 
@@ -438,30 +436,6 @@ add_lock_timer (GSManager *manager,
 }
 
 void
-gs_manager_set_lock_timeout (GSManager *manager,
-                             glong      lock_timeout) {
-    g_return_if_fail (GS_IS_MANAGER (manager));
-
-    if (manager->priv->lock_timeout != lock_timeout) {
-        manager->priv->lock_timeout = lock_timeout;
-
-        if (manager->priv->active
-                && !manager->priv->lock_active
-                && (lock_timeout >= 0)) {
-            glong elapsed = (time (NULL) - manager->priv->activate_time) * 1000;
-
-            remove_lock_timer (manager);
-
-            if (elapsed >= lock_timeout) {
-                activate_lock_timeout (manager);
-            } else {
-                add_lock_timer (manager, lock_timeout - elapsed);
-            }
-        }
-    }
-}
-
-void
 gs_manager_set_status_message (GSManager  *manager,
                                const char *message) {
     GSList *l;
@@ -527,36 +501,6 @@ add_cycle_timer (GSManager *manager,
     manager->priv->cycle_timeout_id = g_timeout_add (timeout,
                                                      (GSourceFunc)cycle_timeout,
                                                      manager);
-}
-
-void
-gs_manager_set_cycle_timeout (GSManager *manager,
-                              glong      cycle_timeout) {
-    g_return_if_fail (GS_IS_MANAGER (manager));
-
-    if (manager->priv->cycle_timeout != cycle_timeout) {
-        manager->priv->cycle_timeout = cycle_timeout;
-
-        if (manager->priv->active && (cycle_timeout >= 0)) {
-            glong timeout;
-            glong elapsed = (time (NULL) - manager->priv->activate_time) * 1000;
-
-            remove_cycle_timer (manager);
-
-            if (elapsed >= cycle_timeout) {
-                timeout = 0;
-            } else {
-                timeout = cycle_timeout - elapsed;
-            }
-
-            add_cycle_timer (manager, timeout);
-        }
-    }
-}
-
-static void _gs_manager_update_from_prefs(GSManager* manager, GSPrefs* prefs) {
-    gs_manager_set_lock_timeout(manager, prefs->lock_timeout);
-    gs_manager_set_cycle_timeout(manager, prefs->cycle);
 }
 
 static void
@@ -691,8 +635,6 @@ gs_manager_init (GSManager *manager) {
     manager->priv->bg = xfce_bg_new ();
 
     manager->priv->prefs = gs_prefs_new();
-    g_signal_connect_swapped(manager->priv->prefs, "changed", G_CALLBACK(_gs_manager_update_from_prefs), manager);
-    _gs_manager_update_from_prefs (manager, manager->priv->prefs);
 
     xfce_bg_load_from_preferences (manager->priv->bg, NULL);
 
@@ -908,14 +850,14 @@ manager_show_window (GSManager *manager,
 
     manager->priv->activate_time = time (NULL);
 
-    if (manager->priv->lock_timeout >= 0) {
+    if (manager->priv->prefs->lock_timeout >= 0) {
         remove_lock_timer (manager);
-        add_lock_timer (manager, manager->priv->lock_timeout);
+        add_lock_timer (manager, manager->priv->prefs->lock_timeout);
     }
 
-    if (manager->priv->cycle_timeout >= 10000) {
+    if (manager->priv->prefs->cycle >= 10000) {
         remove_cycle_timer (manager);
-        add_cycle_timer (manager, manager->priv->cycle_timeout);
+        add_cycle_timer (manager, manager->priv->prefs->cycle);
     }
 
     /* FIXME: only emit signal once */
@@ -1199,7 +1141,6 @@ gs_manager_finalize (GObject *object) {
     if (manager->priv->bg != NULL) {
         g_object_unref (manager->priv->bg);
     }
-    g_signal_handlers_disconnect_by_func(manager->priv->prefs, _gs_manager_update_from_prefs, manager);
 
     remove_deepsleep_idle (manager);
     remove_timers(manager);
