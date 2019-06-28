@@ -37,6 +37,8 @@ static void gs_prefs_class_init (GSPrefsClass *klass);
 static void gs_prefs_init       (GSPrefs      *prefs);
 static void gs_prefs_finalize   (GObject      *object);
 
+static GSPrefs *prefs;
+
 struct GSPrefsPrivate {
     XfconfChannel *channel;
     XfconfChannel *xfpm_channel;
@@ -146,6 +148,27 @@ static void
 _gs_prefs_set_mode (GSPrefs    *prefs,
                     gint        mode) {
     prefs->mode = mode;
+}
+
+const char *
+gs_prefs_get_theme (GSPrefs *prefs) {
+    const char *theme = NULL;
+
+    if (!prefs->saver_enabled || prefs->mode == GS_MODE_BLANK_ONLY) {
+        return NULL;
+    }
+
+    if (prefs->themes) {
+        int number = 0;
+
+        if (prefs->mode == GS_MODE_RANDOM) {
+            g_random_set_seed (time (NULL));
+            number = g_random_int_range (0, g_slist_length (prefs->themes));
+        }
+        theme = g_slist_nth_data (prefs->themes, number);
+    }
+
+    return theme;
 }
 
 static void
@@ -527,9 +550,12 @@ gs_prefs_finalize (GObject *object) {
 
 GSPrefs *
 gs_prefs_new (void) {
-    GObject *prefs;
+    GObject *object;
+    if (!prefs) {
+        object = g_object_new (GS_TYPE_PREFS, NULL);
+        prefs = GS_PREFS (object);
+    } else
+       object = g_object_ref (G_OBJECT (prefs));
 
-    prefs = g_object_new (GS_TYPE_PREFS, NULL);
-
-    return GS_PREFS (prefs);
+    return GS_PREFS (object);
 }

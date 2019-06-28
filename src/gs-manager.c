@@ -36,7 +36,6 @@
 #include "gs-job.h"
 #include "gs-manager.h"
 #include "gs-prefs.h"
-#include "gs-theme-manager.h"
 #include "gs-window.h"
 #include "xfce-bg.h"
 
@@ -48,7 +47,6 @@ struct GSManagerPrivate {
     GSList         *windows;
     GHashTable     *jobs;
 
-    GSThemeManager *theme_manager;
     XfceBG         *bg;
 
     /* Policy */
@@ -120,30 +118,6 @@ manager_add_job_for_window (GSManager *manager,
     g_hash_table_insert (manager->priv->jobs, window, job);
 }
 
-static const char *
-select_theme (GSManager *manager) {
-    const char *theme = NULL;
-
-    g_return_val_if_fail (manager != NULL, NULL);
-    g_return_val_if_fail (GS_IS_MANAGER (manager), NULL);
-
-    if (!manager->priv->prefs->saver_enabled || manager->priv->prefs->mode == GS_MODE_BLANK_ONLY) {
-        return NULL;
-    }
-
-    if (manager->priv->prefs->themes) {
-        int number = 0;
-
-        if (manager->priv->prefs->mode == GS_MODE_RANDOM) {
-            g_random_set_seed (time (NULL));
-            number = g_random_int_range (0, g_slist_length (manager->priv->prefs->themes));
-        }
-        theme = g_slist_nth_data (manager->priv->prefs->themes, number);
-    }
-
-    return theme;
-}
-
 static GSJob *
 lookup_job_for_window (GSManager *manager,
                        GSWindow  *window) {
@@ -184,56 +158,24 @@ manager_maybe_start_job_for_window (GSManager *manager,
         gs_debug ("Job not found for window");
         return;
     }
-
-    if (!manager->priv->dialog_up) {
-        if (!manager->priv->throttled) {
-            if (!gs_job_is_running (job)) {
-                if (!gs_window_is_obscured (window)) {
-                    gs_debug ("Starting job for window");
-                    gs_job_start (job);
-                } else {
-                    gs_debug ("Window is obscured deferring start of job");
-                }
-            } else {
-                gs_debug ("Not starting job because job is running");
-            }
-        } else {
-            gs_debug ("Not starting job because throttled");
-        }
-    } else {
+    if (manager->priv->dialog_up) {
         gs_debug ("Not starting job because dialog is up");
+        return;
     }
-}
-
-static void
-manager_select_theme_for_job (GSManager *manager,
-                              GSJob     *job) {
-    const char *theme;
-
-    theme = select_theme (manager);
-
-    if (theme != NULL) {
-        GSThemeInfo    *info;
-        const char     *command;
-
-        command = NULL;
-
-        info = gs_theme_manager_lookup_theme_info (manager->priv->theme_manager, theme);
-        if (info != NULL) {
-            command = gs_theme_info_get_exec (info);
-        } else {
-            gs_debug ("Could not find information for theme: %s",
-                      theme);
-        }
-
-        gs_job_set_command (job, command);
-
-        if (info != NULL) {
-            gs_theme_info_unref (info);
-        }
-    } else {
-        gs_job_set_command (job, NULL);
+    if (manager->priv->throttled) {
+        gs_debug ("Not starting job because throttled");
+        return;
     }
+    if (gs_job_is_running (job)) {
+        gs_debug ("Not starting job because job is running");
+        return;
+    }
+    if (gs_window_is_obscured (window)) {
+        gs_debug ("Window is obscured deferring start of job");
+        return;
+    }
+    gs_debug ("Starting job for window");
+    gs_job_start (job);
 }
 
 static void
@@ -241,7 +183,6 @@ cycle_job (GSWindow  *window,
            GSJob     *job,
            GSManager *manager) {
     gs_job_stop (job);
-    manager_select_theme_for_job (manager, job);
     manager_maybe_start_job_for_window (manager, window);
 }
 
@@ -396,13 +337,8 @@ gs_manager_set_saver_active (GSManager *manager,
 
 static gboolean
 activate_lock_timeout (GSManager *manager) {
-    if (manager->priv->prefs->lock_enabled &&
-            manager->priv->prefs->lock_with_saver_enabled)
-    {
-        gs_debug ("Locking screen after idling timeout");
-        gs_manager_set_lock_active (manager, TRUE);
-    }
-
+    gs_debug ("Locking screen after idling timeout");
+    gs_manager_set_lock_active (manager, TRUE);
     manager->priv->lock_timeout_id = 0;
 
     return FALSE;
@@ -419,12 +355,12 @@ remove_lock_timer (GSManager *manager) {
 static void
 add_lock_timer (GSManager *manager,
                 glong      timeout) {
+    gboolean locked;
+
     if (!manager->priv->prefs->lock_enabled)
         return;
     if (!manager->priv->prefs->lock_with_saver_enabled)
         return;
-
-    gboolean locked;
     gs_manager_get_lock_active (manager, &locked);
     if (locked)
         return;
@@ -456,20 +392,16 @@ gs_manager_cycle (GSManager *manager) {
     g_return_val_if_fail (manager != NULL, FALSE);
     g_return_val_if_fail (GS_IS_MANAGER (manager), FALSE);
 
-    gs_debug ("Cycling jobs");
-
     if (!manager->priv->active) {
         return FALSE;
     }
-
     if (manager->priv->dialog_up) {
         return FALSE;
     }
-
     if (manager->priv->throttled) {
         return FALSE;
     }
-
+    gs_debug ("Cycling jobs");
     manager_cycle_jobs (manager);
 
     return TRUE;
@@ -630,7 +562,6 @@ gs_manager_init (GSManager *manager) {
     manager->priv = gs_manager_get_instance_private (manager);
 
     manager->priv->grab = gs_grab_new ();
-    manager->priv->theme_manager = gs_theme_manager_new ();
 
     manager->priv->bg = xfce_bg_new ();
 
@@ -845,7 +776,6 @@ manager_show_window (GSManager *manager,
 
     job = gs_job_new_for_widget (gs_window_get_drawing_area (window));
 
-    manager_select_theme_for_job (manager, job);
     manager_add_job_for_window (manager, window, job);
 
     manager->priv->activate_time = time (NULL);
@@ -877,17 +807,6 @@ window_show_cb (GSWindow  *window,
 }
 
 static void
-maybe_set_window_throttle (GSManager *manager,
-                           GSWindow  *window,
-                           gboolean   throttled) {
-    if (throttled) {
-        manager_maybe_stop_job_for_window (manager, window);
-    } else {
-        manager_maybe_start_job_for_window (manager, window);
-    }
-}
-
-static void
 window_obscured_cb (GSWindow   *window,
                     GParamSpec *pspec,
                     GSManager  *manager) {
@@ -896,7 +815,11 @@ window_obscured_cb (GSWindow   *window,
     obscured = gs_window_is_obscured (window);
     gs_debug ("Handling window obscured: %s", obscured ? "obscured" : "unobscured");
 
-    maybe_set_window_throttle (manager, window, obscured);
+    if (obscured) {
+        manager_maybe_stop_job_for_window (manager, window);
+    } else {
+        manager_maybe_start_job_for_window (manager, window);
+    }
 }
 
 static void
@@ -1155,7 +1078,6 @@ gs_manager_finalize (GObject *object) {
     manager->priv->activate_time = 0;
 
     g_object_unref (manager->priv->grab);
-    g_object_unref (manager->priv->theme_manager);
 
     G_OBJECT_CLASS (gs_manager_parent_class)->finalize (object);
 }

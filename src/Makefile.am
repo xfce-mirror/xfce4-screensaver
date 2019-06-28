@@ -222,6 +222,8 @@ xfce4_screensaver_preferences_SOURCES = \
 	gs-theme-manager.h                              \
 	gs-job.c                                        \
 	gs-job.h                                        \
+	gs-prefs.c                                      \
+	gs-prefs.h                                      \
 	gs-debug.c                                      \
 	gs-debug.h                                      \
 	subprocs.c                                      \

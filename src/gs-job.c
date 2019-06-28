@@ -42,6 +42,8 @@
 
 #include "gs-debug.h"
 #include "gs-job.h"
+#include "gs-prefs.h"
+#include "gs-theme-manager.h"
 #include "subprocs.h"
 
 static void gs_job_class_init (GSJobClass *klass);
@@ -64,6 +66,8 @@ struct GSJobPrivate {
     guint           watch_id;
 
     char           *command;
+    GSPrefs        *prefs;
+    GSThemeManager *theme_manager;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (GSJob, gs_job, G_TYPE_OBJECT)
@@ -89,6 +93,8 @@ gs_job_class_init (GSJobClass *klass) {
 static void
 gs_job_init (GSJob *job) {
     job->priv = gs_job_get_instance_private (job);
+    job->priv->theme_manager = gs_theme_manager_new ();
+    job->priv->prefs = gs_prefs_new();
 }
 
 /* adapted from gspawn.c */
@@ -151,6 +157,8 @@ gs_job_finalize (GObject *object) {
     g_free (job->priv->command);
     job->priv->command = NULL;
 
+    g_object_unref (job->priv->prefs);
+    g_object_unref (job->priv->theme_manager);
     G_OBJECT_CLASS (gs_job_parent_class)->finalize (object);
 }
 
@@ -168,6 +176,31 @@ gs_job_set_widget  (GSJob     *job,
             gs_job_stop (job);
             gs_job_start (job);
         }
+    }
+}
+
+static void
+gs_job_set_theme(GSJob *job) {
+    GSThemeInfo *info;
+    const char  *theme;
+    const char  *command = NULL;
+
+    theme = gs_prefs_get_theme (job->priv->prefs);
+    if (!theme) {
+        gs_job_set_command (job, NULL);
+        return;
+    }
+    info = gs_theme_manager_lookup_theme_info (job->priv->theme_manager, theme);
+    if (info != NULL) {
+        command = gs_theme_info_get_exec (info);
+    } else {
+        gs_debug ("Could not find information for theme: %s", theme);
+    }
+
+    gs_job_set_command (job, command);
+
+    if (info != NULL) {
+        gs_theme_info_unref (info);
     }
 }
 
@@ -201,6 +234,7 @@ gs_job_new_for_widget (GtkWidget *widget) {
     job = g_object_new (GS_TYPE_JOB, NULL);
 
     gs_job_set_widget (GS_JOB (job), widget);
+    gs_job_set_theme (GS_JOB (job));
 
     return GS_JOB (job);
 }
