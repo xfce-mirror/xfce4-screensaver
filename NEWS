@@ -1,3 +1,22 @@
+0.1.6 (beta)
+============
+- Bug Fixes:
+  - Fixed flickering in the password dialog
+  - Fixed password dialog appearance, visual artifacts with various
+    themes are resolved
+  - Remove reference to pkg-config file (.pc) (Xfce #15597)
+- Code Cleanup:
+  - Cleaned up kdb-indicator logic
+  - Consolidated debug function calls
+  - Moved job theme processing out of gs-manager
+  - Removed drag-and-drop theme installation
+  - Removed placeholder widgets from the glade template
+  - Removed unused callbacks
+  - Simplified handling of user preferences
+- Translation Updates:
+  Armenian (Armenia), Hebrew, Hungarian, Malay, Portuguese,
+  Portuguese (Brazil), Russian
+
 0.1.5 (beta)
 ============
 - Features:
