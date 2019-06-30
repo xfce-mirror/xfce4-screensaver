@@ -27,11 +27,7 @@
 #include <stdlib.h>
 
 #include <glib.h>
-
-#define DBUS_API_SUBJECT_TO_CHANGE
-#include <dbus/dbus.h>
-#include <dbus/dbus-glib.h>
-#include <dbus/dbus-glib-lowlevel.h>
+#include <gio/gio.h>
 
 #include <libxfce4util/libxfce4util.h>
 
@@ -108,320 +104,168 @@ static GOptionEntry entries[] = {
 
 static GMainLoop *loop = NULL;
 
-static gboolean
-screensaver_is_running (DBusConnection *connection) {
-    DBusError error;
-    gboolean  exists;
+static GDBusMessage *
+screensaver_send_message (GDBusConnection *conn,
+                          const char      *name,
+                          GVariant        *body,
+                          gboolean         expect_reply) {
+    GDBusMessage *message;
+    GDBusMessage *reply = NULL;
+    GError       *error = NULL;
 
-    g_return_val_if_fail (connection != NULL, FALSE);
-
-    dbus_error_init (&error);
-    exists = dbus_bus_name_has_owner (connection, GS_SERVICE, &error);
-    if (dbus_error_is_set (&error))
-        dbus_error_free (&error);
-
-    return exists;
-}
-
-static DBusMessage *
-screensaver_send_message_inhibit (DBusConnection *connection,
-                                  const char     *application,
-                                  const char     *reason) {
-    DBusMessage     *message;
-    DBusMessage     *reply;
-    DBusError        error;
-    DBusMessageIter  iter;
-
-    g_return_val_if_fail (connection != NULL, NULL);
-
-    dbus_error_init (&error);
-
-    message = dbus_message_new_method_call (GS_SERVICE, GS_PATH, GS_INTERFACE, "Inhibit");
-    if (message == NULL) {
-        g_warning ("Couldn't allocate the dbus message");
-        return NULL;
-    }
-
-    dbus_message_iter_init_append (message, &iter);
-    dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &application);
-    dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &reason);
-
-    reply = dbus_connection_send_with_reply_and_block (connection,
-                                                       message,
-                                                       -1, &error);
-    if (dbus_error_is_set (&error)) {
-        g_warning ("%s raised:\n %s\n\n", error.name, error.message);
-        reply = NULL;
-    }
-
-    dbus_connection_flush (connection);
-
-    dbus_message_unref (message);
-    dbus_error_free (&error);
-
-    return reply;
-}
-
-static DBusMessage *
-screensaver_send_message_bool (DBusConnection *connection,
-                               const char     *name,
-                               gboolean        value) {
-    DBusMessage     *message;
-    DBusMessage     *reply;
-    DBusError        error;
-    DBusMessageIter  iter;
-
-    g_return_val_if_fail (connection != NULL, NULL);
+    g_return_val_if_fail (conn != NULL, NULL);
     g_return_val_if_fail (name != NULL, NULL);
 
-    dbus_error_init (&error);
-
-    message = dbus_message_new_method_call (GS_SERVICE, GS_PATH, GS_INTERFACE, name);
+    message = g_dbus_message_new_method_call (GS_SERVICE, GS_PATH,  GS_INTERFACE, name);
     if (message == NULL) {
         g_warning ("Couldn't allocate the dbus message");
         return NULL;
     }
 
-    dbus_message_iter_init_append (message, &iter);
-    dbus_message_iter_append_basic (&iter, DBUS_TYPE_BOOLEAN, &value);
-
-    reply = dbus_connection_send_with_reply_and_block (connection,
-            message,
-            -1, &error);
-    if (dbus_error_is_set (&error)) {
-        g_warning ("%s raised:\n %s\n\n", error.name, error.message);
-        reply = NULL;
-    }
-
-    dbus_connection_flush (connection);
-
-    dbus_message_unref (message);
-    dbus_error_free (&error);
-
-    return reply;
-}
-
-static DBusMessage *
-screensaver_send_message_void (DBusConnection *connection,
-                               const char     *name,
-                               gboolean        expect_reply) {
-    DBusMessage *message;
-    DBusMessage *reply;
-    DBusError    error;
-
-    g_return_val_if_fail (connection != NULL, NULL);
-    g_return_val_if_fail (name != NULL, NULL);
-
-    dbus_error_init (&error);
-
-    message = dbus_message_new_method_call (GS_SERVICE, GS_PATH, GS_INTERFACE, name);
-    if (message == NULL) {
-        g_warning ("Couldn't allocate the dbus message");
-        return NULL;
-    }
+    if (body)
+        g_dbus_message_set_body (message, body);
 
     if (!expect_reply) {
-        if (!dbus_connection_send (connection, message, NULL))
-            g_warning ("could not send message");
-        reply = NULL;
+        g_dbus_connection_send_message (conn, message, G_DBUS_SEND_MESSAGE_FLAGS_NONE,
+                                        NULL, &error);
     } else {
-        reply = dbus_connection_send_with_reply_and_block (connection,
-                message,
-                -1, &error);
-        if (dbus_error_is_set (&error)) {
-            g_warning ("%s raised:\n %s\n\n", error.name, error.message);
-            reply = NULL;
-        }
+        reply = g_dbus_connection_send_message_with_reply_sync (conn, message,
+                                                                G_DBUS_SEND_MESSAGE_FLAGS_NONE,
+                                                                -1, NULL, NULL, &error);
     }
-    dbus_connection_flush (connection);
+    if (error != NULL) {
+        g_warning ("unable to send message: %s", error->message);
+        g_clear_error (&error);
+    }
 
-    dbus_message_unref (message);
-    dbus_error_free (&error);
-
+    g_dbus_connection_flush_sync (conn, NULL, &error);
+    if (error != NULL) {
+        g_warning ("unable to flush message queue: %s", error->message);
+        g_clear_error (&error);
+    }
+    g_object_unref (message);
     return reply;
 }
 
-static char **
-get_string_from_iter (DBusMessageIter *iter,
-                      int             *num_elements) {
-    int    count;
-    char **buffer;
+static gboolean
+screensaver_is_running (GDBusConnection *connection)
+{
+        GVariant *reply;
+        gboolean exists = FALSE;
 
-    if (num_elements != NULL) {
-        *num_elements = 0;
-    }
+        g_return_val_if_fail (connection != NULL, FALSE);
 
-    count = 0;
-    buffer = (char **)malloc (sizeof (char *) * 8);
-
-    if (buffer == NULL) {
-        goto oom;
-    }
-
-    buffer[0] = NULL;
-    while (dbus_message_iter_get_arg_type (iter) == DBUS_TYPE_STRING) {
-        const char *value;
-        char       *str;
-
-        if ((count % 8) == 0 && count != 0) {
-            buffer = realloc (buffer, sizeof (char *) * (count + 8));
-            if (buffer == NULL) {
-                goto oom;
-            }
+        reply = g_dbus_connection_call_sync (connection,
+                                             "org.freedesktop.DBus",
+                                             "/org/freedesktop/DBus",
+                                             "org.freedesktop.DBus",
+                                             "GetNameOwner",
+                                             g_variant_new ("(s)", GS_SERVICE),
+                                             NULL,
+                                             G_DBUS_CALL_FLAGS_NO_AUTO_START,
+                                             -1,
+                                             NULL,
+                                             NULL);
+        if (reply != NULL) {
+                exists = TRUE;
+                g_variant_unref (reply);
         }
 
-        dbus_message_iter_get_basic (iter, &value);
-        str = strdup (value);
-        if (str == NULL) {
-            goto oom;
-        }
-
-        buffer[count] = str;
-
-        dbus_message_iter_next (iter);
-        count++;
-    }
-
-    if ((count % 8) == 0) {
-        buffer = realloc (buffer, sizeof (char *) * (count + 1));
-        if (buffer == NULL) {
-            goto oom;
-        }
-    }
-
-    buffer[count] = NULL;
-    if (num_elements != NULL) {
-        *num_elements = count;
-    }
-    return buffer;
-
-oom:
-    if (buffer != NULL) {
-        free (buffer);
-    }
-    g_debug ("%s %d : error allocating memory\n", __FILE__, __LINE__);
-    return NULL;
+        return exists;
 }
 
 static gboolean
-do_command (DBusConnection *connection) {
-    DBusMessage *reply;
+do_command (GDBusConnection *conn) {
+    GDBusMessage *reply;
+
+    if (!screensaver_is_running (conn)) {
+        g_message ("Screensaver is not running! Start xfce4-screensaver first");
+        goto done;
+    }
 
     if (do_quit) {
-        reply = screensaver_send_message_void (connection, "Quit", FALSE);
+        reply = screensaver_send_message (conn, "Quit", NULL, FALSE);
         goto done;
     }
 
     if (do_query) {
-        DBusMessageIter iter;
-        DBusMessageIter array;
-        dbus_bool_t     v;
+        GVariant     *body;
+        GVariantIter *iter;
+        gboolean      is_active;
+        gchar        *str;
 
-        reply = screensaver_send_message_void (connection, "GetActive", TRUE);
+        reply = screensaver_send_message (conn, "GetActive", NULL, TRUE);
         if (!reply) {
             g_message ("Did not receive a reply from the screensaver.");
             goto done;
         }
 
-        dbus_message_iter_init (reply, &iter);
-        dbus_message_iter_get_basic (&iter, &v);
-        g_print (_("The screensaver is %s\n"), v ? _("active") : _("inactive"));
+        body = g_dbus_message_get_body (reply);
+        g_variant_get (body, "(b)", &is_active);
+        g_object_unref (reply);
+        g_print (_("The screensaver is %s\n"), is_active ? _("active") : _("inactive"));
 
-        dbus_message_unref (reply);
-
-        reply = screensaver_send_message_void (connection, "GetInhibitors", TRUE);
+        reply = screensaver_send_message (conn, "GetInhibitors", NULL, TRUE);
         if (!reply) {
             g_message ("Did not receive a reply from screensaver.");
             goto done;
         }
+        body = g_dbus_message_get_body (reply);
+        g_object_unref (reply);
 
-        dbus_message_iter_init (reply, &iter);
-        dbus_message_iter_recurse (&iter, &array);
-
-        if (dbus_message_iter_get_arg_type (&array) == DBUS_TYPE_INVALID) {
+        if (g_variant_n_children(body) <= 0) {
             g_print (_("The screensaver is not inhibited\n"));
         } else {
-            char **inhibitors;
-            int    i;
-            int    num;
-
+            g_variant_get (body, "s", &iter);
             g_print (_("The screensaver is being inhibited by:\n"));
-            inhibitors = get_string_from_iter (&array, &num);
-            for (i = 0; i < num; i++) {
-                g_print ("\t%s\n", inhibitors[i]);
+            while (g_variant_iter_loop (iter, "s", &str)) {
+                g_print ("\t%s\n", str);
             }
-            g_strfreev (inhibitors);
+            g_variant_iter_free (iter);
         }
-
-        dbus_message_unref (reply);
     }
 
     if (do_time) {
-        DBusMessageIter iter;
-        dbus_bool_t     v;
-        dbus_int32_t    t;
+        GVariant *body;
+        guint32   t;
 
-        reply = screensaver_send_message_void (connection, "GetActive", TRUE);
-        if (!reply) {
-            g_message ("Did not receive a reply from the screensaver.");
-            goto done;
-        }
-
-        dbus_message_iter_init (reply, &iter);
-        dbus_message_iter_get_basic (&iter, &v);
-        dbus_message_unref (reply);
-
-        if (v) {
-            reply = screensaver_send_message_void (connection, "GetActiveTime", TRUE);
-            dbus_message_iter_init (reply, &iter);
-            dbus_message_iter_get_basic (&iter, &t);
-            g_print (_("The screensaver has been active for %d seconds.\n"), t);
-
-            dbus_message_unref (reply);
-        } else {
-            g_print (_("The screensaver is not currently active.\n"));
-        }
+        reply = screensaver_send_message (conn, "GetActiveTime", NULL, TRUE);
+        body = g_dbus_message_get_body (reply);
+        g_variant_get (body, "(u)", &t);
+        g_print (_("The screensaver has been active for %d seconds.\n"), t);
+        g_object_unref (reply);
     }
 
     if (do_lock) {
-        screensaver_send_message_void (connection, "Lock", FALSE);
+        screensaver_send_message (conn, "Lock", NULL, FALSE);
     }
 
     if (do_cycle) {
-        screensaver_send_message_void (connection, "Cycle", FALSE);
+        screensaver_send_message (conn, "Cycle", NULL, FALSE);
     }
 
     if (do_poke) {
-        screensaver_send_message_void (connection, "SimulateUserActivity", FALSE);
+        screensaver_send_message (conn, "SimulateUserActivity", NULL, FALSE);
     }
 
     if (do_activate) {
-        reply = screensaver_send_message_bool (connection, "SetActive", TRUE);
-        if (!reply) {
-            g_message ("Did not receive a reply from the screensaver.");
-            goto done;
-        }
-        dbus_message_unref (reply);
+        reply = screensaver_send_message (conn, "SetActive", g_variant_new ("(b)", TRUE), FALSE);
     }
 
     if (do_deactivate) {
-        reply = screensaver_send_message_bool (connection, "SetActive", FALSE);
-        if (!reply) {
-            g_message ("Did not receive a reply from the screensaver.");
-            goto done;
-        }
-        dbus_message_unref (reply);
+        reply = screensaver_send_message (conn, "SetActive", g_variant_new ("(b)", FALSE), TRUE);
     }
 
     if (do_inhibit) {
-        reply = screensaver_send_message_inhibit (connection,
-                                                  inhibit_application ? inhibit_application : "Unknown",
-                                                  inhibit_reason ? inhibit_reason : "Unknown");
+        GVariant *body;
+        body = g_variant_new ("(ss)", inhibit_application ? inhibit_application : "Unknown",
+                                    inhibit_reason ? inhibit_reason : "Unknown"); 
+        reply = screensaver_send_message (conn, "Inhibit", body, TRUE);
         if (!reply) {
             g_message ("Did not receive a reply from the screensaver.");
             goto done;
         }
-        dbus_message_unref (reply);
+        g_object_unref (reply);
 
         return FALSE;
     }
@@ -435,8 +279,7 @@ done:
 int
 main (int    argc,
       char **argv) {
-    DBusConnection *connection;
-    DBusError       dbus_error;
+    GDBusConnection *conn;
     GOptionContext *context;
     gboolean        retval;
     GError         *error = NULL;
@@ -471,25 +314,16 @@ main (int    argc,
         exit (1);
     }
 
-    dbus_error_init (&dbus_error);
-    connection = dbus_bus_get (DBUS_BUS_SESSION, &dbus_error);
-    if (!connection) {
-        g_message ("Failed to connect to the D-BUS daemon: %s", dbus_error.message);
-        dbus_error_free (&dbus_error);
-        exit (1);
+    conn = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error);
+    if (conn == NULL) {
+            g_message ("Failed to get session bus: %s", error->message);
+            g_error_free (error);
+            return EXIT_FAILURE;
     }
-
-    dbus_connection_setup_with_g_main (connection, NULL);
-
-    if (!screensaver_is_running (connection)) {
-        g_message ("Screensaver is not running!");
-        exit (1);
-    }
-
-    g_idle_add ((GSourceFunc)do_command, connection);
+    g_idle_add ((GSourceFunc)do_command, conn);
 
     loop = g_main_loop_new (NULL, FALSE);
     g_main_loop_run (loop);
-
+    g_object_unref (conn);
     return 0;
 }
