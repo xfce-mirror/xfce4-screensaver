@@ -125,7 +125,6 @@ enum {
 enum {
     PROP_0,
     PROP_ACTIVE,
-    PROP_SESSION_IDLE,
 };
 
 enum {
@@ -312,10 +311,6 @@ listener_check_activation (GSListener *listener) {
         return TRUE;
     }
 
-    if (!listener->priv->session_idle) {
-        return TRUE;
-    }
-
     /* if we aren't inhibited then activate */
     inhibited = listener_ref_entry_is_present (listener, REF_ENTRY_TYPE_INHIBIT);
 
@@ -358,28 +353,9 @@ listener_check_throttle (GSListener *listener) {
 }
 
 static gboolean
-listener_set_session_idle_internal (GSListener *listener,
-                                    gboolean    idle) {
-    listener->priv->session_idle = idle;
-
-    if (idle) {
-        listener->priv->session_idle_start = time (NULL);
-    } else {
-        listener->priv->session_idle_start = 0;
-    }
-
-    return TRUE;
-}
-
-static gboolean
 listener_set_active_internal (GSListener *listener,
                               gboolean    active) {
     listener->priv->active = active;
-
-    /* if idle not in sync with active, change it */
-    if (listener->priv->session_idle != active) {
-        listener_set_session_idle_internal (listener, active);
-    }
 
     if (active) {
         listener->priv->active_start = time (NULL);
@@ -405,63 +381,10 @@ gs_listener_set_active (GSListener *listener,
         return FALSE;
     }
 
-    res = FALSE;
     g_signal_emit (listener, signals[ACTIVE_CHANGED], 0, active, &res);
-    if (!res) {
-        /* if the signal is not handled then we haven't changed state */
-        gs_debug ("Active-changed signal not handled");
-
-        /* clear the idle state */
-        if (active) {
-            listener_set_session_idle_internal (listener, FALSE);
-        }
-
-        return FALSE;
-    }
-
     listener_set_active_internal (listener, active);
 
     return TRUE;
-}
-
-gboolean
-gs_listener_set_session_idle (GSListener *listener,
-                              gboolean    idle) {
-    gboolean res;
-
-    g_return_val_if_fail (GS_IS_LISTENER (listener), FALSE);
-
-    gs_debug ("Setting session idle: %d", idle);
-
-    if (listener->priv->session_idle == idle) {
-        gs_debug ("Trying to set idle state when already %s",
-                  idle ? "idle" : "not idle");
-        return FALSE;
-    }
-
-    if (idle) {
-        gboolean inhibited;
-
-        inhibited = listener_ref_entry_is_present (listener, REF_ENTRY_TYPE_INHIBIT);
-
-        /* if we are inhibited then do nothing */
-        if (inhibited) {
-            return FALSE;
-        }
-    }
-
-    listener->priv->session_idle = idle;
-    res = listener_check_activation (listener);
-
-    /* if activation fails then don't set idle */
-    if (res) {
-        listener_set_session_idle_internal (listener, idle);
-    } else {
-        gs_debug ("Idle activation failed");
-        listener->priv->session_idle = !idle;
-    }
-
-    return res;
 }
 
 static dbus_bool_t
@@ -1751,9 +1674,6 @@ gs_listener_set_property (GObject      *object,
         case PROP_ACTIVE:
             gs_listener_set_active (self, g_value_get_boolean (value));
             break;
-        case PROP_SESSION_IDLE:
-            gs_listener_set_session_idle (self, g_value_get_boolean (value));
-            break;
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
             break;
@@ -1772,9 +1692,6 @@ gs_listener_get_property (GObject    *object,
     switch (prop_id) {
         case PROP_ACTIVE:
             g_value_set_boolean (value, self->priv->active);
-            break;
-        case PROP_SESSION_IDLE:
-            g_value_set_boolean (value, self->priv->session_idle);
             break;
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
