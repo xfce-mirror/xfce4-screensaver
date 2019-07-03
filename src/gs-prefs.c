@@ -127,7 +127,7 @@ _gs_prefs_set_lock_timeout (GSPrefs *prefs,
     if (value > 480)
         value = 480;
 
-    prefs->lock_timeout = value * 60000;
+    prefs->lock_timeout = value;
 }
 
 static void

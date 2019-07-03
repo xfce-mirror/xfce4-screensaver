@@ -365,8 +365,8 @@ add_lock_timer (GSManager *manager,
     if (locked)
         return;
 
-    gs_debug ("Scheduling screen lock after screensaver is idling for %i sec", timeout / 1000);
-    manager->priv->lock_timeout_id = g_timeout_add (timeout,
+    gs_debug ("Scheduling screen lock after screensaver is idling for %i sec", timeout);
+    manager->priv->lock_timeout_id = g_timeout_add (timeout * 60000,
                                                     (GSourceFunc)activate_lock_timeout,
                                                     manager);
 }

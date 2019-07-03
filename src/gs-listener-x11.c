@@ -43,13 +43,14 @@ static void         gs_listener_x11_class_init      (GSListenerX11Class *klass);
 static void         gs_listener_x11_init            (GSListenerX11      *listener);
 static void         gs_listener_x11_finalize        (GObject            *object);
 
-static void         reset_lock_timer                (GSListenerX11      *listener,
+static void         reset_timer                     (GSListenerX11      *listener,
                                                      guint               timeout);
 
 struct GSListenerX11Private {
     int scrnsaver_event_base;
+    gint     timeout;
     gint     lock_timeout;
-    guint    lock_timer_id;
+    guint    timer_id;
     GSPrefs *prefs;
 };
 
@@ -108,24 +109,35 @@ get_x11_idle_info (guint *idle_time,
 
 static gboolean
 lock_timer (GSListenerX11 *listener) {
-    guint idle_time;
-    gint  state;
+    guint    idle_time;
+    guint    lock_time = 0;
+    gint     state;
+    gboolean lock_state;
 
     if (!listener->priv->prefs->saver_enabled)
         return TRUE;
 
     get_x11_idle_info (&idle_time, &state);
-    gs_debug("Lock Timeout: %is, Idle: %is, Idle Activation: %s, Screensaver: %s, Lock State: %s",
-             listener->priv->lock_timeout,
+    if (idle_time > listener->priv->timeout) {
+        lock_time = idle_time - listener->priv->timeout;
+    }
+    lock_state = (state == ScreenSaverOn &&
+                  listener->priv->prefs->lock_with_saver_enabled &&
+                  lock_time >= listener->priv->lock_timeout);
+
+    gs_debug("Idle: %is, Saver: %s, Saver Timeout: %is, Lock: %s, Lock Timeout: %is, Lock Timer: %is, Lock Status: %s",
              idle_time,
              listener->priv->prefs->idle_activation_enabled ? "Enabled" : "Disabled",
-             state == ScreenSaverDisabled ? "Disabled" : "Enabled",
-             state == ScreenSaverOn ? "Locked" : "Unlocked");
+             listener->priv->timeout,
+             listener->priv->prefs->lock_with_saver_enabled ? "Enabled" : "Disabled",
+             listener->priv->lock_timeout,
+             lock_time,
+             lock_state ? "Locked" : "Unlocked");
 
     if (listener->priv->prefs->idle_activation_enabled &&
-            idle_time >= listener->priv->lock_timeout &&
+            idle_time >= listener->priv->timeout &&
             state != ScreenSaverDisabled) {
-        if (state == ScreenSaverOn)
+        if (lock_state)
             g_signal_emit(listener, signals[LOCK], 0);
         else
             g_signal_emit(listener, signals[ACTIVATE], 0);
@@ -133,10 +145,10 @@ lock_timer (GSListenerX11 *listener) {
         switch (state) {
             case ScreenSaverOff:
                 // Reset the lock timer
-                if (idle_time < listener->priv->lock_timeout) {
-                    reset_lock_timer(listener, listener->priv->lock_timeout - idle_time);
+                if (idle_time < listener->priv->timeout) {
+                    reset_timer(listener, listener->priv->timeout - idle_time);
                 } else {
-                    reset_lock_timer(listener, 30);
+                    reset_timer(listener, 30);
                 }
                 return FALSE;
                 break;
@@ -147,7 +159,8 @@ lock_timer (GSListenerX11 *listener) {
 
             case ScreenSaverOn:
                 // lock now!
-                g_signal_emit(listener, signals[LOCK], 0);
+                if (lock_state)
+                    g_signal_emit(listener, signals[LOCK], 0);
                 break;
         }
     }
@@ -157,20 +170,20 @@ lock_timer (GSListenerX11 *listener) {
 
 static void
 remove_lock_timer(GSListenerX11 *listener) {
-    if (listener->priv->lock_timer_id != 0) {
-        g_source_remove(listener->priv->lock_timer_id);
-        listener->priv->lock_timer_id = 0;
+    if (listener->priv->timer_id != 0) {
+        g_source_remove(listener->priv->timer_id);
+        listener->priv->timer_id = 0;
     }
 }
 
 static void
-reset_lock_timer(GSListenerX11 *listener,
-                 guint          timeout) {
+reset_timer(GSListenerX11 *listener,
+            guint          timeout) {
     remove_lock_timer(listener);
 
-    listener->priv->lock_timer_id = g_timeout_add_seconds(timeout,
-                                                          (GSourceFunc)lock_timer,
-                                                          listener);
+    listener->priv->timer_id = g_timeout_add_seconds(timeout,
+                                                     (GSourceFunc)lock_timer,
+                                                     listener);
 }
 
 static GdkFilterReturn
@@ -200,7 +213,7 @@ xroot_filter (GdkXEvent *xevent,
                 case ScreenSaverDisabled:
                     // Reset the lock timer
                     gs_debug("ScreenSaver timer reset");
-                    reset_lock_timer(listener, listener->priv->lock_timeout);
+                    reset_timer(listener, listener->priv->timeout);
                     break;
 
                 case ScreenSaverOn:
@@ -248,18 +261,30 @@ gs_listener_x11_acquire (GSListenerX11 *listener) {
     return TRUE;
 }
 
-void
-gs_listener_x11_set_timeout (GSListenerX11 *listener) {
+static void
+gs_listener_x11_set_timeouts (GSListenerX11 *listener) {
     Display *display = gdk_x11_display_get_xdisplay(gdk_display_get_default());
-    gint     lock_timeout = listener->priv->prefs->timeout * 60;
+    gint     timeout = listener->priv->prefs->timeout * 60;
+    gint     lock_timeout = listener->priv->prefs->lock_timeout * 60;
+    gboolean trigger_reset_timer = FALSE;
 
     /* set X server timeouts and disable screen blanking */
-    XSetScreenSaver(display, lock_timeout, lock_timeout, 0, 0);
+    XSetScreenSaver(display, timeout, timeout, 0, 0);
+
+    if (listener->priv->timeout != timeout) {
+        listener->priv->timeout = timeout;
+        gs_debug("Saver timeout updated to %i seconds", timeout);
+        trigger_reset_timer = TRUE;
+    }
 
     if (listener->priv->lock_timeout != lock_timeout) {
         listener->priv->lock_timeout = lock_timeout;
-        reset_lock_timer(listener, lock_timeout);
         gs_debug("Lock timeout updated to %i seconds", lock_timeout);
+        trigger_reset_timer = TRUE;
+    }
+
+    if (trigger_reset_timer) {
+        reset_timer(listener, timeout);
     }
 }
 
@@ -267,11 +292,11 @@ static void
 gs_listener_x11_init (GSListenerX11 *listener) {
     listener->priv = gs_listener_x11_get_instance_private (listener);
 
-    listener->priv->lock_timeout = 0;
+    listener->priv->timeout = 0;
 
     listener->priv->prefs = gs_prefs_new();
-    gs_listener_x11_set_timeout (listener);
-    g_signal_connect_swapped(listener->priv->prefs, "changed", G_CALLBACK(gs_listener_x11_set_timeout), listener);
+    gs_listener_x11_set_timeouts (listener);
+    g_signal_connect_swapped(listener->priv->prefs, "changed", G_CALLBACK(gs_listener_x11_set_timeouts), listener);
 }
 
 static void
@@ -286,7 +311,7 @@ gs_listener_x11_finalize (GObject *object) {
     g_return_if_fail (listener->priv != NULL);
 
     gdk_window_remove_filter (NULL, (GdkFilterFunc)xroot_filter, NULL);
-    g_signal_handlers_disconnect_by_func(listener->priv->prefs, gs_listener_x11_set_timeout, listener);
+    g_signal_handlers_disconnect_by_func(listener->priv->prefs, gs_listener_x11_set_timeouts, listener);
 
     G_OBJECT_CLASS (gs_listener_x11_parent_class)->finalize (object);
 }
