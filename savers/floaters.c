@@ -197,9 +197,9 @@ struct _ScreenSaver {
     GList *floaters;
     gint max_floater_count;
 
-    guint should_do_rotations: 1;
-    guint should_show_paths : 1;
-    guint draw_ops_pending : 1;
+    gboolean should_do_rotations: 1;
+    gboolean should_show_paths : 1;
+    gboolean draw_ops_pending : 1;
 };
 
 static Path *path_new (Point *start_point,
@@ -827,6 +827,7 @@ screen_saver_new (GtkWidget   *drawing_area,
 
     screen_saver->should_show_paths = should_show_paths;
     screen_saver->should_do_rotations = should_do_rotations;
+    screen_saver->draw_ops_pending = TRUE;
 
     screen_saver_get_initial_state (screen_saver);
 
