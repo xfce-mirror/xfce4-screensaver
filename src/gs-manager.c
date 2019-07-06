@@ -765,10 +765,8 @@ manager_show_window (GSManager *manager,
 
     manager->priv->activate_time = time (NULL);
 
-    if (manager->priv->prefs->lock_timeout >= 0) {
-        remove_lock_timer (manager);
-        add_lock_timer (manager, manager->priv->prefs->lock_timeout);
-    }
+    remove_lock_timer (manager);
+    add_lock_timer (manager, manager->priv->prefs->lock_timeout);
 
     if (manager->priv->prefs->cycle >= 10000) {
         remove_cycle_timer (manager);
