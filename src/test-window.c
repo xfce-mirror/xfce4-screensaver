@@ -28,6 +28,7 @@
 #include <gtk/gtk.h>
 
 #include <libxfce4util/libxfce4util.h>
+#include <xfconf/xfconf.h>
 
 #include "gs-debug.h"
 #include "gs-grab.h"
@@ -141,6 +142,13 @@ main (int    argc,
         fprintf (stderr, "%s", error->message);
         g_error_free (error);
         exit (1);
+    }
+
+    if (!xfconf_init(&error)) {
+        g_error("Failed to connect to xfconf daemon: %s.", error->message);
+        g_error_free(error);
+
+        exit(1);
     }
 
     gs_debug_init (TRUE, FALSE);
