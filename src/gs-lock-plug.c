@@ -59,12 +59,8 @@
 #define GDM_FLEXISERVER_COMMAND "gdmflexiserver"
 #define GDM_FLEXISERVER_ARGS    "--startnew Standard"
 
-enum {
-    AUTH_PAGE = 0,
-};
-
 #define FACE_ICON_SIZE 48
-#define DIALOG_TIMEOUT_MSEC 60000
+#define DIALOG_TIMEOUT_SEC 60
 
 static void gs_lock_plug_finalize   (GObject         *object);
 
@@ -97,8 +93,6 @@ struct GSLockPlugPrivate {
     gboolean     logout_enabled;
     char        *logout_command;
     char        *status_message;
-
-    guint        timeout;
 
     guint        datetime_timeout_id;
     guint        cancel_timeout_id;
@@ -334,15 +328,11 @@ remove_response_idle (GSLockPlug *plug) {
 static void
 gs_lock_plug_response (GSLockPlug *plug,
                        gint        response_id) {
-    int new_response;
-
-    new_response = response_id;
-
     g_return_if_fail (GS_IS_LOCK_PLUG (plug));
 
     /* Act only on response IDs we recognize */
-    if (!(response_id == GS_LOCK_PLUG_RESPONSE_OK
-            || response_id == GS_LOCK_PLUG_RESPONSE_CANCEL)) {
+    if (!(response_id == GS_LOCK_PLUG_RESPONSE_OK ||
+          response_id == GS_LOCK_PLUG_RESPONSE_CANCEL)) {
         return;
     }
 
@@ -353,10 +343,7 @@ gs_lock_plug_response (GSLockPlug *plug,
         gtk_entry_set_text (GTK_ENTRY (plug->priv->auth_prompt_entry), "");
     }
 
-    g_signal_emit (plug,
-                   lock_plug_signals[RESPONSE],
-                   0,
-                   new_response);
+    g_signal_emit (plug, lock_plug_signals[RESPONSE], 0, response_id);
 }
 
 static gboolean
@@ -406,25 +393,21 @@ capslock_update (GSLockPlug *plug,
 static gboolean
 is_capslock_on (void) {
     GdkKeymap *keymap;
-    gboolean res;
-
-    res = FALSE;
 
     keymap = gdk_keymap_get_for_display (gdk_display_get_default());;
-    if (keymap != NULL) {
-        res = gdk_keymap_get_caps_lock_state (keymap);
-    }
+    if (keymap == NULL)
+        return FALSE;
 
-    return res;
+    return gdk_keymap_get_caps_lock_state (keymap);
 }
 
 static void
 restart_cancel_timeout (GSLockPlug *plug) {
     remove_cancel_timeout (plug);
-
-    plug->priv->cancel_timeout_id = g_timeout_add (plug->priv->timeout,
-                                                   (GSourceFunc)dialog_timed_out,
-                                                   plug);
+    plug->priv->cancel_timeout_id = g_timeout_add_seconds (
+                                       DIALOG_TIMEOUT_SEC,
+                                       (GSourceFunc)dialog_timed_out,
+                                       plug);
 }
 
 void
@@ -664,20 +647,16 @@ get_user_icon_from_accounts_service (void) {
 
 static gboolean
 set_face_image (GSLockPlug *plug) {
-    GdkPixbuf  *pixbuf = get_user_icon_from_accounts_service ();
+    char      *path;
+    GError    *error = NULL;
+    GdkPixbuf *pixbuf;
 
+    pixbuf = get_user_icon_from_accounts_service ();
     if (pixbuf == NULL) {
-        const char *homedir;
-        char       *path;
-        GError     *error = NULL;
-        homedir = g_get_home_dir ();
-        path = g_build_filename (homedir, ".face", NULL);
-
-        pixbuf = gdk_pixbuf_new_from_file_at_scale (path, 80, 80, FALSE,
-                                                    &error);
+        path = g_build_filename (g_get_home_dir(), ".face", NULL);
+        pixbuf = gdk_pixbuf_new_from_file_at_scale (path, 80, 80, FALSE, &error);
         if (pixbuf == NULL) {
-            g_warning ("Could not load the user avatar: %s",
-                       error->message);
+            g_warning ("Could not load the user avatar: %s", error->message);
             g_error_free (error);
             return FALSE;
         }
@@ -1609,8 +1588,6 @@ gs_lock_plug_init (GSLockPlug *plug) {
             gtk_widget_hide (plug->priv->auth_logout_button);
         }
     }
-
-    plug->priv->timeout = DIALOG_TIMEOUT_MSEC;
 
     g_signal_connect (plug, "key_press_event",
                       G_CALLBACK (entry_key_press), plug);
