@@ -96,8 +96,6 @@ struct GSWindowPrivate {
     gint             lock_pid;
     gint             lock_watch_id;
     gint             dialog_response;
-    gboolean         dialog_quit_requested;
-    gboolean         dialog_shake_in_progress;
 
     gint             keyboard_pid;
     gint             keyboard_watch_id;
@@ -1170,14 +1168,14 @@ wait_again:
 }
 
 static void
-kill_keyboard_command (GSWindow *window) {
+kill_keyboard_process (GSWindow *window) {
     if (window->priv->keyboard_pid > 0) {
         signal_pid (window->priv->keyboard_pid, SIGTERM);
     }
 }
 
 static void
-kill_dialog_command (GSWindow *window) {
+kill_dialog_process (GSWindow *window) {
     /* If a dialog is up we need to signal it
        and wait on it */
     if (window->priv->lock_pid > 0) {
@@ -1186,11 +1184,11 @@ kill_dialog_command (GSWindow *window) {
 }
 
 static void
-keyboard_command_finish (GSWindow *window) {
+keyboard_process_finish (GSWindow *window) {
     g_return_if_fail (GS_IS_WINDOW (window));
 
     /* send a signal just in case */
-    kill_keyboard_command (window);
+    kill_keyboard_process (window);
 
     gs_debug ("Keyboard finished");
 
@@ -1203,7 +1201,7 @@ keyboard_command_finish (GSWindow *window) {
 }
 
 static gboolean
-keyboard_command_watch (GIOChannel   *source,
+keyboard_process_watch (GIOChannel   *source,
                         GIOCondition  condition,
                         GSWindow     *window) {
     gboolean finished = FALSE;
@@ -1249,7 +1247,7 @@ keyboard_command_watch (GIOChannel   *source,
 
     if (finished) {
         window->priv->keyboard_watch_id = 0;
-        keyboard_command_finish (window);
+        keyboard_process_finish (window);
         return FALSE;
     }
 
@@ -1273,7 +1271,7 @@ embed_keyboard (GSWindow *window) {
     res = spawn_on_window (window,
                            window->priv->prefs->keyboard_command,
                            &window->priv->keyboard_pid,
-                           (GIOFunc)keyboard_command_watch,
+                           (GIOFunc)keyboard_process_watch,
                            window,
                            &window->priv->keyboard_watch_id);
     if (!res) {
@@ -1322,10 +1320,10 @@ gs_window_dialog_finish (GSWindow *window) {
     gs_debug ("Dialog finished");
 
     /* make sure we finish the keyboard thing too */
-    keyboard_command_finish (window);
+    keyboard_process_finish (window);
 
     /* send a signal just in case */
-    kill_dialog_command (window);
+    kill_dialog_process (window);
 
     if (window->priv->lock_pid > 0) {
         wait_on_child (window->priv->lock_pid);
@@ -1336,52 +1334,6 @@ gs_window_dialog_finish (GSWindow *window) {
 
     /* remove events for the case were we failed to show socket */
     remove_key_events (window);
-}
-
-static void
-maybe_kill_dialog (GSWindow *window) {
-    if (!window->priv->dialog_shake_in_progress
-            && window->priv->dialog_quit_requested
-            && window->priv->lock_pid > 0) {
-        kill (window->priv->lock_pid, SIGTERM);
-    }
-}
-
-/* very rudimentary animation for indicating an auth failure */
-static void
-shake_dialog (GSWindow *window) {
-    int   i;
-    guint start, end;
-
-    window->priv->dialog_shake_in_progress = TRUE;
-
-    for (i = 0; i < 8; i++) {
-        if (i % 2 == 0) {
-            start = 30;
-            end = 0;
-        } else {
-            start = 0;
-            end = 30;
-        }
-
-        if (!window->priv->lock_box) {
-            break;
-        }
-
-        gtk_widget_set_margin_start (GTK_WIDGET (window->priv->lock_box),
-                                     start);
-        gtk_widget_set_margin_end (GTK_WIDGET (window->priv->lock_box),
-                                   end);
-
-        while (gtk_events_pending ()) {
-            gtk_main_iteration ();
-        }
-
-        g_usleep (10000);
-    }
-
-    window->priv->dialog_shake_in_progress = FALSE;
-    maybe_kill_dialog (window);
 }
 
 static void
@@ -1425,7 +1377,7 @@ popdown_dialog (GSWindow *window) {
 }
 
 static gboolean
-lock_command_watch (GIOChannel   *source,
+dialog_process_watch (GIOChannel   *source,
                     GIOCondition  condition,
                     GSWindow     *window) {
     gboolean finished = FALSE;
@@ -1452,7 +1404,7 @@ lock_command_watch (GIOChannel   *source,
                     }
                 } else if (strstr (line, "NOTICE=") != NULL) {
                     if (strstr (line, "NOTICE=AUTH FAILED") != NULL) {
-                        shake_dialog (window);
+                        gs_debug ("Authorization failed");
                     }
                 } else if (strstr (line, "RESPONSE=") != NULL) {
                     if (strstr (line, "RESPONSE=OK") != NULL) {
@@ -1465,8 +1417,7 @@ lock_command_watch (GIOChannel   *source,
                     finished = TRUE;
                 } else if (strstr (line, "REQUEST QUIT") != NULL) {
                     gs_debug ("Got request for quit");
-                    window->priv->dialog_quit_requested = TRUE;
-                    maybe_kill_dialog (window);
+                    kill_dialog_process (window);
                 }
                 break;
             case G_IO_STATUS_EOF:
@@ -1591,14 +1542,11 @@ popup_dialog (GSWindow *window) {
     gtk_widget_queue_draw (GTK_WIDGET (window));
     set_invisible_cursor (gtk_widget_get_window (GTK_WIDGET (window)), FALSE);
 
-    window->priv->dialog_quit_requested = FALSE;
-    window->priv->dialog_shake_in_progress = FALSE;
-
     gs_debug ("Executing %s", command->str);
     result = spawn_on_window (window,
                               command->str,
                               &window->priv->lock_pid,
-                              (GIOFunc)lock_command_watch,
+                              (GIOFunc)dialog_process_watch,
                               window,
                               &window->priv->lock_watch_id);
     if (!result) {
