@@ -1529,13 +1529,13 @@ get_draw_dimensions(GSLockPlug *plug,
                     gint       *screen_width,
                     gint       *screen_height,
                     gint       *monitor_width,
-                    gint       *monitor_height) {
+                    gint       *monitor_height,
+                    gint       *scale) {
     GdkWindow    *window;
     GdkDisplay   *display;
     GdkScreen    *screen;
     GdkMonitor   *monitor;
     GdkRectangle  geometry;
-    gint          scale;
 
     window = gtk_widget_get_window (GTK_WIDGET(plug));
     if (window != NULL) {
@@ -1544,7 +1544,7 @@ get_draw_dimensions(GSLockPlug *plug,
         display = gdk_display_get_default();
     }
     screen = gdk_display_get_default_screen(display);
-    scale = gdk_window_get_scale_factor(gdk_screen_get_root_window(screen));
+    *scale = gdk_window_get_scale_factor(gdk_screen_get_root_window(screen));
 
     monitor = gdk_display_get_monitor (display, plug->priv->monitor_index);
     if (!monitor) {
@@ -1560,22 +1560,22 @@ get_draw_dimensions(GSLockPlug *plug,
     xfce_bg_load_from_preferences(bg, monitor);
 
     gdk_monitor_get_geometry(monitor, &geometry);
-    *monitor_width = geometry.width / scale;
-    *monitor_height = geometry.height / scale;
-    *screen_width = WidthOfScreen(gdk_x11_screen_get_xscreen(screen)) / scale;
-    *screen_height = HeightOfScreen(gdk_x11_screen_get_xscreen(screen)) / scale;
+    *monitor_width = geometry.width;
+    *monitor_height = geometry.height;
+    *screen_width = WidthOfScreen(gdk_x11_screen_get_xscreen(screen));
+    *screen_height = HeightOfScreen(gdk_x11_screen_get_xscreen(screen));
 }
 
 static void
 redraw_background (GSLockPlug *plug) {
     XfceBG    *bg;
     GdkPixbuf *pixbuf;
-    gint       screen_width, screen_height, monitor_width, monitor_height;
+    gint       screen_width, screen_height, monitor_width, monitor_height, scale;
 
     gs_debug ("Redrawing background");
     bg = xfce_bg_new();
-    get_draw_dimensions(plug, bg, &screen_width, &screen_height, &monitor_width, &monitor_height);
-    pixbuf = xfce_bg_get_pixbuf(bg, screen_width, screen_height, monitor_width, monitor_height);
+    get_draw_dimensions(plug, bg, &screen_width, &screen_height, &monitor_width, &monitor_height, &scale);
+    pixbuf = xfce_bg_get_pixbuf(bg, screen_width, screen_height, monitor_width, monitor_height, scale);
     gtk_image_set_from_pixbuf(GTK_IMAGE(plug->priv->background_image), pixbuf);
 }
 

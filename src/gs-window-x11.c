@@ -74,6 +74,7 @@ struct GSWindowPrivate {
     GSPrefs         *prefs;
 
     GtkWidget       *vbox;
+    GtkWidget       *overlay;
     GtkWidget       *drawing_area;
     GtkWidget       *lock_box;
     GtkWidget       *lock_socket;
@@ -1022,8 +1023,11 @@ static gboolean
 lock_plug_removed (GtkWidget *widget,
                    GSWindow  *window) {
     gtk_widget_hide (widget);
-    gtk_container_remove (GTK_CONTAINER (window->priv->vbox), GTK_WIDGET (window->priv->lock_box));
+    gtk_container_remove (GTK_CONTAINER (window->priv->overlay), GTK_WIDGET (window->priv->lock_box));
     window->priv->lock_box = NULL;
+
+    gtk_container_remove (GTK_CONTAINER (window->priv->vbox), GTK_WIDGET (window->priv->overlay));
+    window->priv->overlay = NULL;
 
     return TRUE;
 }
@@ -1038,7 +1042,7 @@ static gboolean
 keyboard_plug_removed (GtkWidget *widget,
                        GSWindow  *window) {
     gtk_widget_hide (widget);
-    gtk_container_remove (GTK_CONTAINER (window->priv->vbox), GTK_WIDGET (window->priv->keyboard_socket));
+    gtk_container_remove (GTK_CONTAINER (window->priv->overlay), GTK_WIDGET (window->priv->keyboard_socket));
 
     return TRUE;
 }
@@ -1104,12 +1108,36 @@ lock_socket_destroyed (GtkWidget *widget,
 static void
 create_keyboard_socket (GSWindow *window,
                         guint32   id) {
-    int height;
+    GdkDisplay   *display;
+    GdkMonitor   *monitor;
+    GdkWindow    *g_window;
+    GdkRectangle  geometry;
+    gint screen_height, screen_width;
+    gint height, width;
 
-    height = (HeightOfScreen (gdk_x11_screen_get_xscreen (gtk_widget_get_screen (GTK_WIDGET (window))))) / 4;
+    g_window = gtk_widget_get_window (GTK_WIDGET (window));
+    display = gdk_window_get_display (g_window);
+    monitor = gdk_display_get_monitor_at_window (display, g_window);
+    gdk_monitor_get_geometry (monitor, &geometry);
+
+    screen_height = geometry.height;
+    if (screen_height < 610) {
+        height = 205 - ((610 - screen_height) / 2); // Approximate, based on Greybird
+    } else {
+        height = 205; // Native height for onboard
+    }
+
+    screen_width = geometry.width;
+    if (screen_width < 1400) {
+        width = screen_width;
+    } else {
+        width = 1400; // Native width for onboard
+    }
 
     window->priv->keyboard_socket = gtk_socket_new ();
-    gtk_widget_set_size_request (window->priv->keyboard_socket, -1, height);
+    gtk_widget_set_size_request (window->priv->keyboard_socket, width, height);
+    gtk_widget_set_halign (window->priv->keyboard_socket, GTK_ALIGN_CENTER);
+    gtk_widget_set_valign (window->priv->keyboard_socket, GTK_ALIGN_END);
 
     g_signal_connect (window->priv->keyboard_socket, "destroy",
                       G_CALLBACK (keyboard_socket_destroyed), window);
@@ -1117,7 +1145,8 @@ create_keyboard_socket (GSWindow *window,
                       G_CALLBACK (keyboard_plug_added), window);
     g_signal_connect (window->priv->keyboard_socket, "plug_removed",
                       G_CALLBACK (keyboard_plug_removed), window);
-    gtk_box_pack_start (GTK_BOX (window->priv->vbox), window->priv->keyboard_socket, FALSE, FALSE, 0);
+
+    gtk_overlay_add_overlay (GTK_OVERLAY (window->priv->overlay), window->priv->keyboard_socket);
     gtk_socket_add_id (GTK_SOCKET (window->priv->keyboard_socket), id);
 }
 
@@ -1262,7 +1291,11 @@ create_lock_socket (GSWindow *window,
     gtk_widget_set_valign (GTK_WIDGET (window->priv->lock_box),
                            GTK_ALIGN_CENTER);
     gtk_widget_show (window->priv->lock_box);
-    gtk_box_pack_start (GTK_BOX (window->priv->vbox), window->priv->lock_box, TRUE, TRUE, 0);
+
+    window->priv->overlay = gtk_overlay_new ();
+    gtk_widget_show (window->priv->overlay);
+    gtk_box_pack_start (GTK_BOX (window->priv->vbox), window->priv->overlay, TRUE, TRUE, 0);
+    gtk_overlay_add_overlay (GTK_OVERLAY (window->priv->overlay), window->priv->lock_box);
 
     gtk_container_add (GTK_CONTAINER (window->priv->lock_box), window->priv->lock_socket);
 
@@ -1378,8 +1411,13 @@ popdown_dialog (GSWindow *window) {
     window->priv->last_y = -1;
 
     if (window->priv->lock_box != NULL) {
-        gtk_container_remove (GTK_CONTAINER (window->priv->vbox), GTK_WIDGET (window->priv->lock_box));
+        gtk_container_remove (GTK_CONTAINER (window->priv->overlay), GTK_WIDGET (window->priv->lock_box));
         window->priv->lock_box = NULL;
+    }
+
+    if (window->priv->overlay != NULL) {
+        gtk_container_remove (GTK_CONTAINER (window->priv->vbox), GTK_WIDGET (window->priv->overlay));
+        window->priv->overlay = NULL;
     }
 
     remove_popup_dialog_idle (window);

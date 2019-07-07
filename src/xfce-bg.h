@@ -81,18 +81,12 @@ void              xfce_bg_load_from_preferences (XfceBG     *bg,
                                                  GdkMonitor *monitor);
 
 /* Drawing and thumbnailing */
-cairo_surface_t * xfce_bg_create_surface        (XfceBG     *bg,
-                                                 GdkWindow  *window,
-                                                 int         screen_width,
-                                                 int         screen_height,
-                                                 int         monitor_width,
-                                                 int         monitor_height);
-
 GdkPixbuf *       xfce_bg_get_pixbuf            (XfceBG     *bg,
                                                  int         screen_width,
                                                  int         screen_height,
                                                  int         monitor_width,
-                                                 int         monitor_height);
+                                                 int         monitor_height,
+                                                 int         scale);
 
 G_END_DECLS
 

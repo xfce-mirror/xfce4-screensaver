@@ -185,14 +185,6 @@ static void        xfce_bg_load_from_xfconf (XfceBG           *bg,
                                              XfconfChannel    *channel,
                                              GdkMonitor       *monitor);
 
-static cairo_surface_t * xfce_bg_create_surface_scale (XfceBG *bg,
-                                             GdkWindow        *window,
-                                             int               screen_width,
-                                             int               screen_height,
-                                             int               monitor_width,
-                                             int               monitor_height,
-                                             int               scale);
-
 static void        xfce_bg_set_placement    (XfceBG           *bg,
                                              XfceBGPlacement   placement);
 
@@ -1012,70 +1004,13 @@ xfce_bg_draw (XfceBG    *bg,
     }
 }
 
-static void
-xfce_bg_get_pixmap_size (XfceBG   *bg,
-                         int       width,
-                         int       height,
-                         int      *pixmap_width,
-                         int      *pixmap_height) {
-    int dummy;
-
-    if (!pixmap_width)
-        pixmap_width = &dummy;
-    if (!pixmap_height)
-        pixmap_height = &dummy;
-
-    *pixmap_width = width;
-    *pixmap_height = height;
-
-    if (!bg->filename) {
-        switch (bg->color_type) {
-            case XFCE_BG_COLOR_SOLID:
-            case XFCE_BG_COLOR_TRANSPARENT:
-                *pixmap_width = 1;
-                *pixmap_height = 1;
-                break;
-
-            case XFCE_BG_COLOR_H_GRADIENT:
-            case XFCE_BG_COLOR_V_GRADIENT:
-                break;
-        }
-
-        return;
-    }
-}
-
-/**
- * xfce_bg_create_surface:
- * @bg: XfceBG
- * @window:
- * @width:
- * @height:
- *
- * Create a surface that can be set as background for @window.
- **/
-cairo_surface_t *
-xfce_bg_create_surface (XfceBG    *bg,
-                        GdkWindow *window,
-                        int        screen_width,
-                        int        screen_height,
-                        int        monitor_width,
-                        int        monitor_height) {
-    return xfce_bg_create_surface_scale (bg,
-                                         window,
-                                         screen_width,
-                                         screen_height,
-                                         monitor_width,
-                                         monitor_height,
-                                         1);
-}
-
 GdkPixbuf *
 xfce_bg_get_pixbuf(XfceBG *bg,
                    int     screen_width,
                    int     screen_height,
                    int     monitor_width,
-                   int     monitor_height) {
+                   int     monitor_height,
+                   int     scale) {
     GdkPixbuf *pixbuf;
     gint       width;
     gint       height;
@@ -1094,71 +1029,6 @@ xfce_bg_get_pixbuf(XfceBG *bg,
     xfce_bg_draw(bg, pixbuf);
 
     return pixbuf;
-}
-
-/**
- * xfce_bg_create_surface:
- * @bg: XfceBG
- * @window:
- * @width:
- * @height:
- * @scale:
- *
- * Create a scaled surface that can be set as background for @window.
- **/
-static cairo_surface_t *
-xfce_bg_create_surface_scale (XfceBG    *bg,
-                              GdkWindow *window,
-                              int        screen_width,
-                              int        screen_height,
-                              int        monitor_width,
-                              int        monitor_height,
-                              int        scale) {
-    int              pm_width, pm_height;
-    int              width, height;
-
-    cairo_surface_t *surface;
-    cairo_t         *cr;
-
-    g_return_val_if_fail (bg != NULL, NULL);
-    g_return_val_if_fail (window != NULL, NULL);
-
-    if (bg->placement == XFCE_BG_PLACEMENT_SPANNED) {
-        width = screen_width;
-        height = screen_height;
-    } else {
-        width = monitor_width;
-        height = monitor_height;
-    }
-
-    if (bg->pixbuf_cache &&
-        (gdk_pixbuf_get_width(bg->pixbuf_cache) != width ||
-            gdk_pixbuf_get_height(bg->pixbuf_cache) != height)) {
-        g_object_unref(bg->pixbuf_cache);
-        bg->pixbuf_cache = NULL;
-    }
-
-    xfce_bg_get_pixmap_size (bg, width, height, &pm_width, &pm_height);
-
-    surface = gdk_window_create_similar_surface (window, CAIRO_CONTENT_COLOR,
-                                pm_width, pm_height);
-
-    cr = cairo_create (surface);
-    cairo_scale (cr, (double)scale, (double)scale);
-
-    if (!bg->filename && bg->color_type == XFCE_BG_COLOR_SOLID) {
-        gdk_cairo_set_source_rgba (cr, &(bg->primary));
-    } else {
-        GdkPixbuf *pixbuf = xfce_bg_get_pixbuf(bg, screen_width, screen_height, monitor_width, monitor_height);
-        gdk_cairo_set_source_pixbuf (cr, pixbuf, 0, 0);
-        g_object_unref (pixbuf);
-    }
-
-    cairo_paint (cr);
-
-    cairo_destroy (cr);
-
-    return surface;
 }
 
 /* Implementation of the pixbuf cache */
