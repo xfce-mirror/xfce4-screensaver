@@ -37,7 +37,6 @@
 #include "gs-manager.h"
 #include "gs-prefs.h"
 #include "gs-window.h"
-#include "xfce-bg.h"
 
 static void gs_manager_class_init (GSManagerClass *klass);
 static void gs_manager_init       (GSManager      *manager);
@@ -46,8 +45,6 @@ static void gs_manager_finalize   (GObject        *object);
 struct GSManagerPrivate {
     GSList         *windows;
     GHashTable     *jobs;
-
-    XfceBG         *bg;
 
     /* Policy */
     GSPrefs         *prefs;
@@ -563,11 +560,7 @@ gs_manager_init (GSManager *manager) {
 
     manager->priv->grab = gs_grab_new ();
 
-    manager->priv->bg = xfce_bg_new ();
-
     manager->priv->prefs = gs_prefs_new();
-
-    xfce_bg_load_from_preferences (manager->priv->bg, NULL);
 
     add_deepsleep_idle(manager);
 }
@@ -1037,10 +1030,6 @@ gs_manager_finalize (GObject *object) {
     manager = GS_MANAGER (object);
 
     g_return_if_fail (manager->priv != NULL);
-
-    if (manager->priv->bg != NULL) {
-        g_object_unref (manager->priv->bg);
-    }
 
     remove_deepsleep_idle (manager);
     remove_timers(manager);
