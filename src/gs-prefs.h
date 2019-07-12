@@ -215,10 +215,12 @@ typedef struct
     void            (* changed)        (GSPrefs *prefs);
 } GSPrefsClass;
 
-GType       gs_prefs_get_type        (void);
-GSPrefs   * gs_prefs_new             (void);
-void        gs_prefs_load            (GSPrefs *prefs);
-const char* gs_prefs_get_theme       (GSPrefs *prefs);
+GType       gs_prefs_get_type            (void);
+GSPrefs   * gs_prefs_new                 (void);
+void        gs_prefs_load                (GSPrefs     *prefs);
+const char* gs_prefs_get_theme           (GSPrefs     *prefs);
+gchar *     gs_prefs_get_theme_arguments (GSPrefs     *prefs,
+                                          const gchar *theme);
 
 G_END_DECLS
 

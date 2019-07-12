@@ -1,0 +1,617 @@
+#!/usr/bin/python3
+
+import argparse
+import os
+import subprocess
+import sys
+import xml.etree.ElementTree as ET
+
+from collections import OrderedDict
+
+import gi
+gi.require_version('Gdk', '3.0')
+gi.require_version('Gtk', '3.0')
+from gi.repository import GLib
+from gi.repository import Gtk
+from gi.repository import Gdk
+
+
+class XfconfChannel:
+
+    def __init__(self, channel, prefix):
+        self.channel = channel
+        self.prefix = prefix
+
+    def _get_property(self, prop, default=""):
+        prop = "%s%s" % (self.prefix, prop)
+        command = ["xfconf-query", "-c", self.channel, "-p", prop, "-l", "-v"]
+        response = subprocess.check_output(command).decode("utf-8")
+        if prop in response:
+            value = (response.replace(prop, "")).strip()
+            return value
+        return default
+
+    def _set_property(self, prop_type, prop, value):
+        prop = "%s%s" % (self.prefix, prop)
+        command = ["xfconf-query", "-c", self.channel, "-p",
+                   prop, "-n", "-t", prop_type, "-s", str(value)]
+        return subprocess.call(command)
+
+    def get_boolean(self, prop, default):
+        value = self._get_property(prop, default)
+        if value in ["true", True]:
+            return True
+        return False
+
+    def set_boolean(self, prop, value):
+        if value:
+            value = "true"
+        else:
+            value = "false"
+        return self._set_property("bool", prop, value)
+
+    def get_double(self, prop, default):
+        return float(self._get_property(prop, default))
+
+    def set_double(self, prop, value):
+        return self._set_property("double", prop, value)
+
+    def get_int(self, prop, default):
+        return int(self._get_property(prop, default))
+
+    def set_int(self, prop, value):
+        return self._set_property("int", prop, value)
+
+    def get_string(self, prop, default):
+        return str(self._get_property(prop, default))
+
+    def set_string(self, prop, value):
+        return self._set_property("string", prop, value)
+
+
+class ScreensaverSettings:
+
+    def __init__(self):
+        self.name = None
+        self.label = None
+        self.arguments = None
+        self.options = OrderedDict()
+        self.description = None
+        self.video = None
+        self.filename = None
+        self.valid = False
+        self.configurable = False
+
+    def to_dict(self):
+        parsed = {}
+        parsed['name'] = self.name
+        parsed['label'] = self.label
+        parsed['arguments'] = self.arguments
+        parsed['options'] = self.options
+        parsed['description'] = self.description
+        parsed['video'] = self.video
+        for key in parsed.keys():
+            if parsed[key] is None:
+                parsed[key] = ""
+        return parsed
+
+
+class DesktopScreensaverSettings(ScreensaverSettings):
+
+    def __init__(self, name):
+        ScreensaverSettings.__init__(self)
+        self.name = name
+
+    def load_from_file(self, filename):
+        if not os.path.exists(filename):
+            return False
+
+        self.filename = filename
+
+        keyfile = GLib.KeyFile.new()
+        if not keyfile.load_from_file(filename, GLib.KeyFileFlags.NONE):
+            return False
+
+        self.valid = True
+
+        label = keyfile.get_string("Desktop Entry", "Name")
+        comment = keyfile.get_string("Desktop Entry", "Comment")
+        command = keyfile.get_string("Desktop Entry", "Exec")
+        if self.name in ["xfce-floaters", "xfce-personal-slideshow", "xfce-popsquares"]:
+            options = self.parse_internal()
+
+        self.label = label
+        self.arguments = command.split(" ")[1:]
+        self.options = options
+        self.description = "%s\n\n%s" % (comment, "Part of Xfce Screensaver")
+
+        if len(self.options) > 0:
+            self.configurable = True
+
+        return True
+
+    def parse_internal(self):
+        options = OrderedDict()
+        if self.name == "xfce-floaters":
+            options["number-of-images"] = {'id': 'number-of-images', 'type': 'spinbutton',
+                                           'label': 'Max number of images', 'argument': '-n %', 'default': 5, 'low': 1, 'high': 25}
+            options["show-paths"] = {'id': 'show-paths',
+                                     'type': 'checkbox', 'label': 'Show paths', 'argument': '-p'}
+            options["do-rotations"] = {'id': 'do-rotations',
+                                       'type': 'checkbox', 'label': 'Do rotations', 'argument': '-r'}
+            options["print-stats"] = {'id': 'print-stats',
+                                      'type': 'checkbox', 'label': 'Print stats', 'argument': '-r'}
+        elif self.name == "xfce-personal-slideshow":
+            options["location"] = {'id': 'location', 'type': 'folder', 'label': 'Location',
+                                   'argument': '--location=%', 'default': GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)}
+            options["background-color"] = {'id': 'background-color',
+                                           'label': 'Background color', 'type': 'color'}
+            options["sort-images"] = {'id': 'sort-images',
+                                      'label': 'Do not randomize images', 'type': 'checkbox'}
+            options["no-stretch"] = {'id': 'no-stretch',
+                                     'label': 'Do not stretch images', 'type': 'checkbox'}
+        return options
+
+
+class XmlScreensaverSettings(ScreensaverSettings):
+
+    def __init__(self, name):
+        ScreensaverSettings.__init__(self)
+        self.name = name
+
+    def load_from_file(self, filename):
+        if not os.path.exists(filename):
+            return False
+
+        self.filename = filename
+        element = ET.parse(filename).getroot()
+
+        root = self.parse_element(element)
+        self.name = root["attributes"]["name"]
+        self.label = root["attributes"]["label"]
+        self.arguments = []
+
+        for item in self.get_data_elements(element):
+            parsed = self.parse_element(item)
+            element_type = parsed["type"]
+            parsed.pop("type", None)
+            if element_type == "property":
+                if parsed["id"] == "command":
+                    self.arguments.append(parsed["attributes"]["argument"])
+                elif parsed["id"] == "description":
+                    self.description = parsed["text"]
+                elif parsed["id"] == "video":
+                    self.video = parsed["attributes"]["href"]
+            elif element_type == "option":
+                if "options" in parsed.keys():
+                    parsed["attributes"]["options"] = parsed["options"]
+                self.options[parsed["id"]] = parsed["attributes"]
+
+        if len(self.options) > 0:
+            self.configurable = True
+
+        return True
+
+    def get_data_elements(self, element):
+        results = []
+        for child in list(element):
+            if child.tag == "vgroup" or child.tag == "hgroup":
+                results = results + self.get_data_elements(child)
+            elif child.tag.startswith("xscreensaver"):
+                pass
+            else:
+                if child.tag.startswith("_"):
+                    child.tag = child.tag[1:]
+                results.append(child)
+        return results
+
+    def parse_element(self, element):
+        text = None
+        options = None
+        attributes = {
+            "id": "",
+            "type": "",
+            "label": "",
+        }
+
+        for key in element.attrib.keys():
+            value = element.attrib[key]
+            if key.startswith("_"):
+                key = key[1:]
+            if key in ["arg", "arg-set", "arg-unset"]:
+                key = "argument"
+            attributes[key] = value
+
+        if len(attributes["id"]) > 0:
+            element_id = attributes["id"]
+            element_type = "option"
+        else:
+            element_id = element.tag
+            element_type = "property"
+
+        if element.tag == "select":
+            attributes["type"] = "select"
+            options = []
+            for child in element.findall("option"):
+                options.append(self.parse_element(child))
+        elif element.tag == "option":
+            if len(attributes["id"]) == 0 and len(attributes["label"]) > 0:
+                element_id = attributes["label"].replace(" ", "-").lower()
+            out = {"id": element_id, "label": attributes["label"]}
+            if "argument" in attributes.keys():
+                out["argument"] = attributes["argument"]
+            return out
+
+        if attributes["type"] in ["slider", "spinbutton"]:
+            for attrib in ["high", "low", "default"]:
+                if attrib in attributes.keys():
+                    attributes[attrib] = float(attributes[attrib])
+
+        if len(attributes["type"]) == 0:
+            if "argument" in attributes.keys():
+                attributes["type"] = "checkbox"
+            if attributes["id"] == "file":
+                attributes["type"] = "file"
+
+        if attributes["label"] == "":
+            attributes["label"] = attributes["id"].capitalize()
+
+        out = {"id": element_id, "type": element_type, "attributes": attributes}
+
+        if element.text:
+            text = str(element.text).strip()
+            if len(text) > 0:
+                out["text"] = text
+
+        if options:
+            out["options"] = options
+
+        return out
+
+
+class ConfigurationWindow(Gtk.Window):
+
+    def __init__(self, parsed):
+        Gtk.Window.__init__(self, title=parsed["label"])
+        self.set_border_width(6)
+        self.set_default_size(400, -1)
+        self.set_icon_name("preferences-desktop-screensaver")
+        self.set_wmclass("xfce4-screensaver-preferences",
+                         "xfce4-screensaver-preferences")
+
+        self.inner_margin = 12
+        self.screensaver_args = parsed["arguments"]
+        self.xfconf_channel = XfconfChannel(
+            "xfce4-screensaver", "/screensavers/%s/" % parsed["name"])
+
+        self.notebook = Gtk.Notebook.new()
+        self.grid = Gtk.Grid.new()
+        self.widgets = dict()
+
+        self.lookup_table = OrderedDict()
+        self.defaults = {}
+        self.settings = OrderedDict()
+
+        self.add(self.notebook)
+        self.setup_grid()
+        self.setup_notebook(parsed)
+
+        row = 0
+
+        for opt_key in parsed["options"].keys():
+            opt = parsed["options"][opt_key]
+
+            label = Gtk.Label.new(opt["label"])
+            label.set_halign(Gtk.Align.START)
+            self.grid.attach(label, 0, row, 1, 1)
+
+            widget = self.get_option_widget(opt)
+            widget.set_hexpand(True)
+            self.grid.attach(widget, 1, row, 1, 1)
+
+            self.widgets[opt_key] = (widget, opt["type"])
+
+            row += 1
+
+        widget = Gtk.Button.new_with_label("Restore Defaults")
+        widget.set_margin_top(18)
+        widget.connect("clicked", self.on_restore_clicked)
+        self.grid.attach(widget, 0, row, 2, 1)
+
+    def setup_grid(self):
+        self.grid.set_column_spacing(12)
+        self.grid.set_row_spacing(6)
+        self.grid.set_margin_top(self.inner_margin)
+        self.grid.set_margin_bottom(self.inner_margin)
+        self.grid.set_margin_start(self.inner_margin)
+        self.grid.set_margin_end(self.inner_margin)
+
+        label = Gtk.Label.new("Preferences")
+        self.notebook.append_page(self.grid, label)
+
+    def setup_notebook(self, parsed):
+        if parsed["description"] != "":
+            vbox = Gtk.Box.new(Gtk.Orientation.VERTICAL, 18)
+            label = Gtk.Label.new("About")
+            self.notebook.append_page(vbox, label)
+            vbox.set_margin_top(self.inner_margin)
+            vbox.set_margin_bottom(self.inner_margin)
+            vbox.set_margin_start(self.inner_margin)
+            vbox.set_margin_end(self.inner_margin)
+
+            label = Gtk.Label.new(parsed["description"])
+            label.set_valign(Gtk.Align.START)
+            vbox.pack_start(label, True, True, 0)
+
+            if parsed["video"] != "":
+                button = Gtk.LinkButton.new_with_label(
+                    parsed["video"], "Video")
+                vbox.pack_start(button, False, False, 0)
+        else:
+            self.notebook.set_show_tabs(False)
+
+    def get_option_widget(self, opt):
+        if "argument" in opt.keys():
+            self.lookup_table[opt["id"]] = opt["argument"]
+
+        if opt["type"] == "checkbox":
+            widget = Gtk.CheckButton.new_with_label("")
+            active = self.get_boolean(opt["id"], False)
+            widget.set_active(active)
+            widget.connect("toggled", self.on_checkbutton_toggle, opt["id"])
+        elif opt["type"] == "file":
+            widget = Gtk.FileChooserButton(
+                title=opt["label"], action=Gtk.FileChooserAction.OPEN)
+            filename = self.get_string(opt["id"], "")
+            widget.set_current_folder("~")
+            widget.set_filename(filename)
+            widget.connect("selection-changed",
+                           self.on_file_changed, opt["id"])
+        elif opt["type"] == "folder":
+            widget = Gtk.FileChooserButton(
+                title=opt["label"], action=Gtk.FileChooserAction.SELECT_FOLDER)
+            folder = self.get_string(opt["id"], opt["default"])
+            widget.set_current_folder(folder)
+            widget.set_filename(folder)
+            widget.connect("selection-changed",
+                           self.on_file_changed, opt["id"])
+        elif opt["type"] == "select":
+            self.lookup_table[opt["id"]] = {}
+            widget = Gtk.ComboBoxText.new()
+            for option in opt["options"]:
+                opt_id = self.get_key(option, "id", "")
+                opt_label = self.get_key(option, "label", "")
+                opt_argument = self.get_key(option, "argument", "")
+                widget.append(opt_id, opt_label)
+                self.lookup_table[opt["id"]][opt_id] = opt_argument
+            current = self.get_string(opt["id"], "")
+            widget.set_active_id(current)
+            widget.connect("changed", self.on_select_changed, opt["id"])
+        elif opt["type"] == "slider":
+            prefs = get_slider_prefs([opt["default"], opt["low"], opt["high"]])
+            adj = Gtk.Adjustment(value=opt["default"], lower=opt["low"], upper=opt["high"],
+                                 step_increment=prefs['step'], page_increment=10, page_size=0)
+            widget = Gtk.Scale(
+                orientation=Gtk.Orientation.HORIZONTAL, adjustment=adj)
+            widget.add_mark(
+                opt["low"], Gtk.PositionType.BOTTOM, opt["low-label"])
+            widget.add_mark(
+                opt["high"], Gtk.PositionType.BOTTOM, opt["high-label"])
+            widget.set_digits(prefs['digits'])
+            value = self.get_double(opt["id"], opt["default"])
+            adj.set_value(value)
+            widget.connect("value-changed", self.on_double_changed, opt["id"])
+        elif opt["type"] == "spinbutton":
+            widget = Gtk.SpinButton.new_with_range(opt["low"], opt["high"], 1)
+            value = self.get_int(opt["id"], opt["default"])
+            widget.set_value(value)
+            widget.connect("value-changed", self.on_int_changed, opt["id"])
+        elif opt["type"] == "color":
+            widget = Gtk.ColorButton.new()
+            color = self.get_string(opt["id"], "#FFFFFF")
+            widget.set_rgba(hex_to_rgba(color))
+            widget.connect("color-set", self.on_color_changed, opt["id"])
+        else:
+            print("Unrecognized type: %s" % opt["type"])
+            sys.exit(1)
+        return widget
+
+    def get_key(self, dct, keyname, default=""):
+        if keyname in dct.keys():
+            return dct[keyname]
+        return default
+
+    def get_boolean(self, option_id, default):
+        value = self.xfconf_channel.get_boolean(option_id, default)
+        self.defaults[option_id] = default
+        self.set_boolean(option_id, value, False)
+        return value
+
+    def set_boolean(self, option_id, value, store=True):
+        self.settings[option_id] = value
+        if store:
+            self.xfconf_channel.set_boolean(option_id, value)
+
+    def get_double(self, option_id, default):
+        value = self.xfconf_channel.get_double(option_id, default)
+        self.defaults[option_id] = default
+        self.set_double(option_id, value, False)
+        return value
+
+    def set_double(self, option_id, value, store=True):
+        self.settings[option_id] = value
+        if store:
+            self.xfconf_channel.set_double(option_id, value)
+
+    def get_int(self, option_id, default):
+        value = self.xfconf_channel.get_int(option_id, default)
+        self.defaults[option_id] = default
+        self.set_int(option_id, value, False)
+        return value
+
+    def set_int(self, option_id, value, store=True):
+        self.settings[option_id] = value
+        if store:
+            self.xfconf_channel.set_int(option_id, value)
+
+    def get_string(self, option_id, default):
+        value = self.xfconf_channel.get_string(option_id, default)
+        self.defaults[option_id] = default
+        self.set_string(option_id, value, False)
+        return value
+
+    def set_string(self, option_id, value, store=True):
+        self.settings[option_id] = value
+        if store:
+            self.xfconf_channel.set_string(option_id, value)
+
+    def on_checkbutton_toggle(self, button, option_id):
+        self.set_boolean(option_id, button.get_active())
+        self.write_arguments()
+
+    def on_file_changed(self, button, option_id):
+        filename = button.get_filename()
+        self.set_string(option_id, filename)
+        self.write_arguments()
+
+    def on_select_changed(self, combobox, option_id):
+        active = combobox.get_active_id()
+        self.set_string(option_id, active)
+        self.write_arguments()
+
+    def on_double_changed(self, slider, option_id):
+        value = slider.get_value()
+        self.set_double(option_id, value)
+        self.write_arguments()
+
+    def on_int_changed(self, slider, option_id):
+        value = int(slider.get_value())
+        self.set_int(option_id, value)
+        self.write_arguments()
+
+    def on_color_changed(self, widget, option_id):
+        rgba = widget.get_rgba()
+        self.set_string(option_id, rgba_to_hex(rgba))
+        self.write_arguments()
+
+    def on_restore_clicked(self, button):
+        for widget_id in self.widgets.keys():
+            widget, widget_type = self.widgets[widget_id]
+            if widget_type == "checkbox":
+                widget.set_active(self.defaults[widget_id])
+            elif widget_type == "file":
+                widget.set_filename(self.defaults[widget_id])
+            elif widget_type == "folder":
+                widget.set_filename(self.defaults[widget_id])
+                widget.set_current_folder(self.defaults[widget_id])
+            elif widget_type == "select":
+                widget.set_active(0)
+            elif widget_type == "slider":
+                widget.set_value(self.defaults[widget_id])
+            elif widget_type == "spinbutton":
+                widget.set_value(self.defaults[widget_id])
+            elif widget_type == "color":
+                color = self.defaults[widget_id]
+                widget.set_rgba(hex_to_rgba(color))
+                self.set_string(widget_id, color)
+
+    def write_arguments(self):
+        args = []
+        for setting in self.settings.keys():
+            value = self.settings[setting]
+            if value != "" and value != False:
+                if setting in self.lookup_table:
+                    argument = self.lookup_table[setting]
+                    if isinstance(argument, dict):
+                        argument = argument[value]
+                    elif "%" in argument:
+                        argument = argument.replace("%", str(value))
+                    args.append(argument)
+        value = " ".join(args)
+        self.xfconf_channel.set_string("arguments", value)
+
+
+def get_slider_prefs(options):
+    digits = 0
+    for val in options:
+        val = str(val).split(".")[-1]
+        if val != "0":
+            val = val.rstrip("0")
+            digits = max(digits, len(val))
+    if digits == 0:
+        return {'digits': 0, 'step': 1}
+    return {'digits': digits, 'step': 10 ^ (-1 * digits)}
+
+
+def rgba_to_hex(rgba):
+    value = '#%02x%02x%02x' % (int(round(
+        rgba.red * 255, 0)), int(round(rgba.green * 255, 0)), int(round(rgba.blue * 255, 0)))
+    value = value.upper()
+    return value
+
+
+def hex_to_rgba(value):
+    rgba = Gdk.RGBA()
+    rgba.parse(value)
+    return rgba
+
+
+def get_filename(theme):
+    tmp = [GLib.get_user_data_dir()] + GLib.get_system_data_dirs()
+    data_dirs = []
+    for data_dir in tmp:
+        if data_dir not in data_dirs:
+            if os.path.exists(data_dir):
+                data_dirs.append(data_dir)
+
+    for config_file in ["%s/xscreensaver/config/%s.xml", "%s/applications/screensavers/%s.desktop"]:
+        for data_dir in data_dirs:
+            cfg = config_file % (data_dir, theme)
+            if os.path.exists(cfg):
+                return cfg
+
+    return None
+
+
+def configure(parsed):
+    win = ConfigurationWindow(parsed)
+    win.connect("destroy", Gtk.main_quit)
+    win.show_all()
+    Gtk.main()
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description='Configure individual screensavers')
+    parser.add_argument('screensaver', metavar='N', type=str, nargs='?',
+                        help='screensaver name to configure')
+    parser.add_argument('--check', action='store_true',
+                        help='check if screensaver is configurable')
+    args = parser.parse_args()
+
+    filename = get_filename(args.screensaver)
+    if filename is None:
+        print("No file found for screensaver %s" % args.screensaver)
+        sys.exit(1)
+
+    if filename.endswith(".xml"):
+        obj = XmlScreensaverSettings(args.screensaver)
+    elif filename.endswith(".desktop"):
+        obj = DesktopScreensaverSettings(args.screensaver)
+    else:
+        print("Unrecognized file type for file %s" % filename)
+        sys.exit(1)
+
+    if not obj.load_from_file(filename):
+        print("Failed to load screensaver from %s" % filename)
+        sys.exit(1)
+
+    if args.check:
+        if obj.configurable:
+            print("Screensaver %s is configurable." % args.screensaver)
+            sys.exit(0)
+        else:
+            print("Screensaver %s is not configurable." % args.screensaver)
+            sys.exit(1)
+
+    configure(obj.to_dict())

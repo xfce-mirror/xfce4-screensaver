@@ -522,20 +522,43 @@ config_set_logout_command (const gchar *command) {
     xfconf_channel_set_string (screensaver_channel, KEY_LOGOUT_COMMAND, command);
 }
 
+static gchar *
+config_get_theme_arguments (const gchar *theme) {
+    gchar *property;
+    gchar *arguments;
+    gchar *theme_name;
+
+    theme_name = g_utf8_substring (theme, 13, g_utf8_strlen(theme, -1));
+    property = g_strdup_printf ("/screensavers/%s/arguments", theme_name);
+    arguments = xfconf_channel_get_string (screensaver_channel, property, "");
+
+    g_free(theme_name);
+    g_free(property);
+
+    return arguments;
+}
+
 static void
 job_set_theme (GSJob      *job,
                const char *theme) {
     GSThemeInfo *info;
-    const char  *command;
+    gchar       *command = NULL;
+    gchar       *arguments = NULL;
 
     command = NULL;
 
     info = gs_theme_manager_lookup_theme_info (theme_manager, theme);
     if (info != NULL) {
-        command = gs_theme_info_get_exec (info);
+        arguments = config_get_theme_arguments (theme);
+        command = g_strdup_printf ("%s %s", gs_theme_info_get_exec (info), arguments);
     }
 
     gs_job_set_command (job, command);
+
+    if (arguments)
+        g_free (arguments);
+    if (command)
+        g_free (command);
 
     if (info != NULL) {
         gs_theme_info_unref (info);

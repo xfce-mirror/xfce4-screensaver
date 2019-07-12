@@ -183,7 +183,8 @@ static void
 gs_job_set_theme(GSJob *job) {
     GSThemeInfo *info;
     const char  *theme;
-    const char  *command = NULL;
+    gchar       *command = NULL;
+    gchar       *arguments = NULL;
 
     theme = gs_prefs_get_theme (job->priv->prefs);
     if (!theme) {
@@ -192,12 +193,18 @@ gs_job_set_theme(GSJob *job) {
     }
     info = gs_theme_manager_lookup_theme_info (job->priv->theme_manager, theme);
     if (info != NULL) {
-        command = gs_theme_info_get_exec (info);
+        arguments = gs_prefs_get_theme_arguments (job->priv->prefs, theme);
+        command = g_strdup_printf ("%s %s", gs_theme_info_get_exec (info), arguments);
     } else {
         gs_debug ("Could not find information for theme: %s", theme);
     }
 
     gs_job_set_command (job, command);
+
+    if (arguments)
+        g_free (arguments);
+    if (command)
+        g_free (command);
 
     if (info != NULL) {
         gs_theme_info_unref (info);

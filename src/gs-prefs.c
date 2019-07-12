@@ -385,6 +385,23 @@ gs_prefs_load_from_settings (GSPrefs *prefs) {
     _gs_prefs_set_user_switch_enabled (prefs, bvalue);
 }
 
+gchar *
+gs_prefs_get_theme_arguments (GSPrefs     *prefs,
+                              const gchar *theme) {
+    gchar *property;
+    gchar *arguments;
+    gchar *theme_name;
+
+    theme_name = g_utf8_substring (theme, 13, g_utf8_strlen(theme, -1));
+    property = g_strdup_printf ("/screensavers/%s/arguments", theme_name);
+    arguments = xfconf_channel_get_string (prefs->priv->channel, property, "");
+
+    g_free(theme_name);
+    g_free(property);
+
+    return arguments;
+}
+
 static void
 key_changed_cb (XfconfChannel *channel,
                 gchar         *property,

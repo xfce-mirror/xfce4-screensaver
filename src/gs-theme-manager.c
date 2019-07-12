@@ -197,8 +197,8 @@ gs_theme_info_get_exec (GSThemeInfo *info) {
 static GSThemeInfo *
 gs_theme_info_new_from_garcon_menu_item(GarconMenuItem *item) {
     GSThemeInfo *info;
-    const char     *str;
-    char           *pos;
+    const char  *str;
+    char        *pos;
 
     info = g_new0 (GSThemeInfo, 1);
 
