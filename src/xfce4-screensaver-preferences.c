@@ -47,6 +47,7 @@
 #include "xfce4-screensaver-preferences-ui.h"
 
 #define GPM_COMMAND "xfce4-power-manager-settings"
+#define CONFIGURE_COMMAND "xfce4-screensaver-configure"
 
 enum {
     NAME_COLUMN = 0,
@@ -71,6 +72,7 @@ static gboolean        lock_delay_writable;
 static gboolean        keyboard_command_writable;
 static gboolean        logout_command_writable;
 static gboolean        logout_delay_writable;
+static gchar          *active_theme = NULL;
 
 static gint opt_socket_id = 0;
 static GOptionEntry entries[] = {
@@ -271,8 +273,11 @@ config_set_theme (const char *theme_id) {
         /* set the themes key to contain all available screensavers */
         strv = get_all_theme_ids (theme_manager);
     } else {
+        GtkWidget *configure_button = GTK_WIDGET (gtk_builder_get_object (builder, "configure_button"));
         mode = GS_MODE_SINGLE;
         strv = g_strsplit (theme_id, "%%%", 1);
+        active_theme = g_strdup (theme_id);
+        gtk_widget_set_sensitive (configure_button, TRUE);
     }
 
     config_set_mode (mode);
@@ -757,6 +762,7 @@ tree_selection_next (GtkTreeSelection *selection) {
 static void
 tree_selection_changed_cb (GtkTreeSelection *selection,
                            GtkWidget        *preview) {
+    GtkWidget    *configure_button;
     GtkTreeIter   iter;
     GtkTreeModel *model;
     char         *theme;
@@ -764,6 +770,14 @@ tree_selection_changed_cb (GtkTreeSelection *selection,
 
     if (!gtk_tree_selection_get_selected (selection, &model, &iter)) {
         return;
+    }
+
+    if (active_theme != NULL) {
+        g_free (active_theme);
+        active_theme = NULL;
+
+        configure_button = GTK_WIDGET (gtk_builder_get_object (builder, "configure_button"));
+        gtk_widget_set_sensitive (configure_button, FALSE);
     }
 
     gtk_tree_model_get (model, &iter, ID_COLUMN, &theme, NAME_COLUMN, &name, -1);
@@ -778,6 +792,26 @@ tree_selection_changed_cb (GtkTreeSelection *selection,
 
     g_free (theme);
     g_free (name);
+}
+
+static void
+configure_button_clicked_cb (GtkToolButton *button,
+                             gpointer       user_data) {
+    gchar    *configure_cmd;
+    GError   *error = NULL;
+    gboolean  res;
+
+    configure_cmd = g_strdup_printf ("%s %s", CONFIGURE_COMMAND, active_theme);
+
+    res = xfce_gdk_spawn_command_line_on_screen (gdk_screen_get_default (),
+                                                 configure_cmd,
+                                                 &error);
+    if (!res) {
+        g_warning ("Unable to start configure command: %s", error->message);
+        g_error_free (error);
+    }
+
+    g_free(configure_cmd);
 }
 
 static void
@@ -1758,6 +1792,8 @@ configure_capplet (void) {
     GtkWidget *root_warning_infobar;
     GtkWidget *preview_button;
     GtkWidget *gpm_button;
+    GtkWidget *configure_toolbar;
+    GtkWidget *configure_button;
     GtkWidget *fullscreen_preview_window;
     GtkWidget *fullscreen_preview_area;
     GtkWidget *fullscreen_preview_previous;
@@ -1802,6 +1838,8 @@ configure_capplet (void) {
     root_warning_infobar        = GTK_WIDGET (gtk_builder_get_object (builder, "root_warning_infobar"));
     preview_button              = GTK_WIDGET (gtk_builder_get_object (builder, "preview_button"));
     gpm_button                  = GTK_WIDGET (gtk_builder_get_object (builder, "power_management_button"));
+    configure_button            = GTK_WIDGET (gtk_builder_get_object (builder, "configure_button"));
+    configure_toolbar           = GTK_WIDGET (gtk_builder_get_object (builder, "configure_toolbar"));
     fullscreen_preview_window   = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_window"));
     fullscreen_preview_area     = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_area"));
     fullscreen_preview_close    = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_close"));
@@ -1827,6 +1865,16 @@ configure_capplet (void) {
                       "property-changed",
                       G_CALLBACK (key_changed_cb),
                       NULL);
+
+    if (!is_program_in_path (CONFIGURE_COMMAND)) {
+        gtk_widget_set_no_show_all (configure_toolbar, TRUE);
+        gtk_widget_hide (configure_toolbar);
+    } else {
+        g_signal_connect (configure_button,
+                          "clicked",
+                          G_CALLBACK (configure_button_clicked_cb),
+                          screensaver_channel);
+    }
 
     /* Idle delay */
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "saver_idle_activation_delay"));
@@ -1993,7 +2041,11 @@ configure_capplet (void) {
 
 static void
 finalize_capplet (void) {
-    g_object_unref (screensaver_channel);
+    if (screensaver_channel)
+        g_object_unref (screensaver_channel);
+
+    if (active_theme)
+        g_free (active_theme);
 }
 
 int
@@ -2083,8 +2135,11 @@ main (int    argc,
 
     finalize_capplet ();
 
-    g_object_unref (theme_manager);
-    g_object_unref (job);
+    if (theme_manager)
+        g_object_unref (theme_manager);
+
+    if (job)
+        g_object_unref (job);
 
     return 0;
 }

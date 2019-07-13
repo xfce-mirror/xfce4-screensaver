@@ -621,32 +621,6 @@ Simon Steinbeiß
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkScrolledWindow" id="saver_themes_scrolled_window">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="vexpand">True</property>
-                                <property name="hscrollbar_policy">never</property>
-                                <property name="shadow_type">in</property>
-                                <child>
-                                  <object class="GtkTreeView" id="saver_themes_treeview">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="headers_visible">False</property>
-                                    <child internal-child="selection">
-                                      <object class="GtkTreeSelection"/>
-                                    </child>
-                                    <accessibility>
-                                      <relation type="label-for" target="saver_themes_treeview"/>
-                                    </accessibility>
-                                  </object>
-                                </child>
-                              </object>
-                              <packing>
-                                <property name="left_attach">0</property>
-                                <property name="top_attach">1</property>
-                              </packing>
-                            </child>
-                            <child>
                               <object class="GtkFrame">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
@@ -669,6 +643,79 @@ Simon Steinbeiß
                                 <property name="left_attach">1</property>
                                 <property name="top_attach">1</property>
                                 <property name="width">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="vexpand">True</property>
+                                <property name="orientation">vertical</property>
+                                <child>
+                                  <object class="GtkScrolledWindow" id="saver_themes_scrolled_window">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="vexpand">True</property>
+                                    <property name="hscrollbar_policy">never</property>
+                                    <property name="shadow_type">in</property>
+                                    <child>
+                                      <object class="GtkTreeView" id="saver_themes_treeview">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="headers_visible">False</property>
+                                        <child internal-child="selection">
+                                          <object class="GtkTreeSelection"/>
+                                        </child>
+                                        <accessibility>
+                                          <relation type="label-for" target="saver_themes_treeview"/>
+                                        </accessibility>
+                                      </object>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">True</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkToolbar" id="configure_toolbar">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="toolbar_style">both-horiz</property>
+                                    <property name="icon_size">2</property>
+                                    <child>
+                                      <object class="GtkToolButton" id="configure_button">
+                                        <property name="visible">True</property>
+                                        <property name="sensitive">False</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="tooltip_text" translatable="yes">Configure screensaver</property>
+                                        <property name="label" translatable="yes">Configure...</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="icon_name">document-properties</property>
+                                        <style>
+                                          <class name="linked"/>
+                                        </style>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="homogeneous">True</property>
+                                      </packing>
+                                    </child>
+                                    <style>
+                                      <class name="inline-toolbar"/>
+                                    </style>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">1</property>
                               </packing>
                             </child>
                           </object>

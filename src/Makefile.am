@@ -41,6 +41,10 @@ bin_PROGRAMS = \
 	xfce4-screensaver-preferences  \
 	$(NULL)
 
+bin_SCRIPTS = \
+	xfce4-screensaver-configure    \
+	$(NULL)
+
 libexec_PROGRAMS = \
 	xfce4-screensaver-dialog     \
 	xfce4-screensaver-gl-helper  \

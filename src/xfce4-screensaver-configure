@@ -48,7 +48,7 @@ class XfconfChannel:
         self.prefix = prefix
 
     def _get_property(self, prop, default=""):
-        prop = "%s%s" % (self.prefix, prop)
+        prop = "%s/%s" % (self.prefix, prop)
         command = ["xfconf-query", "-c", self.channel, "-p", prop, "-l", "-v"]
         response = subprocess.check_output(command).decode("utf-8")
         if prop in response:
@@ -57,9 +57,13 @@ class XfconfChannel:
         return default
 
     def _set_property(self, prop_type, prop, value):
-        prop = "%s%s" % (self.prefix, prop)
+        prop = "%s/%s" % (self.prefix, prop)
         command = ["xfconf-query", "-c", self.channel, "-p",
                    prop, "-n", "-t", prop_type, "-s", str(value)]
+        return subprocess.call(command)
+
+    def restore_defaults(self):
+        command = ["xfconf-query", "-c", self.channel, "-p", self.prefix, "-r", "-R"]
         return subprocess.call(command)
 
     def get_boolean(self, prop, default):
@@ -329,7 +333,7 @@ class ConfigurationWindow(Gtk.Window):
         self.inner_margin = 12
         self.screensaver_args = parsed["arguments"]
         self.xfconf_channel = XfconfChannel(
-            "xfce4-screensaver", "/screensavers/%s/" % parsed["name"])
+            "xfce4-screensaver", "/screensavers/%s" % parsed["name"])
 
         self.notebook = Gtk.Notebook.new()
         self.grid = Gtk.Grid.new()
@@ -556,6 +560,7 @@ class ConfigurationWindow(Gtk.Window):
                 color = self.defaults[widget_id]
                 widget.set_rgba(hex_to_rgba(color))
                 self.set_string(widget_id, color)
+        self.xfconf_channel.restore_defaults()
 
     def write_arguments(self):
         arguments = []
@@ -622,10 +627,30 @@ def get_key(dct, keyname, default=""):
 
 
 def configure(parsed):
-    win = ConfigurationWindow(parsed)
-    win.connect("destroy", Gtk.main_quit)
-    win.show_all()
-    Gtk.main()
+    try:
+        win = ConfigurationWindow(parsed)
+        win.connect("destroy", Gtk.main_quit)
+        win.show_all()
+        Gtk.main()
+    except KeyboardInterrupt:
+        pass
+
+
+def show_fatal(primary, secondary):
+    if not graphical:
+        print("%s: %s" % (primary, secondary))
+        sys.exit(1)
+    try:
+        dlg = Gtk.MessageDialog(None, 0, Gtk.MessageType.ERROR,
+                                Gtk.ButtonsType.OK, primary)
+        dlg.format_secondary_text(secondary)
+        dlg.connect("close", Gtk.main_quit)
+        dlg.connect("response", Gtk.main_quit)
+        dlg.show_all()
+        Gtk.main()
+    except KeyboardInterrupt:
+        pass
+    sys.exit(1)
 
 
 if __name__ == "__main__":
@@ -638,32 +663,43 @@ if __name__ == "__main__":
                         help=_('check if screensaver is configurable'))
     args = parser.parse_args()
 
-    fname = get_filename(args.screensaver)
+    graphical = not args.check
+
+    saver = args.screensaver
+    if saver.startswith("screensavers-"):
+        saver = saver[13:]
+
+    primary = _("Unable to configure screensaver")
+
+    fname = get_filename(saver)
     if fname is None:
-        print(_("No file found for screensaver %s") % args.screensaver)
+        show_fatal(primary, _("File not found: %s") % saver)
         sys.exit(1)
 
     if fname.endswith(".xml"):
-        obj = XmlScreensaverSettings(args.screensaver)
+        obj = XmlScreensaverSettings(saver)
     elif fname.endswith(".desktop"):
-        obj = DesktopScreensaverSettings(args.screensaver)
+        obj = DesktopScreensaverSettings(saver)
     else:
         locale.textdomain('xfce4-screensaver')
-        print(_("Unrecognized file type for file %s") % fname)
+        show_fatal(primary, _("Unrecognized file type: %s") % fname)
         sys.exit(1)
 
     locale.textdomain('xfce4-screensaver')
 
     if not obj.load_from_file(fname):
-        print(_("Failed to load screensaver from %s") % fname)
+        show_fatal(primary, _("Failed to process file: %s") % fname)
         sys.exit(1)
 
     if args.check:
         if obj.configurable:
-            print(_("Screensaver %s is configurable.") % args.screensaver)
+            print(_("Screensaver %s is configurable.") % saver)
             sys.exit(0)
         else:
-            print(_("Screensaver %s is not configurable.") % args.screensaver)
+            print(_("Screensaver %s is not configurable.") % saver)
             sys.exit(1)
+
+    if not obj.configurable:
+        show_fatal(primary, _("Screensaver %s has no configuration options.") % saver)
 
     configure(obj.to_dict())
