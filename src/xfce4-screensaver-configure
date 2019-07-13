@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # -*- Mode: Python; coding: utf-8; indent-tabs-mode: nil; tab-width: 4 -*-
-#   
+#
 #   Copyright (C) 2019 Sean Davis <bluesabre@xfce.org>
 #
 #   This program is free software; you can redistribute it and/or modify
@@ -27,15 +27,15 @@ import xml.etree.ElementTree as ET
 
 from collections import OrderedDict
 
+import locale
+from locale import gettext as _
+
 import gi
 gi.require_version('Gdk', '3.0')
 gi.require_version('Gtk', '3.0')
 from gi.repository import GLib
 from gi.repository import Gtk
 from gi.repository import Gdk
-
-import locale
-from locale import gettext as _
 
 
 class XfconfChannel:
@@ -112,7 +112,7 @@ class ScreensaverSettings:
         parsed['options'] = self.options
         parsed['description'] = self.description
         parsed['video'] = self.video
-        for key in parsed.keys():
+        for key in parsed:
             if parsed[key] is None:
                 parsed[key] = ""
         return parsed
@@ -149,7 +149,7 @@ class DesktopScreensaverSettings(ScreensaverSettings):
         self.options = options
         self.description = "%s\n\n%s" % (comment, _("Part of Xfce Screensaver"))
 
-        if len(self.options) > 0:
+        if self.options:
             self.configurable = True
 
         return True
@@ -158,22 +158,24 @@ class DesktopScreensaverSettings(ScreensaverSettings):
         options = OrderedDict()
         if self.name == "xfce-floaters":
             options["number-of-images"] = {'id': 'number-of-images', 'type': 'spinbutton',
-                                           'label': _('Max number of images'), 'argument': '-n %', 'default': 5, 'low': 1, 'high': 25}
-            options["show-paths"] = {'id': 'show-paths',
-                                     'type': 'checkbox', 'label': _('Show paths'), 'argument': '-p'}
-            options["do-rotations"] = {'id': 'do-rotations',
-                                       'type': 'checkbox', 'label': _('Do rotations'), 'argument': '-r'}
-            options["print-stats"] = {'id': 'print-stats',
-                                      'type': 'checkbox', 'label': _('Print stats'), 'argument': '-r'}
+                                           'label': _('Max number of images'), 'argument': '-n %',
+                                           'default': 5, 'low': 1, 'high': 25}
+            options["show-paths"] = {'id': 'show-paths', 'type': 'checkbox',
+                                     'label': _('Show paths'), 'argument': '-p'}
+            options["do-rotations"] = {'id': 'do-rotations', 'type': 'checkbox',
+                                       'label': _('Do rotations'), 'argument': '-r'}
+            options["print-stats"] = {'id': 'print-stats', 'type': 'checkbox',
+                                      'label': _('Print stats'), 'argument': '-r'}
         elif self.name == "xfce-personal-slideshow":
+            pics = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)
             options["location"] = {'id': 'location', 'type': 'folder', 'label': _('Location'),
-                                   'argument': '--location=%', 'default': GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)}
-            options["background-color"] = {'id': 'background-color',
-                                           'label': _('Background color'), 'type': 'color'}
-            options["sort-images"] = {'id': 'sort-images',
-                                      'label': _('Do not randomize images'), 'type': 'checkbox'}
-            options["no-stretch"] = {'id': 'no-stretch',
-                                     'label': _('Do not stretch images'), 'type': 'checkbox'}
+                                   'argument': '--location=%', 'default': pics}
+            options["background-color"] = {'id': 'background-color', 'type': 'color',
+                                           'label': _('Background color')}
+            options["sort-images"] = {'id': 'sort-images', 'type': 'checkbox',
+                                      'label': _('Do not randomize images')}
+            options["no-stretch"] = {'id': 'no-stretch', 'type': 'checkbox',
+                                     'label': _('Do not stretch images')}
         return options
 
 
@@ -213,7 +215,7 @@ class XmlScreensaverSettings(ScreensaverSettings):
                     parsed["attributes"]["options"] = parsed["options"]
                 self.options[parsed["id"]] = parsed["attributes"]
 
-        if len(self.options) > 0:
+        if self.options:
             self.configurable = True
 
         return True
@@ -233,16 +235,14 @@ class XmlScreensaverSettings(ScreensaverSettings):
                 results.append(child)
         return results
 
-    def parse_element(self, element):
-        text = None
-        options = None
+    def parse_element_attributes(self, element):
         attributes = {
             "id": "",
             "type": "",
             "label": "",
         }
 
-        for key in element.attrib.keys():
+        for key in element.attrib:
             value = element.attrib[key]
             if key.startswith("_"):
                 key = key[1:]
@@ -252,12 +252,24 @@ class XmlScreensaverSettings(ScreensaverSettings):
                 key = "argument"
             attributes[key] = value
 
-        if len(attributes["id"]) > 0:
+        return attributes
+
+    def parse_element_id(self, element, attributes):
+        if attributes["id"]:
             element_id = attributes["id"]
             element_type = "option"
         else:
             element_id = element.tag
             element_type = "property"
+        return (element_id, element_type)
+
+
+    def parse_element(self, element):
+        text = None
+        options = None
+
+        attributes = self.parse_element_attributes(element)
+        element_id, element_type = self.parse_element_id(element, attributes)
 
         if element.tag == "select":
             attributes["type"] = "select"
@@ -265,7 +277,7 @@ class XmlScreensaverSettings(ScreensaverSettings):
             for child in element.findall("option"):
                 options.append(self.parse_element(child))
         elif element.tag == "option":
-            if len(attributes["id"]) == 0 and len(attributes["label"]) > 0:
+            if not attributes["id"] and attributes["label"]:
                 element_id = attributes["label"].replace(" ", "-").lower()
             out = {"id": element_id, "label": attributes["label"]}
             if "argument" in attributes.keys():
@@ -277,7 +289,7 @@ class XmlScreensaverSettings(ScreensaverSettings):
                 if attrib in attributes.keys():
                     attributes[attrib] = float(attributes[attrib])
 
-        if len(attributes["type"]) == 0:
+        if not attributes["type"]:
             if "argument" in attributes.keys():
                 attributes["type"] = "checkbox"
             if attributes["id"] == "file":
@@ -290,7 +302,7 @@ class XmlScreensaverSettings(ScreensaverSettings):
 
         if element.text:
             text = str(element.text).strip()
-            if len(text) > 0:
+            if text:
                 out["text"] = text
 
         if options:
@@ -331,7 +343,7 @@ class ConfigurationWindow(Gtk.Window):
 
         row = 0
 
-        for opt_key in parsed["options"].keys():
+        for opt_key in parsed["options"]:
             opt = parsed["options"][opt_key]
 
             label = Gtk.Label.new(opt["label"])
@@ -412,9 +424,9 @@ class ConfigurationWindow(Gtk.Window):
             self.lookup_table[opt["id"]] = {}
             widget = Gtk.ComboBoxText.new()
             for option in opt["options"]:
-                opt_id = self.get_key(option, "id", "")
-                opt_label = self.get_key(option, "label", "")
-                opt_argument = self.get_key(option, "argument", "")
+                opt_id = get_key(option, "id", "")
+                opt_label = get_key(option, "label", "")
+                opt_argument = get_key(option, "argument", "")
                 widget.append(opt_id, opt_label)
                 self.lookup_table[opt["id"]][opt_id] = opt_argument
             current = self.get_string(opt["id"], "")
@@ -448,11 +460,6 @@ class ConfigurationWindow(Gtk.Window):
             print(_("Unrecognized type: %s") % opt["type"])
             sys.exit(1)
         return widget
-
-    def get_key(self, dct, keyname, default=""):
-        if keyname in dct.keys():
-            return dct[keyname]
-        return default
 
     def get_boolean(self, option_id, default):
         value = self.xfconf_channel.get_boolean(option_id, default)
@@ -528,7 +535,7 @@ class ConfigurationWindow(Gtk.Window):
         self.write_arguments()
 
     def on_restore_clicked(self, button):
-        for widget_id in self.widgets.keys():
+        for widget_id in self.widgets:
             widget, widget_type = self.widgets[widget_id]
             if widget_type == "checkbox":
                 widget.set_active(self.defaults[widget_id])
@@ -549,18 +556,18 @@ class ConfigurationWindow(Gtk.Window):
                 self.set_string(widget_id, color)
 
     def write_arguments(self):
-        args = []
-        for setting in self.settings.keys():
+        arguments = []
+        for setting in self.settings:
             value = self.settings[setting]
-            if value != "" and value != False:
+            if value not in ("", False):
                 if setting in self.lookup_table:
                     argument = self.lookup_table[setting]
                     if isinstance(argument, dict):
                         argument = argument[value]
                     elif "%" in argument:
                         argument = argument.replace("%", str(value))
-                    args.append(argument)
-        value = " ".join(args)
+                    arguments.append(argument)
+        value = " ".join(arguments)
         self.xfconf_channel.set_string("arguments", value)
 
 
@@ -606,6 +613,12 @@ def get_filename(theme):
     return None
 
 
+def get_key(dct, keyname, default=""):
+    if keyname in dct.keys():
+        return dct[keyname]
+    return default
+
+
 def configure(parsed):
     win = ConfigurationWindow(parsed)
     win.connect("destroy", Gtk.main_quit)
@@ -623,24 +636,24 @@ if __name__ == "__main__":
                         help=_('check if screensaver is configurable'))
     args = parser.parse_args()
 
-    filename = get_filename(args.screensaver)
-    if filename is None:
+    fname = get_filename(args.screensaver)
+    if fname is None:
         print(_("No file found for screensaver %s") % args.screensaver)
         sys.exit(1)
 
-    if filename.endswith(".xml"):
+    if fname.endswith(".xml"):
         obj = XmlScreensaverSettings(args.screensaver)
-    elif filename.endswith(".desktop"):
+    elif fname.endswith(".desktop"):
         obj = DesktopScreensaverSettings(args.screensaver)
     else:
         locale.textdomain('xfce4-screensaver')
-        print(_("Unrecognized file type for file %s") % filename)
+        print(_("Unrecognized file type for file %s") % fname)
         sys.exit(1)
 
     locale.textdomain('xfce4-screensaver')
 
-    if not obj.load_from_file(filename):
-        print(_("Failed to load screensaver from %s") % filename)
+    if not obj.load_from_file(fname):
+        print(_("Failed to load screensaver from %s") % fname)
         sys.exit(1)
 
     if args.check:
