@@ -24,6 +24,7 @@ import os
 import subprocess
 import sys
 import xml.etree.ElementTree as ET
+import warnings
 
 from collections import OrderedDict
 
@@ -36,6 +37,8 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import GLib
 from gi.repository import Gtk
 from gi.repository import Gdk
+
+warnings.filterwarnings("ignore")
 
 
 class XfconfChannel:
@@ -262,7 +265,6 @@ class XmlScreensaverSettings(ScreensaverSettings):
             element_id = element.tag
             element_type = "property"
         return (element_id, element_type)
-
 
     def parse_element(self, element):
         text = None
