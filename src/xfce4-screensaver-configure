@@ -166,7 +166,7 @@ class DesktopScreensaverSettings(ScreensaverSettings):
         if self.name == "xfce-floaters":
             options["number-of-images"] = {'id': 'number-of-images', 'type': 'spinbutton',
                                            'label': _('Max number of images'), 'argument': '-n %',
-                                           'default': 5, 'low': 1, 'high': 25}
+                                           'default': 5, 'low': 1, 'high': 1000}
             options["show-paths"] = {'id': 'show-paths', 'type': 'checkbox',
                                      'label': _('Show paths'), 'argument': '-p'}
             options["do-rotations"] = {'id': 'do-rotations', 'type': 'checkbox',
