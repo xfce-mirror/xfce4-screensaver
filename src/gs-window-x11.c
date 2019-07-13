@@ -1084,6 +1084,16 @@ remove_key_events (GSWindow *window) {
 }
 
 static void
+prefs_changed (GSPrefs  *prefs,
+               GSWindow *window) {
+    if (window->priv->prefs->keyboard_enabled) {
+        if (window->priv->keyboard_socket) {
+            gtk_widget_set_visible (window->priv->keyboard_socket, window->priv->prefs->keyboard_displayed);
+        }
+    }
+}
+
+static void
 lock_socket_show (GtkWidget *widget,
                   GSWindow  *window) {
     gtk_widget_child_focus (window->priv->lock_socket, GTK_DIR_TAB_FORWARD);
@@ -1099,6 +1109,7 @@ lock_socket_destroyed (GtkWidget *widget,
     g_signal_handlers_disconnect_by_func (widget, lock_socket_destroyed, window);
     g_signal_handlers_disconnect_by_func (widget, lock_plug_added, window);
     g_signal_handlers_disconnect_by_func (widget, lock_plug_removed, window);
+    g_signal_handlers_disconnect_by_func (window->priv->prefs, prefs_changed, window);
 
     window->priv->lock_socket = NULL;
 }
@@ -1146,6 +1157,10 @@ create_keyboard_socket (GSWindow *window,
 
     gtk_overlay_add_overlay (GTK_OVERLAY (window->priv->overlay), window->priv->keyboard_socket);
     gtk_socket_add_id (GTK_SOCKET (window->priv->keyboard_socket), id);
+
+    if (!window->priv->prefs->keyboard_displayed) {
+        gtk_widget_hide (window->priv->keyboard_socket);
+    }
 }
 
 /* adapted from gspawn.c */
@@ -1311,6 +1326,9 @@ create_lock_socket (GSWindow *window,
     if (window->priv->prefs->keyboard_enabled) {
         embed_keyboard (window);
     }
+
+    g_signal_connect (window->priv->prefs, "changed",
+                      G_CALLBACK (prefs_changed), window);
 }
 
 static void

@@ -131,6 +131,13 @@ G_BEGIN_DECLS
 #define DEFAULT_KEY_KEYBOARD_COMMAND ""
 
 /**
+ * Display embedded keyboard
+ * Remembers the current user preference to display the on-screen keyboard.
+ */
+#define KEY_KEYBOARD_DISPLAYED "/lock/embedded-keyboard/displayed"
+#define DEFAULT_KEY_KEYBOARD_DISPLAYED FALSE
+
+/**
  * Allow the session status message to be displayed
  * Allow the session status message to be displayed when the screen is locked.
  */
@@ -195,6 +202,7 @@ typedef struct
     guint            logout_enabled : 1;         /* Whether to offer the logout option */
     guint            user_switch_enabled : 1;  /* Whether to offer the user switch option */
     guint            keyboard_enabled : 1;       /* Whether to try to embed a keyboard */
+    guint            keyboard_displayed : 1;       /* Whether the keyboard is displayed */
     guint            status_message_enabled : 1; /* show the status message in the lock */
     guint            timeout;        /* how much idle time before activation */
     guint            lock_timeout;   /* how long after activation locking starts */

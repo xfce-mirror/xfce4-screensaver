@@ -119,6 +119,8 @@ xfce4_screensaver_dialog_SOURCES = \
 	gs-lock-plug.h                             \
 	gs-debug.c                                 \
 	gs-debug.h                                 \
+	gs-prefs.c                                 \
+	gs-prefs.h                                 \
 	setuid.c                                   \
 	setuid.h                                   \
 	subprocs.c                                 \

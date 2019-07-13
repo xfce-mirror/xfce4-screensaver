@@ -2,81 +2,12 @@
 <!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
-  <object class="GtkOverlay" id="lock-overlay">
-    <property name="name">screen</property>
+  <object class="GtkImage" id="image1">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <child>
-      <object class="GtkImage" id="lock-image">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="stock">gtk-missing-image</property>
-      </object>
-      <packing>
-        <property name="index">-1</property>
-      </packing>
-    </child>
-    <style>
-      <class name="lightdm-gtk-greeter"/>
-    </style>
-  </object>
-  <object class="GtkBox" id="lock-panel">
-    <property name="name">panel_window</property>
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="spacing">6</property>
-    <child>
-      <object class="GtkLabel" id="auth-hostname-label">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="margin_left">6</property>
-        <property name="label" translatable="yes">&lt;b&gt;%h&lt;/b&gt;</property>
-        <property name="use_markup">True</property>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">0</property>
-      </packing>
-    </child>
-    <child type="center">
-      <object class="GtkLabel" id="auth-date-time-label">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="margin_right">6</property>
-        <property name="label" translatable="yes">&lt;b&gt;%s&lt;/b&gt;</property>
-        <property name="use_markup">True</property>
-        <property name="xalign">0.5</property>
-      </object>
-      <packing>
-        <property name="expand">True</property>
-        <property name="fill">True</property>
-        <property name="position">4</property>
-      </packing>
-    </child>
-    <child>
-      <object class="GtkImage">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="margin_right">6</property>
-        <property name="margin_top">6</property>
-        <property name="margin_bottom">6</property>
-        <property name="pixel_size">16</property>
-        <property name="icon_name">system-lock-screen-symbolic</property>
-        <property name="icon_size">1</property>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="pack_type">end</property>
-        <property name="position">3</property>
-      </packing>
-    </child>
-    <style>
-      <class name="background"/>
-      <class name="panel"/>
-      <class name="xfce4-panel"/>
-    </style>
+    <property name="pixel_size">16</property>
+    <property name="icon_name">input-keyboard-symbolic</property>
+    <property name="use_fallback">True</property>
   </object>
   <object class="GtkEventBox" id="login_window">
     <property name="name">login_window</property>
@@ -175,6 +106,22 @@
                       </packing>
                     </child>
                     <child>
+                      <object class="GtkToggleButton" id="keyboard-toggle">
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="no_show_all">True</property>
+                        <property name="halign">center</property>
+                        <property name="valign">center</property>
+                        <property name="image">image1</property>
+                        <property name="relief">none</property>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
                       <object class="GtkBox" id="auth-prompt-kbd-layout-indicator">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -187,7 +134,7 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">1</property>
+                        <property name="position">2</property>
                       </packing>
                     </child>
                   </object>
@@ -398,6 +345,82 @@
     <style>
       <class name="background"/>
       <class name="keycap"/>
+    </style>
+  </object>
+  <object class="GtkOverlay" id="lock-overlay">
+    <property name="name">screen</property>
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkImage" id="lock-image">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="stock">gtk-missing-image</property>
+      </object>
+      <packing>
+        <property name="index">-1</property>
+      </packing>
+    </child>
+    <style>
+      <class name="lightdm-gtk-greeter"/>
+    </style>
+  </object>
+  <object class="GtkBox" id="lock-panel">
+    <property name="name">panel_window</property>
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="spacing">6</property>
+    <child>
+      <object class="GtkLabel" id="auth-hostname-label">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="margin_left">6</property>
+        <property name="label" translatable="yes">&lt;b&gt;%h&lt;/b&gt;</property>
+        <property name="use_markup">True</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">0</property>
+      </packing>
+    </child>
+    <child type="center">
+      <object class="GtkLabel" id="auth-date-time-label">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="margin_right">6</property>
+        <property name="label" translatable="yes">&lt;b&gt;%s&lt;/b&gt;</property>
+        <property name="use_markup">True</property>
+        <property name="xalign">0.5</property>
+      </object>
+      <packing>
+        <property name="expand">True</property>
+        <property name="fill">True</property>
+        <property name="position">4</property>
+      </packing>
+    </child>
+    <child>
+      <object class="GtkImage">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="margin_right">6</property>
+        <property name="margin_top">6</property>
+        <property name="margin_bottom">6</property>
+        <property name="pixel_size">16</property>
+        <property name="icon_name">system-lock-screen-symbolic</property>
+        <property name="icon_size">1</property>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="pack_type">end</property>
+        <property name="position">3</property>
+      </packing>
+    </child>
+    <style>
+      <class name="background"/>
+      <class name="panel"/>
+      <class name="xfce4-panel"/>
     </style>
   </object>
 </interface>

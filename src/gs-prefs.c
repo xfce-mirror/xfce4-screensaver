@@ -240,6 +240,12 @@ _gs_prefs_set_keyboard_command (GSPrefs    *prefs,
 }
 
 static void
+_gs_prefs_set_keyboard_displayed (GSPrefs  *prefs,
+                                        gboolean  displayed) {
+    prefs->keyboard_displayed = displayed;
+}
+
+static void
 _gs_prefs_set_status_message_enabled (GSPrefs  *prefs,
                                       gboolean  enabled) {
     prefs->status_message_enabled = enabled;
@@ -353,6 +359,11 @@ gs_prefs_load_from_settings (GSPrefs *prefs) {
                                         DEFAULT_KEY_KEYBOARD_COMMAND);
     _gs_prefs_set_keyboard_command (prefs, string);
     g_free (string);
+
+    bvalue = xfconf_channel_get_bool (prefs->priv->channel,
+                                      KEY_KEYBOARD_DISPLAYED,
+                                      DEFAULT_KEY_KEYBOARD_DISPLAYED);
+    _gs_prefs_set_keyboard_displayed (prefs, bvalue);
 
     bvalue = xfconf_channel_get_bool (prefs->priv->channel,
                                       KEY_STATUS_MESSAGE_ENABLED,
@@ -469,6 +480,11 @@ key_changed_cb (XfconfChannel *channel,
         command = xfconf_channel_get_string (channel, property, DEFAULT_KEY_KEYBOARD_COMMAND);
         _gs_prefs_set_keyboard_command (prefs, command);
         g_free (command);
+    } else if (strcmp (property, KEY_KEYBOARD_DISPLAYED) == 0) {
+        gboolean enabled;
+
+        enabled = xfconf_channel_get_bool (channel, property, DEFAULT_KEY_KEYBOARD_DISPLAYED);
+        _gs_prefs_set_keyboard_displayed (prefs, enabled);
     } else if (strcmp (property, KEY_STATUS_MESSAGE_ENABLED) == 0) {
         gboolean enabled;
 

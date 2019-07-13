@@ -40,9 +40,11 @@
 #include <gtk/gtkx.h>
 
 #include <libxfce4util/libxfce4util.h>
+#include <xfconf/xfconf.h>
 
 #include "gs-lock-plug.h"
 #include "gs-debug.h"
+#include "gs-prefs.h"
 #include "xfce-bg.h"
 #include "xfce-desktop-utils.h"
 #include "xfce4-screensaver-dialog-ui.h"
@@ -88,6 +90,7 @@ struct GSLockPlugPrivate {
     GtkWidget   *auth_logout_button;
 
     GtkWidget   *auth_prompt_kbd_layout_indicator;
+    GtkWidget   *keyboard_toggle;
 
     gboolean     caps_lock_on;
     gboolean     switch_enabled;
@@ -105,6 +108,9 @@ struct GSLockPlugPrivate {
     gint         monitor_index;
 
     GList       *key_events;
+
+    GSPrefs       *prefs;
+    XfconfChannel *channel;
 };
 
 typedef struct _ResponseData ResponseData;
@@ -1442,6 +1448,17 @@ redraw_background (GSLockPlug *plug) {
     gtk_image_set_from_pixbuf(GTK_IMAGE(plug->priv->background_image), pixbuf);
 }
 
+static void
+keyboard_toggled_cb (GtkToggleButton *button,
+                    gpointer        *user_data) {
+    GSLockPlug *plug = GS_LOCK_PLUG (user_data);
+
+    gboolean active = gtk_toggle_button_get_active (button);
+    xfconf_channel_set_bool (plug->priv->channel, KEY_KEYBOARD_DISPLAYED, active);
+
+    gtk_widget_grab_focus (plug->priv->auth_prompt_entry);
+}
+
 static gboolean
 gs_lock_plug_add_login_window (GSLockPlug *plug) {
     GtkBuilder *builder;
@@ -1457,6 +1474,9 @@ gs_lock_plug_add_login_window (GSLockPlug *plug) {
         g_error_free(error);
         return FALSE;
     }
+
+    plug->priv->prefs = gs_prefs_new ();
+    plug->priv->channel = xfconf_channel_get (SETTINGS_XFCONF_CHANNEL);
 
     lock_overlay = GTK_WIDGET(gtk_builder_get_object(builder, "lock-overlay"));
     lock_panel = GTK_WIDGET(gtk_builder_get_object(builder, "lock-panel"));
@@ -1491,6 +1511,15 @@ gs_lock_plug_add_login_window (GSLockPlug *plug) {
     plug->priv->auth_prompt_label = GTK_WIDGET (gtk_builder_get_object(builder, "auth-prompt-label"));
     plug->priv->auth_capslock_label = GTK_WIDGET (gtk_builder_get_object(builder, "auth-capslock-label"));
     plug->priv->auth_message_label = GTK_WIDGET (gtk_builder_get_object(builder, "auth-status-label"));
+
+    plug->priv->keyboard_toggle = GTK_WIDGET (gtk_builder_get_object(builder, "keyboard-toggle"));
+    if (plug->priv->prefs->keyboard_enabled) {
+        gtk_widget_show (plug->priv->keyboard_toggle);
+        gtk_widget_set_no_show_all (plug->priv->keyboard_toggle, FALSE);
+        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (plug->priv->keyboard_toggle), plug->priv->prefs->keyboard_displayed);
+        g_signal_connect (GTK_TOGGLE_BUTTON (plug->priv->keyboard_toggle), "toggled",
+                          G_CALLBACK (keyboard_toggled_cb), plug);
+    }
 
     /* Placeholder for the keyboard indicator */
     plug->priv->auth_prompt_kbd_layout_indicator = GTK_WIDGET (
@@ -1636,6 +1665,12 @@ gs_lock_plug_finalize (GObject *object) {
     g_return_if_fail (plug->priv != NULL);
 
     g_free (plug->priv->logout_command);
+
+    g_free (plug->priv->prefs);
+    plug->priv->prefs = NULL;
+
+    g_free (plug->priv->channel);
+    plug->priv->channel = NULL;
 
     remove_response_idle (plug);
     remove_cancel_timeout (plug);
