@@ -15,6 +15,9 @@ from gi.repository import GLib
 from gi.repository import Gtk
 from gi.repository import Gdk
 
+import locale
+from locale import gettext as _
+
 
 class XfconfChannel:
 
@@ -106,6 +109,8 @@ class DesktopScreensaverSettings(ScreensaverSettings):
         if not os.path.exists(filename):
             return False
 
+        locale.textdomain('xfce4-screensaver')
+
         self.filename = filename
 
         keyfile = GLib.KeyFile.new()
@@ -123,7 +128,7 @@ class DesktopScreensaverSettings(ScreensaverSettings):
         self.label = label
         self.arguments = command.split(" ")[1:]
         self.options = options
-        self.description = "%s\n\n%s" % (comment, "Part of Xfce Screensaver")
+        self.description = "%s\n\n%s" % (comment, _("Part of Xfce Screensaver"))
 
         if len(self.options) > 0:
             self.configurable = True
@@ -134,22 +139,22 @@ class DesktopScreensaverSettings(ScreensaverSettings):
         options = OrderedDict()
         if self.name == "xfce-floaters":
             options["number-of-images"] = {'id': 'number-of-images', 'type': 'spinbutton',
-                                           'label': 'Max number of images', 'argument': '-n %', 'default': 5, 'low': 1, 'high': 25}
+                                           'label': _('Max number of images'), 'argument': '-n %', 'default': 5, 'low': 1, 'high': 25}
             options["show-paths"] = {'id': 'show-paths',
-                                     'type': 'checkbox', 'label': 'Show paths', 'argument': '-p'}
+                                     'type': 'checkbox', 'label': _('Show paths'), 'argument': '-p'}
             options["do-rotations"] = {'id': 'do-rotations',
-                                       'type': 'checkbox', 'label': 'Do rotations', 'argument': '-r'}
+                                       'type': 'checkbox', 'label': _('Do rotations'), 'argument': '-r'}
             options["print-stats"] = {'id': 'print-stats',
-                                      'type': 'checkbox', 'label': 'Print stats', 'argument': '-r'}
+                                      'type': 'checkbox', 'label': _('Print stats'), 'argument': '-r'}
         elif self.name == "xfce-personal-slideshow":
-            options["location"] = {'id': 'location', 'type': 'folder', 'label': 'Location',
+            options["location"] = {'id': 'location', 'type': 'folder', 'label': _('Location'),
                                    'argument': '--location=%', 'default': GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)}
             options["background-color"] = {'id': 'background-color',
-                                           'label': 'Background color', 'type': 'color'}
+                                           'label': _('Background color'), 'type': 'color'}
             options["sort-images"] = {'id': 'sort-images',
-                                      'label': 'Do not randomize images', 'type': 'checkbox'}
+                                      'label': _('Do not randomize images'), 'type': 'checkbox'}
             options["no-stretch"] = {'id': 'no-stretch',
-                                     'label': 'Do not stretch images', 'type': 'checkbox'}
+                                     'label': _('Do not stretch images'), 'type': 'checkbox'}
         return options
 
 
@@ -162,6 +167,8 @@ class XmlScreensaverSettings(ScreensaverSettings):
     def load_from_file(self, filename):
         if not os.path.exists(filename):
             return False
+
+        locale.textdomain('xscreensaver')
 
         self.filename = filename
         element = ET.parse(filename).getroot()
@@ -202,6 +209,8 @@ class XmlScreensaverSettings(ScreensaverSettings):
             else:
                 if child.tag.startswith("_"):
                     child.tag = child.tag[1:]
+                    if child.text is not None:
+                        child.text = _(child.text)
                 results.append(child)
         return results
 
@@ -218,6 +227,8 @@ class XmlScreensaverSettings(ScreensaverSettings):
             value = element.attrib[key]
             if key.startswith("_"):
                 key = key[1:]
+                if value is not None:
+                    value = _(value)
             if key in ["arg", "arg-set", "arg-unset"]:
                 key = "argument"
             attributes[key] = value
@@ -273,6 +284,9 @@ class ConfigurationWindow(Gtk.Window):
 
     def __init__(self, parsed):
         Gtk.Window.__init__(self, title=parsed["label"])
+
+        locale.textdomain('xfce4-screensaver')
+
         self.set_border_width(6)
         self.set_default_size(400, -1)
         self.set_icon_name("preferences-desktop-screensaver")
@@ -313,7 +327,7 @@ class ConfigurationWindow(Gtk.Window):
 
             row += 1
 
-        widget = Gtk.Button.new_with_label("Restore Defaults")
+        widget = Gtk.Button.new_with_label(_("Restore Defaults"))
         widget.set_margin_top(18)
         widget.connect("clicked", self.on_restore_clicked)
         self.grid.attach(widget, 0, row, 2, 1)
@@ -326,13 +340,13 @@ class ConfigurationWindow(Gtk.Window):
         self.grid.set_margin_start(self.inner_margin)
         self.grid.set_margin_end(self.inner_margin)
 
-        label = Gtk.Label.new("Preferences")
+        label = Gtk.Label.new(_("Preferences"))
         self.notebook.append_page(self.grid, label)
 
     def setup_notebook(self, parsed):
         if parsed["description"] != "":
             vbox = Gtk.Box.new(Gtk.Orientation.VERTICAL, 18)
-            label = Gtk.Label.new("About")
+            label = Gtk.Label.new(_("About"))
             self.notebook.append_page(vbox, label)
             vbox.set_margin_top(self.inner_margin)
             vbox.set_margin_bottom(self.inner_margin)
@@ -345,7 +359,7 @@ class ConfigurationWindow(Gtk.Window):
 
             if parsed["video"] != "":
                 button = Gtk.LinkButton.new_with_label(
-                    parsed["video"], "Video")
+                    parsed["video"], _("Video"))
                 vbox.pack_start(button, False, False, 0)
         else:
             self.notebook.set_show_tabs(False)
@@ -412,7 +426,7 @@ class ConfigurationWindow(Gtk.Window):
             widget.set_rgba(hex_to_rgba(color))
             widget.connect("color-set", self.on_color_changed, opt["id"])
         else:
-            print("Unrecognized type: %s" % opt["type"])
+            print(_("Unrecognized type: %s") % opt["type"])
             sys.exit(1)
         return widget
 
@@ -581,17 +595,18 @@ def configure(parsed):
 
 
 if __name__ == "__main__":
+    locale.textdomain('xfce4-screensaver')
     parser = argparse.ArgumentParser(
-        description='Configure individual screensavers')
+        description=_('Configure an individual screensaver'))
     parser.add_argument('screensaver', metavar='N', type=str, nargs='?',
-                        help='screensaver name to configure')
+                        help=_('screensaver name to configure'))
     parser.add_argument('--check', action='store_true',
-                        help='check if screensaver is configurable')
+                        help=_('check if screensaver is configurable'))
     args = parser.parse_args()
 
     filename = get_filename(args.screensaver)
     if filename is None:
-        print("No file found for screensaver %s" % args.screensaver)
+        print(_("No file found for screensaver %s") % args.screensaver)
         sys.exit(1)
 
     if filename.endswith(".xml"):
@@ -599,19 +614,22 @@ if __name__ == "__main__":
     elif filename.endswith(".desktop"):
         obj = DesktopScreensaverSettings(args.screensaver)
     else:
-        print("Unrecognized file type for file %s" % filename)
+        locale.textdomain('xfce4-screensaver')
+        print(_("Unrecognized file type for file %s") % filename)
         sys.exit(1)
 
+    locale.textdomain('xfce4-screensaver')
+
     if not obj.load_from_file(filename):
-        print("Failed to load screensaver from %s" % filename)
+        print(_("Failed to load screensaver from %s") % filename)
         sys.exit(1)
 
     if args.check:
         if obj.configurable:
-            print("Screensaver %s is configurable." % args.screensaver)
+            print(_("Screensaver %s is configurable.") % args.screensaver)
             sys.exit(0)
         else:
-            print("Screensaver %s is not configurable." % args.screensaver)
+            print(_("Screensaver %s is not configurable.") % args.screensaver)
             sys.exit(1)
 
     configure(obj.to_dict())
