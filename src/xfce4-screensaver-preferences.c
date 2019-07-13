@@ -996,6 +996,44 @@ setup_treeview (GtkWidget *tree,
 }
 
 static void
+reload_theme (GtkWidget *treeview) {
+    GtkWidget        *preview;
+    GtkTreeIter       iter;
+    GtkTreeModel     *model;
+    GtkTreeSelection *selection;
+    char             *theme;
+    char             *name;
+
+    if (active_theme == NULL) {
+        return;
+    }
+
+    model = gtk_tree_view_get_model (GTK_TREE_VIEW (treeview));
+    if (model == NULL) {
+        return;
+    }
+
+    selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview));
+
+    if (!gtk_tree_selection_get_selected (selection, &model, &iter)) {
+        return;
+    }
+
+    gtk_tree_model_get (model, &iter, ID_COLUMN, &theme, NAME_COLUMN, &name, -1);
+
+    if (theme == NULL) {
+        g_free (name);
+        return;
+    }
+
+    preview  = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_preview_area"));
+    preview_set_theme (preview, theme, name);
+
+    g_free (theme);
+    g_free (name);
+}
+
+static void
 setup_treeview_selection (GtkWidget *tree) {
     char         *theme;
     GtkTreeModel *model;
@@ -1443,6 +1481,10 @@ key_changed_cb (XfconfChannel *channel, const gchar *key, gpointer data) {
         GtkWidget *treeview;
         treeview = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_treeview"));
         setup_treeview_selection (treeview);
+    } else if (g_str_has_suffix (key, "arguments")) {
+        GtkWidget *treeview;
+        treeview = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_treeview"));
+        reload_theme (treeview);
     }
 }
 
