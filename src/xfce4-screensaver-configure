@@ -257,6 +257,14 @@ class XmlScreensaverSettings(ScreensaverSettings):
                     value = _(value)
             if key in ["arg", "arg-set", "arg-unset"]:
                 key = "argument"
+            if "#" in value:
+                tmp = value.split(" ")
+                parts = []
+                for piece in tmp:
+                    if piece.startswith("#"):
+                        piece = "'%s'" % piece
+                    parts.append(piece)
+                value = " ".join(parts)
             attributes[key] = value
 
         return attributes
@@ -572,6 +580,10 @@ class ConfigurationWindow(Gtk.Window):
                     if isinstance(argument, dict):
                         argument = argument[value]
                     elif "%" in argument:
+                        try:
+                            value = int(value)
+                        except:
+                            pass
                         argument = argument.replace("%", str(value))
                     arguments.append(argument)
         value = " ".join(arguments)
