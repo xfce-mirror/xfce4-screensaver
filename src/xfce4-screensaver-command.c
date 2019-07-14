@@ -184,7 +184,7 @@ do_command (GDBusConnection *conn) {
     }
 
     if (do_quit) {
-        reply = screensaver_send_message (conn, "Quit", NULL, FALSE);
+        screensaver_send_message (conn, "Quit", NULL, FALSE);
         goto done;
     }
 
@@ -249,11 +249,11 @@ do_command (GDBusConnection *conn) {
     }
 
     if (do_activate) {
-        reply = screensaver_send_message (conn, "SetActive", g_variant_new ("(b)", TRUE), FALSE);
+        screensaver_send_message (conn, "SetActive", g_variant_new ("(b)", TRUE), FALSE);
     }
 
     if (do_deactivate) {
-        reply = screensaver_send_message (conn, "SetActive", g_variant_new ("(b)", FALSE), TRUE);
+        screensaver_send_message (conn, "SetActive", g_variant_new ("(b)", FALSE), FALSE);
     }
 
     if (do_inhibit) {
