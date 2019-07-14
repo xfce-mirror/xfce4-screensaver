@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-13 12:31+0200\n"
+"POT-Creation-Date: 2019-07-14 00:31+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Igor <f2404@yandex.ru>, 2019\n"
 "Language-Team: Russian (https://www.transifex.com/xfce/teams/16840/ru/)\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:1
-#: ../src/xfce4-screensaver-preferences.ui.h:18
+#: ../src/xfce4-screensaver-preferences.ui.h:20
 #: ../src/xfce4-screensaver.desktop.in.in.h:1
 msgid "Screensaver"
 msgstr "Хранитель экрана"
@@ -270,7 +270,7 @@ msgstr "неактивен"
 #: ../src/xfce4-screensaver-command.c:217
 #, c-format
 msgid "The screensaver is not inhibited\n"
-msgstr "Хранитель экрана не запрещен\n"
+msgstr "Хранитель экрана не запрещён\n"
 
 #: ../src/xfce4-screensaver-command.c:220
 #, c-format
@@ -282,55 +282,64 @@ msgstr "Хранитель экрана запрещён следующими п
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "Хранитель экрана выполняется %d сек.\n"
 
-#: ../src/xfce4-screensaver-configure:150
+#: ../src/xfce4-screensaver-configure:157
 msgid "Part of Xfce Screensaver"
 msgstr "Часть хранителя экрана Xfce"
 
-#: ../src/xfce4-screensaver-configure:349
+#: ../src/xfce4-screensaver-configure:375
 msgid "Restore Defaults"
 msgstr "Вернуть настройки по умолчанию"
 
-#: ../src/xfce4-screensaver-configure:362
+#: ../src/xfce4-screensaver-configure:388
 msgid "Preferences"
 msgstr "Настройки"
 
-#: ../src/xfce4-screensaver-configure:368
+#: ../src/xfce4-screensaver-configure:394
 msgid "About"
 msgstr "О программе"
 
-#: ../src/xfce4-screensaver-configure:381
+#: ../src/xfce4-screensaver-configure:407
 msgid "Video"
 msgstr "Видео"
 
-#: ../src/xfce4-screensaver-configure:448
+#: ../src/xfce4-screensaver-configure:474
 #, c-format
 msgid "Unrecognized type: %s"
 msgstr "Нераспознанный тип: %s"
 
-#: ../src/xfce4-screensaver-configure:628
-#, c-format
-msgid "No file found for screensaver %s"
-msgstr "Не найден файл для хранителя экрана %s"
+#: ../src/xfce4-screensaver-configure:684
+msgid "Unable to configure screensaver"
+msgstr "Невозможно настроить хранитель экрана"
 
-#: ../src/xfce4-screensaver-configure:637
+#: ../src/xfce4-screensaver-configure:688
 #, c-format
-msgid "Unrecognized file type for file %s"
-msgstr "Нераспознанный тип файла для %s"
+msgid "File not found: %s"
+msgstr "Файл не найден: %s"
 
-#: ../src/xfce4-screensaver-configure:643
+#: ../src/xfce4-screensaver-configure:697
 #, c-format
-msgid "Failed to load screensaver from %s"
-msgstr "Не удалось загрузить хранитель экрана из %s"
+msgid "Unrecognized file type: %s"
+msgstr "Нераспознанный тип файла: %s"
 
-#: ../src/xfce4-screensaver-configure:648
+#: ../src/xfce4-screensaver-configure:703
+#, c-format
+msgid "Failed to process file: %s"
+msgstr "Не удалось обработать файл: %s"
+
+#: ../src/xfce4-screensaver-configure:708
 #, c-format
 msgid "Screensaver %s is configurable."
 msgstr "Хранитель экрана %s настраиваем."
 
-#: ../src/xfce4-screensaver-configure:651
+#: ../src/xfce4-screensaver-configure:711
 #, c-format
 msgid "Screensaver %s is not configurable."
-msgstr "Хранитель экрана %s не настраиваема."
+msgstr "Хранитель экрана %s не настраиваем."
+
+#: ../src/xfce4-screensaver-configure:715
+#, c-format
+msgid "Screensaver %s has no configuration options."
+msgstr "У хранителя экрана %s нет настраиваемых опций."
 
 #: ../src/xfce4-screensaver-dialog.c:63
 msgid "Show debugging output"
@@ -478,31 +487,31 @@ msgstr "О_тмена"
 msgid "_Unlock"
 msgstr "_Разблокировать"
 
-#: ../src/xfce4-screensaver-preferences.c:78
+#: ../src/xfce4-screensaver-preferences.c:80
 msgid "Settings manager socket"
 msgstr "Сокет менеджера настроек"
 
-#: ../src/xfce4-screensaver-preferences.c:78
+#: ../src/xfce4-screensaver-preferences.c:80
 msgid "SOCKET ID"
 msgstr "ID СОКЕТА"
 
-#: ../src/xfce4-screensaver-preferences.c:680
+#: ../src/xfce4-screensaver-preferences.c:685
 msgid "Blank screen"
 msgstr "Очистка экрана"
 
-#: ../src/xfce4-screensaver-preferences.c:686
+#: ../src/xfce4-screensaver-preferences.c:691
 msgid "Random"
 msgstr "Случайный порядок"
 
-#: ../src/xfce4-screensaver-preferences.c:1748
+#: ../src/xfce4-screensaver-preferences.c:1824
 msgid "Setting locked by administrator."
 msgstr "Настройка заблокирована администратором."
 
-#: ../src/xfce4-screensaver-preferences.c:1787
+#: ../src/xfce4-screensaver-preferences.c:1865
 msgid "Could not load the main interface"
 msgstr "Не удалось загрузить основной интерфейс"
 
-#: ../src/xfce4-screensaver-preferences.c:1789
+#: ../src/xfce4-screensaver-preferences.c:1867
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "Убедитесь, что хранитель экрана правильно установлен"
 
@@ -560,66 +569,74 @@ msgid "Theme"
 msgstr "Тема"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:14
+msgid "Configure screensaver"
+msgstr "Настроить хранитель экрана"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:15
+msgid "Configure..."
+msgstr "Настроить..."
+
+#: ../src/xfce4-screensaver-preferences.ui.h:16
 msgid "Change theme after:"
 msgstr "Изменить тему после:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:15
+#: ../src/xfce4-screensaver-preferences.ui.h:17
 msgid "minutes"
 msgstr "минут"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:16
+#: ../src/xfce4-screensaver-preferences.ui.h:18
 msgid "Activate screensaver when computer is idle"
 msgstr "Активировать заставку во время простоя ПК"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:17
+#: ../src/xfce4-screensaver-preferences.ui.h:19
 msgid "Regard the computer as _idle after:"
 msgstr "Считать компьютер _неактивным после:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:19
+#: ../src/xfce4-screensaver-preferences.ui.h:21
 msgid "Enable Lock Screen"
 msgstr "Включить блокировку экрана"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:20
+#: ../src/xfce4-screensaver-preferences.ui.h:22
 msgid "Lock Screen with Screensaver"
 msgstr "Блокировать экран хранителем экрана"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:21
+#: ../src/xfce4-screensaver-preferences.ui.h:23
 msgid "Lock the screen after the screensaver is active for:"
 msgstr "Блокировать экран, если хранитель экрана активен в течение:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:22
+#: ../src/xfce4-screensaver-preferences.ui.h:24
 msgid "On Screen Keyboard"
 msgstr "Экранная клавиатура"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:23
+#: ../src/xfce4-screensaver-preferences.ui.h:25
 msgid "On screen keyboard command:"
 msgstr "Команда для запуска экранной клавиатуры:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:24
+#: ../src/xfce4-screensaver-preferences.ui.h:26
 msgid "Session Status Messages"
 msgstr "Сообщения о состоянии сеанса"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:25
+#: ../src/xfce4-screensaver-preferences.ui.h:27
 msgid "Logout"
 msgstr "Выйти"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:26
+#: ../src/xfce4-screensaver-preferences.ui.h:28
 msgid "Logout command:"
 msgstr "Команда выхода:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:27
+#: ../src/xfce4-screensaver-preferences.ui.h:29
 msgid "Enable logout after:"
 msgstr "Включить выход после:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:28
+#: ../src/xfce4-screensaver-preferences.ui.h:30
 msgid "User Switching"
 msgstr "Сменить пользователя"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:29
+#: ../src/xfce4-screensaver-preferences.ui.h:31
 msgid "Lock Screen with System Sleep"
 msgstr "Блокировать экран, когда система спит"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:30
+#: ../src/xfce4-screensaver-preferences.ui.h:32
 msgid "Lock Screen"
 msgstr "Блокировка экрана"
 
