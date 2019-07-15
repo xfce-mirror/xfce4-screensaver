@@ -317,7 +317,7 @@ listener_check_activation (GSListener *listener) {
     res = FALSE;
     if (!inhibited) {
         gs_debug ("Trying to activate");
-        res = gs_listener_set_active (listener, TRUE);
+        res = gs_listener_activate_saver (listener, TRUE);
     }
 
     return res;
@@ -369,8 +369,8 @@ listener_set_active_internal (GSListener *listener,
 }
 
 gboolean
-gs_listener_set_active (GSListener *listener,
-                        gboolean    active) {
+gs_listener_activate_saver (GSListener *listener,
+                            gboolean    active) {
     gboolean res;
 
     g_return_val_if_fail (GS_IS_LISTENER (listener), FALSE);
@@ -397,7 +397,7 @@ listener_property_set_bool (GSListener  *listener,
 
     switch (prop_id) {
         case PROP_ACTIVE:
-            gs_listener_set_active (listener, value);
+            gs_listener_activate_saver (listener, value);
             ret = TRUE;
             break;
         default:
@@ -1343,7 +1343,7 @@ listener_dbus_handle_system_message (DBusConnection *connection,
         if (dbus_message_is_signal (message, LOGIND_SESSION_INTERFACE, "Unlock")) {
             if (_listener_message_path_is_our_session (listener, message)) {
                 gs_debug ("Systemd requested session unlock");
-                gs_listener_set_active (listener, FALSE);
+                gs_listener_activate_saver (listener, FALSE);
             }
 
             return DBUS_HANDLER_RESULT_HANDLED;
@@ -1385,13 +1385,8 @@ listener_dbus_handle_system_message (DBusConnection *connection,
                 if (properties_changed_match (message, "Active")) {
                     gboolean new_active;
 
-                    /* Instead of going via the
-                     * bus to read the new
-                     * property state, let's
-                     * shortcut this and ask
-                     * directly the low-level
-                     * information */
-
+                    /* Instead of going via the bus to read the new property state, let's
+                     * shortcut this and ask directly the low-level information */
                     new_active = sd_session_is_active (listener->priv->session_id) != 0;
                     if (new_active)
                         g_signal_emit (listener, signals[SIMULATE_USER_ACTIVITY], 0);
@@ -1432,7 +1427,7 @@ listener_dbus_handle_system_message (DBusConnection *connection,
     } else if (dbus_message_is_signal (message, CK_SESSION_INTERFACE, "Unlock")) {
         if (_listener_message_path_is_our_session (listener, message)) {
             gs_debug ("Console kit requested session unlock");
-            gs_listener_set_active (listener, FALSE);
+            gs_listener_activate_saver (listener, FALSE);
         }
 
         return DBUS_HANDLER_RESULT_HANDLED;
@@ -1672,7 +1667,7 @@ gs_listener_set_property (GObject      *object,
 
     switch (prop_id) {
         case PROP_ACTIVE:
-            gs_listener_set_active (self, g_value_get_boolean (value));
+            gs_listener_activate_saver (self, g_value_get_boolean (value));
             break;
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);

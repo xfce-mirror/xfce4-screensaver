@@ -56,20 +56,12 @@ GType       gs_manager_get_type                (void);
 
 GSManager * gs_manager_new                     (void);
 
-gboolean    gs_manager_set_active              (GSManager   *manager,
+gboolean    gs_manager_activate_saver          (GSManager   *manager,
                                                 gboolean     active);
-gboolean    gs_manager_get_active              (GSManager   *manager);
-
 gboolean    gs_manager_cycle                   (GSManager   *manager);
 
-void        gs_manager_get_lock_active         (GSManager   *manager,
-                                                gboolean    *lock_active);
-void        gs_manager_set_lock_active         (GSManager   *manager,
+void        gs_manager_enable_locker           (GSManager   *manager,
                                                 gboolean     lock_active);
-void        gs_manager_get_saver_active        (GSManager   *manager,
-                                                gboolean    *saver_active);
-void        gs_manager_set_saver_active        (GSManager   *manager,
-                                                gboolean     saver_active);
 void        gs_manager_set_status_message      (GSManager   *manager,
                                                 const char  *message);
 void        gs_manager_set_throttled           (GSManager   *manager,

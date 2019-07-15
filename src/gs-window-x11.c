@@ -69,7 +69,6 @@ struct GSWindowPrivate {
     guint            dialog_up : 1;
 
     gboolean         lock_active;
-    gboolean         saver_active;
     char            *status_message;
     GSPrefs         *prefs;
 
@@ -1606,16 +1605,6 @@ gs_window_set_lock_active (GSWindow *window,
     gs_debug("Setting lock active: %i", active);
 
     window->priv->lock_active = active;
-}
-
-void
-gs_window_set_saver_active (GSWindow *window,
-                            gboolean  active) {
-    g_return_if_fail (GS_IS_WINDOW (window));
-
-    gs_debug("Setting saver active: %i", active);
-
-    window->priv->saver_active = active;
 }
 
 void

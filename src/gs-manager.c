@@ -23,8 +23,6 @@
 
 #include <config.h>
 
-#include <time.h>
-
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <gio/gio.h>
@@ -54,11 +52,8 @@ struct GSManagerPrivate {
     /* State */
     guint           active : 1;
     guint           lock_active : 1;
-    guint           saver_active : 1;
 
     guint           dialog_up : 1;
-
-    time_t          activate_time;
 
     guint           lock_timeout_id;
     guint           cycle_timeout_id;
@@ -269,22 +264,8 @@ gs_manager_set_throttled (GSManager *manager,
 }
 
 void
-gs_manager_get_lock_active (GSManager *manager,
-                            gboolean  *lock_active) {
-    if (lock_active != NULL) {
-        *lock_active = FALSE;
-    }
-
-    g_return_if_fail (GS_IS_MANAGER (manager));
-
-    if (lock_active != NULL) {
-        *lock_active = manager->priv->lock_active;
-    }
-}
-
-void
-gs_manager_set_lock_active (GSManager *manager,
-                            gboolean   lock_active) {
+gs_manager_enable_locker (GSManager *manager,
+                          gboolean   lock_active) {
     GSList *l;
 
     g_return_if_fail (GS_IS_MANAGER (manager));
@@ -300,42 +281,10 @@ gs_manager_set_lock_active (GSManager *manager,
     }
 }
 
-void
-gs_manager_get_saver_active (GSManager *manager,
-                             gboolean  *saver_active) {
-    if (saver_active != NULL) {
-        *saver_active = FALSE;
-    }
-
-    g_return_if_fail (GS_IS_MANAGER (manager));
-
-    if (saver_active != NULL) {
-        *saver_active = manager->priv->saver_active;
-    }
-}
-
-void
-gs_manager_set_saver_active (GSManager *manager,
-                             gboolean   saver_active) {
-    GSList *l;
-
-    g_return_if_fail (GS_IS_MANAGER (manager));
-
-    gs_debug ("Setting saver active: %d", saver_active);
-
-    if (manager->priv->saver_active != saver_active) {
-        manager->priv->saver_active = saver_active;
-    }
-
-    for (l = manager->priv->windows; l; l = l->next) {
-        gs_window_set_saver_active(l->data, saver_active);
-    }
-}
-
 static gboolean
 activate_lock_timeout (GSManager *manager) {
-    gs_debug ("Locking screen after idling timeout");
-    gs_manager_set_lock_active (manager, TRUE);
+    gs_debug ("Locking screen on idle timeout");
+    gs_manager_enable_locker (manager, TRUE);
     manager->priv->lock_timeout_id = 0;
 
     return FALSE;
@@ -352,14 +301,11 @@ remove_lock_timer (GSManager *manager) {
 static void
 add_lock_timer (GSManager *manager,
                 glong      timeout) {
-    gboolean locked;
-
     if (!manager->priv->prefs->lock_enabled)
         return;
     if (!manager->priv->prefs->lock_with_saver_enabled)
         return;
-    gs_manager_get_lock_active (manager, &locked);
-    if (locked)
+    if (manager->priv->lock_active)
         return;
 
     gs_debug ("Scheduling screen lock after screensaver is idling for %i sec", timeout);
@@ -449,7 +395,7 @@ gs_manager_set_property (GObject      *object,
             gs_manager_set_status_message (self, g_value_get_string (value));
             break;
         case PROP_ACTIVE:
-            gs_manager_set_active (self, g_value_get_boolean (value));
+            gs_manager_activate_saver (self, g_value_get_boolean (value));
             break;
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -756,8 +702,6 @@ manager_show_window (GSManager *manager,
 
     manager_add_job_for_window (manager, window, job);
 
-    manager->priv->activate_time = time (NULL);
-
     remove_lock_timer (manager);
     add_lock_timer (manager, manager->priv->prefs->lock_timeout);
 
@@ -1041,7 +985,6 @@ gs_manager_finalize (GObject *object) {
     gs_manager_destroy_windows (manager);
 
     manager->priv->active = FALSE;
-    manager->priv->activate_time = 0;
 
     g_object_unref (manager->priv->grab);
 
@@ -1179,34 +1122,20 @@ gs_manager_deactivate (GSManager *manager) {
 
     /* reset state */
     manager->priv->active = FALSE;
-    manager->priv->activate_time = 0;
     manager->priv->dialog_up = FALSE;
 
-    gs_manager_set_lock_active (manager, FALSE);
+    gs_manager_enable_locker (manager, FALSE);
 
     return TRUE;
 }
 
 gboolean
-gs_manager_set_active (GSManager *manager,
-                       gboolean   active) {
-    gboolean res;
-
+gs_manager_activate_saver (GSManager *manager,
+                           gboolean   active) {
     if (active) {
-        res = gs_manager_activate (manager);
-    } else {
-        res = gs_manager_deactivate (manager);
+        return gs_manager_activate (manager);
     }
-
-    return res;
-}
-
-gboolean
-gs_manager_get_active (GSManager *manager) {
-    g_return_val_if_fail (manager != NULL, FALSE);
-    g_return_val_if_fail (GS_IS_MANAGER (manager), FALSE);
-
-    return manager->priv->active;
+    return gs_manager_deactivate (manager);
 }
 
 gboolean
