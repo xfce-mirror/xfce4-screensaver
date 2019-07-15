@@ -4,8 +4,8 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Nick Schermer <nick@xfce.org>, 2018
-# Xosé, 2018
+# Nick Schermer <nick@xfce.org>, 2019
+# Xosé, 2019
 # Daniel Muñiz Fontoira <dani@damufo.com>, 2019
 # 
 #, fuzzy
@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-15 06:31+0100\n"
+"POT-Creation-Date: 2019-07-14 00:31+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Daniel Muñiz Fontoira <dani@damufo.com>, 2019\n"
 "Language-Team: Galician (https://www.transifex.com/xfce/teams/16840/gl/)\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:1
-#: ../src/xfce4-screensaver-preferences.ui.h:18
+#: ../src/xfce4-screensaver-preferences.ui.h:20
 #: ../src/xfce4-screensaver.desktop.in.in.h:1
 msgid "Screensaver"
 msgstr "Protector de pantalla"
@@ -75,16 +75,21 @@ msgstr "A imaxe de orixe a empregar"
 
 #. translators: the word "image" here
 #. * represents a command line argument
-#: ../savers/floaters.c:1120
+#: ../savers/floaters.c:1122
 msgid "image - floats images around the screen"
 msgstr "imaxe - flotar imaxes pola pantalla"
 
-#: ../savers/floaters.c:1124 ../savers/popsquares.c:49
+#: ../savers/floaters.c:1126 ../savers/popsquares.c:49
 #, c-format
 msgid "%s. See --help for usage information.\n"
 msgstr "%s. Ver --help para a información de uso.\n"
 
-#: ../savers/floaters.c:1132
+#: ../savers/floaters.c:1133
+#, c-format
+msgid "Failed to initialize the windowing system."
+msgstr "Non se puido inicializar o sistema de xanelas."
+
+#: ../savers/floaters.c:1139
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr "Debe especificar unha imaxe. Ver --help para a información de uso.\n"
@@ -137,190 +142,101 @@ msgstr "Cadros de arte pop"
 msgid "A pop-art-ish grid of pulsing colors."
 msgstr "Unha grade de cores de pulsación de estilo arte pop."
 
-#: ../src/copy-theme-dialog.c:214
-msgid "Copying files"
-msgstr "Copiando ficheiros"
-
-#: ../src/copy-theme-dialog.c:233
-msgid "From:"
-msgstr "De:"
-
-#: ../src/copy-theme-dialog.c:237
-msgid "To:"
-msgstr "Para:"
-
-#: ../src/copy-theme-dialog.c:255 ../src/gs-lock-plug.c:1192
-#: ../src/xfce4-screensaver-dialog.ui.h:7
-msgid "_Cancel"
-msgstr "_Cancelar"
-
-#: ../src/copy-theme-dialog.c:258
-msgid "Copying themes"
-msgstr "Copiando temas"
-
-#: ../src/copy-theme-dialog.c:296
-msgid "Invalid screensaver theme"
-msgstr "Tema de protector de pantalla non válido"
-
-#: ../src/copy-theme-dialog.c:299
-#, c-format
-msgid "%s does not appear to be a valid screensaver theme."
-msgstr "%snon parece ser un tema de protector de pantalla válido."
-
-#: ../src/copy-theme-dialog.c:457
-#, c-format
-msgid "Copying file: %u of %u"
-msgstr "Copiando o ficheiro: %u de %u"
-
 #: ../src/gs-auth-pam.c:163
 msgid "Password:"
 msgstr "Contrasinal:"
 
-#: ../src/gs-auth-pam.c:378
+#: ../src/gs-auth-pam.c:375
 #, c-format
 msgid "Unable to establish service %s: %s\n"
 msgstr "Non se puido estabelecer o servizo %s: %s\n"
 
-#: ../src/gs-auth-pam.c:404
+#: ../src/gs-auth-pam.c:401
 #, c-format
 msgid "Can't set PAM_TTY=%s"
 msgstr "Non se pode configurar PAM_TTY=%s"
 
-#: ../src/gs-auth-pam.c:435
+#: ../src/gs-auth-pam.c:432
 msgid "Incorrect password."
 msgstr "O contrasinal é incorrecto"
 
-#: ../src/gs-auth-pam.c:437 ../src/xfce4-screensaver-dialog.c:311
+#: ../src/gs-auth-pam.c:434 ../src/xfce4-screensaver-dialog.c:311
 msgid "Authentication failed."
 msgstr "Fallou a autenticación."
 
-#: ../src/gs-auth-pam.c:451
+#: ../src/gs-auth-pam.c:448
 msgid "Not permitted to gain access at this time."
 msgstr "Non está permitido acceder neste momento."
 
-#: ../src/gs-auth-pam.c:457
+#: ../src/gs-auth-pam.c:454
 msgid "No longer permitted to access the system."
 msgstr "Xa non se permite acceder ao sistema."
 
-#: ../src/gs-auth-pam.c:674
+#: ../src/gs-auth-pam.c:667
 msgid "Username:"
 msgstr "Nome de usuario:"
 
-#: ../src/gs-listener-dbus.c:1993
+#: ../src/gs-listener-dbus.c:1825
 msgid "failed to register with the message bus"
 msgstr "non se puido rexistrar co «bus» de mensaxes"
 
-#: ../src/gs-listener-dbus.c:2003
+#: ../src/gs-listener-dbus.c:1835
 msgid "not connected to the message bus"
 msgstr "non conectado ao «bus» de mensaxes"
 
-#: ../src/gs-listener-dbus.c:2012 ../src/gs-listener-dbus.c:2042
+#: ../src/gs-listener-dbus.c:1844 ../src/gs-listener-dbus.c:1874
 msgid "screensaver already running in this session"
 msgstr "o protector de pantalla xa está en execución nesta sesión"
 
-#: ../src/gs-lock-plug.c:268
+#: ../src/gs-lock-plug.c:285
 msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, %B %e   %H:%M"
 
-#: ../src/gs-lock-plug.c:351
+#: ../src/gs-lock-plug.c:368
 msgid "Time has expired."
 msgstr "O tempo caducou."
 
-#: ../src/gs-lock-plug.c:1177
-msgid "S_witch User..."
-msgstr "_Trocar de usuario..."
-
-#: ../src/gs-lock-plug.c:1186
-msgid "Log _Out"
-msgstr "Saí_r"
-
-#: ../src/gs-lock-plug.c:1197 ../src/xfce4-screensaver-dialog.ui.h:8
-msgid "_Unlock"
-msgstr "_Desbloquear"
-
-#. To translators: This expands to USERNAME on HOSTNAME
-#: ../src/gs-lock-plug.c:1363
-msgid "%U on %h"
-msgstr "%U a %h"
-
-#: ../src/gs-lock-plug.c:1378
-msgid "Please enter your password."
-msgstr "Insira o seu contrasinal."
-
-#. Translators: a CRTC is a CRT Controller (this is X terminology).
-#: ../src/xfce-rr.c:444
-#, c-format
-msgid "could not get the screen resources (CRTCs, outputs, modes)"
-msgstr "non se puideron obter os recursos da pantalla (CRTCs, saídas, modos)"
-
-#: ../src/xfce-rr.c:465
-#, c-format
-msgid "unhandled X error while getting the range of screen sizes"
-msgstr ""
-"produciuse un erro non controlado do servidor de visualización obtendo a "
-"lista de tamaños de pantalla"
-
-#: ../src/xfce-rr.c:471
-#, c-format
-msgid "could not get the range of screen sizes"
-msgstr "non se puido obter a lista de tamaños de pantalla"
-
-#: ../src/xfce-rr.c:682
-#, c-format
-msgid "RANDR extension is not present"
-msgstr "A extensión RANDR non está presente"
-
-#: ../src/xfce-rr.c:1075
-#, c-format
-msgid "could not get information about output %d"
-msgstr "non se puido obter información sobre a saída %d"
-
-#: ../src/xfce-rr.c:1298
-#, c-format
-msgid "could not get information about CRTC %d"
-msgstr "non se puido obter información sobre CRTC %d"
-
-#: ../src/xfce4-screensaver-command.c:60
+#: ../src/xfce4-screensaver-command.c:56
 msgid "Causes the screensaver to exit gracefully"
 msgstr "Fai que o protector de pantalla saia con graza"
 
-#: ../src/xfce4-screensaver-command.c:64
+#: ../src/xfce4-screensaver-command.c:60
 msgid "Query the state of the screensaver"
 msgstr "Consulte o estado do protector de pantalla"
 
-#: ../src/xfce4-screensaver-command.c:68
+#: ../src/xfce4-screensaver-command.c:64
 msgid "Query the length of time the screensaver has been active"
 msgstr "Consultar o tempo que o protector de pantalla estivo activo"
 
-#: ../src/xfce4-screensaver-command.c:72
+#: ../src/xfce4-screensaver-command.c:68
 msgid "Tells the running screensaver process to lock the screen immediately"
 msgstr ""
 "Indica ao proceso do protector de pantalla en execución que bloquee a "
 "pantalla inmediatamente"
 
-#: ../src/xfce4-screensaver-command.c:76
+#: ../src/xfce4-screensaver-command.c:72
 msgid "If the screensaver is active then switch to another graphics demo"
 msgstr ""
 "Se o protector de pantalla está activo, cambia a outra demostración gráfica"
 
-#: ../src/xfce4-screensaver-command.c:80
+#: ../src/xfce4-screensaver-command.c:76
 msgid "Turn the screensaver on (blank the screen)"
 msgstr "Activar o protector de pantalla (escurecer a pantalla)"
 
-#: ../src/xfce4-screensaver-command.c:84
+#: ../src/xfce4-screensaver-command.c:80
 msgid "If the screensaver is active then deactivate it (un-blank the screen)"
 msgstr ""
 "Se o protector de pantalla está activo, será desactivado (restabelece a "
 "pantalla)"
 
-#: ../src/xfce4-screensaver-command.c:88
+#: ../src/xfce4-screensaver-command.c:84
 msgid "Poke the running screensaver to simulate user activity"
 msgstr ""
 "Prema no protector de pantalla en execución para simular a actividade do "
 "usuario"
 
-#: ../src/xfce4-screensaver-command.c:92
+#: ../src/xfce4-screensaver-command.c:88
 msgid ""
 "Inhibit the screensaver from activating.  Command blocks while inhibit is "
 "active."
@@ -328,52 +244,106 @@ msgstr ""
 "Inhibir que o protector de pantalla se active. Bloquea as ordes mentres que "
 "a inhibición está activa."
 
-#: ../src/xfce4-screensaver-command.c:96
+#: ../src/xfce4-screensaver-command.c:92
 msgid "The calling application that is inhibiting the screensaver"
 msgstr ""
 "O aplicativo que está a solicitar que se inhiba o protector de pantalla"
 
-#: ../src/xfce4-screensaver-command.c:100
+#: ../src/xfce4-screensaver-command.c:96
 msgid "The reason for inhibiting the screensaver"
 msgstr "O motivo para inhibir o protector de pantalla"
 
-#: ../src/xfce4-screensaver-command.c:104 ../src/xfce4-screensaver-dialog.c:65
+#: ../src/xfce4-screensaver-command.c:100 ../src/xfce4-screensaver-dialog.c:65
 #: ../src/xfce4-screensaver.c:58
 msgid "Version of this application"
 msgstr "Versión deste aplicativo"
 
-#: ../src/xfce4-screensaver-command.c:325
+#: ../src/xfce4-screensaver-command.c:206
 #, c-format
 msgid "The screensaver is %s\n"
 msgstr "O protector de pantalla está %s\n"
 
-#: ../src/xfce4-screensaver-command.c:325
+#: ../src/xfce4-screensaver-command.c:206
 msgid "active"
 msgstr "activado"
 
-#: ../src/xfce4-screensaver-command.c:325
+#: ../src/xfce4-screensaver-command.c:206
 msgid "inactive"
 msgstr "desactivado"
 
-#: ../src/xfce4-screensaver-command.c:339
+#: ../src/xfce4-screensaver-command.c:217
 #, c-format
 msgid "The screensaver is not inhibited\n"
 msgstr "O protector de pantalla non está inhibido\n"
 
-#: ../src/xfce4-screensaver-command.c:345
+#: ../src/xfce4-screensaver-command.c:220
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
 msgstr "O protector de pantalla está a ser inhibido por:\n"
 
-#: ../src/xfce4-screensaver-command.c:375
+#: ../src/xfce4-screensaver-command.c:235
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "O protector de pantalla estivo activo durante %d segundos\n"
 
-#: ../src/xfce4-screensaver-command.c:379
+#: ../src/xfce4-screensaver-configure:157
+msgid "Part of Xfce Screensaver"
+msgstr "Parte do protector de pantalla do Xfce"
+
+#: ../src/xfce4-screensaver-configure:375
+msgid "Restore Defaults"
+msgstr "Restaurar a valores predeterminados"
+
+#: ../src/xfce4-screensaver-configure:388
+msgid "Preferences"
+msgstr "Preferencias"
+
+#: ../src/xfce4-screensaver-configure:394
+msgid "About"
+msgstr "Sobre"
+
+#: ../src/xfce4-screensaver-configure:407
+msgid "Video"
+msgstr "Vídeo"
+
+#: ../src/xfce4-screensaver-configure:474
 #, c-format
-msgid "The screensaver is not currently active.\n"
-msgstr "O protector de pantalla non está activo actualmente.\n"
+msgid "Unrecognized type: %s"
+msgstr "Non se recoñece o tipo: %s"
+
+#: ../src/xfce4-screensaver-configure:684
+msgid "Unable to configure screensaver"
+msgstr "Non se puido configurar o protector de pantalla"
+
+#: ../src/xfce4-screensaver-configure:688
+#, c-format
+msgid "File not found: %s"
+msgstr "Non se atopou o ficheiro: %s"
+
+#: ../src/xfce4-screensaver-configure:697
+#, c-format
+msgid "Unrecognized file type: %s"
+msgstr "Non se recoñece o tipo de ficheiro: %s"
+
+#: ../src/xfce4-screensaver-configure:703
+#, c-format
+msgid "Failed to process file: %s"
+msgstr "Fallou ó procesar o ficheiro: %s"
+
+#: ../src/xfce4-screensaver-configure:708
+#, c-format
+msgid "Screensaver %s is configurable."
+msgstr "O protector de pantalla %s é configurábel."
+
+#: ../src/xfce4-screensaver-configure:711
+#, c-format
+msgid "Screensaver %s is not configurable."
+msgstr "O protector de pantalla %s non é configurábel."
+
+#: ../src/xfce4-screensaver-configure:715
+#, c-format
+msgid "Screensaver %s has no configuration options."
+msgstr "O protector de pantalla %s non ten opcións de configuración."
 
 #: ../src/xfce4-screensaver-dialog.c:63
 msgid "Show debugging output"
@@ -485,60 +455,68 @@ msgstr "Comprobando..."
 
 #: ../src/xfce4-screensaver-dialog.ui.h:2
 #, no-c-format
-msgid "%U"
-msgstr "%U"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:3
-msgid "Enter your password"
-msgstr "Insira o seu contrasinal"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:4
-msgid "You have the Caps Lock key on."
-msgstr "A tecla Bloq. Maiús. está activada."
-
-#: ../src/xfce4-screensaver-dialog.ui.h:5
-msgid "_Switch User"
-msgstr "_Trocar de usuario "
-
-#: ../src/xfce4-screensaver-dialog.ui.h:6
-msgid "_Log Out"
-msgstr "Sai_r"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:10
-#, no-c-format
 msgid "<b>%h</b>"
 msgstr "<b>%h</b>"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:12
+#: ../src/xfce4-screensaver-dialog.ui.h:4
 #, no-c-format
 msgid "<b>%s</b>"
 msgstr "<b>%s</b>"
 
-#: ../src/xfce4-screensaver-preferences.c:84
+#: ../src/xfce4-screensaver-dialog.ui.h:6
+#, no-c-format
+msgid "%U"
+msgstr "%U"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:7
+msgid "Enter your password"
+msgstr "Insira o seu contrasinal"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:8
+msgid "You have the Caps Lock key on."
+msgstr "A tecla Bloq. Maiús. está activada."
+
+#: ../src/xfce4-screensaver-dialog.ui.h:9
+msgid "_Switch User"
+msgstr "_Trocar de usuario "
+
+#: ../src/xfce4-screensaver-dialog.ui.h:10
+msgid "_Log Out"
+msgstr "Sai_r"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:11
+msgid "_Cancel"
+msgstr "_Cancelar"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:12
+msgid "_Unlock"
+msgstr "_Desbloquear"
+
+#: ../src/xfce4-screensaver-preferences.c:80
 msgid "Settings manager socket"
 msgstr "Toma («socket») do xestor de configuración"
 
-#: ../src/xfce4-screensaver-preferences.c:84
+#: ../src/xfce4-screensaver-preferences.c:80
 msgid "SOCKET ID"
 msgstr "ID TOMA"
 
-#: ../src/xfce4-screensaver-preferences.c:663
+#: ../src/xfce4-screensaver-preferences.c:685
 msgid "Blank screen"
 msgstr "Escurecer a pantalla"
 
-#: ../src/xfce4-screensaver-preferences.c:669
+#: ../src/xfce4-screensaver-preferences.c:691
 msgid "Random"
 msgstr "Aleatorio"
 
-#: ../src/xfce4-screensaver-preferences.c:1872
+#: ../src/xfce4-screensaver-preferences.c:1824
 msgid "Setting locked by administrator."
 msgstr "Axuste bloqueado polo administrador."
 
-#: ../src/xfce4-screensaver-preferences.c:1912
+#: ../src/xfce4-screensaver-preferences.c:1865
 msgid "Could not load the main interface"
 msgstr "Non se puido cargar a interface principal"
 
-#: ../src/xfce4-screensaver-preferences.c:1914
+#: ../src/xfce4-screensaver-preferences.c:1867
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "Asegúrese de que o protector de pantalla está instalado correctamente"
 
@@ -597,68 +575,76 @@ msgid "Theme"
 msgstr "Tema"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:14
+msgid "Configure screensaver"
+msgstr "Configurar o protector de pantalla"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:15
+msgid "Configure..."
+msgstr "Configurar..."
+
+#: ../src/xfce4-screensaver-preferences.ui.h:16
 msgid "Change theme after:"
 msgstr "Trocar o tema despois de:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:15
+#: ../src/xfce4-screensaver-preferences.ui.h:17
 msgid "minutes"
 msgstr "minutos"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:16
+#: ../src/xfce4-screensaver-preferences.ui.h:18
 msgid "Activate screensaver when computer is idle"
 msgstr "Activar o protector de pantalla cando a computadora estea inactiva"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:17
+#: ../src/xfce4-screensaver-preferences.ui.h:19
 msgid "Regard the computer as _idle after:"
 msgstr "Considerar que a computadora está _inactiva despois de:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:19
+#: ../src/xfce4-screensaver-preferences.ui.h:21
 msgid "Enable Lock Screen"
 msgstr "Activar o bloqueo da pantalla"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:20
+#: ../src/xfce4-screensaver-preferences.ui.h:22
 msgid "Lock Screen with Screensaver"
 msgstr "Bloquea a pantalla con protector de pantalla"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:21
+#: ../src/xfce4-screensaver-preferences.ui.h:23
 msgid "Lock the screen after the screensaver is active for:"
 msgstr ""
 "Bloquear a pantalla despois de que o protector de pantalla estea activo "
 "durante:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:22
+#: ../src/xfce4-screensaver-preferences.ui.h:24
 msgid "On Screen Keyboard"
 msgstr "Teclado en pantalla"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:23
+#: ../src/xfce4-screensaver-preferences.ui.h:25
 msgid "On screen keyboard command:"
 msgstr "Orde do teclado en pantalla:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:24
+#: ../src/xfce4-screensaver-preferences.ui.h:26
 msgid "Session Status Messages"
 msgstr "Mensaxes de estado da sesión"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:25
+#: ../src/xfce4-screensaver-preferences.ui.h:27
 msgid "Logout"
 msgstr "Saír"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:26
+#: ../src/xfce4-screensaver-preferences.ui.h:28
 msgid "Logout command:"
 msgstr "Orde para saír:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:27
+#: ../src/xfce4-screensaver-preferences.ui.h:29
 msgid "Enable logout after:"
 msgstr "Activar a saída despois de:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:28
+#: ../src/xfce4-screensaver-preferences.ui.h:30
 msgid "User Switching"
 msgstr "Trocando usuario"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:29
+#: ../src/xfce4-screensaver-preferences.ui.h:31
 msgid "Lock Screen with System Sleep"
 msgstr "Bloquear a pantalla cando se suspende o sistema"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:30
+#: ../src/xfce4-screensaver-preferences.ui.h:32
 msgid "Lock Screen"
 msgstr "Bloquear a pantalla"
 
@@ -674,6 +660,6 @@ msgstr "Activar o código de depuración"
 msgid "Launch screensaver and locker program"
 msgstr "Executar o protector de pantalla e o bloqueo"
 
-#: ../src/xfcekbd-indicator.c:538
+#: ../src/xfcekbd-indicator.c:404
 msgid "XKB initialization error"
 msgstr "Erro de inicialización XKB"
