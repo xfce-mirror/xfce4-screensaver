@@ -1,3 +1,21 @@
+0.1.7 (UNRELEASED)
+============
+- Features:
+  - Added configuration tool for individual screensavers
+  - Added support for on-screen keyboards
+- Code Cleanup:
+  - Removed unneeded login window construction code
+  - Removed window shaking on failed login
+  - Removed unused session-idle signal
+- General:
+  - Improved wallpaper drawing at 2x scale
+  - Migrated xfce4-screensaver-command to GDBus
+  - Fixed confusion between saver and lock timeouts
+- Translation Updates:
+  Belarusian, Bulgarian, Catalan, Chinese (China), Chinese (Taiwan),
+  Czech, Danish, Dutch, Finnish, French, Galician, German, Hungarian,
+  Italian, Lithuanian, Polish, Portuguese, Russian, Spanish, Turkish
+
 0.1.6 (beta)
 ============
 - Bug Fixes:
