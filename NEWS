@@ -4,9 +4,14 @@
   - Added configuration tool for individual screensavers
   - Added support for on-screen keyboards
 - Code Cleanup:
+  - Drop libXxf86 dependency, no longer implemented or available
+    (see https://github.com/mate-desktop/mate-screensaver/issues/199)
   - Removed unneeded login window construction code
   - Removed window shaking on failed login
   - Removed unused session-idle signal
+  - Removed unused code from gs-manager/gs-window-x11
+  - Simplified lock screen code
+  - Simplified screensaver activation and locking code
 - General:
   - Improved wallpaper drawing at 2x scale
   - Migrated xfce4-screensaver-command to GDBus
