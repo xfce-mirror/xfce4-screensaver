@@ -4,17 +4,17 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Real School <translator_students@realschool.am>, 2019
 # Hayk Andreasyan <hayk.andreasyan@realschool.am>, 2019
+# Real School <translator_students@realschool.am>, 2019
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-08 06:31+0200\n"
+"POT-Creation-Date: 2019-07-14 00:31+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Hayk Andreasyan <hayk.andreasyan@realschool.am>, 2019\n"
+"Last-Translator: Real School <translator_students@realschool.am>, 2019\n"
 "Language-Team: Armenian (Armenia) (https://www.transifex.com/xfce/teams/16840/hy_AM/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:1
-#: ../src/xfce4-screensaver-preferences.ui.h:18
+#: ../src/xfce4-screensaver-preferences.ui.h:20
 #: ../src/xfce4-screensaver.desktop.in.in.h:1
 msgid "Screensaver"
 msgstr "Էկրանապահ"
@@ -74,21 +74,21 @@ msgstr "Գործածելի ելակէտային պատկերը"
 
 #. translators: the word "image" here
 #. * represents a command line argument
-#: ../savers/floaters.c:1121
+#: ../savers/floaters.c:1122
 msgid "image - floats images around the screen"
 msgstr "պատկեր ֊ տեղափոխում է պատկերները ցուցադրիչով"
 
-#: ../savers/floaters.c:1125 ../savers/popsquares.c:49
+#: ../savers/floaters.c:1126 ../savers/popsquares.c:49
 #, c-format
 msgid "%s. See --help for usage information.\n"
 msgstr "%s․ գործածէք --help աջակցութեան համար։\n"
 
-#: ../savers/floaters.c:1132
+#: ../savers/floaters.c:1133
 #, c-format
 msgid "Failed to initialize the windowing system."
 msgstr "Չյաջողուեց սկզբնաւորել պատուհանային համակարգը։"
 
-#: ../savers/floaters.c:1138
+#: ../savers/floaters.c:1139
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr "Պէտք է նշել մեկ պատկեր։ Գործածէք --help աջակցութեան համար։\n"
@@ -141,41 +141,6 @@ msgstr "Փոփ արտ քառակուսիներ"
 msgid "A pop-art-ish grid of pulsing colors."
 msgstr "Ցայտող գոյների փոփ արտական ցանց։"
 
-#: ../src/copy-theme-dialog.c:214
-msgid "Copying files"
-msgstr "Նիշերի պատճէնում"
-
-#: ../src/copy-theme-dialog.c:233
-msgid "From:"
-msgstr "Որտեղից․"
-
-#: ../src/copy-theme-dialog.c:237
-msgid "To:"
-msgstr "Դէպի․"
-
-#: ../src/copy-theme-dialog.c:255 ../src/gs-lock-plug.c:1264
-#: ../src/xfce4-screensaver-dialog.ui.h:7
-msgid "_Cancel"
-msgstr "_Չեղարկել"
-
-#: ../src/copy-theme-dialog.c:258
-msgid "Copying themes"
-msgstr "Ոճերի պատճէնում"
-
-#: ../src/copy-theme-dialog.c:296
-msgid "Invalid screensaver theme"
-msgstr "Էկրանապահի անվաւեր ոճ"
-
-#: ../src/copy-theme-dialog.c:299
-#, c-format
-msgid "%s does not appear to be a valid screensaver theme."
-msgstr "%s֊ը էկրանապահի վաւեր ոճապնակ չէ։ "
-
-#: ../src/copy-theme-dialog.c:457
-#, c-format
-msgid "Copying file: %u of %u"
-msgstr "Նիշի պատճէնւմ․ %u  %u֊ից"
-
 #: ../src/gs-auth-pam.c:163
 msgid "Password:"
 msgstr "Գաղտնաբառ․"
@@ -210,81 +175,60 @@ msgstr "Համակարգն արդէն անհասանելի է։"
 msgid "Username:"
 msgstr "Աւգտանուն․"
 
-#: ../src/gs-listener-dbus.c:1956
+#: ../src/gs-listener-dbus.c:1825
 msgid "failed to register with the message bus"
 msgstr "չյաջողուեց գրանցուել հաղորդագրութեան փոխատրիչով"
 
-#: ../src/gs-listener-dbus.c:1966
+#: ../src/gs-listener-dbus.c:1835
 msgid "not connected to the message bus"
 msgstr "միացուած չէ հաղորդագրութեան փոխատրիչին"
 
-#: ../src/gs-listener-dbus.c:1975 ../src/gs-listener-dbus.c:2005
+#: ../src/gs-listener-dbus.c:1844 ../src/gs-listener-dbus.c:1874
 msgid "screensaver already running in this session"
 msgstr "Էկրանապահը արդեն գործարկում է նիստը"
 
-#: ../src/gs-lock-plug.c:268
+#: ../src/gs-lock-plug.c:285
 msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, %B %e   %H․%M"
 
-#: ../src/gs-lock-plug.c:351
+#: ../src/gs-lock-plug.c:368
 msgid "Time has expired."
 msgstr "Ժամանակը սպառուած է։"
 
-#: ../src/gs-lock-plug.c:1249
-msgid "S_witch User..."
-msgstr "Փ_ոխել աւգտատիրոջը․․․"
-
-#: ../src/gs-lock-plug.c:1258
-msgid "Log _Out"
-msgstr "Դուրս _գալ"
-
-#: ../src/gs-lock-plug.c:1269 ../src/xfce4-screensaver-dialog.ui.h:8
-msgid "_Unlock"
-msgstr "_Արգելաբացել"
-
-#. To translators: This expands to USERNAME on HOSTNAME
-#: ../src/gs-lock-plug.c:1435
-msgid "%U on %h"
-msgstr "%U ֊ն %h֊ում"
-
-#: ../src/gs-lock-plug.c:1450
-msgid "Please enter your password."
-msgstr "Մուտքագրէք գախտնաբառը։"
-
-#: ../src/xfce4-screensaver-command.c:60
+#: ../src/xfce4-screensaver-command.c:56
 msgid "Causes the screensaver to exit gracefully"
 msgstr "Ճիշտ կերպով դուրս է գալիս էկրանապահից"
 
-#: ../src/xfce4-screensaver-command.c:64
+#: ../src/xfce4-screensaver-command.c:60
 msgid "Query the state of the screensaver"
 msgstr "Էկրանապահի կարգավիճակի հարցում"
 
-#: ../src/xfce4-screensaver-command.c:68
+#: ../src/xfce4-screensaver-command.c:64
 msgid "Query the length of time the screensaver has been active"
 msgstr "Ներկայացնել հարցում էկրանապահի գործունէութեան ժամանակի վերաբերեալ"
 
-#: ../src/xfce4-screensaver-command.c:72
+#: ../src/xfce4-screensaver-command.c:68
 msgid "Tells the running screensaver process to lock the screen immediately"
 msgstr "Գործարկուող էկրանապը վայրկեանական կողպում է ցուցադրիչը"
 
-#: ../src/xfce4-screensaver-command.c:76
+#: ../src/xfce4-screensaver-command.c:72
 msgid "If the screensaver is active then switch to another graphics demo"
 msgstr "Եթե էկրանապահը գործուն է, փոխել տեսապատկերման այլ եղանակի "
 
-#: ../src/xfce4-screensaver-command.c:80
+#: ../src/xfce4-screensaver-command.c:76
 msgid "Turn the screensaver on (blank the screen)"
 msgstr "Միացնել էկրանապահը (դատարկել էկրանը)"
 
-#: ../src/xfce4-screensaver-command.c:84
+#: ../src/xfce4-screensaver-command.c:80
 msgid "If the screensaver is active then deactivate it (un-blank the screen)"
 msgstr "Անջատել, երբ էկրանապահը միացուած է (լցնել էկրանը)"
 
-#: ../src/xfce4-screensaver-command.c:88
+#: ../src/xfce4-screensaver-command.c:84
 msgid "Poke the running screensaver to simulate user activity"
 msgstr "Արթնացնել գործուն էկրանապահը, աւգտատիրոջ գործունութեան կեղծման համար"
 
-#: ../src/xfce4-screensaver-command.c:92
+#: ../src/xfce4-screensaver-command.c:88
 msgid ""
 "Inhibit the screensaver from activating.  Command blocks while inhibit is "
 "active."
@@ -292,51 +236,105 @@ msgstr ""
 "Կանխել էկրանապահի գործարկումը։ Հրամանն արգելափակուում է, եթե կանխումը "
 "միացուած է։"
 
-#: ../src/xfce4-screensaver-command.c:96
+#: ../src/xfce4-screensaver-command.c:92
 msgid "The calling application that is inhibiting the screensaver"
 msgstr "Կանչուող յաւելուածը, որը կանխում է էկրանապահի աշխատանքը"
 
-#: ../src/xfce4-screensaver-command.c:100
+#: ../src/xfce4-screensaver-command.c:96
 msgid "The reason for inhibiting the screensaver"
 msgstr "Էկրանապահի կանխման պատճառը"
 
-#: ../src/xfce4-screensaver-command.c:104 ../src/xfce4-screensaver-dialog.c:65
+#: ../src/xfce4-screensaver-command.c:100 ../src/xfce4-screensaver-dialog.c:65
 #: ../src/xfce4-screensaver.c:58
 msgid "Version of this application"
 msgstr "Յաւելուածի տարբերակ"
 
-#: ../src/xfce4-screensaver-command.c:328
+#: ../src/xfce4-screensaver-command.c:206
 #, c-format
 msgid "The screensaver is %s\n"
 msgstr "%s էկրանապահ\n"
 
-#: ../src/xfce4-screensaver-command.c:328
+#: ../src/xfce4-screensaver-command.c:206
 msgid "active"
 msgstr "գործուն"
 
-#: ../src/xfce4-screensaver-command.c:328
+#: ../src/xfce4-screensaver-command.c:206
 msgid "inactive"
 msgstr "ոչ գործուն"
 
-#: ../src/xfce4-screensaver-command.c:342
+#: ../src/xfce4-screensaver-command.c:217
 #, c-format
 msgid "The screensaver is not inhibited\n"
 msgstr "Էկրանապահի աշխատանքը չի կանխուում\n"
 
-#: ../src/xfce4-screensaver-command.c:348
+#: ../src/xfce4-screensaver-command.c:220
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
 msgstr "Էկրանապահի աշխատանքը կանխուել է․\n"
 
-#: ../src/xfce4-screensaver-command.c:378
+#: ../src/xfce4-screensaver-command.c:235
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "Էկրանապահը գործել է %d վարկեան։\n"
 
-#: ../src/xfce4-screensaver-command.c:382
+#: ../src/xfce4-screensaver-configure:157
+msgid "Part of Xfce Screensaver"
+msgstr " Xfce Screensaver ֊ի մաս"
+
+#: ../src/xfce4-screensaver-configure:375
+msgid "Restore Defaults"
+msgstr "Վերականգնել լռելեայն"
+
+#: ../src/xfce4-screensaver-configure:388
+msgid "Preferences"
+msgstr "Նախընտրութիւններ"
+
+#: ../src/xfce4-screensaver-configure:394
+msgid "About"
+msgstr "Մասին"
+
+#: ../src/xfce4-screensaver-configure:407
+msgid "Video"
+msgstr "Տեսագրութիւն"
+
+#: ../src/xfce4-screensaver-configure:474
 #, c-format
-msgid "The screensaver is not currently active.\n"
-msgstr "Էկրանապահը հիմա չի գործում։\n"
+msgid "Unrecognized type: %s"
+msgstr "Չճանաչուած տեսակ՝ %s"
+
+#: ../src/xfce4-screensaver-configure:684
+msgid "Unable to configure screensaver"
+msgstr "Չյաջողուեց կազմաձեւել էկրանապահը"
+
+#: ../src/xfce4-screensaver-configure:688
+#, c-format
+msgid "File not found: %s"
+msgstr "Նիշը չի գտնուել՝ %s"
+
+#: ../src/xfce4-screensaver-configure:697
+#, c-format
+msgid "Unrecognized file type: %s"
+msgstr "Չճանաչուած նիշի տեսակ՝ %s"
+
+#: ../src/xfce4-screensaver-configure:703
+#, c-format
+msgid "Failed to process file: %s"
+msgstr "Չյաջողուեց գործադրել նիշը՝ %s"
+
+#: ../src/xfce4-screensaver-configure:708
+#, c-format
+msgid "Screensaver %s is configurable."
+msgstr "%s էկրանապահը կազմաձեւուող է։"
+
+#: ../src/xfce4-screensaver-configure:711
+#, c-format
+msgid "Screensaver %s is not configurable."
+msgstr "%s էկրանապահը կազմաձեւուող չէ։"
+
+#: ../src/xfce4-screensaver-configure:715
+#, c-format
+msgid "Screensaver %s has no configuration options."
+msgstr "%sէկրանապահը չունի կազմաձեւման ընտրանքներ։"
 
 #: ../src/xfce4-screensaver-dialog.c:63
 msgid "Show debugging output"
@@ -445,60 +443,68 @@ msgstr "Ստուգում․․․"
 
 #: ../src/xfce4-screensaver-dialog.ui.h:2
 #, no-c-format
-msgid "%U"
-msgstr "%U"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:3
-msgid "Enter your password"
-msgstr "Մուտքագրէք գախտնաբառը"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:4
-msgid "You have the Caps Lock key on."
-msgstr "Caps Lock ստեղնը միացուած է։"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:5
-msgid "_Switch User"
-msgstr "_Փոխել աւգտատիրոջը"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:6
-msgid "_Log Out"
-msgstr "_Դուրս գալ"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:10
-#, no-c-format
 msgid "<b>%h</b>"
 msgstr "<b>%h</b>"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:12
+#: ../src/xfce4-screensaver-dialog.ui.h:4
 #, no-c-format
 msgid "<b>%s</b>"
 msgstr "<b>%s</b>"
 
-#: ../src/xfce4-screensaver-preferences.c:84
+#: ../src/xfce4-screensaver-dialog.ui.h:6
+#, no-c-format
+msgid "%U"
+msgstr "%U"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:7
+msgid "Enter your password"
+msgstr "Մուտքագրէք գախտնաբառը"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:8
+msgid "You have the Caps Lock key on."
+msgstr "Caps Lock ստեղնը միացուած է։"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:9
+msgid "_Switch User"
+msgstr "_Փոխել աւգտատիրոջը"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:10
+msgid "_Log Out"
+msgstr "_Դուրս գալ"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:11
+msgid "_Cancel"
+msgstr "_Չեղարկել"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:12
+msgid "_Unlock"
+msgstr "_Արգելաբացել"
+
+#: ../src/xfce4-screensaver-preferences.c:80
 msgid "Settings manager socket"
 msgstr "Կարգաւորումների կառավարչի բնիկ"
 
-#: ../src/xfce4-screensaver-preferences.c:84
+#: ../src/xfce4-screensaver-preferences.c:80
 msgid "SOCKET ID"
 msgstr "ԲՆԻԿԻ ID"
 
-#: ../src/xfce4-screensaver-preferences.c:663
+#: ../src/xfce4-screensaver-preferences.c:685
 msgid "Blank screen"
 msgstr "Դատարկ ցուցադրիչ"
 
-#: ../src/xfce4-screensaver-preferences.c:669
+#: ../src/xfce4-screensaver-preferences.c:691
 msgid "Random"
 msgstr "Պատահական"
 
-#: ../src/xfce4-screensaver-preferences.c:1872
+#: ../src/xfce4-screensaver-preferences.c:1824
 msgid "Setting locked by administrator."
 msgstr "Կարգաւորումը կողպուած է վարիչի կողմից։"
 
-#: ../src/xfce4-screensaver-preferences.c:1912
+#: ../src/xfce4-screensaver-preferences.c:1865
 msgid "Could not load the main interface"
 msgstr "Հնարաւոր չէ բեռնել հիմնական միջերեսը"
 
-#: ../src/xfce4-screensaver-preferences.c:1914
+#: ../src/xfce4-screensaver-preferences.c:1867
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "Համոզուեք, որ էկրանապահը ճիշտ է բեռնուել"
 
@@ -557,66 +563,74 @@ msgid "Theme"
 msgstr "Թէմայ"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:14
+msgid "Configure screensaver"
+msgstr "Կազմաձեւել էկրանապահը"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:15
+msgid "Configure..."
+msgstr "Կազմաձեւել"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:16
 msgid "Change theme after:"
 msgstr "Փոխել թէման․"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:15
+#: ../src/xfce4-screensaver-preferences.ui.h:17
 msgid "minutes"
 msgstr "րոպէ"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:16
+#: ../src/xfce4-screensaver-preferences.ui.h:18
 msgid "Activate screensaver when computer is idle"
 msgstr "Միացնել էկրանապահը, երբ համակարգիչը չի գործում"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:17
+#: ../src/xfce4-screensaver-preferences.ui.h:19
 msgid "Regard the computer as _idle after:"
 msgstr "Համակարգիչն _անգործ է․"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:19
+#: ../src/xfce4-screensaver-preferences.ui.h:21
 msgid "Enable Lock Screen"
 msgstr "Միացնել կողպման ցուցադրիչը"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:20
+#: ../src/xfce4-screensaver-preferences.ui.h:22
 msgid "Lock Screen with Screensaver"
 msgstr "Կողպել ցուցադրիչն էկրանապահով"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:21
+#: ../src/xfce4-screensaver-preferences.ui.h:23
 msgid "Lock the screen after the screensaver is active for:"
 msgstr "Կողպել ցուցադրիչը, եթե էկրապահը գործում է․"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:22
+#: ../src/xfce4-screensaver-preferences.ui.h:24
 msgid "On Screen Keyboard"
 msgstr "Ցուցադրիչային ստեղնաշար"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:23
+#: ../src/xfce4-screensaver-preferences.ui.h:25
 msgid "On screen keyboard command:"
 msgstr "Ցուցադրիչային ստեղնաշարի հրաման․"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:24
+#: ../src/xfce4-screensaver-preferences.ui.h:26
 msgid "Session Status Messages"
 msgstr "Նիստի կարգավիճակի հաղորդագրութիւններ"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:25
+#: ../src/xfce4-screensaver-preferences.ui.h:27
 msgid "Logout"
 msgstr "Դուրս գալ"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:26
+#: ../src/xfce4-screensaver-preferences.ui.h:28
 msgid "Logout command:"
 msgstr "Դուրս գալու հրաման․"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:27
+#: ../src/xfce4-screensaver-preferences.ui.h:29
 msgid "Enable logout after:"
 msgstr "Թոյլատրել դուրս գալ, երբ․"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:28
+#: ../src/xfce4-screensaver-preferences.ui.h:30
 msgid "User Switching"
 msgstr "Աւգտատերերի փոփոխում"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:29
+#: ../src/xfce4-screensaver-preferences.ui.h:31
 msgid "Lock Screen with System Sleep"
 msgstr "Կողպել ցուցադրիչը գործածելով քունը"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:30
+#: ../src/xfce4-screensaver-preferences.ui.h:32
 msgid "Lock Screen"
 msgstr "Կողպել ցուցադրիչը"
 
@@ -632,6 +646,6 @@ msgstr "Միացնել վրիպազերծումը"
 msgid "Launch screensaver and locker program"
 msgstr "Գործարկել էկրանապահը եւ կողպման ծրագիրը"
 
-#: ../src/xfcekbd-indicator.c:537
+#: ../src/xfcekbd-indicator.c:404
 msgid "XKB initialization error"
 msgstr "XKB֊ի սկզբնաւորման սխալ"
