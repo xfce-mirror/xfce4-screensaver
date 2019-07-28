@@ -269,6 +269,7 @@ EXTRA_DIST = \
 	debug-screensaver.sh              \
 	gs-marshal.list                   \
 	xfce4-screensaver.desktop.in      \
+	xfce4-screensaver-configure       \
 	xfce4-screensaver-dialog.css      \
 	xfce4-screensaver-dialog.ui       \
 	xfce4-screensaver-preferences.ui  \
