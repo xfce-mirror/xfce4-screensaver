@@ -1,4 +1,4 @@
-0.1.7 (UNRELEASED)
+0.1.7 (beta)
 ============
 - Features:
   - Added configuration tool for individual screensavers
@@ -17,9 +17,10 @@
   - Migrated xfce4-screensaver-command to GDBus
   - Fixed confusion between saver and lock timeouts
 - Translation Updates:
-  Belarusian, Bulgarian, Catalan, Chinese (China), Chinese (Taiwan),
-  Czech, Danish, Dutch, Finnish, French, Galician, German, Hungarian,
-  Italian, Lithuanian, Polish, Portuguese, Russian, Spanish, Turkish
+  Armenian (Armenia), Belarusian, Bulgarian, Catalan, Chinese (China),
+  Chinese (Taiwan), Czech, Danish, Dutch, Finnish, French, Galician,
+  German, Hungarian, Italian, Lithuanian, Norwegian Bokmål, Polish,
+  Portuguese, Portuguese (Brazil), Russian, Spanish, Turkish
 
 0.1.6 (beta)
 ============
