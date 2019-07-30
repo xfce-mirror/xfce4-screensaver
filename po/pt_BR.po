@@ -288,11 +288,11 @@ msgstr "O protetor de tela esteve ativo por %d segundos.\n"
 
 #: ../src/xfce4-screensaver-configure:157
 msgid "Part of Xfce Screensaver"
-msgstr ""
+msgstr "Parte do Protetor de tela do Xfce"
 
 #: ../src/xfce4-screensaver-configure:375
 msgid "Restore Defaults"
-msgstr ""
+msgstr "Restaurar padrões"
 
 #: ../src/xfce4-screensaver-configure:388
 msgid "Preferences"
@@ -309,41 +309,41 @@ msgstr "Vídeo"
 #: ../src/xfce4-screensaver-configure:474
 #, c-format
 msgid "Unrecognized type: %s"
-msgstr ""
+msgstr "Tipo não reconhecido: %s"
 
 #: ../src/xfce4-screensaver-configure:684
 msgid "Unable to configure screensaver"
-msgstr ""
+msgstr "Não foi possível configurar o protetor de tela"
 
 #: ../src/xfce4-screensaver-configure:688
 #, c-format
 msgid "File not found: %s"
-msgstr ""
+msgstr "Arquivo não encontrado: %s"
 
 #: ../src/xfce4-screensaver-configure:697
 #, c-format
 msgid "Unrecognized file type: %s"
-msgstr ""
+msgstr "Tipo de arquivo não reconhecido: %s"
 
 #: ../src/xfce4-screensaver-configure:703
 #, c-format
 msgid "Failed to process file: %s"
-msgstr ""
+msgstr "Falha ao processar arquivo: %s"
 
 #: ../src/xfce4-screensaver-configure:708
 #, c-format
 msgid "Screensaver %s is configurable."
-msgstr ""
+msgstr "O protetor de tela %s é configurável."
 
 #: ../src/xfce4-screensaver-configure:711
 #, c-format
 msgid "Screensaver %s is not configurable."
-msgstr ""
+msgstr "O protetor de tela %s não é configurável."
 
 #: ../src/xfce4-screensaver-configure:715
 #, c-format
 msgid "Screensaver %s has no configuration options."
-msgstr ""
+msgstr "O protetor de tela %s não possui opções de configuração."
 
 #: ../src/xfce4-screensaver-dialog.c:63
 msgid "Show debugging output"
@@ -573,11 +573,11 @@ msgstr "Tema"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:14
 msgid "Configure screensaver"
-msgstr ""
+msgstr "Configurar protetor de tela"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:15
 msgid "Configure..."
-msgstr ""
+msgstr "Configurar..."
 
 #: ../src/xfce4-screensaver-preferences.ui.h:16
 msgid "Change theme after:"
