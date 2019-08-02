@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-14 00:31+0200\n"
+"POT-Creation-Date: 2019-08-02 06:31+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Moo, 2019\n"
 "Language-Team: Lithuanian (https://www.transifex.com/xfce/teams/16840/lt/)\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:1
-#: ../src/xfce4-screensaver-preferences.ui.h:20
+#: ../src/xfce4-screensaver-preferences.ui.h:21
 #: ../src/xfce4-screensaver.desktop.in.in.h:1
 msgid "Screensaver"
 msgstr "Ekrano užsklanda"
@@ -177,15 +177,15 @@ msgstr "Prieiga prie sistemos daugiau nebeleidžiama."
 msgid "Username:"
 msgstr "Naudotojo vardas:"
 
-#: ../src/gs-listener-dbus.c:1825
+#: ../src/gs-listener-dbus.c:1820
 msgid "failed to register with the message bus"
 msgstr "nepavyko prisiregistruoti prie pranešimų magistralės"
 
-#: ../src/gs-listener-dbus.c:1835
+#: ../src/gs-listener-dbus.c:1830
 msgid "not connected to the message bus"
 msgstr "neprisijungta prie pranešimų magistralės"
 
-#: ../src/gs-listener-dbus.c:1844 ../src/gs-listener-dbus.c:1874
+#: ../src/gs-listener-dbus.c:1839 ../src/gs-listener-dbus.c:1869
 msgid "screensaver already running in this session"
 msgstr "ekrano užsklanda šiame seanse jau paleista"
 
@@ -194,7 +194,7 @@ msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%B %e, %A   %H:%M"
 
-#: ../src/gs-lock-plug.c:368
+#: ../src/gs-lock-plug.c:361
 msgid "Time has expired."
 msgstr "Laikas pasibaigė."
 
@@ -452,42 +452,42 @@ msgstr "Tikrinama..."
 
 #: ../src/xfce4-screensaver-dialog.ui.h:2
 #, no-c-format
-msgid "<b>%h</b>"
-msgstr "<b>%h</b>"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:4
-#, no-c-format
-msgid "<b>%s</b>"
-msgstr "<b>%s</b>"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:6
-#, no-c-format
 msgid "%U"
 msgstr "%U"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:7
+#: ../src/xfce4-screensaver-dialog.ui.h:3
 msgid "Enter your password"
 msgstr "Įveskite savo slaptažodį"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:8
+#: ../src/xfce4-screensaver-dialog.ui.h:4
 msgid "You have the Caps Lock key on."
 msgstr "Įjungtos DIDŽIOSIOS RAIDĖS."
 
-#: ../src/xfce4-screensaver-dialog.ui.h:9
+#: ../src/xfce4-screensaver-dialog.ui.h:5
 msgid "_Switch User"
 msgstr "_Perjungti naudotoją"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:10
+#: ../src/xfce4-screensaver-dialog.ui.h:6
 msgid "_Log Out"
 msgstr "_Atsijungti"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:11
+#: ../src/xfce4-screensaver-dialog.ui.h:7
 msgid "_Cancel"
 msgstr "_Atsisakyti"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:12
+#: ../src/xfce4-screensaver-dialog.ui.h:8
 msgid "_Unlock"
 msgstr "A_trakinti"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:10
+#, no-c-format
+msgid "<b>%h</b>"
+msgstr "<b>%h</b>"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:12
+#, no-c-format
+msgid "<b>%s</b>"
+msgstr "<b>%s</b>"
 
 #: ../src/xfce4-screensaver-preferences.c:80
 msgid "Settings manager socket"
@@ -497,23 +497,23 @@ msgstr "Nustatymų tvarkytuvės lizdas"
 msgid "SOCKET ID"
 msgstr "LIZDO ID"
 
-#: ../src/xfce4-screensaver-preferences.c:685
+#: ../src/xfce4-screensaver-preferences.c:706
 msgid "Blank screen"
 msgstr "Tamsus ekranas"
 
-#: ../src/xfce4-screensaver-preferences.c:691
+#: ../src/xfce4-screensaver-preferences.c:712
 msgid "Random"
 msgstr "Atsitiktinė"
 
-#: ../src/xfce4-screensaver-preferences.c:1824
+#: ../src/xfce4-screensaver-preferences.c:1867
 msgid "Setting locked by administrator."
 msgstr "Administratorius užrakino nustatymą."
 
-#: ../src/xfce4-screensaver-preferences.c:1865
+#: ../src/xfce4-screensaver-preferences.c:1908
 msgid "Could not load the main interface"
 msgstr "Nepavyko įkelti pagrindinės sąsajos"
 
-#: ../src/xfce4-screensaver-preferences.c:1867
+#: ../src/xfce4-screensaver-preferences.c:1910
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "Įsitikinkite, kad ekrano užsklanda yra tinkamai įdiegta"
 
@@ -595,51 +595,55 @@ msgstr "Aktyvuoti ekrano užsklandą, kai kompiuteris yra neveiklus"
 msgid "Regard the computer as _idle after:"
 msgstr "Laikyti kompiuterį neveikliu po:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:21
+#: ../src/xfce4-screensaver-preferences.ui.h:20
+msgid "Inhibit screensaver for fullscreen applications"
+msgstr "Sulaikyti ekrano užsklandą viso ekrano programoms"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:22
 msgid "Enable Lock Screen"
 msgstr "Įjungti ekrano užraktą"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:22
+#: ../src/xfce4-screensaver-preferences.ui.h:23
 msgid "Lock Screen with Screensaver"
 msgstr "Užrakinti ekraną naudojant ekrano užsklandą"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:23
+#: ../src/xfce4-screensaver-preferences.ui.h:24
 msgid "Lock the screen after the screensaver is active for:"
 msgstr "Užrakinti ekraną po to, kai ekrano užsklanda yra aktyvi jau:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:24
+#: ../src/xfce4-screensaver-preferences.ui.h:25
 msgid "On Screen Keyboard"
 msgstr "Ekraninė klaviatūra"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:25
+#: ../src/xfce4-screensaver-preferences.ui.h:26
 msgid "On screen keyboard command:"
 msgstr "Ekraninės klaviatūros komanda:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:26
+#: ../src/xfce4-screensaver-preferences.ui.h:27
 msgid "Session Status Messages"
 msgstr "Seanso būsenos pranešimai"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:27
+#: ../src/xfce4-screensaver-preferences.ui.h:28
 msgid "Logout"
 msgstr "Atsijungti"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:28
+#: ../src/xfce4-screensaver-preferences.ui.h:29
 msgid "Logout command:"
 msgstr "Atsijungimo komanda:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:29
+#: ../src/xfce4-screensaver-preferences.ui.h:30
 msgid "Enable logout after:"
 msgstr "Įjungti atsijungimą po:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:30
+#: ../src/xfce4-screensaver-preferences.ui.h:31
 msgid "User Switching"
 msgstr "Naudotojų perjungimas"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:31
+#: ../src/xfce4-screensaver-preferences.ui.h:32
 msgid "Lock Screen with System Sleep"
 msgstr "Užrakinti ekraną, kai sistema užmiega"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:32
+#: ../src/xfce4-screensaver-preferences.ui.h:33
 msgid "Lock Screen"
 msgstr "Užrakinti ekraną"
 
