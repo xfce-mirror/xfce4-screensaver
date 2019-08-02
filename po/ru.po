@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-14 00:31+0200\n"
+"POT-Creation-Date: 2019-08-02 06:31+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Igor <f2404@yandex.ru>, 2019\n"
 "Language-Team: Russian (https://www.transifex.com/xfce/teams/16840/ru/)\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:1
-#: ../src/xfce4-screensaver-preferences.ui.h:20
+#: ../src/xfce4-screensaver-preferences.ui.h:21
 #: ../src/xfce4-screensaver.desktop.in.in.h:1
 msgid "Screensaver"
 msgstr "Хранитель экрана"
@@ -180,15 +180,15 @@ msgstr "Вам больше не разрешено входить в систе
 msgid "Username:"
 msgstr "Имя пользователя:"
 
-#: ../src/gs-listener-dbus.c:1825
+#: ../src/gs-listener-dbus.c:1820
 msgid "failed to register with the message bus"
 msgstr "не удалось зарегистрироваться на шине сообщений"
 
-#: ../src/gs-listener-dbus.c:1835
+#: ../src/gs-listener-dbus.c:1830
 msgid "not connected to the message bus"
 msgstr "не удалось подключиться к шине сообщений"
 
-#: ../src/gs-listener-dbus.c:1844 ../src/gs-listener-dbus.c:1874
+#: ../src/gs-listener-dbus.c:1839 ../src/gs-listener-dbus.c:1869
 msgid "screensaver already running in this session"
 msgstr "в этом сеансе уже запущен хранитель экрана"
 
@@ -197,7 +197,7 @@ msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, %e %B   %H:%M"
 
-#: ../src/gs-lock-plug.c:368
+#: ../src/gs-lock-plug.c:361
 msgid "Time has expired."
 msgstr "Время истекло."
 
@@ -450,42 +450,42 @@ msgstr "Проверка..."
 
 #: ../src/xfce4-screensaver-dialog.ui.h:2
 #, no-c-format
-msgid "<b>%h</b>"
-msgstr "<b>%h</b>"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:4
-#, no-c-format
-msgid "<b>%s</b>"
-msgstr "<b>%s</b>"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:6
-#, no-c-format
 msgid "%U"
 msgstr "%U"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:7
+#: ../src/xfce4-screensaver-dialog.ui.h:3
 msgid "Enter your password"
 msgstr "Введите пароль"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:8
+#: ../src/xfce4-screensaver-dialog.ui.h:4
 msgid "You have the Caps Lock key on."
 msgstr "Включён Caps Lock."
 
-#: ../src/xfce4-screensaver-dialog.ui.h:9
+#: ../src/xfce4-screensaver-dialog.ui.h:5
 msgid "_Switch User"
 msgstr "_Переключить пользователя"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:10
+#: ../src/xfce4-screensaver-dialog.ui.h:6
 msgid "_Log Out"
 msgstr "_Выйти"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:11
+#: ../src/xfce4-screensaver-dialog.ui.h:7
 msgid "_Cancel"
 msgstr "О_тмена"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:12
+#: ../src/xfce4-screensaver-dialog.ui.h:8
 msgid "_Unlock"
 msgstr "_Разблокировать"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:10
+#, no-c-format
+msgid "<b>%h</b>"
+msgstr "<b>%h</b>"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:12
+#, no-c-format
+msgid "<b>%s</b>"
+msgstr "<b>%s</b>"
 
 #: ../src/xfce4-screensaver-preferences.c:80
 msgid "Settings manager socket"
@@ -495,23 +495,23 @@ msgstr "Сокет менеджера настроек"
 msgid "SOCKET ID"
 msgstr "ID СОКЕТА"
 
-#: ../src/xfce4-screensaver-preferences.c:685
+#: ../src/xfce4-screensaver-preferences.c:706
 msgid "Blank screen"
 msgstr "Очистка экрана"
 
-#: ../src/xfce4-screensaver-preferences.c:691
+#: ../src/xfce4-screensaver-preferences.c:712
 msgid "Random"
 msgstr "Случайный порядок"
 
-#: ../src/xfce4-screensaver-preferences.c:1824
+#: ../src/xfce4-screensaver-preferences.c:1867
 msgid "Setting locked by administrator."
 msgstr "Настройка заблокирована администратором."
 
-#: ../src/xfce4-screensaver-preferences.c:1865
+#: ../src/xfce4-screensaver-preferences.c:1908
 msgid "Could not load the main interface"
 msgstr "Не удалось загрузить основной интерфейс"
 
-#: ../src/xfce4-screensaver-preferences.c:1867
+#: ../src/xfce4-screensaver-preferences.c:1910
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "Убедитесь, что хранитель экрана правильно установлен"
 
@@ -592,51 +592,55 @@ msgstr "Активировать заставку во время простоя
 msgid "Regard the computer as _idle after:"
 msgstr "Считать компьютер _неактивным после:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:21
+#: ../src/xfce4-screensaver-preferences.ui.h:20
+msgid "Inhibit screensaver for fullscreen applications"
+msgstr "Запретить хранитель экрана для полноэкранных приложений"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:22
 msgid "Enable Lock Screen"
 msgstr "Включить блокировку экрана"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:22
+#: ../src/xfce4-screensaver-preferences.ui.h:23
 msgid "Lock Screen with Screensaver"
 msgstr "Блокировать экран хранителем экрана"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:23
+#: ../src/xfce4-screensaver-preferences.ui.h:24
 msgid "Lock the screen after the screensaver is active for:"
 msgstr "Блокировать экран, если хранитель экрана активен в течение:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:24
+#: ../src/xfce4-screensaver-preferences.ui.h:25
 msgid "On Screen Keyboard"
 msgstr "Экранная клавиатура"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:25
+#: ../src/xfce4-screensaver-preferences.ui.h:26
 msgid "On screen keyboard command:"
 msgstr "Команда для запуска экранной клавиатуры:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:26
+#: ../src/xfce4-screensaver-preferences.ui.h:27
 msgid "Session Status Messages"
 msgstr "Сообщения о состоянии сеанса"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:27
+#: ../src/xfce4-screensaver-preferences.ui.h:28
 msgid "Logout"
 msgstr "Выйти"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:28
+#: ../src/xfce4-screensaver-preferences.ui.h:29
 msgid "Logout command:"
 msgstr "Команда выхода:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:29
+#: ../src/xfce4-screensaver-preferences.ui.h:30
 msgid "Enable logout after:"
 msgstr "Включить выход после:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:30
+#: ../src/xfce4-screensaver-preferences.ui.h:31
 msgid "User Switching"
 msgstr "Сменить пользователя"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:31
+#: ../src/xfce4-screensaver-preferences.ui.h:32
 msgid "Lock Screen with System Sleep"
 msgstr "Блокировать экран, когда система спит"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:32
+#: ../src/xfce4-screensaver-preferences.ui.h:33
 msgid "Lock Screen"
 msgstr "Блокировка экрана"
 
