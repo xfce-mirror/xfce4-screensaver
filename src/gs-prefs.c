@@ -221,6 +221,12 @@ _gs_prefs_set_lock_with_saver_enabled (GSPrefs  *prefs,
 }
 
 static void
+_gs_prefs_set_fullscreen_inhibit (GSPrefs *prefs,
+                                  gboolean value) {
+    prefs->fullscreen_inhibit = value;
+}
+
+static void
 _gs_prefs_set_keyboard_enabled (GSPrefs  *prefs,
                                 gboolean  value) {
     prefs->keyboard_enabled = value;
@@ -327,6 +333,11 @@ gs_prefs_load_from_settings (GSPrefs *prefs) {
                                     KEY_IDLE_DELAY,
                                     DEFAULT_KEY_IDLE_DELAY);
     _gs_prefs_set_timeout (prefs, value);
+
+    bvalue = xfconf_channel_get_bool (prefs->priv->channel,
+                                      KEY_FULLSCREEN_INHIBIT,
+                                      DEFAULT_KEY_FULLSCREEN_INHIBIT);
+    _gs_prefs_set_fullscreen_inhibit (prefs, bvalue);
 
     value = xfconf_channel_get_int (prefs->priv->channel,
                                     KEY_LOCK_WITH_SAVER_DELAY,
@@ -464,6 +475,11 @@ key_changed_cb (XfconfChannel *channel,
 
         enabled = xfconf_channel_get_bool (channel, property, DEFAULT_KEY_LOCK_WITH_SAVER_ENABLED);
         _gs_prefs_set_lock_with_saver_enabled (prefs, enabled);
+    } else if (strcmp (property, KEY_FULLSCREEN_INHIBIT) == 0) {
+        gboolean enabled;
+
+        enabled = xfconf_channel_get_bool (channel, property, DEFAULT_KEY_FULLSCREEN_INHIBIT);
+        _gs_prefs_set_fullscreen_inhibit (prefs, enabled);
     } else if (strcmp (property, KEY_CYCLE_DELAY) == 0) {
         int delay;
 
@@ -536,6 +552,7 @@ gs_prefs_init (GSPrefs *prefs) {
     prefs->idle_activation_enabled  = TRUE;
     prefs->sleep_activation_enabled = TRUE;
     prefs->lock_with_saver_enabled  = TRUE;
+    prefs->fullscreen_inhibit       = FALSE;
     prefs->logout_enabled           = FALSE;
     prefs->user_switch_enabled      = FALSE;
 

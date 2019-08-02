@@ -70,6 +70,13 @@ G_BEGIN_DECLS
 #define DEFAULT_KEY_IDLE_DELAY 5
 
 /**
+ * Inhibit when an application is fullscreen
+ * Set this to TRUE to inhibit the screensaver when the focused application is fullscreen.
+ */
+#define KEY_FULLSCREEN_INHIBIT "/saver/fullscreen-inhibit"
+#define DEFAULT_KEY_FULLSCREEN_INHIBIT FALSE
+
+/**
  * Screensaver themes
  * This key specifies the list of themes to be used by the screensaver. It's ignored
  * when "mode" key is "blank-only", should provide the theme name when "mode" is "single",
@@ -208,6 +215,7 @@ typedef struct
     guint            lock_timeout;   /* how long after activation locking starts */
     guint            logout_timeout; /* how long until the logout option appears */
     guint            cycle;          /* how long each theme should run */
+    guint            fullscreen_inhibit : 1; /* inhibit screensaver when an application is fullscreen */
 
     char            *logout_command;   /* command to use to logout */
     char            *keyboard_command; /* command to use to embed a keyboard */

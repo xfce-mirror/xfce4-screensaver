@@ -402,6 +402,27 @@ config_set_lock_with_saver_enabled (gboolean lock) {
 }
 
 static gboolean
+config_get_fullscreen_inhibit (gboolean *is_writable) {
+    gboolean inhibit;
+
+    if (is_writable) {
+        *is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
+                                                           KEY_FULLSCREEN_INHIBIT);
+    }
+
+    inhibit = xfconf_channel_get_bool (screensaver_channel,
+                                       KEY_FULLSCREEN_INHIBIT,
+                                       DEFAULT_KEY_FULLSCREEN_INHIBIT);
+
+    return inhibit;
+}
+
+static void
+config_set_fullscreen_inhibit (gboolean inhibit) {
+    xfconf_channel_set_bool (screensaver_channel, KEY_FULLSCREEN_INHIBIT, inhibit);
+}
+
+static gboolean
 config_get_keyboard_enabled (gboolean *is_writable) {
     gboolean enabled;
 
@@ -1122,6 +1143,11 @@ lock_with_saver_toggled_cb (GtkSwitch *widget, gpointer user_data) {
 }
 
 static void
+fullscreen_inhibit_toggled_cb (GtkSwitch *widget, gpointer user_data) {
+    config_set_fullscreen_inhibit (gtk_switch_get_active (widget));
+}
+
+static void
 idle_activation_toggled_cb (GtkSwitch *widget, gpointer user_data) {
     gboolean writable;
 
@@ -1260,6 +1286,19 @@ ui_set_lock_with_saver_enabled (gboolean enabled) {
     gtk_widget_set_sensitive (
         GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_delay_label_right")),
         writable);
+}
+
+static void
+ui_set_fullscreen_inhibit_enabled (gboolean enabled) {
+    GtkWidget *widget;
+    gboolean   active;
+
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "saver_fullscreen_inhibit_enabled"));
+
+    active = gtk_switch_get_active (GTK_SWITCH (widget));
+    if (active != enabled) {
+        gtk_switch_set_active (GTK_SWITCH (widget), enabled);
+    }
 }
 
 static void
@@ -1445,6 +1484,10 @@ key_changed_cb (XfconfChannel *channel, const gchar *key, gpointer data) {
         gboolean enabled;
         enabled = xfconf_channel_get_bool (channel, key, DEFAULT_KEY_LOCK_WITH_SAVER_ENABLED);
         ui_set_lock_with_saver_enabled (enabled);
+    } else if (strcmp (key, KEY_FULLSCREEN_INHIBIT) == 0) {
+        gboolean enabled;
+        enabled = xfconf_channel_get_bool (channel, key, DEFAULT_KEY_FULLSCREEN_INHIBIT);
+        ui_set_fullscreen_inhibit_enabled (enabled);
     } else if (strcmp (key, KEY_CYCLE_DELAY) == 0) {
         int delay;
         delay = xfconf_channel_get_int (channel, key, DEFAULT_KEY_CYCLE_DELAY);
@@ -1999,6 +2042,14 @@ configure_capplet (void) {
     set_widget_writable (widget, is_writable);
     g_signal_connect (widget, "notify::active",
                       G_CALLBACK (lock_with_saver_toggled_cb), NULL);
+
+    /* Fullscreen inhibit enabled */
+    widget = GTK_WIDGET (gtk_builder_get_object (builder, "saver_fullscreen_inhibit_enabled"));
+    enabled = config_get_fullscreen_inhibit (&is_writable);
+    ui_set_fullscreen_inhibit_enabled (enabled);
+    set_widget_writable (widget, is_writable);
+    g_signal_connect (widget, "notify::active",
+                      G_CALLBACK (fullscreen_inhibit_toggled_cb), NULL);
 
     /* Cycle delay */
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_cycle_delay"));

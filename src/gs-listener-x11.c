@@ -32,6 +32,9 @@
 #include <gtk/gtk.h>
 #include <gtk/gtkx.h>
 
+#define WNCK_I_KNOW_THIS_IS_UNSTABLE = 1
+#include <libwnck/libwnck.h>
+
 #include <X11/extensions/scrnsaver.h>
 
 #include "gs-listener-x11.h"
@@ -108,11 +111,30 @@ get_x11_idle_info (guint *idle_time,
 }
 
 static gboolean
+check_fullscreen_window () {
+    WnckScreen *screen;
+    WnckWindow *window;
+
+    screen = wnck_screen_get_default ();
+    if (screen == NULL) {
+        return FALSE;
+    }
+
+    window = wnck_screen_get_active_window (screen);
+    if (window == NULL) {
+        return FALSE;
+    }
+
+    return wnck_window_is_fullscreen (window);
+}
+
+static gboolean
 lock_timer (GSListenerX11 *listener) {
     guint    idle_time;
     guint    lock_time = 0;
     gint     state;
     gboolean lock_state;
+    gboolean fullscreen_inhibition = FALSE;
 
     if (!listener->priv->prefs->saver_enabled)
         return TRUE;
@@ -125,14 +147,28 @@ lock_timer (GSListenerX11 *listener) {
                   listener->priv->prefs->lock_with_saver_enabled &&
                   lock_time >= listener->priv->lock_timeout);
 
-    gs_debug("Idle: %is, Saver: %s, Saver Timeout: %is, Lock: %s, Lock Timeout: %is, Lock Timer: %is, Lock Status: %s",
+    if (listener->priv->prefs->fullscreen_inhibit) {
+        fullscreen_inhibition = check_fullscreen_window();
+    }
+
+    gs_debug("Idle: %is, Saver: %s, Saver Timeout: %is, Lock: %s, Lock Timeout: %is, Lock Timer: %is, Lock Status: %s, Fullscreen: %s",
              idle_time,
              listener->priv->prefs->idle_activation_enabled ? "Enabled" : "Disabled",
              listener->priv->timeout,
              listener->priv->prefs->lock_with_saver_enabled ? "Enabled" : "Disabled",
              listener->priv->lock_timeout,
              lock_time,
-             lock_state ? "Locked" : "Unlocked");
+             lock_state ? "Locked" : "Unlocked",
+             fullscreen_inhibition ? "Inhibited" : "Uninhibited");
+
+    if (fullscreen_inhibition) {
+        if (idle_time < listener->priv->timeout) {
+            reset_timer(listener, listener->priv->timeout - idle_time);
+        } else {
+            reset_timer(listener, 30);
+        }
+        return FALSE;
+    }
 
     if (listener->priv->prefs->idle_activation_enabled &&
             idle_time >= listener->priv->timeout &&

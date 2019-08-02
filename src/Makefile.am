@@ -33,6 +33,7 @@ AM_CPPFLAGS = \
 	$(LIBXKLAVIER_CFLAGS)                       \
 	$(SYSTEMD_CFLAGS)                           \
 	$(ELOGIND_CFLAGS)                           \
+	$(WNCK_LIBS)								\
 	$(NULL)
 
 bin_PROGRAMS = \
@@ -214,6 +215,7 @@ xfce4_screensaver_LDADD = \
 	$(SAVER_LIBS)             \
 	$(SYSTEMD_LIBS)           \
 	$(ELOGIND_LIBS)           \
+	$(WNCK_LIBS)			  \
 	$(NULL)
 
 xfce4_screensaver_LDFLAGS = -export-dynamic
