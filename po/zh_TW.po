@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-14 00:31+0200\n"
+"POT-Creation-Date: 2019-08-02 06:31+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: 黃柏諺 <s8321414@gmail.com>, 2019\n"
 "Language-Team: Chinese (Taiwan) (https://www.transifex.com/xfce/teams/16840/zh_TW/)\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:1
-#: ../src/xfce4-screensaver-preferences.ui.h:20
+#: ../src/xfce4-screensaver-preferences.ui.h:21
 #: ../src/xfce4-screensaver.desktop.in.in.h:1
 msgid "Screensaver"
 msgstr "螢幕保護程式"
@@ -175,15 +175,15 @@ msgstr "不再允許存取系統。"
 msgid "Username:"
 msgstr "使用者名稱："
 
-#: ../src/gs-listener-dbus.c:1825
+#: ../src/gs-listener-dbus.c:1820
 msgid "failed to register with the message bus"
 msgstr "使用訊息匯流排註冊失敗"
 
-#: ../src/gs-listener-dbus.c:1835
+#: ../src/gs-listener-dbus.c:1830
 msgid "not connected to the message bus"
 msgstr "未連線至訊息匯流排"
 
-#: ../src/gs-listener-dbus.c:1844 ../src/gs-listener-dbus.c:1874
+#: ../src/gs-listener-dbus.c:1839 ../src/gs-listener-dbus.c:1869
 msgid "screensaver already running in this session"
 msgstr "螢幕保護程式已經在此工作階段中執行"
 
@@ -192,7 +192,7 @@ msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, %B %e   %H:%M"
 
-#: ../src/gs-lock-plug.c:368
+#: ../src/gs-lock-plug.c:361
 msgid "Time has expired."
 msgstr "時間已過期。"
 
@@ -441,42 +441,42 @@ msgstr "正在檢查……"
 
 #: ../src/xfce4-screensaver-dialog.ui.h:2
 #, no-c-format
-msgid "<b>%h</b>"
-msgstr "<b>%h</b>"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:4
-#, no-c-format
-msgid "<b>%s</b>"
-msgstr "<b>%s</b>"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:6
-#, no-c-format
 msgid "%U"
 msgstr "%U"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:7
+#: ../src/xfce4-screensaver-dialog.ui.h:3
 msgid "Enter your password"
 msgstr "輸入您的密碼"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:8
+#: ../src/xfce4-screensaver-dialog.ui.h:4
 msgid "You have the Caps Lock key on."
 msgstr "大寫鎖定鍵目前是開啟的狀態。"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:9
+#: ../src/xfce4-screensaver-dialog.ui.h:5
 msgid "_Switch User"
 msgstr "切換使用者(_S)"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:10
+#: ../src/xfce4-screensaver-dialog.ui.h:6
 msgid "_Log Out"
 msgstr "登出(_L)"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:11
+#: ../src/xfce4-screensaver-dialog.ui.h:7
 msgid "_Cancel"
 msgstr "取消(_C)"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:12
+#: ../src/xfce4-screensaver-dialog.ui.h:8
 msgid "_Unlock"
 msgstr "解鎖(_U)"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:10
+#, no-c-format
+msgid "<b>%h</b>"
+msgstr "<b>%h</b>"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:12
+#, no-c-format
+msgid "<b>%s</b>"
+msgstr "<b>%s</b>"
 
 #: ../src/xfce4-screensaver-preferences.c:80
 msgid "Settings manager socket"
@@ -486,23 +486,23 @@ msgstr "設定值管理員 socket"
 msgid "SOCKET ID"
 msgstr "SOCKET ID"
 
-#: ../src/xfce4-screensaver-preferences.c:685
+#: ../src/xfce4-screensaver-preferences.c:706
 msgid "Blank screen"
 msgstr "空白畫面"
 
-#: ../src/xfce4-screensaver-preferences.c:691
+#: ../src/xfce4-screensaver-preferences.c:712
 msgid "Random"
 msgstr "隨機"
 
-#: ../src/xfce4-screensaver-preferences.c:1824
+#: ../src/xfce4-screensaver-preferences.c:1867
 msgid "Setting locked by administrator."
 msgstr "設定被管理員鎖定。"
 
-#: ../src/xfce4-screensaver-preferences.c:1865
+#: ../src/xfce4-screensaver-preferences.c:1908
 msgid "Could not load the main interface"
 msgstr "無法載入主介面"
 
-#: ../src/xfce4-screensaver-preferences.c:1867
+#: ../src/xfce4-screensaver-preferences.c:1910
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "請確定螢幕保護程式已正確安裝"
 
@@ -582,51 +582,55 @@ msgstr "當電腦閒置時啟動螢幕保護程式"
 msgid "Regard the computer as _idle after:"
 msgstr "在多久之後將電腦視為閒置：(_I)"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:21
+#: ../src/xfce4-screensaver-preferences.ui.h:20
+msgid "Inhibit screensaver for fullscreen applications"
+msgstr "讓全螢幕應用程式抑制螢幕保護程式"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:22
 msgid "Enable Lock Screen"
 msgstr "啟用鎖定螢幕"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:22
+#: ../src/xfce4-screensaver-preferences.ui.h:23
 msgid "Lock Screen with Screensaver"
 msgstr "以螢幕保護程式鎖定螢幕"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:23
+#: ../src/xfce4-screensaver-preferences.ui.h:24
 msgid "Lock the screen after the screensaver is active for:"
 msgstr "在螢幕保護程式活躍多久之後鎖定螢幕："
 
-#: ../src/xfce4-screensaver-preferences.ui.h:24
+#: ../src/xfce4-screensaver-preferences.ui.h:25
 msgid "On Screen Keyboard"
 msgstr "螢幕上的鍵盤"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:25
+#: ../src/xfce4-screensaver-preferences.ui.h:26
 msgid "On screen keyboard command:"
 msgstr "螢幕上的鍵盤指令："
 
-#: ../src/xfce4-screensaver-preferences.ui.h:26
+#: ../src/xfce4-screensaver-preferences.ui.h:27
 msgid "Session Status Messages"
 msgstr "工作階段狀態訊息"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:27
+#: ../src/xfce4-screensaver-preferences.ui.h:28
 msgid "Logout"
 msgstr "登出"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:28
+#: ../src/xfce4-screensaver-preferences.ui.h:29
 msgid "Logout command:"
 msgstr "登出指令："
 
-#: ../src/xfce4-screensaver-preferences.ui.h:29
+#: ../src/xfce4-screensaver-preferences.ui.h:30
 msgid "Enable logout after:"
 msgstr "在多久之後啟用登出："
 
-#: ../src/xfce4-screensaver-preferences.ui.h:30
+#: ../src/xfce4-screensaver-preferences.ui.h:31
 msgid "User Switching"
 msgstr "使用者切換"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:31
+#: ../src/xfce4-screensaver-preferences.ui.h:32
 msgid "Lock Screen with System Sleep"
 msgstr "帶有系統睡眠的鎖定螢幕"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:32
+#: ../src/xfce4-screensaver-preferences.ui.h:33
 msgid "Lock Screen"
 msgstr "鎖定螢幕"
 
