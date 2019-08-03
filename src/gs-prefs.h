@@ -185,6 +185,22 @@ G_BEGIN_DECLS
 #define KEY_USER_SWITCH_ENABLED "/lock/user-switching/enabled"
 #define DEFAULT_KEY_USER_SWITCH_ENABLED TRUE
 
+/**
+ * Blank screensaver DPMS sleep timeout
+ * This value controls the timeout after blanking the screen to suspend the display.
+ * A value of 0 means that it is disabled.
+ */
+#define KEY_DPMS_SLEEP_AFTER "/screensavers/xfce-blank/dpms-sleep-after"
+#define DEFAULT_KEY_DPMS_SLEEP_AFTER 5
+
+/**
+ * Blank screensaver DPMS power timeout
+ * This value controls the timeout after blanking the screen to power off the display.
+ * A value of 0 means that it is disabled.
+ */
+#define KEY_DPMS_OFF_AFTER "/screensavers/xfce-blank/dpms-off-after"
+#define DEFAULT_KEY_DPMS_OFF_AFTER 15
+
 typedef enum
 {
     GS_MODE_BLANK_ONLY,
@@ -222,6 +238,9 @@ typedef struct
 
     GSList          *themes;   /* the screensaver themes to run */
     GSSaverMode      mode; /* theme selection mode */
+
+    guint            dpms_sleep_timeout; /* blank: # of minutes to wait before sleeping the display */
+    guint            dpms_off_timeout; /* blank: # of minutes after sleep to power off the display */
 } GSPrefs;
 
 typedef struct

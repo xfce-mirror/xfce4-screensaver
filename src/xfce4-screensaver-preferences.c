@@ -267,16 +267,20 @@ config_set_theme (const char *theme_id) {
 
     if (theme_id && strcmp (theme_id, "__blank-only") == 0) {
         mode = GS_MODE_BLANK_ONLY;
+        active_theme = g_strdup ("xfce-blank");
     } else if (theme_id && strcmp (theme_id, "__random") == 0) {
         mode = GS_MODE_RANDOM;
 
         /* set the themes key to contain all available screensavers */
         strv = get_all_theme_ids (theme_manager);
     } else {
-        GtkWidget *configure_button = GTK_WIDGET (gtk_builder_get_object (builder, "configure_button"));
         mode = GS_MODE_SINGLE;
         strv = g_strsplit (theme_id, "%%%", 1);
         active_theme = g_strdup (theme_id);
+    }
+
+    if (mode != GS_MODE_RANDOM) {
+        GtkWidget *configure_button = GTK_WIDGET (gtk_builder_get_object (builder, "configure_button"));
         gtk_widget_set_sensitive (configure_button, TRUE);
     }
 

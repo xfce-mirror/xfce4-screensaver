@@ -2,6 +2,7 @@
 ============
 - Features:
   - Optional screensaver inhibition for fullscreen apps
+  - Blank screensaver now supports DPMS (Xfce #15216)
 - Build Changes:
   - Add dependency on libwnck >= 3.20
 

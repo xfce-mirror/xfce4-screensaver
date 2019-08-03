@@ -36,9 +36,14 @@
 #include "gs-prefs.h"
 #include "gs-window.h"
 
-static void gs_manager_class_init (GSManagerClass *klass);
-static void gs_manager_init       (GSManager      *manager);
-static void gs_manager_finalize   (GObject        *object);
+static void     gs_manager_class_init (GSManagerClass *klass);
+static void     gs_manager_init       (GSManager      *manager);
+static void     gs_manager_finalize   (GObject        *object);
+
+static gboolean activate_dpms_timeout (GSManager      *manager);
+static void     remove_dpms_timer     (GSManager      *manager);
+static void     add_dpms_timer        (GSManager      *manager,
+                                       glong           timeout);
 
 struct GSManagerPrivate {
     GSList         *windows;
@@ -57,6 +62,7 @@ struct GSManagerPrivate {
 
     guint           lock_timeout_id;
     guint           cycle_timeout_id;
+    guint           dpms_timeout_id;
 
     GSGrab         *grab;
     guint           deepsleep_idle_id;
@@ -511,10 +517,58 @@ gs_manager_init (GSManager *manager) {
     add_deepsleep_idle(manager);
 }
 
+static gboolean
+activate_dpms_timeout (GSManager *manager) {
+    BOOL state;
+    CARD16 power_level;
+
+    if (DPMSInfo(gdk_x11_get_default_xdisplay(), &power_level, &state)) {
+        if (state) {
+            if (power_level == DPMSModeOn) {
+                gs_debug("DPMS: On -> Standby");
+                DPMSForceLevel (gdk_x11_get_default_xdisplay(), DPMSModeStandby);
+                remove_dpms_timer (manager);
+                add_dpms_timer (manager, manager->priv->prefs->dpms_off_timeout);
+                return FALSE;
+            } else if (power_level == DPMSModeStandby || power_level == DPMSModeSuspend) {
+                gs_debug("DPMS: %s -> Off", power_level == DPMSModeStandby ? "Standby" : "Suspend");
+                DPMSForceLevel (gdk_x11_get_default_xdisplay(), DPMSModeOff);
+            }
+        }
+    }
+
+    manager->priv->dpms_timeout_id = 0;
+    return FALSE;
+}
+
+static void
+remove_dpms_timer (GSManager *manager) {
+    if (manager->priv->dpms_timeout_id != 0) {
+        g_source_remove (manager->priv->dpms_timeout_id);
+        manager->priv->dpms_timeout_id = 0;
+    }
+}
+
+static void
+add_dpms_timer (GSManager *manager,
+                glong      timeout) {
+    if (manager->priv->prefs->mode != GS_MODE_BLANK_ONLY)
+        return;
+
+    if (timeout == 0)
+        return;
+
+    gs_debug ("Scheduling DPMS change after screensaver is idling for %i minute", timeout);
+    manager->priv->dpms_timeout_id = g_timeout_add (timeout * 60000,
+                                                    (GSourceFunc)activate_dpms_timeout,
+                                                    manager);
+}
+
 static void
 remove_timers (GSManager *manager) {
     remove_lock_timer (manager);
     remove_cycle_timer (manager);
+    remove_dpms_timer (manager);
 }
 
 static gboolean
@@ -710,6 +764,9 @@ manager_show_window (GSManager *manager,
         add_cycle_timer (manager, manager->priv->prefs->cycle);
     }
 
+    remove_dpms_timer (manager);
+    add_dpms_timer (manager, manager->priv->prefs->dpms_sleep_timeout);
+
     /* FIXME: only emit signal once */
     g_signal_emit (manager, signals[ACTIVATED], 0);
 }
@@ -776,6 +833,8 @@ handle_window_dialog_up (GSManager *manager,
 
         manager_suspend_jobs (manager);
     }
+
+    remove_dpms_timer (manager);
 }
 
 static void
@@ -804,6 +863,9 @@ handle_window_dialog_down (GSManager *manager,
     if (!manager->priv->throttled) {
         manager_resume_jobs (manager);
     }
+
+    remove_dpms_timer (manager);
+    add_dpms_timer (manager, manager->priv->prefs->dpms_sleep_timeout);
 
     g_signal_emit (manager, signals[AUTH_REQUEST_END], 0);
 }
