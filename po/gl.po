@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-02 06:31+0200\n"
+"POT-Creation-Date: 2019-08-04 00:31+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Daniel Muñiz Fontoira <dani@damufo.com>, 2019\n"
 "Language-Team: Galician (https://www.transifex.com/xfce/teams/16840/gl/)\n"
@@ -286,61 +286,88 @@ msgstr "O protector de pantalla está a ser inhibido por:\n"
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "O protector de pantalla estivo activo durante %d segundos\n"
 
-#: ../src/xfce4-screensaver-configure:157
+#: ../src/xfce4-screensaver-configure:139
+#: ../src/xfce4-screensaver-preferences.c:710
+msgid "Blank screen"
+msgstr "Escurecer a pantalla"
+
+#: ../src/xfce4-screensaver-configure:140
+msgid ""
+"Powered by Display Power Management Signaling (DPMS),\n"
+"Xfce Screensaver can automatically suspend your displays\n"
+"to save power.\n"
+"\n"
+"Xfce Power Manager and other applications also manage\n"
+"DPMS settings. If your displays are powering off at different\n"
+"intervals, be sure to check for conflicting settings."
+msgstr ""
+"Con tecnoloxía do Display Power Management Signalling (DPMS),\n"
+"O protector de pantalla Xfce pode suspender automaticamente as\n"
+"súas pantallas para aforrar enerxía.\n"
+"\n"
+"O xestor de enerxía do Xfce e outros aplicativos tamén xestionan a \n"
+"configuración do DPMS. Se as súas pantallas se apagan con diferentes\n"
+"intervalos, asegúrese de comprobar se hai configuracións conflitivas."
+
+#: ../src/xfce4-screensaver-configure:176
 msgid "Part of Xfce Screensaver"
 msgstr "Parte do protector de pantalla do Xfce"
 
-#: ../src/xfce4-screensaver-configure:375
+#: ../src/xfce4-screensaver-configure:403
 msgid "Restore Defaults"
 msgstr "Restaurar a valores predeterminados"
 
-#: ../src/xfce4-screensaver-configure:388
+#: ../src/xfce4-screensaver-configure:416
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: ../src/xfce4-screensaver-configure:394
+#: ../src/xfce4-screensaver-configure:422
 msgid "About"
 msgstr "Sobre"
 
-#: ../src/xfce4-screensaver-configure:407
+#: ../src/xfce4-screensaver-configure:435
 msgid "Video"
 msgstr "Vídeo"
 
-#: ../src/xfce4-screensaver-configure:474
+#: ../src/xfce4-screensaver-configure:502
 #, c-format
 msgid "Unrecognized type: %s"
 msgstr "Non se recoñece o tipo: %s"
 
-#: ../src/xfce4-screensaver-configure:684
+#: ../src/xfce4-screensaver-configure:717
+msgid "Screensaver required."
+msgstr "Requírese un protector de pantalla."
+
+#: ../src/xfce4-screensaver-configure:723
 msgid "Unable to configure screensaver"
 msgstr "Non se puido configurar o protector de pantalla"
 
-#: ../src/xfce4-screensaver-configure:688
+#: ../src/xfce4-screensaver-configure:727
 #, c-format
 msgid "File not found: %s"
 msgstr "Non se atopou o ficheiro: %s"
 
-#: ../src/xfce4-screensaver-configure:697
+#: ../src/xfce4-screensaver-configure:736
 #, c-format
 msgid "Unrecognized file type: %s"
 msgstr "Non se recoñece o tipo de ficheiro: %s"
 
-#: ../src/xfce4-screensaver-configure:703
+#: ../src/xfce4-screensaver-configure:742
 #, c-format
 msgid "Failed to process file: %s"
 msgstr "Fallou ó procesar o ficheiro: %s"
 
-#: ../src/xfce4-screensaver-configure:708
+#: ../src/xfce4-screensaver-configure:747
 #, c-format
 msgid "Screensaver %s is configurable."
 msgstr "O protector de pantalla %s é configurábel."
 
-#: ../src/xfce4-screensaver-configure:711
+#: ../src/xfce4-screensaver-configure:750
 #, c-format
 msgid "Screensaver %s is not configurable."
 msgstr "O protector de pantalla %s non é configurábel."
 
-#: ../src/xfce4-screensaver-configure:715
+#: ../src/xfce4-screensaver-configure:754
 #, c-format
 msgid "Screensaver %s has no configuration options."
 msgstr "O protector de pantalla %s non ten opcións de configuración."
@@ -500,23 +527,19 @@ msgstr "Toma («socket») do xestor de configuración"
 msgid "SOCKET ID"
 msgstr "ID TOMA"
 
-#: ../src/xfce4-screensaver-preferences.c:706
-msgid "Blank screen"
-msgstr "Escurecer a pantalla"
-
-#: ../src/xfce4-screensaver-preferences.c:712
+#: ../src/xfce4-screensaver-preferences.c:716
 msgid "Random"
 msgstr "Aleatorio"
 
-#: ../src/xfce4-screensaver-preferences.c:1867
+#: ../src/xfce4-screensaver-preferences.c:1871
 msgid "Setting locked by administrator."
 msgstr "Axuste bloqueado polo administrador."
 
-#: ../src/xfce4-screensaver-preferences.c:1908
+#: ../src/xfce4-screensaver-preferences.c:1912
 msgid "Could not load the main interface"
 msgstr "Non se puido cargar a interface principal"
 
-#: ../src/xfce4-screensaver-preferences.c:1910
+#: ../src/xfce4-screensaver-preferences.c:1914
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "Asegúrese de que o protector de pantalla está instalado correctamente"
 
