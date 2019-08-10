@@ -11,7 +11,6 @@
 # Nick Schermer <nick@xfce.org>, 2019
 # Urien Desterres <urien.desterres@gmail.com>, 2019
 # David D, 2019
-# jc1 <jc1.quebecos@gmail.com>, 2019
 # Yannick Le Guen <leguen.yannick@gmail.com>, 2019
 # 
 #, fuzzy
@@ -77,7 +76,7 @@ msgstr "LARGEURxHAUTEUR+X+Y"
 
 #: ../savers/floaters.c:114
 msgid "The source image to use"
-msgstr "Source de l'image à utiliser"
+msgstr "Source de l’image à utiliser"
 
 #. translators: the word "image" here
 #. * represents a command line argument
@@ -120,7 +119,7 @@ msgstr "\"#rrvvbb\""
 
 #: ../savers/slideshow.c:61
 msgid "Do not randomize pictures from location"
-msgstr "Pas d'ordre aléatoire depuis l'emplacement"
+msgstr "Pas d’ordre aléatoire depuis l’emplacement"
 
 #: ../savers/slideshow.c:65
 msgid "Do not try to stretch images on screen"
@@ -186,7 +185,7 @@ msgstr "Nom d’utilisateur :"
 
 #: ../src/gs-listener-dbus.c:1820
 msgid "failed to register with the message bus"
-msgstr "échec d'enregistrement auprès du bus de messages"
+msgstr "échec d’enregistrement auprès du bus de messages"
 
 #: ../src/gs-listener-dbus.c:1830
 msgid "not connected to the message bus"
@@ -207,7 +206,7 @@ msgstr "Le délai a expiré."
 
 #: ../src/xfce4-screensaver-command.c:56
 msgid "Causes the screensaver to exit gracefully"
-msgstr "Entraîne la fermeture gracieuse de l'économiseur d'écran"
+msgstr "Entraîne la fermeture gracieuse de l’économiseur d’écran"
 
 #: ../src/xfce4-screensaver-command.c:60
 msgid "Query the state of the screensaver"
@@ -215,18 +214,18 @@ msgstr "Interroger l’état de l’économiseur d’écran"
 
 #: ../src/xfce4-screensaver-command.c:64
 msgid "Query the length of time the screensaver has been active"
-msgstr "Interroger la durée depuis laquelle l'économiseur d'écran est actif"
+msgstr "Interroger la durée depuis laquelle l’économiseur d’écran est actif"
 
 #: ../src/xfce4-screensaver-command.c:68
 msgid "Tells the running screensaver process to lock the screen immediately"
 msgstr ""
-"Demande au processus d'économiseur d'écran en cours de verrouiller l'écran "
+"Demande au processus d’économiseur d’écran en cours de verrouiller l’écran "
 "immédiatement"
 
 #: ../src/xfce4-screensaver-command.c:72
 msgid "If the screensaver is active then switch to another graphics demo"
 msgstr ""
-"Si l'économiseur d’écran est actif, basculer vers une autre démo graphique"
+"Si l’économiseur d’écran est actif, basculer vers une autre démo graphique"
 
 #: ../src/xfce4-screensaver-command.c:76
 msgid "Turn the screensaver on (blank the screen)"
@@ -235,28 +234,28 @@ msgstr "Activer l’économiseur d’écran (écran vide)"
 #: ../src/xfce4-screensaver-command.c:80
 msgid "If the screensaver is active then deactivate it (un-blank the screen)"
 msgstr ""
-"Si l'économiseur d’écran est actif, le désactiver (sortir de l’écran vide)"
+"Si l’économiseur d’écran est actif, le désactiver (sortir de l’écran vide)"
 
 #: ../src/xfce4-screensaver-command.c:84
 msgid "Poke the running screensaver to simulate user activity"
-msgstr "Réveiller l'économiseur d'écran pour simuler une activité utilisateur"
+msgstr "Réveiller l’économiseur d’écran pour simuler une activité utilisateur"
 
 #: ../src/xfce4-screensaver-command.c:88
 msgid ""
 "Inhibit the screensaver from activating.  Command blocks while inhibit is "
 "active."
 msgstr ""
-"Inhiber l'activation de l'économiseur d'écran. La commande est bloquée "
-"pendant que l'inhibition est active."
+"Inhiber l’activation de l’économiseur d’écran. La commande est bloquée "
+"pendant que l’inhibition est active."
 
 #: ../src/xfce4-screensaver-command.c:92
 msgid "The calling application that is inhibiting the screensaver"
 msgstr ""
-"L'application appelante responsable de l'inhibition de l'économiseur d'écran"
+"L’application appelante responsable de l’inhibition de l’économiseur d’écran"
 
 #: ../src/xfce4-screensaver-command.c:96
 msgid "The reason for inhibiting the screensaver"
-msgstr "Raison d'inhibition de l'économiseur d'écran"
+msgstr "Raison d’inhibition de l’économiseur d’écran"
 
 #: ../src/xfce4-screensaver-command.c:100 ../src/xfce4-screensaver-dialog.c:65
 #: ../src/xfce4-screensaver.c:58
@@ -306,10 +305,17 @@ msgid ""
 "DPMS settings. If your displays are powering off at different\n"
 "intervals, be sure to check for conflicting settings."
 msgstr ""
+"En fonctionnant avec la signalisation de gestion de l’affichage (DPMS),\n"
+"l’économiseur d’écran Xfce peut automatiquement suspendre vos écrans\n"
+"pour économiser de l’énergie.\n"
+"\n"
+"Le gestionnaire d’alimentation Xfce ainsi que d’autres applications gèrent\n"
+"également vos paramètres DPMS. Si vos écrans s’éteignent à différents\n"
+"intervalles, veillez à vérifier les paramètres en conflit."
 
 #: ../src/xfce4-screensaver-configure:176
 msgid "Part of Xfce Screensaver"
-msgstr "Partie de l'économiseur d’écran Xfce"
+msgstr "Partie de l’économiseur d’écran Xfce"
 
 #: ../src/xfce4-screensaver-configure:403
 msgid "Restore Defaults"
@@ -384,7 +390,7 @@ msgstr "Commande à lancer depuis le bouton de déconnexion"
 
 #: ../src/xfce4-screensaver-dialog.c:71
 msgid "Show the switch user button"
-msgstr "Afficher le bouton de changement d'utilisateur"
+msgstr "Afficher le bouton de changement d’utilisateur"
 
 #: ../src/xfce4-screensaver-dialog.c:73
 msgid "Message to show in the dialog"
@@ -581,8 +587,8 @@ msgstr "Résoudre"
 #: ../src/xfce4-screensaver-preferences.ui.h:10
 msgid "Xfce Power Manager is not configured to handle laptop lid events"
 msgstr ""
-"Le gestionnaire d'alimentation Xfce n'est pas configuré pour gérer les "
-"évènements de couvercle d'ordinateur portable"
+"Le gestionnaire d’alimentation Xfce n’est pas configuré pour gérer les "
+"évènements liés au couvercle d’ordinateur portable"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:11
 msgid "Your computer may not be locked when you close the lid."
@@ -631,7 +637,7 @@ msgstr "Activer le verrouillage d’écran"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:23
 msgid "Lock Screen with Screensaver"
-msgstr "Verrouiller l’écran avec l’économiseur d'écran"
+msgstr "Verrouiller l’écran avec l’économiseur d’écran"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:24
 msgid "Lock the screen after the screensaver is active for:"
@@ -665,7 +671,7 @@ msgstr "Permettre déconnexion après :"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:31
 msgid "User Switching"
-msgstr "Basculer d'utilisateur"
+msgstr "Changer d’utilisateur"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:32
 msgid "Lock Screen with System Sleep"
@@ -673,7 +679,7 @@ msgstr "Verrouiller l’écran avec la mise en veille du système"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:33
 msgid "Lock Screen"
-msgstr "Verrouiller l'écran"
+msgstr "Verrouiller l’écran"
 
 #: ../src/xfce4-screensaver.c:59
 msgid "Don't become a daemon"
@@ -685,7 +691,7 @@ msgstr "Activer le code de débogage"
 
 #: ../src/xfce4-screensaver.desktop.in.in.h:2
 msgid "Launch screensaver and locker program"
-msgstr "Lancer l'économiseur d'écran et le programme de verrouillage"
+msgstr "Lancer l’économiseur d’écran et le programme de verrouillage"
 
 #: ../src/xfcekbd-indicator.c:404
 msgid "XKB initialization error"
