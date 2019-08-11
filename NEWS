@@ -1,10 +1,15 @@
-0.1.8 (UNRELEASED)
+0.1.8 (beta)
 ============
 - Features:
   - Optional screensaver inhibition for fullscreen apps
   - Blank screensaver now supports DPMS (Xfce #15216)
 - Build Changes:
   - Add dependency on libwnck >= 3.20
+- Translation Updates:
+  Basque, Bulgarian, Catalan, Chinese (China), Chinese (Taiwan),
+  Danish, Dutch, Finnish, French, Galician, German, Hungarian,
+  Italian, Lithuanian, Polish, Portuguese, Portuguese (Brazil),
+  Russian, Spanish
 
 0.1.7 (beta)
 ============
