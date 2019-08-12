@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-13 12:31+0200\n"
+"POT-Creation-Date: 2019-08-04 00:31+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Serdar Sağlam <teknomobil@msn.com>, 2019\n"
 "Language-Team: Turkish (https://www.transifex.com/xfce/teams/16840/tr/)\n"
@@ -28,7 +28,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:1
-#: ../src/xfce4-screensaver-preferences.ui.h:18
+#: ../src/xfce4-screensaver-preferences.ui.h:21
 #: ../src/xfce4-screensaver.desktop.in.in.h:1
 msgid "Screensaver"
 msgstr "Ekran Koruyucu"
@@ -180,15 +180,15 @@ msgstr "Sistem erişimine artık izin verilmiyor."
 msgid "Username:"
 msgstr "Kullanıcı:"
 
-#: ../src/gs-listener-dbus.c:1825
+#: ../src/gs-listener-dbus.c:1820
 msgid "failed to register with the message bus"
 msgstr "ileti veri yoluna kayıt yapılamadı"
 
-#: ../src/gs-listener-dbus.c:1835
+#: ../src/gs-listener-dbus.c:1830
 msgid "not connected to the message bus"
 msgstr "ileti veri yoluna bağlı değil"
 
-#: ../src/gs-listener-dbus.c:1844 ../src/gs-listener-dbus.c:1874
+#: ../src/gs-listener-dbus.c:1839 ../src/gs-listener-dbus.c:1869
 msgid "screensaver already running in this session"
 msgstr "Bu oturumda zaten ekran koruyucu çalışıyor"
 
@@ -197,7 +197,7 @@ msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, %B %e   %H:%M"
 
-#: ../src/gs-lock-plug.c:368
+#: ../src/gs-lock-plug.c:361
 msgid "Time has expired."
 msgstr "Süre doldu."
 
@@ -283,55 +283,91 @@ msgstr "Ekran koruyucu tarafından engelleniyor:\n"
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "Ekran koruyucu %d saniye boyunca aktif.\n"
 
-#: ../src/xfce4-screensaver-configure:150
+#: ../src/xfce4-screensaver-configure:139
+#: ../src/xfce4-screensaver-preferences.c:710
+msgid "Blank screen"
+msgstr "Boş ekran"
+
+#: ../src/xfce4-screensaver-configure:140
+msgid ""
+"Powered by Display Power Management Signaling (DPMS),\n"
+"Xfce Screensaver can automatically suspend your displays\n"
+"to save power.\n"
+"\n"
+"Xfce Power Manager and other applications also manage\n"
+"DPMS settings. If your displays are powering off at different\n"
+"intervals, be sure to check for conflicting settings."
+msgstr ""
+"Ekran Güç Yönetimi Sinyali (DPMS) ile güçlendirilmiştir,\n"
+"Xfce Ekran Koruyucu, güç tasarrufu sağlamak için\n"
+"ekranlarınızı otomatik olarak askıya alabilir.\n"
+"\n"
+"Xfce Güç Yönetici ve diğer uygulamalar da DPMS ayarlarını \n"
+"yönetir. Ekranlarınız farklı aralıklarla kapanıyorsa,\n"
+"çakışan ayarları kontrol ettiğinizden emin olun."
+
+#: ../src/xfce4-screensaver-configure:176
 msgid "Part of Xfce Screensaver"
 msgstr "Xfce Ekran koruyucunun bir parçası"
 
-#: ../src/xfce4-screensaver-configure:349
+#: ../src/xfce4-screensaver-configure:403
 msgid "Restore Defaults"
 msgstr "Varsayılanları Geri Yükle"
 
-#: ../src/xfce4-screensaver-configure:362
+#: ../src/xfce4-screensaver-configure:416
 msgid "Preferences"
 msgstr "Tercihler"
 
-#: ../src/xfce4-screensaver-configure:368
+#: ../src/xfce4-screensaver-configure:422
 msgid "About"
 msgstr "Hakkında"
 
-#: ../src/xfce4-screensaver-configure:381
+#: ../src/xfce4-screensaver-configure:435
 msgid "Video"
 msgstr "Video"
 
-#: ../src/xfce4-screensaver-configure:448
+#: ../src/xfce4-screensaver-configure:502
 #, c-format
 msgid "Unrecognized type: %s"
 msgstr "Tanınmayan tür: %s"
 
-#: ../src/xfce4-screensaver-configure:628
-#, c-format
-msgid "No file found for screensaver %s"
-msgstr "Ekran koruyucu için dosya bulunamadı %s"
+#: ../src/xfce4-screensaver-configure:717
+msgid "Screensaver required."
+msgstr "Ekran koruyucu gerekli."
 
-#: ../src/xfce4-screensaver-configure:637
-#, c-format
-msgid "Unrecognized file type for file %s"
-msgstr "Tanınmayan dosya türü %s"
+#: ../src/xfce4-screensaver-configure:723
+msgid "Unable to configure screensaver"
+msgstr "Ekran koruyucu yapılandırılamıyor"
 
-#: ../src/xfce4-screensaver-configure:643
+#: ../src/xfce4-screensaver-configure:727
 #, c-format
-msgid "Failed to load screensaver from %s"
-msgstr "Ekran koruyucu yüklenemedi %s"
+msgid "File not found: %s"
+msgstr "Dosya bulunamadı: %s"
 
-#: ../src/xfce4-screensaver-configure:648
+#: ../src/xfce4-screensaver-configure:736
+#, c-format
+msgid "Unrecognized file type: %s"
+msgstr "Tanınmayan dosya türü: %s"
+
+#: ../src/xfce4-screensaver-configure:742
+#, c-format
+msgid "Failed to process file: %s"
+msgstr "Dosya işlenemedi: %s"
+
+#: ../src/xfce4-screensaver-configure:747
 #, c-format
 msgid "Screensaver %s is configurable."
 msgstr "Ekran koruyucu %s yapılandırılabilir."
 
-#: ../src/xfce4-screensaver-configure:651
+#: ../src/xfce4-screensaver-configure:750
 #, c-format
 msgid "Screensaver %s is not configurable."
 msgstr "Ekran koruyucu %s yapılandırılamaz."
+
+#: ../src/xfce4-screensaver-configure:754
+#, c-format
+msgid "Screensaver %s has no configuration options."
+msgstr "Ekran koruyucu %s yapılandırma seçeneği yok."
 
 #: ../src/xfce4-screensaver-dialog.c:63
 msgid "Show debugging output"
@@ -440,68 +476,64 @@ msgstr "Kontrol ediliyor..."
 
 #: ../src/xfce4-screensaver-dialog.ui.h:2
 #, no-c-format
+msgid "%U"
+msgstr "%U"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:3
+msgid "Enter your password"
+msgstr "Parolanızı girin"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:4
+msgid "You have the Caps Lock key on."
+msgstr "Caps Lock tuşun açık."
+
+#: ../src/xfce4-screensaver-dialog.ui.h:5
+msgid "_Switch User"
+msgstr "_Kullanıcı Değiştir"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:6
+msgid "_Log Out"
+msgstr "_Çıkış"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:7
+msgid "_Cancel"
+msgstr "_İptal"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:8
+msgid "_Unlock"
+msgstr "_Kilidi Aç"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:10
+#, no-c-format
 msgid "<b>%h</b>"
 msgstr "<b>%h</b>"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:4
+#: ../src/xfce4-screensaver-dialog.ui.h:12
 #, no-c-format
 msgid "<b>%s</b>"
 msgstr "<b>%s</b>"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:6
-#, no-c-format
-msgid "%U"
-msgstr "%U"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:7
-msgid "Enter your password"
-msgstr "Parolanızı girin"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:8
-msgid "You have the Caps Lock key on."
-msgstr "Caps Lock tuşun açık."
-
-#: ../src/xfce4-screensaver-dialog.ui.h:9
-msgid "_Switch User"
-msgstr "_Kullanıcı Değiştir"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:10
-msgid "_Log Out"
-msgstr "_Çıkış"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:11
-msgid "_Cancel"
-msgstr "_İptal"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:12
-msgid "_Unlock"
-msgstr "_Kilidi Aç"
-
-#: ../src/xfce4-screensaver-preferences.c:78
+#: ../src/xfce4-screensaver-preferences.c:80
 msgid "Settings manager socket"
 msgstr "Ayarlar yöneticisi yuvası"
 
-#: ../src/xfce4-screensaver-preferences.c:78
+#: ../src/xfce4-screensaver-preferences.c:80
 msgid "SOCKET ID"
 msgstr "SOKET ID"
 
-#: ../src/xfce4-screensaver-preferences.c:680
-msgid "Blank screen"
-msgstr "Boş ekran"
-
-#: ../src/xfce4-screensaver-preferences.c:686
+#: ../src/xfce4-screensaver-preferences.c:716
 msgid "Random"
 msgstr "Rasgele"
 
-#: ../src/xfce4-screensaver-preferences.c:1748
+#: ../src/xfce4-screensaver-preferences.c:1871
 msgid "Setting locked by administrator."
 msgstr "Ayarlar yönetici tarafından kilitlendi."
 
-#: ../src/xfce4-screensaver-preferences.c:1787
+#: ../src/xfce4-screensaver-preferences.c:1912
 msgid "Could not load the main interface"
 msgstr "Ana arayüz yüklenemedi"
 
-#: ../src/xfce4-screensaver-preferences.c:1789
+#: ../src/xfce4-screensaver-preferences.c:1914
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "Lütfen ekran koruyucunun doğru kurulduğundan emin olun."
 
@@ -560,66 +592,78 @@ msgid "Theme"
 msgstr "Tema"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:14
+msgid "Configure screensaver"
+msgstr "Ekran koruyucuyu yapılandır"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:15
+msgid "Configure..."
+msgstr "Yapılandır..."
+
+#: ../src/xfce4-screensaver-preferences.ui.h:16
 msgid "Change theme after:"
 msgstr "Temayı şundan sonra değiştir:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:15
+#: ../src/xfce4-screensaver-preferences.ui.h:17
 msgid "minutes"
 msgstr "dakika"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:16
+#: ../src/xfce4-screensaver-preferences.ui.h:18
 msgid "Activate screensaver when computer is idle"
 msgstr "Bilgisayar boştayken ekran koruyucuyu etkinleştir"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:17
+#: ../src/xfce4-screensaver-preferences.ui.h:19
 msgid "Regard the computer as _idle after:"
 msgstr "Bilgisayar aşağıdakilerden sonra _boşta:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:19
+#: ../src/xfce4-screensaver-preferences.ui.h:20
+msgid "Inhibit screensaver for fullscreen applications"
+msgstr "Tam ekran uygulamalar için ekran koruyucuyu engelle"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:22
 msgid "Enable Lock Screen"
 msgstr "Kilit Ekranını Etkinleştir"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:20
+#: ../src/xfce4-screensaver-preferences.ui.h:23
 msgid "Lock Screen with Screensaver"
 msgstr "Ekran Koruyucu ile Kilit Ekranı"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:21
+#: ../src/xfce4-screensaver-preferences.ui.h:24
 msgid "Lock the screen after the screensaver is active for:"
 msgstr "Ekran koruyucu aktif hale getirildikten sonra ekranı kilitle:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:22
+#: ../src/xfce4-screensaver-preferences.ui.h:25
 msgid "On Screen Keyboard"
 msgstr "Ekran Klavyesi"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:23
+#: ../src/xfce4-screensaver-preferences.ui.h:26
 msgid "On screen keyboard command:"
 msgstr "Ekran klavyesi komutu:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:24
+#: ../src/xfce4-screensaver-preferences.ui.h:27
 msgid "Session Status Messages"
 msgstr "Oturum Durumu Mesajları"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:25
+#: ../src/xfce4-screensaver-preferences.ui.h:28
 msgid "Logout"
 msgstr "Çıkış"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:26
+#: ../src/xfce4-screensaver-preferences.ui.h:29
 msgid "Logout command:"
 msgstr "Çıkış komutu:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:27
+#: ../src/xfce4-screensaver-preferences.ui.h:30
 msgid "Enable logout after:"
 msgstr "Şundan sonra çıkış yap:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:28
+#: ../src/xfce4-screensaver-preferences.ui.h:31
 msgid "User Switching"
 msgstr "Kullanıcı Değiştir"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:29
+#: ../src/xfce4-screensaver-preferences.ui.h:32
 msgid "Lock Screen with System Sleep"
 msgstr "Sistem Uykuda ise Ekranı Kilitle"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:30
+#: ../src/xfce4-screensaver-preferences.ui.h:33
 msgid "Lock Screen"
 msgstr "Kilit Ekranı"
 
