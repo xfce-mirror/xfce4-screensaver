@@ -9,9 +9,9 @@
 # César Enrique García <cquike@gmail.com>, 2018
 # Xfce Bot <transifex@xfce.org>, 2018
 # Jaime Marquínez Ferrándiz, 2019
-# prflr88 <prflr88@gmail.com>, 2019
 # Manolo Díaz <diaz.manolo@gmail.com>, 2019
 # Casper casper, 2019
+# prflr88 <prflr88@gmail.com>, 2019
 # 
 #, fuzzy
 msgid ""
@@ -20,7 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-04 00:31+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Casper casper, 2019\n"
+"Last-Translator: prflr88 <prflr88@gmail.com>, 2019\n"
 "Language-Team: Spanish (https://www.transifex.com/xfce/teams/16840/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,11 +44,11 @@ msgstr "Salvapantallas"
 
 #: ../data/xfce4-screensaver.directory.in.h:2
 msgid "Screensaver themes"
-msgstr "Temas del salvapantallas"
+msgstr "Temas de salvapantallas"
 
 #: ../savers/floaters.c:89
 msgid "Show paths that images follow"
-msgstr "Mostrar las rutas de las imágenes."
+msgstr "Mostrar las rutas a las imágenes"
 
 #: ../savers/floaters.c:94
 msgid "Occasionally rotate images as they move"
@@ -60,11 +60,11 @@ msgstr "Mostrar la tasa de fotogramas y otras estadísticas"
 
 #: ../savers/floaters.c:104
 msgid "The maximum number of images to keep on screen"
-msgstr "Máximo numero de imágenes para mantener en pantalla."
+msgstr "Máximo número de imágenes para mantener en pantalla."
 
 #: ../savers/floaters.c:104
 msgid "MAX_IMAGES"
-msgstr "MAX_IMAGES"
+msgstr "MÁX_IMÁGENES"
 
 #: ../savers/floaters.c:109
 msgid "The initial size and position of window"
@@ -87,7 +87,7 @@ msgstr "image - flota imágenes alrededor de la pantalla"
 #: ../savers/floaters.c:1126 ../savers/popsquares.c:49
 #, c-format
 msgid "%s. See --help for usage information.\n"
-msgstr "%s. Vea --help para la información de uso.\n"
+msgstr "%s. Véase «--help» para información de uso.\n"
 
 #: ../savers/floaters.c:1133
 #, c-format
@@ -97,7 +97,7 @@ msgstr "Error al iniciar el sistema de ventanas."
 #: ../savers/floaters.c:1139
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
-msgstr "Debe especificar una imagen. Vea --Ayuda para información.\n"
+msgstr "Debe especificar una imagen. Véase «--help» para información de uso.\n"
 
 #: ../savers/slideshow.c:53
 msgid "Location to get images from"
@@ -113,7 +113,7 @@ msgstr "Color que utilizar como fondo de las imágenes"
 
 #: ../savers/slideshow.c:57
 msgid "\"#rrggbb\""
-msgstr "\"#rrggbb\""
+msgstr "«#rrvvaa»"
 
 #: ../savers/slideshow.c:61
 msgid "Do not randomize pictures from location"
@@ -137,15 +137,15 @@ msgstr "Carpeta de imágenes"
 
 #: ../savers/xfce-personal-slideshow.desktop.in.in.h:2
 msgid "Display a slideshow from your Pictures folder"
-msgstr "Muestra una presentación de diapositivas desde tu carpeta de Imágenes"
+msgstr "Muestra una presentación de diapositivas de su carpeta de Imágenes"
 
 #: ../savers/xfce-popsquares.desktop.in.in.h:1
 msgid "Pop art squares"
-msgstr "Cuadros pop-art"
+msgstr "Cuadros de arte pop"
 
 #: ../savers/xfce-popsquares.desktop.in.in.h:2
 msgid "A pop-art-ish grid of pulsing colors."
-msgstr "Una cuadrícula pop-art-ish de colores pulsantes."
+msgstr "Una cuadrícula de arte tipo pop de colores pulsantes."
 
 #: ../src/gs-auth-pam.c:163
 msgid "Password:"
@@ -154,12 +154,12 @@ msgstr "Contraseña:"
 #: ../src/gs-auth-pam.c:375
 #, c-format
 msgid "Unable to establish service %s: %s\n"
-msgstr "No se puede establecer el servicio %s: %s\n"
+msgstr "No se puedo establecer el servicio %s: %s\n"
 
 #: ../src/gs-auth-pam.c:401
 #, c-format
 msgid "Can't set PAM_TTY=%s"
-msgstr "No se puede establecer PAM_TTY=%s"
+msgstr "No se puedo establecer PAM_TTY=%s"
 
 #: ../src/gs-auth-pam.c:432
 msgid "Incorrect password."
@@ -183,7 +183,7 @@ msgstr "Nombre de usuario:"
 
 #: ../src/gs-listener-dbus.c:1820
 msgid "failed to register with the message bus"
-msgstr "Error al registrarse en el bus de mensajes"
+msgstr "error al registrarse en el bus de mensajes"
 
 #: ../src/gs-listener-dbus.c:1830
 msgid "not connected to the message bus"
@@ -191,7 +191,7 @@ msgstr "no conectado al bus de mensajes"
 
 #: ../src/gs-listener-dbus.c:1839 ../src/gs-listener-dbus.c:1869
 msgid "screensaver already running in this session"
-msgstr "El protector de pantalla ya se está ejecutando en esta sesión"
+msgstr "el salvapantallas ya se está ejecutando en esta sesión"
 
 #: ../src/gs-lock-plug.c:285
 msgctxt "Date"
@@ -212,7 +212,7 @@ msgstr "Consulta el estado del salvapantallas"
 
 #: ../src/xfce4-screensaver-command.c:64
 msgid "Query the length of time the screensaver has been active"
-msgstr "Consulta el tiempo que lleva el protector de pantalla activo"
+msgstr "Consulta el tiempo que lleva el salvapantalla activo"
 
 #: ../src/xfce4-screensaver-command.c:68
 msgid "Tells the running screensaver process to lock the screen immediately"
@@ -222,21 +222,21 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-command.c:72
 msgid "If the screensaver is active then switch to another graphics demo"
-msgstr ""
-"Si el protector de pantalla está activo, cambie a otra demostración gráfica"
+msgstr "Si el salvapantallas está activo, cambie a otra demostración gráfica"
 
 #: ../src/xfce4-screensaver-command.c:76
 msgid "Turn the screensaver on (blank the screen)"
-msgstr "Activar el protector de pantalla (en blanco la pantalla)"
+msgstr "Activar el salvapantallas (pone en blanco la pantalla)"
 
 #: ../src/xfce4-screensaver-command.c:80
 msgid "If the screensaver is active then deactivate it (un-blank the screen)"
-msgstr "Si el salvapantallas está activo, desactívelo (desactive la pantalla)"
+msgstr ""
+"Si el salvapantallas está activo, desactívelo (quitar el blanco de pantalla)"
 
 #: ../src/xfce4-screensaver-command.c:84
 msgid "Poke the running screensaver to simulate user activity"
 msgstr ""
-"Forzar una ejecucion del salvapantallas para simular la actividad del "
+"Fuerza una ejecución del salvapantallas para simular la actividad del "
 "usuario"
 
 #: ../src/xfce4-screensaver-command.c:88
@@ -244,16 +244,16 @@ msgid ""
 "Inhibit the screensaver from activating.  Command blocks while inhibit is "
 "active."
 msgstr ""
-"Evitar que el salvapantallas se active. Se bloquearan los comandos para "
-"evitar la activacion."
+"Evitar que el salvapantallas se active. Se bloquearan las órdenes para "
+"evitar su activación."
 
 #: ../src/xfce4-screensaver-command.c:92
 msgid "The calling application that is inhibiting the screensaver"
-msgstr "La aplicación de llamada que está evitando el salvapantalla"
+msgstr "La aplicación de llamada que está inhibiendo el salvapantalla"
 
 #: ../src/xfce4-screensaver-command.c:96
 msgid "The reason for inhibiting the screensaver"
-msgstr "La razón para evitar el salvapantalla"
+msgstr "La razón para inhibir el salvapantalla"
 
 #: ../src/xfce4-screensaver-command.c:100 ../src/xfce4-screensaver-dialog.c:65
 #: ../src/xfce4-screensaver.c:58
@@ -291,7 +291,7 @@ msgstr "El salvapantalla ha estado activo durante %d segundos.\n"
 #: ../src/xfce4-screensaver-configure:139
 #: ../src/xfce4-screensaver-preferences.c:710
 msgid "Blank screen"
-msgstr "Pantalla vacía"
+msgstr "Pantalla en blanco"
 
 #: ../src/xfce4-screensaver-configure:140
 msgid ""
@@ -303,17 +303,18 @@ msgid ""
 "DPMS settings. If your displays are powering off at different\n"
 "intervals, be sure to check for conflicting settings."
 msgstr ""
-"Desarrollado por Display Power Management Signalling (DPMS),\n"
-"Xfce Screensaver puede suspender automáticamente sus pantallas\n"
-"para ahorrar energía\n"
+"Desarrollado por Señalización de Administración de Energía de Pantalla\n"
+"(DPMS), el Salvapantallas de Xfce puede suspender automáticamente\n"
+"sus pantallas para ahorrar energía\n"
 "\n"
-"Xfce Power Manager y otras aplicaciones también administran\n"
-"Configuraciones DPMS. Si sus pantallas se están apagando a diferentes\n"
-"intervalos, asegúrese de verificar configuraciones conflictivas."
+"Administrador de energía de Xfce y otras aplicaciones también\n"
+"administran configuraciones DPMS. Si sus pantallas se están\n"
+"apagando a diferentes intervalos, asegúrese de verificar\n"
+"configuraciones conflictivas."
 
 #: ../src/xfce4-screensaver-configure:176
 msgid "Part of Xfce Screensaver"
-msgstr "Parte del salvapantallas de xfce"
+msgstr "Parte del Salvapantallas de Xfce"
 
 #: ../src/xfce4-screensaver-configure:403
 msgid "Restore Defaults"
@@ -329,7 +330,7 @@ msgstr "Acerca de"
 
 #: ../src/xfce4-screensaver-configure:435
 msgid "Video"
-msgstr "Video"
+msgstr "Vídeo"
 
 #: ../src/xfce4-screensaver-configure:502
 #, c-format
@@ -421,11 +422,11 @@ msgstr "Escriba su nombre de usuario."
 
 #: ../src/xfce4-screensaver-dialog.c:184
 msgid "You are required to change your password immediately (password aged)"
-msgstr "Debes cambiar tu contraseña inmediatamente (contraseña vieja)"
+msgstr "Debe cambiar su contraseña inmediatamente (contraseña vieja)"
 
 #: ../src/xfce4-screensaver-dialog.c:186
 msgid "You are required to change your password immediately (root enforced)"
-msgstr "Debes cambiar tu contraseña inmediatamente (raíz forzada)"
+msgstr "Debe cambiar su contraseña inmediatamente (raíz forzada)"
 
 #: ../src/xfce4-screensaver-dialog.c:188
 msgid "Your account has expired; please contact your system administrator"
@@ -462,7 +463,7 @@ msgstr "Error mientras se cambiaba la contraseña NIS."
 
 #: ../src/xfce4-screensaver-dialog.c:204
 msgid "You must choose a longer password."
-msgstr "Tiene que elegir una contraseña más larga."
+msgstr "Debe elegir una contraseña más larga."
 
 #: ../src/xfce4-screensaver-dialog.c:206
 msgid "Password has been already used. Choose another."
@@ -495,11 +496,11 @@ msgstr "Tiene activada la tecla Bloq Mayús."
 
 #: ../src/xfce4-screensaver-dialog.ui.h:5
 msgid "_Switch User"
-msgstr "Cambiar de _usuario"
+msgstr "Cambiar de u_suario"
 
 #: ../src/xfce4-screensaver-dialog.ui.h:6
 msgid "_Log Out"
-msgstr "_Finalizar la sesión"
+msgstr "Fina_lizar la sesión"
 
 #: ../src/xfce4-screensaver-dialog.ui.h:7
 msgid "_Cancel"
@@ -507,7 +508,7 @@ msgstr "_Cancelar"
 
 #: ../src/xfce4-screensaver-dialog.ui.h:8
 msgid "_Unlock"
-msgstr "_Desbloquear"
+msgstr "Desbloq_uear"
 
 #: ../src/xfce4-screensaver-dialog.ui.h:10
 #, no-c-format
@@ -525,7 +526,7 @@ msgstr "Socket del gestor de configuración"
 
 #: ../src/xfce4-screensaver-preferences.c:80
 msgid "SOCKET ID"
-msgstr "SOCKET ID"
+msgstr "Id. del SOCKET"
 
 #: ../src/xfce4-screensaver-preferences.c:716
 msgid "Random"
@@ -587,7 +588,7 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-preferences.ui.h:11
 msgid "Your computer may not be locked when you close the lid."
-msgstr "Es posible que su computadora no esté bloqueada al cerrar la tapa."
+msgstr "Es posible que su equipo no esté bloqueado al cerrar la tapa."
 
 #: ../src/xfce4-screensaver-preferences.ui.h:12
 msgid "Enable Screensaver"
@@ -607,7 +608,7 @@ msgstr "Configurar..."
 
 #: ../src/xfce4-screensaver-preferences.ui.h:16
 msgid "Change theme after:"
-msgstr "Cambiar tema después de:"
+msgstr "Cambiar el tema después de:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:17
 msgid "minutes"
@@ -615,7 +616,7 @@ msgstr "minutos"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:18
 msgid "Activate screensaver when computer is idle"
-msgstr "Activar el salvapantalla cuando la computadora está inactiva"
+msgstr "Activar el salvapantalla cuando el equipo esté inactivo"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:19
 msgid "Regard the computer as _idle after:"
@@ -623,7 +624,7 @@ msgstr "Considerar el equipo como _inactivo tras:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:20
 msgid "Inhibit screensaver for fullscreen applications"
-msgstr "Inhibir protector de pantalla para aplicaciones de pantalla completa"
+msgstr "Inhibir el salvapantalla para aplicaciones de pantalla completa"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:22
 msgid "Enable Lock Screen"
@@ -643,7 +644,7 @@ msgstr "Teclado en pantalla"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:26
 msgid "On screen keyboard command:"
-msgstr "Comando del teclado en pantalla:"
+msgstr "Orden del teclado en pantalla:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:27
 msgid "Session Status Messages"
@@ -675,7 +676,7 @@ msgstr "Pantalla de bloqueo"
 
 #: ../src/xfce4-screensaver.c:59
 msgid "Don't become a daemon"
-msgstr "No te conviertas en un demonio"
+msgstr "No se convierta en servicio"
 
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
@@ -683,7 +684,7 @@ msgstr "Activar el código de depuración"
 
 #: ../src/xfce4-screensaver.desktop.in.in.h:2
 msgid "Launch screensaver and locker program"
-msgstr "Ejecutar salvapantallas y bloquear el programa"
+msgstr "Ejecutar el salvapantallas y bloquear el programa"
 
 #: ../src/xfcekbd-indicator.c:404
 msgid "XKB initialization error"
