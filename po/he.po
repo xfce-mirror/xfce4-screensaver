@@ -5,7 +5,7 @@
 # 
 # Translators:
 # Yaron Shahrabani <sh.yaron@gmail.com>, 2018
-# Nick Schermer <nick@xfce.org>, 2018
+# Nick Schermer <nick@xfce.org>, 2019
 # Elishai Eliyahu <e1907@mm.st>, 2019
 # 
 #, fuzzy
@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-18 06:31+0200\n"
+"POT-Creation-Date: 2019-08-04 00:31+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Elishai Eliyahu <e1907@mm.st>, 2019\n"
 "Language-Team: Hebrew (https://www.transifex.com/xfce/teams/16840/he/)\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:1
-#: ../src/xfce4-screensaver-preferences.ui.h:18
+#: ../src/xfce4-screensaver-preferences.ui.h:21
 #: ../src/xfce4-screensaver.desktop.in.in.h:1
 msgid "Screensaver"
 msgstr "שומר מסך"
@@ -75,21 +75,21 @@ msgstr "תמונת המקור לשימוש"
 
 #. translators: the word "image" here
 #. * represents a command line argument
-#: ../savers/floaters.c:1121
+#: ../savers/floaters.c:1122
 msgid "image - floats images around the screen"
 msgstr "image - מציף תמונות מסביב למסך"
 
-#: ../savers/floaters.c:1125 ../savers/popsquares.c:49
+#: ../savers/floaters.c:1126 ../savers/popsquares.c:49
 #, c-format
 msgid "%s. See --help for usage information.\n"
 msgstr "%s. ראה --help למידע שימוש.\n"
 
-#: ../savers/floaters.c:1132
+#: ../savers/floaters.c:1133
 #, c-format
 msgid "Failed to initialize the windowing system."
 msgstr "נכשל להפעיל את מערכת החלונות."
 
-#: ../savers/floaters.c:1138
+#: ../savers/floaters.c:1139
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr "אתה חייב לציין תמונה אחת. ראה --help למידע שימוש.\n"
@@ -176,15 +176,15 @@ msgstr "כבר לא מורשה לגשת למערכת."
 msgid "Username:"
 msgstr "שם משתמש:"
 
-#: ../src/gs-listener-dbus.c:1956
+#: ../src/gs-listener-dbus.c:1820
 msgid "failed to register with the message bus"
 msgstr "נכשל להירשם עם bus ההודעות"
 
-#: ../src/gs-listener-dbus.c:1966
+#: ../src/gs-listener-dbus.c:1830
 msgid "not connected to the message bus"
 msgstr "לא מחובר ל-bus ההודעות"
 
-#: ../src/gs-listener-dbus.c:1975 ../src/gs-listener-dbus.c:2005
+#: ../src/gs-listener-dbus.c:1839 ../src/gs-listener-dbus.c:1869
 msgid "screensaver already running in this session"
 msgstr "שומר מסך כבר פועל בסשן הזה"
 
@@ -193,118 +193,174 @@ msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, %B %e   %H:%M"
 
-#: ../src/gs-lock-plug.c:368
+#: ../src/gs-lock-plug.c:361
 msgid "Time has expired."
 msgstr "הזמן פקע."
 
-#: ../src/gs-lock-plug.c:1269
-msgid "S_witch User..."
-msgstr "ה_חלף משתמש..."
-
-#: ../src/gs-lock-plug.c:1278
-msgid "Log _Out"
-msgstr "י_ציאה מהמערכת"
-
-#: ../src/gs-lock-plug.c:1284 ../src/xfce4-screensaver-dialog.ui.h:11
-msgid "_Cancel"
-msgstr "_בטל"
-
-#: ../src/gs-lock-plug.c:1289 ../src/xfce4-screensaver-dialog.ui.h:12
-msgid "_Unlock"
-msgstr "_ביטול נעילה"
-
-#. To translators: This expands to USERNAME on HOSTNAME
-#: ../src/gs-lock-plug.c:1455
-msgid "%U on %h"
-msgstr "%U on %h"
-
-#: ../src/gs-lock-plug.c:1470
-msgid "Please enter your password."
-msgstr "אנא הכנס את הסיסמה שלך."
-
-#: ../src/xfce4-screensaver-command.c:60
+#: ../src/xfce4-screensaver-command.c:56
 msgid "Causes the screensaver to exit gracefully"
 msgstr "גורם לשומר המסך לצאת יפה"
 
-#: ../src/xfce4-screensaver-command.c:64
+#: ../src/xfce4-screensaver-command.c:60
 msgid "Query the state of the screensaver"
 msgstr "בצע שאילתה אודות מצב שומר המסך"
 
-#: ../src/xfce4-screensaver-command.c:68
+#: ../src/xfce4-screensaver-command.c:64
 msgid "Query the length of time the screensaver has been active"
 msgstr "בצע שאילתה אודות משך הזמן בו שומר המסך היה פעיל"
 
-#: ../src/xfce4-screensaver-command.c:72
+#: ../src/xfce4-screensaver-command.c:68
 msgid "Tells the running screensaver process to lock the screen immediately"
 msgstr "אומר לתהליך שומר המסך הפועל לנעול את המסך מיד"
 
-#: ../src/xfce4-screensaver-command.c:76
+#: ../src/xfce4-screensaver-command.c:72
 msgid "If the screensaver is active then switch to another graphics demo"
 msgstr "אם שומר המסך פעיל אז עבור אל דמו גרפיקה אחר"
 
-#: ../src/xfce4-screensaver-command.c:80
+#: ../src/xfce4-screensaver-command.c:76
 msgid "Turn the screensaver on (blank the screen)"
 msgstr "הפעל את שומר המסך (החשך את המסך)"
 
-#: ../src/xfce4-screensaver-command.c:84
+#: ../src/xfce4-screensaver-command.c:80
 msgid "If the screensaver is active then deactivate it (un-blank the screen)"
 msgstr "אם שומר המסך פעיל אז כבה אותו (בטל החשכה של המסך)"
 
-#: ../src/xfce4-screensaver-command.c:88
+#: ../src/xfce4-screensaver-command.c:84
 msgid "Poke the running screensaver to simulate user activity"
 msgstr "הפרע לשומר המסך הפעיל על מנת לדמות פעילות משתמש"
 
-#: ../src/xfce4-screensaver-command.c:92
+#: ../src/xfce4-screensaver-command.c:88
 msgid ""
 "Inhibit the screensaver from activating.  Command blocks while inhibit is "
 "active."
 msgstr "מנע משומר המסך לפעול. פקודה חוסמת תוך כדי שמניעה פעילה."
 
-#: ../src/xfce4-screensaver-command.c:96
+#: ../src/xfce4-screensaver-command.c:92
 msgid "The calling application that is inhibiting the screensaver"
 msgstr "הישום הקורא שמונע את שומר המסך"
 
-#: ../src/xfce4-screensaver-command.c:100
+#: ../src/xfce4-screensaver-command.c:96
 msgid "The reason for inhibiting the screensaver"
 msgstr "הסיבה למניעת שומר המסך"
 
-#: ../src/xfce4-screensaver-command.c:104 ../src/xfce4-screensaver-dialog.c:65
+#: ../src/xfce4-screensaver-command.c:100 ../src/xfce4-screensaver-dialog.c:65
 #: ../src/xfce4-screensaver.c:58
 msgid "Version of this application"
 msgstr "גרסה של ישום זה"
 
-#: ../src/xfce4-screensaver-command.c:328
+#: ../src/xfce4-screensaver-command.c:206
 #, c-format
 msgid "The screensaver is %s\n"
 msgstr "שומר המסך הוא %s\n"
 
-#: ../src/xfce4-screensaver-command.c:328
+#: ../src/xfce4-screensaver-command.c:206
 msgid "active"
 msgstr "פעיל"
 
-#: ../src/xfce4-screensaver-command.c:328
+#: ../src/xfce4-screensaver-command.c:206
 msgid "inactive"
 msgstr "לא פעיל"
 
-#: ../src/xfce4-screensaver-command.c:342
+#: ../src/xfce4-screensaver-command.c:217
 #, c-format
 msgid "The screensaver is not inhibited\n"
 msgstr "שומר המסך אינו מנוע\n"
 
-#: ../src/xfce4-screensaver-command.c:348
+#: ../src/xfce4-screensaver-command.c:220
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
 msgstr "שומר המסך נמנע על ידי:\n"
 
-#: ../src/xfce4-screensaver-command.c:378
+#: ../src/xfce4-screensaver-command.c:235
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "שומר המסך היה פעיל למשך %d שניות.\n"
 
-#: ../src/xfce4-screensaver-command.c:382
+#: ../src/xfce4-screensaver-configure:139
+#: ../src/xfce4-screensaver-preferences.c:710
+msgid "Blank screen"
+msgstr "מסך ריק"
+
+#: ../src/xfce4-screensaver-configure:140
+msgid ""
+"Powered by Display Power Management Signaling (DPMS),\n"
+"Xfce Screensaver can automatically suspend your displays\n"
+"to save power.\n"
+"\n"
+"Xfce Power Manager and other applications also manage\n"
+"DPMS settings. If your displays are powering off at different\n"
+"intervals, be sure to check for conflicting settings."
+msgstr ""
+"מופעל על ידי איתות ניהול הספק תצוגה (DPMS),\n"
+"שומר המסך של Xfce יכול להשהות אוטומטית את המסכים שלך\n"
+"כדי לחסוך חשמל.\n"
+"\n"
+"מנהל ההספק של Xfce וישומים אחרים מנהלים גם\n"
+"הגדרות DPMS. אם המסכים שלך נכבים במרווחי זמן\n"
+"שונים, בדוק הגדרות מתנגשות."
+
+#: ../src/xfce4-screensaver-configure:176
+msgid "Part of Xfce Screensaver"
+msgstr "חלק משומר המסך של Xfce"
+
+#: ../src/xfce4-screensaver-configure:403
+msgid "Restore Defaults"
+msgstr "שחזר ברירות מחדל"
+
+#: ../src/xfce4-screensaver-configure:416
+msgid "Preferences"
+msgstr "העדפות"
+
+#: ../src/xfce4-screensaver-configure:422
+msgid "About"
+msgstr "אודות"
+
+#: ../src/xfce4-screensaver-configure:435
+msgid "Video"
+msgstr "וידאו"
+
+#: ../src/xfce4-screensaver-configure:502
 #, c-format
-msgid "The screensaver is not currently active.\n"
-msgstr "שומר המסך אינו פעיל כרגע.\n"
+msgid "Unrecognized type: %s"
+msgstr "סוג לא מזוהה:%s"
+
+#: ../src/xfce4-screensaver-configure:717
+msgid "Screensaver required."
+msgstr "שומר מסך נדרש."
+
+#: ../src/xfce4-screensaver-configure:723
+msgid "Unable to configure screensaver"
+msgstr "לא יכול להגדיר שומר מסך"
+
+#: ../src/xfce4-screensaver-configure:727
+#, c-format
+msgid "File not found: %s"
+msgstr "קובץ לא נמצא:%s"
+
+#: ../src/xfce4-screensaver-configure:736
+#, c-format
+msgid "Unrecognized file type: %s"
+msgstr "סוג קובץ לא מזוהה:%s"
+
+#: ../src/xfce4-screensaver-configure:742
+#, c-format
+msgid "Failed to process file: %s"
+msgstr "נכשל לעבד קובץ:%s"
+
+#: ../src/xfce4-screensaver-configure:747
+#, c-format
+msgid "Screensaver %s is configurable."
+msgstr "שומר מסך %s ניתן להגדרה."
+
+#: ../src/xfce4-screensaver-configure:750
+#, c-format
+msgid "Screensaver %s is not configurable."
+msgstr "שומר מסך %s לא ניתן להגדרה."
+
+#: ../src/xfce4-screensaver-configure:754
+#, c-format
+msgid "Screensaver %s has no configuration options."
+msgstr "שומר מסך %s ללא אפשרויות הגדרה."
 
 #: ../src/xfce4-screensaver-dialog.c:63
 msgid "Show debugging output"
@@ -413,60 +469,64 @@ msgstr "בודק..."
 
 #: ../src/xfce4-screensaver-dialog.ui.h:2
 #, no-c-format
+msgid "%U"
+msgstr "%U"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:3
+msgid "Enter your password"
+msgstr "הכנס את הסיסמה שלך"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:4
+msgid "You have the Caps Lock key on."
+msgstr "מקש אותיות גדולות שלך דולק."
+
+#: ../src/xfce4-screensaver-dialog.ui.h:5
+msgid "_Switch User"
+msgstr "ה_חלף משתמש"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:6
+msgid "_Log Out"
+msgstr "י_ציאה מהמערכת"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:7
+msgid "_Cancel"
+msgstr "_בטל"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:8
+msgid "_Unlock"
+msgstr "_ביטול נעילה"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:10
+#, no-c-format
 msgid "<b>%h</b>"
 msgstr "<b>%h</b>"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:4
+#: ../src/xfce4-screensaver-dialog.ui.h:12
 #, no-c-format
 msgid "<b>%s</b>"
 msgstr "<b>%s</b>"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:6
-#, no-c-format
-msgid "%U"
-msgstr "%U"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:7
-msgid "Enter your password"
-msgstr "הכנס את הסיסמה שלך"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:8
-msgid "You have the Caps Lock key on."
-msgstr "מקש אותיות גדולות שלך דולק."
-
-#: ../src/xfce4-screensaver-dialog.ui.h:9
-msgid "_Switch User"
-msgstr "ה_חלף משתמש"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:10
-msgid "_Log Out"
-msgstr "י_ציאה מהמערכת"
-
-#: ../src/xfce4-screensaver-preferences.c:78
+#: ../src/xfce4-screensaver-preferences.c:80
 msgid "Settings manager socket"
 msgstr "Settings manager socket"
 
-#: ../src/xfce4-screensaver-preferences.c:78
+#: ../src/xfce4-screensaver-preferences.c:80
 msgid "SOCKET ID"
 msgstr "SOCKET ID"
 
-#: ../src/xfce4-screensaver-preferences.c:657
-msgid "Blank screen"
-msgstr "מסך ריק"
-
-#: ../src/xfce4-screensaver-preferences.c:663
+#: ../src/xfce4-screensaver-preferences.c:716
 msgid "Random"
 msgstr "אקראי"
 
-#: ../src/xfce4-screensaver-preferences.c:1725
+#: ../src/xfce4-screensaver-preferences.c:1871
 msgid "Setting locked by administrator."
 msgstr "הגדרה נעולה על ידי מנהל."
 
-#: ../src/xfce4-screensaver-preferences.c:1764
+#: ../src/xfce4-screensaver-preferences.c:1912
 msgid "Could not load the main interface"
 msgstr "לא יכול לטעון את הממשק הראשי"
 
-#: ../src/xfce4-screensaver-preferences.c:1766
+#: ../src/xfce4-screensaver-preferences.c:1914
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "אנא וודא ששומר המסך מותקן כהלכה"
 
@@ -523,66 +583,78 @@ msgid "Theme"
 msgstr "ערכת נושא"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:14
+msgid "Configure screensaver"
+msgstr "הגדר שומר מסך"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:15
+msgid "Configure..."
+msgstr "הגדר..."
+
+#: ../src/xfce4-screensaver-preferences.ui.h:16
 msgid "Change theme after:"
 msgstr "החלף ערכת נושא לאחר:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:15
+#: ../src/xfce4-screensaver-preferences.ui.h:17
 msgid "minutes"
 msgstr "דקות"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:16
+#: ../src/xfce4-screensaver-preferences.ui.h:18
 msgid "Activate screensaver when computer is idle"
 msgstr "הפעל שומר מסך כאשר המחשב מחוסר עבודה"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:17
+#: ../src/xfce4-screensaver-preferences.ui.h:19
 msgid "Regard the computer as _idle after:"
 msgstr "התייחס אל המחשב כ_מושבת לאחר:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:19
+#: ../src/xfce4-screensaver-preferences.ui.h:20
+msgid "Inhibit screensaver for fullscreen applications"
+msgstr "עצור שומר מסך בשביל ישומים במסך מלא"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:22
 msgid "Enable Lock Screen"
 msgstr "הפעל נעל מסך"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:20
+#: ../src/xfce4-screensaver-preferences.ui.h:23
 msgid "Lock Screen with Screensaver"
 msgstr "נעל מסך עם שומר מסך"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:21
+#: ../src/xfce4-screensaver-preferences.ui.h:24
 msgid "Lock the screen after the screensaver is active for:"
 msgstr "נעל את המסך לאחר ששומר המסך פעיל במשך:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:22
+#: ../src/xfce4-screensaver-preferences.ui.h:25
 msgid "On Screen Keyboard"
 msgstr "מקלדת על הצג"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:23
+#: ../src/xfce4-screensaver-preferences.ui.h:26
 msgid "On screen keyboard command:"
 msgstr "פקודת מקלדת על הצג:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:24
+#: ../src/xfce4-screensaver-preferences.ui.h:27
 msgid "Session Status Messages"
 msgstr "הודעות סטטוס סשן"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:25
+#: ../src/xfce4-screensaver-preferences.ui.h:28
 msgid "Logout"
 msgstr "יציאה"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:26
+#: ../src/xfce4-screensaver-preferences.ui.h:29
 msgid "Logout command:"
 msgstr "פקודת יציאה:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:27
+#: ../src/xfce4-screensaver-preferences.ui.h:30
 msgid "Enable logout after:"
 msgstr "הפעל יציאה לאחר:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:28
+#: ../src/xfce4-screensaver-preferences.ui.h:31
 msgid "User Switching"
 msgstr "החלפת משתמשים"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:29
+#: ../src/xfce4-screensaver-preferences.ui.h:32
 msgid "Lock Screen with System Sleep"
 msgstr "נעל מסך עם שינה של מערכת"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:30
+#: ../src/xfce4-screensaver-preferences.ui.h:33
 msgid "Lock Screen"
 msgstr "נעל מסך"
 
