@@ -132,7 +132,7 @@ msgstr "Cartafol de fotos"
 
 #: ../savers/xfce-personal-slideshow.desktop.in.in.h:2
 msgid "Display a slideshow from your Pictures folder"
-msgstr "Mostrar unha presentación de diapositivas do seu cartafol fotos"
+msgstr "Amosar unha presentación de diapositivas do seu cartafol fotos"
 
 #: ../savers/xfce-popsquares.desktop.in.in.h:1
 msgid "Pop art squares"
@@ -246,8 +246,7 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-command.c:92
 msgid "The calling application that is inhibiting the screensaver"
-msgstr ""
-"O aplicativo que está a solicitar que se inhiba o protector de pantalla"
+msgstr "A aplicación responsábel da inhibición do protector de pantalla"
 
 #: ../src/xfce4-screensaver-command.c:96
 msgid "The reason for inhibiting the screensaver"
@@ -256,7 +255,7 @@ msgstr "O motivo para inhibir o protector de pantalla"
 #: ../src/xfce4-screensaver-command.c:100 ../src/xfce4-screensaver-dialog.c:65
 #: ../src/xfce4-screensaver.c:58
 msgid "Version of this application"
-msgstr "Versión deste aplicativo"
+msgstr "Versión desta aplicación"
 
 #: ../src/xfce4-screensaver-command.c:206
 #, c-format
@@ -305,7 +304,7 @@ msgstr ""
 "O protector de pantalla Xfce pode suspender automaticamente as\n"
 "súas pantallas para aforrar enerxía.\n"
 "\n"
-"O xestor de enerxía do Xfce e outros aplicativos tamén xestionan a \n"
+"O xestor de enerxía do Xfce e outras aplicacións tamén xestionan a \n"
 "configuración do DPMS. Se as súas pantallas se apagan con diferentes\n"
 "intervalos, asegúrese de comprobar se hai configuracións conflitivas."
 
@@ -623,7 +622,7 @@ msgstr "Considerar que o computador está _inactivo despois de:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:20
 msgid "Inhibit screensaver for fullscreen applications"
-msgstr "Inhibir o salvapantallas para aplicativos en pantalla completa"
+msgstr "Inhibir o salvapantallas para aplicacións en pantalla completa"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:22
 msgid "Enable Lock Screen"
