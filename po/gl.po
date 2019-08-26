@@ -552,7 +552,7 @@ msgstr "<b>Visualizar o protector de pantalla</b>"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:3
 msgid "Screensaver Preferences"
-msgstr "Preferencias so protector de pantalla"
+msgstr "Preferencias do protector de pantalla"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:4
 msgid "Configure your screensaver and locker"
