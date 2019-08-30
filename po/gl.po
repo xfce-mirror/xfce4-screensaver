@@ -268,7 +268,7 @@ msgstr "activado"
 
 #: ../src/xfce4-screensaver-command.c:206
 msgid "inactive"
-msgstr "desactivado"
+msgstr "inactivo"
 
 #: ../src/xfce4-screensaver-command.c:217
 #, c-format
