@@ -95,7 +95,7 @@ msgstr "ウィンドウシステムの初期化に失敗しました。"
 #: ../savers/floaters.c:1139
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
-msgstr ""
+msgstr "1つの画像を指定する必要があります。使用法については --help を参照してください。\n"
 
 #: ../savers/slideshow.c:53
 msgid "Location to get images from"
@@ -119,15 +119,15 @@ msgstr ""
 
 #: ../savers/slideshow.c:65
 msgid "Do not try to stretch images on screen"
-msgstr ""
+msgstr "画面上の画像を引き伸ばそうとしないでください"
 
 #: ../savers/xfce-floaters.desktop.in.in.h:1
 msgid "Floating Xfce"
-msgstr ""
+msgstr "フローティングXfce"
 
 #: ../savers/xfce-floaters.desktop.in.in.h:2
 msgid "Bubbles the Xfce logo around the screen"
-msgstr ""
+msgstr "Xfceロゴを画面の周りに泡立てる"
 
 #: ../savers/xfce-personal-slideshow.desktop.in.in.h:1
 msgid "Pictures folder"
@@ -135,7 +135,7 @@ msgstr "画像フォルダー"
 
 #: ../savers/xfce-personal-slideshow.desktop.in.in.h:2
 msgid "Display a slideshow from your Pictures folder"
-msgstr ""
+msgstr "画像フォルダーからスライドショーを表示する"
 
 #: ../savers/xfce-popsquares.desktop.in.in.h:1
 msgid "Pop art squares"
@@ -202,15 +202,15 @@ msgstr "時間切れです。"
 
 #: ../src/xfce4-screensaver-command.c:56
 msgid "Causes the screensaver to exit gracefully"
-msgstr ""
+msgstr "スクリーンセーバーを正常に終了させる"
 
 #: ../src/xfce4-screensaver-command.c:60
 msgid "Query the state of the screensaver"
-msgstr ""
+msgstr "スクリーンセーバーの状態を問い合わせる"
 
 #: ../src/xfce4-screensaver-command.c:64
 msgid "Query the length of time the screensaver has been active"
-msgstr ""
+msgstr "スクリーンセーバーがアクティブになっていた時間を問い合わせる"
 
 #: ../src/xfce4-screensaver-command.c:68
 msgid "Tells the running screensaver process to lock the screen immediately"
@@ -222,7 +222,7 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-command.c:76
 msgid "Turn the screensaver on (blank the screen)"
-msgstr ""
+msgstr "スクリーンセーバーをオンにする（画面をブランクにする）"
 
 #: ../src/xfce4-screensaver-command.c:80
 msgid "If the screensaver is active then deactivate it (un-blank the screen)"
@@ -296,6 +296,13 @@ msgid ""
 "DPMS settings. If your displays are powering off at different\n"
 "intervals, be sure to check for conflicting settings."
 msgstr ""
+"ディスプレイ電源管理シグナリング（DPMS）を搭載した\n"
+"Xfceスクリーンセーバーは、ディスプレイを自動的に\n"
+"サスペンドして電力を節約できます。\n"
+"\n"
+"Xfce Power Managerおよびその他のアプリケーションも\n"
+"DPMS設定を管理します。ディスプレイの電源が異なる間隔で\n"
+"オフになる場合は、競合する設定を必ず確認してください。"
 
 #: ../src/xfce4-screensaver-configure:176
 msgid "Part of Xfce Screensaver"
@@ -407,15 +414,15 @@ msgstr "ユーザー名を入力してください。"
 
 #: ../src/xfce4-screensaver-dialog.c:184
 msgid "You are required to change your password immediately (password aged)"
-msgstr ""
+msgstr "パスワードをすぐに変更する必要があります（パスワードが古くなっています）"
 
 #: ../src/xfce4-screensaver-dialog.c:186
 msgid "You are required to change your password immediately (root enforced)"
-msgstr ""
+msgstr "パスワードをすぐに変更する必要があります（root が強制されます）"
 
 #: ../src/xfce4-screensaver-dialog.c:188
 msgid "Your account has expired; please contact your system administrator"
-msgstr ""
+msgstr "アカウントの有効期限が切れています。システム管理者に連絡してください"
 
 #: ../src/xfce4-screensaver-dialog.c:190
 msgid "No password supplied."
@@ -443,23 +450,23 @@ msgstr "現在のパスワードを入力:"
 
 #: ../src/xfce4-screensaver-dialog.c:202
 msgid "Error while changing NIS password."
-msgstr ""
+msgstr "NISパスワードの変更中にエラーが発生しました。"
 
 #: ../src/xfce4-screensaver-dialog.c:204
 msgid "You must choose a longer password."
-msgstr ""
+msgstr "もっと長いパスワードを選択する必要があります。"
 
 #: ../src/xfce4-screensaver-dialog.c:206
 msgid "Password has been already used. Choose another."
-msgstr ""
+msgstr "パスワードはすでに使用されています。別のものを選択してください。"
 
 #: ../src/xfce4-screensaver-dialog.c:208
 msgid "You must wait longer to change your password."
-msgstr ""
+msgstr "パスワードを変更するには少し待つ必要があります。"
 
 #: ../src/xfce4-screensaver-dialog.c:210
 msgid "Sorry, passwords do not match."
-msgstr ""
+msgstr "パスワードが一致しません。"
 
 #: ../src/xfce4-screensaver-dialog.c:274
 msgid "Checking..."
@@ -510,7 +517,7 @@ msgstr "設定マネージャーソケット"
 
 #: ../src/xfce4-screensaver-preferences.c:80
 msgid "SOCKET ID"
-msgstr ""
+msgstr "ソケットID"
 
 #: ../src/xfce4-screensaver-preferences.c:716
 msgid "Random"
@@ -518,15 +525,15 @@ msgstr "ランダム"
 
 #: ../src/xfce4-screensaver-preferences.c:1871
 msgid "Setting locked by administrator."
-msgstr ""
+msgstr "管理者によってロックされた設定。"
 
 #: ../src/xfce4-screensaver-preferences.c:1912
 msgid "Could not load the main interface"
-msgstr ""
+msgstr "メインインターフェイスをロードできせんでした"
 
 #: ../src/xfce4-screensaver-preferences.c:1914
 msgid "Please make sure that the screensaver is properly installed"
-msgstr ""
+msgstr "スクリーンセーバーが正しくインストールされていることを確認してください"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:1
 msgid "Screensaver Preview"
