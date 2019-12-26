@@ -115,7 +115,7 @@ msgstr "\"#rrggbb\""
 
 #: ../savers/slideshow.c:61
 msgid "Do not randomize pictures from location"
-msgstr ""
+msgstr "場所からの写真をランダム化しないでください"
 
 #: ../savers/slideshow.c:65
 msgid "Do not try to stretch images on screen"
@@ -139,11 +139,11 @@ msgstr "画像フォルダーからスライドショーを表示する"
 
 #: ../savers/xfce-popsquares.desktop.in.in.h:1
 msgid "Pop art squares"
-msgstr ""
+msgstr "ポップアートスクウェア"
 
 #: ../savers/xfce-popsquares.desktop.in.in.h:2
 msgid "A pop-art-ish grid of pulsing colors."
-msgstr ""
+msgstr "パルス色のポップアート風のグリッド。"
 
 #: ../src/gs-auth-pam.c:163
 msgid "Password:"
@@ -152,12 +152,12 @@ msgstr "パスワード:"
 #: ../src/gs-auth-pam.c:375
 #, c-format
 msgid "Unable to establish service %s: %s\n"
-msgstr ""
+msgstr "サービスを確立できません %s : %s\n"
 
 #: ../src/gs-auth-pam.c:401
 #, c-format
 msgid "Can't set PAM_TTY=%s"
-msgstr ""
+msgstr "PAM_TTY= %s をセットできません"
 
 #: ../src/gs-auth-pam.c:432
 msgid "Incorrect password."
@@ -214,11 +214,11 @@ msgstr "スクリーンセーバーがアクティブになっていた時間を
 
 #: ../src/xfce4-screensaver-command.c:68
 msgid "Tells the running screensaver process to lock the screen immediately"
-msgstr ""
+msgstr "実行中のスクリーンセーバープロセスに画面をすぐにロックするよう指示する"
 
 #: ../src/xfce4-screensaver-command.c:72
 msgid "If the screensaver is active then switch to another graphics demo"
-msgstr ""
+msgstr "スクリーンセーバーがアクティブな場合は別のグラフィックデモに切り替えます"
 
 #: ../src/xfce4-screensaver-command.c:76
 msgid "Turn the screensaver on (blank the screen)"
@@ -226,17 +226,17 @@ msgstr "スクリーンセーバーをオンにする（画面をブランクに
 
 #: ../src/xfce4-screensaver-command.c:80
 msgid "If the screensaver is active then deactivate it (un-blank the screen)"
-msgstr ""
+msgstr "スクリーンセーバーがアクティブになっている場合は非アクティブにする（画面の非ブランク化を解除する）"
 
 #: ../src/xfce4-screensaver-command.c:84
 msgid "Poke the running screensaver to simulate user activity"
-msgstr ""
+msgstr "実行中のスクリーンセーバーをつついて、ユーザーアクティビティをシミュレートする"
 
 #: ../src/xfce4-screensaver-command.c:88
 msgid ""
 "Inhibit the screensaver from activating.  Command blocks while inhibit is "
 "active."
-msgstr ""
+msgstr "スクリーンセーバーのアクティブ化を禁止します。禁止されている間はコマンドをブロックします。"
 
 #: ../src/xfce4-screensaver-command.c:92
 msgid "The calling application that is inhibiting the screensaver"
@@ -565,11 +565,11 @@ msgstr "root として実行中"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:8
 msgid "The screen will not be locked for the root user."
-msgstr "この画面は root ユーザーに対してロックされません。"
+msgstr "この画面は root ユーザーに対してはロックされません。"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:9
 msgid "Resolve"
-msgstr ""
+msgstr "解決"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:10
 msgid "Xfce Power Manager is not configured to handle laptop lid events"
@@ -609,11 +609,11 @@ msgstr "コンピューターがアイドル状態のときにスクリーンセ
 
 #: ../src/xfce4-screensaver-preferences.ui.h:19
 msgid "Regard the computer as _idle after:"
-msgstr "次の後にコンピューターをアイドル状態と見なす(_I):"
+msgstr "この時間が経過したらコンピューターをアイドル状態と見なす(_I):"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:20
 msgid "Inhibit screensaver for fullscreen applications"
-msgstr "フルスクリーンアプリケーションに対してスクリーンセーバーを禁止する"
+msgstr "フルスクリーンアプリケーションに対してはスクリーンセーバーを禁止する"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:22
 msgid "Enable Lock Screen"
@@ -621,11 +621,11 @@ msgstr "ロック画面を有効にする"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:23
 msgid "Lock Screen with Screensaver"
-msgstr "スクリーンセーバーでロック画面"
+msgstr "スクリーンセーバーで画面をロック"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:24
 msgid "Lock the screen after the screensaver is active for:"
-msgstr "スクリーンセーバーがアクティブになった後、画面をロックする:"
+msgstr "スクリーンセーバーがアクティブになってこの時間が経過したら画面をロック:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:25
 msgid "On Screen Keyboard"
@@ -649,7 +649,7 @@ msgstr "ログアウトのコマンド"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:30
 msgid "Enable logout after:"
-msgstr "この後にログアウトを有効にする:"
+msgstr "この時間が経過したらログアウトを有効にする:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:31
 msgid "User Switching"
@@ -657,7 +657,7 @@ msgstr "ユーザー切り替え"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:32
 msgid "Lock Screen with System Sleep"
-msgstr "システムスリープでロック画面"
+msgstr "システムスリープで画面をロック"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:33
 msgid "Lock Screen"
