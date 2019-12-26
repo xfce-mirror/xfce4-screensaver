@@ -279,7 +279,7 @@ msgstr "スクリーンセーバーは以下によって禁止されています
 #: ../src/xfce4-screensaver-command.c:235
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
-msgstr ""
+msgstr "スクリーンセーバーは %d 秒間アクティブです。\n"
 
 #: ../src/xfce4-screensaver-configure:139
 #: ../src/xfce4-screensaver-preferences.c:710
@@ -355,17 +355,17 @@ msgstr "ファイルの処理に失敗しました: %s"
 #: ../src/xfce4-screensaver-configure:747
 #, c-format
 msgid "Screensaver %s is configurable."
-msgstr ""
+msgstr "スクリーンセーバー %s は設定可能です。"
 
 #: ../src/xfce4-screensaver-configure:750
 #, c-format
 msgid "Screensaver %s is not configurable."
-msgstr ""
+msgstr "スクリーンセーバー %s は設定できません。"
 
 #: ../src/xfce4-screensaver-configure:754
 #, c-format
 msgid "Screensaver %s has no configuration options."
-msgstr ""
+msgstr "スクリーンセーバー %s には設定オプションがありません。"
 
 #: ../src/xfce4-screensaver-dialog.c:63
 msgid "Show debugging output"
@@ -609,7 +609,7 @@ msgstr "コンピューターがアイドル状態のときにスクリーンセ
 
 #: ../src/xfce4-screensaver-preferences.ui.h:19
 msgid "Regard the computer as _idle after:"
-msgstr ""
+msgstr "次の後にコンピューターをアイドル状態と見なす(_I):"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:20
 msgid "Inhibit screensaver for fullscreen applications"
