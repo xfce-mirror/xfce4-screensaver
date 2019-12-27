@@ -621,11 +621,11 @@ msgstr "ロック画面を有効にする"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:23
 msgid "Lock Screen with Screensaver"
-msgstr "スクリーンセーバーで画面をロック"
+msgstr "スクリーンセーバーで画面をロックする"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:24
 msgid "Lock the screen after the screensaver is active for:"
-msgstr "スクリーンセーバーがアクティブになってこの時間が経過したら画面をロック:"
+msgstr "スクリーンセーバーがアクティブになってこの時間が経過したらロックする:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:25
 msgid "On Screen Keyboard"
@@ -657,7 +657,7 @@ msgstr "ユーザー切り替え"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:32
 msgid "Lock Screen with System Sleep"
-msgstr "システムスリープで画面をロック"
+msgstr "システムスリープで画面をロックする"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:33
 msgid "Lock Screen"
