@@ -612,7 +612,7 @@ add_session_inhibit (GSListener         *listener,
     dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &mode);
 
     /* FIXME: use async? */
-    reply = dbus_connection_send_with_reply_and_block (listener->priv->connection,
+    reply = dbus_connection_send_with_reply_and_block (listener->priv->system_connection,
                                                        message,
                                                        -1,
                                                        &error);
