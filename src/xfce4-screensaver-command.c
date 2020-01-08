@@ -211,18 +211,18 @@ do_command (GDBusConnection *conn) {
             goto done;
         }
         body = g_dbus_message_get_body (reply);
-        g_object_unref (reply);
+        g_variant_get (body, "(as)", &iter);
 
-        if (g_variant_n_children(body) <= 0) {
+        if (g_variant_iter_n_children(iter) <= 0) {
             g_print (_("The screensaver is not inhibited\n"));
         } else {
-            g_variant_get (body, "s", &iter);
             g_print (_("The screensaver is being inhibited by:\n"));
             while (g_variant_iter_loop (iter, "s", &str)) {
                 g_print ("\t%s\n", str);
             }
-            g_variant_iter_free (iter);
         }
+        g_variant_iter_free (iter);
+        g_object_unref (reply);
     }
 
     if (do_time) {
