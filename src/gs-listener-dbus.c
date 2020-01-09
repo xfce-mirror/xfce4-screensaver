@@ -311,6 +311,10 @@ listener_check_activation (GSListener *listener) {
         return TRUE;
     }
 
+    if (!listener->priv->session_idle) {
+        return TRUE;
+    }
+
     /* if we aren't inhibited then activate */
     inhibited = listener_ref_entry_is_present (listener, REF_ENTRY_TYPE_INHIBIT);
 
