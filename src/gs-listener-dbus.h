@@ -78,12 +78,7 @@ gboolean    gs_listener_acquire                         (GSListener *listener,
                                                          GError    **error);
 gboolean    gs_listener_activate_saver                  (GSListener *listener,
                                                          gboolean    active);
-gboolean    gs_listener_set_session_idle                (GSListener *listener,
-                                                         gboolean    idle);
-void        gs_listener_set_activation_enabled          (GSListener *listener,
-                                                         gboolean    enabled);
-void        gs_listener_set_sleep_activation_enabled    (GSListener *listener,
-                                                         gboolean    enabled);
+gboolean    gs_listener_is_inhibited                    (GSListener *listener);
 
 G_END_DECLS
 

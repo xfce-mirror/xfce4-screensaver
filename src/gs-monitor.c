@@ -87,10 +87,20 @@ static void listener_lock_cb(GSListener* listener, GSMonitor* monitor) {
 }
 
 static void listener_x11_activate_cb(GSListenerX11* listener, GSMonitor* monitor) {
+    if (gs_listener_is_inhibited(monitor->priv->listener)) {
+        gs_debug("Idle screen saving inhibited via dbus");
+        return;
+    }
+
     gs_listener_activate_saver(monitor->priv->listener, TRUE);
 }
 
 static void listener_x11_lock_cb(GSListenerX11* listener, GSMonitor* monitor) {
+    if (gs_listener_is_inhibited(monitor->priv->listener)) {
+        gs_debug("Idle locking inhibited via dbus");
+        return;
+    }
+
     listener_lock_cb (NULL, monitor);
 }
 

@@ -391,6 +391,18 @@ gs_listener_activate_saver (GSListener *listener,
     return TRUE;
 }
 
+gboolean
+gs_listener_is_inhibited (GSListener *listener)
+{
+    gboolean inhibited;
+
+    g_return_val_if_fail (GS_IS_LISTENER (listener), FALSE);
+
+    inhibited = listener_ref_entry_is_present (listener, REF_ENTRY_TYPE_INHIBIT);
+
+    return inhibited;
+}
+
 static dbus_bool_t
 listener_property_set_bool (GSListener  *listener,
                             guint        prop_id,
