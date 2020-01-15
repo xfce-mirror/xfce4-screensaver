@@ -103,6 +103,7 @@ static GOptionEntry entries[] = {
 };
 
 static GMainLoop *loop = NULL;
+int return_code = 0;
 
 static GDBusMessage *
 screensaver_send_message (GDBusConnection *conn,
@@ -180,6 +181,7 @@ do_command (GDBusConnection *conn) {
 
     if (!screensaver_is_running (conn)) {
         g_message ("Screensaver is not running! Start xfce4-screensaver first");
+        return_code = 1;
         goto done;
     }
 
@@ -325,5 +327,5 @@ main (int    argc,
     loop = g_main_loop_new (NULL, FALSE);
     g_main_loop_run (loop);
     g_object_unref (conn);
-    return 0;
+    exit (return_code);
 }
