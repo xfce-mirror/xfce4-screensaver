@@ -99,6 +99,7 @@ struct GSListenerPrivate {
 #endif
 
     guint32         ck_throttle_cookie;
+    int             sleep_inhibitor;
 };
 
 typedef struct {
@@ -495,6 +496,76 @@ listener_ref_entry_check (GSListener *listener,
         default:
             g_assert_not_reached ();
             break;
+    }
+}
+
+static void
+add_sleep_inhibit (GSListener *listener) {
+    DBusMessage     *message = NULL, *reply = NULL;
+    DBusMessageIter  iter, reply_iter;
+    DBusError        error;
+    const gchar     *what = "sleep";
+    const gchar     *who = "xfce4-screensaver";
+    const gchar     *why = "Locking screen before sleep";
+    const gchar     *mode = "delay";
+
+    g_return_if_fail (listener != NULL);
+
+    dbus_error_init (&error);
+
+#if defined(WITH_SYSTEMD) || defined(WITH_ELOGIND)
+    message = dbus_message_new_method_call (LOGIND_SERVICE,
+                                            LOGIND_PATH,
+                                            LOGIND_INTERFACE,
+                                            "Inhibit");
+#elif defined(WITH_CONSOLE_KIT)
+    message = dbus_message_new_method_call (CK_NAME,
+                                            CK_MANAGER_PATH,
+                                            CK_MANAGER_INTERFACE,
+                                            "Inhibit");
+#endif
+    if (message == NULL) {
+        gs_debug ("Couldn't allocate the dbus message");
+        return;
+    }
+
+    dbus_message_iter_init_append (message, &iter);
+    dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &what);
+    dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &who);
+    dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &why);
+    dbus_message_iter_append_basic (&iter, DBUS_TYPE_STRING, &mode);
+
+    reply = dbus_connection_send_with_reply_and_block (listener->priv->system_connection,
+                                                       message,
+                                                       -1,
+                                                       &error);
+    dbus_message_unref (message);
+
+    if (dbus_error_is_set (&error)) {
+        gs_debug ("%s raised:\n %s\n\n", error.name, error.message);
+        dbus_error_free (&error);
+        return;
+    }
+
+    dbus_message_iter_init (reply, &reply_iter);
+    if (DBUS_TYPE_UNIX_FD == dbus_message_iter_get_arg_type(&reply_iter))
+        dbus_message_iter_get_basic (&reply_iter, &listener->priv->sleep_inhibitor);
+
+    dbus_message_unref (reply);
+}
+
+static void
+remove_sleep_inhibit (GSListener *listener) {
+    g_return_if_fail (listener != NULL);
+
+    if (listener->priv->sleep_inhibitor < 0) {
+        gs_debug ("Can't remove sleep inhibitor: Lock not acquired");
+        return;
+    }
+
+    if (close(listener->priv->sleep_inhibitor) < 0) {
+        gs_debug ("Can't close file descriptor");
+        return;
     }
 }
 
@@ -1382,10 +1453,16 @@ listener_dbus_handle_system_message (DBusConnection *connection,
                 if (listener->priv->prefs->sleep_activation_enabled) {
                     gs_debug ("Logind requested session lock");
                     g_signal_emit (listener, signals[LOCK], 0);
+
+                    gs_debug ("Releasing sleep inhibitor");
+                    remove_sleep_inhibit (listener);
                 } else {
                     gs_debug ("Logind requested session lock, but lock on suspend is disabled");
                 }
             } else {
+                gs_debug ("Reinstating logind sleep inhibitor lock");
+                add_sleep_inhibit (listener);
+
                 gs_debug ("Logind requested session unlock");
                 // FIXME: there is no signal to request password prompt
                 g_signal_emit (listener, signals[SHOW_MESSAGE], 0, NULL, NULL, NULL);
@@ -2077,6 +2154,9 @@ gs_listener_init (GSListener *listener) {
                                                         g_int_equal,
                                                         NULL,
                                                         (GDestroyNotify)gs_listener_ref_entry_free);
+
+    gs_debug ("Acquiring logind sleep inhibitor lock");
+    add_sleep_inhibit (listener);
 }
 
 static void
@@ -2099,6 +2179,7 @@ gs_listener_finalize (GObject *object) {
     }
 
     g_free (listener->priv->session_id);
+    remove_sleep_inhibit (listener);
 
     G_OBJECT_CLASS (gs_listener_parent_class)->finalize (object);
 }
