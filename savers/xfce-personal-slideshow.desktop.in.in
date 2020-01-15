@@ -1,5 +1,5 @@
 [Desktop Entry]
-_Name=Pictures folder
+_Name=Slideshow
 _Comment=Display a slideshow from your Pictures folder
 Exec=@SAVERDIR@/slideshow
 TryExec=@SAVERDIR@/slideshow
