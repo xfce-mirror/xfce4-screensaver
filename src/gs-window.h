@@ -83,6 +83,7 @@ void        gs_window_destroy                 (GSWindow        *window);
 GdkWindow * gs_window_get_gdk_window          (GSWindow        *window);
 GtkWidget * gs_window_get_drawing_area        (GSWindow        *window);
 void        gs_window_clear                   (GSWindow        *window);
+void        gs_window_reposition              (GSWindow        *window);
 
 G_END_DECLS
 

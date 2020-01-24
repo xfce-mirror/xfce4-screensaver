@@ -1894,6 +1894,12 @@ gs_window_real_get_preferred_height (GtkWidget *widget,
     *minimal_height = *natural_height = requisition.height;
 }
 
+void
+gs_window_reposition (GSWindow *window) {
+    GtkRequisition requisition;
+    gs_window_real_size_request (GTK_WIDGET (window), &requisition);
+}
+
 static gboolean
 gs_window_real_grab_broken (GtkWidget          *widget,
                             GdkEventGrabBroken *event) {

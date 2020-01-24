@@ -91,18 +91,53 @@ G_DEFINE_TYPE_WITH_PRIVATE (GSManager, gs_manager, G_TYPE_OBJECT)
 static void         remove_deepsleep_idle   (GSManager *manager);
 static gboolean     deepsleep_idle          (GSManager *manager);
 static void         add_deepsleep_idle      (GSManager *manager);
+static void
+gs_manager_create_windows_for_display       (GSManager  *manager,
+                                             GdkDisplay *display);
+
+static gboolean
+gs_manager_is_real_monitor (GdkMonitor *monitor) {
+    // avoiding some weird gdk bug
+    // federico> avb: or if you don't care about a little unexplained messiness,
+    //                just discard monitors where both fields are null? :)
+    if (gdk_monitor_get_manufacturer(monitor) == NULL && gdk_monitor_get_model(monitor) == NULL)
+        return FALSE;
+    return TRUE;
+}
+
+static int
+gs_manager_get_n_monitors (GdkDisplay *display) {
+    // Since gdk_display_get_n_monitors return wrong monitor count
+    // this is a workaround for the problem
+    int n_monitors;
+    int i, count = 0;
+
+    n_monitors = gdk_display_get_n_monitors (display);
+    for (i = 0; i < n_monitors; i++) {
+        GdkMonitor *monitor = gdk_display_get_monitor(display, i);
+        if (gs_manager_is_real_monitor (monitor))
+            count++;
+    }
+    return count;
+}
 
 static gint
 manager_get_monitor_index (GdkMonitor *this_monitor) {
-    GdkDisplay *display = gdk_monitor_get_display (this_monitor);
+    GdkDisplay *display;
     gint        idx;
+
+    if (!gs_manager_is_real_monitor (this_monitor))
+        return -1;
+
+    display = gdk_monitor_get_display (this_monitor);
 
     for (idx = 0; idx < gdk_display_get_n_monitors (display); idx++) {
         GdkMonitor *monitor = gdk_display_get_monitor (display, idx);
         if (monitor == this_monitor)
             return idx;
     }
-    return 0;
+
+    return -1;
 }
 
 static void
@@ -598,7 +633,7 @@ find_window_at_pointer (GSManager *manager) {
     GdkDevice  *device;
     GdkMonitor *monitor;
     int         x, y;
-    GSList     *window;
+    GSList     *window = NULL;
 
     display = gdk_display_get_default ();
 
@@ -607,7 +642,9 @@ find_window_at_pointer (GSManager *manager) {
     monitor = gdk_display_get_monitor_at_point (display, x, y);
 
     /* Find the gs-window that is on that monitor */
-    window = g_slist_nth (manager->priv->windows, manager_get_monitor_index (monitor));
+    if (gs_manager_is_real_monitor (monitor))
+        window = g_slist_nth (manager->priv->windows, manager_get_monitor_index (monitor));
+
     if (window == NULL) {
         gs_debug ("WARNING: Could not find the GSWindow for display %s",
                   gdk_display_get_name (display));
@@ -940,6 +977,9 @@ gs_manager_create_window_for_monitor (GSManager  *manager,
     GSWindow    *window;
     GdkRectangle rect;
 
+    if (!gs_manager_is_real_monitor (monitor))
+        return;
+
     if (g_slist_nth (manager->priv->windows, manager_get_monitor_index(monitor))) {
         gs_debug ("Found already created window for Monitor %d", manager_get_monitor_index(monitor));
         return;
@@ -963,27 +1003,58 @@ gs_manager_create_window_for_monitor (GSManager  *manager,
 }
 
 static void
-on_display_monitor_added (GdkDisplay *display,
-                          GdkMonitor *monitor,
-                          GSManager  *manager) {
+reconfigure_monitors (GdkDisplay *display,
+                      GSManager  *manager) {
     GSList     *l;
     int         n_monitors;
 
-    n_monitors = gdk_display_get_n_monitors (display);
+    n_monitors = gs_manager_get_n_monitors (display);
+
+    if (n_monitors == 0)
+        return;
+
+    /* Remove lost windows */
+    l = manager->priv->windows;
+    while (l != NULL) {
+        GdkMonitor *this_monitor;
+        int         idx;
+        GSList     *next = l->next;
+
+        this_monitor = gs_window_get_monitor (GS_WINDOW (l->data));
+
+        idx = manager_get_monitor_index (this_monitor);
+        if (idx < 0) {
+            manager_maybe_stop_job_for_window (manager, GS_WINDOW (l->data));
+            g_hash_table_remove (manager->priv->jobs, l->data);
+            gs_window_destroy (GS_WINDOW (l->data));
+            manager->priv->windows = g_slist_delete_link (manager->priv->windows, l);
+        } else {
+            gs_window_reposition (GS_WINDOW (l->data));
+        }
+
+        l = next;
+    }
+
+    gs_manager_create_windows_for_display (manager, display);
+
+    gs_manager_request_unlock (manager);
+}
+
+static void
+on_display_monitor_added (GdkDisplay *display,
+                          GdkMonitor *monitor,
+                          GSManager  *manager) {
+    int         n_monitors;
+
+    n_monitors = gs_manager_get_n_monitors (display);
 
     gs_debug ("Monitor %s added on display %s, now there are %d",
               gdk_monitor_get_model(monitor), gdk_display_get_name (display), n_monitors);
 
-    l = g_slist_nth (manager->priv->windows, manager_get_monitor_index (monitor));
-    if (l) {
-        gs_debug ("Found window for this Monitor");
-        gs_window_set_monitor (GS_WINDOW (l->data), monitor);
-    } else {
-        gs_debug("Creating new window for Monitor %s", gdk_monitor_get_model (monitor));
-        gs_manager_create_window_for_monitor(manager, monitor);
-        l = g_slist_nth (manager->priv->windows, manager_get_monitor_index (monitor));
-    }
-    gs_window_request_unlock (l->data);
+    if (!gs_manager_is_real_monitor (monitor))
+        return;
+
+    reconfigure_monitors (display, manager);
 }
 
 static void
@@ -992,10 +1063,12 @@ on_display_monitor_removed (GdkDisplay *display,
                             GSManager  *manager) {
     int         n_monitors;
 
-    n_monitors = gdk_display_get_n_monitors (display);
+    n_monitors = gs_manager_get_n_monitors (display);
 
     gs_debug ("Monitor %p removed on display %s, now there are %d",
               monitor, gdk_display_get_name (display), n_monitors);
+
+    reconfigure_monitors (display, manager);
 }
 
 static void
@@ -1218,12 +1291,17 @@ gs_manager_request_unlock (GSManager *manager) {
     }
 
     if (manager->priv->windows == NULL) {
-        gs_debug ("We don't have any windows!");
+        gs_debug ("Request unlock but we don't have any windows!");
         return FALSE;
     }
 
     /* Find the GSWindow that contains the pointer */
     window = find_window_at_pointer (manager);
+    if (window == NULL) {
+        gs_debug ("Request unlock but no window could be found!");
+        return FALSE;
+    }
+
     gs_window_request_unlock (window);
 
     return TRUE;
