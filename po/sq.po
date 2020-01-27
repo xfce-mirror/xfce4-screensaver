@@ -58,7 +58,7 @@ msgstr "Numri maksimum i figurave për t’u mbajtur në ekran"
 
 #: ../savers/floaters.c:104
 msgid "MAX_IMAGES"
-msgstr ""
+msgstr "MAKS_FIGURASH"
 
 #: ../savers/floaters.c:109
 msgid "The initial size and position of window"
@@ -66,7 +66,7 @@ msgstr "Madhësia dhe pozicioni fillestar i dritares"
 
 #: ../savers/floaters.c:109
 msgid "WIDTHxHEIGHT+X+Y"
-msgstr ""
+msgstr "GJERËSIXLARTËSI+X+Y"
 
 #: ../savers/floaters.c:114
 msgid "The source image to use"
@@ -141,7 +141,7 @@ msgstr "Katrorë arti pop"
 
 #: ../savers/xfce-popsquares.desktop.in.in.h:2
 msgid "A pop-art-ish grid of pulsing colors."
-msgstr ""
+msgstr "Një rrjetë në stil arti pop ngjyrash pulsuese."
 
 #: ../src/gs-auth-pam.c:163
 msgid "Password:"
@@ -232,21 +232,23 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-command.c:84
 msgid "Poke the running screensaver to simulate user activity"
-msgstr "Cyte ekrankursyesin xhiures për të simuluar veprimtari përdoruesi"
+msgstr "Cyte ekrankursyesin xhirues, për të simuluar veprimtari përdoruesi"
 
 #: ../src/xfce4-screensaver-command.c:88
 msgid ""
 "Inhibit the screensaver from activating.  Command blocks while inhibit is "
 "active."
 msgstr ""
+"Pengo ekrankursyesin të aktivizohet. Urdhri bllokohet kur pengimi është "
+"aktiv."
 
 #: ../src/xfce4-screensaver-command.c:92
 msgid "The calling application that is inhibiting the screensaver"
-msgstr ""
+msgstr "Aplikacioni thirrës që po pengon ekrankursyesin"
 
 #: ../src/xfce4-screensaver-command.c:96
 msgid "The reason for inhibiting the screensaver"
-msgstr ""
+msgstr "Arsyeja për pengimin e ekrankursyesit"
 
 #: ../src/xfce4-screensaver-command.c:100 ../src/xfce4-screensaver-dialog.c:65
 #: ../src/xfce4-screensaver.c:58
@@ -269,12 +271,12 @@ msgstr "jo aktiv"
 #: ../src/xfce4-screensaver-command.c:217
 #, c-format
 msgid "The screensaver is not inhibited\n"
-msgstr ""
+msgstr "Ekrankursyesi s’është penguar\n"
 
 #: ../src/xfce4-screensaver-command.c:219
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
-msgstr ""
+msgstr "Ekrankursyesi po pengohet nga:\n"
 
 #: ../src/xfce4-screensaver-command.c:235
 #, c-format
@@ -414,7 +416,8 @@ msgstr ""
 #: ../src/xfce4-screensaver-dialog.c:186
 msgid "You are required to change your password immediately (root enforced)"
 msgstr ""
-"Është e domosdoshme të ndryshoni fjalëkalimin tuaj menjëherë (root enforced)"
+"Është e domosdoshme të ndryshoni fjalëkalimin tuaj menjëherë (e detyruar nga"
+" përdoruesi rrënjë)"
 
 #: ../src/xfce4-screensaver-dialog.c:188
 msgid "Your account has expired; please contact your system administrator"
@@ -530,9 +533,7 @@ msgstr "S’u arrit të ngarkohej ndërfaqja kryesore"
 
 #: ../src/xfce4-screensaver-preferences.c:1914
 msgid "Please make sure that the screensaver is properly installed"
-msgstr ""
-"Ju lutemi, garantoni që aplikacioni që ekrankursyesi është instaluar si "
-"duhet"
+msgstr "Ju lutemi, siguroni që ekrankursyesi të jetë instaluar si duhet"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:1
 msgid "Screensaver Preview"
@@ -634,7 +635,7 @@ msgstr "Tastierë Në Ekran"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:26
 msgid "On screen keyboard command:"
-msgstr "Urdhër për tastierë në ekran"
+msgstr "Urdhër për tastierë në ekran:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:27
 msgid "Session Status Messages"
@@ -674,7 +675,7 @@ msgstr "Aktivizo diagnostikim kodi"
 
 #: ../src/xfce4-screensaver.desktop.in.in.h:2
 msgid "Launch screensaver and locker program"
-msgstr "Nisni programin ekrankursyes dhe kyçës"
+msgstr "Nis programin ekrankursyes dhe kyçës"
 
 #: ../src/xfcekbd-indicator.c:404
 msgid "XKB initialization error"
