@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Zmicer Turok <nashtlumach@gmail.com>, 2019
+# Zmicer Turok <nashtlumach@gmail.com>, 2020
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-14 00:31+0200\n"
+"POT-Creation-Date: 2020-01-15 12:31+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Zmicer Turok <nashtlumach@gmail.com>, 2019\n"
+"Last-Translator: Zmicer Turok <nashtlumach@gmail.com>, 2020\n"
 "Language-Team: Belarusian (https://www.transifex.com/xfce/teams/16840/be/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,14 +22,14 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:1
-#: ../src/xfce4-screensaver-preferences.ui.h:20
+#: ../src/xfce4-screensaver-preferences.ui.h:21
 #: ../src/xfce4-screensaver.desktop.in.in.h:1
 msgid "Screensaver"
 msgstr "Ахоўнік экрана"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:2
 msgid "Set your screensaver preferences"
-msgstr "Наладзіць ахоўнік экрана"
+msgstr "Наладка ахоўніка экрана"
 
 #: ../data/xfce4-screensaver.directory.in.h:1
 msgid "Screensavers"
@@ -45,11 +45,11 @@ msgstr "Паказаць шляхі, якіх кіруцюцца выявы"
 
 #: ../savers/floaters.c:94
 msgid "Occasionally rotate images as they move"
-msgstr "Час ад часу паварочвайце выявы падчас іх перамяшчэння"
+msgstr "Час ад часу паварочваць выявы падчас іх перамяшчэння"
 
 #: ../savers/floaters.c:99
 msgid "Print out frame rate and other statistics"
-msgstr "Надрукаваць чашчыню кадраў і іншую статыстыку"
+msgstr "Вывесці чашчыню кадраў і іншую статыстыку"
 
 #: ../savers/floaters.c:104
 msgid "The maximum number of images to keep on screen"
@@ -75,7 +75,7 @@ msgstr "Зыходная выява"
 #. * represents a command line argument
 #: ../savers/floaters.c:1122
 msgid "image - floats images around the screen"
-msgstr "выява - плаваючыя вакол экрана выявы"
+msgstr "выява - вакол экрана плаваюць выявы"
 
 #: ../savers/floaters.c:1126 ../savers/popsquares.c:49
 #, c-format
@@ -120,15 +120,15 @@ msgstr "Не спрабаваць расцягваць выявы па паме�
 
 #: ../savers/xfce-floaters.desktop.in.in.h:1
 msgid "Floating Xfce"
-msgstr "Плаваючы Xfce"
+msgstr "Плавальны Xfce"
 
 #: ../savers/xfce-floaters.desktop.in.in.h:2
 msgid "Bubbles the Xfce logo around the screen"
 msgstr "Бурбалкі Xfce вакол экрана"
 
 #: ../savers/xfce-personal-slideshow.desktop.in.in.h:1
-msgid "Pictures folder"
-msgstr "Каталог малюнкаў"
+msgid "Slideshow"
+msgstr "Слайд-шоў"
 
 #: ../savers/xfce-personal-slideshow.desktop.in.in.h:2
 msgid "Display a slideshow from your Pictures folder"
@@ -140,7 +140,7 @@ msgstr "Вобласці поп-арта"
 
 #: ../savers/xfce-popsquares.desktop.in.in.h:2
 msgid "A pop-art-ish grid of pulsing colors."
-msgstr "Поп-арт сетка пульсуючых колераў."
+msgstr "Поп-арт сетка колераў, якія пульсуюць."
 
 #: ../src/gs-auth-pam.c:163
 msgid "Password:"
@@ -154,7 +154,7 @@ msgstr "Немагчыма стабілізаваць %s:%s\n"
 #: ../src/gs-auth-pam.c:401
 #, c-format
 msgid "Can't set PAM_TTY=%s"
-msgstr "Немагчыма задаць  PAM_TTY=%s"
+msgstr "Немагчыма вызначыць PAM_TTY=%s"
 
 #: ../src/gs-auth-pam.c:432
 msgid "Incorrect password."
@@ -166,7 +166,7 @@ msgstr "Памылка аўтэнтыфікацыі."
 
 #: ../src/gs-auth-pam.c:448
 msgid "Not permitted to gain access at this time."
-msgstr "Недазволена атрымоўваць доступ у гэты час."
+msgstr "Забаронена атрымліваць доступ у гэты час."
 
 #: ../src/gs-auth-pam.c:454
 msgid "No longer permitted to access the system."
@@ -176,15 +176,15 @@ msgstr "Доступ да сістэмы больш не дазволены."
 msgid "Username:"
 msgstr "Імя карыстальніка:"
 
-#: ../src/gs-listener-dbus.c:1825
+#: ../src/gs-listener-dbus.c:1913
 msgid "failed to register with the message bus"
 msgstr "не атрымалася зарэгістравацца ў шыне паведамленняў"
 
-#: ../src/gs-listener-dbus.c:1835
+#: ../src/gs-listener-dbus.c:1923
 msgid "not connected to the message bus"
 msgstr "не злучана з шынай паведамленняў"
 
-#: ../src/gs-listener-dbus.c:1844 ../src/gs-listener-dbus.c:1874
+#: ../src/gs-listener-dbus.c:1932 ../src/gs-listener-dbus.c:1962
 msgid "screensaver already running in this session"
 msgstr "ахоўнік экрана ўжо запушчаны ў сістэме"
 
@@ -193,13 +193,13 @@ msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, %B%e %H:%M"
 
-#: ../src/gs-lock-plug.c:368
+#: ../src/gs-lock-plug.c:361
 msgid "Time has expired."
 msgstr "Час сышоў."
 
 #: ../src/xfce4-screensaver-command.c:56
 msgid "Causes the screensaver to exit gracefully"
-msgstr "Прымушае грацыёзна закрываць ахоўнік экрана"
+msgstr "Прымушае грацыёзна закрываць ахоўніка экрана"
 
 #: ../src/xfce4-screensaver-command.c:60
 msgid "Query the state of the screensaver"
@@ -220,11 +220,11 @@ msgstr "Калі ахоўнік экрана актыўны, пераключы�
 
 #: ../src/xfce4-screensaver-command.c:76
 msgid "Turn the screensaver on (blank the screen)"
-msgstr "Уключыце ахоўнік экрана (ачысціце экран)"
+msgstr "Уключыць ахоўніка экрана (ачысціць экран)"
 
 #: ../src/xfce4-screensaver-command.c:80
 msgid "If the screensaver is active then deactivate it (un-blank the screen)"
-msgstr "Калі ахоўнік экрана актыўны, выключыце яго (вярніце выяву)"
+msgstr "Калі ахоўнік экрана актыўны, выключыць яго (вярнуць выяву)"
 
 #: ../src/xfce4-screensaver-command.c:84
 msgid "Poke the running screensaver to simulate user activity"
@@ -269,7 +269,7 @@ msgstr "неактыўны"
 msgid "The screensaver is not inhibited\n"
 msgstr "Ахоўнік не заблакаваны\n"
 
-#: ../src/xfce4-screensaver-command.c:220
+#: ../src/xfce4-screensaver-command.c:219
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
 msgstr "Ахоўнік блакуецца:\n"
@@ -279,61 +279,86 @@ msgstr "Ахоўнік блакуецца:\n"
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "Ахоўнік быў актыўны %d секунд.\n"
 
-#: ../src/xfce4-screensaver-configure:157
+#: ../src/xfce4-screensaver-configure:139
+#: ../src/xfce4-screensaver-preferences.c:710
+msgid "Blank screen"
+msgstr "Пусты экран"
+
+#: ../src/xfce4-screensaver-configure:140
+msgid ""
+"Powered by Display Power Management Signaling (DPMS),\n"
+"Xfce Screensaver can automatically suspend your displays\n"
+"to save power.\n"
+"\n"
+"Xfce Power Manager and other applications also manage\n"
+"DPMS settings. If your displays are powering off at different\n"
+"intervals, be sure to check for conflicting settings."
+msgstr ""
+"Ахоўнік экрана Xfce працуе на DPMS (сігнальнае кіраванне сілкаваннем "
+"дысплея). Ён можа аўтаматычна прыпыніць працу вашых дысплеяў для эканоміі "
+"электраэнергіі. Кіраўнік сілкавання Xfce і іншыя праграмы таксама могуць "
+"кіраваць наладамі DPMS. Калі дысплеі адключаюцца праз розныя прамежкі часу, "
+"праверце налады ў розных праграмах, яны могуць замінаць адна адной."
+
+#: ../src/xfce4-screensaver-configure:176
 msgid "Part of Xfce Screensaver"
 msgstr "Частка ахоўніка экрана Xfce"
 
-#: ../src/xfce4-screensaver-configure:375
+#: ../src/xfce4-screensaver-configure:403
 msgid "Restore Defaults"
 msgstr "Аднавіць прадвызначанае"
 
-#: ../src/xfce4-screensaver-configure:388
+#: ../src/xfce4-screensaver-configure:416
 msgid "Preferences"
 msgstr "Налады"
 
-#: ../src/xfce4-screensaver-configure:394
+#: ../src/xfce4-screensaver-configure:422
 msgid "About"
 msgstr "Аб праграме"
 
-#: ../src/xfce4-screensaver-configure:407
+#: ../src/xfce4-screensaver-configure:435
 msgid "Video"
 msgstr "Відэа"
 
-#: ../src/xfce4-screensaver-configure:474
+#: ../src/xfce4-screensaver-configure:502
 #, c-format
 msgid "Unrecognized type: %s"
 msgstr "Нераспазнаны тып: %s"
 
-#: ../src/xfce4-screensaver-configure:684
+#: ../src/xfce4-screensaver-configure:714
 msgid "Unable to configure screensaver"
-msgstr "Не атрымалася наладзіць ахоўнік экрана"
+msgstr "Не атрымалася наладзіць ахоўніка экрана"
 
-#: ../src/xfce4-screensaver-configure:688
+#: ../src/xfce4-screensaver-configure:718
+msgid "Screensaver required."
+msgstr "Патрабуецца ахоўнік экрана."
+
+#: ../src/xfce4-screensaver-configure:726
 #, c-format
 msgid "File not found: %s"
 msgstr "Файл не знойдзены: %s"
 
-#: ../src/xfce4-screensaver-configure:697
+#: ../src/xfce4-screensaver-configure:735
 #, c-format
 msgid "Unrecognized file type: %s"
 msgstr "Нераспазнаны тып файла: %s"
 
-#: ../src/xfce4-screensaver-configure:703
+#: ../src/xfce4-screensaver-configure:741
 #, c-format
 msgid "Failed to process file: %s"
 msgstr "Не атрымалася апрацаваць файл: %s"
 
-#: ../src/xfce4-screensaver-configure:708
+#: ../src/xfce4-screensaver-configure:746
 #, c-format
 msgid "Screensaver %s is configurable."
-msgstr "Ахоўнік экрана %s магчыма наладзіць."
+msgstr "Ахоўніка экрана %s магчыма наладзіць."
 
-#: ../src/xfce4-screensaver-configure:711
+#: ../src/xfce4-screensaver-configure:749
 #, c-format
 msgid "Screensaver %s is not configurable."
-msgstr "Ахоўнік экрана %s немагчыма наладзіць."
+msgstr "Ахоўніка экрана %s немагчыма наладзіць."
 
-#: ../src/xfce4-screensaver-configure:715
+#: ../src/xfce4-screensaver-configure:753
 #, c-format
 msgid "Screensaver %s has no configuration options."
 msgstr "У ахоўніка экрана %s няма параметраў для наладкі."
@@ -447,42 +472,42 @@ msgstr "Праверка..."
 
 #: ../src/xfce4-screensaver-dialog.ui.h:2
 #, no-c-format
-msgid "<b>%h</b>"
-msgstr "<b>%h</b>"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:4
-#, no-c-format
-msgid "<b>%s</b>"
-msgstr "<b>%s</b>"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:6
-#, no-c-format
 msgid "%U"
 msgstr "%U"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:7
+#: ../src/xfce4-screensaver-dialog.ui.h:3
 msgid "Enter your password"
 msgstr "Увядзіце пароль"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:8
+#: ../src/xfce4-screensaver-dialog.ui.h:4
 msgid "You have the Caps Lock key on."
 msgstr "Уключана клавіша Caps Lock."
 
-#: ../src/xfce4-screensaver-dialog.ui.h:9
+#: ../src/xfce4-screensaver-dialog.ui.h:5
 msgid "_Switch User"
 msgstr "_Пераключыць карыстальніка"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:10
+#: ../src/xfce4-screensaver-dialog.ui.h:6
 msgid "_Log Out"
 msgstr "_Выйсці"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:11
+#: ../src/xfce4-screensaver-dialog.ui.h:7
 msgid "_Cancel"
 msgstr "_Скасаваць"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:12
+#: ../src/xfce4-screensaver-dialog.ui.h:8
 msgid "_Unlock"
 msgstr "_Разблакаваць"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:10
+#, no-c-format
+msgid "<b>%h</b>"
+msgstr "<b>%h</b>"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:12
+#, no-c-format
+msgid "<b>%s</b>"
+msgstr "<b>%s</b>"
 
 #: ../src/xfce4-screensaver-preferences.c:80
 msgid "Settings manager socket"
@@ -492,23 +517,19 @@ msgstr "Сокет кіраўніка налад"
 msgid "SOCKET ID"
 msgstr "ІДЭНТЫФІКАТАР СОКЕТА"
 
-#: ../src/xfce4-screensaver-preferences.c:685
-msgid "Blank screen"
-msgstr "Пусты экран"
-
-#: ../src/xfce4-screensaver-preferences.c:691
+#: ../src/xfce4-screensaver-preferences.c:716
 msgid "Random"
 msgstr "Выпадкова"
 
-#: ../src/xfce4-screensaver-preferences.c:1824
+#: ../src/xfce4-screensaver-preferences.c:1871
 msgid "Setting locked by administrator."
 msgstr "Налады заблакаваныя адміністратарам."
 
-#: ../src/xfce4-screensaver-preferences.c:1865
+#: ../src/xfce4-screensaver-preferences.c:1912
 msgid "Could not load the main interface"
 msgstr "Не атрымалася загрузіць асноўны інтэрфейс"
 
-#: ../src/xfce4-screensaver-preferences.c:1867
+#: ../src/xfce4-screensaver-preferences.c:1914
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "Калі ласка, пераканайцеся, што ахоўнік усталяваны карэктна"
 
@@ -526,7 +547,7 @@ msgstr "Налады ахоўніка экрана"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:4
 msgid "Configure your screensaver and locker"
-msgstr "Наладзіць ахоўнік экрана і блакаванне"
+msgstr "Наладка ахоўніка экрана і блакавання"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:5
 msgid "Power _Management"
@@ -542,7 +563,7 @@ msgstr "Запуск ад суперкарыстальніка"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:8
 msgid "The screen will not be locked for the root user."
-msgstr "Экран не будзе блакавацца для root-карыстальніка."
+msgstr "Экран не будзе блакавацца для суперкарыстальніка."
 
 #: ../src/xfce4-screensaver-preferences.ui.h:9
 msgid "Resolve"
@@ -560,7 +581,7 @@ msgstr "Ваш камп'ютар немагыма заблакаваць зак�
 
 #: ../src/xfce4-screensaver-preferences.ui.h:12
 msgid "Enable Screensaver"
-msgstr "Уключыць ахоўнік экрана"
+msgstr "Уключыць ахоўніка экрана"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:13
 msgid "Theme"
@@ -568,7 +589,7 @@ msgstr "Тэма"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:14
 msgid "Configure screensaver"
-msgstr "Наладзіць ахоўнік экрана"
+msgstr "Наладзіць ахоўніка экрана"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:15
 msgid "Configure..."
@@ -584,57 +605,61 @@ msgstr "хвіліну(ы)"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:18
 msgid "Activate screensaver when computer is idle"
-msgstr "Уключаць ахоўнік экрана калі камп'ютар не выкарыстоўваецца"
+msgstr "Уключаць ахоўніка экрана калі камп'ютар не выкарыстоўваецца"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:19
 msgid "Regard the computer as _idle after:"
-msgstr "Уключаць ахоўнік _экрана праз:"
+msgstr "Уключаць ахоўніка _экрана праз:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:21
+#: ../src/xfce4-screensaver-preferences.ui.h:20
+msgid "Inhibit screensaver for fullscreen applications"
+msgstr "Забараніць ахоўніка экрана для праграм у поўнаэкранным рэжыме"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:22
 msgid "Enable Lock Screen"
 msgstr "Уключыць блакаванне экрана"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:22
+#: ../src/xfce4-screensaver-preferences.ui.h:23
 msgid "Lock Screen with Screensaver"
 msgstr "Блакаваць экран разам з запускам ахоўніка экрана"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:23
+#: ../src/xfce4-screensaver-preferences.ui.h:24
 msgid "Lock the screen after the screensaver is active for:"
 msgstr "Блакаваць экран пасля працы ахоўніка цягам:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:24
+#: ../src/xfce4-screensaver-preferences.ui.h:25
 msgid "On Screen Keyboard"
 msgstr "На экраннай клавіятуры"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:25
+#: ../src/xfce4-screensaver-preferences.ui.h:26
 msgid "On screen keyboard command:"
 msgstr "Загад экраннай клавіятуры:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:26
-msgid "Session Status Messages"
-msgstr "Паведамленні стану сеансу"
-
 #: ../src/xfce4-screensaver-preferences.ui.h:27
+msgid "Session Status Messages"
+msgstr "Паведамленні статусу сеанса"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:28
 msgid "Logout"
 msgstr "Выйсці"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:28
+#: ../src/xfce4-screensaver-preferences.ui.h:29
 msgid "Logout command:"
 msgstr "Загад выхаду:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:29
+#: ../src/xfce4-screensaver-preferences.ui.h:30
 msgid "Enable logout after:"
 msgstr "Выходзіць пасля:"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:30
+#: ../src/xfce4-screensaver-preferences.ui.h:31
 msgid "User Switching"
 msgstr "Пераключэнне карыстальнікаў"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:31
+#: ../src/xfce4-screensaver-preferences.ui.h:32
 msgid "Lock Screen with System Sleep"
 msgstr "Блакаванне экрана з пераходам у рэжым сну"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:32
+#: ../src/xfce4-screensaver-preferences.ui.h:33
 msgid "Lock Screen"
 msgstr "Заблакаваць экран"
 
