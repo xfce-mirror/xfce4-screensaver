@@ -650,12 +650,16 @@ find_window_at_pointer (GSManager *manager) {
     if (window == NULL) {
         gs_debug ("WARNING: Could not find the GSWindow for display %s",
                   gdk_display_get_name (display));
+
         /* bail if there are no windows available */
         if (manager->priv->windows == NULL)
             return NULL;
 
         /* take the first one */
         window = manager->priv->windows->data;
+        if (window->data == NULL || !GS_IS_WINDOW (GS_WINDOW (window->data))) {
+            return NULL;
+        }
     } else {
         gs_debug ("Requesting unlock for display %s",
                   gdk_display_get_name (display));
@@ -1004,35 +1008,62 @@ gs_manager_create_window_for_monitor (GSManager  *manager,
     }
 }
 
+static GSList *
+add_overlays (GSManager *manager) {
+    GSList     *l;
+    GSList     *windows = NULL;
+
+    gs_debug("Reconfiguring monitors, adding overlays");
+
+    l = manager->priv->windows;
+    while (l != NULL) {
+        GdkMonitor *this_monitor;
+        GSList     *next = l->next;
+        GtkWidget  *window;
+        GdkRectangle rect;
+
+        this_monitor = gs_window_get_monitor (GS_WINDOW (l->data));
+
+        // Display an overlay to protect each window as we redraw everything
+        if (GDK_IS_MONITOR (this_monitor)) {
+            window = gtk_window_new (GTK_WINDOW_POPUP);
+            gdk_monitor_get_geometry (this_monitor, &rect);
+            gtk_window_move (GTK_WINDOW (window), rect.x, rect.y);
+            gtk_window_resize (GTK_WINDOW (window), rect.width, rect.height);
+            gtk_widget_show (GTK_WIDGET (window));
+            windows = g_slist_append (windows, window);
+        }
+
+        l = next;
+    }
+
+    return windows;
+}
+
+static gboolean
+remove_overlays (GSList *windows) {
+    gs_debug("Done reconfiguring monitors, removing overlays");
+    g_slist_free_full (windows, (GDestroyNotify) gtk_widget_destroy);
+    return FALSE;
+}
+
 static void
 reconfigure_monitors (GdkDisplay *display,
                       GSManager  *manager) {
     GSList     *l;
-    int         n_monitors;
+    GSList     *windows;
 
-    n_monitors = gs_manager_get_n_monitors (display);
-
-    if (n_monitors == 0)
-        return;
+    windows = add_overlays (manager);
 
     /* Remove lost windows */
     l = manager->priv->windows;
     while (l != NULL) {
-        GdkMonitor *this_monitor;
-        int         idx;
         GSList     *next = l->next;
 
-        this_monitor = gs_window_get_monitor (GS_WINDOW (l->data));
-
-        idx = manager_get_monitor_index (this_monitor);
-        if (idx < 0) {
-            manager_maybe_stop_job_for_window (manager, GS_WINDOW (l->data));
-            g_hash_table_remove (manager->priv->jobs, l->data);
-            gs_window_destroy (GS_WINDOW (l->data));
-            manager->priv->windows = g_slist_delete_link (manager->priv->windows, l);
-        } else {
-            gs_window_reposition (GS_WINDOW (l->data));
-        }
+        manager_maybe_stop_job_for_window (manager, GS_WINDOW (l->data));
+        g_hash_table_remove (manager->priv->jobs, l->data);
+        gs_window_destroy (GS_WINDOW (l->data));
+        manager->priv->windows = g_slist_delete_link (manager->priv->windows, l);
 
         l = next;
     }
@@ -1040,6 +1071,10 @@ reconfigure_monitors (GdkDisplay *display,
     gs_manager_create_windows_for_display (manager, display);
 
     gs_manager_request_unlock (manager);
+
+    g_timeout_add (2000,
+                   (GSourceFunc)remove_overlays,
+                   windows);
 }
 
 static void
@@ -1052,9 +1087,6 @@ on_display_monitor_added (GdkDisplay *display,
 
     gs_debug ("Monitor %s added on display %s, now there are %d",
               gdk_monitor_get_model(monitor), gdk_display_get_name (display), n_monitors);
-
-    if (!gs_manager_is_real_monitor (monitor))
-        return;
 
     reconfigure_monitors (display, manager);
 }
