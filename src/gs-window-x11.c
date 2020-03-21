@@ -1602,6 +1602,10 @@ gs_window_set_lock_active (GSWindow *window,
                            gboolean  active) {
     g_return_if_fail (GS_IS_WINDOW (window));
 
+    if (window->priv->lock_active == active) {
+        return;
+    }
+
     gs_debug("Setting lock active: %i", active);
 
     window->priv->lock_active = active;

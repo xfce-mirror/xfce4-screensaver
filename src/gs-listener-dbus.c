@@ -381,8 +381,6 @@ gs_listener_activate_saver (GSListener *listener,
     g_return_val_if_fail (GS_IS_LISTENER (listener), FALSE);
 
     if (listener->priv->active == active) {
-        gs_debug ("Trying to set active state when already: %s",
-                  active ? "active" : "inactive");
         return FALSE;
     }
 

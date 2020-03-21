@@ -557,17 +557,19 @@ activate_dpms_timeout (GSManager *manager) {
     BOOL state;
     CARD16 power_level;
 
-    if (DPMSInfo(gdk_x11_get_default_xdisplay(), &power_level, &state)) {
-        if (state) {
-            if (power_level == DPMSModeOn) {
-                gs_debug("DPMS: On -> Standby");
-                DPMSForceLevel (gdk_x11_get_default_xdisplay(), DPMSModeStandby);
-                remove_dpms_timer (manager);
-                add_dpms_timer (manager, manager->priv->prefs->dpms_off_timeout);
-                return FALSE;
-            } else if (power_level == DPMSModeStandby || power_level == DPMSModeSuspend) {
-                gs_debug("DPMS: %s -> Off", power_level == DPMSModeStandby ? "Standby" : "Suspend");
-                DPMSForceLevel (gdk_x11_get_default_xdisplay(), DPMSModeOff);
+    if (manager->priv->active) {
+        if (DPMSInfo(gdk_x11_get_default_xdisplay(), &power_level, &state)) {
+            if (state) {
+                if (power_level == DPMSModeOn) {
+                    gs_debug("DPMS: On -> Standby");
+                    DPMSForceLevel (gdk_x11_get_default_xdisplay(), DPMSModeStandby);
+                    remove_dpms_timer (manager);
+                    add_dpms_timer (manager, manager->priv->prefs->dpms_off_timeout);
+                    return FALSE;
+                } else if (power_level == DPMSModeStandby || power_level == DPMSModeSuspend) {
+                    gs_debug("DPMS: %s -> Off", power_level == DPMSModeStandby ? "Standby" : "Suspend");
+                    DPMSForceLevel (gdk_x11_get_default_xdisplay(), DPMSModeOff);
+                }
             }
         }
     }
@@ -593,7 +595,7 @@ add_dpms_timer (GSManager *manager,
     if (timeout == 0)
         return;
 
-    gs_debug ("Scheduling DPMS change after screensaver is idling for %i minute", timeout);
+    gs_debug ("Scheduling DPMS change after screensaver is idling for %i minute(s)", timeout);
     manager->priv->dpms_timeout_id = g_timeout_add (timeout * 60000,
                                                     (GSourceFunc)activate_dpms_timeout,
                                                     manager);
