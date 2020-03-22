@@ -870,10 +870,17 @@ static gdouble
 screen_saver_get_timestamp (ScreenSaver *screen_saver) {
     const gdouble microseconds_per_second = (gdouble ) G_USEC_PER_SEC;
     gdouble timestamp;
-    GTimeVal now = { 0L, /* zero-filled */ };
+    GDateTime *now;
+    gdouble now_sec;
+    gint now_usec;
 
-    g_get_current_time (&now);
-    timestamp = ((microseconds_per_second * now.tv_sec) + now.tv_usec) /
+    now = g_date_time_new_now_local ();
+    now_sec = g_date_time_to_unix (now);
+    now_usec = g_date_time_get_microsecond (now);
+
+    g_date_time_unref (now);
+
+    timestamp = ((microseconds_per_second * now_sec) + now_usec) /
                 microseconds_per_second;
 
     return timestamp;

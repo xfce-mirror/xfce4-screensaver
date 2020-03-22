@@ -1048,11 +1048,17 @@ struct _SlideShow {
 
 static double
 now (void) {
-    GTimeVal tv;
+    GDateTime *tv;
+    gdouble tv_sec;
+    gint tv_usec;
 
-    g_get_current_time (&tv);
+    tv = g_date_time_new_now_local ();
+    tv_sec = g_date_time_to_unix (tv);
+    tv_usec = g_date_time_get_microsecond (tv);
 
-    return (double)tv.tv_sec + (tv.tv_usec / 1000000.0);
+    g_date_time_unref (tv);
+
+    return (double)tv_sec + (tv_usec / 1000000.0);
 }
 
 static Slide *
