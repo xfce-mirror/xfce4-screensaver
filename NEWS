@@ -1,3 +1,27 @@
+0.1.9 (beta)
+============
+- Reimplement g_date_time_format_iso8601 to support GLib 2.50+
+- Replace deprecated GTimeVal usage
+- Rebuild windows on monitor reconfiguration
+- Draw overlays during window reconstruction to protect screen
+- Do not activate DPMS when screensaver is inactive (bug #16327)
+- Better handling of multi-monitor and lid-close events (bug #16102)
+- Update LINGUAS (bug #15949)
+- Fix decimal properties when running through atof
+- Return 1 on lock command failure (bug #15945)
+- Rename 'Pictures folder' to 'Slideshow' (bug #15589)
+- Raise NameError and TypeError (bug #15830)
+- Fix float parsing error (bug #16295)
+- Fix inhibitor proxying (bug #16356)
+- Fix inhibitor listing in xfce4-screensaver-command (bug #16355)
+- Add systemd sleep inhibitor (bug #15929)
+- Fix dbus inhibition (bug #16365)
+- dbus: Prevent overzealous activation (bug #16365)
+- Translation Updates:
+  Albanian, Belarusian, Czech, Finnish, Galician, Hebrew, Italian,
+  Japanese, Korean, Malay, Norwegian Bokmål, Polish, Portuguese
+  (Brazil), Serbian, Spanish, Swedish, Turkish
+
 0.1.8 (beta)
 ============
 - Features:
