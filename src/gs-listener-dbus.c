@@ -103,13 +103,13 @@ struct GSListenerPrivate {
 };
 
 typedef struct {
-    int       entry_type;
-    char     *application;
-    char     *reason;
-    char     *connection;
-    guint32   cookie;
-    gint32    fd;
-    GTimeVal  since;
+    int        entry_type;
+    char      *application;
+    char      *reason;
+    char      *connection;
+    guint32    cookie;
+    gint32     fd;
+    GDateTime *since;
 } GSListenerRefEntry;
 
 enum {
@@ -161,6 +161,7 @@ gs_listener_ref_entry_free (GSListenerRefEntry *entry) {
     g_free (entry->connection);
     g_free (entry->application);
     g_free (entry->reason);
+    g_date_time_unref (entry->since);
     g_free (entry);
 }
 
@@ -709,7 +710,7 @@ accumulate_ref_entry (gpointer            key,
     char *description;
     char *time;
 
-    time = g_time_val_to_iso8601 (&entry->since);
+    time = g_date_time_format_iso8601 (entry->since);
 
     description = g_strdup_printf ("Application=\"%s\"; Since=\"%s\"; Reason=\"%s\";",
                                    entry->application,
@@ -777,7 +778,7 @@ listener_add_ck_ref_entry (GSListener     *listener,
     entry->cookie = listener_generate_unique_key (listener, entry_type);
     entry->application = g_strdup ("ConsoleKit");
     entry->reason = g_strdup ("Session is not active");
-    g_get_current_time (&entry->since);
+    entry->since = g_date_time_new_now_local ();
 
     /* takes ownership of entry */
     listener_add_ref_entry (listener, entry_type, entry);
@@ -834,7 +835,7 @@ listener_dbus_add_ref_entry (GSListener     *listener,
     entry->cookie = listener_generate_unique_key (listener, entry_type);
     entry->application = g_strdup (application);
     entry->reason = g_strdup (reason);
-    g_get_current_time (&entry->since);
+    entry->since = g_date_time_new_now_local ();
 
     listener_add_ref_entry (listener, entry_type, entry);
 
