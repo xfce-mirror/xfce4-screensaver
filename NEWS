@@ -1,3 +1,8 @@
+0.1.10 (beta)
+=============
+- Send DBus lock responses for xfce4-session support (bug #16522)
+- Translation Update: Galician
+
 0.1.9 (beta)
 ============
 - Reimplement g_date_time_format_iso8601 to support GLib 2.50+
