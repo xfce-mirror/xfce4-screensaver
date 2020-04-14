@@ -5,18 +5,18 @@
 # 
 # Translators:
 # No Body, 2018
-# Nick Schermer <nick@xfce.org>, 2019
 # Mingcong Bai <jeffbai@aosc.xyz>, 2019
 # 玉堂白鹤 <yjwork@qq.com>, 2019
+# Nick Schermer <nick@xfce.org>, 2020
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-04 00:31+0200\n"
+"POT-Creation-Date: 2020-01-15 12:31+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: 玉堂白鹤 <yjwork@qq.com>, 2019\n"
+"Last-Translator: Nick Schermer <nick@xfce.org>, 2020\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/xfce/teams/16840/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -128,8 +128,8 @@ msgid "Bubbles the Xfce logo around the screen"
 msgstr "在屏幕四周冒出 Xfce 徽标的气泡"
 
 #: ../savers/xfce-personal-slideshow.desktop.in.in.h:1
-msgid "Pictures folder"
-msgstr "图片文件夹"
+msgid "Slideshow"
+msgstr "幻灯片"
 
 #: ../savers/xfce-personal-slideshow.desktop.in.in.h:2
 msgid "Display a slideshow from your Pictures folder"
@@ -177,15 +177,15 @@ msgstr "不再允许访问系统。"
 msgid "Username:"
 msgstr "用户名："
 
-#: ../src/gs-listener-dbus.c:1820
+#: ../src/gs-listener-dbus.c:1913
 msgid "failed to register with the message bus"
 msgstr "无法注册消息总线"
 
-#: ../src/gs-listener-dbus.c:1830
+#: ../src/gs-listener-dbus.c:1923
 msgid "not connected to the message bus"
 msgstr "没有连接到消息总线"
 
-#: ../src/gs-listener-dbus.c:1839 ../src/gs-listener-dbus.c:1869
+#: ../src/gs-listener-dbus.c:1932 ../src/gs-listener-dbus.c:1962
 msgid "screensaver already running in this session"
 msgstr "屏幕保护程序已在此会话中运行"
 
@@ -267,7 +267,7 @@ msgstr "未启动"
 msgid "The screensaver is not inhibited\n"
 msgstr "屏幕保护程序未被抑制\n"
 
-#: ../src/xfce4-screensaver-command.c:220
+#: ../src/xfce4-screensaver-command.c:219
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
 msgstr "屏幕保护程序被以下项目抑制着:\n"
@@ -325,40 +325,40 @@ msgstr "视频"
 msgid "Unrecognized type: %s"
 msgstr "无法识别的类型：%s"
 
-#: ../src/xfce4-screensaver-configure:717
-msgid "Screensaver required."
-msgstr "需要屏幕保护程序。"
-
-#: ../src/xfce4-screensaver-configure:723
+#: ../src/xfce4-screensaver-configure:714
 msgid "Unable to configure screensaver"
 msgstr "无法配置屏幕保护程序"
 
-#: ../src/xfce4-screensaver-configure:727
+#: ../src/xfce4-screensaver-configure:718
+msgid "Screensaver required."
+msgstr "需要屏幕保护程序。"
+
+#: ../src/xfce4-screensaver-configure:726
 #, c-format
 msgid "File not found: %s"
 msgstr "找不到文件：%s"
 
-#: ../src/xfce4-screensaver-configure:736
+#: ../src/xfce4-screensaver-configure:735
 #, c-format
 msgid "Unrecognized file type: %s"
 msgstr "无法识别的文件类型：%s"
 
-#: ../src/xfce4-screensaver-configure:742
+#: ../src/xfce4-screensaver-configure:741
 #, c-format
 msgid "Failed to process file: %s"
 msgstr "无法处理文件：%s"
 
-#: ../src/xfce4-screensaver-configure:747
+#: ../src/xfce4-screensaver-configure:746
 #, c-format
 msgid "Screensaver %s is configurable."
 msgstr "屏幕保护程序 %s 可配置。"
 
-#: ../src/xfce4-screensaver-configure:750
+#: ../src/xfce4-screensaver-configure:749
 #, c-format
 msgid "Screensaver %s is not configurable."
 msgstr "屏幕保护程序 %s 不可配置。"
 
-#: ../src/xfce4-screensaver-configure:754
+#: ../src/xfce4-screensaver-configure:753
 #, c-format
 msgid "Screensaver %s has no configuration options."
 msgstr "屏幕保护程序 %s 没有配置选项。"
