@@ -5,17 +5,17 @@
 # 
 # Translators:
 # Georgi Georgiev <georgiev_1994@abv.bg>, 2018
-# Nick Schermer <nick@xfce.org>, 2019
 # Kiril Kirilov <cybercop_montana@abv.bg>, 2019
+# Nick Schermer <nick@xfce.org>, 2020
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-04 00:31+0200\n"
+"POT-Creation-Date: 2020-01-15 12:31+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Kiril Kirilov <cybercop_montana@abv.bg>, 2019\n"
+"Last-Translator: Nick Schermer <nick@xfce.org>, 2020\n"
 "Language-Team: Bulgarian (https://www.transifex.com/xfce/teams/16840/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -129,8 +129,8 @@ msgid "Bubbles the Xfce logo around the screen"
 msgstr "Балончета с логото на Xfce около екрана"
 
 #: ../savers/xfce-personal-slideshow.desktop.in.in.h:1
-msgid "Pictures folder"
-msgstr "Папка със снимки"
+msgid "Slideshow"
+msgstr "Прожекция"
 
 #: ../savers/xfce-personal-slideshow.desktop.in.in.h:2
 msgid "Display a slideshow from your Pictures folder"
@@ -178,15 +178,15 @@ msgstr "Вече нямате достъп до системата."
 msgid "Username:"
 msgstr "Потребителско име:"
 
-#: ../src/gs-listener-dbus.c:1820
+#: ../src/gs-listener-dbus.c:1913
 msgid "failed to register with the message bus"
 msgstr "Неуспешно регистриране в канала за съобщенията"
 
-#: ../src/gs-listener-dbus.c:1830
+#: ../src/gs-listener-dbus.c:1923
 msgid "not connected to the message bus"
 msgstr "няма връзка с канала на съобщенията"
 
-#: ../src/gs-listener-dbus.c:1839 ../src/gs-listener-dbus.c:1869
+#: ../src/gs-listener-dbus.c:1932 ../src/gs-listener-dbus.c:1962
 msgid "screensaver already running in this session"
 msgstr "предпазителят вече е стартиран в тази сесия"
 
@@ -273,7 +273,7 @@ msgstr "неактивен"
 msgid "The screensaver is not inhibited\n"
 msgstr "Предпазителят не е блокиран\n"
 
-#: ../src/xfce4-screensaver-command.c:220
+#: ../src/xfce4-screensaver-command.c:219
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
 msgstr "Предпазителят е блокиран от:\n"
@@ -330,40 +330,40 @@ msgstr "Видео"
 msgid "Unrecognized type: %s"
 msgstr "Неразпознат тип : %s"
 
-#: ../src/xfce4-screensaver-configure:717
-msgid "Screensaver required."
-msgstr "Изисква се предпазител на екрана."
-
-#: ../src/xfce4-screensaver-configure:723
+#: ../src/xfce4-screensaver-configure:714
 msgid "Unable to configure screensaver"
 msgstr "Предпазителят на екрана не може да бъде конфигуриран"
 
-#: ../src/xfce4-screensaver-configure:727
+#: ../src/xfce4-screensaver-configure:718
+msgid "Screensaver required."
+msgstr "Изисква се предпазител на екрана."
+
+#: ../src/xfce4-screensaver-configure:726
 #, c-format
 msgid "File not found: %s"
 msgstr "Не е намерен файл: %s"
 
-#: ../src/xfce4-screensaver-configure:736
+#: ../src/xfce4-screensaver-configure:735
 #, c-format
 msgid "Unrecognized file type: %s"
 msgstr "Неразпознат файлов тип: %s"
 
-#: ../src/xfce4-screensaver-configure:742
+#: ../src/xfce4-screensaver-configure:741
 #, c-format
 msgid "Failed to process file: %s"
 msgstr "Неуспешно обработване на файл: %s"
 
-#: ../src/xfce4-screensaver-configure:747
+#: ../src/xfce4-screensaver-configure:746
 #, c-format
 msgid "Screensaver %s is configurable."
 msgstr "Предпазител на екрана %s може да се конфигурира."
 
-#: ../src/xfce4-screensaver-configure:750
+#: ../src/xfce4-screensaver-configure:749
 #, c-format
 msgid "Screensaver %s is not configurable."
 msgstr "Предпазител на екрана %s не може да се конфигурира."
 
-#: ../src/xfce4-screensaver-configure:754
+#: ../src/xfce4-screensaver-configure:753
 #, c-format
 msgid "Screensaver %s has no configuration options."
 msgstr "Предпазител на екрана %s няма възможности за конфигуриране."
