@@ -4,22 +4,22 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Georg Eckert <eckert.georg@gmx.de>, 2018
 # Christoph Wickert <christoph.wickert@gmail.com>, 2018
 # Xfce Bot <transifex@xfce.org>, 2018
 # Vinzenz Vietzke <vinz@vinzv.de>, 2019
 # Nick Schermer <nick@xfce.org>, 2019
 # Tobias Bannert <tobannert@gmail.com>, 2019
 # Andreas Eitel <github-aneitel@online.de>, 2019
+# Georg Eckert <eckert.georg@gmx.de>, 2020
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-04 00:31+0200\n"
+"POT-Creation-Date: 2020-01-15 12:31+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Andreas Eitel <github-aneitel@online.de>, 2019\n"
+"Last-Translator: Georg Eckert <eckert.georg@gmx.de>, 2020\n"
 "Language-Team: German (https://www.transifex.com/xfce/teams/16840/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -131,8 +131,8 @@ msgid "Bubbles the Xfce logo around the screen"
 msgstr "Wirbelt das Xfce-Logo auf dem Bildschirm herum"
 
 #: ../savers/xfce-personal-slideshow.desktop.in.in.h:1
-msgid "Pictures folder"
-msgstr "Bilderverzeichnis"
+msgid "Slideshow"
+msgstr "Diaschau"
 
 #: ../savers/xfce-personal-slideshow.desktop.in.in.h:2
 msgid "Display a slideshow from your Pictures folder"
@@ -180,15 +180,15 @@ msgstr "Der Zugriff auf das System ist nicht mehr erlaubt."
 msgid "Username:"
 msgstr "Benutzername:"
 
-#: ../src/gs-listener-dbus.c:1820
+#: ../src/gs-listener-dbus.c:1913
 msgid "failed to register with the message bus"
 msgstr "konnte sich nicht am Nachrichtenbus anmelden"
 
-#: ../src/gs-listener-dbus.c:1830
+#: ../src/gs-listener-dbus.c:1923
 msgid "not connected to the message bus"
 msgstr "nicht mit dem Nachrichtenbus verbunden"
 
-#: ../src/gs-listener-dbus.c:1839 ../src/gs-listener-dbus.c:1869
+#: ../src/gs-listener-dbus.c:1932 ../src/gs-listener-dbus.c:1962
 msgid "screensaver already running in this session"
 msgstr "Bildschirmschoner läuft bereits in dieser Sitzung"
 
@@ -279,7 +279,7 @@ msgstr "inaktiv"
 msgid "The screensaver is not inhibited\n"
 msgstr "Der Bildschirmschoner ist nicht blockiert\n"
 
-#: ../src/xfce4-screensaver-command.c:220
+#: ../src/xfce4-screensaver-command.c:219
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
 msgstr "Der Bildschirmschoner wird blockiert durch:\n"
@@ -337,40 +337,40 @@ msgstr "Video"
 msgid "Unrecognized type: %s"
 msgstr "Nicht erkannter Typ: %s"
 
-#: ../src/xfce4-screensaver-configure:717
-msgid "Screensaver required."
-msgstr "Bildschirmschoner erforderlich."
-
-#: ../src/xfce4-screensaver-configure:723
+#: ../src/xfce4-screensaver-configure:714
 msgid "Unable to configure screensaver"
 msgstr "Bildschirmschoner kann nicht konfiguriert werden"
 
-#: ../src/xfce4-screensaver-configure:727
+#: ../src/xfce4-screensaver-configure:718
+msgid "Screensaver required."
+msgstr "Bildschirmschoner erforderlich."
+
+#: ../src/xfce4-screensaver-configure:726
 #, c-format
 msgid "File not found: %s"
 msgstr "Datei nicht gefunden: %s"
 
-#: ../src/xfce4-screensaver-configure:736
+#: ../src/xfce4-screensaver-configure:735
 #, c-format
 msgid "Unrecognized file type: %s"
 msgstr "Nicht erkannter Dateityp: %s"
 
-#: ../src/xfce4-screensaver-configure:742
+#: ../src/xfce4-screensaver-configure:741
 #, c-format
 msgid "Failed to process file: %s"
 msgstr "Die Verarbeitung der Datei ist fehlgeschlagen: %s"
 
-#: ../src/xfce4-screensaver-configure:747
+#: ../src/xfce4-screensaver-configure:746
 #, c-format
 msgid "Screensaver %s is configurable."
 msgstr "Bildschirmschoner %s ist konfigurierbar."
 
-#: ../src/xfce4-screensaver-configure:750
+#: ../src/xfce4-screensaver-configure:749
 #, c-format
 msgid "Screensaver %s is not configurable."
 msgstr "Bildschirmschoner %s ist nicht konfigurierbar."
 
-#: ../src/xfce4-screensaver-configure:754
+#: ../src/xfce4-screensaver-configure:753
 #, c-format
 msgid "Screensaver %s has no configuration options."
 msgstr "Bildschirmschoner %s hat keine Konfigurationsoptionen."
