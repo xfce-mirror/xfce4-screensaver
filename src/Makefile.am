@@ -1,6 +1,3 @@
-## We require new-style dependency handling.
-AUTOMAKE_OPTIONS = 1.7
-
 NULL =
 
 saverdir = $(libexecdir)/xfce4-screensaver
@@ -249,13 +246,13 @@ xfce4_screensaver_preferences_LDADD = \
 if MAINTAINER_MODE
 
 xfce4-screensaver-dialog-css.h: $(srcdir)/xfce4-screensaver-dialog.css Makefile
-	$(AM_V_GEN) exo-csource --static --name=xfce4_screensaver_dialog_css $< >$@
+	$(AM_V_GEN) xdt-csource --static --name=xfce4_screensaver_dialog_css $< >$@
 
 xfce4-screensaver-dialog-ui.h: $(srcdir)/xfce4-screensaver-dialog.ui Makefile
-	$(AM_V_GEN) exo-csource --static --strip-comments --strip-content --name=xfce4_screensaver_dialog_ui $< >$@
+	$(AM_V_GEN) xdt-csource --static --strip-comments --strip-content --name=xfce4_screensaver_dialog_ui $< >$@
 
 xfce4-screensaver-preferences-ui.h: $(srcdir)/xfce4-screensaver-preferences.ui Makefile
-	$(AM_V_GEN) exo-csource --static --strip-comments --strip-content --name=xfce4_screensaver_preferences_ui $< >$@
+	$(AM_V_GEN) xdt-csource --static --strip-comments --strip-content --name=xfce4_screensaver_preferences_ui $< >$@
 
 DISTCLEANFILES = \
 	$(xfce4_screensaver_dialog_built_sources)       \

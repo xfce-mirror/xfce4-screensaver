@@ -1,6 +1,3 @@
-## We require new-style dependency handling.
-AUTOMAKE_OPTIONS = 1.7
-
 NULL =
 
 AM_CPPFLAGS = \
