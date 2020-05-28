@@ -121,7 +121,7 @@ msgstr "Ära skaleeri pilte ekraanile"
 
 #: ../savers/xfce-floaters.desktop.in.in.h:1
 msgid "Floating Xfce"
-msgstr ""
+msgstr "Hõljuvad Xfce hiired"
 
 #: ../savers/xfce-floaters.desktop.in.in.h:2
 msgid "Bubbles the Xfce logo around the screen"
@@ -133,15 +133,15 @@ msgstr "Slaidiseanss"
 
 #: ../savers/xfce-personal-slideshow.desktop.in.in.h:2
 msgid "Display a slideshow from your Pictures folder"
-msgstr ""
+msgstr "Kuva slaide oma piltide kaustast"
 
 #: ../savers/xfce-popsquares.desktop.in.in.h:1
 msgid "Pop art squares"
-msgstr ""
+msgstr "Moodsa kunsti ruudud"
 
 #: ../savers/xfce-popsquares.desktop.in.in.h:2
 msgid "A pop-art-ish grid of pulsing colors."
-msgstr ""
+msgstr "Moodsast kunstist inspireeritud vilkuvad ruudud."
 
 #: ../src/gs-auth-pam.c:163
 msgid "Password:"
@@ -212,11 +212,11 @@ msgstr "Päri seda kui kaua ekraanisäästja on olnud kasutusel"
 
 #: ../src/xfce4-screensaver-command.c:68
 msgid "Tells the running screensaver process to lock the screen immediately"
-msgstr ""
+msgstr "Käsib töötaval ekraanisäästjal ekraan koheselt lukustada"
 
 #: ../src/xfce4-screensaver-command.c:72
 msgid "If the screensaver is active then switch to another graphics demo"
-msgstr ""
+msgstr "Kui ekraanisäästja on kasutusel, siis näita mõnd muud demorežiimi"
 
 #: ../src/xfce4-screensaver-command.c:76
 msgid "Turn the screensaver on (blank the screen)"
@@ -230,26 +230,27 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-command.c:84
 msgid "Poke the running screensaver to simulate user activity"
-msgstr ""
+msgstr "Torgi töötavat ekraanisäästjat justkui seda oleks teinud kasutaja"
 
 #: ../src/xfce4-screensaver-command.c:88
 msgid ""
 "Inhibit the screensaver from activating.  Command blocks while inhibit is "
 "active."
 msgstr ""
+"Keela ekraanisäästja kasutamine. Käsk blokeerub, kui keeld on juba seatud."
 
 #: ../src/xfce4-screensaver-command.c:92
 msgid "The calling application that is inhibiting the screensaver"
-msgstr ""
+msgstr "Kõnerakendus, mis keelab ekraanisäästja kasutamise"
 
 #: ../src/xfce4-screensaver-command.c:96
 msgid "The reason for inhibiting the screensaver"
-msgstr ""
+msgstr "Ekraanisäästja keelamise põhjus"
 
 #: ../src/xfce4-screensaver-command.c:100 ../src/xfce4-screensaver-dialog.c:65
 #: ../src/xfce4-screensaver.c:58
 msgid "Version of this application"
-msgstr ""
+msgstr "Selle rakenduse versioon"
 
 #: ../src/xfce4-screensaver-command.c:206
 #, c-format
@@ -267,12 +268,12 @@ msgstr "mitte tegutsev"
 #: ../src/xfce4-screensaver-command.c:217
 #, c-format
 msgid "The screensaver is not inhibited\n"
-msgstr ""
+msgstr "Ekraanisäästja kasutamisele ei ole keeldu seatud\n"
 
 #: ../src/xfce4-screensaver-command.c:219
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
-msgstr ""
+msgstr "Ekraanisäästja kasutamine on keelatud järgneva rakenduse poolt:\n"
 
 #: ../src/xfce4-screensaver-command.c:235
 #, c-format
@@ -282,7 +283,7 @@ msgstr ""
 #: ../src/xfce4-screensaver-configure:139
 #: ../src/xfce4-screensaver-preferences.c:710
 msgid "Blank screen"
-msgstr ""
+msgstr "Tühi ekraan"
 
 #: ../src/xfce4-screensaver-configure:140
 msgid ""
@@ -297,7 +298,7 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-configure:176
 msgid "Part of Xfce Screensaver"
-msgstr ""
+msgstr "Osa Xfce ekraanisäästjast"
 
 #: ../src/xfce4-screensaver-configure:403
 msgid "Restore Defaults"
@@ -309,7 +310,7 @@ msgstr "Eelistused"
 
 #: ../src/xfce4-screensaver-configure:422
 msgid "About"
-msgstr "Te_ave"
+msgstr "Teave"
 
 #: ../src/xfce4-screensaver-configure:435
 msgid "Video"
@@ -318,7 +319,7 @@ msgstr "Video"
 #: ../src/xfce4-screensaver-configure:502
 #, c-format
 msgid "Unrecognized type: %s"
-msgstr ""
+msgstr "Tundmatu tüüp: %s"
 
 #: ../src/xfce4-screensaver-configure:714
 msgid "Unable to configure screensaver"
@@ -326,7 +327,7 @@ msgstr "Ekraanisäästja seadistamine ei õnnestunud"
 
 #: ../src/xfce4-screensaver-configure:718
 msgid "Screensaver required."
-msgstr ""
+msgstr "Ekraanisäästja on nõutav."
 
 #: ../src/xfce4-screensaver-configure:726
 #, c-format
@@ -372,7 +373,7 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-dialog.c:71
 msgid "Show the switch user button"
-msgstr ""
+msgstr "Näita kasutaja vahetamise nuppu"
 
 #: ../src/xfce4-screensaver-dialog.c:73
 msgid "Message to show in the dialog"
@@ -401,7 +402,7 @@ msgstr ""
 #: ../src/xfce4-screensaver-dialog.c:175 ../src/xfce4-screensaver-dialog.c:177
 #: ../src/xfce4-screensaver-dialog.c:178
 msgid "Please enter your username."
-msgstr "Palun sisesta oma kasutajanimi"
+msgstr "Palun sisesta oma kasutajanimi."
 
 #: ../src/xfce4-screensaver-dialog.c:184
 msgid "You are required to change your password immediately (password aged)"
@@ -441,7 +442,7 @@ msgstr "Sisesta oma uus salasõna."
 
 #: ../src/xfce4-screensaver-dialog.c:200
 msgid "Enter your current password:"
-msgstr "Sisesta oma praegune salasõna."
+msgstr "Sisesta oma praegune salasõna:"
 
 #: ../src/xfce4-screensaver-dialog.c:202
 msgid "Error while changing NIS password."
@@ -528,7 +529,7 @@ msgstr "Põhiliidese laadimine ei õnnestunud"
 
 #: ../src/xfce4-screensaver-preferences.c:1914
 msgid "Please make sure that the screensaver is properly installed"
-msgstr "Palun  kontrolli, et ekraanisäästja on korrektselt paigaldatud."
+msgstr "Palun  kontrolli, et ekraanisäästja on korrektselt paigaldatud"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:1
 msgid "Screensaver Preview"
@@ -556,11 +557,11 @@ msgstr "Eelvaade"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:7
 msgid "Running as root"
-msgstr ""
+msgstr "Töötan administraatori õigustes"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:8
 msgid "The screen will not be locked for the root user."
-msgstr ""
+msgstr "Ekraani ei lukustata administraatori jaoks."
 
 #: ../src/xfce4-screensaver-preferences.ui.h:9
 msgid "Resolve"
@@ -569,10 +570,12 @@ msgstr ""
 #: ../src/xfce4-screensaver-preferences.ui.h:10
 msgid "Xfce Power Manager is not configured to handle laptop lid events"
 msgstr ""
+"Xfce toitehaldur ei ole seadistatud sülearvuti kaane sulgemisega seotud "
+"toiminguid tegema"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:11
 msgid "Your computer may not be locked when you close the lid."
-msgstr ""
+msgstr "Sülearvuti kaane sulgemisel sinu arvuti ei pruugi lukustuda."
 
 #: ../src/xfce4-screensaver-preferences.ui.h:12
 msgid "Enable Screensaver"
@@ -604,7 +607,7 @@ msgstr "Kui arvuti on jõudeolekus, siis käivita ekraanisäästja"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:19
 msgid "Regard the computer as _idle after:"
-msgstr "Loe et arvut_i on jõudeolekus, peale:"
+msgstr "Loe, et arvut_i on jõudeolekus, peale:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:20
 msgid "Inhibit screensaver for fullscreen applications"
@@ -624,15 +627,15 @@ msgstr "Lukusta ekraan, kui ekraanisäästja on olnud kasutusel:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:25
 msgid "On Screen Keyboard"
-msgstr ""
+msgstr "Kasuta ekraanil kuvatavat klaviatuuri"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:26
 msgid "On screen keyboard command:"
-msgstr ""
+msgstr "Käsk ekraanil kuvatava klaviatuuri jaoks:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:27
 msgid "Session Status Messages"
-msgstr ""
+msgstr "Kuva sõnumid sessiooni oleku kohta"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:28
 msgid "Logout"
@@ -648,19 +651,19 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-preferences.ui.h:31
 msgid "User Switching"
-msgstr ""
+msgstr "Luba kasutajate vahetust"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:32
 msgid "Lock Screen with System Sleep"
-msgstr ""
+msgstr "Lukusta ekraan, kui arvuti jääb unne"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:33
 msgid "Lock Screen"
-msgstr ""
+msgstr "Ekraanilukustus"
 
 #: ../src/xfce4-screensaver.c:59
 msgid "Don't become a daemon"
-msgstr ""
+msgstr "Ära käivita taustaprogrammina"
 
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
