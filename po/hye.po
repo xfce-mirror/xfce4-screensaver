@@ -5,6 +5,7 @@
 # 
 # Translators:
 # Real School <localization@ehayq.am>, 2020
+# Arman Harutyunyan <arman.harut468@gmail.com>, 2020
 # 
 #, fuzzy
 msgid ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-15 12:31+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Real School <localization@ehayq.am>, 2020\n"
+"Last-Translator: Arman Harutyunyan <arman.harut468@gmail.com>, 2020\n"
 "Language-Team: Eastern Armenian (https://www.transifex.com/xfce/teams/16840/hye/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +30,7 @@ msgstr "Էկրանապահ"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:2
 msgid "Set your screensaver preferences"
-msgstr "Սահմանեք էկրանապահի կարգաւորումները"
+msgstr "Սահմանէք էկրանապահի կարգաւորումները"
 
 #: ../data/xfce4-screensaver.directory.in.h:1
 msgid "Screensavers"
@@ -122,7 +123,7 @@ msgstr "Լողացող Xfce"
 
 #: ../savers/xfce-floaters.desktop.in.in.h:2
 msgid "Bubbles the Xfce logo around the screen"
-msgstr "Պղպջակեցոնում է Xfce֊ի տարբերանշանն ամբողջ ցուցադրիչով"
+msgstr "Պղպջակեցնում է Xfce֊ի տարբերանշանն ամբողջ ցուցադրիչով"
 
 #: ../savers/xfce-personal-slideshow.desktop.in.in.h:1
 msgid "Slideshow"
@@ -184,7 +185,7 @@ msgstr "միացուած չէ հաղորդագրութեան փոխատրիչի�
 
 #: ../src/gs-listener-dbus.c:1932 ../src/gs-listener-dbus.c:1962
 msgid "screensaver already running in this session"
-msgstr "Էկրանապահը արդեն գործարկում է նիստը"
+msgstr "Էկրանապահը արդէն գործարկում է նիստը"
 
 #: ../src/gs-lock-plug.c:285
 msgctxt "Date"
@@ -209,7 +210,7 @@ msgstr "Ներկայացնել հարցում էկրանապահի գործու�
 
 #: ../src/xfce4-screensaver-command.c:68
 msgid "Tells the running screensaver process to lock the screen immediately"
-msgstr "Գործարկուող էկրանապը վայրկեանական կողպում է ցուցադրիչը"
+msgstr "Գործարկուող էկրանապահը վայրկեանական կողպում է ցուցադրիչը"
 
 #: ../src/xfce4-screensaver-command.c:72
 msgid "If the screensaver is active then switch to another graphics demo"
@@ -232,7 +233,7 @@ msgid ""
 "Inhibit the screensaver from activating.  Command blocks while inhibit is "
 "active."
 msgstr ""
-"Կանխել էկրանապահի գործարկումը։ Հրամանն արգելափակուում է, եթե կանխումը "
+"Կանխել էկրանապահի գործարկումը։ Հրամանն արգելափակուում է, եթէ կանխումը "
 "միացուած է։"
 
 #: ../src/xfce4-screensaver-command.c:92
@@ -406,11 +407,11 @@ msgstr "Հարկաւոր է անմիջապէս փոխել գաղտնաբառը (
 
 #: ../src/xfce4-screensaver-dialog.c:186
 msgid "You are required to change your password immediately (root enforced)"
-msgstr "Հարկաւոր է անմիջապես փոխել գաղտնաբառը (արմատային)"
+msgstr "Հարկաւոր է անմիջապէս փոխել գաղտնաբառը (արմատային)"
 
 #: ../src/xfce4-screensaver-dialog.c:188
 msgid "Your account has expired; please contact your system administrator"
-msgstr "Հաշուի գործածման ժամկետի սպասռում․ կապուէք համակարգի վարիչի հետ"
+msgstr "Հաշուի գործածման ժամկետի սպառում․ կապուէք համակարգի վարիչի հետ"
 
 #: ../src/xfce4-screensaver-dialog.c:190
 msgid "No password supplied."
@@ -418,7 +419,7 @@ msgstr "Տրուած գաղտնաբառ չկայ։"
 
 #: ../src/xfce4-screensaver-dialog.c:192
 msgid "Password unchanged."
-msgstr "Գախտնաբառը չի փոփոխուել։"
+msgstr "Գաղտնաբառը չի փոփոխուել։"
 
 #: ../src/xfce4-screensaver-dialog.c:194
 msgid "Can not get username."
@@ -426,35 +427,35 @@ msgstr "Անհնար է ստանալ աւգտանունը"
 
 #: ../src/xfce4-screensaver-dialog.c:196
 msgid "Retype your new password."
-msgstr "Վերամուտքագրէք նոր գախտնաբառը։"
+msgstr "Վերամուտքագրէք նոր գաղտնաբառը։"
 
 #: ../src/xfce4-screensaver-dialog.c:198
 msgid "Enter your new password."
-msgstr "Նոր գախտնաբառը։"
+msgstr "Նոր գաղտնաբառը։"
 
 #: ../src/xfce4-screensaver-dialog.c:200
 msgid "Enter your current password:"
-msgstr "Ընթացիկ գախտնաբառը․"
+msgstr "Ընթացիկ գաղտնաբառը․"
 
 #: ../src/xfce4-screensaver-dialog.c:202
 msgid "Error while changing NIS password."
-msgstr "NIS գախտնաբարի փոփոխման սխալ։"
+msgstr "NIS գաղտնաբառի փոփոխման սխալ։"
 
 #: ../src/xfce4-screensaver-dialog.c:204
 msgid "You must choose a longer password."
-msgstr "Ընտրէք աւելի երկար գախտնաբառ։"
+msgstr "Ընտրէք աւելի երկար գաղտնաբառ։"
 
 #: ../src/xfce4-screensaver-dialog.c:206
 msgid "Password has been already used. Choose another."
-msgstr "Գախտնաբառն արդէն գործածուում է։ Փորձեք այլ տարբերակ։"
+msgstr "Գաղտնաբառն արդէն գործածուում է։ Փորձէք այլ տարբերակ։"
 
 #: ../src/xfce4-screensaver-dialog.c:208
 msgid "You must wait longer to change your password."
-msgstr "Պէտք է աւելի երկար սպասէք մինչ գախտնաբառը փոփոխելը։"
+msgstr "Պէտք է աւելի երկար սպասէք մինչ գաղտնաբառը փոփոխելը։"
 
 #: ../src/xfce4-screensaver-dialog.c:210
 msgid "Sorry, passwords do not match."
-msgstr "Գախտնաբառերը չեն համընկնում։"
+msgstr "Գաղտնաբառերը չեն համընկնում։"
 
 #: ../src/xfce4-screensaver-dialog.c:274
 msgid "Checking..."
@@ -467,7 +468,7 @@ msgstr "%U"
 
 #: ../src/xfce4-screensaver-dialog.ui.h:3
 msgid "Enter your password"
-msgstr "Մուտքագրէք գախտնաբառը"
+msgstr "Մուտքագրէք գաղտնաբառը"
 
 #: ../src/xfce4-screensaver-dialog.ui.h:4
 msgid "You have the Caps Lock key on."
@@ -567,7 +568,7 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-preferences.ui.h:11
 msgid "Your computer may not be locked when you close the lid."
-msgstr "Համակարգիչը չի կողպուի, եթե փակէք կափարիչը"
+msgstr "Համակարգիչը չի կողպուի, եթէ փակէք կափարիչը"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:12
 msgid "Enable Screensaver"
@@ -575,7 +576,7 @@ msgstr "Միացնել էկրանապահը"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:13
 msgid "Theme"
-msgstr "Թէմայ"
+msgstr "Հրահանագ"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:14
 msgid "Configure screensaver"
@@ -591,7 +592,7 @@ msgstr "Փոխել թէման․"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:17
 msgid "minutes"
-msgstr "րոպէ"
+msgstr "րոպէներ"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:18
 msgid "Activate screensaver when computer is idle"
@@ -615,7 +616,7 @@ msgstr "Կողպել ցուցադրիչն էկրանապահով"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:24
 msgid "Lock the screen after the screensaver is active for:"
-msgstr "Կողպել ցուցադրիչը, եթե էկրապահը գործում է․"
+msgstr "Կողպել ցուցադրիչը, եթէ էկրապահը գործում է․"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:25
 msgid "On Screen Keyboard"
