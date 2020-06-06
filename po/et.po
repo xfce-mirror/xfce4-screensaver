@@ -62,7 +62,7 @@ msgstr ""
 
 #: ../savers/floaters.c:109
 msgid "The initial size and position of window"
-msgstr ""
+msgstr "Akna esialgne suurus ja asukoht"
 
 #: ../savers/floaters.c:109
 msgid "WIDTHxHEIGHT+X+Y"
@@ -278,7 +278,7 @@ msgstr "Ekraanisäästja kasutamine on keelatud järgneva rakenduse poolt:\n"
 #: ../src/xfce4-screensaver-command.c:235
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
-msgstr ""
+msgstr "Ekraanisäästja on olnud kasutusel %d sekundit.\n"
 
 #: ../src/xfce4-screensaver-configure:139
 #: ../src/xfce4-screensaver-preferences.c:710
@@ -295,6 +295,15 @@ msgid ""
 "DPMS settings. If your displays are powering off at different\n"
 "intervals, be sure to check for conflicting settings."
 msgstr ""
+"Kuna Xfce ekraanisäästja kasutab monitori toitehalduse \n"
+"signaliseerimist (Display Power Management Signaling - \n"
+"DPMS), siis ta võib automaatselt monitori energia säästmiseks\n"
+"välja lülitada.\n"
+"\n"
+"Xfce toitehaldur kui ka muud rakendused võivad hallata\n"
+"DPMS'i seadeid.Kui sinu monitoride väljalülitamine toimub\n"
+"erinevatel aegadel, siis palun vaata üle eri rakenduste \n"
+"võimalikud vastuolulised seadistused."
 
 #: ../src/xfce4-screensaver-configure:176
 msgid "Part of Xfce Screensaver"
@@ -369,7 +378,7 @@ msgstr "Näita väljalogimise nuppu"
 
 #: ../src/xfce4-screensaver-dialog.c:69
 msgid "Command to invoke from the logout button"
-msgstr ""
+msgstr "Käsk, mille käivitame väljalogimisnupuga"
 
 #: ../src/xfce4-screensaver-dialog.c:71
 msgid "Show the switch user button"
@@ -385,7 +394,7 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-dialog.c:75
 msgid "Not used"
-msgstr ""
+msgstr "Ei ole kasutusel"
 
 #: ../src/xfce4-screensaver-dialog.c:77
 msgid "Monitor height"
