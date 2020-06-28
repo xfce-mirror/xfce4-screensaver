@@ -50,7 +50,7 @@ msgstr ""
 
 #: ../savers/floaters.c:99
 msgid "Print out frame rate and other statistics"
-msgstr ""
+msgstr "Kuva kaadrisagedust ja muud statistikat"
 
 #: ../savers/floaters.c:104
 msgid "The maximum number of images to keep on screen"
@@ -86,7 +86,7 @@ msgstr "%s. Abiteabe kuvamiseks kasuta --help võtit.\n"
 #: ../savers/floaters.c:1133
 #, c-format
 msgid "Failed to initialize the windowing system."
-msgstr ""
+msgstr "Aknahalduse käivitamine ei õnnestunud."
 
 #: ../savers/floaters.c:1139
 #, c-format
@@ -125,7 +125,7 @@ msgstr "Hõljuvad Xfce hiired"
 
 #: ../savers/xfce-floaters.desktop.in.in.h:2
 msgid "Bubbles the Xfce logo around the screen"
-msgstr ""
+msgstr "Lennutab Xfce logo mööda ekraani"
 
 #: ../savers/xfce-personal-slideshow.desktop.in.in.h:1
 msgid "Slideshow"
@@ -150,7 +150,7 @@ msgstr "Salasõna:"
 #: ../src/gs-auth-pam.c:375
 #, c-format
 msgid "Unable to establish service %s: %s\n"
-msgstr ""
+msgstr "Ühenduse loomine teenusega %s ei õnnestunud: %s\n"
 
 #: ../src/gs-auth-pam.c:401
 #, c-format
@@ -196,11 +196,11 @@ msgstr ""
 
 #: ../src/gs-lock-plug.c:361
 msgid "Time has expired."
-msgstr ""
+msgstr "Määratud aegumine on käes."
 
 #: ../src/xfce4-screensaver-command.c:56
 msgid "Causes the screensaver to exit gracefully"
-msgstr ""
+msgstr "Tekitab olukorra, kus ekraanisäästja lõpetab viisakalt oma töö"
 
 #: ../src/xfce4-screensaver-command.c:60
 msgid "Query the state of the screensaver"
@@ -386,11 +386,11 @@ msgstr "Näita kasutaja vahetamise nuppu"
 
 #: ../src/xfce4-screensaver-dialog.c:73
 msgid "Message to show in the dialog"
-msgstr ""
+msgstr "Dialoogiaknas näidatav teade"
 
 #: ../src/xfce4-screensaver-dialog.c:73 ../src/xfce4-screensaver-dialog.c:75
 msgid "MESSAGE"
-msgstr ""
+msgstr "TEADE"
 
 #: ../src/xfce4-screensaver-dialog.c:75
 msgid "Not used"
@@ -398,15 +398,15 @@ msgstr "Ei ole kasutusel"
 
 #: ../src/xfce4-screensaver-dialog.c:77
 msgid "Monitor height"
-msgstr ""
+msgstr "Ekraani kõrgus"
 
 #: ../src/xfce4-screensaver-dialog.c:79
 msgid "Monitor width"
-msgstr ""
+msgstr "Ekraani laius"
 
 #: ../src/xfce4-screensaver-dialog.c:81
 msgid "Monitor index"
-msgstr ""
+msgstr "Ekraani indeks"
 
 #: ../src/xfce4-screensaver-dialog.c:175 ../src/xfce4-screensaver-dialog.c:177
 #: ../src/xfce4-screensaver-dialog.c:178
@@ -574,7 +574,7 @@ msgstr "Ekraani ei lukustata administraatori jaoks."
 
 #: ../src/xfce4-screensaver-preferences.ui.h:9
 msgid "Resolve"
-msgstr ""
+msgstr "Lahenda see probleem"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:10
 msgid "Xfce Power Manager is not configured to handle laptop lid events"
@@ -656,7 +656,7 @@ msgstr "Väljalogimiskäsk:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:30
 msgid "Enable logout after:"
-msgstr ""
+msgstr "Käivita väljalogimine peale:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:31
 msgid "User Switching"
@@ -684,4 +684,4 @@ msgstr "Käivita ekraanisäästja ja lukustusprogramm"
 
 #: ../src/xfcekbd-indicator.c:404
 msgid "XKB initialization error"
-msgstr ""
+msgstr "Viga XKB käivitamisel"
