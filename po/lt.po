@@ -109,7 +109,7 @@ msgstr "Paveikslų fonui naudojama spalva"
 
 #: ../savers/slideshow.c:57
 msgid "\"#rrggbb\""
-msgstr "\"#rržžmm\""
+msgstr "„#rržžmm“"
 
 #: ../savers/slideshow.c:61
 msgid "Do not randomize pictures from location"
