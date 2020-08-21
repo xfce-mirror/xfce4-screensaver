@@ -292,6 +292,13 @@ msgid ""
 "DPMS settings. If your displays are powering off at different\n"
 "intervals, be sure to check for conflicting settings."
 msgstr ""
+"Հզորութիւնը ցուցադրել հզորութեան կառաւարման ազդանշանին (DPMS),\n"
+"Xfce Էկրանապահը կարող է ինքնաբերաբար կասեցնել Ձեր ցուցադրիչները\n"
+"հզորութիւնը խնայելու համար:\n"
+"\n"
+"Xfce Power Manager- ը եւ այլ ծրագրեր, նույնպէս կառաւարում են\n"
+"DPMS կարգաւորումները: Եթէ Ձեր ցուցադրիչները անջատուում են տարբեր կերպ\n"
+"ընդմիջումներով, համոզուէք, որ ստուգել էք բախուած կարգաւորումները:"
 
 #: ../src/xfce4-screensaver-configure:176
 msgid "Part of Xfce Screensaver"
@@ -324,7 +331,7 @@ msgstr "Չյաջողուեց կազմաձեւել էկրանապահը"
 
 #: ../src/xfce4-screensaver-configure:718
 msgid "Screensaver required."
-msgstr ""
+msgstr "Պահանջուում է էկրանապահ:"
 
 #: ../src/xfce4-screensaver-configure:726
 #, c-format
@@ -604,7 +611,7 @@ msgstr "Համակարգիչն _անգործ է․"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:20
 msgid "Inhibit screensaver for fullscreen applications"
-msgstr ""
+msgstr "Ամբողջ էկրանով դիմումների համար արգելէք էկրանապահին"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:22
 msgid "Enable Lock Screen"
