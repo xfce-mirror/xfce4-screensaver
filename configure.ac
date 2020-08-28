@@ -1155,7 +1155,7 @@ AC_OUTPUT([
 Makefile
 po/Makefile.in
 src/Makefile
-src/xfce4-screensaver.desktop.in
+src/org.xfce.ScreenSaver.desktop.in
 data/Makefile
 data/xfce4-screensavers.menu
 data/org.xfce.ScreenSaver.service
@@ -1163,6 +1163,12 @@ data/images/Makefile
 savers/Makefile
 doc/Makefile
 doc/xfce4-screensaver.xml
+data/icons/Makefile
+data/icons/16x16/Makefile
+data/icons/32x32/Makefile
+data/icons/48x48/Makefile
+data/icons/128x128/Makefile
+data/icons/scalable/Makefile
 ])
 
 echo "

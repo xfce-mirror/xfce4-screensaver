@@ -1,5 +1,6 @@
 SUBDIRS = \
-	images
+	images	\
+	icons
 
 NULL =
 
@@ -12,7 +13,7 @@ man_MANS = \
 @INTLTOOL_DESKTOP_RULE@
 
 desktopdir = $(datadir)/applications
-desktop_in_files = xfce4-screensaver-preferences.desktop.in
+desktop_in_files = org.xfce.ScreenSaver.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
 @INTLTOOL_DIRECTORY_RULE@
