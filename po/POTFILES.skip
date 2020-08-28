@@ -1,4 +1,4 @@
 savers/xfce-floaters.desktop.in
 savers/xfce-personal-slideshow.desktop.in
 savers/xfce-popsquares.desktop.in
-src/xfce4-screensaver.desktop.in
+src/org.xfce.ScreenSaver.desktop.in
