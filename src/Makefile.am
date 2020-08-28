@@ -54,7 +54,7 @@ noinst_PROGRAMS = \
 	$(NULL)
 
 desktopdir = $(sysconfdir)/xdg/autostart
-desktop_in_files = xfce4-screensaver.desktop.in
+desktop_in_files = org.xfce.ScreenSaver.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 @INTLTOOL_DESKTOP_RULE@
 
@@ -267,7 +267,7 @@ endif
 EXTRA_DIST = \
 	debug-screensaver.sh              \
 	gs-marshal.list                   \
-	xfce4-screensaver.desktop.in      \
+	org.xfce.ScreenSaver.desktop.in      \
 	xfce4-screensaver-configure       \
 	xfce4-screensaver-dialog.css      \
 	xfce4-screensaver-dialog.ui       \
@@ -278,7 +278,7 @@ GLIB_GENMARSHAL = $(shell pkg-config --variable=glib_genmarshal glib-2.0)
 
 CLEANFILES = \
 	$(desktop_DATA)               \
-	xfce4-screensaver.desktop.in  \
+	org.xfce.ScreenSaver.desktop.in  \
 	$(BUILT_SOURCES)
 
 MAINTAINERCLEANFILES = \
