@@ -14,7 +14,7 @@
    id="svg18"
    sodipodi:docname="org.xfce.ScreenSaver.svg"
    inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
-   inkscape:export-filename="/home/maug/GIT/screensaver/xfce4-screensaver/data/icons/32x32/org.xfce.ScreenSaver.png"
+   inkscape:export-filename="/home/maug/GIT/screensaver/xfce4-screensaver/data/icons/24x24/org.xfce.ScreenSaver.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96">
   <metadata
@@ -25,7 +25,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -296,7 +296,7 @@
        id="path5549-7-7"
        inkscape:connector-curvature="0" />
     <rect
-       style="fill:#fbeb83;fill-rule:evenodd;stroke-width:3.75411"
+       style="fill:#fcf4c0;fill-rule:evenodd;stroke-width:3.75411"
        id="rect1046"
        width="1"
        height="1"
@@ -312,7 +312,7 @@
        height="1"
        width="1"
        id="rect1046-2"
-       style="fill:#fbeb83;fill-rule:evenodd;stroke-width:3.75411" />
+       style="fill:#fcf4c0;fill-rule:evenodd;stroke-width:3.75411" />
     <rect
        ry="0"
        rx="0"
@@ -321,7 +321,7 @@
        height="1"
        width="1"
        id="rect1046-7"
-       style="fill:#fbeb83;fill-rule:evenodd;stroke-width:3.75411" />
+       style="fill:#fcf4c0;fill-rule:evenodd;stroke-width:3.75411" />
     <rect
        ry="0"
        rx="0"
@@ -330,7 +330,7 @@
        height="1"
        width="1"
        id="rect1046-5"
-       style="fill:#fbeb83;fill-rule:evenodd;stroke-width:3.75411" />
+       style="fill:#fcf4c0;fill-rule:evenodd;stroke-width:3.75411" />
     <rect
        ry="0"
        rx="0"
@@ -339,6 +339,6 @@
        height="1"
        width="1"
        id="rect1046-22"
-       style="fill:#fbeb83;fill-rule:evenodd;stroke-width:3.75411" />
+       style="fill:#fcf4c0;fill-rule:evenodd;stroke-width:3.75411" />
   </g>
 </svg>
