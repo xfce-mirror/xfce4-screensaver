@@ -2097,8 +2097,8 @@ configure_capplet (void) {
 
     setup_list_size_constraint (list_scroller, treeview);
     gtk_window_set_default_size (GTK_WINDOW (dialog), 640, 640);
-    gtk_window_set_icon_name (GTK_WINDOW (dialog), "preferences-desktop-screensaver");
-    gtk_window_set_icon_name (GTK_WINDOW (fullscreen_preview_window), "screensaver");
+    gtk_window_set_icon_name (GTK_WINDOW (dialog), "org.xfce.ScreenSaver");
+    gtk_window_set_icon_name (GTK_WINDOW (fullscreen_preview_window), "org.xfce.ScreenSaver");
 
     g_signal_connect (fullscreen_preview_area,
                       "draw", G_CALLBACK (preview_on_draw),

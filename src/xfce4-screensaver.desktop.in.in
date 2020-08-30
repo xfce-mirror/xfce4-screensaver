@@ -2,7 +2,7 @@
 Type=Application
 _Name=Screensaver
 _Comment=Launch screensaver and locker program
-Icon=preferences-desktop-screensaver
+Icon=org.xfce.ScreenSaver
 Exec=xfce4-screensaver
 OnlyShowIn=XFCE;
 NoDisplay=true

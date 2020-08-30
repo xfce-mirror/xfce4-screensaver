@@ -1,4 +1,5 @@
 SUBDIRS = \
+	icons	\
 	images
 
 NULL =
