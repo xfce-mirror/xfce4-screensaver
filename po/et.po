@@ -42,11 +42,11 @@ msgstr "Ekraanisäästja teemad"
 
 #: ../savers/floaters.c:89
 msgid "Show paths that images follow"
-msgstr ""
+msgstr "Näita piltide liikumise teed"
 
 #: ../savers/floaters.c:94
 msgid "Occasionally rotate images as they move"
-msgstr ""
+msgstr "Vahetevahel pööra liikumise ajal pilte"
 
 #: ../savers/floaters.c:99
 msgid "Print out frame rate and other statistics"
@@ -54,11 +54,11 @@ msgstr "Kuva kaadrisagedust ja muud statistikat"
 
 #: ../savers/floaters.c:104
 msgid "The maximum number of images to keep on screen"
-msgstr ""
+msgstr "Ekraanil kuvatav suurim piltide arv"
 
 #: ../savers/floaters.c:104
 msgid "MAX_IMAGES"
-msgstr ""
+msgstr "MAX_IMAGES"
 
 #: ../savers/floaters.c:109
 msgid "The initial size and position of window"
@@ -66,17 +66,17 @@ msgstr "Akna esialgne suurus ja asukoht"
 
 #: ../savers/floaters.c:109
 msgid "WIDTHxHEIGHT+X+Y"
-msgstr ""
+msgstr "WIDTHxHEIGHT+X+Y"
 
 #: ../savers/floaters.c:114
 msgid "The source image to use"
-msgstr ""
+msgstr "Kasutatav pilt"
 
 #. translators: the word "image" here
 #. * represents a command line argument
 #: ../savers/floaters.c:1122
 msgid "image - floats images around the screen"
-msgstr ""
+msgstr "image - lennutab pilte ekraanil"
 
 #: ../savers/floaters.c:1126 ../savers/popsquares.c:49
 #, c-format
@@ -192,7 +192,7 @@ msgstr "ekraanisäästja juba töötab selles sessioonis"
 #: ../src/gs-lock-plug.c:285
 msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
-msgstr ""
+msgstr "%A, %B %e   %H:%M"
 
 #: ../src/gs-lock-plug.c:361
 msgid "Time has expired."
