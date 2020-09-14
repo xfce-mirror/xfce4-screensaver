@@ -1,8 +1,8 @@
-[![License](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://gitlab.xfce.org/xfce/xfce4-screensaver/COPYING)
+[![License](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://gitlab.xfce.org/apps/xfce4-screensaver/-/blob/master/COPYING)
 
 # xfce4-screensaver
 
-xfce4-screensaver is a screen saver and locker that aims to have
+Xfce4-screensaver is a screen saver and locker that aims to have
 simple, sane, secure defaults and be well integrated with the desktop.
 
 This project is a port of [MATE Screensaver](https://github.com/mate-desktop/mate-screensaver),
@@ -47,13 +47,13 @@ See [NEWS](https://gitlab.xfce.org/apps/xfce4-screensaver/-/blob/master/NEWS) fo
 
 ### Source Code Repository
 
-[xfce4-screensaver source code](https://gitlab.xfce.org/apps/xfce4-screensaver)
+[Xfce4-screensaver source code](https://gitlab.xfce.org/apps/xfce4-screensaver)
 
-### Download A Release Tarball
+### Download a Release Tarball
 
-[xfce4-screensaver archive](https://archive.xfce.org/src/apps/xfce4-screensaver)
+[Xfce4-screensaver archive](https://archive.xfce.org/src/apps/xfce4-screensaver)
     or
-[xfce4-screensaver tags](https://gitlab.xfce.org/apps/xfce4-screensaver/-/tags)
+[Xfce4-screensaver tags](https://gitlab.xfce.org/apps/xfce4-screensaver/-/tags)
 
 ### Installation
 
