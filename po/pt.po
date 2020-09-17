@@ -150,7 +150,7 @@ msgstr "Uma grelha de cores em pulsação em arte pop."
 
 #: ../src/gs-auth-pam.c:163
 msgid "Password:"
-msgstr "Senha:"
+msgstr "Palavra-passe:"
 
 #: ../src/gs-auth-pam.c:375
 #, c-format
@@ -164,7 +164,7 @@ msgstr "Incapaz de definir PAM_TTY=%s"
 
 #: ../src/gs-auth-pam.c:432
 msgid "Incorrect password."
-msgstr "Senha incorrecta."
+msgstr "Palavra-passe incorreta."
 
 #: ../src/gs-auth-pam.c:434 ../src/xfce4-screensaver-dialog.c:311
 msgid "Authentication failed."
@@ -419,11 +419,12 @@ msgstr "Por favor, digite o nome de utilizador."
 
 #: ../src/xfce4-screensaver-dialog.c:184
 msgid "You are required to change your password immediately (password aged)"
-msgstr "Tem de alterar a sua senha imediatamente (senha expirou)"
+msgstr ""
+"Tem de alterar a sua palavra-passe imediatamente (palavra-passe expirou)"
 
 #: ../src/xfce4-screensaver-dialog.c:186
 msgid "You are required to change your password immediately (root enforced)"
-msgstr "Tem de mudar a sua senha imediatamente (obrigado pelo root)"
+msgstr "Tem de mudar a sua palavra-passe imediatamente (obrigado pelo root)"
 
 #: ../src/xfce4-screensaver-dialog.c:188
 msgid "Your account has expired; please contact your system administrator"
@@ -432,11 +433,11 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-dialog.c:190
 msgid "No password supplied."
-msgstr "Senha não fornecida."
+msgstr "Palavra-passe não fornecida."
 
 #: ../src/xfce4-screensaver-dialog.c:192
 msgid "Password unchanged."
-msgstr "Senha inalterada."
+msgstr "Palavra-passe inalterada."
 
 #: ../src/xfce4-screensaver-dialog.c:194
 msgid "Can not get username."
@@ -444,35 +445,35 @@ msgstr "Incapaz de obter o utilizador."
 
 #: ../src/xfce4-screensaver-dialog.c:196
 msgid "Retype your new password."
-msgstr "Reintroduza a nova senha."
+msgstr "Reintroduza a nova palavra-passe."
 
 #: ../src/xfce4-screensaver-dialog.c:198
 msgid "Enter your new password."
-msgstr "Introduza a nova senha."
+msgstr "Introduza a nova palavra-passe."
 
 #: ../src/xfce4-screensaver-dialog.c:200
 msgid "Enter your current password:"
-msgstr "Introduza a senha atual:"
+msgstr "Introduza a palavra-passe atual:"
 
 #: ../src/xfce4-screensaver-dialog.c:202
 msgid "Error while changing NIS password."
-msgstr "Erro ao mudar a senha NIS."
+msgstr "Erro ao mudar a palavra-passe NIS."
 
 #: ../src/xfce4-screensaver-dialog.c:204
 msgid "You must choose a longer password."
-msgstr "Tem de escolher uma senha maior."
+msgstr "Tem de escolher uma palavra-passe maior."
 
 #: ../src/xfce4-screensaver-dialog.c:206
 msgid "Password has been already used. Choose another."
-msgstr "Senha já foi usada. Escolha outra."
+msgstr "Palavra-passe já foi usada. Escolha outra."
 
 #: ../src/xfce4-screensaver-dialog.c:208
 msgid "You must wait longer to change your password."
-msgstr "Tem de esperar mais tempo para mudar a senha."
+msgstr "Tem de esperar mais tempo para mudar a palavra-passe."
 
 #: ../src/xfce4-screensaver-dialog.c:210
 msgid "Sorry, passwords do not match."
-msgstr "Desculpe, as senhas não combinam."
+msgstr "Desculpe, as palavras-passe não coincidem."
 
 #: ../src/xfce4-screensaver-dialog.c:274
 msgid "Checking..."
@@ -485,7 +486,7 @@ msgstr "%U"
 
 #: ../src/xfce4-screensaver-dialog.ui.h:3
 msgid "Enter your password"
-msgstr "Introduza a senha"
+msgstr "Introduza a palavra-passe"
 
 #: ../src/xfce4-screensaver-dialog.ui.h:4
 msgid "You have the Caps Lock key on."
