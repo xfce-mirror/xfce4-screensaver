@@ -350,7 +350,7 @@ add_lock_timer (GSManager *manager,
         return;
 
     gs_debug ("Scheduling screen lock after screensaver is idling for %i sec", timeout);
-    manager->priv->lock_timeout_id = g_timeout_add (timeout * 60000,
+    manager->priv->lock_timeout_id = g_timeout_add_seconds (timeout * 60,
                                                     (GSourceFunc)activate_lock_timeout,
                                                     manager);
 }
@@ -596,7 +596,7 @@ add_dpms_timer (GSManager *manager,
         return;
 
     gs_debug ("Scheduling DPMS change after screensaver is idling for %i minute(s)", timeout);
-    manager->priv->dpms_timeout_id = g_timeout_add (timeout * 60000,
+    manager->priv->dpms_timeout_id = g_timeout_add_seconds (timeout * 60,
                                                     (GSourceFunc)activate_dpms_timeout,
                                                     manager);
 }
@@ -777,7 +777,7 @@ deepsleep_idle (GSManager *manager) {
 static void
 add_deepsleep_idle (GSManager *manager) {
     remove_deepsleep_idle(manager);
-    manager->priv->deepsleep_idle_id = g_timeout_add (15000, (GSourceFunc)deepsleep_idle, manager);
+    manager->priv->deepsleep_idle_id = g_timeout_add_seconds (15, (GSourceFunc)deepsleep_idle, manager);
 }
 
 static gboolean
@@ -1072,7 +1072,7 @@ reconfigure_monitors (GdkDisplay *display,
 
     gs_manager_request_unlock (manager);
 
-    g_timeout_add (2000,
+    g_timeout_add_seconds (2,
                    (GSourceFunc)remove_overlays,
                    windows);
 }
@@ -1271,7 +1271,7 @@ gs_manager_activate (GSManager *manager) {
 
     show_windows (manager->priv->windows);
 
-    g_timeout_add (2000,
+    g_timeout_add_seconds (2,
                    (GSourceFunc)remove_overlays,
                    windows);
 
