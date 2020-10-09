@@ -229,7 +229,7 @@ typedef struct
     guint            status_message_enabled : 1; /* show the status message in the lock */
     guint            timeout;        /* how much idle time before activation */
     guint            lock_timeout;   /* how long after activation locking starts */
-    guint            logout_timeout; /* how long until the logout option appears */
+    guint            logout_timeout; /* how many seconds until the logout option appears */
     guint            cycle;          /* how many seconds each theme should run */
     guint            fullscreen_inhibit : 1; /* inhibit screensaver when an application is fullscreen */
 

@@ -602,7 +602,7 @@ gs_prefs_init (GSPrefs *prefs) {
 
     prefs->timeout                  = 600000;
     prefs->lock_timeout             = 0;
-    prefs->logout_timeout           = 14400000;
+    prefs->logout_timeout           = 14400;
     prefs->cycle                    = 600;
 
     prefs->mode                     = GS_MODE_SINGLE;
