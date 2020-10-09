@@ -413,8 +413,8 @@ remove_cycle_timer (GSManager *manager) {
 
 static void
 add_cycle_timer (GSManager *manager,
-                 glong      timeout) {
-    manager->priv->cycle_timeout_id = g_timeout_add (timeout,
+                 glong      seconds) {
+    manager->priv->cycle_timeout_id = g_timeout_add_seconds (seconds,
                                                      (GSourceFunc)cycle_timeout,
                                                      manager);
 }
@@ -802,7 +802,7 @@ manager_show_window (GSManager *manager,
     remove_lock_timer (manager);
     add_lock_timer (manager, manager->priv->prefs->lock_timeout);
 
-    if (manager->priv->prefs->cycle >= 10000) {
+    if (manager->priv->prefs->cycle >= 10) {
         remove_cycle_timer (manager);
         add_cycle_timer (manager, manager->priv->prefs->cycle);
     }

@@ -230,7 +230,7 @@ typedef struct
     guint            timeout;        /* how much idle time before activation */
     guint            lock_timeout;   /* how long after activation locking starts */
     guint            logout_timeout; /* how long until the logout option appears */
-    guint            cycle;          /* how long each theme should run */
+    guint            cycle;          /* how many seconds each theme should run */
     guint            fullscreen_inhibit : 1; /* inhibit screensaver when an application is fullscreen */
 
     char            *logout_command;   /* command to use to logout */
