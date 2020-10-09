@@ -141,7 +141,7 @@ _gs_prefs_set_cycle_timeout (GSPrefs *prefs,
     if (value > 480)
         value = 480;
 
-    prefs->cycle = value * 60000;
+    prefs->cycle = value * 60;
 }
 
 static void
@@ -603,7 +603,7 @@ gs_prefs_init (GSPrefs *prefs) {
     prefs->timeout                  = 600000;
     prefs->lock_timeout             = 0;
     prefs->logout_timeout           = 14400000;
-    prefs->cycle                    = 600000;
+    prefs->cycle                    = 600;
 
     prefs->mode                     = GS_MODE_SINGLE;
 
