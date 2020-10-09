@@ -1474,7 +1474,7 @@ is_logout_enabled (GSWindow *window) {
 
     elapsed = g_timer_elapsed (window->priv->timer, NULL);
 
-    if (window->priv->prefs->logout_timeout < (elapsed * 1000)) {
+    if (window->priv->prefs->logout_timeout < (guint)elapsed) {
         return TRUE;
     }
 
