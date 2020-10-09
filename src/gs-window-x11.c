@@ -539,8 +539,8 @@ remove_watchdog_timer (GSWindow *window) {
 
 static void
 add_watchdog_timer (GSWindow *window,
-                    glong     timeout) {
-    window->priv->watchdog_timer_id = g_timeout_add (timeout,
+                    glong     seconds) {
+    window->priv->watchdog_timer_id = g_timeout_add_seconds (seconds,
                                       (GSourceFunc)watchdog_timer,
                                       window);
 }
@@ -733,7 +733,7 @@ gs_window_real_show (GtkWidget *widget) {
     window->priv->timer = g_timer_new ();
 
     remove_watchdog_timer (window);
-    add_watchdog_timer (window, 30000);
+    add_watchdog_timer (window, 30);
 
     select_popup_events ();
     window_select_shape_events (window);
