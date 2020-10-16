@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Georgi Georgiev <georgiev_1994@abv.bg>, 2018
+# Georgi Georgiev, 2018
 # Kiril Kirilov <cybercop_montana@abv.bg>, 2019
 # Nick Schermer <nick@xfce.org>, 2020
 # 
