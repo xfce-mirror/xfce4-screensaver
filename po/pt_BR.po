@@ -7,7 +7,7 @@
 # Ricardo Fuhrmann <fuhrmanns@gmail.com>, 2018
 # Rafael Carvalho <rafaelvfcarvalho@gmail.com>, 2018
 # Xfce Bot <transifex@xfce.org>, 2018
-# Tomas <tschertel@gmail.com>, 2019
+# 03d4cb4e40917b9efde07029d109fec1_440ed9b <c3c37f2961c5c5bdf930a168cab8bcc2_764964>, 2019
 # Rafael Fontenelle <rffontenelle@gmail.com>, 2019
 # Michael Martins <michaelfm21@gmail.com>, 2019
 # Andre Miranda <andre42m@gmail.com>, 2019
