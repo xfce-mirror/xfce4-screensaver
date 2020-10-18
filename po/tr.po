@@ -4,13 +4,13 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Emin Tufan <etcetin@gmail.com>, 2018
 # Xfce Bot <transifex@xfce.org>, 2018
 # Demiray Muhterem <mdemiray@msn.com>, 2019
 # Necdet Yücel <necdetyucel@gmail.com>, 2019
 # Recep, 2019
 # Serdar Sağlam <teknomobil@msn.com>, 2019
 # Nick Schermer <nick@xfce.org>, 2020
+# Emin Tufan <etcetin@gmail.com>, 2020
 # 
 #, fuzzy
 msgid ""
@@ -19,7 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-15 12:31+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Nick Schermer <nick@xfce.org>, 2020\n"
+"Last-Translator: Emin Tufan <etcetin@gmail.com>, 2020\n"
 "Language-Team: Turkish (https://www.transifex.com/xfce/teams/16840/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -300,11 +300,11 @@ msgid ""
 msgstr ""
 "Ekran Güç Yönetimi Sinyali (DPMS) ile güçlendirilmiştir,\n"
 "Xfce Ekran Koruyucu, güç tasarrufu sağlamak için\n"
-"ekranlarınızı otomatik olarak askıya alabilir.\n"
+"ekranlarınızı kendiliğinden askıya alabilir.\n"
 "\n"
 "Xfce Güç Yönetici ve diğer uygulamalar da DPMS ayarlarını \n"
 "yönetir. Ekranlarınız farklı aralıklarla kapanıyorsa,\n"
-"çakışan ayarları kontrol ettiğinizden emin olun."
+"çakışan ayarları denetlediğinizden emin olun."
 
 #: ../src/xfce4-screensaver-configure:176
 msgid "Part of Xfce Screensaver"
@@ -472,7 +472,7 @@ msgstr "Üzgünüz, parolalar eşleşmiyor."
 
 #: ../src/xfce4-screensaver-dialog.c:274
 msgid "Checking..."
-msgstr "Kontrol ediliyor..."
+msgstr "Denetleniyor..."
 
 #: ../src/xfce4-screensaver-dialog.ui.h:2
 #, no-c-format
