@@ -663,10 +663,6 @@ msgstr "システムスリープで画面をロックする"
 msgid "Lock Screen"
 msgstr "ロック画面"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "デーモンにならない"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "デバッグコードを有効にする"

@@ -681,10 +681,6 @@ msgstr "Verrouiller l’écran avec la mise en veille du système"
 msgid "Lock Screen"
 msgstr "Verrouiller l’écran"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Ne pas mettre en arrière-plan"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "Activer le code de débogage"

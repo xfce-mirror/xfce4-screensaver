@@ -672,10 +672,6 @@ msgstr "Blocca lo schermo quando il sistema sta per andare in sospensione"
 msgid "Lock Screen"
 msgstr "Blocco schermo"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Non diventare un demone"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "Abilita il codice di debug"

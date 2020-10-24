@@ -657,10 +657,6 @@ msgstr "帶有系統睡眠的鎖定螢幕"
 msgid "Lock Screen"
 msgstr "鎖定螢幕"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "不要變成幕後程式"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "啟用除錯程式碼"

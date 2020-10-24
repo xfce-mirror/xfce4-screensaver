@@ -674,10 +674,6 @@ msgstr "Pantaila blokeatu sistema lokartzerakoan"
 msgid "Lock Screen"
 msgstr "Pantaila blokeatu"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Ez bihurtu daemon batean"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "Gaitu arazpen kodea"

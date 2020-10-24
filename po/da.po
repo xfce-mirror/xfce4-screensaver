@@ -662,10 +662,6 @@ msgstr "Låseskærm med systemhvile"
 msgid "Lock Screen"
 msgstr "Låseskærm"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Bliv ikke en dæmon"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "Aktivér fejlsøgningskode"

@@ -678,10 +678,6 @@ msgstr "Bildschirm sperren mit dem Ruhezustand des Systems"
 msgid "Lock Screen"
 msgstr "Sperrbildschirm"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Kein Daemon werden"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "Code zur Fehlersuche aktivieren"

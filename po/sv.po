@@ -664,10 +664,6 @@ msgstr "Lås skärm med Systemsömn"
 msgid "Lock Screen"
 msgstr "Låsskärm"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Bli inte en demon"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "Aktivera felsökningskod"

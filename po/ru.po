@@ -667,10 +667,6 @@ msgstr "Блокировать экран, когда система спит"
 msgid "Lock Screen"
 msgstr "Блокировка экрана"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Не становиться демоном"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "Включить отладочный код"

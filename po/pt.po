@@ -671,10 +671,6 @@ msgstr "Bloquear Ecrã com o Adormecer do Sistema"
 msgid "Lock Screen"
 msgstr "Bloquear ecrã"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Não ficar em segundo plano"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "Ativar código de depuração"

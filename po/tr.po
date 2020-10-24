@@ -667,10 +667,6 @@ msgstr "Sistem Uykuda ise Ekranı Kilitle"
 msgid "Lock Screen"
 msgstr "Kilit Ekranı"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Bir ana süreç olmayın"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "Hata ayıklama kodunu etkinleştir"

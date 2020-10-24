@@ -653,10 +653,6 @@ msgstr "Lock Screen with System Sleep"
 msgid "Lock Screen"
 msgstr "Lock Screen"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Don't become a daemon"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "Enable debugging code"

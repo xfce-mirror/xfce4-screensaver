@@ -660,10 +660,6 @@ msgstr "ล็อคหน้าจอโดยให้เครื่องห
 msgid "Lock Screen"
 msgstr "ล็อคหน้าจอ"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "ไม่ต้องทำงานเป็นดีมอน"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "เปิดทำงานส่วนดีบั๊ก"

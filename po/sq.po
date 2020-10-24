@@ -673,10 +673,6 @@ msgstr "Kyçje Ekrani me Fjetje Sistemi"
 msgid "Lock Screen"
 msgstr "Kyçje Ekrani"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Mos u shndërro në demon"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "Aktivizo diagnostikim kodi"

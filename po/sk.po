@@ -652,10 +652,6 @@ msgstr ""
 msgid "Lock Screen"
 msgstr ""
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Nebude démonom"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "Zapnúť ladiaci kód"

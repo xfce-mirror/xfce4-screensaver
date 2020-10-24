@@ -667,10 +667,6 @@ msgstr "Uzamknout obrazovku s uspáním systému"
 msgid "Lock Screen"
 msgstr "Uzamknout obrazovku"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Nepřecházet v proces služby"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "Povolit ladicí kód"

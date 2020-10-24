@@ -672,10 +672,6 @@ msgstr "Blokada ekranu z uśpieniem systemu"
 msgid "Lock Screen"
 msgstr "Blokada ekranu"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Nie zostań demonem"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "Włącz kod debugowania"
