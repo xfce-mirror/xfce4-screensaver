@@ -669,10 +669,6 @@ msgstr "Kunci Layar dengan Sistem Tidur"
 msgid "Lock Screen"
 msgstr "Kunci Layar"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Jangan menjadi jurik"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "Aktifkan kode awakutu"

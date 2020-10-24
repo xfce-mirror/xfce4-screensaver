@@ -661,10 +661,6 @@ msgstr "Zakleni zaslon ob spanju"
 msgid "Lock Screen"
 msgstr "Zakleni zaslon"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Ne postani demon"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "Vklopi razhroščevanje kode"

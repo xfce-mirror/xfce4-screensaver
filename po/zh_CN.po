@@ -659,10 +659,6 @@ msgstr "系统睡眠锁屏"
 msgid "Lock Screen"
 msgstr "锁屏"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "不要成为守护进程"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "启用调试代码"

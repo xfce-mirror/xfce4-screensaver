@@ -670,10 +670,6 @@ msgstr "Užrakinti ekraną, kai sistema užmiega"
 msgid "Lock Screen"
 msgstr "Užrakinti ekraną"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Netapti tarnyba"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "Įjungti derinimo kodą"

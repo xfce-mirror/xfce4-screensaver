@@ -654,10 +654,6 @@ msgstr "Կողպել ցուցադրիչը գործածելով քունը"
 msgid "Lock Screen"
 msgstr "Կողպել ցուցադրիչը"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Չդարձնել աւժանդակ ծրագիր "
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "Միացնել վրիպազերծումը"

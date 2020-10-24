@@ -680,10 +680,6 @@ msgstr "Scherm vergrendelen bij slaapstand voor systeem"
 msgid "Lock Screen"
 msgstr "Scherm vergrendelen"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Word geen achtergronddienst"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "Foutopsporingscode inschakelen"

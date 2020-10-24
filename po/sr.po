@@ -663,10 +663,6 @@ msgstr "Закључај приказ када се систем успава"
 msgid "Lock Screen"
 msgstr "Закључај приказ"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Не прелази у домара"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "Омогући кодирање отклона грешака"

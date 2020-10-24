@@ -670,10 +670,6 @@ msgstr "Lukusta ekraan, kui arvuti jääb unne"
 msgid "Lock Screen"
 msgstr "Ekraanilukustus"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Ära käivita taustaprogrammina"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "Lülita silumisrežiim sisse"

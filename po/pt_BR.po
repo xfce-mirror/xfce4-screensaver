@@ -671,10 +671,6 @@ msgstr "Bloquear tela com suspensão do sistema"
 msgid "Lock Screen"
 msgstr "Bloquear tela"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Não executar como um daemon"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "Habilita código de depuração"

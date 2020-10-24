@@ -667,10 +667,6 @@ msgstr "Képernyő zárolása a rendszer alvó állapotával"
 msgid "Lock Screen"
 msgstr "Képernyő zárolása"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Ne legyen belőle démon"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "Hibakeresési kód engedélyezése"

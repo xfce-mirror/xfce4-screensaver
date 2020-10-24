@@ -667,10 +667,6 @@ msgstr "Заключи екрана при приспиване на систе�
 msgid "Lock Screen"
 msgstr "Заключване на екрана"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Услугата не се изпълни"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "Активирайте кода за отстраняване на грешки"

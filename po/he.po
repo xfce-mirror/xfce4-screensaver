@@ -659,10 +659,6 @@ msgstr "נעל מסך עם שינה של מערכת"
 msgid "Lock Screen"
 msgstr "נעל מסך"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "אל תהפוך להיות daemon"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "הפעל קוד איתור באגים"

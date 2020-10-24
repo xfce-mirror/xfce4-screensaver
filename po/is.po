@@ -659,10 +659,6 @@ msgstr "Læsa skjá þegar kerfið fer í svæfingu"
 msgid "Lock Screen"
 msgstr "Læsa skjá"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Ekki verða að þjónustu"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "Virkja aflúsunarkóða"

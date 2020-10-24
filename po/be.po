@@ -663,10 +663,6 @@ msgstr "Блакаванне экрана з пераходам у рэжым с
 msgid "Lock Screen"
 msgstr "Заблакаваць экран"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Не рабіцца дэманам"
-
 #: ../src/xfce4-screensaver.c:60
 msgid "Enable debugging code"
 msgstr "Уключыць адладачны код"
