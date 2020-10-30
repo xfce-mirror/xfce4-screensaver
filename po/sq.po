@@ -623,7 +623,7 @@ msgstr "Konsideroje kompjuterin si të _plogësht pas:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:20
 msgid "Inhibit screensaver for fullscreen applications"
-msgstr ""
+msgstr "Pengoje ekrankursyesin për aplikacione sa krejt ekrani"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:22
 msgid "Enable Lock Screen"
