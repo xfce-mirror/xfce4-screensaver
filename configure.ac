@@ -1159,10 +1159,18 @@ src/xfce4-screensaver.desktop.in
 data/Makefile
 data/xfce4-screensavers.menu
 data/org.xfce.ScreenSaver.service
+data/icons/Makefile
+data/icons/16x16/Makefile
+data/icons/24x24/Makefile
+data/icons/32x32/Makefile
+data/icons/48x48/Makefile
+data/icons/128x128/Makefile
+data/icons/scalable/Makefile
 data/images/Makefile
 savers/Makefile
 doc/Makefile
 doc/xfce4-screensaver.xml
+
 ])
 
 echo "
