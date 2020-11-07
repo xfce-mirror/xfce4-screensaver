@@ -78,6 +78,12 @@ You may need to set your PAM auth type if it is not correctly detected.
 
 `--with-pam-auth-type=<auth-type>   specify pam auth type (common or system)`
 
+If you are using bsdauth or shadow auth, then you will need to make sure the
+following is done after installation:
+
+    chown root:root $libexecdir/xfce4-screensaver-dialog
+    chmod +s $libexecdir/xfce4-screensaver-dialog
+
 (For testing, we are using:
  `./autogen.sh --disable-static --with-mit-ext --with-console-kit --enable-locking --enable-debug --sysconfdir=/etc`
 )
