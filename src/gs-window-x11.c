@@ -539,8 +539,8 @@ remove_watchdog_timer (GSWindow *window) {
 
 static void
 add_watchdog_timer (GSWindow *window,
-                    glong     timeout) {
-    window->priv->watchdog_timer_id = g_timeout_add (timeout,
+                    glong     seconds) {
+    window->priv->watchdog_timer_id = g_timeout_add_seconds (seconds,
                                       (GSourceFunc)watchdog_timer,
                                       window);
 }
@@ -733,7 +733,7 @@ gs_window_real_show (GtkWidget *widget) {
     window->priv->timer = g_timer_new ();
 
     remove_watchdog_timer (window);
-    add_watchdog_timer (window, 30000);
+    add_watchdog_timer (window, 30);
 
     select_popup_events ();
     window_select_shape_events (window);
@@ -1474,7 +1474,7 @@ is_logout_enabled (GSWindow *window) {
 
     elapsed = g_timer_elapsed (window->priv->timer, NULL);
 
-    if (window->priv->prefs->logout_timeout < (elapsed * 1000)) {
+    if (window->priv->prefs->logout_timeout < (guint)elapsed) {
         return TRUE;
     }
 
