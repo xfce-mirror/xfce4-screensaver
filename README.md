@@ -84,9 +84,9 @@ following is done after installation:
     chown root:root $libexecdir/xfce4-screensaver-dialog
     chmod +s $libexecdir/xfce4-screensaver-dialog
 
-(For testing, we are using:
- `./autogen.sh --disable-static --with-mit-ext --with-console-kit --enable-locking --enable-debug --sysconfdir=/etc`
-)
+Example testing configuration:
+
+    ./autogen.sh --disable-static --with-mit-ext --with-console-kit --enable-locking --enable-debug --sysconfdir=/etc
 
 ### Reporting Bugs
 
