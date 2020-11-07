@@ -186,7 +186,7 @@ class DesktopScreensaverSettings(ScreensaverSettings):
             options["dpms-sleep-after"] = {'id': 'dpms-sleep-after', 'type': 'slider',
                                            'label': _('After blanking, put display to sleep after'),
                                            'default': 5, 'low': 0, 'high': 60, 'step': 1,
-                                           'low-label': _('Never'), 'high-label': _('60 minutes')}
+                                           'low-label': _('Never'), 'high-label': _('60 seconds')}
             options["dpms-off-after"] = {'id': 'dpms-off-after', 'type': 'slider',
                                          'label': _('After sleeping, switch display off after'),
                                          'default': 15, 'low': 0, 'high': 60, 'step': 1,

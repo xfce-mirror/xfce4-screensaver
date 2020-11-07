@@ -186,7 +186,7 @@ G_BEGIN_DECLS
 #define DEFAULT_KEY_USER_SWITCH_ENABLED TRUE
 
 /**
- * Blank screensaver DPMS sleep timeout
+ * Blank screensaver DPMS sleep timeout (seconds)
  * This value controls the timeout after blanking the screen to suspend the display.
  * A value of 0 means that it is disabled.
  */
@@ -194,7 +194,7 @@ G_BEGIN_DECLS
 #define DEFAULT_KEY_DPMS_SLEEP_AFTER 5
 
 /**
- * Blank screensaver DPMS power timeout
+ * Blank screensaver DPMS power timeout (minutes)
  * This value controls the timeout after blanking the screen to power off the display.
  * A value of 0 means that it is disabled.
  */
