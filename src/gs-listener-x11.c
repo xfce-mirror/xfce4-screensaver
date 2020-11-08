@@ -164,7 +164,7 @@ lock_timer (GSListenerX11 *listener) {
         fullscreen_inhibition = check_fullscreen_window();
     }
 
-    gs_debug("Idle: %is, Saver: %s, Saver Timeout: %is, Lock: %s, Lock Timeout: %is, Lock Timer: %is, Lock Status: %s, Fullscreen: %s",
+    gs_debug("Idle: %us, Saver: %s, Saver Timeout: %is, Lock: %s, Lock Timeout: %is, Lock Timer: %us, Lock Status: %s, Fullscreen: %s",
              idle_time,
              listener->priv->prefs->idle_activation_enabled ? "Enabled" : "Disabled",
              listener->priv->timeout,
