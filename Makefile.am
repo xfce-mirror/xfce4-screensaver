@@ -66,3 +66,5 @@ dist: ChangeLog
 
 .PHONY: ChangeLog
 
+distuninstallcheck_listfiles = 						\
+	find . -type f -print | grep -v ./share/icons/hicolor/icon-theme.cache
