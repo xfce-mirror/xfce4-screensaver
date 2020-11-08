@@ -1,3 +1,23 @@
+0.1.11
+======
+- Builds: Move from exo-csource to xdt-csource (Bugzilla #16717)
+- CI: Add basic GitLab pipeline
+- distcheck: Add missing gs-auth-pam.c
+- DPMS: Change sleep settings to seconds, default after 5 seconds (#27)
+- Fix: Catch gs_listener_dbus_init failures
+- Fix: remove unused flag --no-daemon
+- Icons: New icons and rDNS icon name, org.xfce.ScreenSaver
+- Internal: Change timers from milliseconds to seconds
+- README.md: Note setuid requirement after install with shadow/bsdauth (#9)
+- xfce4-screensaver.common-auth: replace @include with standard systax (#6)
+- Translation Updates:
+  Albanian, Armenian (Armenia), Basque, Bulgarian, Catalan, Chinese
+  (China), Chinese (Taiwan), Czech, Danish, Dutch, Eastern Armenian,
+  English (Australia), Estonian, French, German, Hebrew, Hungarian,
+  Icelandic, Italian, Japanese, Korean, Lithuanian, Malay, Norwegian
+  Bokmål, Polish, Portuguese, Portuguese (Brazil), Russian, Serbian,
+  Slovak, Slovenian, Spanish, Swedish, Thai, Turkish
+
 0.1.10 (beta)
 =============
 - Send DBus lock responses for xfce4-session support (bug #16522)
