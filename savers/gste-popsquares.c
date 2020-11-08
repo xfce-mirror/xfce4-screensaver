@@ -484,7 +484,8 @@ draw_frame (GSTEPopsquares *pop,
 }
 
 static gboolean
-draw_iter (GSTEPopsquares *pop) {
+draw_iter (gpointer user_data) {
+    GSTEPopsquares *pop = user_data;
     gtk_widget_queue_draw (GTK_WIDGET (pop));
     return TRUE;
 }
@@ -499,7 +500,7 @@ gste_popsquares_init (GSTEPopsquares *engine) {
     engine->priv->subdivision = 5;
 
     delay = 25;
-    engine->priv->timeout_id = g_timeout_add (delay, (GSourceFunc)draw_iter, engine);
+    engine->priv->timeout_id = g_timeout_add (delay, draw_iter, engine);
 }
 
 static void
