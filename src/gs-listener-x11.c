@@ -140,7 +140,8 @@ check_fullscreen_window () {
 }
 
 static gboolean
-lock_timer (GSListenerX11 *listener) {
+lock_timer (gpointer user_data) {
+    GSListenerX11 *listener = user_data;
     guint    idle_time;
     guint    lock_time = 0;
     gint     state;
@@ -230,9 +231,7 @@ reset_timer(GSListenerX11 *listener,
             guint          timeout) {
     remove_lock_timer(listener);
 
-    listener->priv->timer_id = g_timeout_add_seconds(timeout,
-                                                     (GSourceFunc)lock_timer,
-                                                     listener);
+    listener->priv->timer_id = g_timeout_add_seconds(timeout, lock_timer, listener);
 }
 
 static GdkFilterReturn
