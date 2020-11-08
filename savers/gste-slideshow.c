@@ -104,7 +104,8 @@ typedef struct _OpResult {
 } OpResult;
 
 static gboolean
-push_load_image_func (GSTESlideshow *show) {
+push_load_image_func (gpointer user_data) {
+    GSTESlideshow *show = user_data;
     Op *op;
 
     gs_theme_engine_profile_msg ("Starting a new image load");
@@ -129,8 +130,7 @@ start_new_load (GSTESlideshow *show,
     /* queue a new load */
     if (show->priv->update_image_id <= 0) {
         show->priv->update_image_id = g_timeout_add_full (G_PRIORITY_LOW, timeout,
-                                      (GSourceFunc)push_load_image_func,
-                                      show, NULL);
+                                      push_load_image_func, show, NULL);
     }
 }
 
