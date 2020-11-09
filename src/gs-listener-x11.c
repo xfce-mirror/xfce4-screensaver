@@ -100,10 +100,19 @@ static gboolean
 get_x11_idle_info (guint *idle_time,
                    gint  *state) {
     Display *display = gdk_x11_display_get_xdisplay(gdk_display_get_default());
-    static XScreenSaverInfo *mit_info = NULL;
+    static XScreenSaverInfo *mit_info;
 
-    mit_info = XScreenSaverAllocInfo();
-    XScreenSaverQueryInfo(display, GDK_ROOT_WINDOW(), mit_info);
+    if (mit_info == NULL)
+        mit_info = XScreenSaverAllocInfo();
+    if (mit_info == NULL)
+        return FALSE;
+
+    if (XScreenSaverQueryInfo(display, GDK_ROOT_WINDOW(), mit_info))
+        return FALSE;
+
+    gs_debug("XScreenSaverInfo: state %x kind %x tos %lu idle %lu m %lx",
+             mit_info->state, mit_info->kind, mit_info->til_or_since,
+             mit_info->idle, mit_info->eventMask);
     *idle_time = mit_info->idle / 1000;  // seconds
     *state = mit_info->state;
 
@@ -139,7 +148,9 @@ lock_timer (GSListenerX11 *listener) {
     if (!listener->priv->prefs->saver_enabled)
         return TRUE;
 
-    get_x11_idle_info (&idle_time, &state);
+    if (get_x11_idle_info (&idle_time, &state) == FALSE)
+        return TRUE;
+
     if (idle_time > listener->priv->timeout) {
         lock_time = idle_time - listener->priv->timeout;
     }
