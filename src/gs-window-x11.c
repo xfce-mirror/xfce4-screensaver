@@ -47,7 +47,7 @@ static void     gs_window_class_init     (GSWindowClass *klass);
 static void     gs_window_init           (GSWindow      *window);
 static void     gs_window_finalize       (GObject       *object);
 
-static gboolean popup_dialog_idle        (GSWindow      *window);
+static gboolean popup_dialog_idle        (gpointer user_data);
 static void     gs_window_dialog_finish  (GSWindow      *window);
 static void     gs_window_set_obscured   (GSWindow      *window,
                                           gboolean       obscured);
@@ -554,11 +554,13 @@ remove_popup_dialog_idle (GSWindow *window) {
 
 static void
 add_popup_dialog_idle (GSWindow *window) {
-    window->priv->popup_dialog_idle_id = g_idle_add ((GSourceFunc)popup_dialog_idle, window);
+    window->priv->popup_dialog_idle_id = g_idle_add (popup_dialog_idle, window);
 }
 
 static gboolean
-emit_deactivated_idle (GSWindow *window) {
+emit_deactivated_idle (gpointer user_data) {
+    GSWindow *window = user_data;
+
     g_signal_emit (window, signals[DEACTIVATED], 0);
 
     return FALSE;
@@ -566,7 +568,7 @@ emit_deactivated_idle (GSWindow *window) {
 
 static void
 add_emit_deactivated_idle (GSWindow *window) {
-    g_idle_add ((GSourceFunc)emit_deactivated_idle, window);
+    g_idle_add (emit_deactivated_idle, window);
 }
 
 static void
@@ -1563,7 +1565,9 @@ popup_dialog (GSWindow *window) {
 }
 
 static gboolean
-popup_dialog_idle (GSWindow *window) {
+popup_dialog_idle (gpointer user_data) {
+    GSWindow *window = user_data;
+
     popup_dialog (window);
 
     window->priv->popup_dialog_idle_id = 0;
