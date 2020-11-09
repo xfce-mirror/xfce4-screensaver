@@ -176,7 +176,8 @@ screensaver_is_running (GDBusConnection *connection)
 }
 
 static gboolean
-do_command (GDBusConnection *conn) {
+do_command (gpointer user_data) {
+    GDBusConnection *conn = user_data;
     GDBusMessage *reply;
 
     if (!screensaver_is_running (conn)) {
@@ -322,7 +323,7 @@ main (int    argc,
             g_error_free (error);
             return EXIT_FAILURE;
     }
-    g_idle_add ((GSourceFunc)do_command, conn);
+    g_idle_add (do_command, conn);
 
     loop = g_main_loop_new (NULL, FALSE);
     g_main_loop_run (loop);
