@@ -297,7 +297,9 @@ update_display (GSTESlideshow *show) {
 }
 
 static gboolean
-draw_iter (GSTESlideshow *show) {
+draw_iter (gpointer user_data) {
+    GSTESlideshow *show = user_data;
+
     if (show->priv->pat2 != NULL) {
         double old_opacity;
         double new_opacity;
@@ -751,7 +753,7 @@ gste_slideshow_real_show (GtkWidget *widget) {
     start_new_load (show, 10);
 
     delay = 25;
-    show->priv->timeout_id = g_timeout_add (delay, (GSourceFunc)draw_iter, show);
+    show->priv->timeout_id = g_timeout_add (delay, draw_iter, show);
 
     if (show->priv->timer != NULL) {
         g_timer_destroy (show->priv->timer);
