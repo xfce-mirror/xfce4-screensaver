@@ -383,7 +383,8 @@ op_result_free (OpResult *result) {
 }
 
 static gboolean
-results_pull_func (GSTESlideshow *show) {
+results_pull_func (gpointer user_data) {
+    GSTESlideshow *show = user_data;
     OpResult *result;
 
     g_async_queue_lock (show->priv->results_q);
@@ -608,7 +609,7 @@ op_load_image (GSTESlideshow *show,
 
     if (show->priv->results_pull_id == 0) {
         show->priv->results_pull_id = g_idle_add_full (G_PRIORITY_HIGH_IDLE,
-                                                       (GSourceFunc)results_pull_func,
+                                                       results_pull_func,
                                                        show, NULL);
     }
 
