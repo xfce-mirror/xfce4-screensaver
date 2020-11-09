@@ -70,6 +70,11 @@ window_activity_cb (GSWindow *window,
     return TRUE;
 }
 
+static gboolean
+auth_timeout (gpointer user_data) {
+    gtk_main_quit();
+    return FALSE;
+}
 static void
 disconnect_window_signals (GSWindow *window) {
     gpointer data;
@@ -158,7 +163,7 @@ main (int    argc,
     test_window ();
 
     /* safety valve in case we can't authenticate */
-    g_timeout_add_seconds (30, (GSourceFunc)gtk_main_quit, NULL);
+    g_timeout_add_seconds (30, auth_timeout, NULL);
 
     gtk_main ();
 

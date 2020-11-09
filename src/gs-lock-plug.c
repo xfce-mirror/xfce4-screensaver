@@ -274,7 +274,8 @@ set_status_text (GSLockPlug *plug,
 }
 
 static gboolean
-date_time_update (GSLockPlug *plug) {
+date_time_update (gpointer user_data) {
+    GSLockPlug *plug = user_data;
     GDateTime *datetime;
     gchar     *datetime_format;
     gchar     *str;
@@ -359,7 +360,9 @@ gs_lock_plug_response (GSLockPlug *plug,
 }
 
 static gboolean
-response_cancel_idle_cb (GSLockPlug *plug) {
+response_cancel_idle (gpointer user_data) {
+    GSLockPlug *plug = user_data;
+
     plug->priv->response_idle_id = 0;
 
     gs_lock_plug_response (plug, GS_LOCK_PLUG_RESPONSE_CANCEL);
@@ -368,7 +371,9 @@ response_cancel_idle_cb (GSLockPlug *plug) {
 }
 
 static gboolean
-dialog_timed_out (GSLockPlug *plug) {
+dialog_timed_out (gpointer user_data) {
+    GSLockPlug *plug = user_data;
+
     gs_lock_plug_set_sensitive (plug, FALSE);
     set_status_text (plug, _("Time has expired."));
 
@@ -378,9 +383,7 @@ dialog_timed_out (GSLockPlug *plug) {
 
     remove_response_idle (plug);
 
-    plug->priv->response_idle_id = g_timeout_add_seconds (2,
-                                   (GSourceFunc)response_cancel_idle_cb,
-                                   plug);
+    plug->priv->response_idle_id = g_timeout_add_seconds (2, response_cancel_idle, plug);
     return FALSE;
 }
 
@@ -416,10 +419,7 @@ is_capslock_on (void) {
 static void
 restart_cancel_timeout (GSLockPlug *plug) {
     remove_cancel_timeout (plug);
-    plug->priv->cancel_timeout_id = g_timeout_add_seconds (
-                                       DIALOG_TIMEOUT_SEC,
-                                       (GSourceFunc)dialog_timed_out,
-                                       plug);
+    plug->priv->cancel_timeout_id = g_timeout_add_seconds (DIALOG_TIMEOUT_SEC, dialog_timed_out, plug);
 }
 
 void
@@ -1375,9 +1375,7 @@ switch_user_button_clicked (GtkButton  *button,
 
     gs_lock_plug_set_sensitive (plug, FALSE);
 
-    plug->priv->response_idle_id = g_timeout_add_seconds (2,
-            (GSourceFunc)response_cancel_idle_cb,
-            plug);
+    plug->priv->response_idle_id = g_timeout_add_seconds (2, response_cancel_idle, plug);
 
     gs_lock_plug_set_busy (plug);
     do_user_switch (plug);
@@ -1548,7 +1546,7 @@ gs_lock_plug_init (GSLockPlug *plug) {
     clear_clipboards (plug);
 
     gs_lock_plug_add_login_window (plug);
-    plug->priv->datetime_timeout_id = g_timeout_add_seconds (60, (GSourceFunc) date_time_update, plug);
+    plug->priv->datetime_timeout_id = g_timeout_add_seconds (60, date_time_update, plug);
 
     /* Layout indicator */
 #ifdef WITH_KBD_LAYOUT_INDICATOR

@@ -521,7 +521,8 @@ gs_window_real_realize (GtkWidget *widget) {
 /* every so often we should raise the window in case
    another window has somehow gotten on top */
 static gboolean
-watchdog_timer (GSWindow *window) {
+watchdog_timer (gpointer user_data) {
+    GSWindow *window = user_data;
     GtkWidget *widget = GTK_WIDGET (window);
 
     gdk_window_focus (gtk_widget_get_window (widget), GDK_CURRENT_TIME);
@@ -540,9 +541,7 @@ remove_watchdog_timer (GSWindow *window) {
 static void
 add_watchdog_timer (GSWindow *window,
                     glong     seconds) {
-    window->priv->watchdog_timer_id = g_timeout_add_seconds (seconds,
-                                      (GSourceFunc)watchdog_timer,
-                                      window);
+    window->priv->watchdog_timer_id = g_timeout_add_seconds (seconds, watchdog_timer, window);
 }
 
 static void
@@ -799,7 +798,9 @@ set_info_text_and_icon (GSWindow   *window,
 }
 
 static gboolean
-info_bar_timeout (GSWindow *window) {
+info_bar_timeout (gpointer user_data) {
+    GSWindow *window = user_data;
+
     window->priv->info_bar_timer_id = 0;
     gtk_widget_hide (window->priv->info_bar);
     return FALSE;
@@ -822,9 +823,7 @@ gs_window_show_message (GSWindow   *window,
         g_source_remove (window->priv->info_bar_timer_id);
     }
 
-    window->priv->info_bar_timer_id = g_timeout_add_seconds (INFO_BAR_SECONDS,
-                                      (GSourceFunc)info_bar_timeout,
-                                      window);
+    window->priv->info_bar_timer_id = g_timeout_add_seconds (INFO_BAR_SECONDS, info_bar_timeout, window);
 }
 
 void

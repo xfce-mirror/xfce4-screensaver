@@ -286,7 +286,8 @@ static gboolean auth_message_handler(GSAuthMessageStyle   style,
     return ret;
 }
 
-static gboolean reset_idle_cb(GSLockPlug* plug) {
+static gboolean reset_idle_cb(gpointer user_data) {
+    GSLockPlug* plug = user_data;
     gs_lock_plug_set_sensitive(plug, TRUE);
     gs_lock_plug_show_message(plug, NULL);
 
@@ -335,7 +336,7 @@ static gboolean response_request_quit(void) {
     return FALSE;
 }
 
-static gboolean quit_timeout_cb(gpointer data) {
+static gboolean quit_timeout_cb(gpointer user_data) {
     gtk_main_quit();
     return FALSE;
 }
@@ -356,7 +357,7 @@ static gboolean auth_check_idle(GSLockPlug* plug) {
 
         if (loop_counter < MAX_FAILURES) {
             gs_debug ("Authentication failed, retrying (%u)", loop_counter);
-            g_timeout_add_seconds (3, (GSourceFunc) reset_idle_cb, plug);
+            g_timeout_add_seconds (3, reset_idle_cb, plug);
         } else {
             gs_debug ("Authentication failed, quitting (max failures)");
             again = FALSE;
@@ -364,7 +365,7 @@ static gboolean auth_check_idle(GSLockPlug* plug) {
              * terminates us after it has finished the dialog shake. Time out
              * after 5 seconds and quit anyway if this doesn't happen though */
             g_idle_add((GSourceFunc) response_request_quit, NULL);
-            g_timeout_add_seconds(5, (GSourceFunc) quit_timeout_cb, NULL);
+            g_timeout_add_seconds(5, quit_timeout_cb, NULL);
         }
     }
 
