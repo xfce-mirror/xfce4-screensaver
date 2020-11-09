@@ -273,23 +273,35 @@ set_status_text (GSLockPlug *plug,
     }
 }
 
-static void
+static gboolean
 date_time_update (GSLockPlug *plug) {
     GDateTime *datetime;
     gchar     *datetime_format;
     gchar     *str;
 
     datetime = g_date_time_new_now_local ();
+    if (datetime == NULL)
+        goto out;
+
     /* TRANSLATORS: adjust this accordingly for your locale format */
     datetime_format = g_date_time_format (datetime, NC_("Date",
                                                         "%A, %B %e   %H:%M"));
+    if (datetime_format == NULL)
+        goto out_datetime;
 
     str = g_strdup_printf ("<b>%s</b>", datetime_format);
+    if (str == NULL)
+        goto out_str;
+
     gtk_label_set_markup (GTK_LABEL (plug->priv->auth_datetime_label), str);
     g_free (str);
 
+out_str:
     g_free (datetime_format);
+out_datetime:
     g_date_time_unref (datetime);
+out:
+    return TRUE;
 }
 
 void
