@@ -341,7 +341,7 @@ remove_lock_timer (GSManager *manager) {
 
 static void
 add_lock_timer (GSManager *manager,
-                glong      seconds) {
+                guint      seconds) {
     if (!manager->priv->prefs->lock_enabled)
         return;
     if (!manager->priv->prefs->lock_with_saver_enabled)
@@ -349,7 +349,7 @@ add_lock_timer (GSManager *manager,
     if (manager->priv->lock_active)
         return;
 
-    gs_debug ("Scheduling screen lock after screensaver is idling for %i sec", seconds * 60);
+    gs_debug ("Scheduling screen lock after screensaver is idling for %u sec", seconds * 60);
     manager->priv->lock_timeout_id = g_timeout_add_seconds (seconds * 60, activate_lock_timeout, manager);
 }
 
