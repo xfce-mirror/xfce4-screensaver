@@ -315,7 +315,7 @@ gs_listener_x11_set_timeouts (GSListenerX11 *listener) {
     gboolean trigger_reset_timer = FALSE;
 
     /* set X server timeouts and disable screen blanking */
-    XSetScreenSaver(display, timeout, timeout, 0, 0);
+    XSetScreenSaver(display, timeout, timeout, DontPreferBlanking, DontAllowExposures);
 
     if (listener->priv->timeout != timeout) {
         listener->priv->timeout = timeout;
