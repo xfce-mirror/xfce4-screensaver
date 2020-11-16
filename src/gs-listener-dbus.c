@@ -510,6 +510,11 @@ add_sleep_inhibit (GSListener *listener) {
 
     g_return_if_fail (listener != NULL);
 
+    if (listener->priv->system_connection == NULL) {
+        gs_debug ("No connection to the system bus");
+        return;
+    }
+
     dbus_error_init (&error);
 
 #if defined(WITH_SYSTEMD) || defined(WITH_ELOGIND)
