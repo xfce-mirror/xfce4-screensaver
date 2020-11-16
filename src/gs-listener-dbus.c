@@ -2197,7 +2197,7 @@ gs_listener_init (GSListener *listener) {
 #endif
     listener->priv->prefs = gs_prefs_new();
 
-    g_assert (gs_listener_dbus_init (listener));
+    gs_listener_dbus_init (listener);
 
     init_session_id (listener);
 
