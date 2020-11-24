@@ -6,19 +6,19 @@
 # Translators:
 # kdeguchi <kdeguchi@sz.tokoha-u.ac.jp>, 2018
 # Xfce Bot <transifex@xfce.org>, 2018
-# Nobuhiro Iwamatsu <iwamatsu@nigauri.org>, 2019
 # Masato HASHIMOTO <cabezon.hashimoto@gmail.com>, 2019
 # UTUMI Hirosi <utuhiro78@yahoo.co.jp>, 2019
 # Nick Schermer <nick@xfce.org>, 2020
+# Nobuhiro Iwamatsu <iwamatsu@nigauri.org>, 2020
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-15 12:31+0100\n"
+"POT-Creation-Date: 2020-11-08 00:46+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Nick Schermer <nick@xfce.org>, 2020\n"
+"Last-Translator: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>, 2020\n"
 "Language-Team: Japanese (https://www.transifex.com/xfce/teams/16840/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -78,21 +78,21 @@ msgstr "使用するソース画像"
 
 #. translators: the word "image" here
 #. * represents a command line argument
-#: ../savers/floaters.c:1122
+#: ../savers/floaters.c:1129
 msgid "image - floats images around the screen"
 msgstr "画像 - 画面の周りに画像を浮遊させる"
 
-#: ../savers/floaters.c:1126 ../savers/popsquares.c:49
+#: ../savers/floaters.c:1133 ../savers/popsquares.c:49
 #, c-format
 msgid "%s. See --help for usage information.\n"
 msgstr "%s。使用法については --help を参照してください。\n"
 
-#: ../savers/floaters.c:1133
+#: ../savers/floaters.c:1140
 #, c-format
 msgid "Failed to initialize the windowing system."
 msgstr "ウィンドウシステムの初期化に失敗しました。"
 
-#: ../savers/floaters.c:1139
+#: ../savers/floaters.c:1146
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr "1つの画像を指定する必要があります。使用法については --help を参照してください。\n"
@@ -115,19 +115,19 @@ msgstr "\"#rrggbb\""
 
 #: ../savers/slideshow.c:61
 msgid "Do not randomize pictures from location"
-msgstr "場所からの写真をランダム化しないでください"
+msgstr "場所から写真をランダム化しない"
 
 #: ../savers/slideshow.c:65
 msgid "Do not try to stretch images on screen"
-msgstr "画面上の画像を引き伸ばそうとしないでください"
+msgstr "画面上の画像を引き伸ばそうとしない"
 
 #: ../savers/xfce-floaters.desktop.in.in.h:1
 msgid "Floating Xfce"
-msgstr "フローティングXfce"
+msgstr "フローティング Xfce"
 
 #: ../savers/xfce-floaters.desktop.in.in.h:2
 msgid "Bubbles the Xfce logo around the screen"
-msgstr "Xfceロゴを画面の周りに泡立てる"
+msgstr "Xfce ロゴを画面の周りに泡立てる"
 
 #: ../savers/xfce-personal-slideshow.desktop.in.in.h:1
 msgid "Slideshow"
@@ -179,15 +179,15 @@ msgstr "システムへのアクセスが許可されなくなりました。"
 msgid "Username:"
 msgstr "ユーザー名:"
 
-#: ../src/gs-listener-dbus.c:1913
+#: ../src/gs-listener-dbus.c:1967
 msgid "failed to register with the message bus"
 msgstr "メッセージバスへの登録に失敗しました"
 
-#: ../src/gs-listener-dbus.c:1923
+#: ../src/gs-listener-dbus.c:1977
 msgid "not connected to the message bus"
 msgstr "メッセージバスに接続されていません"
 
-#: ../src/gs-listener-dbus.c:1932 ../src/gs-listener-dbus.c:1962
+#: ../src/gs-listener-dbus.c:1986 ../src/gs-listener-dbus.c:2016
 msgid "screensaver already running in this session"
 msgstr "このセッションで既に実行中のスクリーンセーバー"
 
@@ -247,36 +247,36 @@ msgid "The reason for inhibiting the screensaver"
 msgstr "スクリーンセーバーを禁止する理由"
 
 #: ../src/xfce4-screensaver-command.c:100 ../src/xfce4-screensaver-dialog.c:65
-#: ../src/xfce4-screensaver.c:58
+#: ../src/xfce4-screensaver.c:57
 msgid "Version of this application"
 msgstr "このアプリケーションのバージョン"
 
-#: ../src/xfce4-screensaver-command.c:206
+#: ../src/xfce4-screensaver-command.c:208
 #, c-format
 msgid "The screensaver is %s\n"
 msgstr "スクリーンセーバーは %s です\n"
 
-#: ../src/xfce4-screensaver-command.c:206
+#: ../src/xfce4-screensaver-command.c:208
 msgid "active"
 msgstr "アクティブ"
 
-#: ../src/xfce4-screensaver-command.c:206
+#: ../src/xfce4-screensaver-command.c:208
 msgid "inactive"
 msgstr "非アクティブ"
 
-#: ../src/xfce4-screensaver-command.c:217
+#: ../src/xfce4-screensaver-command.c:219
 #, c-format
 msgid "The screensaver is not inhibited\n"
 msgstr ""
 "スクリーンセーバーは禁止されていません\n"
 "\n"
 
-#: ../src/xfce4-screensaver-command.c:219
+#: ../src/xfce4-screensaver-command.c:221
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
 msgstr "スクリーンセーバーは以下によって禁止されています:\n"
 
-#: ../src/xfce4-screensaver-command.c:235
+#: ../src/xfce4-screensaver-command.c:237
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "スクリーンセーバーは %d 秒間アクティブです。\n"
@@ -663,11 +663,7 @@ msgstr "システムスリープで画面をロックする"
 msgid "Lock Screen"
 msgstr "ロック画面"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "デーモンにならない"
-
-#: ../src/xfce4-screensaver.c:60
+#: ../src/xfce4-screensaver.c:58
 msgid "Enable debugging code"
 msgstr "デバッグコードを有効にする"
 
