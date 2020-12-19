@@ -568,7 +568,7 @@ if test "x$have_pam" = "xyes"; then
                       #include <stdlib.h>
                       #include <security/pam_appl.h>],
                      [pam_handle_t *pamh = 0;
-                      char *s = pam_strerror(pamh, PAM_SUCCESS);],
+                      const char *s = pam_strerror(pamh, PAM_SUCCESS);],
                      [ac_pam_strerror_args=2],
                      [AC_TRY_COMPILE([#include <stdio.h>
                                       #include <stdlib.h>
