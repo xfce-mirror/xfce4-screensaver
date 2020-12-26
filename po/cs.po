@@ -5,17 +5,17 @@
 # 
 # Translators:
 # Pavel Borecki <pavel.borecki@gmail.com>, 2019
-# Michal Várady <miko.vaji@gmail.com>, 2019
 # Nick Schermer <nick@xfce.org>, 2020
+# Michal Várady <miko.vaji@gmail.com>, 2020
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-15 12:31+0100\n"
+"POT-Creation-Date: 2020-11-08 00:46+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Nick Schermer <nick@xfce.org>, 2020\n"
+"Last-Translator: Michal Várady <miko.vaji@gmail.com>, 2020\n"
 "Language-Team: Czech (https://www.transifex.com/xfce/teams/16840/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -75,21 +75,21 @@ msgstr "Použitý zdrojový obrázek"
 
 #. translators: the word "image" here
 #. * represents a command line argument
-#: ../savers/floaters.c:1122
+#: ../savers/floaters.c:1129
 msgid "image - floats images around the screen"
 msgstr "image - počet obrázků plujících po obrazovce"
 
-#: ../savers/floaters.c:1126 ../savers/popsquares.c:49
+#: ../savers/floaters.c:1133 ../savers/popsquares.c:49
 #, c-format
 msgid "%s. See --help for usage information.\n"
 msgstr "%s. Informace o použití získáte příkazem --help.\n"
 
-#: ../savers/floaters.c:1133
+#: ../savers/floaters.c:1140
 #, c-format
 msgid "Failed to initialize the windowing system."
 msgstr "Inicializace systému oken se nezdařila."
 
-#: ../savers/floaters.c:1139
+#: ../savers/floaters.c:1146
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr ""
@@ -178,15 +178,15 @@ msgstr "Již nemáte oprávnění přistupovat k systému."
 msgid "Username:"
 msgstr "Uživatelské jméno:"
 
-#: ../src/gs-listener-dbus.c:1913
+#: ../src/gs-listener-dbus.c:1967
 msgid "failed to register with the message bus"
 msgstr "nepodařilo se registrovat na sběrnici zpráv"
 
-#: ../src/gs-listener-dbus.c:1923
+#: ../src/gs-listener-dbus.c:1977
 msgid "not connected to the message bus"
 msgstr "nepřipojeno ke sběrnici zpráv"
 
-#: ../src/gs-listener-dbus.c:1932 ../src/gs-listener-dbus.c:1962
+#: ../src/gs-listener-dbus.c:1986 ../src/gs-listener-dbus.c:2016
 msgid "screensaver already running in this session"
 msgstr "v této relaci je již šetřič obrazovky spuštěný"
 
@@ -252,34 +252,34 @@ msgid "The reason for inhibiting the screensaver"
 msgstr "Důvod pro odstavení šetřiče"
 
 #: ../src/xfce4-screensaver-command.c:100 ../src/xfce4-screensaver-dialog.c:65
-#: ../src/xfce4-screensaver.c:58
+#: ../src/xfce4-screensaver.c:57
 msgid "Version of this application"
 msgstr "Verze této aplikace"
 
-#: ../src/xfce4-screensaver-command.c:206
+#: ../src/xfce4-screensaver-command.c:208
 #, c-format
 msgid "The screensaver is %s\n"
 msgstr "Šetřič obrazovky je %s\n"
 
-#: ../src/xfce4-screensaver-command.c:206
+#: ../src/xfce4-screensaver-command.c:208
 msgid "active"
 msgstr "aktivní"
 
-#: ../src/xfce4-screensaver-command.c:206
+#: ../src/xfce4-screensaver-command.c:208
 msgid "inactive"
 msgstr "neaktivní"
 
-#: ../src/xfce4-screensaver-command.c:217
+#: ../src/xfce4-screensaver-command.c:219
 #, c-format
 msgid "The screensaver is not inhibited\n"
 msgstr "Šetřič není odstaven\n"
 
-#: ../src/xfce4-screensaver-command.c:219
+#: ../src/xfce4-screensaver-command.c:221
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
 msgstr "Šetřič je odstaven na žádost:\n"
 
-#: ../src/xfce4-screensaver-command.c:235
+#: ../src/xfce4-screensaver-command.c:237
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "Šetřič byl aktivní %d sekund.\n"
@@ -447,7 +447,7 @@ msgstr "Zadejte nové heslo."
 
 #: ../src/xfce4-screensaver-dialog.c:200
 msgid "Enter your current password:"
-msgstr "Zadejte stávající heslo:"
+msgstr "Zadejte aktuální heslo:"
 
 #: ../src/xfce4-screensaver-dialog.c:202
 msgid "Error while changing NIS password."
@@ -667,11 +667,7 @@ msgstr "Uzamknout obrazovku s uspáním systému"
 msgid "Lock Screen"
 msgstr "Uzamknout obrazovku"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Nepřecházet v proces služby"
-
-#: ../src/xfce4-screensaver.c:60
+#: ../src/xfce4-screensaver.c:58
 msgid "Enable debugging code"
 msgstr "Povolit ladicí kód"
 
