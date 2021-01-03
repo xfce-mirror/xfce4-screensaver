@@ -567,7 +567,10 @@ class ConfigurationWindow(Gtk.Window):
         return gtk_version >= (int(major), int(minor), int(micro))
 
     def get_boolean(self, option_id, default):
-        value = self.xfconf_settings.get_boolean(option_id)
+        if self.xfconf_settings.check_property(option_id):
+            value = self.xfconf_settings.get_boolean(option_id)
+        else:
+            value = default
         self.defaults[option_id] = default
         self.set_boolean(option_id, value, False)
         return value
@@ -578,7 +581,10 @@ class ConfigurationWindow(Gtk.Window):
             self.xfconf_settings.set_boolean(option_id, value)
 
     def get_double(self, option_id, default):
-        value = self.xfconf_settings.get_double(option_id)
+        if self.xfconf_settings.check_property(option_id):
+            value = self.xfconf_settings.get_double(option_id)
+        else:
+            value = default
         self.defaults[option_id] = default
         self.set_double(option_id, value, False)
         return value
@@ -589,7 +595,10 @@ class ConfigurationWindow(Gtk.Window):
             self.xfconf_settings.set_double(option_id, value)
 
     def get_int(self, option_id, default):
-        value = self.xfconf_settings.get_int(option_id)
+        if self.xfconf_settings.check_property(option_id):
+            value = self.xfconf_settings.get_int(option_id)
+        else:
+            value = default
         self.defaults[option_id] = default
         self.set_int(option_id, value, False)
         return value
@@ -600,7 +609,10 @@ class ConfigurationWindow(Gtk.Window):
             self.xfconf_settings.set_int(option_id, value)
 
     def get_string(self, option_id, default):
-        value = self.xfconf_settings.get_string(option_id)
+        if self.xfconf_settings.check_property(option_id):
+            value = self.xfconf_settings.get_string(option_id)
+        else:
+            value = default
         self.defaults[option_id] = default
         self.set_string(option_id, value, False)
         return value
