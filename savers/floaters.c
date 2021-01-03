@@ -268,8 +268,8 @@ static gdouble screen_saver_get_timestamp (ScreenSaver *screen_saver);
 static void screen_saver_get_initial_state (ScreenSaver *screen_saver);
 static void screen_saver_update_state (ScreenSaver *screen_saver,
                                        gdouble      time);
-static gboolean screen_saver_do_update_state (ScreenSaver *screen_saver);
-static gboolean screen_saver_do_update_stats (ScreenSaver *screen_saver);
+static gboolean screen_saver_do_update_state (gpointer user_data);
+static gboolean screen_saver_do_update_stats (gpointer user_data);
 static gdouble screen_saver_get_updates_per_second (ScreenSaver *screen_saver);
 static gdouble screen_saver_get_frames_per_second (ScreenSaver *screen_saver);
 static gdouble screen_saver_get_image_cache_usage (ScreenSaver *screen_saver);
@@ -279,7 +279,6 @@ static void screen_saver_on_size_allocate (ScreenSaver   *screen_saver,
                                            GtkAllocation *allocation);
 static void screen_saver_on_draw (ScreenSaver *screen_saver,
                                   cairo_t     *context);
-static gboolean do_print_screen_saver_stats (ScreenSaver *screen_saver);
 static GdkPixbuf *gamma_correct (const GdkPixbuf *input_pixbuf);
 
 static CachedSource*
@@ -833,11 +832,10 @@ screen_saver_new (GtkWidget   *drawing_area,
 
     screen_saver->state_update_timeout_id =
         g_timeout_add (1000 / (2.0 * OPTIMAL_FRAME_RATE),
-                       (GSourceFunc) screen_saver_do_update_state, screen_saver);
+                       screen_saver_do_update_state, screen_saver);
 
     screen_saver->stats_update_timeout_id =
-        g_timeout_add (1000, (GSourceFunc) screen_saver_do_update_stats,
-                       screen_saver);
+        g_timeout_add (1000, screen_saver_do_update_stats, screen_saver);
 
     return screen_saver;
 }
@@ -1048,7 +1046,8 @@ screen_saver_get_initial_state (ScreenSaver *screen_saver) {
 }
 
 static gboolean
-screen_saver_do_update_state (ScreenSaver *screen_saver) {
+screen_saver_do_update_state (gpointer user_data) {
+    ScreenSaver *screen_saver = user_data;
     gdouble current_update_time;
 
     /* flush pending requests to the X server and block for
@@ -1071,7 +1070,8 @@ screen_saver_do_update_state (ScreenSaver *screen_saver) {
 }
 
 static gboolean
-screen_saver_do_update_stats (ScreenSaver *screen_saver) {
+screen_saver_do_update_stats (gpointer user_data) {
+    ScreenSaver *screen_saver = user_data;
     gdouble last_calculated_stats_time, seconds_since_last_stats_update;
 
     last_calculated_stats_time = screen_saver->current_calculated_stats_time;
@@ -1097,7 +1097,9 @@ screen_saver_do_update_stats (ScreenSaver *screen_saver) {
 }
 
 static gboolean
-do_print_screen_saver_stats (ScreenSaver *screen_saver) {
+do_print_screen_saver_stats (gpointer user_data) {
+    ScreenSaver *screen_saver = user_data;
+
     g_print ("updates per second: %.2f, frames per second: %.2f, "
              "image cache %.0f%% full\n",
              screen_saver_get_updates_per_second (screen_saver),
@@ -1164,9 +1166,7 @@ main (int   argc,
     g_strfreev (filenames);
 
     if (should_print_stats)
-        g_timeout_add (STAT_PRINT_FREQUENCY,
-                       (GSourceFunc) do_print_screen_saver_stats,
-                       screen_saver);
+        g_timeout_add (STAT_PRINT_FREQUENCY, do_print_screen_saver_stats, screen_saver);
 
     G_GNUC_BEGIN_IGNORE_DEPRECATIONS /* GTK 3.20 */
     if ((geometry == NULL)

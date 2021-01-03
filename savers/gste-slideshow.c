@@ -104,7 +104,8 @@ typedef struct _OpResult {
 } OpResult;
 
 static gboolean
-push_load_image_func (GSTESlideshow *show) {
+push_load_image_func (gpointer user_data) {
+    GSTESlideshow *show = user_data;
     Op *op;
 
     gs_theme_engine_profile_msg ("Starting a new image load");
@@ -129,8 +130,7 @@ start_new_load (GSTESlideshow *show,
     /* queue a new load */
     if (show->priv->update_image_id <= 0) {
         show->priv->update_image_id = g_timeout_add_full (G_PRIORITY_LOW, timeout,
-                                      (GSourceFunc)push_load_image_func,
-                                      show, NULL);
+                                      push_load_image_func, show, NULL);
     }
 }
 
@@ -297,7 +297,9 @@ update_display (GSTESlideshow *show) {
 }
 
 static gboolean
-draw_iter (GSTESlideshow *show) {
+draw_iter (gpointer user_data) {
+    GSTESlideshow *show = user_data;
+
     if (show->priv->pat2 != NULL) {
         double old_opacity;
         double new_opacity;
@@ -381,7 +383,8 @@ op_result_free (OpResult *result) {
 }
 
 static gboolean
-results_pull_func (GSTESlideshow *show) {
+results_pull_func (gpointer user_data) {
+    GSTESlideshow *show = user_data;
     OpResult *result;
 
     g_async_queue_lock (show->priv->results_q);
@@ -606,7 +609,7 @@ op_load_image (GSTESlideshow *show,
 
     if (show->priv->results_pull_id == 0) {
         show->priv->results_pull_id = g_idle_add_full (G_PRIORITY_HIGH_IDLE,
-                                                       (GSourceFunc)results_pull_func,
+                                                       results_pull_func,
                                                        show, NULL);
     }
 
@@ -751,7 +754,7 @@ gste_slideshow_real_show (GtkWidget *widget) {
     start_new_load (show, 10);
 
     delay = 25;
-    show->priv->timeout_id = g_timeout_add (delay, (GSourceFunc)draw_iter, show);
+    show->priv->timeout_id = g_timeout_add (delay, draw_iter, show);
 
     if (show->priv->timer != NULL) {
         g_timer_destroy (show->priv->timer);

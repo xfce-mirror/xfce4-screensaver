@@ -242,7 +242,9 @@ static void        color_from_color_array   (XfconfChannel    *channel,
 }
 
 static gboolean
-do_changed (XfceBG *bg) {
+do_changed (gpointer user_data) {
+    XfceBG *bg = user_data;
+
     bg->changed_id = 0;
 
     g_signal_emit (G_OBJECT (bg), signals[CHANGED], 0);
@@ -256,15 +258,12 @@ queue_changed (XfceBG *bg) {
         g_source_remove (bg->changed_id);
     }
 
-    bg->changed_id = g_timeout_add_full (G_PRIORITY_LOW,
-                         100,
-                         (GSourceFunc)do_changed,
-                         bg,
-                         NULL);
+    bg->changed_id = g_timeout_add_full (G_PRIORITY_LOW, 100, do_changed, bg, NULL);
 }
 
 static gboolean
-do_transitioned (XfceBG *bg) {
+do_transitioned (gpointer user_data) {
+    XfceBG *bg = user_data;
     bg->transitioned_id = 0;
 
     if (bg->pixbuf_cache) {
@@ -283,11 +282,7 @@ queue_transitioned (XfceBG *bg) {
         g_source_remove (bg->transitioned_id);
     }
 
-    bg->transitioned_id = g_timeout_add_full (G_PRIORITY_LOW,
-                          100,
-                          (GSourceFunc)do_transitioned,
-                          bg,
-                          NULL);
+    bg->transitioned_id = g_timeout_add_full (G_PRIORITY_LOW, 100, do_transitioned, bg, NULL);
 }
 
 static gchar *

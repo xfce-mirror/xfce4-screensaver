@@ -47,7 +47,7 @@ static void     gs_window_class_init     (GSWindowClass *klass);
 static void     gs_window_init           (GSWindow      *window);
 static void     gs_window_finalize       (GObject       *object);
 
-static gboolean popup_dialog_idle        (GSWindow      *window);
+static gboolean popup_dialog_idle        (gpointer user_data);
 static void     gs_window_dialog_finish  (GSWindow      *window);
 static void     gs_window_set_obscured   (GSWindow      *window,
                                           gboolean       obscured);
@@ -521,7 +521,8 @@ gs_window_real_realize (GtkWidget *widget) {
 /* every so often we should raise the window in case
    another window has somehow gotten on top */
 static gboolean
-watchdog_timer (GSWindow *window) {
+watchdog_timer (gpointer user_data) {
+    GSWindow *window = user_data;
     GtkWidget *widget = GTK_WIDGET (window);
 
     gdk_window_focus (gtk_widget_get_window (widget), GDK_CURRENT_TIME);
@@ -540,9 +541,7 @@ remove_watchdog_timer (GSWindow *window) {
 static void
 add_watchdog_timer (GSWindow *window,
                     glong     seconds) {
-    window->priv->watchdog_timer_id = g_timeout_add_seconds (seconds,
-                                      (GSourceFunc)watchdog_timer,
-                                      window);
+    window->priv->watchdog_timer_id = g_timeout_add_seconds (seconds, watchdog_timer, window);
 }
 
 static void
@@ -555,11 +554,13 @@ remove_popup_dialog_idle (GSWindow *window) {
 
 static void
 add_popup_dialog_idle (GSWindow *window) {
-    window->priv->popup_dialog_idle_id = g_idle_add ((GSourceFunc)popup_dialog_idle, window);
+    window->priv->popup_dialog_idle_id = g_idle_add (popup_dialog_idle, window);
 }
 
 static gboolean
-emit_deactivated_idle (GSWindow *window) {
+emit_deactivated_idle (gpointer user_data) {
+    GSWindow *window = user_data;
+
     g_signal_emit (window, signals[DEACTIVATED], 0);
 
     return FALSE;
@@ -567,7 +568,7 @@ emit_deactivated_idle (GSWindow *window) {
 
 static void
 add_emit_deactivated_idle (GSWindow *window) {
-    g_idle_add ((GSourceFunc)emit_deactivated_idle, window);
+    g_idle_add (emit_deactivated_idle, window);
 }
 
 static void
@@ -799,7 +800,9 @@ set_info_text_and_icon (GSWindow   *window,
 }
 
 static gboolean
-info_bar_timeout (GSWindow *window) {
+info_bar_timeout (gpointer user_data) {
+    GSWindow *window = user_data;
+
     window->priv->info_bar_timer_id = 0;
     gtk_widget_hide (window->priv->info_bar);
     return FALSE;
@@ -822,9 +825,7 @@ gs_window_show_message (GSWindow   *window,
         g_source_remove (window->priv->info_bar_timer_id);
     }
 
-    window->priv->info_bar_timer_id = g_timeout_add_seconds (INFO_BAR_SECONDS,
-                                      (GSourceFunc)info_bar_timeout,
-                                      window);
+    window->priv->info_bar_timer_id = g_timeout_add_seconds (INFO_BAR_SECONDS, info_bar_timeout, window);
 }
 
 void
@@ -1564,7 +1565,9 @@ popup_dialog (GSWindow *window) {
 }
 
 static gboolean
-popup_dialog_idle (GSWindow *window) {
+popup_dialog_idle (gpointer user_data) {
+    GSWindow *window = user_data;
+
     popup_dialog (window);
 
     window->priv->popup_dialog_idle_id = 0;

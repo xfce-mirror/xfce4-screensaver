@@ -510,6 +510,11 @@ add_sleep_inhibit (GSListener *listener) {
 
     g_return_if_fail (listener != NULL);
 
+    if (listener->priv->system_connection == NULL) {
+        gs_debug ("No connection to the system bus");
+        return;
+    }
+
     dbus_error_init (&error);
 
 #if defined(WITH_SYSTEMD) || defined(WITH_ELOGIND)
@@ -1724,7 +1729,8 @@ gs_listener_dbus_init (GSListener *listener) {
 }
 
 static gboolean
-reinit_dbus (GSListener *listener) {
+reinit_dbus (gpointer user_data) {
+    GSListener *listener = user_data;
     gboolean initialized;
     gboolean try_again;
 
@@ -1764,7 +1770,7 @@ listener_dbus_filter_function (DBusConnection *connection,
         dbus_connection_unref (connection);
         listener->priv->connection = NULL;
 
-        g_timeout_add_seconds (10, (GSourceFunc)reinit_dbus, listener);
+        g_timeout_add_seconds (10, reinit_dbus, listener);
     } else if (dbus_message_is_signal (message,
                                      DBUS_INTERFACE_DBUS,
                                      "NameOwnerChanged")) {
@@ -1795,7 +1801,7 @@ listener_dbus_system_filter_function (DBusConnection *connection,
         dbus_connection_unref (connection);
         listener->priv->system_connection = NULL;
 
-        g_timeout_add_seconds (10, (GSourceFunc)reinit_dbus, listener);
+        g_timeout_add_seconds (10, reinit_dbus, listener);
     } else {
         return listener_dbus_handle_system_message (connection, message, user_data, FALSE);
     }
@@ -2196,7 +2202,7 @@ gs_listener_init (GSListener *listener) {
 #endif
     listener->priv->prefs = gs_prefs_new();
 
-    g_assert (gs_listener_dbus_init (listener));
+    gs_listener_dbus_init (listener);
 
     init_session_id (listener);
 

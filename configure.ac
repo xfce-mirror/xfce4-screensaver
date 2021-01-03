@@ -346,55 +346,6 @@ if test "$have_shape" = yes; then
 fi
 
 dnl ---------------------------------------------------------------------------
-dnl - Check for the MIT-SCREEN-SAVER server extension.
-dnl ---------------------------------------------------------------------------
-
-have_mit=no
-with_mit_req=unspecified
-AC_ARG_WITH(mit-ext,
-[  --with-mit-ext          Include support for the MIT-SCREEN-SAVER extension.],
-  [with_mit="$withval"; with_mit_req="$withval"],[with_mit=yes])
-
-HANDLE_X_PATH_ARG(with_mit, --with-mit-ext, MIT-SCREEN-SAVER)
-
-if test "$with_mit" = yes; then
-  AC_CHECK_X_HEADER(X11/extensions/scrnsaver.h, [have_mit=yes],,
-                    [#include <X11/Xlib.h>])
-
-  # Now check to see if it's really in the library; XF86Free-3.3 ships
-  # scrnsaver.h, but doesn't include the code in libXext.a
-  if test "$have_mit" = yes; then
-    AC_CHECK_X_LIB(Xext, XScreenSaverRegister, [true], [have_mit=no], -lm)
-
-    if test "$have_mit" = no; then
-      # Looks like XF86Free-3.3 actually puts it in XExExt instead
-      # of in Xext.
-      AC_CHECK_X_LIB(XExExt, XScreenSaverRegister,
-                     [have_mit=yes; SAVER_LIBS="$SAVER_LIBS -lXExExt"],
-                     [true], -lX11 -lXext -lm)
-    fi
-
-    if test "$have_mit" = no; then
-      # Looks like some versions of XFree86 (whichever version
-      # it is that comes with RedHat Linux 2.0 -- I can't find a version
-      # number) put this in Xss instead of Xext.
-      AC_CHECK_X_LIB(Xss, XScreenSaverRegister,
-                     [have_mit=yes; SAVER_LIBS="$SAVER_LIBS -lXss"],
-                     [true], -lX11 -lXext -lm)
-    fi
-
-  if test "$have_mit" = yes; then
-    AC_DEFINE(HAVE_MIT_SAVER_EXTENSION, 1, [Define if the MIT screensaver extension is available])
-  fi
-
-  fi
-
-elif test "$with_mit" != no; then
-  echo "error: must be yes or no: --with-mit-ext=$with_mit"
-  exit 1
-fi
-
-dnl ---------------------------------------------------------------------------
 dnl - Check for the XF86VMODE server extension (for gamma fading.)
 dnl ---------------------------------------------------------------------------
 
@@ -617,7 +568,7 @@ if test "x$have_pam" = "xyes"; then
                       #include <stdlib.h>
                       #include <security/pam_appl.h>],
                      [pam_handle_t *pamh = 0;
-                      char *s = pam_strerror(pamh, PAM_SUCCESS);],
+                      const char *s = pam_strerror(pamh, PAM_SUCCESS);],
                      [ac_pam_strerror_args=2],
                      [AC_TRY_COMPILE([#include <stdio.h>
                                       #include <stdlib.h>
