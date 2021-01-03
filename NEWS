@@ -1,3 +1,19 @@
+4.16.0
+======
+- xfce4-screensaver-configure: Use GIRepository of libxfce4util and xfconf (#11)
+- Change type of seconds to guint in add_lock_timer
+- Check dbus system_connection in add_sleep_inhibit
+- Cleanup GSourceFunc usage
+- Convert date_time_update to a timer function
+- Fix format specifiers in lock_timer
+- Fix issues connected to dbus (#66)
+- Fix pam_strerror usage
+- Pass constants to XSetScreenSaver
+- Plug memleak in get_x11_idle_info
+- Remove obsolete check for scrnsaver.h from configure.ac
+- Translation Updates:
+  Czech, Japanese, Portuguese, Turkish
+
 0.1.11
 ======
 - Builds: Move from exo-csource to xdt-csource (Bugzilla #16717)
