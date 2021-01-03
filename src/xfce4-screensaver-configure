@@ -34,9 +34,9 @@ gi.require_version('GLib', '2.0')
 gi.require_version('GObject', '2.0')
 gi.require_version('Gdk', '3.0')
 gi.require_version('Gtk', '3.0')
-gi.require_version('libxfce4util', '1.0')
+gi.require_version('Libxfce4util', '1.0')
 gi.require_version('Xfconf', '0')
-from gi.repository import GLib, GObject, Gdk, Gtk, libxfce4util, Xfconf
+from gi.repository import GLib, GObject, Gdk, Gtk, Libxfce4util, Xfconf
 
 warnings.filterwarnings("ignore")
 
@@ -166,7 +166,7 @@ class DesktopScreensaverSettings(ScreensaverSettings):
         if not os.path.exists(filename):
             return False
 
-        libxfce4util.textdomain('xfce4-screensaver',
+        Libxfce4util.textdomain('xfce4-screensaver',
                                 os.path.join(sys.prefix, '/share/locale'),
                                 'UTF-8')
 
@@ -238,7 +238,7 @@ class XmlScreensaverSettings(ScreensaverSettings):
         if not os.path.exists(filename):
             return False
 
-        libxfce4util.textdomain('xscreensaver',
+        Libxfce4util.textdomain('xscreensaver',
                                 os.path.join(sys.prefix, '/share/locale'),
                                 'UTF-8')
 
@@ -374,7 +374,7 @@ class ConfigurationWindow(Gtk.Window):
     def __init__(self, parsed):
         Gtk.Window.__init__(self, title=parsed["label"])
 
-        libxfce4util.textdomain('xfce4-screensaver',
+        Libxfce4util.textdomain('xfce4-screensaver',
                                 os.path.join(sys.prefix, '/share/locale'),
                                 'UTF-8')
 
@@ -750,7 +750,7 @@ def configure(parsed):
 
 
 def show_fatal(primary, secondary):
-    libxfce4util.textdomain('xfce4-screensaver',
+    Libxfce4util.textdomain('xfce4-screensaver',
                             os.path.join(sys.prefix, '/share/locale'),
                             'UTF-8')
 
@@ -771,7 +771,7 @@ def show_fatal(primary, secondary):
 
 
 if __name__ == "__main__":
-    libxfce4util.textdomain('xfce4-screensaver',
+    Libxfce4util.textdomain('xfce4-screensaver',
                             os.path.join(sys.prefix, '/share/locale'),
                             'UTF-8')
 
