@@ -80,7 +80,7 @@ class XfconfChannel:
         return self._set_property("bool", prop, value)
 
     def get_double(self, prop, default):
-        return locale.atof(str(self._get_property(prop, default)))
+        return locale.atof(self._get_property(prop, default))
 
     def set_double(self, prop, value):
         return self._set_property("double", prop, value)
