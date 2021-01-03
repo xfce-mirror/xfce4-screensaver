@@ -21,81 +21,93 @@
 
 import argparse
 import os
-import subprocess
 import sys
 import xml.etree.ElementTree as ET
 import warnings
 
 from collections import OrderedDict
 
-import locale
 from locale import gettext as _
 
 import gi
+gi.require_version('GLib', '2.0')
+gi.require_version('GObject', '2.0')
 gi.require_version('Gdk', '3.0')
 gi.require_version('Gtk', '3.0')
-from gi.repository import GLib
-from gi.repository import Gtk
-from gi.repository import Gdk
+gi.require_version('Libxfce4util', '1.0')
+gi.require_version('Xfconf', '0')
+from gi.repository import GLib, GObject, Gdk, Gtk, Libxfce4util, Xfconf
 
 warnings.filterwarnings("ignore")
 
 
-class XfconfChannel:
+class XfconfSettings(object):
 
-    def __init__(self, channel, prefix):
-        self.channel = channel
-        self.prefix = prefix
+    def __init__(self, channel_obj, prop_base):
+        self.channel = channel_obj
+        self.prefix = prop_base
 
-    def _get_property(self, prop, default=""):
-        prop = "%s/%s" % (self.prefix, prop)
-        command = ["xfconf-query", "-c", self.channel, "-p", prop, "-l", "-v"]
-        response = subprocess.check_output(command).decode("utf-8")
-        if prop in response:
-            value = (response.replace(prop, "")).strip()
-            return value
-        return default
-
-    def _set_property(self, prop_type, prop, value):
-        prop = "%s/%s" % (self.prefix, prop)
-        command = ["xfconf-query", "-c", self.channel, "-p",
-                   prop, "-n", "-t", prop_type, "-s", str(value)]
-        return subprocess.call(command)
+    def _check_property_name(self, name):
+        if name.startswith('/'):
+            return name
+        else:
+            return '{0}/{1}'.format(self.prefix, name)
 
     def restore_defaults(self):
-        command = ["xfconf-query", "-c", self.channel, "-p", self.prefix, "-r", "-R"]
-        return subprocess.call(command)
+        self.channel.reset_property(self.prefix, True)
 
-    def get_boolean(self, prop, default):
-        value = self._get_property(prop, default)
-        if value in ["true", True]:
+    def get_boolean(self, prop):
+        g_value = GObject.Value(GObject.TYPE_BOOLEAN)
+        self.channel.get_property(self._check_property_name(prop),
+                                  g_value)
+        if g_value.get_boolean() in ["true", True]:
             return True
         return False
 
     def set_boolean(self, prop, value):
-        if value:
-            value = "true"
-        else:
-            value = "false"
-        return self._set_property("bool", prop, value)
+        g_value = GObject.Value(GObject.TYPE_BOOLEAN)
+        g_value.set_boolean(value)
+        self.channel.set_property(self._check_property_name(prop),
+                                  g_value)
 
-    def get_double(self, prop, default):
-        return locale.atof(str(self._get_property(prop, default)))
+    def get_double(self, prop):
+        g_value = GObject.Value(GObject.TYPE_DOUBLE)
+        self.channel.get_property(self._check_property_name(prop),
+                                  g_value)
+        return g_value.get_double()
 
     def set_double(self, prop, value):
-        return self._set_property("double", prop, value)
+        g_value = GObject.Value(GObject.TYPE_DOUBLE)
+        g_value.set_double(float(value))
+        self.channel.set_property(self._check_property_name(prop),
+                                  g_value)
 
-    def get_int(self, prop, default):
-        return int(self._get_property(prop, default))
+    def get_int(self, prop):
+        g_value = GObject.Value(GObject.TYPE_INT)
+        self.channel.get_property(self._check_property_name(prop),
+                                  g_value)
+        return g_value.get_int()
 
     def set_int(self, prop, value):
-        return self._set_property("int", prop, value)
+        g_value = GObject.Value(GObject.TYPE_INT)
+        g_value.set_int(int(value))
+        self.channel.set_property(self._check_property_name(prop),
+                                  g_value)
 
-    def get_string(self, prop, default):
-        return str(self._get_property(prop, default))
+    def get_string(self, prop):
+        g_value = GObject.Value(GObject.TYPE_STRING)
+        self.channel.get_property(self._check_property_name(prop),
+                                  g_value)
+        return g_value.get_string()
 
     def set_string(self, prop, value):
-        return self._set_property("string", prop, value)
+        g_value = GObject.Value(GObject.TYPE_STRING)
+        g_value.set_string(value)
+        self.channel.set_property(self._check_property_name(prop),
+                                  g_value)
+
+    def check_property(self, prop):
+        return self.channel.has_property(self._check_property_name(prop))
 
 
 class ScreensaverSettings:
@@ -154,7 +166,9 @@ class DesktopScreensaverSettings(ScreensaverSettings):
         if not os.path.exists(filename):
             return False
 
-        locale.textdomain('xfce4-screensaver')
+        Libxfce4util.textdomain('xfce4-screensaver',
+                                os.path.join(sys.prefix, '/share/locale'),
+                                'UTF-8')
 
         self.filename = filename
 
@@ -224,7 +238,9 @@ class XmlScreensaverSettings(ScreensaverSettings):
         if not os.path.exists(filename):
             return False
 
-        locale.textdomain('xscreensaver')
+        Libxfce4util.textdomain('xscreensaver',
+                                os.path.join(sys.prefix, '/share/locale'),
+                                'UTF-8')
 
         self.filename = filename
         element = ET.parse(filename).getroot()
@@ -358,18 +374,34 @@ class ConfigurationWindow(Gtk.Window):
     def __init__(self, parsed):
         Gtk.Window.__init__(self, title=parsed["label"])
 
-        locale.textdomain('xfce4-screensaver')
+        Libxfce4util.textdomain('xfce4-screensaver',
+                                os.path.join(sys.prefix, '/share/locale'),
+                                'UTF-8')
 
         self.set_border_width(6)
         self.set_default_size(400, -1)
         self.set_icon_name("preferences-desktop-screensaver")
-        self.set_wmclass("xfce4-screensaver-preferences",
-                         "xfce4-screensaver-preferences")
+        if not self.check_gtk_version(3, 22, 0):
+            self.set_wmclass("xfce4-screensaver-preferences",
+                             "xfce4-screensaver-preferences")
 
         self.inner_margin = 12
         self.screensaver_args = parsed["arguments"]
-        self.xfconf_channel = XfconfChannel(
-            "xfce4-screensaver", "/screensavers/%s" % parsed["name"])
+
+        property_base = '/screensavers/{0}'.format(parsed['name'])
+        channel = None
+
+        if Xfconf.init():
+            channel = Xfconf.Channel.get('xfce4-screensaver')
+            if channel is not None:
+                self.xfconf_settings = XfconfSettings(channel,
+                                                      property_base)
+            else:
+                print(_('Unable to access channel'))
+                sys.exit(1)
+        else:
+            print(_('Failed to initialize Xfconf'))
+            sys.exit(1)
 
         self.notebook = Gtk.Notebook.new()
         self.grid = Gtk.Grid.new()
@@ -443,7 +475,13 @@ class ConfigurationWindow(Gtk.Window):
 
         if opt["type"] == "checkbox":
             widget = Gtk.CheckButton.new_with_label("")
-            active = self.get_boolean(opt["id"], False)
+
+            if self.xfconf_settings.check_property(opt['id']):
+                active = self.xfconf_settings.get_boolean(opt['id'])
+                self.defaults[opt['id']] = False
+            else:
+                active = self.get_boolean(opt['id'], False)
+
             widget.set_active(active)
             widget.connect("toggled", self.on_checkbutton_toggle, opt["id"])
         elif opt["type"] == "file":
@@ -471,7 +509,13 @@ class ConfigurationWindow(Gtk.Window):
                 opt_argument = get_key(option, "argument", "")
                 widget.append(opt_id, opt_label)
                 self.lookup_table[opt["id"]][opt_id] = opt_argument
-            current = self.get_string(opt["id"], "")
+
+            if self.xfconf_settings.check_property(opt['id']):
+                current = self.xfconf_settings.get_string(opt['id'])
+                self.defaults[opt['id']] = ''
+            else:
+                current = self.get_string(opt['id'], '')
+
             widget.set_active_id(current)
             widget.connect("changed", self.on_select_changed, opt["id"])
         elif opt["type"] == "slider":
@@ -485,12 +529,24 @@ class ConfigurationWindow(Gtk.Window):
             widget.add_mark(
                 opt["high"], Gtk.PositionType.BOTTOM, opt["high-label"])
             widget.set_digits(prefs['digits'])
-            value = self.get_double(opt["id"], opt["default"])
+
+            if self.xfconf_settings.check_property(opt['id']):
+                value = self.xfconf_settings.get_double(opt['id'])
+                self.defaults[opt['id']] = opt['default']
+            else:
+                value = self.get_double(opt['id'], opt['default'])
+
             adj.set_value(value)
             widget.connect("value-changed", self.on_double_changed, opt["id"])
         elif opt["type"] == "spinbutton":
             widget = Gtk.SpinButton.new_with_range(opt["low"], opt["high"], 1)
-            value = self.get_int(opt["id"], opt["default"])
+
+            if self.xfconf_settings.check_property(opt['id']):
+                value = self.xfconf_settings.get_int(opt['id'])
+                self.defaults[opt['id']] = opt['default']
+            else:
+                value = self.get_int(opt['id'], opt['default'])
+
             widget.set_value(value)
             widget.connect("value-changed", self.on_int_changed, opt["id"])
         elif opt["type"] == "color":
@@ -503,8 +559,18 @@ class ConfigurationWindow(Gtk.Window):
             sys.exit(1)
         return widget
 
+    # Taken from Catfish (catfish_lib/helpers.py)
+    def check_gtk_version(self, major, minor, micro):
+        gtk_version = (Gtk.get_major_version(),
+                       Gtk.get_minor_version(),
+                       Gtk.get_micro_version())
+        return gtk_version >= (int(major), int(minor), int(micro))
+
     def get_boolean(self, option_id, default):
-        value = self.xfconf_channel.get_boolean(option_id, default)
+        if self.xfconf_settings.check_property(option_id):
+            value = self.xfconf_settings.get_boolean(option_id)
+        else:
+            value = default
         self.defaults[option_id] = default
         self.set_boolean(option_id, value, False)
         return value
@@ -512,10 +578,13 @@ class ConfigurationWindow(Gtk.Window):
     def set_boolean(self, option_id, value, store=True):
         self.settings[option_id] = value
         if store:
-            self.xfconf_channel.set_boolean(option_id, value)
+            self.xfconf_settings.set_boolean(option_id, value)
 
     def get_double(self, option_id, default):
-        value = self.xfconf_channel.get_double(option_id, default)
+        if self.xfconf_settings.check_property(option_id):
+            value = self.xfconf_settings.get_double(option_id)
+        else:
+            value = default
         self.defaults[option_id] = default
         self.set_double(option_id, value, False)
         return value
@@ -523,10 +592,13 @@ class ConfigurationWindow(Gtk.Window):
     def set_double(self, option_id, value, store=True):
         self.settings[option_id] = value
         if store:
-            self.xfconf_channel.set_double(option_id, value)
+            self.xfconf_settings.set_double(option_id, value)
 
     def get_int(self, option_id, default):
-        value = self.xfconf_channel.get_int(option_id, default)
+        if self.xfconf_settings.check_property(option_id):
+            value = self.xfconf_settings.get_int(option_id)
+        else:
+            value = default
         self.defaults[option_id] = default
         self.set_int(option_id, value, False)
         return value
@@ -534,10 +606,13 @@ class ConfigurationWindow(Gtk.Window):
     def set_int(self, option_id, value, store=True):
         self.settings[option_id] = value
         if store:
-            self.xfconf_channel.set_int(option_id, value)
+            self.xfconf_settings.set_int(option_id, value)
 
     def get_string(self, option_id, default):
-        value = self.xfconf_channel.get_string(option_id, default)
+        if self.xfconf_settings.check_property(option_id):
+            value = self.xfconf_settings.get_string(option_id)
+        else:
+            value = default
         self.defaults[option_id] = default
         self.set_string(option_id, value, False)
         return value
@@ -545,7 +620,7 @@ class ConfigurationWindow(Gtk.Window):
     def set_string(self, option_id, value, store=True):
         self.settings[option_id] = value
         if store:
-            self.xfconf_channel.set_string(option_id, value)
+            self.xfconf_settings.set_string(option_id, value)
 
     def on_checkbutton_toggle(self, button, option_id):
         self.set_boolean(option_id, button.get_active())
@@ -596,7 +671,7 @@ class ConfigurationWindow(Gtk.Window):
                 color = self.defaults[widget_id]
                 widget.set_rgba(hex_to_rgba(color))
                 self.set_string(widget_id, color)
-        self.xfconf_channel.restore_defaults()
+        self.xfconf_settings.restore_defaults()
 
     def write_arguments(self):
         arguments = []
@@ -615,7 +690,7 @@ class ConfigurationWindow(Gtk.Window):
                         argument = argument.replace("%", str(value))
                     arguments.append(argument)
         value = " ".join(arguments)
-        self.xfconf_channel.set_string("arguments", value)
+        self.xfconf_settings.set_string("arguments", value)
 
 
 def get_slider_prefs(options):
@@ -648,12 +723,10 @@ def hex_to_rgba(value):
 
 
 def get_filename(theme):
-    tmp = [GLib.get_user_data_dir()] + GLib.get_system_data_dirs()
-    data_dirs = []
-    for data_dir in tmp:
-        if data_dir not in data_dirs:
-            if os.path.exists(data_dir):
-                data_dirs.append(data_dir)
+    user_data = [GLib.get_user_data_dir()]
+    system_data = GLib.get_system_data_dirs()
+
+    data_dirs = user_data + [i for i in system_data if i not in user_data]
 
     for config_file in ["%s/xscreensaver/config/%s.xml", "%s/applications/screensavers/%s.desktop"]:
         for data_dir in data_dirs:
@@ -673,10 +746,15 @@ def get_key(dct, keyname, default=""):
     return default
 
 
+def quit_window_cb(widget):
+    Xfconf.shutdown()
+    Gtk.main_quit()
+
+
 def configure(parsed):
     try:
         win = ConfigurationWindow(parsed)
-        win.connect("destroy", Gtk.main_quit)
+        win.connect("destroy", quit_window_cb)
         win.show_all()
         Gtk.main()
     except KeyboardInterrupt:
@@ -684,6 +762,10 @@ def configure(parsed):
 
 
 def show_fatal(primary, secondary):
+    Libxfce4util.textdomain('xfce4-screensaver',
+                            os.path.join(sys.prefix, '/share/locale'),
+                            'UTF-8')
+
     if not graphical:
         print("%s: %s" % (primary, secondary))
         sys.exit(1)
@@ -701,7 +783,10 @@ def show_fatal(primary, secondary):
 
 
 if __name__ == "__main__":
-    locale.textdomain('xfce4-screensaver')
+    Libxfce4util.textdomain('xfce4-screensaver',
+                            os.path.join(sys.prefix, '/share/locale'),
+                            'UTF-8')
+
     parser = argparse.ArgumentParser(
         description=_('Configure an individual screensaver'))
     parser.add_argument('screensaver', metavar='N', type=str, nargs='?',
@@ -731,11 +816,8 @@ if __name__ == "__main__":
     elif fname.endswith(".desktop") or saver == "xfce-blank":
         obj = DesktopScreensaverSettings(saver)
     else:
-        locale.textdomain('xfce4-screensaver')
         show_fatal(primary, _("Unrecognized file type: %s") % fname)
         sys.exit(1)
-
-    locale.textdomain('xfce4-screensaver')
 
     if not obj.load_from_file(fname):
         show_fatal(primary, _("Failed to process file: %s") % fname)
