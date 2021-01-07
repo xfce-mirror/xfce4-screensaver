@@ -20,7 +20,7 @@ dnl SEE https://www.mail-archive.com/automake-patches@gnu.org/msg07705.html
 AC_SUBST(AR_FLAGS, [cr])
 
 IT_PROG_INTLTOOL([0.50.1])
-AC_PROG_CC
+AC_PROG_CC_C99
 AM_PROG_CC_C_O
 AC_STDC_HEADERS
 AC_CANONICAL_HOST
