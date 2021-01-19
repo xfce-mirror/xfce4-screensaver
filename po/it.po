@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-15 12:31+0100\n"
+"POT-Creation-Date: 2020-11-08 00:46+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Vincenzo Reale <vinx.reale@gmail.com>, 2020\n"
 "Language-Team: Italian (https://www.transifex.com/xfce/teams/16840/it/)\n"
@@ -80,21 +80,21 @@ msgstr "L'immagine sorgente da utilizzare"
 
 #. translators: the word "image" here
 #. * represents a command line argument
-#: ../savers/floaters.c:1122
+#: ../savers/floaters.c:1129
 msgid "image - floats images around the screen"
 msgstr "image - immagini galleggianti intorno allo schermo"
 
-#: ../savers/floaters.c:1126 ../savers/popsquares.c:49
+#: ../savers/floaters.c:1133 ../savers/popsquares.c:49
 #, c-format
 msgid "%s. See --help for usage information.\n"
 msgstr "%s. Utilizzare --help per ottenere le informazioni di utilizzo.\n"
 
-#: ../savers/floaters.c:1133
+#: ../savers/floaters.c:1140
 #, c-format
 msgid "Failed to initialize the windowing system."
 msgstr "Impossibile inizializzare il gestore delle finestre."
 
-#: ../savers/floaters.c:1139
+#: ../savers/floaters.c:1146
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr ""
@@ -183,15 +183,15 @@ msgstr "Non si ha più il permesso di accesso al sistema."
 msgid "Username:"
 msgstr "Nome utente:"
 
-#: ../src/gs-listener-dbus.c:1913
+#: ../src/gs-listener-dbus.c:1967
 msgid "failed to register with the message bus"
 msgstr "impossibile registrarsi al bus dei messaggi"
 
-#: ../src/gs-listener-dbus.c:1923
+#: ../src/gs-listener-dbus.c:1977
 msgid "not connected to the message bus"
 msgstr "non connesso al bus dei messaggi"
 
-#: ../src/gs-listener-dbus.c:1932 ../src/gs-listener-dbus.c:1962
+#: ../src/gs-listener-dbus.c:1986 ../src/gs-listener-dbus.c:2016
 msgid "screensaver already running in this session"
 msgstr "il salvaschermo è già in esecuzione in questa sessione"
 
@@ -254,34 +254,34 @@ msgid "The reason for inhibiting the screensaver"
 msgstr "La ragione per inibire il salvaschermo"
 
 #: ../src/xfce4-screensaver-command.c:100 ../src/xfce4-screensaver-dialog.c:65
-#: ../src/xfce4-screensaver.c:58
+#: ../src/xfce4-screensaver.c:57
 msgid "Version of this application"
 msgstr "Versione dell'applicazione"
 
-#: ../src/xfce4-screensaver-command.c:206
+#: ../src/xfce4-screensaver-command.c:208
 #, c-format
 msgid "The screensaver is %s\n"
 msgstr "Il salvaschermo è %s\n"
 
-#: ../src/xfce4-screensaver-command.c:206
+#: ../src/xfce4-screensaver-command.c:208
 msgid "active"
 msgstr "attivo"
 
-#: ../src/xfce4-screensaver-command.c:206
+#: ../src/xfce4-screensaver-command.c:208
 msgid "inactive"
 msgstr "inattivo"
 
-#: ../src/xfce4-screensaver-command.c:217
+#: ../src/xfce4-screensaver-command.c:219
 #, c-format
 msgid "The screensaver is not inhibited\n"
 msgstr "Il salvaschermo non è inibito\n"
 
-#: ../src/xfce4-screensaver-command.c:219
+#: ../src/xfce4-screensaver-command.c:221
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
 msgstr "Il salvaschermo viene inibito da:\n"
 
-#: ../src/xfce4-screensaver-command.c:235
+#: ../src/xfce4-screensaver-command.c:237
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "Il salvaschermo è stato attivo per %d secondi.\n"
@@ -672,11 +672,7 @@ msgstr "Blocca lo schermo quando il sistema sta per andare in sospensione"
 msgid "Lock Screen"
 msgstr "Blocco schermo"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Non diventare un demone"
-
-#: ../src/xfce4-screensaver.c:60
+#: ../src/xfce4-screensaver.c:58
 msgid "Enable debugging code"
 msgstr "Abilita il codice di debug"
 
