@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-15 12:31+0100\n"
+"POT-Creation-Date: 2020-11-08 00:46+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Hayk Andreasyan <hayk.andreasyan@realschool.am>, 2020\n"
 "Language-Team: Armenian (Armenia) (https://www.transifex.com/xfce/teams/16840/hy_AM/)\n"
@@ -74,21 +74,21 @@ msgstr "Գործածելի ելակէտային պատկերը"
 
 #. translators: the word "image" here
 #. * represents a command line argument
-#: ../savers/floaters.c:1122
+#: ../savers/floaters.c:1129
 msgid "image - floats images around the screen"
 msgstr "պատկեր ֊ տեղափոխում է պատկերները ցուցադրիչով"
 
-#: ../savers/floaters.c:1126 ../savers/popsquares.c:49
+#: ../savers/floaters.c:1133 ../savers/popsquares.c:49
 #, c-format
 msgid "%s. See --help for usage information.\n"
 msgstr "%s․ գործածէք --help աջակցութեան համար։\n"
 
-#: ../savers/floaters.c:1133
+#: ../savers/floaters.c:1140
 #, c-format
 msgid "Failed to initialize the windowing system."
 msgstr "Չյաջողուեց սկզբնաւորել պատուհանային համակարգը։"
 
-#: ../savers/floaters.c:1139
+#: ../savers/floaters.c:1146
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr "Պէտք է նշել մեկ պատկեր։ Գործածէք --help աջակցութեան համար։\n"
@@ -175,15 +175,15 @@ msgstr "Համակարգն արդէն անհասանելի է։"
 msgid "Username:"
 msgstr "Աւգտանուն․"
 
-#: ../src/gs-listener-dbus.c:1913
+#: ../src/gs-listener-dbus.c:1967
 msgid "failed to register with the message bus"
 msgstr "չյաջողուեց գրանցուել հաղորդագրութեան փոխատրիչով"
 
-#: ../src/gs-listener-dbus.c:1923
+#: ../src/gs-listener-dbus.c:1977
 msgid "not connected to the message bus"
 msgstr "միացուած չէ հաղորդագրութեան փոխատրիչին"
 
-#: ../src/gs-listener-dbus.c:1932 ../src/gs-listener-dbus.c:1962
+#: ../src/gs-listener-dbus.c:1986 ../src/gs-listener-dbus.c:2016
 msgid "screensaver already running in this session"
 msgstr "Էկրանապահը արդեն գործարկում է նիստը"
 
@@ -245,34 +245,34 @@ msgid "The reason for inhibiting the screensaver"
 msgstr "Էկրանապահի կանխման պատճառը"
 
 #: ../src/xfce4-screensaver-command.c:100 ../src/xfce4-screensaver-dialog.c:65
-#: ../src/xfce4-screensaver.c:58
+#: ../src/xfce4-screensaver.c:57
 msgid "Version of this application"
 msgstr "Յաւելուածի տարբերակ"
 
-#: ../src/xfce4-screensaver-command.c:206
+#: ../src/xfce4-screensaver-command.c:208
 #, c-format
 msgid "The screensaver is %s\n"
 msgstr "%s էկրանապահ\n"
 
-#: ../src/xfce4-screensaver-command.c:206
+#: ../src/xfce4-screensaver-command.c:208
 msgid "active"
 msgstr "գործուն"
 
-#: ../src/xfce4-screensaver-command.c:206
+#: ../src/xfce4-screensaver-command.c:208
 msgid "inactive"
 msgstr "ոչ գործուն"
 
-#: ../src/xfce4-screensaver-command.c:217
+#: ../src/xfce4-screensaver-command.c:219
 #, c-format
 msgid "The screensaver is not inhibited\n"
 msgstr "Էկրանապահի աշխատանքը չի կանխուում\n"
 
-#: ../src/xfce4-screensaver-command.c:219
+#: ../src/xfce4-screensaver-command.c:221
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
 msgstr "Էկրանապահի աշխատանքը կանխուել է․\n"
 
-#: ../src/xfce4-screensaver-command.c:235
+#: ../src/xfce4-screensaver-command.c:237
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "Էկրանապահը գործել է %d վարկեան։\n"
@@ -654,11 +654,7 @@ msgstr "Կողպել ցուցադրիչը գործածելով քունը"
 msgid "Lock Screen"
 msgstr "Կողպել ցուցադրիչը"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Չդարձնել աւժանդակ ծրագիր "
-
-#: ../src/xfce4-screensaver.c:60
+#: ../src/xfce4-screensaver.c:58
 msgid "Enable debugging code"
 msgstr "Միացնել վրիպազերծումը"
 
