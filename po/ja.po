@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# kdeguchi <kdeguchi@sz.tokoha-u.ac.jp>, 2018
+# Ken DEGUCHI <kdeguchi@sz.tokoha-u.ac.jp>, 2018
 # Xfce Bot <transifex@xfce.org>, 2018
 # Masato HASHIMOTO <cabezon.hashimoto@gmail.com>, 2019
 # UTUMI Hirosi <utuhiro78@yahoo.co.jp>, 2019
