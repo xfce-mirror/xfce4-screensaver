@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-15 12:31+0100\n"
+"POT-Creation-Date: 2020-11-08 00:46+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Sergey Alyoshin <alyoshin.s@gmail.com>, 2020\n"
 "Language-Team: Russian (https://www.transifex.com/xfce/teams/16840/ru/)\n"
@@ -78,21 +78,21 @@ msgstr "Исходное изображение"
 
 #. translators: the word "image" here
 #. * represents a command line argument
-#: ../savers/floaters.c:1122
+#: ../savers/floaters.c:1129
 msgid "image - floats images around the screen"
 msgstr "image - выводит на экран летающие изображения"
 
-#: ../savers/floaters.c:1126 ../savers/popsquares.c:49
+#: ../savers/floaters.c:1133 ../savers/popsquares.c:49
 #, c-format
 msgid "%s. See --help for usage information.\n"
 msgstr "%s. Введите --help для получения справки.\n"
 
-#: ../savers/floaters.c:1133
+#: ../savers/floaters.c:1140
 #, c-format
 msgid "Failed to initialize the windowing system."
 msgstr "Не удалось инициализировать оконную систему."
 
-#: ../savers/floaters.c:1139
+#: ../savers/floaters.c:1146
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr ""
@@ -180,15 +180,15 @@ msgstr "Вам больше не разрешено входить в систе
 msgid "Username:"
 msgstr "Имя пользователя:"
 
-#: ../src/gs-listener-dbus.c:1913
+#: ../src/gs-listener-dbus.c:1967
 msgid "failed to register with the message bus"
 msgstr "не удалось зарегистрироваться на шине сообщений"
 
-#: ../src/gs-listener-dbus.c:1923
+#: ../src/gs-listener-dbus.c:1977
 msgid "not connected to the message bus"
 msgstr "не удалось подключиться к шине сообщений"
 
-#: ../src/gs-listener-dbus.c:1932 ../src/gs-listener-dbus.c:1962
+#: ../src/gs-listener-dbus.c:1986 ../src/gs-listener-dbus.c:2016
 msgid "screensaver already running in this session"
 msgstr "в этом сеансе уже запущен хранитель экрана"
 
@@ -250,34 +250,34 @@ msgid "The reason for inhibiting the screensaver"
 msgstr "Причина запрета хранителя экрана"
 
 #: ../src/xfce4-screensaver-command.c:100 ../src/xfce4-screensaver-dialog.c:65
-#: ../src/xfce4-screensaver.c:58
+#: ../src/xfce4-screensaver.c:57
 msgid "Version of this application"
 msgstr "Версия данного приложения"
 
-#: ../src/xfce4-screensaver-command.c:206
+#: ../src/xfce4-screensaver-command.c:208
 #, c-format
 msgid "The screensaver is %s\n"
 msgstr "Хранитель экрана: %s\n"
 
-#: ../src/xfce4-screensaver-command.c:206
+#: ../src/xfce4-screensaver-command.c:208
 msgid "active"
 msgstr "активен"
 
-#: ../src/xfce4-screensaver-command.c:206
+#: ../src/xfce4-screensaver-command.c:208
 msgid "inactive"
 msgstr "неактивен"
 
-#: ../src/xfce4-screensaver-command.c:217
+#: ../src/xfce4-screensaver-command.c:219
 #, c-format
 msgid "The screensaver is not inhibited\n"
 msgstr "Хранитель экрана не запрещён\n"
 
-#: ../src/xfce4-screensaver-command.c:219
+#: ../src/xfce4-screensaver-command.c:221
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
 msgstr "Хранитель экрана запрещён следующими приложениями:\n"
 
-#: ../src/xfce4-screensaver-command.c:235
+#: ../src/xfce4-screensaver-command.c:237
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "Хранитель экрана выполняется %d сек.\n"
@@ -667,11 +667,7 @@ msgstr "Блокировать экран, когда система спит"
 msgid "Lock Screen"
 msgstr "Блокировка экрана"
 
-#: ../src/xfce4-screensaver.c:59
-msgid "Don't become a daemon"
-msgstr "Не становиться демоном"
-
-#: ../src/xfce4-screensaver.c:60
+#: ../src/xfce4-screensaver.c:58
 msgid "Enable debugging code"
 msgstr "Включить отладочный код"
 
