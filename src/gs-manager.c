@@ -36,8 +36,6 @@
 #include "gs-prefs.h"
 #include "gs-window.h"
 
-static void     gs_manager_class_init (GSManagerClass *klass);
-static void     gs_manager_init       (GSManager      *manager);
 static void     gs_manager_finalize   (GObject        *object);
 
 static void     remove_dpms_timer     (GSManager      *manager);
