@@ -42,8 +42,6 @@
 #include "gs-debug.h"
 #include "gs-prefs.h"
 
-static void         gs_listener_x11_class_init      (GSListenerX11Class *klass);
-static void         gs_listener_x11_init            (GSListenerX11      *listener);
 static void         gs_listener_x11_finalize        (GObject            *object);
 
 static void         reset_timer                     (GSListenerX11      *listener,
@@ -120,7 +118,7 @@ get_x11_idle_info (guint *idle_time,
 }
 
 static gboolean
-check_fullscreen_window () {
+check_fullscreen_window (void) {
     WnckScreen *screen;
     WnckWindow *window;
 
