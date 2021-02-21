@@ -71,32 +71,34 @@ msgstr "Початкові розмір та позиція вікна"
 
 #: ../savers/floaters.c:109
 msgid "WIDTHxHEIGHT+X+Y"
-msgstr "WIDTHxHEIGHT+X+Y"
+msgstr "ШИРИНАxВИСОТА+X+Y"
 
 #: ../savers/floaters.c:114
 msgid "The source image to use"
-msgstr ""
+msgstr "Вихідне зображення для використання"
 
 #. translators: the word "image" here
 #. * represents a command line argument
 #: ../savers/floaters.c:1129
 msgid "image - floats images around the screen"
-msgstr ""
+msgstr "картинка - рухає зображення по екрану"
 
 #: ../savers/floaters.c:1133 ../savers/popsquares.c:49
 #, c-format
 msgid "%s. See --help for usage information.\n"
-msgstr ""
+msgstr "%s. Дивіться --help, щоб дізнатися більше.\n"
 
 #: ../savers/floaters.c:1140
 #, c-format
 msgid "Failed to initialize the windowing system."
-msgstr ""
+msgstr "Не можливо ініціалізувати віконну систему."
 
 #: ../savers/floaters.c:1146
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr ""
+"Вам потрібно вказати одне зображення.  Дивіться -help, щоб дізнатися "
+"більше.\n"
 
 #: ../savers/slideshow.c:53
 msgid "Location to get images from"
@@ -104,7 +106,7 @@ msgstr "Розташування зображень"
 
 #: ../savers/slideshow.c:53
 msgid "PATH"
-msgstr ""
+msgstr "ШЛЯХ"
 
 #: ../savers/slideshow.c:57
 msgid "Color to use for images background"
@@ -140,7 +142,7 @@ msgstr "Показує зображення з вашої теки Картин�
 
 #: ../savers/xfce-popsquares.desktop.in.in.h:1
 msgid "Pop art squares"
-msgstr "Квадрати Поп-арт"
+msgstr "Поп-арт-квадрати"
 
 #: ../savers/xfce-popsquares.desktop.in.in.h:2
 msgid "A pop-art-ish grid of pulsing colors."
@@ -153,12 +155,12 @@ msgstr "Пароль:"
 #: ../src/gs-auth-pam.c:375
 #, c-format
 msgid "Unable to establish service %s: %s\n"
-msgstr ""
+msgstr "Не вдалося налагодити службу %s: %s\n"
 
 #: ../src/gs-auth-pam.c:401
 #, c-format
 msgid "Can't set PAM_TTY=%s"
-msgstr ""
+msgstr "Не вдається встановити PAM_TTY=%s"
 
 #: ../src/gs-auth-pam.c:432
 msgid "Incorrect password."
@@ -170,11 +172,11 @@ msgstr "Помилка аутентифікації."
 
 #: ../src/gs-auth-pam.c:448
 msgid "Not permitted to gain access at this time."
-msgstr ""
+msgstr "Наразі, не дозволено отримати доступ."
 
 #: ../src/gs-auth-pam.c:454
 msgid "No longer permitted to access the system."
-msgstr ""
+msgstr "Більше не дозволено отримувати доступ до системи."
 
 #: ../src/gs-auth-pam.c:667
 msgid "Username:"
@@ -182,28 +184,28 @@ msgstr "Імʼя користувача:"
 
 #: ../src/gs-listener-dbus.c:1967
 msgid "failed to register with the message bus"
-msgstr ""
+msgstr "не вдалося зареєструватись на шині повідомлень"
 
 #: ../src/gs-listener-dbus.c:1977
 msgid "not connected to the message bus"
-msgstr ""
+msgstr "не зʼєднано з шиною повідомлень"
 
 #: ../src/gs-listener-dbus.c:1986 ../src/gs-listener-dbus.c:2016
 msgid "screensaver already running in this session"
-msgstr ""
+msgstr "зберігач екрана вже запущено в цьому сеансі"
 
 #: ../src/gs-lock-plug.c:285
 msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
-msgstr ""
+msgstr "%A, %e %B   %H:%M"
 
 #: ../src/gs-lock-plug.c:361
 msgid "Time has expired."
-msgstr ""
+msgstr "Час минув."
 
 #: ../src/xfce4-screensaver-command.c:56
 msgid "Causes the screensaver to exit gracefully"
-msgstr ""
+msgstr "Змушує зберігач екрана плавно вийти."
 
 #: ../src/xfce4-screensaver-command.c:60
 msgid "Query the state of the screensaver"
@@ -224,7 +226,7 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-command.c:76
 msgid "Turn the screensaver on (blank the screen)"
-msgstr ""
+msgstr "Вмикає зберігач екрана (порожній екран)"
 
 #: ../src/xfce4-screensaver-command.c:80
 msgid "If the screensaver is active then deactivate it (un-blank the screen)"
@@ -246,7 +248,7 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-command.c:92
 msgid "The calling application that is inhibiting the screensaver"
-msgstr ""
+msgstr "Викликає програму, яка перешкоджає зберігачу екрана"
 
 #: ../src/xfce4-screensaver-command.c:96
 msgid "The reason for inhibiting the screensaver"
@@ -331,7 +333,7 @@ msgstr "Відео"
 #: ../src/xfce4-screensaver-configure:502
 #, c-format
 msgid "Unrecognized type: %s"
-msgstr ""
+msgstr "Нерозпізнаний тип: %s"
 
 #: ../src/xfce4-screensaver-configure:714
 msgid "Unable to configure screensaver"
@@ -339,7 +341,7 @@ msgstr "Неможливо сконфіґурувати зберігач екр�
 
 #: ../src/xfce4-screensaver-configure:718
 msgid "Screensaver required."
-msgstr ""
+msgstr "Вкажіть зберігач екрана."
 
 #: ../src/xfce4-screensaver-configure:726
 #, c-format
@@ -354,17 +356,17 @@ msgstr "Нерозпізнаний тип файлу: %s"
 #: ../src/xfce4-screensaver-configure:741
 #, c-format
 msgid "Failed to process file: %s"
-msgstr ""
+msgstr "Не вдалося обробити файл: %s"
 
 #: ../src/xfce4-screensaver-configure:746
 #, c-format
 msgid "Screensaver %s is configurable."
-msgstr ""
+msgstr "Зберігач екрана %s можна конфіґурувати."
 
 #: ../src/xfce4-screensaver-configure:749
 #, c-format
 msgid "Screensaver %s is not configurable."
-msgstr ""
+msgstr "Зберігач екрана %s не можна конфіґурувати."
 
 #: ../src/xfce4-screensaver-configure:753
 #, c-format
@@ -377,27 +379,27 @@ msgstr "Показати вивід зневадження"
 
 #: ../src/xfce4-screensaver-dialog.c:67
 msgid "Show the logout button"
-msgstr ""
+msgstr "Показати кнопку завершення сеансу"
 
 #: ../src/xfce4-screensaver-dialog.c:69
 msgid "Command to invoke from the logout button"
-msgstr ""
+msgstr "Команда для виконання від кнопки завершення сеансу"
 
 #: ../src/xfce4-screensaver-dialog.c:71
 msgid "Show the switch user button"
-msgstr ""
+msgstr "Показати кнопку перемикання користувача"
 
 #: ../src/xfce4-screensaver-dialog.c:73
 msgid "Message to show in the dialog"
-msgstr ""
+msgstr "Повідомлення, що показується у діалоговому вікні"
 
 #: ../src/xfce4-screensaver-dialog.c:73 ../src/xfce4-screensaver-dialog.c:75
 msgid "MESSAGE"
-msgstr ""
+msgstr "ПОВІДОМЛЕННЯ"
 
 #: ../src/xfce4-screensaver-dialog.c:75
 msgid "Not used"
-msgstr ""
+msgstr "Не використовується"
 
 #: ../src/xfce4-screensaver-dialog.c:77
 msgid "Monitor height"
@@ -409,24 +411,26 @@ msgstr "Ширина монітора:"
 
 #: ../src/xfce4-screensaver-dialog.c:81
 msgid "Monitor index"
-msgstr ""
+msgstr "Індекс монітора"
 
 #: ../src/xfce4-screensaver-dialog.c:175 ../src/xfce4-screensaver-dialog.c:177
 #: ../src/xfce4-screensaver-dialog.c:178
 msgid "Please enter your username."
-msgstr ""
+msgstr "Уведіть своє імʼя користувача."
 
 #: ../src/xfce4-screensaver-dialog.c:184
 msgid "You are required to change your password immediately (password aged)"
-msgstr ""
+msgstr "Вам потрібно змінити свій пароль негайно (пароль старий)"
 
 #: ../src/xfce4-screensaver-dialog.c:186
 msgid "You are required to change your password immediately (root enforced)"
-msgstr ""
+msgstr "Вам потрібно змінити свій пароль негайно (примусовий root)"
 
 #: ../src/xfce4-screensaver-dialog.c:188
 msgid "Your account has expired; please contact your system administrator"
 msgstr ""
+"Ваш обліковий запис застарів; Будь ласка, звʼяжіться зі своїм системним "
+"адміністратором"
 
 #: ../src/xfce4-screensaver-dialog.c:190
 msgid "No password supplied."
@@ -434,23 +438,23 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-dialog.c:192
 msgid "Password unchanged."
-msgstr ""
+msgstr "Пароль не змінено."
 
 #: ../src/xfce4-screensaver-dialog.c:194
 msgid "Can not get username."
-msgstr ""
+msgstr "Не можливо отримати імʼя користувача."
 
 #: ../src/xfce4-screensaver-dialog.c:196
 msgid "Retype your new password."
-msgstr ""
+msgstr "Повторіть ваш новий пароль."
 
 #: ../src/xfce4-screensaver-dialog.c:198
 msgid "Enter your new password."
-msgstr ""
+msgstr "Уведіть ваш новий пароль."
 
 #: ../src/xfce4-screensaver-dialog.c:200
 msgid "Enter your current password:"
-msgstr ""
+msgstr "Уведіть свій чинний пароль:"
 
 #: ../src/xfce4-screensaver-dialog.c:202
 msgid "Error while changing NIS password."
@@ -458,15 +462,15 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-dialog.c:204
 msgid "You must choose a longer password."
-msgstr ""
+msgstr "Вам потрібно обрати довгий пароль."
 
 #: ../src/xfce4-screensaver-dialog.c:206
 msgid "Password has been already used. Choose another."
-msgstr ""
+msgstr "Пароль вже використовується. Оберіть інший."
 
 #: ../src/xfce4-screensaver-dialog.c:208
 msgid "You must wait longer to change your password."
-msgstr ""
+msgstr "Вам потрібно почекати довше, щоб змінити пароль."
 
 #: ../src/xfce4-screensaver-dialog.c:210
 msgid "Sorry, passwords do not match."
@@ -474,7 +478,7 @@ msgstr "Вибачте, паролі не збігаються."
 
 #: ../src/xfce4-screensaver-dialog.c:274
 msgid "Checking..."
-msgstr ""
+msgstr "Перевірка..."
 
 #: ../src/xfce4-screensaver-dialog.ui.h:2
 #, no-c-format
@@ -483,7 +487,7 @@ msgstr "%U"
 
 #: ../src/xfce4-screensaver-dialog.ui.h:3
 msgid "Enter your password"
-msgstr "Введіть свій пароль "
+msgstr "Уведіть свій пароль "
 
 #: ../src/xfce4-screensaver-dialog.ui.h:4
 msgid "You have the Caps Lock key on."
@@ -673,7 +677,7 @@ msgstr "Дозволити зневадження коду"
 
 #: ../src/xfce4-screensaver.desktop.in.in.h:2
 msgid "Launch screensaver and locker program"
-msgstr ""
+msgstr "Запускає програму зберігача і замикача екрана"
 
 #: ../src/xfcekbd-indicator.c:404
 msgid "XKB initialization error"
