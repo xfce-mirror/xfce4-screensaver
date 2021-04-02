@@ -33,11 +33,9 @@
 
 #include "gs-prefs.h"
 
-static void gs_prefs_class_init (GSPrefsClass *klass);
-static void gs_prefs_init       (GSPrefs      *prefs);
 static void gs_prefs_finalize   (GObject      *object);
 
-static GSPrefs *prefs;
+static GSPrefs *global_prefs;
 
 struct GSPrefsPrivate {
     XfconfChannel *channel;
@@ -200,8 +198,7 @@ _gs_prefs_set_themes (GSPrefs  *prefs,
                       gchar   **values) {
     guint i;
     if (prefs->themes) {
-        g_slist_foreach (prefs->themes, (GFunc)g_free, NULL);
-        g_slist_free (prefs->themes);
+        g_slist_free_full (prefs->themes, g_free);
         prefs->themes = NULL;
     }
 
@@ -632,8 +629,7 @@ gs_prefs_finalize (GObject *object) {
     }
 
     if (prefs->themes) {
-        g_slist_foreach (prefs->themes, (GFunc)g_free, NULL);
-        g_slist_free (prefs->themes);
+        g_slist_free_full (prefs->themes, g_free);
     }
 
     g_free (prefs->logout_command);
@@ -645,11 +641,11 @@ gs_prefs_finalize (GObject *object) {
 GSPrefs *
 gs_prefs_new (void) {
     GObject *object;
-    if (!prefs) {
+    if (!global_prefs) {
         object = g_object_new (GS_TYPE_PREFS, NULL);
-        prefs = GS_PREFS (object);
+        global_prefs = GS_PREFS (object);
     } else
-       object = g_object_ref (G_OBJECT (prefs));
+       object = g_object_ref (G_OBJECT (global_prefs));
 
     return GS_PREFS (object);
 }
