@@ -544,11 +544,11 @@ msgstr "Asegúrese de que o protector de pantalla está instalado correctamente"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:1
 msgid "Screensaver Preview"
-msgstr "Visualizar o protector de pantalla"
+msgstr "Vista previa do protector de pantalla"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:2
 msgid "<b>Screensaver preview</b>"
-msgstr "<b>Visualizar o protector de pantalla</b>"
+msgstr "<b>Vista previa do protector de pantalla</b>"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:3
 msgid "Screensaver Preferences"
