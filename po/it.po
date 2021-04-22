@@ -5,7 +5,7 @@
 # 
 # Translators:
 # Edoardo Maria Elidoro <edoardo.elidoro@gmail.com>, 2018
-# bebabi34 <bebabi34@email.it>, 2018
+# bebabi34 <bebabi34@tiscali.it>, 2018
 # Marco <marcxosm@gmail.com>, 2018
 # Cristian Marchi <cri.penta@gmail.com>, 2019
 # Emanuele Petriglia <transifex@emanuelepetriglia.com>, 2019
