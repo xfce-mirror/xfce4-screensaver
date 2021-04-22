@@ -7,7 +7,7 @@
 # Eirik Dekko <edekko@gmail.com>, 2018
 # Allan Nordhøy <epost@anotheragency.no>, 2019
 # Harald H. <haarektrans@gmail.com>, 2019
-# Kjell Cato Heskjestad <cato@heskjestad.xyz>, 2019
+# heskjestad <cato@heskjestad.xyz>, 2019
 # Nick Schermer <nick@xfce.org>, 2020
 # 
 #, fuzzy
