@@ -47,8 +47,6 @@
 #include "gs-debug.h"
 #include "gs-prefs.h"
 
-static void              gs_listener_class_init         (GSListenerClass *klass);
-static void              gs_listener_init               (GSListener      *listener);
 static void              gs_listener_finalize           (GObject         *object);
 
 static void              gs_listener_unregister_handler (DBusConnection  *connection,

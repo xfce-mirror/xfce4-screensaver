@@ -22,10 +22,7 @@ AC_SUBST(AR_FLAGS, [cr])
 IT_PROG_INTLTOOL([0.50.1])
 AC_PROG_CC
 AM_PROG_CC_C_O
-AC_STDC_HEADERS
 AC_CANONICAL_HOST
-
-AC_HEADER_STDC
 
 LT_PREREQ([2.4])
 LT_INIT([disable-static])
@@ -1102,7 +1099,7 @@ AC_SUBST(themesdir)
 
 # Files
 
-AC_OUTPUT([
+AC_CONFIG_FILES([
 Makefile
 po/Makefile.in
 src/Makefile
@@ -1121,8 +1118,8 @@ data/images/Makefile
 savers/Makefile
 doc/Makefile
 doc/xfce4-screensaver.xml
-
 ])
+AC_OUTPUT
 
 echo "
                     xfce4-screensaver $VERSION

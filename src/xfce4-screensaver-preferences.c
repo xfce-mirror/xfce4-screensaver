@@ -241,13 +241,13 @@ config_get_theme (gboolean *is_writable) {
 }
 
 static gchar **
-get_all_theme_ids (GSThemeManager *theme_manager) {
+get_all_theme_ids (GSThemeManager *local_theme_manager) {
     gchar  **ids = NULL;
     GSList  *themes;
     GSList  *l;
     guint    idx = 0;
 
-    themes = gs_theme_manager_get_info_list (theme_manager);
+    themes = gs_theme_manager_get_info_list (local_theme_manager);
     ids = g_new0 (gchar *, g_slist_length (themes) + 1);
     for (l = themes; l; l = l->next) {
         GSThemeInfo *info = l->data;
@@ -569,7 +569,7 @@ config_get_theme_arguments (const gchar *theme) {
 }
 
 static void
-job_set_theme (GSJob      *job,
+job_set_theme (GSJob      *local_job,
                const char *theme) {
     GSThemeInfo *info;
     gchar       *command = NULL;
@@ -583,7 +583,7 @@ job_set_theme (GSJob      *job,
         command = g_strdup_printf ("%s %s", gs_theme_info_get_exec (info), arguments);
     }
 
-    gs_job_set_command (job, command);
+    gs_job_set_command (local_job, command);
 
     if (arguments)
         g_free (arguments);
@@ -1700,9 +1700,6 @@ setup_for_lid_switch (void) {
     }
 }
 
-/* copied from gs-window-x11.c */
-extern char **environ;
-
 static gchar **
 spawn_make_environment_for_display (GdkDisplay  *display,
                                     gchar      **envp) {
@@ -1713,6 +1710,7 @@ spawn_make_environment_for_display (GdkDisplay  *display,
 
     g_return_val_if_fail (GDK_IS_DISPLAY (display), NULL);
 
+    /* environ is declared in gs-window-x11.c */
     if (envp == NULL)
         envp = environ;
 

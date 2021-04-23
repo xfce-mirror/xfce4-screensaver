@@ -438,7 +438,7 @@ static gboolean popup_dialog_idle(gpointer user_data) {
 */
 static gboolean privileged_initialization(int       *argc,
                                           char     **argv,
-                                          gboolean   verbose) {
+                                          gboolean   local_verbose) {
     gboolean  ret;
     char     *nolock_reason;
     char     *orig_uid;
@@ -457,7 +457,7 @@ static gboolean privileged_initialization(int       *argc,
         g_debug("Locking disabled: %s", nolock_reason);
     }
 
-    if (uid_message && verbose) {
+    if (uid_message && local_verbose) {
         g_print("Modified UID: %s", uid_message);
     }
 
@@ -480,7 +480,7 @@ static gboolean privileged_initialization(int       *argc,
 static gboolean lock_initialization (int       *argc,
                                      char     **argv,
                                      char     **nolock_reason,
-                                     gboolean   verbose) {
+                                     gboolean   local_verbose) {
     if (nolock_reason != NULL) {
         *nolock_reason = NULL;
     }
