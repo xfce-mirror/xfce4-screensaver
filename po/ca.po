@@ -5,7 +5,7 @@
 # 
 # Translators:
 # Davidmp <medipas@gmail.com>, 2019
-# Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2019
+# Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>, 2019
 # Nick Schermer <nick@xfce.org>, 2020
 # 
 #, fuzzy
