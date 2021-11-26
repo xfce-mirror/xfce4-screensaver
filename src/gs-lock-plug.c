@@ -374,6 +374,8 @@ static gboolean
 dialog_timed_out (gpointer user_data) {
     GSLockPlug *plug = user_data;
 
+    plug->priv->cancel_timeout_id = 0;
+
     gs_lock_plug_set_sensitive (plug, FALSE);
     set_status_text (plug, _("Time has expired."));
 
