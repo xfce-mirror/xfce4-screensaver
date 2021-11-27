@@ -143,8 +143,9 @@ xfcekbd_indicator_button_pressed (GtkWidget        *widget,
                                   GdkEventButton   *event,
                                   XfcekbdIndicator *gki) {
     if (event->button == 1 && event->type == GDK_BUTTON_PRESS) {
+        int group;
         gs_debug("Switching language");
-        int group = xkl_engine_get_next_group (globals.engine);
+        group = xkl_engine_get_next_group (globals.engine);
         xkl_engine_lock_group (globals.engine, group);
         globals.redraw_queued = TRUE;
         return TRUE;
@@ -310,18 +311,20 @@ xfcekbd_indicator_set_current_page_for_group (XfcekbdIndicator *gki,
 /* Should be called once for all widgets */
 static GdkFilterReturn
 xfcekbd_indicator_filter_x_evt (GdkXEvent *xev,
-                                GdkEvent  *event) {
+                                GdkEvent  *event,
+                                gpointer   data) {
     XEvent *xevent = (XEvent *) xev;
 
     xkl_engine_filter_events (globals.engine, xevent);
     switch (xevent->type) {
         case ReparentNotify:
             {
+                XReparentEvent *rne;
                 if (!globals.redraw_queued)
                     return GDK_FILTER_CONTINUE;
 
                 gs_debug("do repaint\n");
-                XReparentEvent *rne = (XReparentEvent *) xev;
+                rne = (XReparentEvent *) xev;
 
                 ForAllIndicators () {
                     GdkWindow *w =
