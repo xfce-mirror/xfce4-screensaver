@@ -229,7 +229,7 @@ do_user_switch (GSLockPlug *plug) {
             gs_debug ("Unable to start GDM greeter: %s", error->message);
             g_error_free (error);
         }
-    } else if (g_getenv ("XDG_SEAT_PATH") != NULL) {
+    } else if (process_is_running ("lightdm")) {
         /* LightDM */
         GDBusProxyFlags flags = G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START;
         GDBusProxy *proxy = NULL;
@@ -892,7 +892,7 @@ gs_lock_plug_set_switch_enabled (GSLockPlug *plug,
         } else if (process_is_running ("gdm") || process_is_running("gdm3") || process_is_running("gdm-binary")) {
             /* GDM */
             gtk_widget_show (plug->priv->auth_switch_button);
-        } else if (g_getenv ("XDG_SEAT_PATH") != NULL) {
+        } else if (process_is_running ("lightdm")) {
             /* LightDM */
             gtk_widget_show (plug->priv->auth_switch_button);
         } else {
