@@ -43,8 +43,6 @@
 #include "gs-window.h"
 #include "subprocs.h"
 
-static void     gs_window_class_init     (GSWindowClass *klass);
-static void     gs_window_init           (GSWindow      *window);
 static void     gs_window_finalize       (GObject       *object);
 
 static gboolean popup_dialog_idle        (gpointer user_data);
@@ -323,7 +321,7 @@ gs_window_move_resize_window (GSWindow *window,
     GdkWindow *gdkwindow;
 
     widget = GTK_WIDGET (window);
-    gdkwindow = gtk_widget_get_window (GTK_WIDGET (window));
+    gdkwindow = gtk_widget_get_window (widget);
 
     g_assert (gtk_widget_get_realized (widget));
 
