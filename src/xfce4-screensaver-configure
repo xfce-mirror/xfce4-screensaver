@@ -218,7 +218,7 @@ class DesktopScreensaverSettings(ScreensaverSettings):
         elif self.name == "xfce-personal-slideshow":
             pics = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)
             options["location"] = {'id': 'location', 'type': 'folder', 'label': _('Location'),
-                                   'argument': '--location=%', 'default': pics}
+                                   'argument': '--location=%', 'default': pics if pics != None else '~'}
             options["background-color"] = {'id': 'background-color', 'type': 'color',
                                            'label': _('Background color')}
             options["sort-images"] = {'id': 'sort-images', 'type': 'checkbox',
