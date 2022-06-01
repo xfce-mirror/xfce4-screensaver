@@ -491,7 +491,7 @@ if test x$with_libgl != xno; then
   fi
 
   if test "$have_gl" = yes ; then
-    AC_CHECK_X_LIB(GL, glXChooseVisual, have_libgl=yes, have_libgl=no, -lm)
+    AC_CHECK_X_LIB(GL, glXChooseVisual, have_libgl=yes, have_libgl=no)
   fi
 fi
 
@@ -1072,7 +1072,7 @@ fi
 AC_SUBST(DEBUG_CFLAGS)
 
 # Flags
-CFLAGS="$CFLAGS -lm"
+LDFLAGS="$LDFLAGS -lm"
 
 AC_SUBST(CFLAGS)
 AC_SUBST(CPPFLAGS)
