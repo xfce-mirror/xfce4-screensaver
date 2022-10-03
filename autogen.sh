@@ -31,8 +31,6 @@ EOF
   exit 1
 }
 
-test -d m4 || mkdir m4
-
-XDT_AUTOGEN_REQUIRED_VERSION="4.14.0" exec xdt-autogen "$@"
+XDT_AUTOGEN_REQUIRED_VERSION="4.17.0" exec xdt-autogen "$@"
 
 # vi:set ts=2 sw=2 et ai:
