@@ -130,7 +130,7 @@ msgstr "Xfce flutuante"
 
 #: ../savers/xfce-floaters.desktop.in.in.h:2
 msgid "Bubbles the Xfce logo around the screen"
-msgstr "Bolhas do logo do Xfce à volta do ecrã"
+msgstr "Bolhas do logotipo do Xfce à volta do ecrã"
 
 #: ../savers/xfce-personal-slideshow.desktop.in.in.h:1
 msgid "Slideshow"
@@ -192,7 +192,7 @@ msgstr "não ligado ao canal de mensagem"
 
 #: ../src/gs-listener-dbus.c:1986 ../src/gs-listener-dbus.c:2016
 msgid "screensaver already running in this session"
-msgstr "protecção de ecrã já em execução nesta sessão"
+msgstr "proteção de ecrã já em execução nesta sessão"
 
 #: ../src/gs-lock-plug.c:285
 msgctxt "Date"
@@ -261,7 +261,7 @@ msgstr "Versão desta aplicação"
 #: ../src/xfce4-screensaver-command.c:208
 #, c-format
 msgid "The screensaver is %s\n"
-msgstr "A protecção de ecrã está %s\n"
+msgstr "A proteção de ecrã está %s\n"
 
 #: ../src/xfce4-screensaver-command.c:208
 msgid "active"
@@ -315,7 +315,7 @@ msgstr "Parte da proteção de ecrã Xfce"
 
 #: ../src/xfce4-screensaver-configure:403
 msgid "Restore Defaults"
-msgstr "Restaurar Predefinições"
+msgstr "Restaurar predefinições"
 
 #: ../src/xfce4-screensaver-configure:416
 msgid "Preferences"
@@ -374,7 +374,7 @@ msgstr "Proteção de ecrã %s não tem opções de configuração."
 
 #: ../src/xfce4-screensaver-dialog.c:63
 msgid "Show debugging output"
-msgstr "Mostrar saída de debugging"
+msgstr "Mostrar saída de depuração"
 
 #: ../src/xfce4-screensaver-dialog.c:67
 msgid "Show the logout button"
@@ -415,7 +415,7 @@ msgstr "Índice de monitor"
 #: ../src/xfce4-screensaver-dialog.c:175 ../src/xfce4-screensaver-dialog.c:177
 #: ../src/xfce4-screensaver-dialog.c:178
 msgid "Please enter your username."
-msgstr "Por favor, digite o nome de utilizador."
+msgstr "Introduza o nome de utilizador."
 
 #: ../src/xfce4-screensaver-dialog.c:184
 msgid "You are required to change your password immediately (password aged)"
@@ -428,8 +428,7 @@ msgstr "Tem de mudar a sua palavra-passe imediatamente (forçado pelo root)"
 
 #: ../src/xfce4-screensaver-dialog.c:188
 msgid "Your account has expired; please contact your system administrator"
-msgstr ""
-"A sua conta expirou; por favor, contacte o seu administrador de sistema"
+msgstr "A sua conta expirou. Contacte o seu administrador do sistema"
 
 #: ../src/xfce4-screensaver-dialog.c:190
 msgid "No password supplied."
@@ -477,7 +476,7 @@ msgstr "Desculpe, as palavras-passe não coincidem."
 
 #: ../src/xfce4-screensaver-dialog.c:274
 msgid "Checking..."
-msgstr "Verificando..."
+msgstr "A verificar..."
 
 #: ../src/xfce4-screensaver-dialog.ui.h:2
 #, no-c-format
@@ -540,19 +539,19 @@ msgstr "Não foi possível carregar a interface principal"
 
 #: ../src/xfce4-screensaver-preferences.c:1914
 msgid "Please make sure that the screensaver is properly installed"
-msgstr "Por favor verifique se a proteção de ecrã está bem instalada"
+msgstr "Verifique se a proteção de ecrã está bem instalada"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:1
 msgid "Screensaver Preview"
-msgstr "Pré-visualização da Protecção de ecrã"
+msgstr "Pré-visualização da proteção de ecrã"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:2
 msgid "<b>Screensaver preview</b>"
-msgstr "<b>Pré-visualização da Protecção de ecrã</b>"
+msgstr "<b>Pré-visualização da proteção de ecrã</b>"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:3
 msgid "Screensaver Preferences"
-msgstr "Preferências da Protecção de ecrã"
+msgstr "Preferências da proteção de ecrã"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:4
 msgid "Configure your screensaver and locker"
@@ -568,7 +567,7 @@ msgstr "Pré-visualização"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:7
 msgid "Running as root"
-msgstr "Em execução como root"
+msgstr "A executar como root"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:8
 msgid "The screen will not be locked for the root user."
@@ -581,7 +580,8 @@ msgstr "Resolver"
 #: ../src/xfce4-screensaver-preferences.ui.h:10
 msgid "Xfce Power Manager is not configured to handle laptop lid events"
 msgstr ""
-"Gestão de energia Xfce não configurada para lidar com tampa do portátil"
+"A Gestão de energia Xfce não está configurada para lidar com eventos de "
+"tampa de portáteis"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:11
 msgid "Your computer may not be locked when you close the lid."
@@ -589,7 +589,7 @@ msgstr "O computador pode não ser bloqueado ao fechar a tampa."
 
 #: ../src/xfce4-screensaver-preferences.ui.h:12
 msgid "Enable Screensaver"
-msgstr "Ativar Protecção de ecrã"
+msgstr "Ativar proteção de ecrã"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:13
 msgid "Theme"
@@ -621,15 +621,15 @@ msgstr "Considerar computador como _inativo após:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:20
 msgid "Inhibit screensaver for fullscreen applications"
-msgstr "Inibir a proteção de ecrã para aplicações em ecrã completo"
+msgstr "Inibir a proteção de ecrã para aplicações em ecrã inteiro"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:22
 msgid "Enable Lock Screen"
-msgstr "Ativar Bloquear ecrã"
+msgstr "Ativar o bloqueio de ecrã"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:23
 msgid "Lock Screen with Screensaver"
-msgstr "Bloquear ecrã com Protecção de ecrã"
+msgstr "Bloquear ecrã com a proteção de ecrã"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:24
 msgid "Lock the screen after the screensaver is active for:"
@@ -637,11 +637,11 @@ msgstr "Bloquear o ecrã após a proteção de ecrã estiver ativa por:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:25
 msgid "On Screen Keyboard"
-msgstr "Teclado virtual"
+msgstr "Teclado no ecrã"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:26
 msgid "On screen keyboard command:"
-msgstr "Comando do teclado virtual:"
+msgstr "Comando do teclado no ecrã:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:27
 msgid "Session Status Messages"
@@ -665,7 +665,7 @@ msgstr "Trocar de utilizador"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:32
 msgid "Lock Screen with System Sleep"
-msgstr "Bloquear Ecrã com o Adormecer do Sistema"
+msgstr "Bloquear ecrã com o Adormecer do sistema"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:33
 msgid "Lock Screen"
