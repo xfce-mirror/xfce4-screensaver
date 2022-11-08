@@ -456,8 +456,9 @@ set_pam_error (GError **error,
     }
 }
 
-static int
-gs_auth_thread_func (int auth_operation_fd) {
+static gpointer
+gs_auth_thread_func (gpointer data) {
+    int               auth_operation_fd = GPOINTER_TO_INT (data);
     static const int  flags = 0;
     int               status;
     int               status2;
@@ -542,7 +543,7 @@ done:
      */
     close (auth_operation_fd);
 
-    return status;
+    return GINT_TO_POINTER (status);
 }
 
 static gboolean
@@ -595,7 +596,7 @@ gs_auth_pam_verify_user (pam_handle_t *handle,
                                (GIOFunc) gs_auth_loop_quit, &thread_done);
 
     auth_thread = g_thread_new ("auththread",
-                                (GThreadFunc) gs_auth_thread_func,
+                                gs_auth_thread_func,
                                 GINT_TO_POINTER (auth_operation_fds[1]));
 
     if (auth_thread == NULL) {
