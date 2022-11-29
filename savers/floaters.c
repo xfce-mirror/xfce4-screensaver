@@ -260,9 +260,9 @@ static void cached_source_free (CachedSource *source);
 
 static ScreenSaver *screen_saver_new (GtkWidget       *drawing_area,
                                       const gchar     *filename,
-                                      gint             max_floater_count,
-                                      gboolean         should_do_rotations,
-                                      gboolean         should_show_paths);
+                                      gint             local_max_floater_count,
+                                      gboolean         local_should_do_rotations,
+                                      gboolean         local_should_show_paths);
 static void screen_saver_free (ScreenSaver *screen_saver);
 static gdouble screen_saver_get_timestamp (ScreenSaver *screen_saver);
 static void screen_saver_get_initial_state (ScreenSaver *screen_saver);
@@ -794,9 +794,9 @@ screen_saver_floater_do_draw (ScreenSaver        *screen_saver,
 static ScreenSaver *
 screen_saver_new (GtkWidget   *drawing_area,
                   const gchar *filename,
-                  gint         max_floater_count,
-                  gboolean     should_do_rotations,
-                  gboolean     should_show_paths) {
+                  gint         local_max_floater_count,
+                  gboolean     local_should_do_rotations,
+                  gboolean     local_should_show_paths) {
     ScreenSaver *screen_saver;
 
     screen_saver = g_new (ScreenSaver, 1);
@@ -822,10 +822,10 @@ screen_saver_new (GtkWidget   *drawing_area,
     screen_saver->updates_per_second = 0.0;
     screen_saver->frames_per_second = 0.0;
     screen_saver->floaters = NULL;
-    screen_saver->max_floater_count = max_floater_count;
+    screen_saver->max_floater_count = local_max_floater_count;
 
-    screen_saver->should_show_paths = should_show_paths;
-    screen_saver->should_do_rotations = should_do_rotations;
+    screen_saver->should_show_paths = local_should_show_paths;
+    screen_saver->should_do_rotations = local_should_do_rotations;
     screen_saver->draw_ops_pending = TRUE;
 
     screen_saver_get_initial_state (screen_saver);

@@ -42,8 +42,6 @@
 #include "gs-prefs.h"
 #include "xfce4-screensaver.h"
 
-static void gs_monitor_class_init(GSMonitorClass* klass);
-static void gs_monitor_init(GSMonitor* monitor);
 static void gs_monitor_finalize(GObject* object);
 
 struct GSMonitorPrivate {
