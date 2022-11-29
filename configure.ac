@@ -22,10 +22,7 @@ AC_SUBST(AR_FLAGS, [cr])
 IT_PROG_INTLTOOL([0.50.1])
 AC_PROG_CC
 AM_PROG_CC_C_O
-AC_STDC_HEADERS
 AC_CANONICAL_HOST
-
-AC_HEADER_STDC
 
 LT_PREREQ([2.4])
 LT_INIT([disable-static])
@@ -38,8 +35,6 @@ ACLOCAL="$ACLOCAL $ACLOCAL_FLAGS"
 GETTEXT_PACKAGE=xfce4-screensaver
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Name of default gettext domain])
-
-AM_GLIB_GNU_GETTEXT
 
 dnl
 dnl Enable gsettings schema macros
@@ -191,7 +186,7 @@ dnl ---------------------------------------------------------------------------
 dnl - Where should we put documentation ?
 dnl ---------------------------------------------------------------------------
 AC_ARG_WITH(doc-dir,
-              [AC_HELP_STRING([--with-doc-dir=<dir>],
+              [AS_HELP_STRING([--with-doc-dir=<dir>],
               [directory to install documentation])])
 if ! test -z "$with_doc_dir"; then
    DOCDIR="$with_doc_dir/xfce4-screensaver-$VERSION"
@@ -241,7 +236,7 @@ AC_DEFUN([AC_CHECK_X_HEADER], [
   AC_CHECK_HEADER([$1],[$2],[$3],[$4])
   CPPFLAGS="$ac_save_CPPFLAGS"])
 
-# Like AC_TRY_COMPILE, but it uses the already-computed -I directories.
+# Like AC_COMPILE_IFELSE, but it uses the already-computed -I directories.
 #
 AC_DEFUN([AC_TRY_X_COMPILE], [
   ac_save_CPPFLAGS="$CPPFLAGS"
@@ -249,7 +244,7 @@ AC_DEFUN([AC_TRY_X_COMPILE], [
     CPPFLAGS="$CPPFLAGS -I$includedir"
   fi
   CPPFLAGS="$CPPFLAGS $X_CFLAGS"
-  AC_TRY_COMPILE([$1], [$2], [$3], [$4])
+  AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[$1]], [[$2]])], [$3], [$4])
   CPPFLAGS="$ac_save_CPPFLAGS"])
 
 
@@ -426,7 +421,7 @@ fi
 
 # Check whether to use a xscreensaver hacks configuration directory
 AC_MSG_CHECKING([whether to use xscreensaver hacks configuration])
-AC_ARG_WITH(xscreensaverdir, AC_HELP_STRING([--with-xscreensaverdir=dir], [Use xscreensaver hack configs found in directory],))
+AC_ARG_WITH(xscreensaverdir, AS_HELP_STRING([--with-xscreensaverdir=dir], [Use xscreensaver hack configs found in directory],))
 xscreensaverdir=
 if test "x$with_xscreensaverdir" = "xyes"; then
   if test -d /usr/share/xscreensaver/config; then
@@ -448,7 +443,7 @@ else
 fi
 
 # Path to xscreensaver hack executables
-AC_ARG_WITH(xscreensaverhackdir, AC_HELP_STRING([--with-xscreensaverhackdir=dir], [Look for xscreensaver hack executables in directory],))
+AC_ARG_WITH(xscreensaverhackdir, AS_HELP_STRING([--with-xscreensaverhackdir=dir], [Look for xscreensaver hack executables in directory],))
 AC_MSG_CHECKING([for location of xscreensaver hack executables])
 xscreensaverhackdir=
 if test "x$with_xscreensaverhackdir" = "xyes" -o "x$with_xscreensaverhackdir" = "x"; then
@@ -543,7 +538,7 @@ dnl - Check for PAM
 dnl ---------------------------------------------------------------------------
 
 have_pam=no
-AC_ARG_ENABLE(pam, AC_HELP_STRING([--enable-pam],
+AC_ARG_ENABLE(pam, AS_HELP_STRING([--enable-pam],
                    [Enable PAM support @<:@default=auto@:>@],
                    ),,enable_pam=auto)
 
@@ -564,20 +559,33 @@ if test "x$have_pam" = "xyes"; then
 
     AC_MSG_CHECKING(how to call pam_strerror)
     AC_CACHE_VAL(ac_cv_pam_strerror_args,
-     [AC_TRY_COMPILE([#include <stdio.h>
-                      #include <stdlib.h>
-                      #include <security/pam_appl.h>],
-                     [pam_handle_t *pamh = 0;
-                      const char *s = pam_strerror(pamh, PAM_SUCCESS);],
-                     [ac_pam_strerror_args=2],
-                     [AC_TRY_COMPILE([#include <stdio.h>
-                                      #include <stdlib.h>
-                                      #include <security/pam_appl.h>],
-                                     [char *s =
-                                       pam_strerror(PAM_SUCCESS);],
-                                     [ac_pam_strerror_args=1],
-                                     [ac_pam_strerror_args=0])])
-      ac_cv_pam_strerror_args=$ac_pam_strerror_args])
+      [AC_COMPILE_IFELSE(
+        [AC_LANG_PROGRAM(
+          [[#include <stdio.h>
+            #include <stdlib.h>
+            #include <security/pam_appl.h>
+          ]],
+          [[pam_handle_t *pamh = 0;
+            const char *s = pam_strerror(pamh, PAM_SUCCESS);
+          ]]
+        )],
+        [ac_pam_strerror_args=2],
+        [AC_COMPILE_IFELSE(
+          [AC_LANG_PROGRAM(
+            [[#include <stdio.h>
+              #include <stdlib.h>
+              #include <security/pam_appl.h>
+            ]],
+            [[char *s =
+              pam_strerror(PAM_SUCCESS);
+            ]]
+          )],
+          [ac_pam_strerror_args=1],
+          [ac_pam_strerror_args=0]
+        )]
+      )
+      ac_cv_pam_strerror_args=$ac_pam_strerror_args]
+    )
     ac_pam_strerror_args=$ac_cv_pam_strerror_args
     if test "$ac_pam_strerror_args" = 1 ; then
       AC_MSG_RESULT(one argument)
@@ -1018,7 +1026,7 @@ exec_prefix=$old_exec_prefix
 # Turn on the additional warnings last, so -Werror doesn't affect other tests.
 
 AC_ARG_ENABLE(more-warnings,
-  AC_HELP_STRING([--enable-more-warnings], [Maximum compiler warnings]),
+  AS_HELP_STRING([--enable-more-warnings], [Maximum compiler warnings]),
 set_more_warnings="$enableval",[
 if test -d $srcdir/.git; then
         is_cvs_version=true
@@ -1041,9 +1049,9 @@ if test "$GCC" = "yes" -a "$set_more_warnings" != "no"; then
                 SAVE_CFLAGS="$CFLAGS"
                 CFLAGS="$CFLAGS $option"
                 AC_MSG_CHECKING([whether gcc understands $option])
-                AC_TRY_COMPILE([], [],
-                        has_option=yes,
-                        has_option=no,)
+                AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[]])],
+                                  has_option=yes,
+                                  has_option=no,)
                 if test $has_option = no; then
                         CFLAGS="$SAVE_CFLAGS"
                 fi
@@ -1059,7 +1067,7 @@ fi
 #
 # Enable Debug
 #
-AC_ARG_ENABLE(debug, [AC_HELP_STRING([--enable-debug=[no/yes]], [turn on debugging])],, enable_debug=yes)
+AC_ARG_ENABLE(debug, [AS_HELP_STRING([--enable-debug=[no/yes]], [turn on debugging])],, enable_debug=yes)
 if test "$enable_debug" = "yes"; then
   DEBUG_CFLAGS="-DG_ENABLE_DEBUG"
 else
@@ -1102,7 +1110,7 @@ AC_SUBST(themesdir)
 
 # Files
 
-AC_OUTPUT([
+AC_CONFIG_FILES([
 Makefile
 po/Makefile.in
 src/Makefile
@@ -1121,8 +1129,8 @@ data/images/Makefile
 savers/Makefile
 doc/Makefile
 doc/xfce4-screensaver.xml
-
 ])
+AC_OUTPUT
 
 echo "
                     xfce4-screensaver $VERSION

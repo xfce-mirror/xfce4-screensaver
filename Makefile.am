@@ -34,6 +34,7 @@ DISTCLEANFILES = \
 	intltool-merge              \
 	intltool-update             \
 	./po/.intltool-merge-cache  \
+	./po/.intltool-merge-cache.lock \
 	$(NULL)
 
 MAINTAINERCLEANFILES = \
