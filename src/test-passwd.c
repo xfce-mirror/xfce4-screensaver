@@ -204,13 +204,7 @@ main (int    argc,
     gboolean        verbose       = TRUE;
     char           *nolock_reason = NULL;
 
-#ifdef ENABLE_NLS
-    bindtextdomain (GETTEXT_PACKAGE, XFCELOCALEDIR);
-# ifdef HAVE_BIND_TEXTDOMAIN_CODESET
-    bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-# endif
-    textdomain (GETTEXT_PACKAGE);
-#endif
+    xfce_textdomain (GETTEXT_PACKAGE, XFCELOCALEDIR, "UTF-8");
 
     gs_auth_set_verbose (verbose);
     if (!privileged_initialization ()) {

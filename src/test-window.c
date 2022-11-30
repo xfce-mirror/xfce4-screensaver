@@ -135,13 +135,7 @@ main (int    argc,
       char **argv) {
     GError *error = NULL;
 
-#ifdef ENABLE_NLS
-    bindtextdomain (GETTEXT_PACKAGE, XFCELOCALEDIR);
-# ifdef HAVE_BIND_TEXTDOMAIN_CODESET
-    bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-# endif
-    textdomain (GETTEXT_PACKAGE);
-#endif
+    xfce_textdomain (GETTEXT_PACKAGE, XFCELOCALEDIR, "UTF-8");
 
     if (!gtk_init_with_args (&argc, &argv, NULL, NULL, NULL, &error)) {
         fprintf (stderr, "%s", error->message);
