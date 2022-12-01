@@ -1968,7 +1968,7 @@ configure_capplet (void) {
     delay = config_get_idle_delay (&idle_delay_writable);
     ui_set_idle_delay (delay);
     set_widget_writable (widget, idle_delay_writable);
-    g_signal_connect (widget, "changed",
+    g_signal_connect (widget, "value-changed",
                       G_CALLBACK (idle_delay_value_changed_cb), NULL);
 
     /* Lock delay */
@@ -1976,7 +1976,7 @@ configure_capplet (void) {
     delay = config_get_lock_delay (&lock_delay_writable);
     ui_set_lock_delay (delay);
     set_widget_writable (widget, lock_delay_writable);
-    g_signal_connect (widget, "changed",
+    g_signal_connect (widget, "value-changed",
                       G_CALLBACK (lock_delay_value_changed_cb), NULL);
 
     /* Keyboard command */
@@ -2002,7 +2002,7 @@ configure_capplet (void) {
     delay = config_get_logout_delay (&logout_delay_writable);
     ui_set_logout_delay (delay);
     set_widget_writable (widget, logout_delay_writable);
-    g_signal_connect (widget, "changed",
+    g_signal_connect (widget, "value-changed",
                       G_CALLBACK (logout_delay_value_changed_cb), NULL);
 
     /* Idle activation enabled */
