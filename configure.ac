@@ -806,7 +806,8 @@ have_passwd_helper=no
 with_passwd_helper_req=unspecified
 
 AC_ARG_WITH(passwd-helper,
-[  --with-passwd-helper    Include support for an external password
+[  --with-passwd-helper=<full-pathname>
+                          Specify full pathname of an external password
                           verification helper program.],
   [with_passwd_helper="$withval"; with_passwd_helper_req="$withval"],[with_passwd_helper=no])
 # no HANDLE_X_PATH_ARG for this one
