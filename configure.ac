@@ -44,9 +44,10 @@ GLIB_GSETTINGS
 
 # Dependencies
 
-DBUS_REQUIRED_VERSION=0.30
-GLIB_REQUIRED_VERSION=2.50.0
+m4_define([glib_required_version], [2.50.0])
+GLIB_REQUIRED_VERSION=glib_required_version
 GTK_REQUIRED_VERSION=3.22.0
+DBUS_REQUIRED_VERSION=0.30
 X11_REQUIRED_VERSION=1.0
 LIBXKLAVIER_REQUIRED=5.2
 XRANDR_REQUIRED=1.3
@@ -79,6 +80,10 @@ else
 fi
 
 AC_SUBST(RANDR_PACKAGE)
+
+dnl This is to set GLib macros via XDT_CHECK_PACKAGE when building with
+dnl xfce4-dev-tools >= 4.17.1
+XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [glib_required_version])
 
 AC_CHECK_FUNCS([setresuid setenv unsetenv clearenv])
 PKG_CHECK_MODULES(XFCE_SCREENSAVER,
