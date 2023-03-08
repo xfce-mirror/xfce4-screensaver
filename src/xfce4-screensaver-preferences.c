@@ -2136,6 +2136,12 @@ configure_capplet (void) {
 
 static void
 finalize_capplet (void) {
+    if (screensaver_channel)
+      g_signal_handlers_disconnect_by_func (screensaver_channel, key_changed_cb, NULL);
+
+    if (xfpm_channel)
+      g_signal_handlers_disconnect_by_func (xfpm_channel, key_changed_cb, NULL);
+
     if (active_theme)
         g_free (active_theme);
 }

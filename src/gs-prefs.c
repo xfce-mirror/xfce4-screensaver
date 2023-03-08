@@ -625,6 +625,9 @@ gs_prefs_finalize (GObject *object) {
     g_free (prefs->logout_command);
     g_free (prefs->keyboard_command);
 
+    g_signal_handlers_disconnect_by_func (prefs->priv->channel, key_changed_cb, prefs);
+    g_signal_handlers_disconnect_by_func (prefs->priv->xfpm_channel, key_changed_cb, prefs);
+
     G_OBJECT_CLASS (gs_prefs_parent_class)->finalize (object);
 }
 
