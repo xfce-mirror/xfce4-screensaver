@@ -2136,9 +2136,6 @@ configure_capplet (void) {
 
 static void
 finalize_capplet (void) {
-    if (screensaver_channel)
-        g_object_unref (screensaver_channel);
-
     if (active_theme)
         g_free (active_theme);
 }
@@ -2229,6 +2226,8 @@ main (int    argc,
 
     if (job)
         g_object_unref (job);
+
+    xfconf_shutdown ();
 
     return 0;
 }

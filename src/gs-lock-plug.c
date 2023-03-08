@@ -1658,9 +1658,6 @@ gs_lock_plug_finalize (GObject *object) {
     g_free (plug->priv->prefs);
     plug->priv->prefs = NULL;
 
-    g_free (plug->priv->channel);
-    plug->priv->channel = NULL;
-
     remove_response_idle (plug);
     remove_cancel_timeout (plug);
     remove_datetime_timeout (plug);

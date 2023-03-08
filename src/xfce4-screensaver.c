@@ -114,6 +114,7 @@ int main(int    argc,
     gs_debug("xfce4-screensaver finished");
 
     gs_debug_shutdown();
+    xfconf_shutdown ();
 
     return 0;
 }

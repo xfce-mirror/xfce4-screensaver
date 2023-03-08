@@ -594,6 +594,7 @@ int main(int    argc,
 
     gs_profile_end(NULL);
     gs_debug_shutdown();
+    xfconf_shutdown ();
 
     return 0;
 }

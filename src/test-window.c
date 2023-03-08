@@ -164,6 +164,7 @@ main (int    argc,
     g_object_unref (grab);
 
     gs_debug_shutdown ();
+    xfconf_shutdown ();
 
     return 0;
 }

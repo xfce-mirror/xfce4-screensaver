@@ -618,16 +618,6 @@ gs_prefs_finalize (GObject *object) {
 
     g_return_if_fail (prefs->priv != NULL);
 
-    if (prefs->priv->channel) {
-        g_object_unref (prefs->priv->channel);
-        prefs->priv->channel = NULL;
-    }
-
-    if (prefs->priv->xfpm_channel) {
-        g_object_unref (prefs->priv->xfpm_channel);
-        prefs->priv->xfpm_channel = NULL;
-    }
-
     if (prefs->themes) {
         g_slist_free_full (prefs->themes, g_free);
     }
