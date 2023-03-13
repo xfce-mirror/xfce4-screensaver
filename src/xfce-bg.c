@@ -1309,7 +1309,7 @@ blow_expensive_caches (gpointer data) {
 
     if (bg->file_cache) {
         for (list = bg->file_cache; list != NULL; ) {
-            // Avoid use-after-free
+            /* Avoid use-after-free */
             GList *item = list;
             list = list->next;
 
