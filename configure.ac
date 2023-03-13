@@ -1031,61 +1031,10 @@ AC_SUBST(EXPANDED_DATADIR)
 prefix=$old_prefix
 exec_prefix=$old_exec_prefix
 
-# Turn on the additional warnings last, so -Werror doesn't affect other tests.
-
-AC_ARG_ENABLE(more-warnings,
-  AS_HELP_STRING([--enable-more-warnings], [Maximum compiler warnings]),
-set_more_warnings="$enableval",[
-if test -d $srcdir/.git; then
-        is_cvs_version=true
-        set_more_warnings=yes
-else
-        set_more_warnings=no
-fi
-])
-AC_MSG_CHECKING(for more warnings)
-if test "$GCC" = "yes" -a "$set_more_warnings" != "no"; then
-        AC_MSG_RESULT(yes)
-        CFLAGS="\
-        -Wall \
-        -Wchar-subscripts -Wmissing-declarations -Wmissing-prototypes \
-        -Wnested-externs -Wpointer-arith \
-        -Wcast-align -Wsign-compare \
-        $CFLAGS"
-
-        for option in -Wno-strict-aliasing -Wno-sign-compare; do
-                SAVE_CFLAGS="$CFLAGS"
-                CFLAGS="$CFLAGS $option"
-                AC_MSG_CHECKING([whether gcc understands $option])
-                AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[]])],
-                                  has_option=yes,
-                                  has_option=no,)
-                if test $has_option = no; then
-                        CFLAGS="$SAVE_CFLAGS"
-                fi
-                AC_MSG_RESULT($has_option)
-                unset has_option
-                unset SAVE_CFLAGS
-        done
-        unset option
-else
-        AC_MSG_RESULT(no)
-fi
-
 #
 # Enable Debug
 #
-AC_ARG_ENABLE(debug, [AS_HELP_STRING([--enable-debug=[no/yes]], [turn on debugging])],, enable_debug=yes)
-if test "$enable_debug" = "yes"; then
-  DEBUG_CFLAGS="-DG_ENABLE_DEBUG"
-else
-  if test "x$enable_debug" = "xno"; then
-    DEBUG_CFLAGS="-DG_DISABLE_ASSERT -DG_DISABLE_CHECKS"
-  else
-    DEBUG_CFLAGS=""
-  fi
-fi
-AC_SUBST(DEBUG_CFLAGS)
+XDT_FEATURE_DEBUG()
 
 # Flags
 LDFLAGS="$LDFLAGS -lm"
