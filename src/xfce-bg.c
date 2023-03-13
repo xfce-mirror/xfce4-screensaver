@@ -1314,7 +1314,6 @@ blow_expensive_caches (gpointer data) {
             list = list->next;
 
             FileCacheEntry *ent = item->data;
-
             if (ent->type == PIXBUF) {
                 file_cache_entry_delete (ent);
                 bg->file_cache = g_list_delete_link (bg->file_cache, item);
