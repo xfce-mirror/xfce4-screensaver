@@ -232,14 +232,9 @@ do_user_switch (GSLockPlug *plug) {
     } else if (process_is_running ("lightdm")) {
         /* LightDM */
         GDBusProxyFlags flags = G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START;
-        const gchar *env_seat_path = g_getenv ("XDG_SEAT_PATH");
-        const gchar *seat_path;
         GDBusProxy *proxy = NULL;
-
-        if (env_seat_path != NULL) {
-            seat_path = env_seat_path;
-        } else {
-            /* default value */
+        const gchar *seat_path = g_getenv ("XDG_SEAT_PATH");
+        if (seat_path == NULL) {
             seat_path = "/org/freedesktop/DisplayManager/Seat0";
         }
 
