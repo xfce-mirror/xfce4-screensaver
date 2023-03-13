@@ -45,7 +45,6 @@ gs_visual_gl_get_best_for_display (GdkDisplay *display) {
     Display   *xdisplay;
     GdkScreen *screen;
     int        screen_num;
-    int        i;
 
 # define R GLX_RED_SIZE
 # define G GLX_GREEN_SIZE
@@ -81,7 +80,7 @@ gs_visual_gl_get_best_for_display (GdkDisplay *display) {
     gdk_x11_display_error_trap_push (display);
 
     visual = NULL;
-    for (i = 0; i < G_N_ELEMENTS (attrs); i++) {
+    for (guint i = 0; i < G_N_ELEMENTS (attrs); i++) {
         XVisualInfo *vi;
 
         vi = glXChooseVisual (xdisplay, screen_num, attrs[i]);

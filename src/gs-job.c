@@ -267,7 +267,6 @@ get_env_vars (GtkWidget *widget) {
     GPtrArray         *env;
     const gchar       *display_name;
     gchar             *str;
-    int                i;
     static const char *allowed_env_vars[] = {
         "PATH",
         "SESSION_MANAGER",
@@ -286,7 +285,7 @@ get_env_vars (GtkWidget *widget) {
     g_ptr_array_add (env, g_strdup_printf ("HOME=%s",
                                            g_get_home_dir ()));
 
-    for (i = 0; i < G_N_ELEMENTS (allowed_env_vars); i++) {
+    for (guint i = 0; i < G_N_ELEMENTS (allowed_env_vars); i++) {
         const char *var;
         const char *val;
         var = allowed_env_vars[i];
@@ -322,7 +321,6 @@ spawn_on_widget (GtkWidget  *widget,
     int          standard_error;
     int          child_pid;
     int          id;
-    int          i;
 
     if (command == NULL) {
         return FALSE;
@@ -349,7 +347,7 @@ spawn_on_widget (GtkWidget  *widget,
                                        &standard_error,
                                        &error);
 
-    for (i = 0; i < env->len; i++) {
+    for (guint i = 0; i < env->len; i++) {
         g_free (g_ptr_array_index (env, i));
     }
     g_ptr_array_free (env, TRUE);

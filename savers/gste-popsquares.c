@@ -278,8 +278,6 @@ gste_popsquares_set_property (GObject      *object,
                               guint         prop_id,
                               const GValue *value,
                               GParamSpec   *pspec) {
-    GSTE_POPSQUARES (object);
-
     switch (prop_id) {
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -292,8 +290,6 @@ gste_popsquares_get_property (GObject    *object,
                               guint       prop_id,
                               GValue     *value,
                               GParamSpec *pspec) {
-    GSTE_POPSQUARES (object);
-
     switch (prop_id) {
     default:
         G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
