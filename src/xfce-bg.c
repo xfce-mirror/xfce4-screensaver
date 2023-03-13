@@ -1308,13 +1308,16 @@ blow_expensive_caches (gpointer data) {
     bg->blow_caches_id = 0;
 
     if (bg->file_cache) {
-        for (list = bg->file_cache; list != NULL; list = list->next) {
-            FileCacheEntry *ent = list->data;
+        for (list = bg->file_cache; list != NULL; ) {
+            // Avoid use-after-free
+            GList *item = list;
+            list = list->next;
+
+            FileCacheEntry *ent = item->data;
 
             if (ent->type == PIXBUF) {
                 file_cache_entry_delete (ent);
-                bg->file_cache = g_list_delete_link (bg->file_cache,
-                                     list);
+                bg->file_cache = g_list_delete_link (bg->file_cache, item);
             }
         }
     }
