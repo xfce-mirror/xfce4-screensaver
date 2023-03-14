@@ -69,7 +69,7 @@ install-data-hook:
 	                $(INSTALL_DATA) xfce4-screensaver.common-auth $(DESTDIR)$(PAM_PREFIX)/pam.d/xfce4-screensaver;  \
 	            fi;                                                                                                 \
 	        fi;                                                                                                     \
-	        if test "x$(PAM_PREFIX)" != "x/etc/pam.d"; then                                                         \
+	        if test "x$(PAM_PREFIX)" != "x/etc"; then                                                               \
 	            echo "***" ;                                                                                        \
 	            echo "***  Warning: xfce4-screensaver has been compiled with support for" ;                         \
 	            echo "***           Pluggable Authentication Modules (PAM).  However, you may need to" ;            \
