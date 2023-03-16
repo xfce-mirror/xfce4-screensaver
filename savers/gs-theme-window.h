@@ -47,6 +47,8 @@ struct _GSThemeWindow
 {
     GtkWindow parent;
 
+    GdkWindow *foreign_window;
+
     /*< private >*/
     /* reserved for priv pointer */
     gpointer  reserved;
