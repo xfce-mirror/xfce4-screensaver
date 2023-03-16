@@ -274,7 +274,8 @@ get_env_vars (GtkWidget *widget) {
         "XAUTHLOCALHOSTNAME",
         "LANG",
         "LANGUAGE",
-        "DBUS_SESSION_BUS_ADDRESS"
+        "DBUS_SESSION_BUS_ADDRESS",
+        "G_DEBUG"
     };
 
     env = g_ptr_array_new ();
@@ -320,7 +321,7 @@ spawn_on_widget (GtkWidget  *widget,
     GError      *error = NULL;
     int          standard_error;
     int          child_pid;
-    int          id;
+    int          id = 0;
 
     if (command == NULL) {
         return FALSE;
@@ -344,7 +345,7 @@ spawn_on_widget (GtkWidget  *widget,
                                        &child_pid,
                                        NULL,
                                        NULL,
-                                       &standard_error,
+                                       watch_func != NULL ? &standard_error : NULL,
                                        &error);
 
     for (guint i = 0; i < env->len; i++) {
@@ -369,20 +370,21 @@ spawn_on_widget (GtkWidget  *widget,
         g_spawn_close_pid (child_pid);
     }
 
-    channel = g_io_channel_unix_new (standard_error);
-    g_io_channel_set_close_on_unref (channel, TRUE);
-    g_io_channel_set_flags (channel,
-                            g_io_channel_get_flags (channel) | G_IO_FLAG_NONBLOCK,
-                            NULL);
-    id = g_io_add_watch (channel,
-                         G_IO_IN | G_IO_HUP | G_IO_ERR | G_IO_NVAL,
-                         watch_func,
-                         user_data);
+    if (watch_func != NULL) {
+        channel = g_io_channel_unix_new (standard_error);
+        g_io_channel_set_close_on_unref (channel, TRUE);
+        g_io_channel_set_flags (channel,
+                                g_io_channel_get_flags (channel) | G_IO_FLAG_NONBLOCK,
+                                NULL);
+        id = g_io_add_watch (channel,
+                             G_IO_IN | G_IO_HUP | G_IO_ERR | G_IO_NVAL,
+                             watch_func,
+                             user_data);
+        g_io_channel_unref (channel);
+    }
     if (watch_id != NULL) {
         *watch_id = id;
     }
-
-    g_io_channel_unref (channel);
 
     return result;
 }
@@ -441,7 +443,7 @@ gs_job_is_running (GSJob *job) {
 
 gboolean
 gs_job_start (GSJob *job) {
-    gboolean result;
+    gboolean redirect_stderr, result;
 
     g_return_val_if_fail (job != NULL, FALSE);
     g_return_val_if_fail (GS_IS_JOB (job), FALSE);
@@ -465,10 +467,15 @@ gs_job_start (GSJob *job) {
         return FALSE;
     }
 
+    /* do not redirect stderr for our own commands */
+    redirect_stderr = ! g_str_has_prefix (job->priv->command, LIBEXECDIR "/xfce4-screensaver/floaters")
+                      && ! g_str_has_prefix (job->priv->command, LIBEXECDIR "/xfce4-screensaver/popsquares")
+                      && ! g_str_has_prefix (job->priv->command, LIBEXECDIR "/xfce4-screensaver/slideshow");
+
     result = spawn_on_widget (job->priv->widget,
                               job->priv->command,
                               &job->priv->pid,
-                              (GIOFunc)command_watch,
+                              redirect_stderr ? (GIOFunc)command_watch : NULL,
                               job,
                               &job->priv->watch_id);
 
