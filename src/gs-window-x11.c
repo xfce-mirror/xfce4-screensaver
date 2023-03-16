@@ -919,6 +919,7 @@ spawn_on_window (GSWindow *window,
                  char     *command,
                  int      *pid,
                  GIOFunc   watch_func,
+                 gboolean  redirect_stderr,
                  gpointer  user_data,
                  gint     *watch_id) {
     int          argc;
@@ -950,7 +951,7 @@ spawn_on_window (GSWindow *window,
                                        &child_pid,
                                        NULL,
                                        &standard_output,
-                                       &standard_error,
+                                       redirect_stderr ? &standard_error : NULL,
                                        &error);
 
     if (!result) {
@@ -982,16 +983,18 @@ spawn_on_window (GSWindow *window,
     g_io_channel_unref (channel);
 
     /* error channel */
-    channel = g_io_channel_unix_new (standard_error);
-    g_io_channel_set_close_on_unref (channel, TRUE);
-    g_io_channel_set_flags (channel,
-                            g_io_channel_get_flags (channel) | G_IO_FLAG_NONBLOCK,
-                            NULL);
-    g_io_add_watch (channel,
-                    G_IO_IN | G_IO_HUP | G_IO_ERR | G_IO_NVAL,
-                    error_watch,
-                    NULL);
-    g_io_channel_unref (channel);
+    if (redirect_stderr) {
+        channel = g_io_channel_unix_new (standard_error);
+        g_io_channel_set_close_on_unref (channel, TRUE);
+        g_io_channel_set_flags (channel,
+                                g_io_channel_get_flags (channel) | G_IO_FLAG_NONBLOCK,
+                                NULL);
+        g_io_add_watch (channel,
+                        G_IO_IN | G_IO_HUP | G_IO_ERR | G_IO_NVAL,
+                        error_watch,
+                        NULL);
+        g_io_channel_unref (channel);
+    }
 
     g_strfreev (argv);
     g_strfreev (envp);
@@ -1275,6 +1278,7 @@ embed_keyboard (GSWindow *window) {
                            window->priv->prefs->keyboard_command,
                            &window->priv->keyboard_pid,
                            (GIOFunc)keyboard_process_watch,
+                           TRUE,
                            window,
                            &window->priv->keyboard_watch_id);
     if (!res) {
@@ -1553,6 +1557,7 @@ popup_dialog (GSWindow *window) {
                               command->str,
                               &window->priv->lock_pid,
                               (GIOFunc)dialog_process_watch,
+                              FALSE,
                               window,
                               &window->priv->lock_watch_id);
     if (!result) {

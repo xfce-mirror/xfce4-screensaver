@@ -53,7 +53,7 @@ main (int    argc,
     }
 
     window = gs_theme_window_new ();
-    g_signal_connect (G_OBJECT (window), "delete-event",
+    g_signal_connect (G_OBJECT (window), "destroy",
                       G_CALLBACK (gtk_main_quit), NULL);
 
     g_set_prgname ("popsquares");

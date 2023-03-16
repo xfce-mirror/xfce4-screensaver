@@ -621,7 +621,7 @@ get_user_icon_from_accounts_service (void) {
                                            G_DBUS_CALL_FLAGS_NONE,
                                            -1, NULL, &error);
     if (variant == NULL) {
-        g_warning ("Could not find user: %s", error->message);
+        gs_debug ("Could not find user: %s", error->message);
         g_error_free (error);
         g_object_unref (bus);
         return NULL;
@@ -643,7 +643,7 @@ get_user_icon_from_accounts_service (void) {
                                            G_DBUS_CALL_FLAGS_NONE,
                                            -1, NULL, &error);
     if (variant == NULL) {
-        g_warning ("Could not find user icon: %s", error->message);
+        gs_debug ("Could not find user icon: %s", error->message);
         g_error_free (error);
         g_object_unref (bus);
         return NULL;

@@ -67,12 +67,18 @@ gs_theme_window_init (GSThemeWindow *window) {
 
 static void
 gs_theme_window_finalize (GObject *object) {
+    GSThemeWindow *window = GS_THEME_WINDOW (object);
+
+    if (window->foreign_window != NULL) {
+        g_object_unref (window->foreign_window);
+    }
+
     G_OBJECT_CLASS (gs_theme_window_parent_class)->finalize (object);
 }
 
 static void
 gs_theme_window_real_realize (GtkWidget *widget) {
-    GdkWindow      *window;
+    GdkWindow      *window, *real_window;
     Window          remote_xwindow;
     GtkRequisition  requisition;
     GtkAllocation   allocation;
@@ -97,6 +103,8 @@ gs_theme_window_real_realize (GtkWidget *widget) {
                 ((remote_xwindow < G_MAXULONG) || (errno != ERANGE))) {
             window = gdk_x11_window_foreign_new_for_display (gdk_display_get_default (), remote_xwindow);
             if (window != NULL) {
+                GS_THEME_WINDOW (widget)->foreign_window = window;
+
                 /* This is a kludge; we need to set the same
                  * flags gs-window-x11.c does, to ensure they
                  * don't get unset by gtk_window_map() later.
@@ -116,27 +124,18 @@ gs_theme_window_real_realize (GtkWidget *widget) {
         }
     }
 
+    GTK_WIDGET_CLASS (gs_theme_window_parent_class)->realize (widget);
     if (window == NULL) {
-        GtkWidgetClass *p_class;
-
-        p_class = GTK_WIDGET_CLASS (gs_theme_window_parent_class);
-
-        if (p_class->realize != NULL)
-            p_class->realize (widget);
-
         return;
     }
 
+    real_window = gtk_widget_get_window (widget);
     G_GNUC_BEGIN_IGNORE_DEPRECATIONS /* GTK 3.18 */
     gtk_style_context_set_background (gtk_widget_get_style_context (widget),
                                       window);
     G_GNUC_END_IGNORE_DEPRECATIONS
-    gdk_window_set_decorations (window, (GdkWMDecoration) 0);
-    gdk_window_set_events (window, gdk_window_get_events (window) | event_mask);
-
-    gtk_widget_set_window (widget, window);
-    gdk_window_set_user_data (window, widget);
-    gtk_widget_set_realized (widget, TRUE);
+    gdk_window_set_decorations (real_window, (GdkWMDecoration) 0);
+    gdk_window_set_events (real_window, gdk_window_get_events (window) | event_mask);
 
     gdk_window_get_geometry (window, &x, &y, &width, &height);
 
@@ -152,6 +151,7 @@ gs_theme_window_real_realize (GtkWidget *widget) {
     allocation.height = height;
     gtk_widget_size_allocate (widget, &allocation);
     gtk_window_resize (GTK_WINDOW (widget), width, height);
+    gdk_window_reparent (real_window, window, 0, 0);
 }
 
 GtkWidget *
