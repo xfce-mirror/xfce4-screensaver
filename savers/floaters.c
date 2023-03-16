@@ -1152,7 +1152,7 @@ main (int   argc,
 
     window = gs_theme_window_new ();
 
-    g_signal_connect (G_OBJECT (window), "delete-event",
+    g_signal_connect (G_OBJECT (window), "destroy",
                       G_CALLBACK (gtk_main_quit), NULL);
 
     drawing_area = GTK_WIDGET (gtk_drawing_area_new ());
