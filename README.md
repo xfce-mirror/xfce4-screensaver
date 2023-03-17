@@ -25,17 +25,9 @@ libraries and the Xfconf configuration backend.
  - Full translation support into many languages
  - User switching
 
- - Integration with the Xfce Desktop per-monitor wallpaper
- - Locking down of configuration settings via Xfconf
- - DBUS interface to limited screensaver interaction
- - Full translation support into many languages
- - Shared styles with LightDM GTK+ Greeter
- - Support for XScreensaver screensavers
- - User switching
-
 ### Known Issues
 
- - Allow embedding a keyboard into the window, /embedded-keyboard-enabled, may be non-functional. Onboard crashes when embedded.
+ - Allow embedding a keyboard into the window, `/embedded-keyboard-enabled`, may be non-functional. Onboard crashes when embedded.
 
 ### Homepage
 
