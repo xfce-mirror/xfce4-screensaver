@@ -774,6 +774,9 @@ if test "$enable_locking" = yes ; then
     AC_CHECK_LIB(crypt, crypt,
                  [have_crypt=yes; AUTH_LIBS="${AUTH_LIBS} -lcrypt"])
   fi
+  if test "$have_crypt" = yes; then
+    AC_DEFINE(HAVE_LIBCRYPT, 1, [Define if crypt() function is available])
+  fi
 fi
 
 # Most of the above shadow mechanisms will have set need_setuid to yes,

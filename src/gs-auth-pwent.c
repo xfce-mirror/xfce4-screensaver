@@ -37,8 +37,10 @@
 # include <unistd.h>
 #endif
 
-#ifdef HAVE_CRYPT_H
+#ifdef HAVE_LIBCRYPT
 # include <crypt.h>
+#else
+# define crypt(a, b) NULL
 #endif
 
 #ifdef __bsdi__
