@@ -3,8 +3,8 @@ dnl -*- mode: m4 -*-
 AC_COPYRIGHT([Copyright (c) 2011-2023 The Xfce development team. All rights reserved.])
 AC_PREREQ(2.60)
 AC_INIT([xfce4-screensaver],
-        [4.16.0],
-        [https://www.xfce.org/])
+        [4.18.0],
+        [https://gitlab.xfce.org/apps/xfce4-screensaver])
 
 AC_CONFIG_SRCDIR(src/xfce4-screensaver.c)
 AC_CONFIG_MACRO_DIRS([m4])
