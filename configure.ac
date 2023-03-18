@@ -1,5 +1,6 @@
 dnl -*- mode: m4 -*-
 
+AC_COPYRIGHT([Copyright (c) 2011-2023 The Xfce development team. All rights reserved.])
 AC_PREREQ(2.60)
 AC_INIT([xfce4-screensaver],
         [4.16.0],
