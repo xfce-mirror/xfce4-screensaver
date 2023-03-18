@@ -87,7 +87,7 @@ spawn_make_environment_for_display (GdkDisplay  *display,
     g_return_val_if_fail (GDK_IS_DISPLAY (display), NULL);
 
     if (envp == NULL)
-        envp = g_get_environ();
+        envp = g_get_environ ();
 
     for (env_len = 0; envp[env_len]; env_len++)
         if (strncmp (envp[env_len], "DISPLAY", strlen ("DISPLAY")) == 0)

@@ -37,8 +37,8 @@ gboolean xfce_gdk_spawn_command_line_on_screen (GdkScreen    *screen,
                                                 const gchar  *command,
                                                 GError      **error);
 
-gchar ** spawn_make_environment_for_display (GdkDisplay  *display,
-                                             gchar      **envp);
+gchar  **spawn_make_environment_for_display    (GdkDisplay   *display,
+                                                gchar       **envp);
 
 G_END_DECLS
 
