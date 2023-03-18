@@ -42,6 +42,7 @@
 #include "gs-prefs.h"
 #include "gs-window.h"
 #include "subprocs.h"
+#include "xfce-desktop-utils.h"
 
 static void     gs_window_finalize       (GObject       *object);
 
@@ -359,42 +360,6 @@ gs_window_real_unrealize (GtkWidget *widget) {
     if (GTK_WIDGET_CLASS (gs_window_parent_class)->unrealize) {
         GTK_WIDGET_CLASS (gs_window_parent_class)->unrealize (widget);
     }
-}
-
-/* copied from gdk */
-extern char **environ;
-
-static gchar **
-spawn_make_environment_for_display (GdkDisplay  *display,
-                                    gchar      **envp) {
-    gchar       **retval = NULL;
-    const gchar  *display_name;
-    gint          display_index = -1;
-    gint          i, env_len;
-
-    g_return_val_if_fail (GDK_IS_DISPLAY (display), NULL);
-
-    if (envp == NULL)
-        envp = environ;
-
-    for (env_len = 0; envp[env_len]; env_len++)
-        if (strncmp (envp[env_len], "DISPLAY", strlen ("DISPLAY")) == 0)
-            display_index = env_len;
-
-    retval = g_new (char *, env_len + 1);
-    retval[env_len] = NULL;
-
-    display_name = gdk_display_get_name (display);
-
-    for (i = 0; i < env_len; i++)
-        if (i == display_index)
-            retval[i] = g_strconcat ("DISPLAY=", display_name, NULL);
-        else
-            retval[i] = g_strdup (envp[i]);
-
-    g_assert (i == env_len);
-
-    return retval;
 }
 
 static gboolean

@@ -99,6 +99,8 @@ test_window_SOURCES = \
 	gs-prefs.h       \
 	subprocs.c       \
 	subprocs.h       \
+	xfce-desktop-utils.c \
+	xfce-desktop-utils.h \
 	$(NULL)
 
 test_window_LDADD = \
