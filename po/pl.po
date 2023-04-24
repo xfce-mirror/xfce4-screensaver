@@ -5,20 +5,20 @@
 # 
 # Translators:
 # Xfce Bot <transifex@xfce.org>, 2018
-# Marcin Mikołajczak <me@mkljczk.pl>, 2018
+# marcin mikołajczak <me@mkljczk.pl>, 2018
 # Piotr Sokół <psokol.l10n@gmail.com>, 2019
 # Nick Schermer <nick@xfce.org>, 2020
-# No Ne, 2021
+# Marek Adamski, 2023
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-08 00:46+0100\n"
+"POT-Creation-Date: 2022-11-28 15:02+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: No Ne, 2021\n"
-"Language-Team: Polish (https://www.transifex.com/xfce/teams/16840/pl/)\n"
+"Last-Translator: Marek Adamski, 2023\n"
+"Language-Team: Polish (https://app.transifex.com/xfce/teams/16840/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -77,21 +77,21 @@ msgstr "Obraz źródłowy do użycia"
 
 #. translators: the word "image" here
 #. * represents a command line argument
-#: ../savers/floaters.c:1129
+#: ../savers/floaters.c:1131
 msgid "image - floats images around the screen"
 msgstr "image - unosi obrazy po ekranie"
 
-#: ../savers/floaters.c:1133 ../savers/popsquares.c:49
+#: ../savers/floaters.c:1135 ../savers/popsquares.c:49
 #, c-format
 msgid "%s. See --help for usage information.\n"
 msgstr "%s. Zobacz --help, aby uzyskać informacje o użytkowaniu.\n"
 
-#: ../savers/floaters.c:1140
+#: ../savers/floaters.c:1142
 #, c-format
 msgid "Failed to initialize the windowing system."
 msgstr "Nie udało się zainicjować systemu okien."
 
-#: ../savers/floaters.c:1146
+#: ../savers/floaters.c:1148
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr ""
@@ -150,54 +150,54 @@ msgstr "Pop-artowa siatka pulsujących kolorów."
 msgid "Password:"
 msgstr "Hasło:"
 
-#: ../src/gs-auth-pam.c:375
+#: ../src/gs-auth-pam.c:376
 #, c-format
 msgid "Unable to establish service %s: %s\n"
 msgstr "Nie można ustanowić usługi %s: %s\n"
 
-#: ../src/gs-auth-pam.c:401
+#: ../src/gs-auth-pam.c:402
 #, c-format
 msgid "Can't set PAM_TTY=%s"
 msgstr "Nie można ustawić PAM_TTY=%s"
 
-#: ../src/gs-auth-pam.c:432
+#: ../src/gs-auth-pam.c:433
 msgid "Incorrect password."
 msgstr "Nieprawidłowe hasło."
 
-#: ../src/gs-auth-pam.c:434 ../src/xfce4-screensaver-dialog.c:311
+#: ../src/gs-auth-pam.c:435 ../src/xfce4-screensaver-dialog.c:312
 msgid "Authentication failed."
 msgstr "Nieudane uwierzytelnianie."
 
-#: ../src/gs-auth-pam.c:448
+#: ../src/gs-auth-pam.c:449
 msgid "Not permitted to gain access at this time."
 msgstr "W tej chwili nie można uzyskać dostępu."
 
-#: ../src/gs-auth-pam.c:454
+#: ../src/gs-auth-pam.c:455
 msgid "No longer permitted to access the system."
 msgstr "Nie można już uzyskać dostępu do systemu."
 
-#: ../src/gs-auth-pam.c:667
+#: ../src/gs-auth-pam.c:668
 msgid "Username:"
 msgstr "Nazwa użytkownika:"
 
-#: ../src/gs-listener-dbus.c:1967
+#: ../src/gs-listener-dbus.c:1973
 msgid "failed to register with the message bus"
 msgstr "nie udało się zarejestrować w magistrali komunikatów"
 
-#: ../src/gs-listener-dbus.c:1977
+#: ../src/gs-listener-dbus.c:1983
 msgid "not connected to the message bus"
 msgstr "nie podłączono do magistrali komunikatów"
 
-#: ../src/gs-listener-dbus.c:1986 ../src/gs-listener-dbus.c:2016
+#: ../src/gs-listener-dbus.c:1992 ../src/gs-listener-dbus.c:2022
 msgid "screensaver already running in this session"
 msgstr "wygaszacz ekranu już uruchomiony w tej sesji"
 
-#: ../src/gs-lock-plug.c:285
+#: ../src/gs-lock-plug.c:289
 msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, e% %B, %H:%M"
 
-#: ../src/gs-lock-plug.c:361
+#: ../src/gs-lock-plug.c:378
 msgid "Time has expired."
 msgstr "Upłynął czas."
 
@@ -260,40 +260,40 @@ msgstr "Powód powstrzymania wygaszacza ekranu"
 msgid "Version of this application"
 msgstr "Wersja tej aplikacji"
 
-#: ../src/xfce4-screensaver-command.c:208
+#: ../src/xfce4-screensaver-command.c:209
 #, c-format
 msgid "The screensaver is %s\n"
 msgstr "Wygaszacz ekranu to %s\n"
 
-#: ../src/xfce4-screensaver-command.c:208
+#: ../src/xfce4-screensaver-command.c:209
 msgid "active"
 msgstr "aktywne"
 
-#: ../src/xfce4-screensaver-command.c:208
+#: ../src/xfce4-screensaver-command.c:209
 msgid "inactive"
 msgstr "nieaktywne"
 
-#: ../src/xfce4-screensaver-command.c:219
+#: ../src/xfce4-screensaver-command.c:220
 #, c-format
 msgid "The screensaver is not inhibited\n"
 msgstr "Wygaszacz ekranu nie jest powstrzymany\n"
 
-#: ../src/xfce4-screensaver-command.c:221
+#: ../src/xfce4-screensaver-command.c:222
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
 msgstr "Wygaszacz ekranu jest wstrzymywany przez:\n"
 
-#: ../src/xfce4-screensaver-command.c:237
+#: ../src/xfce4-screensaver-command.c:238
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "Wygaszacz ekranu był aktywny przez %d s.\n"
 
-#: ../src/xfce4-screensaver-configure:139
+#: ../src/xfce4-screensaver-configure:151
 #: ../src/xfce4-screensaver-preferences.c:710
 msgid "Blank screen"
 msgstr "Ciemny ekran"
 
-#: ../src/xfce4-screensaver-configure:140
+#: ../src/xfce4-screensaver-configure:152
 msgid ""
 "Powered by Display Power Management Signaling (DPMS),\n"
 "Xfce Screensaver can automatically suspend your displays\n"
@@ -311,65 +311,65 @@ msgstr ""
 "ustawieniami DPMS. Jeśli wyświetlacze wyłączają się\n"
 "w różnych odstępach czasu, sprawdź, czy nie ma sprzecznych ustawień."
 
-#: ../src/xfce4-screensaver-configure:176
+#: ../src/xfce4-screensaver-configure:190
 msgid "Part of Xfce Screensaver"
-msgstr "Część Wygaszacza ekranu Xfce"
+msgstr "Część wygaszacza ekranu Xfce"
 
-#: ../src/xfce4-screensaver-configure:403
+#: ../src/xfce4-screensaver-configure:435
 msgid "Restore Defaults"
 msgstr "Przywróć domyślne"
 
-#: ../src/xfce4-screensaver-configure:416
+#: ../src/xfce4-screensaver-configure:448
 msgid "Preferences"
 msgstr "Preferencje"
 
-#: ../src/xfce4-screensaver-configure:422
+#: ../src/xfce4-screensaver-configure:454
 msgid "About"
 msgstr "O programie"
 
-#: ../src/xfce4-screensaver-configure:435
+#: ../src/xfce4-screensaver-configure:467
 msgid "Video"
 msgstr "Pliki wideo"
 
-#: ../src/xfce4-screensaver-configure:502
+#: ../src/xfce4-screensaver-configure:558
 #, c-format
 msgid "Unrecognized type: %s"
 msgstr "Nierozpoznany typ: %s"
 
-#: ../src/xfce4-screensaver-configure:714
+#: ../src/xfce4-screensaver-configure:799
 msgid "Unable to configure screensaver"
 msgstr "Nie udało się skonfigurować wygaszacza ekranu"
 
-#: ../src/xfce4-screensaver-configure:718
+#: ../src/xfce4-screensaver-configure:803
 msgid "Screensaver required."
 msgstr "Wymagany wygaszacz ekranu."
 
-#: ../src/xfce4-screensaver-configure:726
+#: ../src/xfce4-screensaver-configure:811
 #, c-format
 msgid "File not found: %s"
 msgstr "Nie znaleziono pliku: %s"
 
-#: ../src/xfce4-screensaver-configure:735
+#: ../src/xfce4-screensaver-configure:819
 #, c-format
 msgid "Unrecognized file type: %s"
 msgstr "Nierozpoznany typ pliku: %s"
 
-#: ../src/xfce4-screensaver-configure:741
+#: ../src/xfce4-screensaver-configure:823
 #, c-format
 msgid "Failed to process file: %s"
 msgstr "Nie udało się przetworzyć pliku: %s"
 
-#: ../src/xfce4-screensaver-configure:746
+#: ../src/xfce4-screensaver-configure:828
 #, c-format
 msgid "Screensaver %s is configurable."
 msgstr "Wygaszacz ekranu %s jest konfigurowalny."
 
-#: ../src/xfce4-screensaver-configure:749
+#: ../src/xfce4-screensaver-configure:831
 #, c-format
 msgid "Screensaver %s is not configurable."
 msgstr "Wygaszacz ekranu %s nie jest konfigurowalny."
 
-#: ../src/xfce4-screensaver-configure:753
+#: ../src/xfce4-screensaver-configure:835
 #, c-format
 msgid "Screensaver %s has no configuration options."
 msgstr "Wygaszacz ekranu %s nie ma opcji konfiguracji."
@@ -528,7 +528,7 @@ msgstr "IDENTYFIKATOR GNIAZDA"
 
 #: ../src/xfce4-screensaver-preferences.c:716
 msgid "Random"
-msgstr "Losowo"
+msgstr "Losowy"
 
 #: ../src/xfce4-screensaver-preferences.c:1871
 msgid "Setting locked by administrator."
