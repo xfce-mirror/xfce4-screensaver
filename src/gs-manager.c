@@ -91,43 +91,12 @@ static void
 gs_manager_create_windows_for_display       (GSManager  *manager,
                                              GdkDisplay *display);
 
-static gboolean
-gs_manager_is_real_monitor (GdkMonitor *monitor) {
-    // avoiding some weird gdk bug
-    // federico> avb: or if you don't care about a little unexplained messiness,
-    //                just discard monitors where both fields are null? :)
-    if (gdk_monitor_get_manufacturer(monitor) == NULL && gdk_monitor_get_model(monitor) == NULL)
-        return FALSE;
-    return TRUE;
-}
-
-static int
-gs_manager_get_n_monitors (GdkDisplay *display) {
-    // Since gdk_display_get_n_monitors return wrong monitor count
-    // this is a workaround for the problem
-    int n_monitors;
-    int i, count = 0;
-
-    n_monitors = gdk_display_get_n_monitors (display);
-    for (i = 0; i < n_monitors; i++) {
-        GdkMonitor *monitor = gdk_display_get_monitor(display, i);
-        if (gs_manager_is_real_monitor (monitor))
-            count++;
-    }
-    return count;
-}
-
 static gint
 manager_get_monitor_index (GdkMonitor *this_monitor) {
-    GdkDisplay *display;
-    gint        idx;
+    GdkDisplay *display = gdk_monitor_get_display (this_monitor);
+    gint n_monitors = gdk_display_get_n_monitors (display);
 
-    if (!gs_manager_is_real_monitor (this_monitor))
-        return -1;
-
-    display = gdk_monitor_get_display (this_monitor);
-
-    for (idx = 0; idx < gdk_display_get_n_monitors (display); idx++) {
+    for (gint idx = 0; idx < n_monitors; idx++) {
         GdkMonitor *monitor = gdk_display_get_monitor (display, idx);
         if (monitor == this_monitor)
             return idx;
@@ -640,8 +609,7 @@ find_window_at_pointer (GSManager *manager) {
     monitor = gdk_display_get_monitor_at_point (display, x, y);
 
     /* Find the gs-window that is on that monitor */
-    if (gs_manager_is_real_monitor (monitor))
-        window = g_slist_nth (manager->priv->windows, manager_get_monitor_index (monitor));
+    window = g_slist_nth (manager->priv->windows, manager_get_monitor_index (monitor));
 
     if (window == NULL) {
         gs_debug ("WARNING: Could not find the GSWindow for display %s",
@@ -980,9 +948,6 @@ gs_manager_create_window_for_monitor (GSManager  *manager,
     GSWindow    *window;
     GdkRectangle rect;
 
-    if (!gs_manager_is_real_monitor (monitor))
-        return;
-
     if (g_slist_nth (manager->priv->windows, manager_get_monitor_index(monitor))) {
         gs_debug ("Found already created window for Monitor %d", manager_get_monitor_index(monitor));
         return;
@@ -1078,12 +1043,8 @@ static void
 on_display_monitor_added (GdkDisplay *display,
                           GdkMonitor *monitor,
                           GSManager  *manager) {
-    int         n_monitors;
-
-    n_monitors = gs_manager_get_n_monitors (display);
-
     gs_debug ("Monitor %s added on display %s, now there are %d",
-              gdk_monitor_get_model(monitor), gdk_display_get_name (display), n_monitors);
+              gdk_monitor_get_model(monitor), gdk_display_get_name (display), gdk_display_get_n_monitors (display));
 
     reconfigure_monitors (display, manager);
 }
@@ -1092,12 +1053,8 @@ static void
 on_display_monitor_removed (GdkDisplay *display,
                             GdkMonitor *monitor,
                             GSManager  *manager) {
-    int         n_monitors;
-
-    n_monitors = gs_manager_get_n_monitors (display);
-
     gs_debug ("Monitor %p removed on display %s, now there are %d",
-              monitor, gdk_display_get_name (display), n_monitors);
+              monitor, gdk_display_get_name (display), gdk_display_get_n_monitors (display));
 
     reconfigure_monitors (display, manager);
 }
