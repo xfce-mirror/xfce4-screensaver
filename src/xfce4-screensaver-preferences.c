@@ -65,7 +65,7 @@ static GtkBuilder     *builder = NULL;
 static GSThemeManager *theme_manager = NULL;
 static GSJob          *job = NULL;
 static XfconfChannel  *screensaver_channel = NULL;
-static XfconfChannel  *xfpm_channel = NULL;
+static XfceScreensaver *xfce_screensaver = NULL;
 
 static gboolean        idle_delay_writable;
 static gboolean        lock_delay_writable;
@@ -347,11 +347,11 @@ config_get_lock_on_suspend_hibernate_enabled (gboolean *is_writable) {
     gboolean lock;
 
     if (is_writable) {
-        *is_writable = !xfconf_channel_is_property_locked (xfpm_channel,
+        *is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
                                                            KEY_LOCK_ON_SLEEP);
     }
 
-    lock = xfconf_channel_get_bool (xfpm_channel,
+    lock = xfconf_channel_get_bool (screensaver_channel,
                                     KEY_LOCK_ON_SLEEP,
                                     DEFAULT_KEY_LOCK_ON_SLEEP);
 
@@ -360,7 +360,7 @@ config_get_lock_on_suspend_hibernate_enabled (gboolean *is_writable) {
 
 static void
 config_set_lock_on_suspend_hibernate_enabled (gboolean lock) {
-    xfconf_channel_set_bool (xfpm_channel, KEY_LOCK_ON_SLEEP, lock);
+    xfconf_channel_set_bool (screensaver_channel, KEY_LOCK_ON_SLEEP, lock);
 }
 
 static gboolean
@@ -1812,12 +1812,6 @@ configure_capplet (void) {
                       G_CALLBACK (key_changed_cb),
                       NULL);
 
-    xfpm_channel = xfconf_channel_get(XFPM_XFCONF_CHANNEL);
-    g_signal_connect (xfpm_channel,
-                      "property-changed",
-                      G_CALLBACK (key_changed_cb),
-                      NULL);
-
     if (!is_program_in_path (CONFIGURE_COMMAND)) {
         gtk_widget_set_no_show_all (configure_toolbar, TRUE);
         gtk_widget_hide (configure_toolbar);
@@ -2004,9 +1998,6 @@ finalize_capplet (void) {
     if (screensaver_channel)
       g_signal_handlers_disconnect_by_func (screensaver_channel, key_changed_cb, NULL);
 
-    if (xfpm_channel)
-      g_signal_handlers_disconnect_by_func (xfpm_channel, key_changed_cb, NULL);
-
     if (active_theme)
         g_free (active_theme);
 }
@@ -2040,6 +2031,9 @@ main (int    argc,
 
         return EXIT_FAILURE;
     }
+
+    /* keep "/lock/sleep-activation" in sync with other components */
+    xfce_screensaver = xfce_screensaver_new ();
 
     job = gs_job_new ();
     theme_manager = gs_theme_manager_new ();
@@ -2097,6 +2091,9 @@ main (int    argc,
 
     if (job)
         g_object_unref (job);
+
+    if (xfce_screensaver)
+        g_object_unref (xfce_screensaver);
 
     xfconf_shutdown ();
 

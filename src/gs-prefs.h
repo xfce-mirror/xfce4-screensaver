@@ -115,9 +115,9 @@ G_BEGIN_DECLS
 /**
  * Lock on suspend/hibernate
  * Set this to TRUE to lock the screen when the system goes to sleep
- * Shared with Xfce Power Manager
+ * Synchronized with xfce4-session and xfce4-power-manager via XfceScreensaver (libxfce4ui)
  */
-#define KEY_LOCK_ON_SLEEP "/xfce4-power-manager/lock-screen-suspend-hibernate"
+#define KEY_LOCK_ON_SLEEP "/lock/sleep-activation"
 #define DEFAULT_KEY_LOCK_ON_SLEEP TRUE
 
 /**
