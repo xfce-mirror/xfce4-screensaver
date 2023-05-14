@@ -30,6 +30,7 @@
 #include <glib-object.h>
 
 #include <xfconf/xfconf.h>
+#include <libxfce4ui/libxfce4ui.h>
 
 #include "gs-prefs.h"
 
@@ -39,7 +40,7 @@ static GSPrefs *global_prefs;
 
 struct GSPrefsPrivate {
     XfconfChannel *channel;
-    XfconfChannel *xfpm_channel;
+    XfceScreensaver *screensaver;
 };
 
 enum {
@@ -330,7 +331,7 @@ gs_prefs_load_from_settings (GSPrefs *prefs) {
                                       DEFAULT_KEY_IDLE_ACTIVATION_ENABLED);
     _gs_prefs_set_idle_activation_enabled (prefs, bvalue);
 
-    bvalue = xfconf_channel_get_bool (prefs->priv->xfpm_channel,
+    bvalue = xfconf_channel_get_bool (prefs->priv->channel,
                                       KEY_LOCK_ON_SLEEP,
                                       DEFAULT_KEY_LOCK_ON_SLEEP);
     _gs_prefs_set_sleep_activation_enabled (prefs, bvalue);
@@ -582,11 +583,8 @@ gs_prefs_init (GSPrefs *prefs) {
                       G_CALLBACK (key_changed_cb),
                       prefs);
 
-    prefs->priv->xfpm_channel = xfconf_channel_get (XFPM_XFCONF_CHANNEL);
-    g_signal_connect (prefs->priv->xfpm_channel,
-                      "property-changed",
-                      G_CALLBACK (key_changed_cb),
-                      prefs);
+    /* keep "/lock/sleep-activation" in sync with other components */
+    prefs->priv->screensaver = xfce_screensaver_new ();
 
     prefs->saver_enabled            = TRUE;
     prefs->lock_enabled             = TRUE;
@@ -626,7 +624,7 @@ gs_prefs_finalize (GObject *object) {
     g_free (prefs->keyboard_command);
 
     g_signal_handlers_disconnect_by_func (prefs->priv->channel, key_changed_cb, prefs);
-    g_signal_handlers_disconnect_by_func (prefs->priv->xfpm_channel, key_changed_cb, prefs);
+    g_object_unref (prefs->priv->screensaver);
 
     G_OBJECT_CLASS (gs_prefs_parent_class)->finalize (object);
 }
