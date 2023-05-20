@@ -317,9 +317,9 @@ pam_conversation (int                        nmsgs,
             } else {
                 int i;
                 for (i = 0; i <= replies; i++) {
-                    free (reply[i].resp);
+                    g_free (reply[i].resp);
                 }
-                free (reply);
+                g_free (reply);
                 reply = NULL;
                 ret = PAM_CONV_ERR;
             }
