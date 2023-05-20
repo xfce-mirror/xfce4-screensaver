@@ -99,13 +99,14 @@ main (int argc, char **argv) {
         if (location == NULL ||
                 strcmp (location, "/tmp") == 0 ||
                 strcmp (location, g_get_home_dir ()) == 0) {
-            free (location);
+            g_free (location);
             location = g_build_filename (g_get_home_dir (), "Pictures", NULL);
         }
     }
 
     if (location != NULL) {
         g_object_set (engine, "images-location", location, NULL);
+        g_free (location);
     }
 
     if (sort_images) {

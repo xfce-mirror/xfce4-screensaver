@@ -128,6 +128,10 @@ xdg_user_dir_lookup_with_fallback (const char *type, const char *fallback)
             continue;
         }
 
+        if (user_dir != NULL) {
+            g_free (user_dir);
+        }
+
         if (relative) {
             user_dir = (char *) malloc (strlen (home_dir) + 1 + strlen (p) + 1);
             if (user_dir == NULL)
