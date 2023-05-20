@@ -760,7 +760,6 @@ error_watch (GIOChannel   *source,
                 finished = TRUE;
                 break;
             case G_IO_STATUS_ERROR:
-                finished = TRUE;
                 gs_debug ("Error reading from child: %s\n", error->message);
                 g_error_free (error);
                 return FALSE;
@@ -1103,7 +1102,6 @@ keyboard_process_watch (GIOChannel   *source,
                 finished = TRUE;
                 break;
             case G_IO_STATUS_ERROR:
-                finished = TRUE;
                 gs_debug ("Error reading from child: %s\n", error->message);
                 g_error_free (error);
                 return FALSE;
@@ -1300,7 +1298,6 @@ dialog_process_watch (GIOChannel   *source,
                 finished = TRUE;
                 break;
             case G_IO_STATUS_ERROR:
-                finished = TRUE;
                 gs_debug ("Error reading from child: %s\n", error->message);
                 g_error_free (error);
                 return FALSE;

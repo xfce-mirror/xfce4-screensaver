@@ -260,7 +260,6 @@ pam_conversation (int                        nmsgs,
         return PAM_CONV_ERR;
     }
 
-    res = TRUE;
     ret = PAM_SUCCESS;
 
     for (replies = 0; replies < nmsgs && ret == PAM_SUCCESS; replies++) {
@@ -560,7 +559,6 @@ gs_auth_pam_verify_user (pam_handle_t *handle,
                          int          *status) {
     GThread    *auth_thread;
     GIOChannel *channel = NULL;
-    guint       watch_id = 0;
     int         auth_operation_fds[2];
     int         auth_status = PAM_AUTH_ERR;
     gboolean    thread_done;
@@ -592,8 +590,8 @@ gs_auth_pam_verify_user (pam_handle_t *handle,
      * of pam authentication.
      */
     thread_done = FALSE;
-    watch_id = g_io_add_watch (channel, G_IO_ERR | G_IO_HUP,
-                               (GIOFunc) gs_auth_loop_quit, &thread_done);
+    g_io_add_watch (channel, G_IO_ERR | G_IO_HUP,
+                    (GIOFunc) gs_auth_loop_quit, &thread_done);
 
     auth_thread = g_thread_new ("auththread",
                                 gs_auth_thread_func,
@@ -621,11 +619,6 @@ gs_auth_pam_verify_user (pam_handle_t *handle,
     auth_status = GPOINTER_TO_INT (g_thread_join (auth_thread));
 
 out:
-    if (watch_id != 0) {
-        // g_source_remove (watch_id);
-        watch_id = 0;
-    }
-
     if (channel != NULL) {
         g_io_channel_unref (channel);
     }
