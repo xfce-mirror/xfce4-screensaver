@@ -1,7 +1,8 @@
 [Desktop Entry]
 Type=Application
-_Name=Screensaver
+_Name=Xfce Screensaver
 _Comment=Launch screensaver and locker program
+_GenericName=Screensaver
 Icon=org.xfce.ScreenSaver
 Exec=xfce4-screensaver
 OnlyShowIn=XFCE;
