@@ -5,18 +5,18 @@
 # 
 # Translators:
 # Georgi Georgiev (Жоро) <g.georgiev.shumen@gmail.com>, 2018
-# Kiril Kirilov <cybercop_montana@abv.bg>, 2019
 # Nick Schermer <nick@xfce.org>, 2020
+# Kiril Kirilov <cybercop_montana@abv.bg>, 2023
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-08 00:46+0100\n"
+"POT-Creation-Date: 2023-05-23 00:49+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Nick Schermer <nick@xfce.org>, 2020\n"
-"Language-Team: Bulgarian (https://www.transifex.com/xfce/teams/16840/bg/)\n"
+"Last-Translator: Kiril Kirilov <cybercop_montana@abv.bg>, 2023\n"
+"Language-Team: Bulgarian (https://app.transifex.com/xfce/teams/16840/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,14 +24,19 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:1
-#: ../src/xfce4-screensaver-preferences.ui.h:21
 #: ../src/xfce4-screensaver.desktop.in.in.h:1
-msgid "Screensaver"
-msgstr "Предпазител на екрана"
+msgid "Xfce Screensaver"
+msgstr "Предпазител на екрана на Xfce"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:2
 msgid "Set your screensaver preferences"
 msgstr "Задайте настройки на вашия предпазител на екрана"
+
+#: ../data/xfce4-screensaver-preferences.desktop.in.h:3
+#: ../src/xfce4-screensaver-preferences.ui.h:21
+#: ../src/xfce4-screensaver.desktop.in.in.h:3
+msgid "Screensaver"
+msgstr "Предпазител на екрана"
 
 #: ../data/xfce4-screensaver.directory.in.h:1
 msgid "Screensavers"
@@ -75,21 +80,21 @@ msgstr "Използване на изходното изображение"
 
 #. translators: the word "image" here
 #. * represents a command line argument
-#: ../savers/floaters.c:1129
+#: ../savers/floaters.c:1131
 msgid "image - floats images around the screen"
 msgstr "изображение - плаващи изображения около екрана"
 
-#: ../savers/floaters.c:1133 ../savers/popsquares.c:49
+#: ../savers/floaters.c:1135 ../savers/popsquares.c:49
 #, c-format
 msgid "%s. See --help for usage information.\n"
 msgstr "%s. Вижте --help за потребителска информация.\n"
 
-#: ../savers/floaters.c:1140
+#: ../savers/floaters.c:1142
 #, c-format
 msgid "Failed to initialize the windowing system."
 msgstr "Неуспешно инициализиране на прозоречната система."
 
-#: ../savers/floaters.c:1146
+#: ../savers/floaters.c:1148
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr ""
@@ -162,7 +167,7 @@ msgstr "Не може да се зададе PAM_TTY=%s"
 msgid "Incorrect password."
 msgstr "Некоректна парола."
 
-#: ../src/gs-auth-pam.c:434 ../src/xfce4-screensaver-dialog.c:311
+#: ../src/gs-auth-pam.c:434 ../src/xfce4-screensaver-dialog.c:312
 msgid "Authentication failed."
 msgstr "Идентификацията е неуспешна."
 
@@ -174,28 +179,28 @@ msgstr "В момента нямате права за достъп."
 msgid "No longer permitted to access the system."
 msgstr "Вече нямате достъп до системата."
 
-#: ../src/gs-auth-pam.c:667
+#: ../src/gs-auth-pam.c:662
 msgid "Username:"
 msgstr "Потребителско име:"
 
-#: ../src/gs-listener-dbus.c:1967
+#: ../src/gs-listener-dbus.c:1971
 msgid "failed to register with the message bus"
 msgstr "Неуспешно регистриране в канала за съобщенията"
 
-#: ../src/gs-listener-dbus.c:1977
+#: ../src/gs-listener-dbus.c:1981
 msgid "not connected to the message bus"
 msgstr "няма връзка с канала на съобщенията"
 
-#: ../src/gs-listener-dbus.c:1986 ../src/gs-listener-dbus.c:2016
+#: ../src/gs-listener-dbus.c:1990 ../src/gs-listener-dbus.c:2020
 msgid "screensaver already running in this session"
 msgstr "предпазителят вече е стартиран в тази сесия"
 
-#: ../src/gs-lock-plug.c:285
+#: ../src/gs-lock-plug.c:296
 msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, %B %e  %H:%M"
 
-#: ../src/gs-lock-plug.c:361
+#: ../src/gs-lock-plug.c:387
 msgid "Time has expired."
 msgstr "Времето изтече"
 
@@ -255,40 +260,40 @@ msgstr "Причина за блокиране на предпазителя"
 msgid "Version of this application"
 msgstr "Версия на това приложения"
 
-#: ../src/xfce4-screensaver-command.c:208
+#: ../src/xfce4-screensaver-command.c:209
 #, c-format
 msgid "The screensaver is %s\n"
 msgstr "Предпазителят е %s\n"
 
-#: ../src/xfce4-screensaver-command.c:208
+#: ../src/xfce4-screensaver-command.c:209
 msgid "active"
 msgstr "активен"
 
-#: ../src/xfce4-screensaver-command.c:208
+#: ../src/xfce4-screensaver-command.c:209
 msgid "inactive"
 msgstr "неактивен"
 
-#: ../src/xfce4-screensaver-command.c:219
+#: ../src/xfce4-screensaver-command.c:220
 #, c-format
 msgid "The screensaver is not inhibited\n"
 msgstr "Предпазителят не е блокиран\n"
 
-#: ../src/xfce4-screensaver-command.c:221
+#: ../src/xfce4-screensaver-command.c:222
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
 msgstr "Предпазителят е блокиран от:\n"
 
-#: ../src/xfce4-screensaver-command.c:237
+#: ../src/xfce4-screensaver-command.c:238
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "Предпазителят  е активен за %d секунди.\n"
 
-#: ../src/xfce4-screensaver-configure:139
+#: ../src/xfce4-screensaver-configure:151
 #: ../src/xfce4-screensaver-preferences.c:710
 msgid "Blank screen"
 msgstr "Празен екран"
 
-#: ../src/xfce4-screensaver-configure:140
+#: ../src/xfce4-screensaver-configure:152
 msgid ""
 "Powered by Display Power Management Signaling (DPMS),\n"
 "Xfce Screensaver can automatically suspend your displays\n"
@@ -305,65 +310,65 @@ msgstr ""
 "Управлението на захранването на Xfce и други приложения, също управляват\n"
 "DPMS настройките. Ако захранването на вашите екрани се изключва за различно от зададеното време, трябва да проверите настройките за конфликт между приложенията."
 
-#: ../src/xfce4-screensaver-configure:176
+#: ../src/xfce4-screensaver-configure:190
 msgid "Part of Xfce Screensaver"
 msgstr "Част от Xfce Предпазител на екрана"
 
-#: ../src/xfce4-screensaver-configure:403
+#: ../src/xfce4-screensaver-configure:435
 msgid "Restore Defaults"
 msgstr "Възстанови настройките по подразбиране"
 
-#: ../src/xfce4-screensaver-configure:416
+#: ../src/xfce4-screensaver-configure:448
 msgid "Preferences"
 msgstr "Свойства"
 
-#: ../src/xfce4-screensaver-configure:422
+#: ../src/xfce4-screensaver-configure:454
 msgid "About"
 msgstr "Относно"
 
-#: ../src/xfce4-screensaver-configure:435
+#: ../src/xfce4-screensaver-configure:467
 msgid "Video"
 msgstr "Видео"
 
-#: ../src/xfce4-screensaver-configure:502
+#: ../src/xfce4-screensaver-configure:558
 #, c-format
 msgid "Unrecognized type: %s"
 msgstr "Неразпознат тип : %s"
 
-#: ../src/xfce4-screensaver-configure:714
+#: ../src/xfce4-screensaver-configure:799
 msgid "Unable to configure screensaver"
 msgstr "Предпазителят на екрана не може да бъде конфигуриран"
 
-#: ../src/xfce4-screensaver-configure:718
+#: ../src/xfce4-screensaver-configure:803
 msgid "Screensaver required."
 msgstr "Изисква се предпазител на екрана."
 
-#: ../src/xfce4-screensaver-configure:726
+#: ../src/xfce4-screensaver-configure:811
 #, c-format
 msgid "File not found: %s"
 msgstr "Не е намерен файл: %s"
 
-#: ../src/xfce4-screensaver-configure:735
+#: ../src/xfce4-screensaver-configure:819
 #, c-format
 msgid "Unrecognized file type: %s"
 msgstr "Неразпознат файлов тип: %s"
 
-#: ../src/xfce4-screensaver-configure:741
+#: ../src/xfce4-screensaver-configure:823
 #, c-format
 msgid "Failed to process file: %s"
 msgstr "Неуспешно обработване на файл: %s"
 
-#: ../src/xfce4-screensaver-configure:746
+#: ../src/xfce4-screensaver-configure:828
 #, c-format
 msgid "Screensaver %s is configurable."
 msgstr "Предпазител на екрана %s може да се конфигурира."
 
-#: ../src/xfce4-screensaver-configure:749
+#: ../src/xfce4-screensaver-configure:831
 #, c-format
 msgid "Screensaver %s is not configurable."
 msgstr "Предпазител на екрана %s не може да се конфигурира."
 
-#: ../src/xfce4-screensaver-configure:753
+#: ../src/xfce4-screensaver-configure:835
 #, c-format
 msgid "Screensaver %s has no configuration options."
 msgstr "Предпазител на екрана %s няма възможности за конфигуриране."
@@ -525,15 +530,15 @@ msgstr "Идентификатор на гнездо"
 msgid "Random"
 msgstr "Случаен ред"
 
-#: ../src/xfce4-screensaver-preferences.c:1871
+#: ../src/xfce4-screensaver-preferences.c:1734
 msgid "Setting locked by administrator."
 msgstr "Настройките са заключени от администратора."
 
-#: ../src/xfce4-screensaver-preferences.c:1912
+#: ../src/xfce4-screensaver-preferences.c:1775
 msgid "Could not load the main interface"
 msgstr "Не може да бъде зареден основният интерфейс"
 
-#: ../src/xfce4-screensaver-preferences.c:1914
+#: ../src/xfce4-screensaver-preferences.c:1777
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "Моля, убедете се, че предпазителят на екрана е инсталиран правилно"
 
@@ -675,6 +680,6 @@ msgstr "Активирайте кода за отстраняване на гр�
 msgid "Launch screensaver and locker program"
 msgstr "Стартиране на предпазителя и програмата за заключване на екрана"
 
-#: ../src/xfcekbd-indicator.c:404
+#: ../src/xfcekbd-indicator.c:406
 msgid "XKB initialization error"
 msgstr "Грешка на XKB инициализацията"
