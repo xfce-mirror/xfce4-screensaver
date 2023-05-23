@@ -383,7 +383,7 @@ class ConfigurationWindow(Gtk.Window):
             self.xfconf_settings = XfconfSettings(channel,
                                                   property_base)
         else:
-            print(_("Unable to access channel"))
+            print("Unable to access channel", file=sys.stderr)
             sys.exit(1)
 
         self.notebook = Gtk.Notebook.new()
@@ -538,7 +538,7 @@ class ConfigurationWindow(Gtk.Window):
             widget.set_rgba(hex_to_rgba(color))
             widget.connect("color-set", self.on_color_changed, opt["id"])
         else:
-            print(_("Unrecognized type: %s") % opt["type"])
+            print("Unrecognized type: %s" % opt["type"], file=sys.stderr)
             sys.exit(1)
         return widget
 
@@ -741,7 +741,7 @@ def configure(parsed):
 
 def show_fatal(primary, secondary):
     if not graphical:
-        print("%s: %s" % (primary, secondary))
+        print("%s: %s" % (primary, secondary), file=sys.stderr)
         sys.exit(1)
     try:
         dlg = Gtk.MessageDialog(None, 0, Gtk.MessageType.ERROR,
@@ -797,16 +797,15 @@ if __name__ == "__main__":
     if args.check:
         if obj.configurable:
             print(_("Screensaver %s is configurable.") % saver)
-            sys.exit(0)
         else:
             print(_("Screensaver %s is not configurable.") % saver)
-            sys.exit(1)
+        sys.exit(0)
 
     if not obj.configurable:
         show_fatal(primary, _("Screensaver %s has no configuration options.") % saver)
 
     if not Xfconf.init():
-        print(_("Failed to initialize Xfconf"))
+        print("Failed to initialize Xfconf", file=sys.stderr)
         sys.exit(1)
 
     configure(obj.to_dict())
