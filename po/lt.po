@@ -5,17 +5,17 @@
 # 
 # Translators:
 # Nick Schermer <nick@xfce.org>, 2019
-# Moo, 2020
+# Moo, 2023
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-08 00:46+0100\n"
+"POT-Creation-Date: 2023-05-23 00:49+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Moo, 2020\n"
-"Language-Team: Lithuanian (https://www.transifex.com/xfce/teams/16840/lt/)\n"
+"Last-Translator: Moo, 2023\n"
+"Language-Team: Lithuanian (https://app.transifex.com/xfce/teams/16840/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,14 +23,19 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);\n"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:1
-#: ../src/xfce4-screensaver-preferences.ui.h:21
 #: ../src/xfce4-screensaver.desktop.in.in.h:1
-msgid "Screensaver"
-msgstr "Ekrano užsklanda"
+msgid "Xfce Screensaver"
+msgstr "Xfce ekrano užsklanda"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:2
 msgid "Set your screensaver preferences"
 msgstr "Nusistatyti ekrano užsklandos nuostatas"
+
+#: ../data/xfce4-screensaver-preferences.desktop.in.h:3
+#: ../src/xfce4-screensaver-preferences.ui.h:21
+#: ../src/xfce4-screensaver.desktop.in.in.h:3
+msgid "Screensaver"
+msgstr "Ekrano užsklanda"
 
 #: ../data/xfce4-screensaver.directory.in.h:1
 msgid "Screensavers"
@@ -74,21 +79,21 @@ msgstr "Šaltinio paveikslas, kurį naudoti"
 
 #. translators: the word "image" here
 #. * represents a command line argument
-#: ../savers/floaters.c:1129
+#: ../savers/floaters.c:1131
 msgid "image - floats images around the screen"
 msgstr "image - plukdo paveikslus po ekraną"
 
-#: ../savers/floaters.c:1133 ../savers/popsquares.c:49
+#: ../savers/floaters.c:1135 ../savers/popsquares.c:49
 #, c-format
 msgid "%s. See --help for usage information.\n"
 msgstr "%s. Išsamesnei informacijai apie naudojimą, žiūrėkite --help.\n"
 
-#: ../savers/floaters.c:1140
+#: ../savers/floaters.c:1142
 #, c-format
 msgid "Failed to initialize the windowing system."
 msgstr "Nepavyko inicijuoti langų sistemos."
 
-#: ../savers/floaters.c:1146
+#: ../savers/floaters.c:1148
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr ""
@@ -161,7 +166,7 @@ msgstr "Nepavyksta nustatyti PAM_TTY=%s"
 msgid "Incorrect password."
 msgstr "Neteisingas slaptažodis."
 
-#: ../src/gs-auth-pam.c:434 ../src/xfce4-screensaver-dialog.c:311
+#: ../src/gs-auth-pam.c:434 ../src/xfce4-screensaver-dialog.c:312
 msgid "Authentication failed."
 msgstr "Nepavyko nustatyti tapatybės."
 
@@ -173,28 +178,28 @@ msgstr "Šiuo metu neleidžiama gauti prieigą."
 msgid "No longer permitted to access the system."
 msgstr "Prieiga prie sistemos daugiau nebeleidžiama."
 
-#: ../src/gs-auth-pam.c:667
+#: ../src/gs-auth-pam.c:662
 msgid "Username:"
 msgstr "Naudotojo vardas:"
 
-#: ../src/gs-listener-dbus.c:1967
+#: ../src/gs-listener-dbus.c:1971
 msgid "failed to register with the message bus"
 msgstr "nepavyko prisiregistruoti prie pranešimų magistralės"
 
-#: ../src/gs-listener-dbus.c:1977
+#: ../src/gs-listener-dbus.c:1981
 msgid "not connected to the message bus"
 msgstr "neprisijungta prie pranešimų magistralės"
 
-#: ../src/gs-listener-dbus.c:1986 ../src/gs-listener-dbus.c:2016
+#: ../src/gs-listener-dbus.c:1990 ../src/gs-listener-dbus.c:2020
 msgid "screensaver already running in this session"
 msgstr "ekrano užsklanda šiame seanse jau paleista"
 
-#: ../src/gs-lock-plug.c:285
+#: ../src/gs-lock-plug.c:296
 msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%B %e, %A   %H:%M"
 
-#: ../src/gs-lock-plug.c:361
+#: ../src/gs-lock-plug.c:387
 msgid "Time has expired."
 msgstr "Laikas pasibaigė."
 
@@ -255,40 +260,40 @@ msgstr "Ekrano užsklandos sulaikymo priežastis"
 msgid "Version of this application"
 msgstr "Šios programos versija"
 
-#: ../src/xfce4-screensaver-command.c:208
+#: ../src/xfce4-screensaver-command.c:209
 #, c-format
 msgid "The screensaver is %s\n"
 msgstr "Ekrano užsklanda yra %s\n"
 
-#: ../src/xfce4-screensaver-command.c:208
+#: ../src/xfce4-screensaver-command.c:209
 msgid "active"
 msgstr "aktyvi"
 
-#: ../src/xfce4-screensaver-command.c:208
+#: ../src/xfce4-screensaver-command.c:209
 msgid "inactive"
 msgstr "pasyvi"
 
-#: ../src/xfce4-screensaver-command.c:219
+#: ../src/xfce4-screensaver-command.c:220
 #, c-format
 msgid "The screensaver is not inhibited\n"
 msgstr "Ekrano užsklanda nėra sulaikyta\n"
 
-#: ../src/xfce4-screensaver-command.c:221
+#: ../src/xfce4-screensaver-command.c:222
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
 msgstr "Ekrano užsklandą sulaiko:\n"
 
-#: ../src/xfce4-screensaver-command.c:237
+#: ../src/xfce4-screensaver-command.c:238
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "Ekrano užsklanda aktyvi %d sekundes(-ių).\n"
 
-#: ../src/xfce4-screensaver-configure:139
+#: ../src/xfce4-screensaver-configure:151
 #: ../src/xfce4-screensaver-preferences.c:710
 msgid "Blank screen"
 msgstr "Tamsus ekranas"
 
-#: ../src/xfce4-screensaver-configure:140
+#: ../src/xfce4-screensaver-configure:152
 msgid ""
 "Powered by Display Power Management Signaling (DPMS),\n"
 "Xfce Screensaver can automatically suspend your displays\n"
@@ -306,65 +311,65 @@ msgstr ""
 "DPMS nustatymus. Jeigu jūsų ekranai išsijungia skirtingais\n"
 "intervalais, patikrinkite konfliktuojančius nustatymus."
 
-#: ../src/xfce4-screensaver-configure:176
+#: ../src/xfce4-screensaver-configure:190
 msgid "Part of Xfce Screensaver"
 msgstr "Xfce ekrano užsklandos dalis"
 
-#: ../src/xfce4-screensaver-configure:403
+#: ../src/xfce4-screensaver-configure:435
 msgid "Restore Defaults"
 msgstr "Atkurti numatytuosius"
 
-#: ../src/xfce4-screensaver-configure:416
+#: ../src/xfce4-screensaver-configure:448
 msgid "Preferences"
 msgstr "Nuostatos"
 
-#: ../src/xfce4-screensaver-configure:422
+#: ../src/xfce4-screensaver-configure:454
 msgid "About"
 msgstr "Apie"
 
-#: ../src/xfce4-screensaver-configure:435
+#: ../src/xfce4-screensaver-configure:467
 msgid "Video"
 msgstr "Vaizdas"
 
-#: ../src/xfce4-screensaver-configure:502
+#: ../src/xfce4-screensaver-configure:558
 #, c-format
 msgid "Unrecognized type: %s"
 msgstr "Neatpažintas tipas: %s"
 
-#: ../src/xfce4-screensaver-configure:714
+#: ../src/xfce4-screensaver-configure:799
 msgid "Unable to configure screensaver"
 msgstr "Nepavyko konfigūruoti ekrano užsklandos"
 
-#: ../src/xfce4-screensaver-configure:718
+#: ../src/xfce4-screensaver-configure:803
 msgid "Screensaver required."
 msgstr "Reikalinga ekrano užsklanda."
 
-#: ../src/xfce4-screensaver-configure:726
+#: ../src/xfce4-screensaver-configure:811
 #, c-format
 msgid "File not found: %s"
 msgstr "Failas nerastas: %s"
 
-#: ../src/xfce4-screensaver-configure:735
+#: ../src/xfce4-screensaver-configure:819
 #, c-format
 msgid "Unrecognized file type: %s"
 msgstr "Neatpažintas failo tipas: %s"
 
-#: ../src/xfce4-screensaver-configure:741
+#: ../src/xfce4-screensaver-configure:823
 #, c-format
 msgid "Failed to process file: %s"
 msgstr "Nepavyko apdoroti failo: %s"
 
-#: ../src/xfce4-screensaver-configure:746
+#: ../src/xfce4-screensaver-configure:828
 #, c-format
 msgid "Screensaver %s is configurable."
 msgstr "Ekrano užsklanda %s yra konfigūruojama."
 
-#: ../src/xfce4-screensaver-configure:749
+#: ../src/xfce4-screensaver-configure:831
 #, c-format
 msgid "Screensaver %s is not configurable."
 msgstr "Ekrano užsklanda %s nėra konfigūruojama."
 
-#: ../src/xfce4-screensaver-configure:753
+#: ../src/xfce4-screensaver-configure:835
 #, c-format
 msgid "Screensaver %s has no configuration options."
 msgstr "Ekrano užsklanda %s neturi jokių konfigūravimo parametrų."
@@ -528,15 +533,15 @@ msgstr "LIZDO ID"
 msgid "Random"
 msgstr "Atsitiktinė"
 
-#: ../src/xfce4-screensaver-preferences.c:1871
+#: ../src/xfce4-screensaver-preferences.c:1734
 msgid "Setting locked by administrator."
 msgstr "Administratorius užrakino nustatymą."
 
-#: ../src/xfce4-screensaver-preferences.c:1912
+#: ../src/xfce4-screensaver-preferences.c:1775
 msgid "Could not load the main interface"
 msgstr "Nepavyko įkelti pagrindinės sąsajos"
 
-#: ../src/xfce4-screensaver-preferences.c:1914
+#: ../src/xfce4-screensaver-preferences.c:1777
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "Įsitikinkite, kad ekrano užsklanda yra tinkamai įdiegta"
 
@@ -678,6 +683,6 @@ msgstr "Įjungti derinimo kodą"
 msgid "Launch screensaver and locker program"
 msgstr "Paleisti ekrano užsklandą ir užrakinimo programą"
 
-#: ../src/xfcekbd-indicator.c:404
+#: ../src/xfcekbd-indicator.c:406
 msgid "XKB initialization error"
 msgstr "XKB inicijavimo klaida"
