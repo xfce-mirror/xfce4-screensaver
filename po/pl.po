@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-28 15:02+0100\n"
+"POT-Creation-Date: 2023-05-23 00:49+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Marek Adamski, 2023\n"
 "Language-Team: Polish (https://app.transifex.com/xfce/teams/16840/pl/)\n"
@@ -26,14 +26,19 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:1
-#: ../src/xfce4-screensaver-preferences.ui.h:21
 #: ../src/xfce4-screensaver.desktop.in.in.h:1
-msgid "Screensaver"
-msgstr "Wygaszacz ekranu"
+msgid "Xfce Screensaver"
+msgstr "Wygaszacz ekranu Xfce"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:2
 msgid "Set your screensaver preferences"
 msgstr "Ustawia preferencje wygaszacza ekranu"
+
+#: ../data/xfce4-screensaver-preferences.desktop.in.h:3
+#: ../src/xfce4-screensaver-preferences.ui.h:21
+#: ../src/xfce4-screensaver.desktop.in.in.h:3
+msgid "Screensaver"
+msgstr "Wygaszacz ekranu"
 
 #: ../data/xfce4-screensaver.directory.in.h:1
 msgid "Screensavers"
@@ -150,54 +155,54 @@ msgstr "Pop-artowa siatka pulsujących kolorów."
 msgid "Password:"
 msgstr "Hasło:"
 
-#: ../src/gs-auth-pam.c:376
+#: ../src/gs-auth-pam.c:375
 #, c-format
 msgid "Unable to establish service %s: %s\n"
 msgstr "Nie można ustanowić usługi %s: %s\n"
 
-#: ../src/gs-auth-pam.c:402
+#: ../src/gs-auth-pam.c:401
 #, c-format
 msgid "Can't set PAM_TTY=%s"
 msgstr "Nie można ustawić PAM_TTY=%s"
 
-#: ../src/gs-auth-pam.c:433
+#: ../src/gs-auth-pam.c:432
 msgid "Incorrect password."
 msgstr "Nieprawidłowe hasło."
 
-#: ../src/gs-auth-pam.c:435 ../src/xfce4-screensaver-dialog.c:312
+#: ../src/gs-auth-pam.c:434 ../src/xfce4-screensaver-dialog.c:312
 msgid "Authentication failed."
 msgstr "Nieudane uwierzytelnianie."
 
-#: ../src/gs-auth-pam.c:449
+#: ../src/gs-auth-pam.c:448
 msgid "Not permitted to gain access at this time."
 msgstr "W tej chwili nie można uzyskać dostępu."
 
-#: ../src/gs-auth-pam.c:455
+#: ../src/gs-auth-pam.c:454
 msgid "No longer permitted to access the system."
 msgstr "Nie można już uzyskać dostępu do systemu."
 
-#: ../src/gs-auth-pam.c:668
+#: ../src/gs-auth-pam.c:662
 msgid "Username:"
 msgstr "Nazwa użytkownika:"
 
-#: ../src/gs-listener-dbus.c:1973
+#: ../src/gs-listener-dbus.c:1971
 msgid "failed to register with the message bus"
 msgstr "nie udało się zarejestrować w magistrali komunikatów"
 
-#: ../src/gs-listener-dbus.c:1983
+#: ../src/gs-listener-dbus.c:1981
 msgid "not connected to the message bus"
 msgstr "nie podłączono do magistrali komunikatów"
 
-#: ../src/gs-listener-dbus.c:1992 ../src/gs-listener-dbus.c:2022
+#: ../src/gs-listener-dbus.c:1990 ../src/gs-listener-dbus.c:2020
 msgid "screensaver already running in this session"
 msgstr "wygaszacz ekranu już uruchomiony w tej sesji"
 
-#: ../src/gs-lock-plug.c:289
+#: ../src/gs-lock-plug.c:296
 msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, e% %B, %H:%M"
 
-#: ../src/gs-lock-plug.c:378
+#: ../src/gs-lock-plug.c:387
 msgid "Time has expired."
 msgstr "Upłynął czas."
 
@@ -530,15 +535,15 @@ msgstr "IDENTYFIKATOR GNIAZDA"
 msgid "Random"
 msgstr "Losowy"
 
-#: ../src/xfce4-screensaver-preferences.c:1871
+#: ../src/xfce4-screensaver-preferences.c:1734
 msgid "Setting locked by administrator."
 msgstr "Ustawienie zablokowane przez administratora."
 
-#: ../src/xfce4-screensaver-preferences.c:1912
+#: ../src/xfce4-screensaver-preferences.c:1775
 msgid "Could not load the main interface"
 msgstr "Nie można załadować głównego interfejsu"
 
-#: ../src/xfce4-screensaver-preferences.c:1914
+#: ../src/xfce4-screensaver-preferences.c:1777
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "Upewnij się, że wygaszacz ekranu jest poprawnie zainstalowany"
 
@@ -680,6 +685,6 @@ msgstr "Włącz kod debugowania"
 msgid "Launch screensaver and locker program"
 msgstr "Uruchom wygaszacz ekranu i program blokady"
 
-#: ../src/xfcekbd-indicator.c:404
+#: ../src/xfcekbd-indicator.c:406
 msgid "XKB initialization error"
 msgstr "Błąd inicjalizacji XKB"
