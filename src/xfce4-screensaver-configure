@@ -389,18 +389,12 @@ class ConfigurationWindow(Gtk.Window):
         self.screensaver_args = parsed["arguments"]
 
         property_base = '/screensavers/{0}'.format(parsed['name'])
-        channel = None
-
-        if Xfconf.init():
-            channel = Xfconf.Channel.get('xfce4-screensaver')
-            if channel is not None:
-                self.xfconf_settings = XfconfSettings(channel,
-                                                      property_base)
-            else:
-                print(_('Unable to access channel'))
-                sys.exit(1)
+        channel = Xfconf.Channel.get('xfce4-screensaver')
+        if channel is not None:
+            self.xfconf_settings = XfconfSettings(channel,
+                                                  property_base)
         else:
-            print(_('Failed to initialize Xfconf'))
+            print(_('Unable to access channel'))
             sys.exit(1)
 
         self.notebook = Gtk.Notebook.new()
@@ -746,15 +740,10 @@ def get_key(dct, keyname, default=""):
     return default
 
 
-def quit_window_cb(widget):
-    Xfconf.shutdown()
-    Gtk.main_quit()
-
-
 def configure(parsed):
     try:
         win = ConfigurationWindow(parsed)
-        win.connect("destroy", quit_window_cb)
+        win.connect("destroy", Gtk.main_quit)
         win.show_all()
         Gtk.main()
     except KeyboardInterrupt:
@@ -834,4 +823,10 @@ if __name__ == "__main__":
     if not obj.configurable:
         show_fatal(primary, _("Screensaver %s has no configuration options.") % saver)
 
+    if not Xfconf.init():
+        print(_('Failed to initialize Xfconf'))
+        sys.exit(1)
+
     configure(obj.to_dict())
+
+    Xfconf.shutdown()
