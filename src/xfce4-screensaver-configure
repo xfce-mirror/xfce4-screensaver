@@ -214,17 +214,17 @@ class DesktopScreensaverSettings(ScreensaverSettings):
             options["do-rotations"] = {'id': 'do-rotations', 'type': 'checkbox',
                                        'label': _('Do rotations'), 'argument': '-r'}
             options["print-stats"] = {'id': 'print-stats', 'type': 'checkbox',
-                                      'label': _('Print stats'), 'argument': '-r'}
+                                      'label': _('Print stats'), 'argument': '-s'}
         elif self.name == "xfce-personal-slideshow":
             pics = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)
             options["location"] = {'id': 'location', 'type': 'folder', 'label': _('Location'),
                                    'argument': '--location=%', 'default': pics if pics != None else '~'}
             options["background-color"] = {'id': 'background-color', 'type': 'color',
-                                           'label': _('Background color')}
+                                           'label': _('Background color'), 'argument': '--background-color=%', 'default': '#000000'}
             options["sort-images"] = {'id': 'sort-images', 'type': 'checkbox',
-                                      'label': _('Do not randomize images')}
+                                      'label': _('Do not randomize images'), 'argument': '--sort-images'}
             options["no-stretch"] = {'id': 'no-stretch', 'type': 'checkbox',
-                                     'label': _('Do not stretch images')}
+                                     'label': _('Do not stretch images'), 'argument': '--no-stretch'}
         return options
 
 
@@ -545,7 +545,7 @@ class ConfigurationWindow(Gtk.Window):
             widget.connect("value-changed", self.on_int_changed, opt["id"])
         elif opt["type"] == "color":
             widget = Gtk.ColorButton.new()
-            color = self.get_string(opt["id"], "#FFFFFF")
+            color = self.get_string(opt["id"], "#000000")
             widget.set_rgba(hex_to_rgba(color))
             widget.connect("color-set", self.on_color_changed, opt["id"])
         else:
