@@ -174,8 +174,8 @@ class DesktopScreensaverSettings(ScreensaverSettings):
 
         self.valid = True
 
-        label = keyfile.get_string("Desktop Entry", "Name")
-        comment = keyfile.get_string("Desktop Entry", "Comment")
+        label = keyfile.get_locale_string("Desktop Entry", "Name", None)
+        comment = keyfile.get_locale_string("Desktop Entry", "Comment", None)
         command = keyfile.get_string("Desktop Entry", "Exec")
         if self.name in ["xfce-floaters", "xfce-personal-slideshow", "xfce-popsquares"]:
             options = self.parse_internal()
