@@ -194,33 +194,33 @@ class DesktopScreensaverSettings(ScreensaverSettings):
         options = OrderedDict()
         if self.name == "xfce-blank":
             options["dpms-sleep-after"] = {'id': 'dpms-sleep-after', 'type': 'slider',
-                                           'label': _('After blanking, put display to sleep after'),
+                                           'label': _("After blanking, put display to sleep after"),
                                            'default': 5, 'low': 0, 'high': 60, 'step': 1,
-                                           'low-label': _('Never'), 'high-label': _('60 seconds')}
+                                           'low-label': _("Never"), 'high-label': _("60 seconds")}
             options["dpms-off-after"] = {'id': 'dpms-off-after', 'type': 'slider',
-                                         'label': _('After sleeping, switch display off after'),
+                                         'label': _("After sleeping, switch display off after"),
                                          'default': 15, 'low': 0, 'high': 60, 'step': 1,
-                                         'low-label': _('Never'), 'high-label': _('60 minutes')}
+                                         'low-label': _("Never"), 'high-label': _("60 minutes")}
         if self.name == "xfce-floaters":
             options["number-of-images"] = {'id': 'number-of-images', 'type': 'spinbutton',
-                                           'label': _('Max number of images'), 'argument': '-n %',
+                                           'label': _("Max number of images"), 'argument': '-n %',
                                            'default': 5, 'low': 1, 'high': 1000}
             options["show-paths"] = {'id': 'show-paths', 'type': 'checkbox',
-                                     'label': _('Show paths'), 'argument': '-p'}
+                                     'label': _("Show paths"), 'argument': '-p'}
             options["do-rotations"] = {'id': 'do-rotations', 'type': 'checkbox',
-                                       'label': _('Do rotations'), 'argument': '-r'}
+                                       'label': _("Do rotations"), 'argument': '-r'}
             options["print-stats"] = {'id': 'print-stats', 'type': 'checkbox',
-                                      'label': _('Print stats'), 'argument': '-s'}
+                                      'label': _("Print stats"), 'argument': '-s'}
         elif self.name == "xfce-personal-slideshow":
             pics = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES)
-            options["location"] = {'id': 'location', 'type': 'folder', 'label': _('Location'),
+            options["location"] = {'id': 'location', 'type': 'folder', 'label': _("Location"),
                                    'argument': '--location=%', 'default': pics if pics != None else '~'}
             options["background-color"] = {'id': 'background-color', 'type': 'color',
-                                           'label': _('Background color'), 'argument': '--background-color=%', 'default': '#000000'}
+                                           'label': _("Background color"), 'argument': '--background-color=%', 'default': '#000000'}
             options["sort-images"] = {'id': 'sort-images', 'type': 'checkbox',
-                                      'label': _('Do not randomize images'), 'argument': '--sort-images'}
+                                      'label': _("Do not randomize images"), 'argument': '--sort-images'}
             options["no-stretch"] = {'id': 'no-stretch', 'type': 'checkbox',
-                                     'label': _('Do not stretch images'), 'argument': '--no-stretch'}
+                                     'label': _("Do not stretch images"), 'argument': '--no-stretch'}
         return options
 
 
@@ -383,7 +383,7 @@ class ConfigurationWindow(Gtk.Window):
             self.xfconf_settings = XfconfSettings(channel,
                                                   property_base)
         else:
-            print(_('Unable to access channel'))
+            print(_("Unable to access channel"))
             sys.exit(1)
 
         self.notebook = Gtk.Notebook.new()
@@ -759,11 +759,11 @@ if __name__ == "__main__":
                             'UTF-8')
 
     parser = argparse.ArgumentParser(
-        description=_('Configure an individual screensaver'))
+        description=_("Configure an individual screensaver"))
     parser.add_argument('screensaver', metavar='N', type=str, nargs='?',
-                        help=_('screensaver name to configure'))
+                        help=_("screensaver name to configure"))
     parser.add_argument('--check', action='store_true',
-                        help=_('check if screensaver is configurable'))
+                        help=_("check if screensaver is configurable"))
     args = parser.parse_args()
 
     graphical = not args.check
@@ -806,7 +806,7 @@ if __name__ == "__main__":
         show_fatal(primary, _("Screensaver %s has no configuration options.") % saver)
 
     if not Xfconf.init():
-        print(_('Failed to initialize Xfconf'))
+        print(_("Failed to initialize Xfconf"))
         sys.exit(1)
 
     configure(obj.to_dict())
