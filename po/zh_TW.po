@@ -4,18 +4,18 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# 黃柏諺 <s8321414@gmail.com>, 2019
 # Nick Schermer <nick@xfce.org>, 2020
+# 黃柏諺 <s8321414@gmail.com>, 2023
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-08 00:46+0100\n"
+"POT-Creation-Date: 2023-05-23 00:49+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Nick Schermer <nick@xfce.org>, 2020\n"
-"Language-Team: Chinese (Taiwan) (https://www.transifex.com/xfce/teams/16840/zh_TW/)\n"
+"Last-Translator: 黃柏諺 <s8321414@gmail.com>, 2023\n"
+"Language-Team: Chinese (Taiwan) (https://app.transifex.com/xfce/teams/16840/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,14 +23,19 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:1
-#: ../src/xfce4-screensaver-preferences.ui.h:21
 #: ../src/xfce4-screensaver.desktop.in.in.h:1
-msgid "Screensaver"
-msgstr "螢幕保護程式"
+msgid "Xfce Screensaver"
+msgstr "Xfce 螢幕保護程式"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:2
 msgid "Set your screensaver preferences"
 msgstr "設定您的螢幕保護程式偏好設定"
+
+#: ../data/xfce4-screensaver-preferences.desktop.in.h:3
+#: ../src/xfce4-screensaver-preferences.ui.h:21
+#: ../src/xfce4-screensaver.desktop.in.in.h:3
+msgid "Screensaver"
+msgstr "螢幕保護程式"
 
 #: ../data/xfce4-screensaver.directory.in.h:1
 msgid "Screensavers"
@@ -74,21 +79,21 @@ msgstr "要使用的來源圖片"
 
 #. translators: the word "image" here
 #. * represents a command line argument
-#: ../savers/floaters.c:1129
+#: ../savers/floaters.c:1131
 msgid "image - floats images around the screen"
 msgstr "image - 在畫面上浮動的圖片"
 
-#: ../savers/floaters.c:1133 ../savers/popsquares.c:49
+#: ../savers/floaters.c:1135 ../savers/popsquares.c:49
 #, c-format
 msgid "%s. See --help for usage information.\n"
 msgstr "%s。請見 --help 來取得使用方法資訊。\n"
 
-#: ../savers/floaters.c:1140
+#: ../savers/floaters.c:1142
 #, c-format
 msgid "Failed to initialize the windowing system."
 msgstr "初始化視窗系統失敗。"
 
-#: ../savers/floaters.c:1146
+#: ../savers/floaters.c:1148
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr "您必須指定一張圖片。請見 --help 來取得使用方法資訊。\n"
@@ -159,7 +164,7 @@ msgstr "無法設定 PAM_TTY=%s"
 msgid "Incorrect password."
 msgstr "密碼不正確。"
 
-#: ../src/gs-auth-pam.c:434 ../src/xfce4-screensaver-dialog.c:311
+#: ../src/gs-auth-pam.c:434 ../src/xfce4-screensaver-dialog.c:312
 msgid "Authentication failed."
 msgstr "驗證失敗。"
 
@@ -171,28 +176,28 @@ msgstr "此時不允許存取。"
 msgid "No longer permitted to access the system."
 msgstr "不再允許存取系統。"
 
-#: ../src/gs-auth-pam.c:667
+#: ../src/gs-auth-pam.c:662
 msgid "Username:"
 msgstr "使用者名稱："
 
-#: ../src/gs-listener-dbus.c:1967
+#: ../src/gs-listener-dbus.c:1971
 msgid "failed to register with the message bus"
 msgstr "使用訊息匯流排註冊失敗"
 
-#: ../src/gs-listener-dbus.c:1977
+#: ../src/gs-listener-dbus.c:1981
 msgid "not connected to the message bus"
 msgstr "未連線至訊息匯流排"
 
-#: ../src/gs-listener-dbus.c:1986 ../src/gs-listener-dbus.c:2016
+#: ../src/gs-listener-dbus.c:1990 ../src/gs-listener-dbus.c:2020
 msgid "screensaver already running in this session"
 msgstr "螢幕保護程式已經在此工作階段中執行"
 
-#: ../src/gs-lock-plug.c:285
+#: ../src/gs-lock-plug.c:296
 msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, %B %e   %H:%M"
 
-#: ../src/gs-lock-plug.c:361
+#: ../src/gs-lock-plug.c:387
 msgid "Time has expired."
 msgstr "時間已過期。"
 
@@ -247,40 +252,40 @@ msgstr "抑制螢幕保護程式的理由"
 msgid "Version of this application"
 msgstr "此應用程式的版本"
 
-#: ../src/xfce4-screensaver-command.c:208
+#: ../src/xfce4-screensaver-command.c:209
 #, c-format
 msgid "The screensaver is %s\n"
 msgstr "螢幕保護程式為 %s\n"
 
-#: ../src/xfce4-screensaver-command.c:208
+#: ../src/xfce4-screensaver-command.c:209
 msgid "active"
 msgstr "活躍"
 
-#: ../src/xfce4-screensaver-command.c:208
+#: ../src/xfce4-screensaver-command.c:209
 msgid "inactive"
 msgstr "不活躍"
 
-#: ../src/xfce4-screensaver-command.c:219
+#: ../src/xfce4-screensaver-command.c:220
 #, c-format
 msgid "The screensaver is not inhibited\n"
 msgstr "螢幕保護程式未被抑制\n"
 
-#: ../src/xfce4-screensaver-command.c:221
+#: ../src/xfce4-screensaver-command.c:222
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
 msgstr "螢幕保護程式抑制由：\n"
 
-#: ../src/xfce4-screensaver-command.c:237
+#: ../src/xfce4-screensaver-command.c:238
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "螢幕保護程式已經活躍 %d 秒。\n"
 
-#: ../src/xfce4-screensaver-configure:139
+#: ../src/xfce4-screensaver-configure:151
 #: ../src/xfce4-screensaver-preferences.c:710
 msgid "Blank screen"
 msgstr "空白畫面"
 
-#: ../src/xfce4-screensaver-configure:140
+#: ../src/xfce4-screensaver-configure:152
 msgid ""
 "Powered by Display Power Management Signaling (DPMS),\n"
 "Xfce Screensaver can automatically suspend your displays\n"
@@ -298,65 +303,65 @@ msgstr ""
 "DPMS 設定。如果您的螢幕會以不同的週期\n"
 "關閉電源，請檢查有無衝突的設定。"
 
-#: ../src/xfce4-screensaver-configure:176
+#: ../src/xfce4-screensaver-configure:190
 msgid "Part of Xfce Screensaver"
 msgstr "Xfce 螢幕保護程式的一部份"
 
-#: ../src/xfce4-screensaver-configure:403
+#: ../src/xfce4-screensaver-configure:435
 msgid "Restore Defaults"
 msgstr "恢復預設值"
 
-#: ../src/xfce4-screensaver-configure:416
+#: ../src/xfce4-screensaver-configure:448
 msgid "Preferences"
 msgstr "偏好設定"
 
-#: ../src/xfce4-screensaver-configure:422
+#: ../src/xfce4-screensaver-configure:454
 msgid "About"
 msgstr "關於"
 
-#: ../src/xfce4-screensaver-configure:435
+#: ../src/xfce4-screensaver-configure:467
 msgid "Video"
 msgstr "視訊"
 
-#: ../src/xfce4-screensaver-configure:502
+#: ../src/xfce4-screensaver-configure:558
 #, c-format
 msgid "Unrecognized type: %s"
 msgstr "無法識別的類型：%s"
 
-#: ../src/xfce4-screensaver-configure:714
+#: ../src/xfce4-screensaver-configure:799
 msgid "Unable to configure screensaver"
 msgstr "無法設定螢幕保護程式"
 
-#: ../src/xfce4-screensaver-configure:718
+#: ../src/xfce4-screensaver-configure:803
 msgid "Screensaver required."
 msgstr "需要螢幕保護程式。"
 
-#: ../src/xfce4-screensaver-configure:726
+#: ../src/xfce4-screensaver-configure:811
 #, c-format
 msgid "File not found: %s"
 msgstr "找不到檔案：%s"
 
-#: ../src/xfce4-screensaver-configure:735
+#: ../src/xfce4-screensaver-configure:819
 #, c-format
 msgid "Unrecognized file type: %s"
 msgstr "無法辨識的檔案類型：%s"
 
-#: ../src/xfce4-screensaver-configure:741
+#: ../src/xfce4-screensaver-configure:823
 #, c-format
 msgid "Failed to process file: %s"
 msgstr "處理檔案失敗：%s"
 
-#: ../src/xfce4-screensaver-configure:746
+#: ../src/xfce4-screensaver-configure:828
 #, c-format
 msgid "Screensaver %s is configurable."
 msgstr "螢幕保護程式 %s 是可以設定的。"
 
-#: ../src/xfce4-screensaver-configure:749
+#: ../src/xfce4-screensaver-configure:831
 #, c-format
 msgid "Screensaver %s is not configurable."
 msgstr "螢幕保護程式 %s 是不可設定的。"
 
-#: ../src/xfce4-screensaver-configure:753
+#: ../src/xfce4-screensaver-configure:835
 #, c-format
 msgid "Screensaver %s has no configuration options."
 msgstr "螢幕保護程式 %s 沒有設定選項。"
@@ -517,15 +522,15 @@ msgstr "SOCKET ID"
 msgid "Random"
 msgstr "隨機"
 
-#: ../src/xfce4-screensaver-preferences.c:1871
+#: ../src/xfce4-screensaver-preferences.c:1734
 msgid "Setting locked by administrator."
 msgstr "設定被管理員鎖定。"
 
-#: ../src/xfce4-screensaver-preferences.c:1912
+#: ../src/xfce4-screensaver-preferences.c:1775
 msgid "Could not load the main interface"
 msgstr "無法載入主介面"
 
-#: ../src/xfce4-screensaver-preferences.c:1914
+#: ../src/xfce4-screensaver-preferences.c:1777
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "請確定螢幕保護程式已正確安裝"
 
@@ -665,6 +670,6 @@ msgstr "啟用除錯程式碼"
 msgid "Launch screensaver and locker program"
 msgstr "啟動螢幕保護程式與鎖定程式"
 
-#: ../src/xfcekbd-indicator.c:404
+#: ../src/xfcekbd-indicator.c:406
 msgid "XKB initialization error"
 msgstr "XKB 初始化錯誤"
