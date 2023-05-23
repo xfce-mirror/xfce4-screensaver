@@ -378,6 +378,7 @@ class ConfigurationWindow(Gtk.Window):
                                 os.path.join(sys.prefix, '/share/locale'),
                                 'UTF-8')
 
+        self.set_modal(True)
         self.set_border_width(6)
         self.set_default_size(400, -1)
         self.set_icon_name("preferences-desktop-screensaver")
@@ -762,10 +763,7 @@ def show_fatal(primary, secondary):
         dlg = Gtk.MessageDialog(None, 0, Gtk.MessageType.ERROR,
                                 Gtk.ButtonsType.OK, primary)
         dlg.format_secondary_text(secondary)
-        dlg.connect("close", Gtk.main_quit)
-        dlg.connect("response", Gtk.main_quit)
-        dlg.show_all()
-        Gtk.main()
+        dlg.run()
     except KeyboardInterrupt:
         pass
     sys.exit(1)
