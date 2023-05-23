@@ -279,7 +279,7 @@ config_set_theme (const char *theme_id) {
         active_theme = g_strdup (theme_id);
     }
 
-    if (mode != GS_MODE_RANDOM && strcmp (theme_id, "screensavers-xfce-popsquares") != 0) {
+    if (mode != GS_MODE_RANDOM) {
         GtkWidget *configure_button = GTK_WIDGET (gtk_builder_get_object (builder, "configure_button"));
         gtk_widget_set_sensitive (configure_button, TRUE);
     }
