@@ -723,6 +723,7 @@ def configure(parsed):
     try:
         win = ConfigurationWindow(parsed)
         win.connect("destroy", Gtk.main_quit)
+        win.set_position(Gtk.WindowPosition.MOUSE)
         win.show_all()
         Gtk.main()
     except KeyboardInterrupt:
@@ -737,6 +738,7 @@ def show_fatal(primary, secondary):
         dlg = Gtk.MessageDialog(None, 0, Gtk.MessageType.ERROR,
                                 Gtk.ButtonsType.OK, primary)
         dlg.format_secondary_text(secondary)
+        dlg.set_position(Gtk.WindowPosition.MOUSE)
         dlg.run()
     except KeyboardInterrupt:
         pass
