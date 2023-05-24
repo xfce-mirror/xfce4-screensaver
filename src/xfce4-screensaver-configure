@@ -370,9 +370,6 @@ class ConfigurationWindow(Gtk.Window):
         self.set_border_width(6)
         self.set_default_size(400, -1)
         self.set_icon_name("preferences-desktop-screensaver")
-        if not self.check_gtk_version(3, 22, 0):
-            self.set_wmclass("xfce4-screensaver-preferences",
-                             "xfce4-screensaver-preferences")
 
         self.inner_margin = 12
         self.screensaver_args = parsed["arguments"]
@@ -541,13 +538,6 @@ class ConfigurationWindow(Gtk.Window):
             print("Unrecognized type: %s" % opt["type"], file=sys.stderr)
             sys.exit(1)
         return widget
-
-    # Taken from Catfish (catfish_lib/helpers.py)
-    def check_gtk_version(self, major, minor, micro):
-        gtk_version = (Gtk.get_major_version(),
-                       Gtk.get_minor_version(),
-                       Gtk.get_micro_version())
-        return gtk_version >= (int(major), int(minor), int(micro))
 
     def get_boolean(self, option_id, default):
         if self.xfconf_settings.check_property(option_id):
