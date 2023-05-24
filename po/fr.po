@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-24 00:55+0200\n"
+"POT-Creation-Date: 2023-05-24 12:49+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Gaël Bonithon <gael@xfce.org>, 2023\n"
 "Language-Team: French (https://app.transifex.com/xfce/teams/16840/fr/)\n"
@@ -324,8 +324,8 @@ msgid "Part of Xfce Screensaver"
 msgstr "Partie de l’économiseur d’écran Xfce"
 
 #: ../src/xfce4-screensaver-configure:197
-msgid "After blanking, put display to sleep after"
-msgstr "Après le vidage, mettre l’écran en veille après"
+msgid "After blanking, put display to sleep after:"
+msgstr "Après le vidage, mettre l’écran en veille après :"
 
 #: ../src/xfce4-screensaver-configure:199
 #: ../src/xfce4-screensaver-configure:203
@@ -337,8 +337,8 @@ msgid "60 seconds"
 msgstr "60 secondes"
 
 #: ../src/xfce4-screensaver-configure:201
-msgid "After sleeping, switch display off after"
-msgstr "Après la mise en veille, éteindre l’écran après"
+msgid "After sleeping, switch display off after:"
+msgstr "Après la mise en veille, éteindre l’écran après :"
 
 #: ../src/xfce4-screensaver-configure:203
 msgid "60 minutes"
