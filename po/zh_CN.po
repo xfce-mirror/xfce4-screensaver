@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-24 00:55+0200\n"
+"POT-Creation-Date: 2023-05-24 12:49+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: 玉堂白鹤 <yjwork@qq.com>, 2023\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/xfce/teams/16840/zh_CN/)\n"
@@ -311,8 +311,8 @@ msgid "Part of Xfce Screensaver"
 msgstr "Xfce 屏幕保护程序的一部分"
 
 #: ../src/xfce4-screensaver-configure:197
-msgid "After blanking, put display to sleep after"
-msgstr "休眠显示器，当黑屏时间达到"
+msgid "After blanking, put display to sleep after:"
+msgstr ""
 
 #: ../src/xfce4-screensaver-configure:199
 #: ../src/xfce4-screensaver-configure:203
@@ -324,8 +324,8 @@ msgid "60 seconds"
 msgstr "60 秒"
 
 #: ../src/xfce4-screensaver-configure:201
-msgid "After sleeping, switch display off after"
-msgstr "关闭显示器，当休眠时间达到"
+msgid "After sleeping, switch display off after:"
+msgstr ""
 
 #: ../src/xfce4-screensaver-configure:203
 msgid "60 minutes"
