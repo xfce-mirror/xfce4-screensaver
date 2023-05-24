@@ -4,10 +4,10 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Xfce Bot <transifex@xfce.org>, 2018
 # marcin mikołajczak <me@mkljczk.pl>, 2018
 # Piotr Sokół <psokol.l10n@gmail.com>, 2019
-# Nick Schermer <nick@xfce.org>, 2020
+# Xfce Bot <transifex@xfce.org>, 2023
+# Nick Schermer <nick@xfce.org>, 2023
 # Marek Adamski, 2023
 # 
 #, fuzzy
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-23 00:49+0200\n"
+"POT-Creation-Date: 2023-05-24 00:55+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Marek Adamski, 2023\n"
 "Language-Team: Polish (https://app.transifex.com/xfce/teams/16840/pl/)\n"
@@ -58,7 +58,7 @@ msgstr "Sporadycznie obracaj obrazy podczas ich poruszania"
 
 #: ../savers/floaters.c:99
 msgid "Print out frame rate and other statistics"
-msgstr "Pokaż liczbę klatek na sekundę i inne statystyki"
+msgstr "Wyświetl liczbę klatek na sekundę i inne statystyki"
 
 #: ../savers/floaters.c:104
 msgid "The maximum number of images to keep on screen"
@@ -281,7 +281,7 @@ msgstr "nieaktywne"
 #: ../src/xfce4-screensaver-command.c:220
 #, c-format
 msgid "The screensaver is not inhibited\n"
-msgstr "Wygaszacz ekranu nie jest powstrzymany\n"
+msgstr "Wygaszacz ekranu nie jest wstrzymywany\n"
 
 #: ../src/xfce4-screensaver-command.c:222
 #, c-format
@@ -316,65 +316,125 @@ msgstr ""
 "ustawieniami DPMS. Jeśli wyświetlacze wyłączają się\n"
 "w różnych odstępach czasu, sprawdź, czy nie ma sprzecznych ustawień."
 
-#: ../src/xfce4-screensaver-configure:190
+#: ../src/xfce4-screensaver-configure:186
 msgid "Part of Xfce Screensaver"
 msgstr "Część wygaszacza ekranu Xfce"
 
-#: ../src/xfce4-screensaver-configure:435
+#: ../src/xfce4-screensaver-configure:197
+msgid "After blanking, put display to sleep after"
+msgstr "Po wygaszeniu uśpij wyświetlacz po"
+
+#: ../src/xfce4-screensaver-configure:199
+#: ../src/xfce4-screensaver-configure:203
+msgid "Never"
+msgstr "Nigdy"
+
+#: ../src/xfce4-screensaver-configure:199
+msgid "60 seconds"
+msgstr "60 sek."
+
+#: ../src/xfce4-screensaver-configure:201
+msgid "After sleeping, switch display off after"
+msgstr "Po uśpieniu wyłącz wyświetlacz po"
+
+#: ../src/xfce4-screensaver-configure:203
+msgid "60 minutes"
+msgstr "60 min"
+
+#: ../src/xfce4-screensaver-configure:206
+msgid "Max number of images"
+msgstr "Maksymalna liczba obrazów"
+
+#: ../src/xfce4-screensaver-configure:209
+msgid "Show paths"
+msgstr "Pokaż ścieżki"
+
+#: ../src/xfce4-screensaver-configure:211
+msgid "Do rotations"
+msgstr "Wykonuj obroty"
+
+#: ../src/xfce4-screensaver-configure:213
+msgid "Print stats"
+msgstr "Wyświetl statystyki"
+
+#: ../src/xfce4-screensaver-configure:216
+msgid "Location"
+msgstr "Lokalizacja:"
+
+#: ../src/xfce4-screensaver-configure:219
+msgid "Background color"
+msgstr "Kolor tła"
+
+#: ../src/xfce4-screensaver-configure:221
+msgid "Do not randomize images"
+msgstr "Nie losuj obrazów"
+
+#: ../src/xfce4-screensaver-configure:223
+msgid "Do not stretch images"
+msgstr "Nie rozciągaj obrazów"
+
+#: ../src/xfce4-screensaver-configure:418
 msgid "Restore Defaults"
 msgstr "Przywróć domyślne"
 
-#: ../src/xfce4-screensaver-configure:448
+#: ../src/xfce4-screensaver-configure:431
 msgid "Preferences"
 msgstr "Preferencje"
 
-#: ../src/xfce4-screensaver-configure:454
+#: ../src/xfce4-screensaver-configure:437
 msgid "About"
 msgstr "O programie"
 
-#: ../src/xfce4-screensaver-configure:467
+#: ../src/xfce4-screensaver-configure:450
 msgid "Video"
 msgstr "Pliki wideo"
 
-#: ../src/xfce4-screensaver-configure:558
-#, c-format
-msgid "Unrecognized type: %s"
-msgstr "Nierozpoznany typ: %s"
+#: ../src/xfce4-screensaver-configure:762
+msgid "Configure an individual screensaver"
+msgstr "Skonfiguruj indywidualny wygaszacz ekranu"
 
-#: ../src/xfce4-screensaver-configure:799
+#: ../src/xfce4-screensaver-configure:764
+msgid "screensaver name to configure"
+msgstr "nazwę wygaszacza ekranu do skonfigurowania"
+
+#: ../src/xfce4-screensaver-configure:766
+msgid "check if screensaver is configurable"
+msgstr "sprawdź, czy wygaszacz ekranu jest konfigurowalny"
+
+#: ../src/xfce4-screensaver-configure:770
 msgid "Unable to configure screensaver"
 msgstr "Nie udało się skonfigurować wygaszacza ekranu"
 
-#: ../src/xfce4-screensaver-configure:803
+#: ../src/xfce4-screensaver-configure:774
 msgid "Screensaver required."
 msgstr "Wymagany wygaszacz ekranu."
 
-#: ../src/xfce4-screensaver-configure:811
+#: ../src/xfce4-screensaver-configure:782
 #, c-format
 msgid "File not found: %s"
 msgstr "Nie znaleziono pliku: %s"
 
-#: ../src/xfce4-screensaver-configure:819
+#: ../src/xfce4-screensaver-configure:790
 #, c-format
 msgid "Unrecognized file type: %s"
 msgstr "Nierozpoznany typ pliku: %s"
 
-#: ../src/xfce4-screensaver-configure:823
+#: ../src/xfce4-screensaver-configure:794
 #, c-format
 msgid "Failed to process file: %s"
 msgstr "Nie udało się przetworzyć pliku: %s"
 
-#: ../src/xfce4-screensaver-configure:828
+#: ../src/xfce4-screensaver-configure:799
 #, c-format
 msgid "Screensaver %s is configurable."
 msgstr "Wygaszacz ekranu %s jest konfigurowalny."
 
-#: ../src/xfce4-screensaver-configure:831
+#: ../src/xfce4-screensaver-configure:801
 #, c-format
 msgid "Screensaver %s is not configurable."
 msgstr "Wygaszacz ekranu %s nie jest konfigurowalny."
 
-#: ../src/xfce4-screensaver-configure:835
+#: ../src/xfce4-screensaver-configure:805
 #, c-format
 msgid "Screensaver %s has no configuration options."
 msgstr "Wygaszacz ekranu %s nie ma opcji konfiguracji."
