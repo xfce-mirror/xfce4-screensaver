@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-24 00:55+0200\n"
+"POT-Creation-Date: 2023-05-24 12:49+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Marek Adamski, 2023\n"
 "Language-Team: Polish (https://app.transifex.com/xfce/teams/16840/pl/)\n"
@@ -310,10 +310,10 @@ msgid ""
 msgstr ""
 "Wspierany przez Display Power Management Signaling\n"
 "(DPMS) Wygaszacz ekranu Xfce może automatycznie wygasić\n"
-"wyświetlacze, aby oszczędzać energię.\n"
+"ekrany, aby oszczędzać energię.\n"
 "\n"
 "Menedżer zasilania Xfce i inne aplikacje również zarządzają\n"
-"ustawieniami DPMS. Jeśli wyświetlacze wyłączają się\n"
+"ustawieniami DPMS. Jeśli ekrany wyłączają się\n"
 "w różnych odstępach czasu, sprawdź, czy nie ma sprzecznych ustawień."
 
 #: ../src/xfce4-screensaver-configure:186
@@ -321,8 +321,8 @@ msgid "Part of Xfce Screensaver"
 msgstr "Część wygaszacza ekranu Xfce"
 
 #: ../src/xfce4-screensaver-configure:197
-msgid "After blanking, put display to sleep after"
-msgstr "Po wygaszeniu uśpij wyświetlacz po"
+msgid "After blanking, put display to sleep after:"
+msgstr "Po przyciemnieniu uśpij ekran po:"
 
 #: ../src/xfce4-screensaver-configure:199
 #: ../src/xfce4-screensaver-configure:203
@@ -334,8 +334,8 @@ msgid "60 seconds"
 msgstr "60 sek."
 
 #: ../src/xfce4-screensaver-configure:201
-msgid "After sleeping, switch display off after"
-msgstr "Po uśpieniu wyłącz wyświetlacz po"
+msgid "After sleeping, switch display off after:"
+msgstr "Po uśpieniu wyłącz ekran po:"
 
 #: ../src/xfce4-screensaver-configure:203
 msgid "60 minutes"
