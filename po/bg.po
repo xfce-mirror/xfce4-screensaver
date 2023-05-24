@@ -5,17 +5,18 @@
 # 
 # Translators:
 # Georgi Georgiev (Жоро) <g.georgiev.shumen@gmail.com>, 2018
-# Nick Schermer <nick@xfce.org>, 2020
 # Kiril Kirilov <cybercop_montana@abv.bg>, 2023
+# Xfce Bot <transifex@xfce.org>, 2023
+# Nick Schermer <nick@xfce.org>, 2023
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-23 00:49+0200\n"
+"POT-Creation-Date: 2023-05-24 00:55+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Kiril Kirilov <cybercop_montana@abv.bg>, 2023\n"
+"Last-Translator: Nick Schermer <nick@xfce.org>, 2023\n"
 "Language-Team: Bulgarian (https://app.transifex.com/xfce/teams/16840/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -310,65 +311,125 @@ msgstr ""
 "Управлението на захранването на Xfce и други приложения, също управляват\n"
 "DPMS настройките. Ако захранването на вашите екрани се изключва за различно от зададеното време, трябва да проверите настройките за конфликт между приложенията."
 
-#: ../src/xfce4-screensaver-configure:190
+#: ../src/xfce4-screensaver-configure:186
 msgid "Part of Xfce Screensaver"
 msgstr "Част от Xfce Предпазител на екрана"
 
-#: ../src/xfce4-screensaver-configure:435
+#: ../src/xfce4-screensaver-configure:197
+msgid "After blanking, put display to sleep after"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:199
+#: ../src/xfce4-screensaver-configure:203
+msgid "Never"
+msgstr "Никога"
+
+#: ../src/xfce4-screensaver-configure:199
+msgid "60 seconds"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:201
+msgid "After sleeping, switch display off after"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:203
+msgid "60 minutes"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:206
+msgid "Max number of images"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:209
+msgid "Show paths"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:211
+msgid "Do rotations"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:213
+msgid "Print stats"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:216
+msgid "Location"
+msgstr "Местоположение"
+
+#: ../src/xfce4-screensaver-configure:219
+msgid "Background color"
+msgstr "Цвят на фона"
+
+#: ../src/xfce4-screensaver-configure:221
+msgid "Do not randomize images"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:223
+msgid "Do not stretch images"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:418
 msgid "Restore Defaults"
 msgstr "Възстанови настройките по подразбиране"
 
-#: ../src/xfce4-screensaver-configure:448
+#: ../src/xfce4-screensaver-configure:431
 msgid "Preferences"
 msgstr "Свойства"
 
-#: ../src/xfce4-screensaver-configure:454
+#: ../src/xfce4-screensaver-configure:437
 msgid "About"
 msgstr "Относно"
 
-#: ../src/xfce4-screensaver-configure:467
+#: ../src/xfce4-screensaver-configure:450
 msgid "Video"
 msgstr "Видео"
 
-#: ../src/xfce4-screensaver-configure:558
-#, c-format
-msgid "Unrecognized type: %s"
-msgstr "Неразпознат тип : %s"
+#: ../src/xfce4-screensaver-configure:762
+msgid "Configure an individual screensaver"
+msgstr ""
 
-#: ../src/xfce4-screensaver-configure:799
+#: ../src/xfce4-screensaver-configure:764
+msgid "screensaver name to configure"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:766
+msgid "check if screensaver is configurable"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:770
 msgid "Unable to configure screensaver"
 msgstr "Предпазителят на екрана не може да бъде конфигуриран"
 
-#: ../src/xfce4-screensaver-configure:803
+#: ../src/xfce4-screensaver-configure:774
 msgid "Screensaver required."
 msgstr "Изисква се предпазител на екрана."
 
-#: ../src/xfce4-screensaver-configure:811
+#: ../src/xfce4-screensaver-configure:782
 #, c-format
 msgid "File not found: %s"
 msgstr "Не е намерен файл: %s"
 
-#: ../src/xfce4-screensaver-configure:819
+#: ../src/xfce4-screensaver-configure:790
 #, c-format
 msgid "Unrecognized file type: %s"
 msgstr "Неразпознат файлов тип: %s"
 
-#: ../src/xfce4-screensaver-configure:823
+#: ../src/xfce4-screensaver-configure:794
 #, c-format
 msgid "Failed to process file: %s"
 msgstr "Неуспешно обработване на файл: %s"
 
-#: ../src/xfce4-screensaver-configure:828
+#: ../src/xfce4-screensaver-configure:799
 #, c-format
 msgid "Screensaver %s is configurable."
 msgstr "Предпазител на екрана %s може да се конфигурира."
 
-#: ../src/xfce4-screensaver-configure:831
+#: ../src/xfce4-screensaver-configure:801
 #, c-format
 msgid "Screensaver %s is not configurable."
 msgstr "Предпазител на екрана %s не може да се конфигурира."
 
-#: ../src/xfce4-screensaver-configure:835
+#: ../src/xfce4-screensaver-configure:805
 #, c-format
 msgid "Screensaver %s has no configuration options."
 msgstr "Предпазител на екрана %s няма възможности за конфигуриране."
