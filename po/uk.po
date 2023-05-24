@@ -8,21 +8,22 @@
 # Oleksandr <testing.berg@gmail.com>, 2018
 # f6d3887df5c5bcb13fc1d4fb04e37f17, 2018
 # Yarema aka Knedlyk <yupadmin@gmail.com>, 2019
-# Nick Schermer <nick@xfce.org>, 2019
 # Dmytro Kyrychuk <dmytro.kyrychuck@gmail.com>, 2020
-# Andrij Mizyk <andmizyk@gmail.com>, 2021
+# f977cb811fcf66493f48eac227fd7473_b98aa5d <2419f1d8d12d92441152e78ae3e3bde0_722180>, 2021
 # Andrii Protsun <minamotosoft@gmail.com>, 2022
 # zubr139, 2022
+# Xfce Bot <transifex@xfce.org>, 2023
+# Nick Schermer <nick@xfce.org>, 2023
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-08 00:46+0100\n"
+"POT-Creation-Date: 2023-05-24 00:55+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: zubr139, 2022\n"
-"Language-Team: Ukrainian (https://www.transifex.com/xfce/teams/16840/uk/)\n"
+"Last-Translator: Nick Schermer <nick@xfce.org>, 2023\n"
+"Language-Team: Ukrainian (https://app.transifex.com/xfce/teams/16840/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -30,14 +31,19 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:1
-#: ../src/xfce4-screensaver-preferences.ui.h:21
 #: ../src/xfce4-screensaver.desktop.in.in.h:1
-msgid "Screensaver"
-msgstr "Зберігач екрана"
+msgid "Xfce Screensaver"
+msgstr ""
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:2
 msgid "Set your screensaver preferences"
 msgstr "Задає налаштування для зберігача екрана"
+
+#: ../data/xfce4-screensaver-preferences.desktop.in.h:3
+#: ../src/xfce4-screensaver-preferences.ui.h:21
+#: ../src/xfce4-screensaver.desktop.in.in.h:3
+msgid "Screensaver"
+msgstr "Зберігач екрана"
 
 #: ../data/xfce4-screensaver.directory.in.h:1
 msgid "Screensavers"
@@ -81,21 +87,21 @@ msgstr "Вихідне зображення для використання"
 
 #. translators: the word "image" here
 #. * represents a command line argument
-#: ../savers/floaters.c:1129
+#: ../savers/floaters.c:1131
 msgid "image - floats images around the screen"
 msgstr "картинка - рухає зображення по екрану"
 
-#: ../savers/floaters.c:1133 ../savers/popsquares.c:49
+#: ../savers/floaters.c:1135 ../savers/popsquares.c:49
 #, c-format
 msgid "%s. See --help for usage information.\n"
 msgstr "%s. Дивіться --help, щоб дізнатися більше.\n"
 
-#: ../savers/floaters.c:1140
+#: ../savers/floaters.c:1142
 #, c-format
 msgid "Failed to initialize the windowing system."
 msgstr "Не можливо ініціалізувати віконну систему."
 
-#: ../savers/floaters.c:1146
+#: ../savers/floaters.c:1148
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr ""
@@ -168,7 +174,7 @@ msgstr "Не вдається встановити PAM_TTY=%s"
 msgid "Incorrect password."
 msgstr "Невірний пароль."
 
-#: ../src/gs-auth-pam.c:434 ../src/xfce4-screensaver-dialog.c:311
+#: ../src/gs-auth-pam.c:434 ../src/xfce4-screensaver-dialog.c:312
 msgid "Authentication failed."
 msgstr "Помилка аутентифікації."
 
@@ -180,28 +186,28 @@ msgstr "Наразі, не дозволено отримати доступ."
 msgid "No longer permitted to access the system."
 msgstr "Більше не дозволено отримувати доступ до системи."
 
-#: ../src/gs-auth-pam.c:667
+#: ../src/gs-auth-pam.c:662
 msgid "Username:"
 msgstr "Імʼя користувача:"
 
-#: ../src/gs-listener-dbus.c:1967
+#: ../src/gs-listener-dbus.c:1971
 msgid "failed to register with the message bus"
 msgstr "не вдалося зареєструватись на шині повідомлень"
 
-#: ../src/gs-listener-dbus.c:1977
+#: ../src/gs-listener-dbus.c:1981
 msgid "not connected to the message bus"
 msgstr "не зʼєднано з шиною повідомлень"
 
-#: ../src/gs-listener-dbus.c:1986 ../src/gs-listener-dbus.c:2016
+#: ../src/gs-listener-dbus.c:1990 ../src/gs-listener-dbus.c:2020
 msgid "screensaver already running in this session"
 msgstr "зберігач екрана вже запущено в цьому сеансі"
 
-#: ../src/gs-lock-plug.c:285
+#: ../src/gs-lock-plug.c:296
 msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, %e %B   %H:%M"
 
-#: ../src/gs-lock-plug.c:361
+#: ../src/gs-lock-plug.c:387
 msgid "Time has expired."
 msgstr "Час минув."
 
@@ -261,40 +267,40 @@ msgstr "Причина перешкоджання зберігачу екран�
 msgid "Version of this application"
 msgstr "Версія цієї програми"
 
-#: ../src/xfce4-screensaver-command.c:208
+#: ../src/xfce4-screensaver-command.c:209
 #, c-format
 msgid "The screensaver is %s\n"
 msgstr "Зберігач екрана %s\n"
 
-#: ../src/xfce4-screensaver-command.c:208
+#: ../src/xfce4-screensaver-command.c:209
 msgid "active"
 msgstr "активний"
 
-#: ../src/xfce4-screensaver-command.c:208
+#: ../src/xfce4-screensaver-command.c:209
 msgid "inactive"
 msgstr "неактивний"
 
-#: ../src/xfce4-screensaver-command.c:219
+#: ../src/xfce4-screensaver-command.c:220
 #, c-format
 msgid "The screensaver is not inhibited\n"
 msgstr "Зберігач екрана не перешкоджається\n"
 
-#: ../src/xfce4-screensaver-command.c:221
+#: ../src/xfce4-screensaver-command.c:222
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
 msgstr "Зберігачу екрана перешкоджає:\n"
 
-#: ../src/xfce4-screensaver-command.c:237
+#: ../src/xfce4-screensaver-command.c:238
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "Зберігач екрана був активним %d секунд.\n"
 
-#: ../src/xfce4-screensaver-configure:139
+#: ../src/xfce4-screensaver-configure:151
 #: ../src/xfce4-screensaver-preferences.c:710
 msgid "Blank screen"
 msgstr "Порожній екран"
 
-#: ../src/xfce4-screensaver-configure:140
+#: ../src/xfce4-screensaver-configure:152
 msgid ""
 "Powered by Display Power Management Signaling (DPMS),\n"
 "Xfce Screensaver can automatically suspend your displays\n"
@@ -312,65 +318,125 @@ msgstr ""
 "налаштуваннями DPMS. Якщо ваш дисплей вимикається\n"
 "впродовж різних інтервалів, перевірте на конфлікт налаштувань."
 
-#: ../src/xfce4-screensaver-configure:176
+#: ../src/xfce4-screensaver-configure:186
 msgid "Part of Xfce Screensaver"
 msgstr "Частина Xfce Screensaver"
 
-#: ../src/xfce4-screensaver-configure:403
+#: ../src/xfce4-screensaver-configure:197
+msgid "After blanking, put display to sleep after"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:199
+#: ../src/xfce4-screensaver-configure:203
+msgid "Never"
+msgstr "Ніколи"
+
+#: ../src/xfce4-screensaver-configure:199
+msgid "60 seconds"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:201
+msgid "After sleeping, switch display off after"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:203
+msgid "60 minutes"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:206
+msgid "Max number of images"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:209
+msgid "Show paths"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:211
+msgid "Do rotations"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:213
+msgid "Print stats"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:216
+msgid "Location"
+msgstr "Місце"
+
+#: ../src/xfce4-screensaver-configure:219
+msgid "Background color"
+msgstr "Колір тла"
+
+#: ../src/xfce4-screensaver-configure:221
+msgid "Do not randomize images"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:223
+msgid "Do not stretch images"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:418
 msgid "Restore Defaults"
 msgstr "Відновити типові"
 
-#: ../src/xfce4-screensaver-configure:416
+#: ../src/xfce4-screensaver-configure:431
 msgid "Preferences"
 msgstr "Налаштування"
 
-#: ../src/xfce4-screensaver-configure:422
+#: ../src/xfce4-screensaver-configure:437
 msgid "About"
 msgstr "Про"
 
-#: ../src/xfce4-screensaver-configure:435
+#: ../src/xfce4-screensaver-configure:450
 msgid "Video"
 msgstr "Відео"
 
-#: ../src/xfce4-screensaver-configure:502
-#, c-format
-msgid "Unrecognized type: %s"
-msgstr "Нерозпізнаний тип: %s"
+#: ../src/xfce4-screensaver-configure:762
+msgid "Configure an individual screensaver"
+msgstr ""
 
-#: ../src/xfce4-screensaver-configure:714
+#: ../src/xfce4-screensaver-configure:764
+msgid "screensaver name to configure"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:766
+msgid "check if screensaver is configurable"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:770
 msgid "Unable to configure screensaver"
 msgstr "Неможливо сконфіґурувати зберігач екрана"
 
-#: ../src/xfce4-screensaver-configure:718
+#: ../src/xfce4-screensaver-configure:774
 msgid "Screensaver required."
 msgstr "Вкажіть зберігач екрана."
 
-#: ../src/xfce4-screensaver-configure:726
+#: ../src/xfce4-screensaver-configure:782
 #, c-format
 msgid "File not found: %s"
 msgstr "Файл не знайдено: %s"
 
-#: ../src/xfce4-screensaver-configure:735
+#: ../src/xfce4-screensaver-configure:790
 #, c-format
 msgid "Unrecognized file type: %s"
 msgstr "Нерозпізнаний тип файлу: %s"
 
-#: ../src/xfce4-screensaver-configure:741
+#: ../src/xfce4-screensaver-configure:794
 #, c-format
 msgid "Failed to process file: %s"
 msgstr "Не вдалося обробити файл: %s"
 
-#: ../src/xfce4-screensaver-configure:746
+#: ../src/xfce4-screensaver-configure:799
 #, c-format
 msgid "Screensaver %s is configurable."
 msgstr "Зберігач екрана %s можна конфіґурувати."
 
-#: ../src/xfce4-screensaver-configure:749
+#: ../src/xfce4-screensaver-configure:801
 #, c-format
 msgid "Screensaver %s is not configurable."
 msgstr "Зберігач екрана %s не можна конфіґурувати."
 
-#: ../src/xfce4-screensaver-configure:753
+#: ../src/xfce4-screensaver-configure:805
 #, c-format
 msgid "Screensaver %s has no configuration options."
 msgstr "Зберігач екрана %s не має параметрів для налаштування."
@@ -533,15 +599,15 @@ msgstr "SOCKET ID"
 msgid "Random"
 msgstr "Випадково"
 
-#: ../src/xfce4-screensaver-preferences.c:1871
+#: ../src/xfce4-screensaver-preferences.c:1734
 msgid "Setting locked by administrator."
 msgstr "Налаштування заблоковані адміністратором."
 
-#: ../src/xfce4-screensaver-preferences.c:1912
+#: ../src/xfce4-screensaver-preferences.c:1775
 msgid "Could not load the main interface"
 msgstr "Не вдалося завантажити основний інтерфейс"
 
-#: ../src/xfce4-screensaver-preferences.c:1914
+#: ../src/xfce4-screensaver-preferences.c:1777
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "Будь ласка, переконайтеся, що заставка правильно встановлена"
 
@@ -682,6 +748,6 @@ msgstr "Дозволити зневадження коду"
 msgid "Launch screensaver and locker program"
 msgstr "Запускає програму зберігача і замикача екрана"
 
-#: ../src/xfcekbd-indicator.c:404
+#: ../src/xfcekbd-indicator.c:406
 msgid "XKB initialization error"
 msgstr "Помилка ініціалізації XKB"
