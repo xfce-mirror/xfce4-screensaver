@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-24 00:55+0200\n"
+"POT-Creation-Date: 2023-05-24 12:49+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>, 2023\n"
 "Language-Team: Portuguese (https://app.transifex.com/xfce/teams/16840/pt/)\n"
@@ -30,7 +30,7 @@ msgstr ""
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:1
 #: ../src/xfce4-screensaver.desktop.in.in.h:1
 msgid "Xfce Screensaver"
-msgstr "Protetor de ecrã do Xfce"
+msgstr "Proteção de ecrã do Xfce"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:2
 msgid "Set your screensaver preferences"
@@ -151,7 +151,7 @@ msgstr "Quadrados de arte pop"
 
 #: ../savers/xfce-popsquares.desktop.in.in.h:2
 msgid "A pop-art-ish grid of pulsing colors."
-msgstr "Uma grelha de cores em pulsação em arte pop."
+msgstr "Uma grelha pop-art de cores pulsantes."
 
 #: ../src/gs-auth-pam.c:163
 msgid "Password:"
@@ -189,7 +189,7 @@ msgstr "Utilizador:"
 
 #: ../src/gs-listener-dbus.c:1971
 msgid "failed to register with the message bus"
-msgstr "falhou o registo com o canal de mensagem"
+msgstr "falha ao registar com o canal de mensagem"
 
 #: ../src/gs-listener-dbus.c:1981
 msgid "not connected to the message bus"
@@ -270,11 +270,11 @@ msgstr "A proteção de ecrã está %s\n"
 
 #: ../src/xfce4-screensaver-command.c:209
 msgid "active"
-msgstr "activa"
+msgstr "ativa"
 
 #: ../src/xfce4-screensaver-command.c:209
 msgid "inactive"
-msgstr "inactiva"
+msgstr "inativa"
 
 #: ../src/xfce4-screensaver-command.c:220
 #, c-format
@@ -294,7 +294,7 @@ msgstr "A proteção de ecrã esteve ativa por %d segundos.\n"
 #: ../src/xfce4-screensaver-configure:151
 #: ../src/xfce4-screensaver-preferences.c:710
 msgid "Blank screen"
-msgstr "Ecrã vazio"
+msgstr "Ecrã em branco"
 
 #: ../src/xfce4-screensaver-configure:152
 msgid ""
@@ -319,8 +319,8 @@ msgid "Part of Xfce Screensaver"
 msgstr "Parte da proteção de ecrã Xfce"
 
 #: ../src/xfce4-screensaver-configure:197
-msgid "After blanking, put display to sleep after"
-msgstr ""
+msgid "After blanking, put display to sleep after:"
+msgstr "Depois de apagar, colocar o ecrã inativo após:"
 
 #: ../src/xfce4-screensaver-configure:199
 #: ../src/xfce4-screensaver-configure:203
@@ -329,31 +329,31 @@ msgstr "Nunca"
 
 #: ../src/xfce4-screensaver-configure:199
 msgid "60 seconds"
-msgstr ""
+msgstr "60 segundos"
 
 #: ../src/xfce4-screensaver-configure:201
-msgid "After sleeping, switch display off after"
-msgstr ""
+msgid "After sleeping, switch display off after:"
+msgstr "Depois de inativo, desligar o ecrã após:"
 
 #: ../src/xfce4-screensaver-configure:203
 msgid "60 minutes"
-msgstr ""
+msgstr "60 minutos"
 
 #: ../src/xfce4-screensaver-configure:206
 msgid "Max number of images"
-msgstr ""
+msgstr "Número máximo de imagens"
 
 #: ../src/xfce4-screensaver-configure:209
 msgid "Show paths"
-msgstr ""
+msgstr "Mostrar caminhos"
 
 #: ../src/xfce4-screensaver-configure:211
 msgid "Do rotations"
-msgstr ""
+msgstr "Fazer rotações"
 
 #: ../src/xfce4-screensaver-configure:213
 msgid "Print stats"
-msgstr ""
+msgstr "Mostrar estatísticas"
 
 #: ../src/xfce4-screensaver-configure:216
 msgid "Location"
@@ -365,11 +365,11 @@ msgstr "Cor de fundo"
 
 #: ../src/xfce4-screensaver-configure:221
 msgid "Do not randomize images"
-msgstr ""
+msgstr "Não aleatorizar imagens"
 
 #: ../src/xfce4-screensaver-configure:223
 msgid "Do not stretch images"
-msgstr ""
+msgstr "Não esticar imagens"
 
 #: ../src/xfce4-screensaver-configure:418
 msgid "Restore Defaults"
@@ -389,15 +389,15 @@ msgstr "Vídeo"
 
 #: ../src/xfce4-screensaver-configure:762
 msgid "Configure an individual screensaver"
-msgstr ""
+msgstr "Configurar uma proteção de ecrã individual"
 
 #: ../src/xfce4-screensaver-configure:764
 msgid "screensaver name to configure"
-msgstr ""
+msgstr "nome da proteção de ecrã a configurar"
 
 #: ../src/xfce4-screensaver-configure:766
 msgid "check if screensaver is configurable"
-msgstr ""
+msgstr "verificar se a proteção de ecrã é configurável"
 
 #: ../src/xfce4-screensaver-configure:770
 msgid "Unable to configure screensaver"
@@ -489,11 +489,11 @@ msgstr ""
 
 #: ../src/xfce4-screensaver-dialog.c:186
 msgid "You are required to change your password immediately (root enforced)"
-msgstr "Tem de mudar a sua palavra-passe imediatamente (forçado pelo root)"
+msgstr "Tem de alterar a sua palavra-passe imediatamente (forçado pelo root)"
 
 #: ../src/xfce4-screensaver-dialog.c:188
 msgid "Your account has expired; please contact your system administrator"
-msgstr "A sua conta expirou. Contacte o seu administrador do sistema"
+msgstr "A sua conta expirou. Contacte o administrador do sistema"
 
 #: ../src/xfce4-screensaver-dialog.c:190
 msgid "No password supplied."
@@ -521,7 +521,7 @@ msgstr "Introduza a palavra-passe atual:"
 
 #: ../src/xfce4-screensaver-dialog.c:202
 msgid "Error while changing NIS password."
-msgstr "Erro ao mudar a palavra-passe NIS."
+msgstr "Erro ao alterar a palavra-passe NIS."
 
 #: ../src/xfce4-screensaver-dialog.c:204
 msgid "You must choose a longer password."
@@ -529,15 +529,15 @@ msgstr "Tem de escolher uma palavra-passe maior."
 
 #: ../src/xfce4-screensaver-dialog.c:206
 msgid "Password has been already used. Choose another."
-msgstr "Palavra-passe já foi usada. Escolha outra."
+msgstr "A palavra-passe já foi usada. Escolha outra."
 
 #: ../src/xfce4-screensaver-dialog.c:208
 msgid "You must wait longer to change your password."
-msgstr "Tem de esperar mais tempo para mudar a palavra-passe."
+msgstr "Tem de esperar mais tempo para alterar a palavra-passe."
 
 #: ../src/xfce4-screensaver-dialog.c:210
 msgid "Sorry, passwords do not match."
-msgstr "Desculpe, as palavras-passe não coincidem."
+msgstr "As palavras-passe não coincidem."
 
 #: ../src/xfce4-screensaver-dialog.c:274
 msgid "Checking..."
@@ -730,7 +730,7 @@ msgstr "Trocar de utilizador"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:32
 msgid "Lock Screen with System Sleep"
-msgstr "Bloquear ecrã com o Adormecer do sistema"
+msgstr "Bloquear ecrã com a inativação do sistema"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:33
 msgid "Lock Screen"
