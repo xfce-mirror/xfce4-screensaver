@@ -4,17 +4,18 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Theppitak Karoonboonyanan <theppitak@gmail.com>, 2020
+# Xfce Bot <transifex@xfce.org>, 2023
+# Theppitak Karoonboonyanan <theppitak@gmail.com>, 2023
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-08 00:46+0100\n"
+"POT-Creation-Date: 2023-05-24 00:55+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Theppitak Karoonboonyanan <theppitak@gmail.com>, 2020\n"
-"Language-Team: Thai (https://www.transifex.com/xfce/teams/16840/th/)\n"
+"Last-Translator: Theppitak Karoonboonyanan <theppitak@gmail.com>, 2023\n"
+"Language-Team: Thai (https://app.transifex.com/xfce/teams/16840/th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,14 +23,19 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:1
-#: ../src/xfce4-screensaver-preferences.ui.h:21
 #: ../src/xfce4-screensaver.desktop.in.in.h:1
-msgid "Screensaver"
-msgstr "โปรแกรมรักษาหน้าจอ"
+msgid "Xfce Screensaver"
+msgstr ""
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:2
 msgid "Set your screensaver preferences"
 msgstr "ปรับแต่งโปรแกรมรักษาหน้าจอของคุณ"
+
+#: ../data/xfce4-screensaver-preferences.desktop.in.h:3
+#: ../src/xfce4-screensaver-preferences.ui.h:21
+#: ../src/xfce4-screensaver.desktop.in.in.h:3
+msgid "Screensaver"
+msgstr "โปรแกรมรักษาหน้าจอ"
 
 #: ../data/xfce4-screensaver.directory.in.h:1
 msgid "Screensavers"
@@ -73,21 +79,21 @@ msgstr "รูปภาพต้นทางที่จะใช้"
 
 #. translators: the word "image" here
 #. * represents a command line argument
-#: ../savers/floaters.c:1129
+#: ../savers/floaters.c:1131
 msgid "image - floats images around the screen"
 msgstr "รูปภาพ - ลอยรูปภาพไปบนหน้าจอ"
 
-#: ../savers/floaters.c:1133 ../savers/popsquares.c:49
+#: ../savers/floaters.c:1135 ../savers/popsquares.c:49
 #, c-format
 msgid "%s. See --help for usage information.\n"
 msgstr "%s. ดูข้อมูลวิธีใช้ได้จากตัวเลือก --help\n"
 
-#: ../savers/floaters.c:1140
+#: ../savers/floaters.c:1142
 #, c-format
 msgid "Failed to initialize the windowing system."
 msgstr "ตั้งต้นระบบหน้าต่างไม่สำเร็จ"
 
-#: ../savers/floaters.c:1146
+#: ../savers/floaters.c:1148
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr "คุณต้องระบุรูปภาพหนึ่งรูป ดูข้อมูลวิธีใช้ได้จากตัวเลือก --help\n"
@@ -158,7 +164,7 @@ msgstr "ไม่สามารถกำหนด PAM_TTY=%s"
 msgid "Incorrect password."
 msgstr "รหัสผ่านไม่ถูกต้อง"
 
-#: ../src/gs-auth-pam.c:434 ../src/xfce4-screensaver-dialog.c:311
+#: ../src/gs-auth-pam.c:434 ../src/xfce4-screensaver-dialog.c:312
 msgid "Authentication failed."
 msgstr "ยืนยันตัวบุคคลไม่สำเร็จ"
 
@@ -170,28 +176,28 @@ msgstr "ไม่ได้รับอนุญาตให้เข้าใช
 msgid "No longer permitted to access the system."
 msgstr "ไม่ได้รับอนุญาตให้เข้าใช้งานได้อีกต่อไป"
 
-#: ../src/gs-auth-pam.c:667
+#: ../src/gs-auth-pam.c:662
 msgid "Username:"
 msgstr "ชื่อผู้ใช้:"
 
-#: ../src/gs-listener-dbus.c:1967
+#: ../src/gs-listener-dbus.c:1971
 msgid "failed to register with the message bus"
 msgstr "ลงทะเบียนกับบัสข้อความไม่สำเร็จ"
 
-#: ../src/gs-listener-dbus.c:1977
+#: ../src/gs-listener-dbus.c:1981
 msgid "not connected to the message bus"
 msgstr "ไม่ได้เชื่อมต่อกับบัสข้อความ"
 
-#: ../src/gs-listener-dbus.c:1986 ../src/gs-listener-dbus.c:2016
+#: ../src/gs-listener-dbus.c:1990 ../src/gs-listener-dbus.c:2020
 msgid "screensaver already running in this session"
 msgstr "มีโปรแกรมรักษาหน้าจอทำงานอยู่แล้วในวาระนี้"
 
-#: ../src/gs-lock-plug.c:285
+#: ../src/gs-lock-plug.c:296
 msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A %e %B   %H:%M"
 
-#: ../src/gs-lock-plug.c:361
+#: ../src/gs-lock-plug.c:387
 msgid "Time has expired."
 msgstr "หมดเวลา"
 
@@ -249,40 +255,40 @@ msgstr "เหตุผลของการระงับโปรแกรม
 msgid "Version of this application"
 msgstr "รุ่นของแอปพลิเคชันนี้"
 
-#: ../src/xfce4-screensaver-command.c:208
+#: ../src/xfce4-screensaver-command.c:209
 #, c-format
 msgid "The screensaver is %s\n"
 msgstr "โปรแกรมรักษาหน้าจอ%s\n"
 
-#: ../src/xfce4-screensaver-command.c:208
+#: ../src/xfce4-screensaver-command.c:209
 msgid "active"
 msgstr "แอคทีฟ"
 
-#: ../src/xfce4-screensaver-command.c:208
+#: ../src/xfce4-screensaver-command.c:209
 msgid "inactive"
 msgstr "ไม่แอคทีฟ"
 
-#: ../src/xfce4-screensaver-command.c:219
+#: ../src/xfce4-screensaver-command.c:220
 #, c-format
 msgid "The screensaver is not inhibited\n"
 msgstr "โปรแกรมรักษาหน้าจอไม่ได้ถูกระงับ\n"
 
-#: ../src/xfce4-screensaver-command.c:221
+#: ../src/xfce4-screensaver-command.c:222
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
 msgstr "โปรแกรมรักษาหน้าจอกำลังถูกระงับโดย:\n"
 
-#: ../src/xfce4-screensaver-command.c:237
+#: ../src/xfce4-screensaver-command.c:238
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "โปรแกรมรักษาหน้าจอได้แอคทีฟมาเป็นเวลา %d วินาที\n"
 
-#: ../src/xfce4-screensaver-configure:139
+#: ../src/xfce4-screensaver-configure:151
 #: ../src/xfce4-screensaver-preferences.c:710
 msgid "Blank screen"
 msgstr "จอเปล่า"
 
-#: ../src/xfce4-screensaver-configure:140
+#: ../src/xfce4-screensaver-configure:152
 msgid ""
 "Powered by Display Power Management Signaling (DPMS),\n"
 "Xfce Screensaver can automatically suspend your displays\n"
@@ -300,65 +306,125 @@ msgstr ""
 "ค่าตั้ง DPMS ด้วย ถ้าจอภาพของคุณดับลงในระยะเวลาต่างจากที่ตั้งไว้\n"
 "ก็กรุณาตรวจสอบค่าตั้งเหล่านั้นที่อาจขัดกันอยู่"
 
-#: ../src/xfce4-screensaver-configure:176
+#: ../src/xfce4-screensaver-configure:186
 msgid "Part of Xfce Screensaver"
 msgstr "ส่วนหนึ่งของโปรแกรมรักษาหน้าจอของ Xfce"
 
-#: ../src/xfce4-screensaver-configure:403
+#: ../src/xfce4-screensaver-configure:197
+msgid "After blanking, put display to sleep after"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:199
+#: ../src/xfce4-screensaver-configure:203
+msgid "Never"
+msgstr "ไม่มี"
+
+#: ../src/xfce4-screensaver-configure:199
+msgid "60 seconds"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:201
+msgid "After sleeping, switch display off after"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:203
+msgid "60 minutes"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:206
+msgid "Max number of images"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:209
+msgid "Show paths"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:211
+msgid "Do rotations"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:213
+msgid "Print stats"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:216
+msgid "Location"
+msgstr "สถานที่"
+
+#: ../src/xfce4-screensaver-configure:219
+msgid "Background color"
+msgstr "สีพื้นหลัง"
+
+#: ../src/xfce4-screensaver-configure:221
+msgid "Do not randomize images"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:223
+msgid "Do not stretch images"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:418
 msgid "Restore Defaults"
 msgstr "คืนค่าปริยาย"
 
-#: ../src/xfce4-screensaver-configure:416
+#: ../src/xfce4-screensaver-configure:431
 msgid "Preferences"
 msgstr "ปรับแต่ง"
 
-#: ../src/xfce4-screensaver-configure:422
+#: ../src/xfce4-screensaver-configure:437
 msgid "About"
 msgstr "เกี่ยวกับ"
 
-#: ../src/xfce4-screensaver-configure:435
+#: ../src/xfce4-screensaver-configure:450
 msgid "Video"
 msgstr "วีดิทัศน์"
 
-#: ../src/xfce4-screensaver-configure:502
-#, c-format
-msgid "Unrecognized type: %s"
-msgstr "ไม่รู้จักชนิด: %s"
+#: ../src/xfce4-screensaver-configure:762
+msgid "Configure an individual screensaver"
+msgstr ""
 
-#: ../src/xfce4-screensaver-configure:714
+#: ../src/xfce4-screensaver-configure:764
+msgid "screensaver name to configure"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:766
+msgid "check if screensaver is configurable"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:770
 msgid "Unable to configure screensaver"
 msgstr "ไม่สามารถตั้งค่าโปรแกรมรักษาหน้าจอ"
 
-#: ../src/xfce4-screensaver-configure:718
+#: ../src/xfce4-screensaver-configure:774
 msgid "Screensaver required."
 msgstr "ต้องระบุโปรแกรมรักษาหน้าจอ"
 
-#: ../src/xfce4-screensaver-configure:726
+#: ../src/xfce4-screensaver-configure:782
 #, c-format
 msgid "File not found: %s"
 msgstr "ไม่พบแฟ้ม: %s"
 
-#: ../src/xfce4-screensaver-configure:735
+#: ../src/xfce4-screensaver-configure:790
 #, c-format
 msgid "Unrecognized file type: %s"
 msgstr "ไม่รู้จักชนิดแฟ้ม: %s"
 
-#: ../src/xfce4-screensaver-configure:741
+#: ../src/xfce4-screensaver-configure:794
 #, c-format
 msgid "Failed to process file: %s"
 msgstr "ไม่สามารถประมวลผลแฟ้ม: %s"
 
-#: ../src/xfce4-screensaver-configure:746
+#: ../src/xfce4-screensaver-configure:799
 #, c-format
 msgid "Screensaver %s is configurable."
 msgstr "โปรแกรมรักษาหน้าจอ %s สามารถตั้งค่าได้"
 
-#: ../src/xfce4-screensaver-configure:749
+#: ../src/xfce4-screensaver-configure:801
 #, c-format
 msgid "Screensaver %s is not configurable."
 msgstr "โปรแกรมรักษาหน้าจอ %s ไม่สามารถตั้งค่าได้"
 
-#: ../src/xfce4-screensaver-configure:753
+#: ../src/xfce4-screensaver-configure:805
 #, c-format
 msgid "Screensaver %s has no configuration options."
 msgstr "โปรแกรมรักษาหน้าจอ %s ไม่มีตัวเลือกให้ตั้งค่าได้"
@@ -519,15 +585,15 @@ msgstr "หมายเลขซ็อกเก็ต"
 msgid "Random"
 msgstr "สุ่ม"
 
-#: ../src/xfce4-screensaver-preferences.c:1871
+#: ../src/xfce4-screensaver-preferences.c:1734
 msgid "Setting locked by administrator."
 msgstr "ค่าตั้งถูกล็อคไว้โดยผู้ดูแลระบบ"
 
-#: ../src/xfce4-screensaver-preferences.c:1912
+#: ../src/xfce4-screensaver-preferences.c:1775
 msgid "Could not load the main interface"
 msgstr "ไม่สามารถโหลดส่วนติดต่อผู้ใช้หลัก"
 
-#: ../src/xfce4-screensaver-preferences.c:1914
+#: ../src/xfce4-screensaver-preferences.c:1777
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "กรุณาตรวจสอบให้แน่ใจว่าโปรแกรมรักษาหน้าจอมีการติดตั้งครบถ้วน"
 
@@ -668,6 +734,6 @@ msgstr "เปิดทำงานส่วนดีบั๊ก"
 msgid "Launch screensaver and locker program"
 msgstr "เรียกโปรแกรมรักษาหน้าจอและโปรแกรมล็อคหน้าจอ"
 
-#: ../src/xfcekbd-indicator.c:404
+#: ../src/xfcekbd-indicator.c:406
 msgid "XKB initialization error"
 msgstr "เกิดข้อผิดพลาดในการตั้งต้น XKB"
