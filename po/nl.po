@@ -5,6 +5,7 @@
 # 
 # Translators:
 # Nick Schermer <nick@xfce.org>, 2019
+# Xfce Bot <transifex@xfce.org>, 2023
 # Pjotr <pjotrvertaalt@gmail.com>, 2023
 # 
 #, fuzzy
@@ -12,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-23 00:49+0200\n"
+"POT-Creation-Date: 2023-05-24 00:55+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Pjotr <pjotrvertaalt@gmail.com>, 2023\n"
 "Language-Team: Dutch (https://app.transifex.com/xfce/teams/16840/nl/)\n"
@@ -315,65 +316,125 @@ msgstr ""
 "verschillende ogenblikken uitgaan, controleer dan\n"
 "op conflicterende instellingen."
 
-#: ../src/xfce4-screensaver-configure:190
+#: ../src/xfce4-screensaver-configure:186
 msgid "Part of Xfce Screensaver"
 msgstr "Deel van Xfce Schermbeveiliging"
 
-#: ../src/xfce4-screensaver-configure:435
+#: ../src/xfce4-screensaver-configure:197
+msgid "After blanking, put display to sleep after"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:199
+#: ../src/xfce4-screensaver-configure:203
+msgid "Never"
+msgstr "nooit"
+
+#: ../src/xfce4-screensaver-configure:199
+msgid "60 seconds"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:201
+msgid "After sleeping, switch display off after"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:203
+msgid "60 minutes"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:206
+msgid "Max number of images"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:209
+msgid "Show paths"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:211
+msgid "Do rotations"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:213
+msgid "Print stats"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:216
+msgid "Location"
+msgstr "Locatie"
+
+#: ../src/xfce4-screensaver-configure:219
+msgid "Background color"
+msgstr "Achtergrondkleur"
+
+#: ../src/xfce4-screensaver-configure:221
+msgid "Do not randomize images"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:223
+msgid "Do not stretch images"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:418
 msgid "Restore Defaults"
 msgstr "Standaardinstellingen terugzetten"
 
-#: ../src/xfce4-screensaver-configure:448
+#: ../src/xfce4-screensaver-configure:431
 msgid "Preferences"
 msgstr "Voorkeuren"
 
-#: ../src/xfce4-screensaver-configure:454
+#: ../src/xfce4-screensaver-configure:437
 msgid "About"
 msgstr "Over"
 
-#: ../src/xfce4-screensaver-configure:467
+#: ../src/xfce4-screensaver-configure:450
 msgid "Video"
 msgstr "Beeld"
 
-#: ../src/xfce4-screensaver-configure:558
-#, c-format
-msgid "Unrecognized type: %s"
-msgstr "Niet-herkend type: %s"
+#: ../src/xfce4-screensaver-configure:762
+msgid "Configure an individual screensaver"
+msgstr ""
 
-#: ../src/xfce4-screensaver-configure:799
+#: ../src/xfce4-screensaver-configure:764
+msgid "screensaver name to configure"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:766
+msgid "check if screensaver is configurable"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:770
 msgid "Unable to configure screensaver"
 msgstr "Kan schermbeveiliging niet instellen"
 
-#: ../src/xfce4-screensaver-configure:803
+#: ../src/xfce4-screensaver-configure:774
 msgid "Screensaver required."
 msgstr "Schermbeveiliging vereist."
 
-#: ../src/xfce4-screensaver-configure:811
+#: ../src/xfce4-screensaver-configure:782
 #, c-format
 msgid "File not found: %s"
 msgstr "Bestand niet gevonden: %s"
 
-#: ../src/xfce4-screensaver-configure:819
+#: ../src/xfce4-screensaver-configure:790
 #, c-format
 msgid "Unrecognized file type: %s"
 msgstr "Niet-herkend bestandtype: %s"
 
-#: ../src/xfce4-screensaver-configure:823
+#: ../src/xfce4-screensaver-configure:794
 #, c-format
 msgid "Failed to process file: %s"
 msgstr "Kon bestand niet verwerken: %s"
 
-#: ../src/xfce4-screensaver-configure:828
+#: ../src/xfce4-screensaver-configure:799
 #, c-format
 msgid "Screensaver %s is configurable."
 msgstr "Schermbeveiliging %s is instelbaar."
 
-#: ../src/xfce4-screensaver-configure:831
+#: ../src/xfce4-screensaver-configure:801
 #, c-format
 msgid "Screensaver %s is not configurable."
 msgstr "Schermbeveiliging %s is niet instelbaar."
 
-#: ../src/xfce4-screensaver-configure:835
+#: ../src/xfce4-screensaver-configure:805
 #, c-format
 msgid "Screensaver %s has no configuration options."
 msgstr "Schermbeveiliging %s heeft geen instellingsopties."
