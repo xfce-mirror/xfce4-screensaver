@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-24 00:55+0200\n"
+"POT-Creation-Date: 2023-05-24 12:49+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Pjotr <pjotrvertaalt@gmail.com>, 2023\n"
 "Language-Team: Dutch (https://app.transifex.com/xfce/teams/16840/nl/)\n"
@@ -321,41 +321,41 @@ msgid "Part of Xfce Screensaver"
 msgstr "Deel van Xfce Schermbeveiliging"
 
 #: ../src/xfce4-screensaver-configure:197
-msgid "After blanking, put display to sleep after"
-msgstr ""
+msgid "After blanking, put display to sleep after:"
+msgstr "Na op zwart gaan, zet het scherm op slaapstand na:"
 
 #: ../src/xfce4-screensaver-configure:199
 #: ../src/xfce4-screensaver-configure:203
 msgid "Never"
-msgstr "nooit"
+msgstr "Nooit"
 
 #: ../src/xfce4-screensaver-configure:199
 msgid "60 seconds"
-msgstr ""
+msgstr "60 seconden"
 
 #: ../src/xfce4-screensaver-configure:201
-msgid "After sleeping, switch display off after"
-msgstr ""
+msgid "After sleeping, switch display off after:"
+msgstr "Na aanvang slaapstand, schakel scherm uit na:"
 
 #: ../src/xfce4-screensaver-configure:203
 msgid "60 minutes"
-msgstr ""
+msgstr "60 minuten"
 
 #: ../src/xfce4-screensaver-configure:206
 msgid "Max number of images"
-msgstr ""
+msgstr "Maximaal aantal afbeeldingen"
 
 #: ../src/xfce4-screensaver-configure:209
 msgid "Show paths"
-msgstr ""
+msgstr "Toon paden"
 
 #: ../src/xfce4-screensaver-configure:211
 msgid "Do rotations"
-msgstr ""
+msgstr "Doe draaiingen"
 
 #: ../src/xfce4-screensaver-configure:213
 msgid "Print stats"
-msgstr ""
+msgstr "Toon statistieken"
 
 #: ../src/xfce4-screensaver-configure:216
 msgid "Location"
@@ -367,11 +367,11 @@ msgstr "Achtergrondkleur"
 
 #: ../src/xfce4-screensaver-configure:221
 msgid "Do not randomize images"
-msgstr ""
+msgstr "Toon afbeeldingen niet in willekeurige volgorde"
 
 #: ../src/xfce4-screensaver-configure:223
 msgid "Do not stretch images"
-msgstr ""
+msgstr "Rek afbeeldingen niet uit"
 
 #: ../src/xfce4-screensaver-configure:418
 msgid "Restore Defaults"
@@ -391,15 +391,15 @@ msgstr "Beeld"
 
 #: ../src/xfce4-screensaver-configure:762
 msgid "Configure an individual screensaver"
-msgstr ""
+msgstr "Stel een individuele schermbeveiliging in"
 
 #: ../src/xfce4-screensaver-configure:764
 msgid "screensaver name to configure"
-msgstr ""
+msgstr "in te stellen naam van schermbeveiliging"
 
 #: ../src/xfce4-screensaver-configure:766
 msgid "check if screensaver is configurable"
-msgstr ""
+msgstr "kijk na of schermbeveiliging instelbaar is"
 
 #: ../src/xfce4-screensaver-configure:770
 msgid "Unable to configure screensaver"
