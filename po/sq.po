@@ -319,7 +319,7 @@ msgstr "Pjesë e Ekrankursyesit Xfce"
 
 #: ../src/xfce4-screensaver-configure:197
 msgid "After blanking, put display to sleep after:"
-msgstr ""
+msgstr "Pas fshirjes, vëre ekranin në gjumë pas:"
 
 #: ../src/xfce4-screensaver-configure:199
 #: ../src/xfce4-screensaver-configure:203
@@ -332,7 +332,7 @@ msgstr "60 sekondash"
 
 #: ../src/xfce4-screensaver-configure:201
 msgid "After sleeping, switch display off after:"
-msgstr ""
+msgstr "Pas dremitjes, fike ekranin pas:"
 
 #: ../src/xfce4-screensaver-configure:203
 msgid "60 minutes"
