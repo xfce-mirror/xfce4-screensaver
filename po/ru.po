@@ -11,15 +11,16 @@
 # Sergey Alyoshin <alyoshin.s@gmail.com>, 2020
 # Xfce Bot <transifex@xfce.org>, 2023
 # Aleksandr P, 2023
+# Andrei Stepanov, 2023
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-24 00:55+0200\n"
+"POT-Creation-Date: 2023-05-24 12:49+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Aleksandr P, 2023\n"
+"Last-Translator: Andrei Stepanov, 2023\n"
 "Language-Team: Russian (https://app.transifex.com/xfce/teams/16840/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,7 +31,7 @@ msgstr ""
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:1
 #: ../src/xfce4-screensaver.desktop.in.in.h:1
 msgid "Xfce Screensaver"
-msgstr ""
+msgstr "Хранитель экрана Xfce"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:2
 msgid "Set your screensaver preferences"
@@ -316,8 +317,8 @@ msgid "Part of Xfce Screensaver"
 msgstr "Часть хранителя экрана Xfce"
 
 #: ../src/xfce4-screensaver-configure:197
-msgid "After blanking, put display to sleep after"
-msgstr ""
+msgid "After blanking, put display to sleep after:"
+msgstr "По отключении переводить дисплей в спящий режим через:"
 
 #: ../src/xfce4-screensaver-configure:199
 #: ../src/xfce4-screensaver-configure:203
@@ -326,31 +327,31 @@ msgstr "Никогда"
 
 #: ../src/xfce4-screensaver-configure:199
 msgid "60 seconds"
-msgstr ""
+msgstr "60 секунд"
 
 #: ../src/xfce4-screensaver-configure:201
-msgid "After sleeping, switch display off after"
-msgstr ""
+msgid "After sleeping, switch display off after:"
+msgstr "По переводу в спящий режим отключать дисплей через:"
 
 #: ../src/xfce4-screensaver-configure:203
 msgid "60 minutes"
-msgstr ""
+msgstr "60 минут"
 
 #: ../src/xfce4-screensaver-configure:206
 msgid "Max number of images"
-msgstr ""
+msgstr "Предельное число изображений"
 
 #: ../src/xfce4-screensaver-configure:209
 msgid "Show paths"
-msgstr ""
+msgstr "Показывать пути"
 
 #: ../src/xfce4-screensaver-configure:211
 msgid "Do rotations"
-msgstr ""
+msgstr "Вращать"
 
 #: ../src/xfce4-screensaver-configure:213
 msgid "Print stats"
-msgstr ""
+msgstr "Вывести статистику"
 
 #: ../src/xfce4-screensaver-configure:216
 msgid "Location"
@@ -362,11 +363,11 @@ msgstr "Цвет фона"
 
 #: ../src/xfce4-screensaver-configure:221
 msgid "Do not randomize images"
-msgstr ""
+msgstr "Не перемешивать изображения"
 
 #: ../src/xfce4-screensaver-configure:223
 msgid "Do not stretch images"
-msgstr ""
+msgstr "Не растягивать изображения"
 
 #: ../src/xfce4-screensaver-configure:418
 msgid "Restore Defaults"
@@ -386,15 +387,15 @@ msgstr "Видео"
 
 #: ../src/xfce4-screensaver-configure:762
 msgid "Configure an individual screensaver"
-msgstr ""
+msgstr "Настроить отдельный хранитель экрана"
 
 #: ../src/xfce4-screensaver-configure:764
 msgid "screensaver name to configure"
-msgstr ""
+msgstr "имя хранителя экрана для настройки"
 
 #: ../src/xfce4-screensaver-configure:766
 msgid "check if screensaver is configurable"
-msgstr ""
+msgstr "проверить настраиваемость хранителя экрана"
 
 #: ../src/xfce4-screensaver-configure:770
 msgid "Unable to configure screensaver"
