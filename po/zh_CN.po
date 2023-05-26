@@ -312,7 +312,7 @@ msgstr "Xfce 屏幕保护程序的一部分"
 
 #: ../src/xfce4-screensaver-configure:197
 msgid "After blanking, put display to sleep after:"
-msgstr ""
+msgstr "休眠显示器，当黑屏时间达到："
 
 #: ../src/xfce4-screensaver-configure:199
 #: ../src/xfce4-screensaver-configure:203
@@ -325,7 +325,7 @@ msgstr "60 秒"
 
 #: ../src/xfce4-screensaver-configure:201
 msgid "After sleeping, switch display off after:"
-msgstr ""
+msgstr "关闭显示器，当休眠时间达到："
 
 #: ../src/xfce4-screensaver-configure:203
 msgid "60 minutes"
