@@ -1,3 +1,36 @@
+4.18.2 (2023-05-30)
+======
+- screensaver-configure: Ensure consistent dialog positioning
+- screensaver-configure: Remove dead code
+- screensaver-configure: Improve some strings
+- screensaver-configure: Print errors on stderr without translating
+- screensaver-configure: Replace single quotes with double quotes in _()
+- screensaver-configure: Get translated strings from desktop files
+- screensaver-configure: Fix broken translations
+- screensaver-configure: Set dialogs modal
+- Revert "prefs-dialog: Grey out prefs button for popsquares (no prefs)"
+- screensaver-configure: Fix broken prefs
+- screensaver-configure: Fix critical when closing dialog
+- prefs-dialog: Grey out prefs button for popsquares (no prefs)
+- Bump GTK version and remove dead code
+- Keep "lock-on-sleep" in sync with other components via XfceScreensaver
+- *.desktop: Distinguishing our screensaver from others (Fixes #17)
+- Use GLib wrappers for memory allocation
+- Fix unix.Malloc warnings from scan-build 15.0.7
+- Fix core.uninitialized.Assign warnings from scan-build 15.0.7
+- Fix deadcode.DeadStores warnings from scan-build 15.0.7
+- Avoid duplicated code
+- manager: Do not discard monitors without model and manufacturer
+- Translation Updates:
+  Albanian, Armenian (Armenia), Basque, Belarusian, Bulgarian, Catalan,
+  Chinese (China), Chinese (Taiwan), Czech, Danish, Dutch, Eastern
+  Armenian, English (Australia), English (United Kingdom), Estonian,
+  Finnish, French, Galician, German, Hebrew, Hungarian, Icelandic,
+  Indonesian, Italian, Japanese, Kabyle, Korean, Lithuanian, Malay,
+  Norwegian Bokmål, Polish, Portuguese, Portuguese (Brazil), Russian,
+  Serbian, Slovak, Slovenian, Spanish, Swedish, Thai, Turkish,
+  Ukrainian
+
 4.18.1 (2023-03-26)
 ======
 - Refactor spawn_make_environment_for_display()
