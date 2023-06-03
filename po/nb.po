@@ -7,18 +7,18 @@
 # Eirik Dekko <edekko@gmail.com>, 2018
 # Allan Nordhøy <epost@anotheragency.no>, 2019
 # Harald H. <haarektrans@gmail.com>, 2019
-# heskjestad <cato@heskjestad.xyz>, 2019
 # Xfce Bot <transifex@xfce.org>, 2023
 # Nick Schermer <nick@xfce.org>, 2023
+# heskjestad <cato@heskjestad.xyz>, 2023
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-24 00:55+0200\n"
+"POT-Creation-Date: 2023-05-30 00:51+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Nick Schermer <nick@xfce.org>, 2023\n"
+"Last-Translator: heskjestad <cato@heskjestad.xyz>, 2023\n"
 "Language-Team: Norwegian Bokmål (https://app.transifex.com/xfce/teams/16840/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +29,7 @@ msgstr ""
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:1
 #: ../src/xfce4-screensaver.desktop.in.in.h:1
 msgid "Xfce Screensaver"
-msgstr ""
+msgstr "Xfce Skjermsparer"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:2
 msgid "Set your screensaver preferences"
@@ -316,8 +316,8 @@ msgid "Part of Xfce Screensaver"
 msgstr "En del av Xfce-skjermspareren"
 
 #: ../src/xfce4-screensaver-configure:197
-msgid "After blanking, put display to sleep after"
-msgstr ""
+msgid "After blanking, put display to sleep after:"
+msgstr "Etter blanking, sett skjerm i hvilemodus etter:"
 
 #: ../src/xfce4-screensaver-configure:199
 #: ../src/xfce4-screensaver-configure:203
@@ -326,31 +326,31 @@ msgstr "Aldri"
 
 #: ../src/xfce4-screensaver-configure:199
 msgid "60 seconds"
-msgstr ""
+msgstr "60 sekunder"
 
 #: ../src/xfce4-screensaver-configure:201
-msgid "After sleeping, switch display off after"
-msgstr ""
+msgid "After sleeping, switch display off after:"
+msgstr "Etter hvilemodus, slå av skjerm etter:"
 
 #: ../src/xfce4-screensaver-configure:203
 msgid "60 minutes"
-msgstr ""
+msgstr "60 minutter"
 
 #: ../src/xfce4-screensaver-configure:206
 msgid "Max number of images"
-msgstr ""
+msgstr "Største antall bilder"
 
 #: ../src/xfce4-screensaver-configure:209
 msgid "Show paths"
-msgstr ""
+msgstr "Vis stier"
 
 #: ../src/xfce4-screensaver-configure:211
 msgid "Do rotations"
-msgstr ""
+msgstr "Utfør rotasjoner"
 
 #: ../src/xfce4-screensaver-configure:213
 msgid "Print stats"
-msgstr ""
+msgstr "List ut statistikk"
 
 #: ../src/xfce4-screensaver-configure:216
 msgid "Location"
@@ -362,74 +362,74 @@ msgstr "Bakgrunnsfarge"
 
 #: ../src/xfce4-screensaver-configure:221
 msgid "Do not randomize images"
-msgstr ""
+msgstr "Ikke vis bilder tilfeldig"
 
 #: ../src/xfce4-screensaver-configure:223
 msgid "Do not stretch images"
-msgstr ""
+msgstr "Ikke strekk bilder"
 
-#: ../src/xfce4-screensaver-configure:418
+#: ../src/xfce4-screensaver-configure:415
 msgid "Restore Defaults"
 msgstr "Tilbakestill til forvalg"
 
-#: ../src/xfce4-screensaver-configure:431
+#: ../src/xfce4-screensaver-configure:428
 msgid "Preferences"
 msgstr "Innstillinger"
 
-#: ../src/xfce4-screensaver-configure:437
+#: ../src/xfce4-screensaver-configure:434
 msgid "About"
 msgstr "Om"
 
-#: ../src/xfce4-screensaver-configure:450
+#: ../src/xfce4-screensaver-configure:447
 msgid "Video"
 msgstr "Video"
 
-#: ../src/xfce4-screensaver-configure:762
+#: ../src/xfce4-screensaver-configure:754
 msgid "Configure an individual screensaver"
-msgstr ""
+msgstr "Sett opp individuell skjermsparer"
 
-#: ../src/xfce4-screensaver-configure:764
+#: ../src/xfce4-screensaver-configure:756
 msgid "screensaver name to configure"
-msgstr ""
+msgstr "skjermspareren som skal settes opp"
 
-#: ../src/xfce4-screensaver-configure:766
+#: ../src/xfce4-screensaver-configure:758
 msgid "check if screensaver is configurable"
-msgstr ""
+msgstr "undersøk om skjermspareren kan settes opp"
 
-#: ../src/xfce4-screensaver-configure:770
+#: ../src/xfce4-screensaver-configure:762
 msgid "Unable to configure screensaver"
 msgstr "Klarte ikke sette opp skjermspareren"
 
-#: ../src/xfce4-screensaver-configure:774
+#: ../src/xfce4-screensaver-configure:766
 msgid "Screensaver required."
 msgstr "Skjermsparer kreves."
 
-#: ../src/xfce4-screensaver-configure:782
+#: ../src/xfce4-screensaver-configure:774
 #, c-format
 msgid "File not found: %s"
 msgstr "Fant ikke filen: %s"
 
-#: ../src/xfce4-screensaver-configure:790
+#: ../src/xfce4-screensaver-configure:782
 #, c-format
 msgid "Unrecognized file type: %s"
 msgstr "Ukjent filtype: %s"
 
-#: ../src/xfce4-screensaver-configure:794
+#: ../src/xfce4-screensaver-configure:786
 #, c-format
 msgid "Failed to process file: %s"
 msgstr "Klarte ikke behandle filen: %s"
 
-#: ../src/xfce4-screensaver-configure:799
+#: ../src/xfce4-screensaver-configure:791
 #, c-format
 msgid "Screensaver %s is configurable."
 msgstr "Skjermspareren %s har innstillinger."
 
-#: ../src/xfce4-screensaver-configure:801
+#: ../src/xfce4-screensaver-configure:793
 #, c-format
 msgid "Screensaver %s is not configurable."
 msgstr "Skjermspareren %s har ingen innstillinger."
 
-#: ../src/xfce4-screensaver-configure:805
+#: ../src/xfce4-screensaver-configure:797
 #, c-format
 msgid "Screensaver %s has no configuration options."
 msgstr "Skjermspareren %s har ingen innstillinger."
