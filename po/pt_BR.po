@@ -9,18 +9,19 @@
 # 03d4cb4e40917b9efde07029d109fec1_440ed9b <c3c37f2961c5c5bdf930a168cab8bcc2_764964>, 2019
 # Rafael Fontenelle <rffontenelle@gmail.com>, 2019
 # Michael Martins <michaelfm21@gmail.com>, 2019
-# Andre Miranda <andre42m@gmail.com>, 2020
+# Andre Miranda <andre@andreldm.com>, 2020
 # Xfce Bot <transifex@xfce.org>, 2023
 # Nick Schermer <nick@xfce.org>, 2023
+# The Cat, 2023
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-24 00:55+0200\n"
+"POT-Creation-Date: 2023-05-30 00:51+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Nick Schermer <nick@xfce.org>, 2023\n"
+"Last-Translator: The Cat, 2023\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/xfce/teams/16840/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,7 +32,7 @@ msgstr ""
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:1
 #: ../src/xfce4-screensaver.desktop.in.in.h:1
 msgid "Xfce Screensaver"
-msgstr ""
+msgstr "Protetor de tela do Xfce"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:2
 msgid "Set your screensaver preferences"
@@ -320,8 +321,8 @@ msgid "Part of Xfce Screensaver"
 msgstr "Parte do Protetor de tela do Xfce"
 
 #: ../src/xfce4-screensaver-configure:197
-msgid "After blanking, put display to sleep after"
-msgstr ""
+msgid "After blanking, put display to sleep after:"
+msgstr "Depois de apagar, colocar suspender a tela após:"
 
 #: ../src/xfce4-screensaver-configure:199
 #: ../src/xfce4-screensaver-configure:203
@@ -330,31 +331,31 @@ msgstr "Nunca"
 
 #: ../src/xfce4-screensaver-configure:199
 msgid "60 seconds"
-msgstr ""
+msgstr "60 segundos"
 
 #: ../src/xfce4-screensaver-configure:201
-msgid "After sleeping, switch display off after"
-msgstr ""
+msgid "After sleeping, switch display off after:"
+msgstr "Depois de inativa, desligar a tela após:"
 
 #: ../src/xfce4-screensaver-configure:203
 msgid "60 minutes"
-msgstr ""
+msgstr "60 minutos"
 
 #: ../src/xfce4-screensaver-configure:206
 msgid "Max number of images"
-msgstr ""
+msgstr "Número máximo de imagens"
 
 #: ../src/xfce4-screensaver-configure:209
 msgid "Show paths"
-msgstr ""
+msgstr "Mostrar caminhos"
 
 #: ../src/xfce4-screensaver-configure:211
 msgid "Do rotations"
-msgstr ""
+msgstr "Fazer rotações"
 
 #: ../src/xfce4-screensaver-configure:213
 msgid "Print stats"
-msgstr ""
+msgstr "Mostrar estatísticas"
 
 #: ../src/xfce4-screensaver-configure:216
 msgid "Location"
@@ -366,74 +367,74 @@ msgstr "Cor de fundo"
 
 #: ../src/xfce4-screensaver-configure:221
 msgid "Do not randomize images"
-msgstr ""
+msgstr "Não exibir imagens aleatoriamente"
 
 #: ../src/xfce4-screensaver-configure:223
 msgid "Do not stretch images"
-msgstr ""
+msgstr "Não esticar imagens"
 
-#: ../src/xfce4-screensaver-configure:418
+#: ../src/xfce4-screensaver-configure:415
 msgid "Restore Defaults"
 msgstr "Restaurar padrões"
 
-#: ../src/xfce4-screensaver-configure:431
+#: ../src/xfce4-screensaver-configure:428
 msgid "Preferences"
 msgstr "Preferências"
 
-#: ../src/xfce4-screensaver-configure:437
+#: ../src/xfce4-screensaver-configure:434
 msgid "About"
 msgstr "Sobre"
 
-#: ../src/xfce4-screensaver-configure:450
+#: ../src/xfce4-screensaver-configure:447
 msgid "Video"
 msgstr "Vídeo"
 
-#: ../src/xfce4-screensaver-configure:762
+#: ../src/xfce4-screensaver-configure:754
 msgid "Configure an individual screensaver"
-msgstr ""
+msgstr "Configurar um protetor de tela individual"
 
-#: ../src/xfce4-screensaver-configure:764
+#: ../src/xfce4-screensaver-configure:756
 msgid "screensaver name to configure"
-msgstr ""
+msgstr "nome do protetor de tela para ser configurado"
 
-#: ../src/xfce4-screensaver-configure:766
+#: ../src/xfce4-screensaver-configure:758
 msgid "check if screensaver is configurable"
-msgstr ""
+msgstr "verificar se o protetor de tela é configurável"
 
-#: ../src/xfce4-screensaver-configure:770
+#: ../src/xfce4-screensaver-configure:762
 msgid "Unable to configure screensaver"
 msgstr "Não foi possível configurar o protetor de tela"
 
-#: ../src/xfce4-screensaver-configure:774
+#: ../src/xfce4-screensaver-configure:766
 msgid "Screensaver required."
 msgstr "Protetor de tela necessário."
 
-#: ../src/xfce4-screensaver-configure:782
+#: ../src/xfce4-screensaver-configure:774
 #, c-format
 msgid "File not found: %s"
 msgstr "Arquivo não encontrado: %s"
 
-#: ../src/xfce4-screensaver-configure:790
+#: ../src/xfce4-screensaver-configure:782
 #, c-format
 msgid "Unrecognized file type: %s"
 msgstr "Tipo de arquivo não reconhecido: %s"
 
-#: ../src/xfce4-screensaver-configure:794
+#: ../src/xfce4-screensaver-configure:786
 #, c-format
 msgid "Failed to process file: %s"
 msgstr "Falha ao processar arquivo: %s"
 
-#: ../src/xfce4-screensaver-configure:799
+#: ../src/xfce4-screensaver-configure:791
 #, c-format
 msgid "Screensaver %s is configurable."
 msgstr "O protetor de tela %s é configurável."
 
-#: ../src/xfce4-screensaver-configure:801
+#: ../src/xfce4-screensaver-configure:793
 #, c-format
 msgid "Screensaver %s is not configurable."
 msgstr "O protetor de tela %s não é configurável."
 
-#: ../src/xfce4-screensaver-configure:805
+#: ../src/xfce4-screensaver-configure:797
 #, c-format
 msgid "Screensaver %s has no configuration options."
 msgstr "O protetor de tela %s não possui opções de configuração."
