@@ -144,7 +144,7 @@ lock_timer (gpointer user_data) {
     gboolean lock_state;
     gboolean fullscreen_inhibition = FALSE;
 
-    if (!listener->priv->prefs->saver_enabled)
+    if (!listener->priv->prefs->saver_enabled || !listener->priv->prefs->idle_activation_enabled)
         return TRUE;
 
     if (get_x11_idle_info (&idle_time, &state) == FALSE)
@@ -242,7 +242,7 @@ xroot_filter (GdkXEvent *xevent,
 
     listener = GS_LISTENER_X11 (data);
 
-    if (!listener->priv->prefs->idle_activation_enabled)
+    if (!listener->priv->prefs->saver_enabled || !listener->priv->prefs->idle_activation_enabled)
         return GDK_FILTER_CONTINUE;
 
     ev = xevent;

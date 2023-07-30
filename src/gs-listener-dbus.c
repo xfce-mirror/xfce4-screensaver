@@ -307,7 +307,7 @@ listener_check_activation (GSListener *listener) {
 
     gs_debug ("Checking for activation");
 
-    if (!listener->priv->prefs->idle_activation_enabled) {
+    if (!listener->priv->prefs->saver_enabled || !listener->priv->prefs->idle_activation_enabled) {
         return TRUE;
     }
 
