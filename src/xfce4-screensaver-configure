@@ -153,7 +153,7 @@ class DesktopScreensaverSettings(ScreensaverSettings):
                         "Xfce Screensaver can automatically suspend your displays\n"
                         "to save power.\n\n"
                         "Xfce Power Manager and other applications also manage\n"
-                        "DPMS settings. If the settings here won't work, make sure\n
+                        "DPMS settings. If the settings here won't work, make sure\n"
                         "display power management wasn't disabled there.\n"
                         "If your displays are powering off at different\n"
                         "intervals, be sure to check for conflicting settings.")
