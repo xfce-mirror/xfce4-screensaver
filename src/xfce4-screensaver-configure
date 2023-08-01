@@ -152,10 +152,10 @@ class DesktopScreensaverSettings(ScreensaverSettings):
             comment = _("Powered by Display Power Management Signaling (DPMS),\n"
                         "Xfce Screensaver can automatically suspend your displays\n"
                         "to save power.\n\n"
-                        "Enable \"Display power management\" in Xfce Power Manager\n"
-                        "for the DPMS settings to work.\n\n"
                         "Xfce Power Manager and other applications also manage\n"
-                        "DPMS settings. If your displays are powering off at different\n"
+                        "DPMS settings. If the settings here won't work, make sure\n
+                        "display power management wasn't disabled there.\n"
+                        "If your displays are powering off at different\n"
                         "intervals, be sure to check for conflicting settings.")
             self.arguments = []
             self.description = comment
