@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-24 12:49+0200\n"
+"POT-Creation-Date: 2023-08-02 00:49+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: UTUMI Hirosi <utuhiro78@yahoo.co.jp>, 2023\n"
 "Language-Team: Japanese (https://app.transifex.com/xfce/teams/16840/ja/)\n"
@@ -298,136 +298,131 @@ msgid ""
 "to save power.\n"
 "\n"
 "Xfce Power Manager and other applications also manage\n"
-"DPMS settings. If your displays are powering off at different\n"
+"DPMS settings. If the settings here won't work, make sure\n"
+"display power management wasn't disabled there.\n"
+"If your displays are powering off at different\n"
 "intervals, be sure to check for conflicting settings."
 msgstr ""
-"ディスプレイ電源管理シグナリング（DPMS）を搭載した\n"
-"Xfceスクリーンセーバーは、ディスプレイを自動的に\n"
-"サスペンドして電力を節約できます。\n"
-"\n"
-"Xfce Power Managerおよびその他のアプリケーションも\n"
-"DPMS設定を管理します。ディスプレイの電源が異なる間隔で\n"
-"オフになる場合は、競合する設定を必ず確認してください。"
 
-#: ../src/xfce4-screensaver-configure:186
+#: ../src/xfce4-screensaver-configure:188
 msgid "Part of Xfce Screensaver"
 msgstr "Xfceスクリーンセーバーの一部"
 
-#: ../src/xfce4-screensaver-configure:197
+#: ../src/xfce4-screensaver-configure:199
 msgid "After blanking, put display to sleep after:"
 msgstr "消画後、ディスプレイをスリープするまでの時間:"
 
-#: ../src/xfce4-screensaver-configure:199
-#: ../src/xfce4-screensaver-configure:203
+#: ../src/xfce4-screensaver-configure:201
+#: ../src/xfce4-screensaver-configure:205
 msgid "Never"
 msgstr "なし"
 
-#: ../src/xfce4-screensaver-configure:199
+#: ../src/xfce4-screensaver-configure:201
 msgid "60 seconds"
 msgstr "60 秒"
 
-#: ../src/xfce4-screensaver-configure:201
+#: ../src/xfce4-screensaver-configure:203
 msgid "After sleeping, switch display off after:"
 msgstr "スリープ後、ディスプレイをオフにするまでの時間:"
 
-#: ../src/xfce4-screensaver-configure:203
+#: ../src/xfce4-screensaver-configure:205
 msgid "60 minutes"
 msgstr "60 分"
 
-#: ../src/xfce4-screensaver-configure:206
+#: ../src/xfce4-screensaver-configure:208
 msgid "Max number of images"
 msgstr "画像の最大数"
 
-#: ../src/xfce4-screensaver-configure:209
+#: ../src/xfce4-screensaver-configure:211
 msgid "Show paths"
 msgstr "パスを表示"
 
-#: ../src/xfce4-screensaver-configure:211
+#: ../src/xfce4-screensaver-configure:213
 msgid "Do rotations"
 msgstr "回転を行う"
 
-#: ../src/xfce4-screensaver-configure:213
+#: ../src/xfce4-screensaver-configure:215
 msgid "Print stats"
 msgstr "統計情報をプリント"
 
-#: ../src/xfce4-screensaver-configure:216
+#: ../src/xfce4-screensaver-configure:218
 msgid "Location"
 msgstr "場所"
 
-#: ../src/xfce4-screensaver-configure:219
+#: ../src/xfce4-screensaver-configure:221
 msgid "Background color"
 msgstr "背景色"
 
-#: ../src/xfce4-screensaver-configure:221
+#: ../src/xfce4-screensaver-configure:223
 msgid "Do not randomize images"
 msgstr "画像をランダム化しない"
 
-#: ../src/xfce4-screensaver-configure:223
+#: ../src/xfce4-screensaver-configure:225
 msgid "Do not stretch images"
 msgstr "画像を引き伸ばさない"
 
-#: ../src/xfce4-screensaver-configure:418
+#: ../src/xfce4-screensaver-configure:417
 msgid "Restore Defaults"
 msgstr "デフォルトに戻す"
 
-#: ../src/xfce4-screensaver-configure:431
+#: ../src/xfce4-screensaver-configure:430
 msgid "Preferences"
 msgstr "設定"
 
-#: ../src/xfce4-screensaver-configure:437
+#: ../src/xfce4-screensaver-configure:436
 msgid "About"
 msgstr "xfce4-dict について"
 
-#: ../src/xfce4-screensaver-configure:450
+#: ../src/xfce4-screensaver-configure:449
 msgid "Video"
 msgstr "ビデオ"
 
-#: ../src/xfce4-screensaver-configure:762
+#: ../src/xfce4-screensaver-configure:756
 msgid "Configure an individual screensaver"
 msgstr "個別のスクリーンセーバーを設定する"
 
-#: ../src/xfce4-screensaver-configure:764
+#: ../src/xfce4-screensaver-configure:758
 msgid "screensaver name to configure"
 msgstr "設定するスクリーンセーバー名"
 
-#: ../src/xfce4-screensaver-configure:766
+#: ../src/xfce4-screensaver-configure:760
 msgid "check if screensaver is configurable"
 msgstr "スクリーンセーバーが設定可能かどうかを確認する"
 
-#: ../src/xfce4-screensaver-configure:770
+#: ../src/xfce4-screensaver-configure:764
 msgid "Unable to configure screensaver"
 msgstr "スクリーンセーバーを設定できません"
 
-#: ../src/xfce4-screensaver-configure:774
+#: ../src/xfce4-screensaver-configure:768
 msgid "Screensaver required."
 msgstr "スクリーンセーバーが必要です。"
 
-#: ../src/xfce4-screensaver-configure:782
+#: ../src/xfce4-screensaver-configure:776
 #, c-format
 msgid "File not found: %s"
 msgstr "ファイルが見つかりません: %s"
 
-#: ../src/xfce4-screensaver-configure:790
+#: ../src/xfce4-screensaver-configure:784
 #, c-format
 msgid "Unrecognized file type: %s"
 msgstr "認識できないファイルタイプ: %s"
 
-#: ../src/xfce4-screensaver-configure:794
+#: ../src/xfce4-screensaver-configure:788
 #, c-format
 msgid "Failed to process file: %s"
 msgstr "ファイルの処理に失敗しました: %s"
 
-#: ../src/xfce4-screensaver-configure:799
+#: ../src/xfce4-screensaver-configure:793
 #, c-format
 msgid "Screensaver %s is configurable."
 msgstr "スクリーンセーバー %s は設定可能です。"
 
-#: ../src/xfce4-screensaver-configure:801
+#: ../src/xfce4-screensaver-configure:795
 #, c-format
 msgid "Screensaver %s is not configurable."
 msgstr "スクリーンセーバー %s は設定できません。"
 
-#: ../src/xfce4-screensaver-configure:805
+#: ../src/xfce4-screensaver-configure:799
 #, c-format
 msgid "Screensaver %s has no configuration options."
 msgstr "スクリーンセーバー %s には設定オプションがありません。"
