@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-24 12:49+0200\n"
+"POT-Creation-Date: 2023-08-02 00:49+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Саша Петровић <salepetronije@gmail.com>, 2023\n"
 "Language-Team: Serbian (https://app.transifex.com/xfce/teams/16840/sr/)\n"
@@ -31,21 +31,21 @@ msgstr "Чувар заслона ИксФЦЕ-а"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:2
 msgid "Set your screensaver preferences"
-msgstr "Подеси чувара приказа"
+msgstr "Подеси чувара заслона"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:3
 #: ../src/xfce4-screensaver-preferences.ui.h:21
 #: ../src/xfce4-screensaver.desktop.in.in.h:3
 msgid "Screensaver"
-msgstr "Чувар приказа"
+msgstr "Чувар заслона"
 
 #: ../data/xfce4-screensaver.directory.in.h:1
 msgid "Screensavers"
-msgstr "Чувари приказа"
+msgstr "Чувари заслона"
 
 #: ../data/xfce4-screensaver.directory.in.h:2
 msgid "Screensaver themes"
-msgstr "Теме чувара приказа"
+msgstr "Теме чувара заслона"
 
 #: ../savers/floaters.c:89
 msgid "Show paths that images follow"
@@ -61,7 +61,7 @@ msgstr "Отискуј брзину сличица и друге податке"
 
 #: ../savers/floaters.c:104
 msgid "The maximum number of images to keep on screen"
-msgstr "Највећи број слика за задржавање на приказу"
+msgstr "Највећи број слика за задржавање на заслону"
 
 #: ../savers/floaters.c:104
 msgid "MAX_IMAGES"
@@ -83,7 +83,7 @@ msgstr "Извор слика за коришћење"
 #. * represents a command line argument
 #: ../savers/floaters.c:1131
 msgid "image - floats images around the screen"
-msgstr "слика - шета слике по приказу"
+msgstr "слика - шета слике по заслону"
 
 #: ../savers/floaters.c:1135 ../savers/popsquares.c:49
 #, c-format
@@ -122,7 +122,7 @@ msgstr "Без насумичних слика са места"
 
 #: ../savers/slideshow.c:65
 msgid "Do not try to stretch images on screen"
-msgstr "Не растежите слике на приказу"
+msgstr "Не растежите слике на заслону"
 
 #: ../savers/xfce-floaters.desktop.in.in.h:1
 msgid "Floating Xfce"
@@ -130,7 +130,7 @@ msgstr "Плутајући ИксФЦЕ"
 
 #: ../savers/xfce-floaters.desktop.in.in.h:2
 msgid "Bubbles the Xfce logo around the screen"
-msgstr "Мехури грба ИксФЦЕ-а по приказу"
+msgstr "Мехури грба ИксФЦЕ-а по заслону"
 
 #: ../savers/xfce-personal-slideshow.desktop.in.in.h:1
 msgid "Slideshow"
@@ -192,7 +192,7 @@ msgstr "нисам повезан са сабирницом порука"
 
 #: ../src/gs-listener-dbus.c:1990 ../src/gs-listener-dbus.c:2020
 msgid "screensaver already running in this session"
-msgstr "чувар приказа већ ради у овој седници"
+msgstr "чувар заслона већ ради у овој седници"
 
 #: ../src/gs-lock-plug.c:296
 msgctxt "Date"
@@ -205,51 +205,51 @@ msgstr "Време је истекло."
 
 #: ../src/xfce4-screensaver-command.c:56
 msgid "Causes the screensaver to exit gracefully"
-msgstr "Узрокује да чувар приказа изађе захвално"
+msgstr "Узрокује да чувар заслона изађе захвално"
 
 #: ../src/xfce4-screensaver-command.c:60
 msgid "Query the state of the screensaver"
-msgstr "Упит стању чувара приказа"
+msgstr "Упит стању чувара заслона"
 
 #: ../src/xfce4-screensaver-command.c:64
 msgid "Query the length of time the screensaver has been active"
-msgstr "Упит дужини времена рада чувара приказа"
+msgstr "Упит дужини времена рада чувара заслона"
 
 #: ../src/xfce4-screensaver-command.c:68
 msgid "Tells the running screensaver process to lock the screen immediately"
-msgstr "Казује покренутом процесу чувара приказа да закључа приказ одмах"
+msgstr "Казује покренутом процесу чувара заслона да закључа заслон одмах"
 
 #: ../src/xfce4-screensaver-command.c:72
 msgid "If the screensaver is active then switch to another graphics demo"
-msgstr "Ако је чувар приказа покренут пређи на следећу сликовну представу"
+msgstr "Ако је чувар заслона покренут пређи на следећу сликовну представу"
 
 #: ../src/xfce4-screensaver-command.c:76
 msgid "Turn the screensaver on (blank the screen)"
-msgstr "Укључи чувара приказа (чисти приказ)"
+msgstr "Укључи чувара заслона (чисти заслон)"
 
 #: ../src/xfce4-screensaver-command.c:80
 msgid "If the screensaver is active then deactivate it (un-blank the screen)"
-msgstr "Ако је чувар приказа покренут искључи га (попуни приказ)"
+msgstr "Ако је чувар заслона покренут искључи га (попуни заслон)"
 
 #: ../src/xfce4-screensaver-command.c:84
 msgid "Poke the running screensaver to simulate user activity"
-msgstr "Чарни покренутог чувара приказа да опонаша корисничке радње"
+msgstr "Чарни покренутог чувара заслона да опонаша корисничке радње"
 
 #: ../src/xfce4-screensaver-command.c:88
 msgid ""
 "Inhibit the screensaver from activating.  Command blocks while inhibit is "
 "active."
 msgstr ""
-"Уздржи чувара приказа од покретања. Наредба га спречава док је задршка "
+"Уздржи чувара заслона од покретања. Наредба га спречава док је задршка "
 "покренута."
 
 #: ../src/xfce4-screensaver-command.c:92
 msgid "The calling application that is inhibiting the screensaver"
-msgstr "Позвани програм који уздржава чувара приказа"
+msgstr "Позвани програм који уздржава чувара заслона"
 
 #: ../src/xfce4-screensaver-command.c:96
 msgid "The reason for inhibiting the screensaver"
-msgstr "Разлог за уздржавање чувара приказа"
+msgstr "Разлог за уздржавање чувара заслона"
 
 #: ../src/xfce4-screensaver-command.c:100 ../src/xfce4-screensaver-dialog.c:65
 #: ../src/xfce4-screensaver.c:57
@@ -259,7 +259,7 @@ msgstr "Издање овог програма"
 #: ../src/xfce4-screensaver-command.c:209
 #, c-format
 msgid "The screensaver is %s\n"
-msgstr "Чувар приказа је %s\n"
+msgstr "Чувар заслона је %s\n"
 
 #: ../src/xfce4-screensaver-command.c:209
 msgid "active"
@@ -272,22 +272,22 @@ msgstr "нерадан"
 #: ../src/xfce4-screensaver-command.c:220
 #, c-format
 msgid "The screensaver is not inhibited\n"
-msgstr "Чувар приказа није заустављен\n"
+msgstr "Чувар заслона није заустављен\n"
 
 #: ../src/xfce4-screensaver-command.c:222
 #, c-format
 msgid "The screensaver is being inhibited by:\n"
-msgstr "Чувар приказа је заустављен од:\n"
+msgstr "Чувар заслона је заустављен од:\n"
 
 #: ../src/xfce4-screensaver-command.c:238
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
-msgstr "Чувар приказа ради већ %d секунди.\n"
+msgstr "Чувар заслона ради већ %d секунди.\n"
 
 #: ../src/xfce4-screensaver-configure:151
 #: ../src/xfce4-screensaver-preferences.c:710
 msgid "Blank screen"
-msgstr "Празан приказ"
+msgstr "Празан заслон"
 
 #: ../src/xfce4-screensaver-configure:152
 msgid ""
@@ -296,139 +296,142 @@ msgid ""
 "to save power.\n"
 "\n"
 "Xfce Power Manager and other applications also manage\n"
-"DPMS settings. If your displays are powering off at different\n"
+"DPMS settings. If the settings here won't work, make sure\n"
+"display power management wasn't disabled there.\n"
+"If your displays are powering off at different\n"
 "intervals, be sure to check for conflicting settings."
 msgstr ""
-"Погоњен управљањем приказом знацима (ДПМС),\n"
-"чувар приказа ИксФЦЕ-а може самостално обуставити приказе\n"
-"ради штедње напајања.\n"
+"Погоњен давачем знакова управника напајања заслона\n"
+"(ДПМС), чувар заслона ИксФЦЕ-а може самостално обуставити\n"
+"заслоне ради штедње снаге.\n"
 "\n"
-"Управник напајањем ИксФЦЕ-а и остали програми такође управљају\n"
-"поставкама ДПМС-а. Ако се прикази искључују различитим\n"
-"временима, проверите сукобе поставки."
+"Управник напајања ИксФЦЕ-а и остали програми такође\n"
+"управљају поставкама ДМПС-а. Уколико поставке овде\n"
+"не раде, проверите да ли је управник напајања овде онемогућен.\n"
+"Уколико се заслон искључује другачијим међувременом, проверите сукобне поставке."
 
-#: ../src/xfce4-screensaver-configure:186
+#: ../src/xfce4-screensaver-configure:188
 msgid "Part of Xfce Screensaver"
-msgstr "Део чувара приказа ИксФЦЕ-а"
+msgstr "Део чувара заслона ИксФЦЕ-а"
 
-#: ../src/xfce4-screensaver-configure:197
+#: ../src/xfce4-screensaver-configure:199
 msgid "After blanking, put display to sleep after:"
 msgstr "Након чишћења, пошаљи заслон на спавање након:"
 
-#: ../src/xfce4-screensaver-configure:199
-#: ../src/xfce4-screensaver-configure:203
+#: ../src/xfce4-screensaver-configure:201
+#: ../src/xfce4-screensaver-configure:205
 msgid "Never"
 msgstr "Никада"
 
-#: ../src/xfce4-screensaver-configure:199
+#: ../src/xfce4-screensaver-configure:201
 msgid "60 seconds"
 msgstr "60 секунди"
 
-#: ../src/xfce4-screensaver-configure:201
+#: ../src/xfce4-screensaver-configure:203
 msgid "After sleeping, switch display off after:"
 msgstr "Након спавања, искључи заслон након:"
 
-#: ../src/xfce4-screensaver-configure:203
+#: ../src/xfce4-screensaver-configure:205
 msgid "60 minutes"
 msgstr "60 минута"
 
-#: ../src/xfce4-screensaver-configure:206
+#: ../src/xfce4-screensaver-configure:208
 msgid "Max number of images"
 msgstr "Највећи број слика"
 
-#: ../src/xfce4-screensaver-configure:209
+#: ../src/xfce4-screensaver-configure:211
 msgid "Show paths"
 msgstr "Приказуј путање"
 
-#: ../src/xfce4-screensaver-configure:211
+#: ../src/xfce4-screensaver-configure:213
 msgid "Do rotations"
 msgstr "Обрћи"
 
-#: ../src/xfce4-screensaver-configure:213
+#: ../src/xfce4-screensaver-configure:215
 msgid "Print stats"
 msgstr "Испиши податке"
 
-#: ../src/xfce4-screensaver-configure:216
+#: ../src/xfce4-screensaver-configure:218
 msgid "Location"
 msgstr "Место"
 
-#: ../src/xfce4-screensaver-configure:219
+#: ../src/xfce4-screensaver-configure:221
 msgid "Background color"
 msgstr "Боја позадине"
 
-#: ../src/xfce4-screensaver-configure:221
+#: ../src/xfce4-screensaver-configure:223
 msgid "Do not randomize images"
 msgstr "Не постављај насумично слике"
 
-#: ../src/xfce4-screensaver-configure:223
+#: ../src/xfce4-screensaver-configure:225
 msgid "Do not stretch images"
 msgstr "Не развлачи слике"
 
-#: ../src/xfce4-screensaver-configure:418
+#: ../src/xfce4-screensaver-configure:417
 msgid "Restore Defaults"
 msgstr "Врати на _подразумевано"
 
-#: ../src/xfce4-screensaver-configure:431
+#: ../src/xfce4-screensaver-configure:430
 msgid "Preferences"
 msgstr "Својства"
 
-#: ../src/xfce4-screensaver-configure:437
+#: ../src/xfce4-screensaver-configure:436
 msgid "About"
 msgstr "Опширније"
 
-#: ../src/xfce4-screensaver-configure:450
+#: ../src/xfce4-screensaver-configure:449
 msgid "Video"
 msgstr "Видео"
 
-#: ../src/xfce4-screensaver-configure:762
+#: ../src/xfce4-screensaver-configure:756
 msgid "Configure an individual screensaver"
 msgstr "Подеси појединачног чувара заслона"
 
-#: ../src/xfce4-screensaver-configure:764
+#: ../src/xfce4-screensaver-configure:758
 msgid "screensaver name to configure"
 msgstr "име чувара заслона за подешавање"
 
-#: ../src/xfce4-screensaver-configure:766
+#: ../src/xfce4-screensaver-configure:760
 msgid "check if screensaver is configurable"
 msgstr "провери да ли је чувар заслона подесив"
 
-#: ../src/xfce4-screensaver-configure:770
+#: ../src/xfce4-screensaver-configure:764
 msgid "Unable to configure screensaver"
-msgstr "Нисам успео да подесим чувара приказа"
+msgstr "Нисам успео да подесим чувара заслона"
 
-#: ../src/xfce4-screensaver-configure:774
+#: ../src/xfce4-screensaver-configure:768
 msgid "Screensaver required."
-msgstr "Неопходан је чувар приказа."
+msgstr "Неопходан је чувар заслона."
 
-#: ../src/xfce4-screensaver-configure:782
+#: ../src/xfce4-screensaver-configure:776
 #, c-format
 msgid "File not found: %s"
 msgstr "Непронађена датотека: %s"
 
-#: ../src/xfce4-screensaver-configure:790
+#: ../src/xfce4-screensaver-configure:784
 #, c-format
 msgid "Unrecognized file type: %s"
 msgstr "Непозната врста датотеке: %s"
 
-#: ../src/xfce4-screensaver-configure:794
+#: ../src/xfce4-screensaver-configure:788
 #, c-format
 msgid "Failed to process file: %s"
 msgstr "Нисам успео да обрадим датотеку: %s"
 
-#: ../src/xfce4-screensaver-configure:799
+#: ../src/xfce4-screensaver-configure:793
 #, c-format
 msgid "Screensaver %s is configurable."
-msgstr "Чувар приказа %s је подесив."
+msgstr "Чувар заслона %s је подесив."
 
-#: ../src/xfce4-screensaver-configure:801
+#: ../src/xfce4-screensaver-configure:795
 #, c-format
 msgid "Screensaver %s is not configurable."
-msgstr "Чувар приказа %s није подесив."
+msgstr "Чувар заслона %s није подесив."
 
-#: ../src/xfce4-screensaver-configure:805
+#: ../src/xfce4-screensaver-configure:799
 #, c-format
 msgid "Screensaver %s has no configuration options."
-msgstr "Чувар приказа %s нема могућности подешавања."
+msgstr "Чувар заслона %s нема могућности подешавања."
 
 #: ../src/xfce4-screensaver-dialog.c:63
 msgid "Show debugging output"
@@ -448,7 +451,7 @@ msgstr "Приказуј дугме промене корисника"
 
 #: ../src/xfce4-screensaver-dialog.c:73
 msgid "Message to show in the dialog"
-msgstr "Порука за приказ у прозорчету"
+msgstr "Порука за заслон у прозорчету"
 
 #: ../src/xfce4-screensaver-dialog.c:73 ../src/xfce4-screensaver-dialog.c:75
 msgid "MESSAGE"
@@ -596,23 +599,23 @@ msgstr "Нисам успео добавити главно сучеље"
 
 #: ../src/xfce4-screensaver-preferences.c:1777
 msgid "Please make sure that the screensaver is properly installed"
-msgstr "Проверите да ли је чувар приказа ваљано уграђен"
+msgstr "Проверите да ли је чувар заслона ваљано уграђен"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:1
 msgid "Screensaver Preview"
-msgstr "Преглед чувара приказа"
+msgstr "Преглед чувара заслона"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:2
 msgid "<b>Screensaver preview</b>"
-msgstr "<b>Преглед чувара приказа</b>"
+msgstr "<b>Преглед чувара заслона</b>"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:3
 msgid "Screensaver Preferences"
-msgstr "Поставке чувара приказа"
+msgstr "Поставке чувара заслона"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:4
 msgid "Configure your screensaver and locker"
-msgstr "Подесите чувара приказа и закључавања"
+msgstr "Подесите чувара заслона и закључавања"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:5
 msgid "Power _Management"
@@ -646,7 +649,7 @@ msgstr "Рачунар се можда неће закључати кад га �
 
 #: ../src/xfce4-screensaver-preferences.ui.h:12
 msgid "Enable Screensaver"
-msgstr "Омогући чувара приказа"
+msgstr "Омогући чувара заслона"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:13
 msgid "Theme"
@@ -654,7 +657,7 @@ msgstr "Тема"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:14
 msgid "Configure screensaver"
-msgstr "Подесите чувара приказа"
+msgstr "Подесите чувара заслона"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:15
 msgid "Configure..."
@@ -670,7 +673,7 @@ msgstr "минута"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:18
 msgid "Activate screensaver when computer is idle"
-msgstr "_Покрени чувара приказа кад је рачунар беспослен"
+msgstr "_Покрени чувара заслона када је рачунар беспослен"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:19
 msgid "Regard the computer as _idle after:"
@@ -678,27 +681,27 @@ msgstr "Сматрај рачунар _беспосленим након:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:20
 msgid "Inhibit screensaver for fullscreen applications"
-msgstr "Замрзни чувара приказа за програме потпуног приказа"
+msgstr "Замрзни чувара заслона за програме потпуног заслона"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:22
 msgid "Enable Lock Screen"
-msgstr "Омогући чувара приказа"
+msgstr "Омогући чувара заслона"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:23
 msgid "Lock Screen with Screensaver"
-msgstr "Закључај приказ са чуваром приказа"
+msgstr "Закључај заслон чуваром заслона"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:24
 msgid "Lock the screen after the screensaver is active for:"
-msgstr "Закључај приказ након времена рада чувара приказа:"
+msgstr "Закључај заслон након времена рада чувара заслона:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:25
 msgid "On Screen Keyboard"
-msgstr "Тастатура на приказу"
+msgstr "Тастатура на заслону"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:26
 msgid "On screen keyboard command:"
-msgstr "Наредба за тастатуру на приказу:"
+msgstr "Наредба за тастатуру на заслону:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:27
 msgid "Session Status Messages"
@@ -722,11 +725,11 @@ msgstr "Промена корисника"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:32
 msgid "Lock Screen with System Sleep"
-msgstr "Закључај приказ када се систем успава"
+msgstr "Закључај заслон када се систем успава"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:33
 msgid "Lock Screen"
-msgstr "Закључај приказ"
+msgstr "Закључај заслон"
 
 #: ../src/xfce4-screensaver.c:58
 msgid "Enable debugging code"
@@ -734,7 +737,7 @@ msgstr "Омогући кодирање отклона грешака"
 
 #: ../src/xfce4-screensaver.desktop.in.in.h:2
 msgid "Launch screensaver and locker program"
-msgstr "Покрени програм чувара и закључавања приказа"
+msgstr "Покрени програм чувара и закључавања заслона"
 
 #: ../src/xfcekbd-indicator.c:406
 msgid "XKB initialization error"
