@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-24 00:55+0200\n"
+"POT-Creation-Date: 2023-08-02 00:49+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: abuyop <abuyop@gmail.com>, 2023\n"
 "Language-Team: Malay (https://app.transifex.com/xfce/teams/16840/ms/)\n"
@@ -298,136 +298,131 @@ msgid ""
 "to save power.\n"
 "\n"
 "Xfce Power Manager and other applications also manage\n"
-"DPMS settings. If your displays are powering off at different\n"
+"DPMS settings. If the settings here won't work, make sure\n"
+"display power management wasn't disabled there.\n"
+"If your displays are powering off at different\n"
 "intervals, be sure to check for conflicting settings."
 msgstr ""
-"Diperkasa oleh Display Power Management Signaling (DPMS),\n"
-"Penyelamat skrin Xfce dapat menangguh paparan anda secara\n"
-"automatik untuk menjimatkan tenaga.\n"
-"\n"
-"Pengurus kuasa Xfce dan lain-lain aplikasi juga dapat mengurus\n"
-"tetapan DPMS. Jika paparan anda dimatikan pad sela berlainan,\n"
-"pastikan periksa tetapan yang berkonflik."
 
-#: ../src/xfce4-screensaver-configure:186
+#: ../src/xfce4-screensaver-configure:188
 msgid "Part of Xfce Screensaver"
 msgstr "Sebahagian daripada Penyelamat Skrin Xfce"
 
-#: ../src/xfce4-screensaver-configure:197
-msgid "After blanking, put display to sleep after"
-msgstr ""
-
 #: ../src/xfce4-screensaver-configure:199
-#: ../src/xfce4-screensaver-configure:203
-msgid "Never"
-msgstr "Tidak sesekali"
-
-#: ../src/xfce4-screensaver-configure:199
-msgid "60 seconds"
+msgid "After blanking, put display to sleep after:"
 msgstr ""
 
 #: ../src/xfce4-screensaver-configure:201
-msgid "After sleeping, switch display off after"
+#: ../src/xfce4-screensaver-configure:205
+msgid "Never"
+msgstr "Tidak sesekali"
+
+#: ../src/xfce4-screensaver-configure:201
+msgid "60 seconds"
 msgstr ""
 
 #: ../src/xfce4-screensaver-configure:203
+msgid "After sleeping, switch display off after:"
+msgstr ""
+
+#: ../src/xfce4-screensaver-configure:205
 msgid "60 minutes"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:206
+#: ../src/xfce4-screensaver-configure:208
 msgid "Max number of images"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:209
+#: ../src/xfce4-screensaver-configure:211
 msgid "Show paths"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:211
+#: ../src/xfce4-screensaver-configure:213
 msgid "Do rotations"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:213
+#: ../src/xfce4-screensaver-configure:215
 msgid "Print stats"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:216
+#: ../src/xfce4-screensaver-configure:218
 msgid "Location"
 msgstr "Lokasi"
 
-#: ../src/xfce4-screensaver-configure:219
+#: ../src/xfce4-screensaver-configure:221
 msgid "Background color"
 msgstr "Warna latar belakang"
 
-#: ../src/xfce4-screensaver-configure:221
+#: ../src/xfce4-screensaver-configure:223
 msgid "Do not randomize images"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:223
+#: ../src/xfce4-screensaver-configure:225
 msgid "Do not stretch images"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:418
+#: ../src/xfce4-screensaver-configure:417
 msgid "Restore Defaults"
 msgstr "Pulih ke Lalai"
 
-#: ../src/xfce4-screensaver-configure:431
+#: ../src/xfce4-screensaver-configure:430
 msgid "Preferences"
 msgstr "Keutamaan"
 
-#: ../src/xfce4-screensaver-configure:437
+#: ../src/xfce4-screensaver-configure:436
 msgid "About"
 msgstr "Perihal"
 
-#: ../src/xfce4-screensaver-configure:450
+#: ../src/xfce4-screensaver-configure:449
 msgid "Video"
 msgstr "Video"
 
-#: ../src/xfce4-screensaver-configure:762
+#: ../src/xfce4-screensaver-configure:756
 msgid "Configure an individual screensaver"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:764
+#: ../src/xfce4-screensaver-configure:758
 msgid "screensaver name to configure"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:766
+#: ../src/xfce4-screensaver-configure:760
 msgid "check if screensaver is configurable"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:770
+#: ../src/xfce4-screensaver-configure:764
 msgid "Unable to configure screensaver"
 msgstr "Tidak boleh mengkonfigur penyelamat skrin"
 
-#: ../src/xfce4-screensaver-configure:774
+#: ../src/xfce4-screensaver-configure:768
 msgid "Screensaver required."
 msgstr "Penyelamat skrin diperlukan"
 
-#: ../src/xfce4-screensaver-configure:782
+#: ../src/xfce4-screensaver-configure:776
 #, c-format
 msgid "File not found: %s"
 msgstr "Fail tidak ditemui: %s"
 
-#: ../src/xfce4-screensaver-configure:790
+#: ../src/xfce4-screensaver-configure:784
 #, c-format
 msgid "Unrecognized file type: %s"
 msgstr "Jenis fail tidak dikenali: %s"
 
-#: ../src/xfce4-screensaver-configure:794
+#: ../src/xfce4-screensaver-configure:788
 #, c-format
 msgid "Failed to process file: %s"
 msgstr "Gagal memproses fail: %s"
 
-#: ../src/xfce4-screensaver-configure:799
+#: ../src/xfce4-screensaver-configure:793
 #, c-format
 msgid "Screensaver %s is configurable."
 msgstr "Penyelamat skrin %s boleh dikonfigur."
 
-#: ../src/xfce4-screensaver-configure:801
+#: ../src/xfce4-screensaver-configure:795
 #, c-format
 msgid "Screensaver %s is not configurable."
 msgstr "Penyelamat skrin %s tidak boleh dikonfigur."
 
-#: ../src/xfce4-screensaver-configure:805
+#: ../src/xfce4-screensaver-configure:799
 #, c-format
 msgid "Screensaver %s has no configuration options."
 msgstr "Penyelamat skrin %s tiada pilihan konfigurasi."
