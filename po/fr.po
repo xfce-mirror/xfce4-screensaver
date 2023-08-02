@@ -13,6 +13,7 @@
 # Nick Schermer <nick@xfce.org>, 2020
 # Xfce Bot <transifex@xfce.org>, 2023
 # Gaël Bonithon <gael@xfce.org>, 2023
+# Wallon Wallon, 2023
 # 
 #, fuzzy
 msgid ""
@@ -21,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-02 00:49+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Gaël Bonithon <gael@xfce.org>, 2023\n"
+"Last-Translator: Wallon Wallon, 2023\n"
 "Language-Team: French (https://app.transifex.com/xfce/teams/16840/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -313,15 +314,16 @@ msgid ""
 "If your displays are powering off at different\n"
 "intervals, be sure to check for conflicting settings."
 msgstr ""
-"Grâce à la signalisation de gestion d’alimentation de l’affichage (DPMS),\n"
-"l’économiseur d’écran Xfce peut automatiquement suspendre vos écrans\n"
-"pour économiser de l’énergie.\n"
+"En utilisant la norme DPMS (Display Power Management Signaling),\n"
+"l’économiseur d’écran Xfce peut éteindre automatiquement  vos écrans pour\n"
+"économiser de l’énergie.\n"
 "\n"
-"Le gestionnaire d’alimentation Xfce ainsi que d’autres applications gèrent également\n"
-"vos paramètres DPMS. Si les paramètres indiqués ici ne fonctionnent pas, assurez-vous\n"
-"que la gestion d’alimentation de l’affichage n’a pas été désactivée là-bas.\n"
-"Si vos écrans s’éteignent à différents intervalles,\n"
-"veillez à vérifier les paramètres en conflit."
+"Le gestionnaire d’alimentation Xfce ainsi que d’autres applications gèrent\n"
+"également les paramètres DPMS. Si les paramètres indiqués ici ne fonctionnent\n"
+"pas, assurez-vous que la gestion d’alimentation de l’affichage n’a pas été\n"
+"désactivée à ce niveau.\n"
+"Si vos écrans s’éteignent à différents intervalles, veillez à vérifier les\n"
+"paramètres en conflit."
 
 #: ../src/xfce4-screensaver-configure:188
 msgid "Part of Xfce Screensaver"
