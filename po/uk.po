@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-29 11:58+0200\n"
+"POT-Creation-Date: 2023-08-02 00:49+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Gordon Freeman, 2023\n"
 "Language-Team: Ukrainian (https://app.transifex.com/xfce/teams/16840/uk/)\n"
@@ -308,136 +308,131 @@ msgid ""
 "to save power.\n"
 "\n"
 "Xfce Power Manager and other applications also manage\n"
-"DPMS settings. If your displays are powering off at different\n"
+"DPMS settings. If the settings here won't work, make sure\n"
+"display power management wasn't disabled there.\n"
+"If your displays are powering off at different\n"
 "intervals, be sure to check for conflicting settings."
 msgstr ""
-"Працює на Display Power Management Signaling (DPMS),\n"
-"Зберігач екрана Xfce може самостійно приспати ваш дисплей\n"
-"для збереження енергії.\n"
-"\n"
-"Керівник живлення Xfce та інші програми також керують\n"
-"налаштуваннями DPMS. Якщо ваш дисплей вимикається\n"
-"впродовж різних інтервалів, перевірте на конфлікт налаштувань."
 
-#: ../src/xfce4-screensaver-configure:186
+#: ../src/xfce4-screensaver-configure:188
 msgid "Part of Xfce Screensaver"
 msgstr "Частина Xfce Screensaver"
 
-#: ../src/xfce4-screensaver-configure:197
+#: ../src/xfce4-screensaver-configure:199
 msgid "After blanking, put display to sleep after:"
 msgstr "Після гасіння перевести дисплей у режим сну через:"
 
-#: ../src/xfce4-screensaver-configure:199
-#: ../src/xfce4-screensaver-configure:203
+#: ../src/xfce4-screensaver-configure:201
+#: ../src/xfce4-screensaver-configure:205
 msgid "Never"
 msgstr "Ніколи"
 
-#: ../src/xfce4-screensaver-configure:199
+#: ../src/xfce4-screensaver-configure:201
 msgid "60 seconds"
 msgstr "60 секунд"
 
-#: ../src/xfce4-screensaver-configure:201
+#: ../src/xfce4-screensaver-configure:203
 msgid "After sleeping, switch display off after:"
 msgstr "Після засинання вимкнути дисплей через:"
 
-#: ../src/xfce4-screensaver-configure:203
+#: ../src/xfce4-screensaver-configure:205
 msgid "60 minutes"
 msgstr "60 хвилин"
 
-#: ../src/xfce4-screensaver-configure:206
+#: ../src/xfce4-screensaver-configure:208
 msgid "Max number of images"
 msgstr "Максимальна кількість зображень"
 
-#: ../src/xfce4-screensaver-configure:209
+#: ../src/xfce4-screensaver-configure:211
 msgid "Show paths"
 msgstr "Показати шляхи"
 
-#: ../src/xfce4-screensaver-configure:211
+#: ../src/xfce4-screensaver-configure:213
 msgid "Do rotations"
 msgstr "Обертати"
 
-#: ../src/xfce4-screensaver-configure:213
+#: ../src/xfce4-screensaver-configure:215
 msgid "Print stats"
 msgstr "Вивід статистики"
 
-#: ../src/xfce4-screensaver-configure:216
+#: ../src/xfce4-screensaver-configure:218
 msgid "Location"
 msgstr "Місце"
 
-#: ../src/xfce4-screensaver-configure:219
+#: ../src/xfce4-screensaver-configure:221
 msgid "Background color"
 msgstr "Колір тла"
 
-#: ../src/xfce4-screensaver-configure:221
+#: ../src/xfce4-screensaver-configure:223
 msgid "Do not randomize images"
 msgstr "Не перемішувати зображення"
 
-#: ../src/xfce4-screensaver-configure:223
+#: ../src/xfce4-screensaver-configure:225
 msgid "Do not stretch images"
 msgstr "Не розтягувати зображення"
 
-#: ../src/xfce4-screensaver-configure:415
+#: ../src/xfce4-screensaver-configure:417
 msgid "Restore Defaults"
 msgstr "Відновити типові"
 
-#: ../src/xfce4-screensaver-configure:428
+#: ../src/xfce4-screensaver-configure:430
 msgid "Preferences"
 msgstr "Налаштування"
 
-#: ../src/xfce4-screensaver-configure:434
+#: ../src/xfce4-screensaver-configure:436
 msgid "About"
 msgstr "Про"
 
-#: ../src/xfce4-screensaver-configure:447
+#: ../src/xfce4-screensaver-configure:449
 msgid "Video"
 msgstr "Відео"
 
-#: ../src/xfce4-screensaver-configure:754
+#: ../src/xfce4-screensaver-configure:756
 msgid "Configure an individual screensaver"
 msgstr "Налаштувати індивідуальний зберігач екрану"
 
-#: ../src/xfce4-screensaver-configure:756
+#: ../src/xfce4-screensaver-configure:758
 msgid "screensaver name to configure"
 msgstr "ім'я зберігача екрану для налаштування"
 
-#: ../src/xfce4-screensaver-configure:758
+#: ../src/xfce4-screensaver-configure:760
 msgid "check if screensaver is configurable"
 msgstr "перевірити, чи можна налаштувати зберігач екрана"
 
-#: ../src/xfce4-screensaver-configure:762
+#: ../src/xfce4-screensaver-configure:764
 msgid "Unable to configure screensaver"
 msgstr "Неможливо сконфіґурувати зберігач екрана"
 
-#: ../src/xfce4-screensaver-configure:766
+#: ../src/xfce4-screensaver-configure:768
 msgid "Screensaver required."
 msgstr "Вкажіть зберігач екрана."
 
-#: ../src/xfce4-screensaver-configure:774
+#: ../src/xfce4-screensaver-configure:776
 #, c-format
 msgid "File not found: %s"
 msgstr "Файл не знайдено: %s"
 
-#: ../src/xfce4-screensaver-configure:782
+#: ../src/xfce4-screensaver-configure:784
 #, c-format
 msgid "Unrecognized file type: %s"
 msgstr "Нерозпізнаний тип файлу: %s"
 
-#: ../src/xfce4-screensaver-configure:786
+#: ../src/xfce4-screensaver-configure:788
 #, c-format
 msgid "Failed to process file: %s"
 msgstr "Не вдалося обробити файл: %s"
 
-#: ../src/xfce4-screensaver-configure:791
+#: ../src/xfce4-screensaver-configure:793
 #, c-format
 msgid "Screensaver %s is configurable."
 msgstr "Зберігач екрана %s можна конфіґурувати."
 
-#: ../src/xfce4-screensaver-configure:793
+#: ../src/xfce4-screensaver-configure:795
 #, c-format
 msgid "Screensaver %s is not configurable."
 msgstr "Зберігач екрана %s не можна конфіґурувати."
 
-#: ../src/xfce4-screensaver-configure:797
+#: ../src/xfce4-screensaver-configure:799
 #, c-format
 msgid "Screensaver %s has no configuration options."
 msgstr "Зберігач екрана %s не має параметрів для налаштування."
