@@ -6,10 +6,10 @@
 # Translators:
 # Ken DEGUCHI <kdeguchi@sz.tokoha-u.ac.jp>, 2018
 # Masato HASHIMOTO <cabezon.hashimoto@gmail.com>, 2019
-# Nobuhiro Iwamatsu <iwamatsu@nigauri.org>, 2020
 # Xfce Bot <transifex@xfce.org>, 2023
 # Nick Schermer <nick@xfce.org>, 2023
 # UTUMI Hirosi <utuhiro78@yahoo.co.jp>, 2023
+# Nobuhiro Iwamatsu <iwamatsu@nigauri.org>, 2023
 # 
 #, fuzzy
 msgid ""
@@ -18,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-02 00:49+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: UTUMI Hirosi <utuhiro78@yahoo.co.jp>, 2023\n"
+"Last-Translator: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>, 2023\n"
 "Language-Team: Japanese (https://app.transifex.com/xfce/teams/16840/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -303,6 +303,15 @@ msgid ""
 "If your displays are powering off at different\n"
 "intervals, be sure to check for conflicting settings."
 msgstr ""
+"ディスプレイ電源管理シグナリング (DPMS) \n"
+"を搭載した Xfce スクリーンセーバーは、ディスプレイを\n"
+"自動的にサスペンドして電力を節約できます。\n"
+"\n"
+"Xfce Power Manager およびその他のアプリケーションも\n"
+"DPMS 設定を管理します。設定が機能しない場合、ディスプレイの\n"
+"電源管理が無効になっていないことを確認してください。 \n"
+"ディスプレイの電源が異なる間隔でオフになる場合は、競合する設定が\n"
+"ないか必ず確認してください。"
 
 #: ../src/xfce4-screensaver-configure:188
 msgid "Part of Xfce Screensaver"
