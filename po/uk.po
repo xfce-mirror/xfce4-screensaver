@@ -313,6 +313,13 @@ msgid ""
 "If your displays are powering off at different\n"
 "intervals, be sure to check for conflicting settings."
 msgstr ""
+"За допомогою Display Power Management Signaling (DPMS) \n"
+"зберігач екрана Xfce може автоматично призупиняти ваші дисплеї \n"
+"для економії енергії.\n"
+"Керівник живлення Xfce та інші програми також керують налаштуваннями DPMS. Якщо налаштування тут не працюють, переконайтеся, \n"
+"що керування живленням дисплея там не вимкнено.\n"
+"Якщо ваші дисплеї вимикаються через різні проміжки \n"
+"часу, обов’язково перевірте, чи не конфліктують налаштування."
 
 #: ../src/xfce4-screensaver-configure:188
 msgid "Part of Xfce Screensaver"
