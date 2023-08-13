@@ -306,6 +306,15 @@ msgid ""
 "If your displays are powering off at different\n"
 "intervals, be sure to check for conflicting settings."
 msgstr ""
+"Veikdama su ekranų energijos valdymo signalizavimu (DPMS),\n"
+"Xfce ekrano užsklanda gali automatiškai pristabdyti jūsų ekranus,\n"
+"kad būtų taupoma energija.\n"
+"\n"
+"Xfce maitinimo tvarkytuvė ir kitos programos irgi valdo\n"
+"DPMS nustatymus. Jeigu čia esantys nustatymai neveikia,\n"
+"įsitikinkite, kad tose programose nėra išjungtas ekranų \n"
+"energijos valdymas. Jeigu jūsų ekranai išsijungia skirtingais\n"
+"intervalais, patikrinkite konfliktuojančius nustatymus."
 
 #: ../src/xfce4-screensaver-configure:188
 msgid "Part of Xfce Screensaver"
@@ -313,7 +322,7 @@ msgstr "Xfce ekrano užsklandos dalis"
 
 #: ../src/xfce4-screensaver-configure:199
 msgid "After blanking, put display to sleep after:"
-msgstr ""
+msgstr "Užtamsinus ekraną, užmigdyti jį po:"
 
 #: ../src/xfce4-screensaver-configure:201
 #: ../src/xfce4-screensaver-configure:205
@@ -326,7 +335,7 @@ msgstr "60 sekundžių"
 
 #: ../src/xfce4-screensaver-configure:203
 msgid "After sleeping, switch display off after:"
-msgstr ""
+msgstr "Užmigdžius ekraną, išjungti jį po:"
 
 #: ../src/xfce4-screensaver-configure:205
 msgid "60 minutes"
@@ -334,7 +343,7 @@ msgstr "60 minučių"
 
 #: ../src/xfce4-screensaver-configure:208
 msgid "Max number of images"
-msgstr ""
+msgstr "Didžiausias paveikslų skaičius"
 
 #: ../src/xfce4-screensaver-configure:211
 msgid "Show paths"
@@ -342,11 +351,11 @@ msgstr "Rodyti kelius"
 
 #: ../src/xfce4-screensaver-configure:213
 msgid "Do rotations"
-msgstr ""
+msgstr "Atlikti pasukimus"
 
 #: ../src/xfce4-screensaver-configure:215
 msgid "Print stats"
-msgstr ""
+msgstr "Rodyti statistiką"
 
 #: ../src/xfce4-screensaver-configure:218
 msgid "Location"
@@ -358,11 +367,11 @@ msgstr "Fono spalva"
 
 #: ../src/xfce4-screensaver-configure:223
 msgid "Do not randomize images"
-msgstr ""
+msgstr "Neparinkinėti atsitiktinai"
 
 #: ../src/xfce4-screensaver-configure:225
 msgid "Do not stretch images"
-msgstr ""
+msgstr "Neištempti paveikslų"
 
 #: ../src/xfce4-screensaver-configure:417
 msgid "Restore Defaults"
@@ -386,7 +395,7 @@ msgstr "Konfigūruoti atskirą ekrano užsklandą"
 
 #: ../src/xfce4-screensaver-configure:758
 msgid "screensaver name to configure"
-msgstr ""
+msgstr "ekrano užsklandos, kurią konfigūruoti, pavadinimas"
 
 #: ../src/xfce4-screensaver-configure:760
 msgid "check if screensaver is configurable"
