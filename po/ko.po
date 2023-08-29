@@ -6,9 +6,9 @@
 # Translators:
 # Cybertramp <paran_son@outlook.com>, 2018
 # 1763f4a4329a2376c933c5e919a36cbc_341ca53 <1f851310383599d03339229d772e1290_119292>, 2019
-# Seong-ho Cho <darkcircle.0426@gmail.com>, 2019
 # Xfce Bot <transifex@xfce.org>, 2023
 # Nick Schermer <nick@xfce.org>, 2023
+# Seong-ho Cho <darkcircle.0426@gmail.com>, 2023
 # 
 #, fuzzy
 msgid ""
@@ -17,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-02 00:49+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Nick Schermer <nick@xfce.org>, 2023\n"
+"Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>, 2023\n"
 "Language-Team: Korean (https://app.transifex.com/xfce/teams/16840/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,7 +28,7 @@ msgstr ""
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:1
 #: ../src/xfce4-screensaver.desktop.in.in.h:1
 msgid "Xfce Screensaver"
-msgstr ""
+msgstr "Xfce 화면 보호기"
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:2
 msgid "Set your screensaver preferences"
@@ -300,6 +300,15 @@ msgid ""
 "If your displays are powering off at different\n"
 "intervals, be sure to check for conflicting settings."
 msgstr ""
+"디스플레이 전원 관리자 신호처리(DPMS) 기술을 갖춘,\n"
+"Xfce 화면 보호기 프로그램은 전력 소모를 줄이려 \n"
+"화면을 대기 상태로 자동 전환할 수 있습니다.\n"
+"\n"
+"Xfce 전원 관리자와 다른 프로그램에서도 마찬가지로\n"
+"DPMS 설정을 관리할 수 있습니다. 설정 값대로 동작하지\n"
+"않는다면 디스플레이 전원 관리를 끄지 않았는지 확인\n"
+"하십시오. 모니터 전원을 다른 시간 이후에 끌 때 설정\n"
+"값이 겹치는지 확인하십시오."
 
 #: ../src/xfce4-screensaver-configure:188
 msgid "Part of Xfce Screensaver"
@@ -307,7 +316,7 @@ msgstr "Xfce 화면 보호기 프로그램의 일부"
 
 #: ../src/xfce4-screensaver-configure:199
 msgid "After blanking, put display to sleep after:"
-msgstr ""
+msgstr "화면을 비운 후, 다음 시간 이후 화면 대기 모드 설정:"
 
 #: ../src/xfce4-screensaver-configure:201
 #: ../src/xfce4-screensaver-configure:205
@@ -316,31 +325,31 @@ msgstr "안함"
 
 #: ../src/xfce4-screensaver-configure:201
 msgid "60 seconds"
-msgstr ""
+msgstr "60초"
 
 #: ../src/xfce4-screensaver-configure:203
 msgid "After sleeping, switch display off after:"
-msgstr ""
+msgstr "화면 대기 설정 후, 다음 시간 이후 모니터 전원 끄기:"
 
 #: ../src/xfce4-screensaver-configure:205
 msgid "60 minutes"
-msgstr ""
+msgstr "60분"
 
 #: ../src/xfce4-screensaver-configure:208
 msgid "Max number of images"
-msgstr ""
+msgstr "최대 그림 갯수"
 
 #: ../src/xfce4-screensaver-configure:211
 msgid "Show paths"
-msgstr ""
+msgstr "경로 표시"
 
 #: ../src/xfce4-screensaver-configure:213
 msgid "Do rotations"
-msgstr ""
+msgstr "회전 수행"
 
 #: ../src/xfce4-screensaver-configure:215
 msgid "Print stats"
-msgstr ""
+msgstr "현황 표시"
 
 #: ../src/xfce4-screensaver-configure:218
 msgid "Location"
@@ -352,11 +361,11 @@ msgstr "배경 색"
 
 #: ../src/xfce4-screensaver-configure:223
 msgid "Do not randomize images"
-msgstr ""
+msgstr "그림 임의 표시 안함"
 
 #: ../src/xfce4-screensaver-configure:225
 msgid "Do not stretch images"
-msgstr ""
+msgstr "그림 길이 늘이지 않음"
 
 #: ../src/xfce4-screensaver-configure:417
 msgid "Restore Defaults"
@@ -376,15 +385,15 @@ msgstr "동영상"
 
 #: ../src/xfce4-screensaver-configure:756
 msgid "Configure an individual screensaver"
-msgstr ""
+msgstr "개별 화면 보호기 설정"
 
 #: ../src/xfce4-screensaver-configure:758
 msgid "screensaver name to configure"
-msgstr ""
+msgstr "설정할 화면 보호기 이름"
 
 #: ../src/xfce4-screensaver-configure:760
 msgid "check if screensaver is configurable"
-msgstr ""
+msgstr "화면보호기를 설정할 수 있다면 표시"
 
 #: ../src/xfce4-screensaver-configure:764
 msgid "Unable to configure screensaver"
