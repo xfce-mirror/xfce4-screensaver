@@ -8,11 +8,11 @@
 # Rafael Carvalho <rafaelvfcarvalho@gmail.com>, 2018
 # 03d4cb4e40917b9efde07029d109fec1_440ed9b <c3c37f2961c5c5bdf930a168cab8bcc2_764964>, 2019
 # Rafael Fontenelle <rffontenelle@gmail.com>, 2019
-# Michael Martins <michaelfm21@gmail.com>, 2019
 # Andre Miranda <andre@andreldm.com>, 2020
 # Xfce Bot <transifex@xfce.org>, 2023
 # Nick Schermer <nick@xfce.org>, 2023
 # The Cat, 2023
+# Michael Martins <michaelfm21@gmail.com>, 2023
 # 
 #, fuzzy
 msgid ""
@@ -21,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-02 00:49+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: The Cat, 2023\n"
+"Last-Translator: Michael Martins <michaelfm21@gmail.com>, 2023\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/xfce/teams/16840/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -325,7 +325,7 @@ msgstr "Parte do Protetor de tela do Xfce"
 
 #: ../src/xfce4-screensaver-configure:199
 msgid "After blanking, put display to sleep after:"
-msgstr "Depois de apagar, colocar suspender a tela após:"
+msgstr "Depois de apagar, colocar a tela para suspender após:"
 
 #: ../src/xfce4-screensaver-configure:201
 #: ../src/xfce4-screensaver-configure:205
