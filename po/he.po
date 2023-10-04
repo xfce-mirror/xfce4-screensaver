@@ -28,7 +28,7 @@ msgstr ""
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:1
 #: ../src/xfce4-screensaver.desktop.in.in.h:1
 msgid "Xfce Screensaver"
-msgstr ""
+msgstr "שומר מסך Xfce "
 
 #: ../data/xfce4-screensaver-preferences.desktop.in.h:2
 msgid "Set your screensaver preferences"
@@ -300,6 +300,15 @@ msgid ""
 "If your displays are powering off at different\n"
 "intervals, be sure to check for conflicting settings."
 msgstr ""
+"בעזרת איתות ניהול חשמל תצוגה (DPMS),\n"
+"שומר מסך Xfce יכול להשהות אוטומטית את המסכים שלך\n"
+"לחיסכון בחשמל.\n"
+"\n"
+"מנהל חשמל Xfce וישומים אחרים גם מנהלים\n"
+"הגדרות DPMS. אם ההגדרות כאן לא עובדות, וודא\n"
+"שניהול חשמל תצוגה לא כובה שם.\n"
+"אם המסכים שלך נכבים בפרקי זמן\n"
+"שונים, בדוק שאין הגדרות מתנגשות."
 
 #: ../src/xfce4-screensaver-configure:188
 msgid "Part of Xfce Screensaver"
@@ -307,7 +316,7 @@ msgstr "חלק משומר המסך של Xfce"
 
 #: ../src/xfce4-screensaver-configure:199
 msgid "After blanking, put display to sleep after:"
-msgstr ""
+msgstr "לאחר החשכה, העבר את המסך למצב שינה אחרי:"
 
 #: ../src/xfce4-screensaver-configure:201
 #: ../src/xfce4-screensaver-configure:205
@@ -316,31 +325,31 @@ msgstr "אף פעם"
 
 #: ../src/xfce4-screensaver-configure:201
 msgid "60 seconds"
-msgstr ""
+msgstr "60 שניות"
 
 #: ../src/xfce4-screensaver-configure:203
 msgid "After sleeping, switch display off after:"
-msgstr ""
+msgstr "לאחר שינה, כבה את המסך אחרי:"
 
 #: ../src/xfce4-screensaver-configure:205
 msgid "60 minutes"
-msgstr ""
+msgstr "60 דקות"
 
 #: ../src/xfce4-screensaver-configure:208
 msgid "Max number of images"
-msgstr ""
+msgstr "מספר מירבי של תמונות"
 
 #: ../src/xfce4-screensaver-configure:211
 msgid "Show paths"
-msgstr ""
+msgstr "הצג נתיבים"
 
 #: ../src/xfce4-screensaver-configure:213
 msgid "Do rotations"
-msgstr ""
+msgstr "עשה החלפות"
 
 #: ../src/xfce4-screensaver-configure:215
 msgid "Print stats"
-msgstr ""
+msgstr "הדפס סטטיסטיקות"
 
 #: ../src/xfce4-screensaver-configure:218
 msgid "Location"
@@ -352,11 +361,11 @@ msgstr "צבע רקע"
 
 #: ../src/xfce4-screensaver-configure:223
 msgid "Do not randomize images"
-msgstr ""
+msgstr "אל תעשה תמונות אקראיות"
 
 #: ../src/xfce4-screensaver-configure:225
 msgid "Do not stretch images"
-msgstr ""
+msgstr "אל תמתח תמונות"
 
 #: ../src/xfce4-screensaver-configure:417
 msgid "Restore Defaults"
@@ -376,15 +385,15 @@ msgstr "וידאו"
 
 #: ../src/xfce4-screensaver-configure:756
 msgid "Configure an individual screensaver"
-msgstr ""
+msgstr "הגדר שומר מסך יחיד"
 
 #: ../src/xfce4-screensaver-configure:758
 msgid "screensaver name to configure"
-msgstr ""
+msgstr "שם שומר מסך להגדרה"
 
 #: ../src/xfce4-screensaver-configure:760
 msgid "check if screensaver is configurable"
-msgstr ""
+msgstr "בדוק אם שומר מסך ניתן להגדרה"
 
 #: ../src/xfce4-screensaver-configure:764
 msgid "Unable to configure screensaver"
