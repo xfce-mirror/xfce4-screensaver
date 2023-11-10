@@ -44,7 +44,7 @@ msgstr "Ekrano užsklandos"
 
 #: ../data/xfce4-screensaver.directory.in.h:2
 msgid "Screensaver themes"
-msgstr "Ekrano užsklandos temos"
+msgstr "Ekrano užsklandos apipavidalinimai"
 
 #: ../savers/floaters.c:89
 msgid "Show paths that images follow"
@@ -662,7 +662,7 @@ msgstr "Įjungti ekrano užsklandą"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:13
 msgid "Theme"
-msgstr "Tema"
+msgstr "Apipavidalinimas"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:14
 msgid "Configure screensaver"
@@ -674,7 +674,7 @@ msgstr "Konfigūruoti..."
 
 #: ../src/xfce4-screensaver-preferences.ui.h:16
 msgid "Change theme after:"
-msgstr "Pakeisti temą po:"
+msgstr "Pakeisti apipavidalinimą po:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:17
 msgid "minutes"
