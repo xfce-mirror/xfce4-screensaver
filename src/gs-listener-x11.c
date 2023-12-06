@@ -30,7 +30,7 @@
 
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
-#include <gtk/gtkx.h>
+#include <gdk/gdkx.h>
 
 #define WNCK_I_KNOW_THIS_IS_UNSTABLE = 1
 #include <libwnck/libwnck.h>
