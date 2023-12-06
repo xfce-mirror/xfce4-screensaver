@@ -37,7 +37,6 @@
 #include <gdk/gdkkeysyms.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
-#include <gtk/gtkx.h>
 
 #include <libxfce4util/libxfce4util.h>
 #include <xfconf/xfconf.h>
