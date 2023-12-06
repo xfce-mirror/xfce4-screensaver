@@ -61,7 +61,7 @@ LIBWNCK_REQUIRED=3.20
 AC_CHECK_HEADERS(unistd.h)
 AC_CHECK_HEADERS(crypt.h sys/select.h)
 AC_CHECK_FUNCS(select fcntl uname nice setpriority getcwd getwd putenv sbrk)
-AC_CHECK_FUNCS(sigaction syslog realpath setrlimit)
+AC_CHECK_FUNCS(syslog realpath setrlimit)
 AC_CHECK_FUNCS(getresuid)
 AC_TYPE_UID_T
 
