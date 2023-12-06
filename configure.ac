@@ -50,6 +50,7 @@ GLIB_REQUIRED_VERSION=glib_required_version
 GTK_REQUIRED_VERSION=3.24.0
 DBUS_REQUIRED_VERSION=0.30
 X11_REQUIRED_VERSION=1.0
+XEXT_REQUIRED_VERSION=1.0
 LIBXKLAVIER_REQUIRED=5.2
 XRANDR_REQUIRED=1.3
 LIBXFCONF_REQUIRED=4.12.1
@@ -89,6 +90,7 @@ XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [glib_required_version])
 AC_CHECK_FUNCS([setresuid setenv unsetenv clearenv])
 PKG_CHECK_MODULES(XFCE_SCREENSAVER,
         x11 >= $X11_REQUIRED_VERSION
+        xext >= $XEXT_REQUIRED_VERSION
         xscrnsaver
         gtk+-3.0 >= $GTK_REQUIRED_VERSION
         dbus-glib-1 >= $DBUS_REQUIRED_VERSION
@@ -336,17 +338,6 @@ AC_DEFUN([HANDLE_X_PATH_ARG], [
      ;;
    esac
   ])
-
-dnl ---------------------------------------------------------------------------
-dnl - Check for shaped window extension
-dnl ---------------------------------------------------------------------------
-
-have_shape=no
-AC_CHECK_X_HEADER(X11/extensions/shape.h, [have_shape=yes],,
-                    [#include <X11/Xlib.h>])
-if test "$have_shape" = yes; then
-  AC_DEFINE(HAVE_SHAPE_EXT, 1, [Define if shape extension is available])
-fi
 
 dnl ---------------------------------------------------------------------------
 dnl - Check for the XF86VMODE server extension (for gamma fading.)
