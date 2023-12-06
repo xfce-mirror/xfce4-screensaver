@@ -24,10 +24,7 @@
 #include <config.h>
 
 #include <gdk/gdk.h>
-#include <gdk/gdkx.h>
 #include <gio/gio.h>
-
-#include <X11/extensions/dpms.h>
 
 #include "gs-debug.h"
 #include "gs-grab.h"
@@ -37,10 +34,6 @@
 #include "gs-window.h"
 
 static void     gs_manager_finalize   (GObject        *object);
-
-static void     remove_dpms_timer     (GSManager      *manager);
-static void     add_dpms_timer        (GSManager      *manager,
-                                       glong           timeout);
 
 struct GSManagerPrivate {
     GHashTable     *windows;
@@ -61,11 +54,8 @@ struct GSManagerPrivate {
 
     guint           lock_timeout_id;
     guint           cycle_timeout_id;
-    guint           dpms_timeout_id;
 
     GSGrab         *grab;
-    guint           deepsleep_idle_id;
-    gboolean        deepsleep;
 };
 
 enum {
@@ -86,9 +76,6 @@ enum {
 static guint         signals[LAST_SIGNAL] = { 0, };
 
 G_DEFINE_TYPE_WITH_PRIVATE (GSManager, gs_manager, G_TYPE_OBJECT)
-
-static void         remove_deepsleep_idle   (GSManager *manager);
-static void         add_deepsleep_idle      (GSManager *manager);
 
 static void
 manager_maybe_stop_job_for_window (GSManager *manager,
@@ -449,63 +436,12 @@ gs_manager_init (GSManager *manager) {
                                                  NULL, (GDestroyNotify) remove_job);
     manager->priv->windows = g_hash_table_new_full (g_direct_hash, g_direct_equal,
                                                     NULL, (GDestroyNotify) gs_window_destroy);
-
-    add_deepsleep_idle(manager);
-}
-
-static gboolean
-activate_dpms_timeout (gpointer user_data) {
-    GSManager *manager = user_data;
-    BOOL state;
-    CARD16 power_level;
-
-    if (manager->priv->active) {
-        if (DPMSInfo(gdk_x11_get_default_xdisplay(), &power_level, &state)) {
-            if (state) {
-                if (power_level == DPMSModeOn) {
-                    gs_debug("DPMS: On -> Standby");
-                    DPMSForceLevel (gdk_x11_get_default_xdisplay(), DPMSModeStandby);
-                    remove_dpms_timer (manager);
-                    add_dpms_timer (manager, manager->priv->prefs->dpms_off_timeout * 60);
-                    return FALSE;
-                } else if (power_level == DPMSModeStandby || power_level == DPMSModeSuspend) {
-                    gs_debug("DPMS: %s -> Off", power_level == DPMSModeStandby ? "Standby" : "Suspend");
-                    DPMSForceLevel (gdk_x11_get_default_xdisplay(), DPMSModeOff);
-                }
-            }
-        }
-    }
-
-    manager->priv->dpms_timeout_id = 0;
-    return FALSE;
-}
-
-static void
-remove_dpms_timer (GSManager *manager) {
-    if (manager->priv->dpms_timeout_id != 0) {
-        g_source_remove (manager->priv->dpms_timeout_id);
-        manager->priv->dpms_timeout_id = 0;
-    }
-}
-
-static void
-add_dpms_timer (GSManager *manager,
-                glong      timeout) {
-    if (manager->priv->prefs->mode != GS_MODE_BLANK_ONLY)
-        return;
-
-    if (timeout == 0)
-        return;
-
-    gs_debug ("Scheduling DPMS change after screensaver is idling for %i seconds(s)", timeout);
-    manager->priv->dpms_timeout_id = g_timeout_add_seconds (timeout, activate_dpms_timeout, manager);
 }
 
 static void
 remove_timers (GSManager *manager) {
     remove_lock_timer (manager);
     remove_cycle_timer (manager);
-    remove_dpms_timer (manager);
 }
 
 static gboolean
@@ -629,48 +565,6 @@ window_grab_broken_cb (GSWindow           *window,
     }
 }
 
-static void
-remove_deepsleep_idle (GSManager *manager) {
-    if (manager->priv->deepsleep_idle_id > 0) {
-        g_source_remove (manager->priv->deepsleep_idle_id);
-        manager->priv->deepsleep_idle_id = 0;
-    }
-}
-
-static gboolean
-deepsleep_idle (gpointer user_data) {
-    GSManager *manager = user_data;
-    BOOL state;
-    CARD16 power_level;
-
-    if (!DPMSInfo(gdk_x11_get_default_xdisplay(), &power_level, &state)) {
-        if (manager->priv->deepsleep) {
-            gs_debug ("Unable to read DPMS state, exiting deep sleep");
-            manager->priv->deepsleep = FALSE;
-        }
-        return TRUE;
-    }
-
-    if (power_level == DPMSModeOn) {
-        if (manager->priv->deepsleep) {
-            gs_debug ("Exiting deep sleep");
-            manager->priv->deepsleep = FALSE;
-        }
-    } else if (!manager->priv->throttled && !manager->priv->deepsleep) {
-        gs_debug ("Entering deep sleep, suspending jobs");
-        manager->priv->deepsleep = TRUE;
-        g_hash_table_foreach (manager->priv->jobs, (GHFunc) suspend_job, manager);
-    }
-
-    return TRUE;
-}
-
-static void
-add_deepsleep_idle (GSManager *manager) {
-    remove_deepsleep_idle(manager);
-    manager->priv->deepsleep_idle_id = g_timeout_add_seconds (15, deepsleep_idle, manager);
-}
-
 static gboolean
 window_map_event_cb (GSWindow  *window,
                      GdkEvent  *event,
@@ -697,9 +591,6 @@ manager_show_window (GSManager *manager,
         remove_cycle_timer (manager);
         add_cycle_timer (manager, manager->priv->prefs->cycle);
     }
-
-    remove_dpms_timer (manager);
-    add_dpms_timer (manager, manager->priv->prefs->dpms_sleep_timeout);
 
     /* FIXME: only emit signal once */
     g_signal_emit (manager, signals[ACTIVATED], 0);
@@ -768,8 +659,6 @@ handle_window_dialog_up (GSManager *manager,
         gs_debug ("Suspending jobs");
         g_hash_table_foreach (manager->priv->jobs, (GHFunc) suspend_job, manager);
     }
-
-    remove_dpms_timer (manager);
 }
 
 static void
@@ -800,9 +689,6 @@ handle_window_dialog_down (GSManager *manager,
     if (!manager->priv->throttled) {
         g_hash_table_foreach (manager->priv->jobs, (GHFunc) resume_job, manager);
     }
-
-    remove_dpms_timer (manager);
-    add_dpms_timer (manager, manager->priv->prefs->dpms_sleep_timeout);
 
     g_signal_emit (manager, signals[AUTH_REQUEST_END], 0);
 }
@@ -1021,7 +907,6 @@ gs_manager_finalize (GObject *object) {
 
     g_return_if_fail (manager->priv != NULL);
 
-    remove_deepsleep_idle (manager);
     remove_timers(manager);
     gs_grab_release (manager->priv->grab, TRUE);
     g_hash_table_destroy (manager->priv->jobs);
