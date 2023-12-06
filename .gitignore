@@ -59,7 +59,6 @@ src/xfce4-screensaver-command
 src/xfce4-screensaver-dialog
 src/xfce4-screensaver-dialog-css.h
 src/xfce4-screensaver-dialog-ui.h
-src/xfce4-screensaver-gl-helper
 src/xfce4-screensaver-preferences
 src/xfce4-screensaver-preferences-ui.h
 src/xfce4-screensaver.desktop.in
