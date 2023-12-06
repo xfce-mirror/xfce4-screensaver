@@ -1802,7 +1802,6 @@ configure_capplet (void) {
     fullscreen_preview_next     = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_next_button"));
 
     gtk_widget_set_no_show_all (root_warning_infobar, TRUE);
-    widget_set_best_visual (preview);
 
     if (!is_program_in_path (GPM_COMMAND)) {
         gtk_widget_set_no_show_all (gpm_button, TRUE);
