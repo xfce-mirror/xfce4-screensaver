@@ -45,7 +45,6 @@ bin_SCRIPTS = \
 
 libexec_PROGRAMS = \
 	xfce4-screensaver-dialog     \
-	xfce4-screensaver-gl-helper  \
 	$(NULL)
 
 noinst_PROGRAMS = \
@@ -199,17 +198,6 @@ xfce4_screensaver_SOURCES = \
 	xfcekbd-indicator.c         \
 	xfcekbd-indicator.h         \
 	$(BUILT_SOURCES)            \
-	$(NULL)
-
-xfce4_screensaver_gl_helper_LDADD = \
-	$(XFCE_SCREENSAVER_LIBS)  \
-	$(GL_LIBS)                \
-	$(NULL)
-
-xfce4_screensaver_gl_helper_SOURCES = \
-	xfce4-screensaver-gl-helper.c  \
-	gs-visual-gl.c                 \
-	gs-visual-gl.h                 \
 	$(NULL)
 
 xfce4_screensaver_LDADD = \
