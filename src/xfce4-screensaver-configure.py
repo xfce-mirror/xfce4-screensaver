@@ -144,27 +144,6 @@ class DesktopScreensaverSettings(ScreensaverSettings):
         self.name = name
 
     def load_from_file(self, filename):
-        if self.name == "xfce-blank":
-            self.valid = True
-
-            self.options = self.parse_internal()
-            self.label = _("Blank screen")
-            comment = _("Powered by Display Power Management Signaling (DPMS),\n"
-                        "Xfce Screensaver can automatically suspend your displays\n"
-                        "to save power.\n\n"
-                        "Xfce Power Manager and other applications also manage\n"
-                        "DPMS settings. If the settings here won't work, make sure\n"
-                        "display power management wasn't disabled there.\n"
-                        "If your displays are powering off at different\n"
-                        "intervals, be sure to check for conflicting settings.")
-            self.arguments = []
-            self.description = comment
-
-            if self.options:
-                self.configurable = True
-
-            return True
-
         if not os.path.exists(filename):
             return False
 
@@ -194,15 +173,6 @@ class DesktopScreensaverSettings(ScreensaverSettings):
 
     def parse_internal(self):
         options = OrderedDict()
-        if self.name == "xfce-blank":
-            options["dpms-sleep-after"] = {'id': 'dpms-sleep-after', 'type': 'slider',
-                                           'label': _("After blanking, put display to sleep after:"),
-                                           'default': 5, 'low': 0, 'high': 60, 'step': 1,
-                                           'low-label': _("Never"), 'high-label': _("60 seconds")}
-            options["dpms-off-after"] = {'id': 'dpms-off-after', 'type': 'slider',
-                                         'label': _("After sleeping, switch display off after:"),
-                                         'default': 15, 'low': 0, 'high': 60, 'step': 1,
-                                         'low-label': _("Never"), 'high-label': _("60 minutes")}
         if self.name == "xfce-floaters":
             options["number-of-images"] = {'id': 'number-of-images', 'type': 'spinbutton',
                                            'label': _("Max number of images"), 'argument': '-n %',
@@ -715,9 +685,6 @@ def get_filename(theme):
             if os.path.exists(cfg):
                 return cfg
 
-    if theme == "xfce-blank":
-        return ""
-
     return None
 
 
@@ -784,7 +751,7 @@ if __name__ == "__main__":
 
     if fname.endswith(".xml"):
         obj = XmlScreensaverSettings(saver)
-    elif fname.endswith(".desktop") or saver == "xfce-blank":
+    elif fname.endswith(".desktop"):
         obj = DesktopScreensaverSettings(saver)
     else:
         show_fatal(primary, _("Unrecognized file type: %s") % fname)
