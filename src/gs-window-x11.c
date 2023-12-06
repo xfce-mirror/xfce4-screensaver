@@ -367,8 +367,6 @@ static void
 gs_window_real_realize (GtkWidget *widget) {
     GdkMonitor *monitor = GS_WINDOW (widget)->priv->monitor;
 
-    widget_set_best_visual (widget);
-
     if (GTK_WIDGET_CLASS (gs_window_parent_class)->realize) {
         GTK_WIDGET_CLASS (gs_window_parent_class)->realize (widget);
     }
