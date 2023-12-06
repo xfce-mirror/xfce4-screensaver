@@ -6,9 +6,6 @@ themesdir = $(pkgdatadir)/themes
 AM_CPPFLAGS = \
 	-I.                                         \
 	-I$(srcdir)                                 \
-	$(XFCE_SCREENSAVER_CFLAGS)                  \
-	$(XFCE_SCREENSAVER_DIALOG_CFLAGS)           \
-	$(XFCE_SCREENSAVER_CAPPLET_CFLAGS)          \
 	-DPREFIX=\""$(prefix)"\"                    \
 	-DBINDIR=\""$(bindir)"\"                    \
 	-DLIBDIR=\""$(libdir)"\"                    \
@@ -20,13 +17,6 @@ AM_CPPFLAGS = \
 	-DTHEMESDIR=\""$(themesdir)"\"              \
 	-DGTKBUILDERDIR=\"$(pkgdatadir)\"           \
 	-DPAM_SERVICE_NAME=\""xfce4-screensaver"\"  \
-	$(AUTH_CFLAGS)                              \
-	$(DBUS_CFLAGS)                              \
-	$(LIBXFCEKBDUI_CFLAGS)                      \
-	$(LIBXKLAVIER_CFLAGS)                       \
-	$(SYSTEMD_CFLAGS)                           \
-	$(ELOGIND_CFLAGS)                           \
-	$(WNCK_LIBS)								\
 	$(NULL)
 
 bin_PROGRAMS = \
@@ -57,8 +47,16 @@ xfce4_screensaver_command_SOURCES = \
 	xfce4-screensaver-command.c  \
 	$(NULL)
 
+xfce4_screensaver_command_CFLAGS = \
+	$(GLIB_CFLAGS) \
+	$(GIO_CFLAGS) \
+	$(LIBXFCE4UTIL_CFLAGS) \
+	$(NULL)
+
 xfce4_screensaver_command_LDADD = \
-	$(XFCE_SCREENSAVER_COMMAND_LIBS)  \
+	$(GLIB_LIBS) \
+	$(GIO_LIBS) \
+	$(LIBXFCE4UTIL_LIBS) \
 	$(NULL)
 
 AUTH_SOURCES = \
@@ -83,9 +81,18 @@ test_passwd_SOURCES = \
 	subprocs.h       \
 	$(NULL)
 
+test_passwd_CFLAGS = \
+	$(GLIB_CFLAGS) \
+	$(GTK_CFLAGS) \
+	$(LIBXFCE4UTIL_CFLAGS) \
+	$(AUTH_CFLAGS) \
+	$(NULL)
+
 test_passwd_LDADD = \
-	$(XFCE_SCREENSAVER_DIALOG_LIBS)  \
-	$(AUTH_LIBS)                     \
+	$(GLIB_LIBS) \
+	$(GTK_LIBS) \
+	$(LIBXFCE4UTIL_LIBS) \
+	$(AUTH_LIBS) \
 	$(NULL)
 
 test_window_SOURCES = \
@@ -106,9 +113,26 @@ test_window_SOURCES = \
 	xfce-desktop-utils.h \
 	$(NULL)
 
+test_window_CFLAGS = \
+	$(GLIB_CFLAGS) \
+	$(GTK_CFLAGS) \
+	$(DBUS_GLIB_CFLAGS) \
+	$(LIBXFCE4UI_CFLAGS) \
+	$(XFCONF_CFLAGS) \
+	$(LIBX11_CFLAGS) \
+	$(LIBXEXT_CFLAGS) \
+	$(LIBXKLAVIER_CFLAGS) \
+	$(NULL)
+
 test_window_LDADD = \
-	$(XFCE_SCREENSAVER_LIBS)  \
-	$(SAVER_LIBS)             \
+	$(GLIB_LIBS) \
+	$(GTK_LIBS) \
+	$(DBUS_GLIB_LIBS) \
+	$(LIBXFCE4UI_LIBS) \
+	$(XFCONF_LIBS) \
+	$(LIBX11_LIBS) \
+	$(LIBXEXT_LIBS) \
+	$(LIBXKLAVIER_LIBS) \
 	$(NULL)
 
 xfce4_screensaver_dialog_built_sources = \
@@ -137,12 +161,28 @@ xfce4_screensaver_dialog_SOURCES = \
 	$(AUTH_SOURCES)                            \
 	$(NULL)
 
+xfce4_screensaver_dialog_CFLAGS = \
+	$(GLIB_CFLAGS) \
+	$(GTK_CFLAGS) \
+	$(DBUS_GLIB_CFLAGS) \
+	$(LIBXFCE4UI_CFLAGS) \
+	$(XFCONF_CFLAGS) \
+	$(AUTH_CFLAGS) \
+	$(LIBX11_CFLAGS) \
+	$(LIBXEXT_CFLAGS) \
+	$(LIBXKLAVIER_CFLAGS) \
+	$(NULL)
+
 xfce4_screensaver_dialog_LDADD = \
-	$(XFCE_SCREENSAVER_DIALOG_LIBS)  \
-	$(XFCE_SCREENSAVER_LIBS)         \
-	$(SAVER_LIBS)                    \
-	$(AUTH_LIBS)                     \
-	$(LIBXFCEKBDUI_LIBS)             \
+	$(GLIB_LIBS) \
+	$(GTK_LIBS) \
+	$(DBUS_GLIB_LIBS) \
+	$(LIBXFCE4UI_LIBS) \
+	$(XFCONF_LIBS) \
+	$(AUTH_LIBS) \
+	$(LIBX11_LIBS) \
+	$(LIBXEXT_LIBS) \
+	$(LIBXKLAVIER_LIBS) \
 	$(NULL)
 
 BUILT_SOURCES = \
@@ -187,12 +227,36 @@ xfce4_screensaver_SOURCES = \
 	$(BUILT_SOURCES)            \
 	$(NULL)
 
+xfce4_screensaver_CFLAGS = \
+	$(GLIB_CFLAGS) \
+	$(GTK_CFLAGS) \
+	$(DBUS_GLIB_CFLAGS) \
+	$(LIBXFCE4UI_CFLAGS) \
+	$(XFCONF_CFLAGS) \
+	$(GARCON_GTK3_CFLAGS) \
+	$(SYSTEMD_CFLAGS) \
+	$(ELOGIND_CFLAGS) \
+	$(LIBX11_CFLAGS) \
+	$(LIBXEXT_CFLAGS) \
+	$(LIBXSCRNSAVER_CFLAGS) \
+	$(LIBXKLAVIER_CFLAGS) \
+	$(LIBWNCK_CFLAGS) \
+	$(NULL)
+
 xfce4_screensaver_LDADD = \
-	$(XFCE_SCREENSAVER_LIBS)  \
-	$(SAVER_LIBS)             \
-	$(SYSTEMD_LIBS)           \
-	$(ELOGIND_LIBS)           \
-	$(WNCK_LIBS)			  \
+	$(GLIB_LIBS) \
+	$(GTK_LIBS) \
+	$(DBUS_GLIB_LIBS) \
+	$(LIBXFCE4UI_LIBS) \
+	$(XFCONF_LIBS) \
+	$(GARCON_GTK3_LIBS) \
+	$(SYSTEMD_LIBS) \
+	$(ELOGIND_LIBS) \
+	$(LIBX11_LIBS) \
+	$(LIBXEXT_LIBS) \
+	$(LIBXSCRNSAVER_LIBS) \
+	$(LIBXKLAVIER_LIBS) \
+	$(LIBWNCK_LIBS) \
 	$(NULL)
 
 xfce4_screensaver_LDFLAGS = -export-dynamic
@@ -217,8 +281,22 @@ xfce4_screensaver_preferences_SOURCES = \
 	xfce-desktop-utils.h                            \
 	$(NULL)
 
+xfce4_screensaver_preferences_CFLAGS = \
+	$(GLIB_CFLAGS) \
+	$(GTK_CFLAGS) \
+	$(LIBXFCE4UI_CFLAGS) \
+	$(XFCONF_CFLAGS) \
+	$(GARCON_GTK3_CFLAGS) \
+	$(LIBXKLAVIER_CFLAGS) \
+	$(NULL)
+
 xfce4_screensaver_preferences_LDADD = \
-	$(XFCE_SCREENSAVER_CAPPLET_LIBS)  \
+	$(GLIB_LIBS) \
+	$(GTK_LIBS) \
+	$(LIBXFCE4UI_LIBS) \
+	$(XFCONF_LIBS) \
+	$(GARCON_GTK3_LIBS) \
+	$(LIBXKLAVIER_LIBS) \
 	$(NULL)
 
 if MAINTAINER_MODE
