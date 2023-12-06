@@ -23,7 +23,7 @@
 #ifndef SRC_GS_LOCK_PLUG_H_
 #define SRC_GS_LOCK_PLUG_H_
 
-#include <glib.h>
+#include <gtk/gtkx.h>
 
 G_BEGIN_DECLS
 
