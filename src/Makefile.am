@@ -6,11 +6,9 @@ themesdir = $(pkgdatadir)/themes
 AM_CPPFLAGS = \
 	-I.                                         \
 	-I$(srcdir)                                 \
-	-DXFCEMENU_I_KNOW_THIS_IS_UNSTABLE          \
 	$(XFCE_SCREENSAVER_CFLAGS)                  \
 	$(XFCE_SCREENSAVER_DIALOG_CFLAGS)           \
 	$(XFCE_SCREENSAVER_CAPPLET_CFLAGS)          \
-	$(DISABLE_DEPRECATED_CFLAGS)                \
 	-DPREFIX=\""$(prefix)"\"                    \
 	-DBINDIR=\""$(bindir)"\"                    \
 	-DLIBDIR=\""$(libdir)"\"                    \
@@ -22,9 +20,7 @@ AM_CPPFLAGS = \
 	-DTHEMESDIR=\""$(themesdir)"\"              \
 	-DGTKBUILDERDIR=\"$(pkgdatadir)\"           \
 	-DPAM_SERVICE_NAME=\""xfce4-screensaver"\"  \
-	$(WARN_CFLAGS)                              \
 	$(AUTH_CFLAGS)                              \
-	$(DEBUG_CFLAGS)                             \
 	$(DBUS_CFLAGS)                              \
 	$(LIBXFCEKBDUI_CFLAGS)                      \
 	$(LIBXKLAVIER_CFLAGS)                       \
@@ -186,12 +182,8 @@ xfce4_screensaver_SOURCES = \
 	subprocs.h                  \
 	gs-grab-x11.c               \
 	gs-grab.h                   \
-	xfce-bg.c                   \
-	xfce-bg.h                   \
 	xfce-desktop-utils.c        \
 	xfce-desktop-utils.h        \
-	xfcekbd-indicator.c         \
-	xfcekbd-indicator.h         \
 	$(BUILT_SOURCES)            \
 	$(NULL)
 
@@ -223,8 +215,6 @@ xfce4_screensaver_preferences_SOURCES = \
 	subprocs.h                                      \
 	xfce-desktop-utils.c                            \
 	xfce-desktop-utils.h                            \
-	xfcekbd-indicator.c                             \
-	xfcekbd-indicator.h                             \
 	$(NULL)
 
 xfce4_screensaver_preferences_LDADD = \
@@ -261,8 +251,6 @@ EXTRA_DIST = \
 	xfce4-screensaver-dialog.ui       \
 	xfce4-screensaver-preferences.ui  \
 	$(NULL)
-
-GLIB_GENMARSHAL = $(shell pkg-config --variable=glib_genmarshal glib-2.0)
 
 CLEANFILES = \
 	$(desktop_DATA)               \
