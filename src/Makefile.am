@@ -70,6 +70,14 @@ AUTH_SOURCES = \
 	gs-auth-@AUTH_SCHEME@.c  \
 	$(NULL)
 
+# Generates one warning at the start of the build instead of many afterwards
+EXTRA_AUTH_SOURCES = \
+	gs-auth-helper.c            \
+	gs-auth-pam.c               \
+	gs-auth-pwent.c             \
+	gs-auth-bsdauth.c           \
+	$(NULL)
+
 test_passwd_SOURCES = \
 	test-passwd.c    \
 	$(AUTH_SOURCES)  \
@@ -131,17 +139,6 @@ xfce4_screensaver_dialog_SOURCES = \
 	xfce-bg.c                                  \
 	xfce-bg.h                                  \
 	$(AUTH_SOURCES)                            \
-	$(NULL)
-
-EXTRA_xfce4_screensaver_dialog_SOURCES = \
-	gs-auth-helper.c            \
-	gs-auth-pam.c               \
-	gs-auth-pwent.c             \
-	gs-auth-bsdauth.c           \
-	xfce-desktop-utils.c        \
-	xfce-desktop-utils.h        \
-	xfcekbd-indicator.c         \
-	xfcekbd-indicator.h         \
 	$(NULL)
 
 xfce4_screensaver_dialog_LDADD = \
