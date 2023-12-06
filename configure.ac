@@ -33,18 +33,9 @@ LT_INIT([disable-static])
 
 AC_SUBST(VERSION)
 
-# Save flags to aclocal
-ACLOCAL="$ACLOCAL $ACLOCAL_FLAGS"
-
 GETTEXT_PACKAGE=xfce4-screensaver
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Name of default gettext domain])
-
-dnl
-dnl Enable gsettings schema macros
-dnl
-
-GLIB_GSETTINGS
 
 # Dependencies
 
@@ -55,36 +46,15 @@ DBUS_REQUIRED_VERSION=0.30
 X11_REQUIRED_VERSION=1.0
 XEXT_REQUIRED_VERSION=1.0
 LIBXKLAVIER_REQUIRED=5.2
-XRANDR_REQUIRED=1.3
 LIBXFCONF_REQUIRED=4.12.1
 LIBXFCE4UI_REQUIRED=4.18.4
 LIBXFCE4UTIL_REQUIRED=4.12.1
 LIBGARCON_REQUIRED=0.5.0
 LIBWNCK_REQUIRED=3.20
 
-AC_CHECK_HEADERS(unistd.h)
-AC_CHECK_HEADERS(crypt.h sys/select.h)
-AC_CHECK_FUNCS(select fcntl uname nice setpriority getcwd getwd putenv sbrk)
-AC_CHECK_FUNCS(syslog realpath setrlimit)
-AC_CHECK_FUNCS(getresuid)
+AC_CHECK_HEADERS(unistd.h crypt.h)
+AC_CHECK_FUNCS(fcntl uname setpriority getresuid)
 AC_TYPE_UID_T
-
-dnl Checks for X is RANDR extension
-
-AC_MSG_CHECKING(for xrandr)
-if $PKG_CONFIG --atleast-version $XRANDR_REQUIRED xrandr; then
-  AC_MSG_RESULT(yes)
-  AC_DEFINE(HAVE_RANDR, 1,
-            [Define if the xrandr-$XRANDR_REQUIRED library is present])
-  have_randr=yes
-  RANDR_PACKAGE=xrandr
-else
-  AC_MSG_RESULT(no)
-  have_randr=no
-  RANDR_PACKAGE=
-fi
-
-AC_SUBST(RANDR_PACKAGE)
 
 dnl This is to set GLib macros via XDT_CHECK_PACKAGE when building with
 dnl xfce4-dev-tools >= 4.17.1
@@ -146,13 +116,6 @@ SAVER_LIBS="$ALL_X_LIBS"
 
 AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
 
-# Solaris requires libresolv for daemon()
-case "$host" in
-	*-*-solaris*)
-		AC_CHECK_LIB(resolv, daemon, [XFCE_SCREENSAVER_LIBS="$XFCE_SCREENSAVER_LIBS -lresolv"])
-	;;
-esac
-
 # Find out where the session service file goes
 # The sad sed hack is recomended by section 27.10 of the automake manual.
 DBUS_SESSION_SERVICE_DIR=`pkg-config --variable session_bus_services_dir dbus-1 | sed -e 's,/usr/share,${datarootdir},g'`
@@ -190,10 +153,6 @@ if test x$withval != x; then
 fi])
 PAM_AUTH_TYPE="$ac_cv_pam_auth_type"
 AC_SUBST(PAM_AUTH_TYPE)
-
-# Translation distcheck fix
-XGETTEXT_ARGS=
-AC_SUBST(XGETTEXT_ARGS)
 
 dnl ---------------------------------------------------------------------------
 dnl - Where should we put documentation ?
@@ -238,17 +197,6 @@ dnl ---------------------------------------------------------------------------
 dnl - Some utility functions to make checking for X things easier.
 dnl ---------------------------------------------------------------------------
 
-# Like AC_CHECK_HEADER, but it uses the already-computed -I directories.
-#
-AC_DEFUN([AC_CHECK_X_HEADER], [
-  ac_save_CPPFLAGS="$CPPFLAGS"
-  if test \! -z "$includedir" ; then
-    CPPFLAGS="$CPPFLAGS -I$includedir"
-  fi
-  CPPFLAGS="$CPPFLAGS $X_CFLAGS"
-  AC_CHECK_HEADER([$1],[$2],[$3],[$4])
-  CPPFLAGS="$ac_save_CPPFLAGS"])
-
 # Like AC_COMPILE_IFELSE, but it uses the already-computed -I directories.
 #
 AC_DEFUN([AC_TRY_X_COMPILE], [
@@ -259,34 +207,6 @@ AC_DEFUN([AC_TRY_X_COMPILE], [
   CPPFLAGS="$CPPFLAGS $X_CFLAGS"
   AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[$1]], [[$2]])], [$3], [$4])
   CPPFLAGS="$ac_save_CPPFLAGS"])
-
-
-# Like AC_CHECK_LIB, but it uses the already-computed -I and -L directories.
-# Use this sparingly; it probably doesn't work very well on X programs.
-#
-AC_DEFUN([AC_CHECK_X_LIB], [
-  ac_save_CPPFLAGS="$CPPFLAGS"
-  ac_save_LDFLAGS="$LDFLAGS"
-#  ac_save_LIBS="$LIBS"
-
-  if test \! -z "$includedir" ; then
-    CPPFLAGS="$CPPFLAGS -I$includedir"
-  fi
-  # note: $X_CFLAGS includes $x_includes
-  CPPFLAGS="$CPPFLAGS $X_CFLAGS"
-
-  if test \! -z "$libdir" ; then
-    LDFLAGS="$LDFLAGS -L$libdir"
-  fi
-  # note: $X_LIBS includes $x_libraries
-  LDFLAGS="$LDFLAGS $ALL_X_LIBS"
-
-  AC_CHECK_LIB([$1], [$2], [$3], [$4], [$5])
-  CPPFLAGS="$ac_save_CPPFLAGS"
-  LDFLAGS="$ac_save_LDFLAGS"
-#  LIBS="$ac_save_LIBS"
-  ])
-
 
 # Usage: HANDLE_X_PATH_ARG([variable_name],
 #                          [--command-line-option],
@@ -341,66 +261,6 @@ AC_DEFUN([HANDLE_X_PATH_ARG], [
      ;;
    esac
   ])
-
-dnl ---------------------------------------------------------------------------
-dnl - Check for the XF86VMODE server extension (for gamma fading.)
-dnl ---------------------------------------------------------------------------
-
-have_xf86vmode=no
-have_xf86gamma=no
-have_xf86gamma_ramp=no
-with_xf86gamma_req=unspecified
-AC_ARG_WITH(xf86gamma-ext,
-[  --with-xf86gamma-ext    Include support for XFree86 gamma fading.],
-  [with_xf86gamma="$withval"; with_xf86gamma_req="$withval"],
-  [with_xf86gamma=yes])
-
-HANDLE_X_PATH_ARG(with_xf86gamma, --with-xf86gamma-ext, xf86gamma)
-
-if test "$with_xf86gamma" = yes; then
-
-  # first check for xf86vmode.h, if we haven't already
-  if test "$have_xf86vmode" = yes; then
-    have_xf86gamma=yes
-  else
-    AC_CHECK_X_HEADER(X11/extensions/xf86vmode.h, [have_xf86gamma=yes],,
-                      [#include <X11/Xlib.h>])
-  fi
-
-  # if that succeeded, then check for the -lXxf86vm
-  if test "$have_xf86gamma" = yes; then
-    have_xf86gamma=no
-    AC_CHECK_X_LIB(Xxf86vm, XF86VidModeSetGamma,
-                  [have_xf86gamma=yes],
-                   [true], -lXext -lX11)
-  fi
-
-  # check for the Ramp versions of the functions too.
-  if test "$have_xf86gamma" = yes; then
-    have_xf86gamma_ramp=no
-    AC_CHECK_X_LIB(Xxf86vm, XF86VidModeSetGammaRamp,
-                  [have_xf86gamma_ramp=yes],
-                   [true], -lXext -lX11)
-  fi
-
-  # if those tests succeeded, then we've really got the functions.
-  if test "$have_xf86gamma" = yes; then
-    AC_DEFINE(HAVE_XF86VMODE_GAMMA, 1, [Define if XF86VMODE Gamma is available])
-  fi
-
-  if test "$have_xf86gamma_ramp" = yes; then
-    AC_DEFINE(HAVE_XF86VMODE_GAMMA_RAMP, 1, [Define if XF86VMODE Gamma Ramp is available])
-  fi
-
-  # pull in the lib, if we haven't already
-  if test "$have_xf86gamma" = yes -a "$have_xf86vmode" = no; then
-    SAVER_LIBS="$SAVER_LIBS -lXxf86vm"
-  fi
-
-elif test "$with_xf86gamma" != no; then
-  echo "error: must be yes or no: --with-xf86gamma-ext=$with_xf86vmode"
-  exit 1
-fi
 
 dnl ---------------------------------------------------------------------------
 dnl - The --enable-locking option
