@@ -33,9 +33,7 @@
 #include <gtk/gtk.h>
 #include <gtk/gtkx.h>
 
-#ifdef HAVE_SHAPE_EXT
 #include <X11/extensions/shape.h>
-#endif
 
 #include "gs-debug.h"
 #include "gs-marshal.h"
@@ -104,9 +102,7 @@ struct GSWindowPrivate {
 
     GTimer          *timer;
 
-#ifdef HAVE_SHAPE_EXT
     int              shape_event_base;
-#endif
 };
 
 enum {
@@ -466,7 +462,6 @@ x11_window_is_ours (Window window) {
     return ret;
 }
 
-#ifdef HAVE_SHAPE_EXT
 static void
 unshape_window (GSWindow *window) {
     gdk_window_shape_combine_region (gtk_widget_get_window (GTK_WIDGET (window)),
@@ -474,7 +469,6 @@ unshape_window (GSWindow *window) {
                                      0,
                                      0);
 }
-#endif
 
 static void
 gs_window_xevent (GSWindow  *window,
@@ -512,13 +506,11 @@ gs_window_xevent (GSWindow  *window,
         }
         default:
             /* extension events */
-#ifdef HAVE_SHAPE_EXT
             if (ev->xany.type == (window->priv->shape_event_base + ShapeNotify)) {
                 /*XShapeEvent *xse = (XShapeEvent *) ev;*/
                 unshape_window (window);
                 gs_debug ("Window was reshaped!");
             }
-#endif
 
             break;
     }
@@ -554,7 +546,6 @@ select_popup_events (void) {
 
 static void
 window_select_shape_events (GSWindow *window) {
-#ifdef HAVE_SHAPE_EXT
     int            shape_error_base;
     GdkDisplay    *display;
 
@@ -570,7 +561,6 @@ window_select_shape_events (GSWindow *window) {
     }
 
     gdk_x11_display_error_trap_pop_ignored (display);
-#endif
 }
 
 static gboolean
