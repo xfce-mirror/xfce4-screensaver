@@ -4,11 +4,9 @@ AM_CPPFLAGS = \
 	-I.                                      \
 	-I$(srcdir)                              \
 	$(XFCE_SCREENSAVER_SAVER_CFLAGS)         \
-	$(DISABLE_DEPRECATED_CFLAGS)             \
 	-DLIBEXECDIR=\""$(libexecdir)"\"         \
 	-DXFCELOCALEDIR=\""$(datadir)/locale"\"  \
 	-DDATADIR=\""$(datadir)"\"               \
-	$(WARN_CFLAGS)                           \
 	$(NULL)
 
 DESKTOP_IN_IN_FILES = \
