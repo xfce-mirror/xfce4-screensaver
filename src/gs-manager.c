@@ -1060,7 +1060,6 @@ show_windows (GHashTable *windows) {
 
 static gboolean
 gs_manager_activate (GSManager *manager) {
-    GSList     *windows;
     gboolean    res;
 
     g_return_val_if_fail (manager != NULL, FALSE);
@@ -1080,11 +1079,7 @@ gs_manager_activate (GSManager *manager) {
 
     manager->priv->active = TRUE;
 
-    windows = add_overlays (manager);
-
     show_windows (manager->priv->windows);
-
-    g_timeout_add_seconds (2, remove_overlays, windows);
 
     return TRUE;
 }
