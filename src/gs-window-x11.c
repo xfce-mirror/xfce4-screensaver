@@ -81,6 +81,7 @@ struct GSWindowPrivate {
     GtkWidget       *info_content;
 
     guint            popup_dialog_idle_id;
+    guint            deactivated_idle_id;
 
     guint            dialog_map_signal_id;
     guint            dialog_unmap_signal_id;
@@ -426,13 +427,17 @@ emit_deactivated_idle (gpointer user_data) {
     GSWindow *window = user_data;
 
     g_signal_emit (window, signals[DEACTIVATED], 0);
+    window->priv->deactivated_idle_id = 0;
 
     return FALSE;
 }
 
 static void
 add_emit_deactivated_idle (GSWindow *window) {
-    g_idle_add (emit_deactivated_idle, window);
+    if (window->priv->deactivated_idle_id > 0) {
+        g_source_remove (window->priv->deactivated_idle_id);
+    }
+    window->priv->deactivated_idle_id = g_idle_add (emit_deactivated_idle, window);
 }
 
 static void
@@ -1998,6 +2003,10 @@ gs_window_finalize (GObject *object) {
 
     remove_watchdog_timer (window);
     remove_popup_dialog_idle (window);
+    if (window->priv->deactivated_idle_id > 0) {
+        g_source_remove (window->priv->deactivated_idle_id);
+        window->priv->deactivated_idle_id = 0;
+    }
 
     if (window->priv->timer) {
         g_timer_destroy (window->priv->timer);
