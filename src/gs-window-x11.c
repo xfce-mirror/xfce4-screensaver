@@ -1523,6 +1523,7 @@ gs_window_set_monitor (GSWindow   *window,
     }
 
     window->priv->monitor = monitor;
+    g_object_add_weak_pointer (G_OBJECT (monitor), (gpointer *) &window->priv->monitor);
 
     gtk_widget_queue_resize (GTK_WIDGET (window));
     gtk_widget_get_preferred_width (GTK_WIDGET (window), &tmp, &tmp);
@@ -1723,7 +1724,7 @@ gs_window_real_size_request (GtkWidget      *widget,
     child = gtk_bin_get_child (bin);
 
     // monitor been removed, but we will return it later on
-    if (!GDK_IS_MONITOR (window->priv->monitor))
+    if (window->priv->monitor == NULL)
         return;
 
     if (child && gtk_widget_get_visible (child)) {
@@ -2006,6 +2007,9 @@ gs_window_finalize (GObject *object) {
     if (window->priv->deactivated_idle_id > 0) {
         g_source_remove (window->priv->deactivated_idle_id);
         window->priv->deactivated_idle_id = 0;
+    }
+    if (window->priv->monitor != NULL) {
+        g_object_remove_weak_pointer (G_OBJECT (window->priv->monitor), (gpointer *) &window->priv->monitor);
     }
 
     if (window->priv->timer) {

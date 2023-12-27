@@ -987,7 +987,7 @@ add_overlays (GSManager *manager) {
         this_monitor = gs_window_get_monitor (GS_WINDOW (l->data));
 
         // Display an overlay to protect each window as we redraw everything
-        if (GDK_IS_MONITOR (this_monitor)) {
+        if (this_monitor != NULL) {
             window = gtk_window_new (GTK_WINDOW_POPUP);
             gdk_monitor_get_geometry (this_monitor, &rect);
             gtk_window_move (GTK_WINDOW (window), rect.x, rect.y);
