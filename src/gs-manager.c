@@ -43,7 +43,7 @@ static void     add_dpms_timer        (GSManager      *manager,
                                        glong           timeout);
 
 struct GSManagerPrivate {
-    GSList         *windows;
+    GHashTable     *windows;
     GHashTable     *jobs;
 
     /* Policy */
@@ -87,23 +87,6 @@ G_DEFINE_TYPE_WITH_PRIVATE (GSManager, gs_manager, G_TYPE_OBJECT)
 
 static void         remove_deepsleep_idle   (GSManager *manager);
 static void         add_deepsleep_idle      (GSManager *manager);
-static void
-gs_manager_create_windows_for_display       (GSManager  *manager,
-                                             GdkDisplay *display);
-
-static gint
-manager_get_monitor_index (GdkMonitor *this_monitor) {
-    GdkDisplay *display = gdk_monitor_get_display (this_monitor);
-    gint n_monitors = gdk_display_get_n_monitors (display);
-
-    for (gint idx = 0; idx < n_monitors; idx++) {
-        GdkMonitor *monitor = gdk_display_get_monitor (display, idx);
-        if (monitor == this_monitor)
-            return idx;
-    }
-
-    return -1;
-}
 
 static void
 manager_add_job_for_window (GSManager *manager,
@@ -255,15 +238,16 @@ gs_manager_set_throttled (GSManager *manager,
     g_return_if_fail (GS_IS_MANAGER (manager));
 
     if (manager->priv->throttled != throttled) {
-        GSList *l;
-
         manager->priv->throttled = throttled;
 
         if (!manager->priv->dialog_up) {
-            manager_throttle_jobs (manager);
+            GHashTableIter iter;
+            gpointer window;
 
-            for (l = manager->priv->windows; l; l = l->next) {
-                gs_window_clear (l->data);
+            manager_throttle_jobs (manager);
+            g_hash_table_iter_init (&iter, manager->priv->windows);
+            while (g_hash_table_iter_next (&iter, NULL, &window)) {
+                gs_window_clear (window);
             }
         }
     }
@@ -272,18 +256,19 @@ gs_manager_set_throttled (GSManager *manager,
 void
 gs_manager_enable_locker (GSManager *manager,
                           gboolean   lock_active) {
-    GSList *l;
+    GHashTableIter iter;
+    gpointer window;
 
     g_return_if_fail (GS_IS_MANAGER (manager));
-
 
     if (manager->priv->lock_active != lock_active) {
         manager->priv->lock_active = lock_active;
     }
 
-    for (l = manager->priv->windows; l; l = l->next) {
+    g_hash_table_iter_init (&iter, manager->priv->windows);
+    while (g_hash_table_iter_next (&iter, NULL, &window)) {
         gs_debug ("Setting lock active: %d", lock_active);
-        gs_window_set_lock_active(l->data, lock_active);
+        gs_window_set_lock_active (window, lock_active);
     }
 }
 
@@ -323,16 +308,17 @@ add_lock_timer (GSManager *manager,
 void
 gs_manager_set_status_message (GSManager  *manager,
                                const char *message) {
-    GSList *l;
+    GHashTableIter iter;
+    gpointer window;
 
     g_return_if_fail (GS_IS_MANAGER (manager));
 
     g_free (manager->priv->status_message);
-
     manager->priv->status_message = g_strdup (message);
 
-    for (l = manager->priv->windows; l; l = l->next) {
-        gs_window_set_status_message (l->data, manager->priv->status_message);
+    g_hash_table_iter_init (&iter, manager->priv->windows);
+    while (g_hash_table_iter_next (&iter, NULL, &window)) {
+        gs_window_set_status_message (window, manager->priv->status_message);
     }
 }
 
@@ -511,8 +497,9 @@ gs_manager_init (GSManager *manager) {
     manager->priv = gs_manager_get_instance_private (manager);
 
     manager->priv->grab = gs_grab_new ();
-
     manager->priv->prefs = gs_prefs_new();
+    manager->priv->windows = g_hash_table_new_full (g_direct_hash, g_direct_equal,
+                                                    NULL, (GDestroyNotify) gs_window_destroy);
 
     add_deepsleep_idle(manager);
 }
@@ -600,7 +587,7 @@ find_window_at_pointer (GSManager *manager) {
     GdkDevice  *device;
     GdkMonitor *monitor;
     int         x, y;
-    GSList     *window = NULL;
+    GSWindow   *window;
 
     display = gdk_display_get_default ();
 
@@ -609,27 +596,17 @@ find_window_at_pointer (GSManager *manager) {
     monitor = gdk_display_get_monitor_at_point (display, x, y);
 
     /* Find the gs-window that is on that monitor */
-    window = g_slist_nth (manager->priv->windows, manager_get_monitor_index (monitor));
+    window = g_hash_table_lookup (manager->priv->windows, monitor);
 
     if (window == NULL) {
         gs_debug ("WARNING: Could not find the GSWindow for display %s",
                   gdk_display_get_name (display));
-
-        /* bail if there are no windows available */
-        if (manager->priv->windows == NULL)
-            return NULL;
-
-        /* take the first one */
-        window = manager->priv->windows->data;
-        if (window->data == NULL || !GS_IS_WINDOW (GS_WINDOW (window->data))) {
-            return NULL;
-        }
     } else {
         gs_debug ("Requesting unlock for display %s",
                   gdk_display_get_name (display));
     }
 
-    return GS_WINDOW (window->data);
+    return window;
 }
 
 void
@@ -810,7 +787,8 @@ window_obscured_cb (GSWindow   *window,
 static void
 handle_window_dialog_up (GSManager *manager,
                          GSWindow  *window) {
-    GSList *l;
+    GHashTableIter iter;
+    gpointer pwindow;
 
     g_return_if_fail (manager != NULL);
     g_return_if_fail (GS_IS_MANAGER (manager));
@@ -821,9 +799,10 @@ handle_window_dialog_up (GSManager *manager,
 
     manager->priv->dialog_up = TRUE;
     /* make all other windows insensitive to not get events */
-    for (l = manager->priv->windows; l; l = l->next) {
-        if (l->data != window) {
-            gtk_widget_set_sensitive (GTK_WIDGET (l->data), FALSE);
+    g_hash_table_iter_init (&iter, manager->priv->windows);
+    while (g_hash_table_iter_next (&iter, NULL, &pwindow)) {
+        if (pwindow != window) {
+            gtk_widget_set_sensitive (GTK_WIDGET (pwindow), FALSE);
         }
     }
 
@@ -848,7 +827,8 @@ handle_window_dialog_up (GSManager *manager,
 static void
 handle_window_dialog_down (GSManager *manager,
                            GSWindow  *window) {
-    GSList *l;
+    GHashTableIter iter;
+    gpointer pwindow;
 
     g_return_if_fail (manager != NULL);
     g_return_if_fail (GS_IS_MANAGER (manager));
@@ -862,8 +842,9 @@ handle_window_dialog_down (GSManager *manager,
                             FALSE, FALSE);
 
     /* make all windows sensitive to get events */
-    for (l = manager->priv->windows; l; l = l->next) {
-        gtk_widget_set_sensitive (GTK_WIDGET (l->data), TRUE);
+    g_hash_table_iter_init (&iter, manager->priv->windows);
+    while (g_hash_table_iter_next (&iter, NULL, &pwindow)) {
+        gtk_widget_set_sensitive (GTK_WIDGET (pwindow), TRUE);
     }
 
     manager->priv->dialog_up = FALSE;
@@ -948,22 +929,17 @@ gs_manager_create_window_for_monitor (GSManager  *manager,
     GSWindow    *window;
     GdkRectangle rect;
 
-    if (g_slist_nth (manager->priv->windows, manager_get_monitor_index(monitor))) {
-        gs_debug ("Found already created window for Monitor %d", manager_get_monitor_index(monitor));
-        return;
-    }
-
     gdk_monitor_get_geometry (monitor, &rect);
 
-    gs_debug ("Creating a Window [%d,%d] (%dx%d) for monitor %d",
-              rect.x, rect.y, rect.width, rect.height, manager_get_monitor_index (monitor));
+    gs_debug ("Creating a Window [%d,%d] (%dx%d) for monitor %s",
+              rect.x, rect.y, rect.width, rect.height, gdk_monitor_get_model (monitor));
 
     window = gs_window_new (monitor);
     gs_window_set_status_message (window, manager->priv->status_message);
     gs_window_set_lock_active (window, manager->priv->lock_active);
     connect_window_signals (manager, window);
 
-    manager->priv->windows = g_slist_insert (manager->priv->windows, window, manager_get_monitor_index(monitor));
+    g_hash_table_insert (manager->priv->windows, monitor, window);
 
     if (manager->priv->active) {
         gtk_widget_show (GTK_WIDGET (window));
@@ -972,19 +948,19 @@ gs_manager_create_window_for_monitor (GSManager  *manager,
 
 static GSList *
 add_overlays (GSManager *manager) {
-    GSList     *l;
+    GHashTableIter iter;
+    gpointer pwindow;
     GSList     *windows = NULL;
 
     gs_debug("Reconfiguring monitors, adding overlays");
 
-    l = manager->priv->windows;
-    while (l != NULL) {
+    g_hash_table_iter_init (&iter, manager->priv->windows);
+    while (g_hash_table_iter_next (&iter, NULL, &pwindow)) {
         GdkMonitor *this_monitor;
-        GSList     *next = l->next;
         GtkWidget  *window;
         GdkRectangle rect;
 
-        this_monitor = gs_window_get_monitor (GS_WINDOW (l->data));
+        this_monitor = gs_window_get_monitor (GS_WINDOW (pwindow));
 
         // Display an overlay to protect each window as we redraw everything
         if (this_monitor != NULL) {
@@ -995,8 +971,6 @@ add_overlays (GSManager *manager) {
             gtk_widget_show (GTK_WIDGET (window));
             windows = g_slist_append (windows, window);
         }
-
-        l = next;
     }
 
     return windows;
@@ -1014,25 +988,19 @@ remove_overlays (gpointer user_data) {
 static void
 reconfigure_monitors (GdkDisplay *display,
                       GSManager  *manager) {
-    GSList     *l;
+    gint n_monitors = gdk_display_get_n_monitors (display);
     GSList     *windows;
 
     windows = add_overlays (manager);
 
     /* Remove lost windows */
-    l = manager->priv->windows;
-    while (l != NULL) {
-        GSList     *next = l->next;
+    g_hash_table_remove_all (manager->priv->jobs);
+    g_hash_table_remove_all (manager->priv->windows);
 
-        manager_maybe_stop_job_for_window (manager, GS_WINDOW (l->data));
-        g_hash_table_remove (manager->priv->jobs, l->data);
-        gs_window_destroy (GS_WINDOW (l->data));
-        manager->priv->windows = g_slist_delete_link (manager->priv->windows, l);
-
-        l = next;
+    for (gint n = 0; n < n_monitors; n++) {
+        GdkMonitor *monitor = gdk_display_get_monitor (display, n);
+        gs_manager_create_window_for_monitor (manager, monitor);
     }
-
-    gs_manager_create_windows_for_display (manager, display);
 
     gs_manager_request_unlock (manager);
 
@@ -1044,7 +1012,7 @@ on_display_monitor_added (GdkDisplay *display,
                           GdkMonitor *monitor,
                           GSManager  *manager) {
     gs_debug ("Monitor %s added on display %s, now there are %d",
-              gdk_monitor_get_model(monitor), gdk_display_get_name (display), gdk_display_get_n_monitors (display));
+              gdk_monitor_get_model (monitor), gdk_display_get_name (display), gdk_display_get_n_monitors (display));
 
     reconfigure_monitors (display, manager);
 }
@@ -1053,25 +1021,17 @@ static void
 on_display_monitor_removed (GdkDisplay *display,
                             GdkMonitor *monitor,
                             GSManager  *manager) {
-    gs_debug ("Monitor %p removed on display %s, now there are %d",
-              monitor, gdk_display_get_name (display), gdk_display_get_n_monitors (display));
+    gs_debug ("Monitor %s removed on display %s, now there are %d",
+              gdk_monitor_get_model (monitor), gdk_display_get_name (display), gdk_display_get_n_monitors (display));
 
     reconfigure_monitors (display, manager);
 }
 
 static void
 gs_manager_destroy_windows (GSManager *manager) {
-    GdkDisplay  *display;
-    GSList      *l;
+    GdkDisplay *display = gdk_display_get_default ();
 
-    g_return_if_fail (manager != NULL);
     g_return_if_fail (GS_IS_MANAGER (manager));
-
-    if (manager->priv->windows == NULL) {
-        return;
-    }
-
-    display = gdk_display_get_default ();
 
     g_signal_handlers_disconnect_by_func (display,
                                           on_display_monitor_removed,
@@ -1080,11 +1040,7 @@ gs_manager_destroy_windows (GSManager *manager) {
                                           on_display_monitor_added,
                                           manager);
 
-    for (l = manager->priv->windows; l; l = l->next) {
-        gs_window_destroy (l->data);
-    }
-    g_slist_free (manager->priv->windows);
-    manager->priv->windows = NULL;
+    g_hash_table_remove_all (manager->priv->windows);
 }
 
 static void
@@ -1100,12 +1056,10 @@ gs_manager_finalize (GObject *object) {
 
     remove_deepsleep_idle (manager);
     remove_timers(manager);
-
     gs_grab_release (manager->priv->grab, TRUE);
-
     manager_stop_jobs (manager);
-
     gs_manager_destroy_windows (manager);
+    g_hash_table_destroy (manager->priv->windows);
 
     manager->priv->active = FALSE;
 
@@ -1116,42 +1070,12 @@ gs_manager_finalize (GObject *object) {
 }
 
 static void
-gs_manager_create_windows_for_display (GSManager  *manager,
-                                       GdkDisplay *display) {
-    int n_monitors;
-    int i;
-
-    g_return_if_fail (manager != NULL);
-    g_return_if_fail (GS_IS_MANAGER (manager));
-    g_return_if_fail (GDK_IS_DISPLAY (display));
-
-    g_object_ref (manager);
-    g_object_ref (display);
-
-    n_monitors = gdk_display_get_n_monitors (display);
-
-    gs_debug ("Creating %d windows for display %s",
-              n_monitors, gdk_display_get_name (display));
-
-    for (i = 0; i < n_monitors; i++) {
-        GdkMonitor *mon = gdk_display_get_monitor (display, i);
-        gs_manager_create_window_for_monitor (manager, mon);
-    }
-
-    g_object_unref (display);
-    g_object_unref (manager);
-}
-
-static void
 gs_manager_create_windows (GSManager *manager) {
-    GdkDisplay  *display;
+    GdkDisplay *display = gdk_display_get_default ();
+    gint n_monitors = gdk_display_get_n_monitors (display);
 
-    g_return_if_fail (manager != NULL);
     g_return_if_fail (GS_IS_MANAGER (manager));
 
-    g_assert (manager->priv->windows == NULL);
-
-    display = gdk_display_get_default ();
     g_signal_connect (display, "monitor-added",
                       G_CALLBACK (on_display_monitor_added),
                       manager);
@@ -1159,7 +1083,10 @@ gs_manager_create_windows (GSManager *manager) {
                       G_CALLBACK (on_display_monitor_removed),
                       manager);
 
-    gs_manager_create_windows_for_display (manager, display);
+    for (gint n = 0; n < n_monitors; n++) {
+        GdkMonitor *monitor = gdk_display_get_monitor (display, n);
+        gs_manager_create_window_for_monitor (manager, monitor);
+    }
 }
 
 GSManager *
@@ -1175,11 +1102,13 @@ gs_manager_new (void) {
 }
 
 static void
-show_windows (GSList *windows) {
-    GSList *l;
+show_windows (GHashTable *windows) {
+    GHashTableIter iter;
+    gpointer window;
 
-    for (l = windows; l; l = l->next) {
-        gtk_widget_show (GTK_WIDGET (l->data));
+    g_hash_table_iter_init (&iter, windows);
+    while (g_hash_table_iter_next (&iter, NULL, &window)) {
+        gtk_widget_show (GTK_WIDGET (window));
     }
 }
 
@@ -1211,9 +1140,7 @@ gs_manager_activate (GSManager *manager) {
         return FALSE;
     }
 
-    if (manager->priv->windows == NULL) {
-        gs_manager_create_windows (GS_MANAGER (manager));
-    }
+    gs_manager_create_windows (GS_MANAGER (manager));
 
     manager->priv->jobs = g_hash_table_new_full (g_direct_hash,
                                                  g_direct_equal,
@@ -1284,7 +1211,7 @@ gs_manager_request_unlock (GSManager *manager) {
         return FALSE;
     }
 
-    if (manager->priv->windows == NULL) {
+    if (g_hash_table_size (manager->priv->windows) == 0) {
         gs_debug ("Request unlock but we don't have any windows!");
         return FALSE;
     }
