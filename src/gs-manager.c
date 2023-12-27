@@ -89,36 +89,11 @@ static void         remove_deepsleep_idle   (GSManager *manager);
 static void         add_deepsleep_idle      (GSManager *manager);
 
 static void
-manager_add_job_for_window (GSManager *manager,
-                            GSWindow  *window,
-                            GSJob     *job) {
-    if (manager->priv->jobs == NULL) {
-        return;
-    }
-
-    g_hash_table_insert (manager->priv->jobs, window, job);
-}
-
-static GSJob *
-lookup_job_for_window (GSManager *manager,
-                       GSWindow  *window) {
-    GSJob *job;
-
-    if (manager->priv->jobs == NULL) {
-        return NULL;
-    }
-
-    job = g_hash_table_lookup (manager->priv->jobs, window);
-
-    return job;
-}
-
-static void
 manager_maybe_stop_job_for_window (GSManager *manager,
                                    GSWindow  *window) {
     GSJob *job;
 
-    job = lookup_job_for_window (manager, window);
+    job = g_hash_table_lookup (manager->priv->jobs, window);
 
     if (job == NULL) {
         gs_debug ("Job not found for window");
@@ -133,7 +108,7 @@ manager_maybe_start_job_for_window (GSManager *manager,
                                     GSWindow  *window) {
     GSJob *job;
 
-    job = lookup_job_for_window (manager, window);
+    job = g_hash_table_lookup (manager->priv->jobs, window);
 
     if (job == NULL) {
         gs_debug ("Job not found for window");
@@ -168,13 +143,6 @@ cycle_job (GSWindow  *window,
 }
 
 static void
-manager_cycle_jobs (GSManager *manager) {
-    if (manager->priv->jobs != NULL) {
-        g_hash_table_foreach (manager->priv->jobs, (GHFunc) cycle_job, manager);
-    }
-}
-
-static void
 throttle_job (GSWindow  *window,
               GSJob     *job,
               GSManager *manager) {
@@ -182,13 +150,6 @@ throttle_job (GSWindow  *window,
         gs_job_stop (job);
     } else {
         manager_maybe_start_job_for_window (manager, window);
-    }
-}
-
-static void
-manager_throttle_jobs (GSManager *manager) {
-    if (manager->priv->jobs != NULL) {
-        g_hash_table_foreach (manager->priv->jobs, (GHFunc) throttle_job, manager);
     }
 }
 
@@ -204,13 +165,6 @@ resume_job (GSWindow  *window,
 }
 
 static void
-manager_resume_jobs (GSManager *manager) {
-    if (manager->priv->jobs != NULL) {
-        g_hash_table_foreach (manager->priv->jobs, (GHFunc) resume_job, manager);
-    }
-}
-
-static void
 suspend_job (GSWindow  *window,
              GSJob     *job,
              GSManager *manager) {
@@ -218,18 +172,9 @@ suspend_job (GSWindow  *window,
 }
 
 static void
-manager_suspend_jobs (GSManager *manager) {
-    if (manager->priv->jobs != NULL) {
-        g_hash_table_foreach (manager->priv->jobs, (GHFunc) suspend_job, manager);
-    }
-}
-
-static void
-manager_stop_jobs (GSManager *manager) {
-    if (manager->priv->jobs != NULL) {
-        g_hash_table_destroy (manager->priv->jobs);
-    }
-    manager->priv->jobs = NULL;
+remove_job (GSJob *job) {
+    gs_job_stop (job);
+    g_object_unref (job);
 }
 
 void
@@ -244,7 +189,7 @@ gs_manager_set_throttled (GSManager *manager,
             GHashTableIter iter;
             gpointer window;
 
-            manager_throttle_jobs (manager);
+            g_hash_table_foreach (manager->priv->jobs, (GHFunc) throttle_job, manager);
             g_hash_table_iter_init (&iter, manager->priv->windows);
             while (g_hash_table_iter_next (&iter, NULL, &window)) {
                 gs_window_clear (window);
@@ -337,7 +282,7 @@ gs_manager_cycle (GSManager *manager) {
         return FALSE;
     }
     gs_debug ("Cycling jobs");
-    manager_cycle_jobs (manager);
+    g_hash_table_foreach (manager->priv->jobs, (GHFunc) cycle_job, manager);
 
     return TRUE;
 }
@@ -498,6 +443,8 @@ gs_manager_init (GSManager *manager) {
 
     manager->priv->grab = gs_grab_new ();
     manager->priv->prefs = gs_prefs_new();
+    manager->priv->jobs = g_hash_table_new_full (g_direct_hash, g_direct_equal,
+                                                 NULL, (GDestroyNotify) remove_job);
     manager->priv->windows = g_hash_table_new_full (g_direct_hash, g_direct_equal,
                                                     NULL, (GDestroyNotify) gs_window_destroy);
 
@@ -710,7 +657,7 @@ deepsleep_idle (gpointer user_data) {
     } else if (!manager->priv->throttled && !manager->priv->deepsleep) {
         gs_debug ("Entering deep sleep, suspending jobs");
         manager->priv->deepsleep = TRUE;
-        manager_suspend_jobs (manager);
+        g_hash_table_foreach (manager->priv->jobs, (GHFunc) suspend_job, manager);
     }
 
     return TRUE;
@@ -739,7 +686,7 @@ manager_show_window (GSManager *manager,
 
     job = gs_job_new_for_widget (gs_window_get_drawing_area (window));
 
-    manager_add_job_for_window (manager, window, job);
+    g_hash_table_insert (manager->priv->jobs, window, job);
 
     remove_lock_timer (manager);
     add_lock_timer (manager, manager->priv->prefs->lock_timeout);
@@ -817,8 +764,7 @@ handle_window_dialog_up (GSManager *manager,
 
     if (!manager->priv->throttled) {
         gs_debug ("Suspending jobs");
-
-        manager_suspend_jobs (manager);
+        g_hash_table_foreach (manager->priv->jobs, (GHFunc) suspend_job, manager);
     }
 
     remove_dpms_timer (manager);
@@ -850,7 +796,7 @@ handle_window_dialog_down (GSManager *manager,
     manager->priv->dialog_up = FALSE;
 
     if (!manager->priv->throttled) {
-        manager_resume_jobs (manager);
+        g_hash_table_foreach (manager->priv->jobs, (GHFunc) resume_job, manager);
     }
 
     remove_dpms_timer (manager);
@@ -1057,7 +1003,7 @@ gs_manager_finalize (GObject *object) {
     remove_deepsleep_idle (manager);
     remove_timers(manager);
     gs_grab_release (manager->priv->grab, TRUE);
-    manager_stop_jobs (manager);
+    g_hash_table_destroy (manager->priv->jobs);
     gs_manager_destroy_windows (manager);
     g_hash_table_destroy (manager->priv->windows);
 
@@ -1112,16 +1058,6 @@ show_windows (GHashTable *windows) {
     }
 }
 
-static void
-remove_job (GSJob *job) {
-    if (job == NULL) {
-        return;
-    }
-
-    gs_job_stop (job);
-    g_object_unref (job);
-}
-
 static gboolean
 gs_manager_activate (GSManager *manager) {
     GSList     *windows;
@@ -1141,11 +1077,6 @@ gs_manager_activate (GSManager *manager) {
     }
 
     gs_manager_create_windows (GS_MANAGER (manager));
-
-    manager->priv->jobs = g_hash_table_new_full (g_direct_hash,
-                                                 g_direct_equal,
-                                                 NULL,
-                                                 (GDestroyNotify)remove_job);
 
     manager->priv->active = TRUE;
 
@@ -1169,11 +1100,8 @@ gs_manager_deactivate (GSManager *manager) {
     }
 
     remove_timers (manager);
-
     gs_grab_release (manager->priv->grab, TRUE);
-
-    manager_stop_jobs (manager);
-
+    g_hash_table_remove_all (manager->priv->jobs);
     gs_manager_destroy_windows (manager);
 
     /* reset state */
