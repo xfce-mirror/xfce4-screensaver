@@ -137,14 +137,6 @@ manager_maybe_start_job_for_window (GSManager *manager,
 }
 
 static void
-cycle_job (GSWindow  *window,
-           GSJob     *job,
-           GSManager *manager) {
-    gs_job_stop (job);
-    manager_maybe_start_job_for_window (manager, window);
-}
-
-static void
 throttle_job (GSWindow  *window,
               GSJob     *job,
               GSManager *manager) {
@@ -271,6 +263,9 @@ gs_manager_set_status_message (GSManager  *manager,
 
 gboolean
 gs_manager_cycle (GSManager *manager) {
+    GHashTableIter iter;
+    gpointer window;
+
     g_return_val_if_fail (manager != NULL, FALSE);
     g_return_val_if_fail (GS_IS_MANAGER (manager), FALSE);
 
@@ -284,7 +279,12 @@ gs_manager_cycle (GSManager *manager) {
         return FALSE;
     }
     gs_debug ("Cycling jobs");
-    g_hash_table_foreach (manager->priv->jobs, (GHFunc) cycle_job, manager);
+    g_hash_table_iter_init (&iter, manager->priv->jobs);
+    while (g_hash_table_iter_next (&iter, &window, NULL)) {
+        GSJob *job = gs_job_new_for_widget (gs_window_get_drawing_area (window));
+        g_hash_table_iter_replace (&iter, job);
+        manager_maybe_start_job_for_window (manager, window);
+    }
 
     return TRUE;
 }
@@ -693,7 +693,7 @@ manager_show_window (GSManager *manager,
     remove_lock_timer (manager);
     add_lock_timer (manager, manager->priv->prefs->lock_timeout);
 
-    if (manager->priv->prefs->cycle >= 10) {
+    if (manager->priv->prefs->mode == GS_MODE_RANDOM) {
         remove_cycle_timer (manager);
         add_cycle_timer (manager, manager->priv->prefs->cycle);
     }
