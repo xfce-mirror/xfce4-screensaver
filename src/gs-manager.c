@@ -1110,6 +1110,7 @@ gs_manager_finalize (GObject *object) {
     manager->priv->active = FALSE;
 
     g_object_unref (manager->priv->grab);
+    g_object_unref (manager->priv->prefs);
 
     G_OBJECT_CLASS (gs_manager_parent_class)->finalize (object);
 }
