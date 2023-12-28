@@ -1527,7 +1527,9 @@ key_changed_cb (XfconfChannel *channel, const gchar *key, gpointer data) {
     } else if (strcmp (key, KEY_THEMES) == 0) {
         GtkWidget *treeview;
         treeview = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_treeview"));
-        setup_treeview_selection (treeview);
+        if (gtk_tree_view_get_model (GTK_TREE_VIEW (treeview)) != NULL) {
+            setup_treeview_selection (treeview);
+        }
     } else if (g_str_has_suffix (key, "arguments")) {
         GtkWidget *treeview;
         treeview = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_treeview"));
