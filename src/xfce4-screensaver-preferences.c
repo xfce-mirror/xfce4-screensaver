@@ -1919,7 +1919,7 @@ configure_capplet (void) {
     delay = config_get_cycle_delay (&is_writable);
     ui_set_cycle_delay (delay);
     set_widget_writable (widget, is_writable);
-    g_signal_connect (widget, "changed",
+    g_signal_connect (widget, "value-changed",
                       G_CALLBACK (cycle_delay_value_changed_cb), NULL);
 
     /* Keyboard enabled */
