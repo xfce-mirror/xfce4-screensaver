@@ -1219,6 +1219,10 @@ popdown_dialog (GSWindow *window) {
     gs_window_dialog_finish (window);
 
     gtk_widget_show (window->priv->drawing_area);
+    // TODO: Avoids a critical warning due to GTK bug
+    // remove this if https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/6841 get merged
+    gtk_widget_set_can_focus (window->priv->drawing_area, TRUE);
+    gtk_widget_grab_focus (window->priv->drawing_area);
 
     gs_window_clear (window);
     set_invisible_cursor (gtk_widget_get_window (GTK_WIDGET (window)), TRUE);
@@ -1950,7 +1954,7 @@ gs_window_init (GSWindow *window) {
     gtk_widget_show (window->priv->vbox);
     gtk_container_add (GTK_CONTAINER (window), window->priv->vbox);
 
-    window->priv->drawing_area = gtk_drawing_area_new ();
+    window->priv->drawing_area = gtk_socket_new ();
     gtk_widget_show (window->priv->drawing_area);
     gtk_widget_set_app_paintable (window->priv->drawing_area, TRUE);
     gtk_box_pack_start (GTK_BOX (window->priv->vbox),
@@ -1958,6 +1962,10 @@ gs_window_init (GSWindow *window) {
     g_signal_connect (window->priv->drawing_area,
                       "draw",
                       G_CALLBACK (on_drawing_area_draw),
+                      NULL);
+    g_signal_connect (window->priv->drawing_area,
+                      "plug-removed",
+                      G_CALLBACK (gtk_true),
                       NULL);
     create_info_bar (window);
 }
