@@ -844,7 +844,12 @@ add_overlays (GSManager *manager) {
     g_hash_table_iter_init (&iter, manager->priv->windows);
     while (g_hash_table_iter_next (&iter, NULL, &window)) {
         g_signal_handlers_disconnect_by_func (window, remove_overlays, manager);
+        disconnect_window_signals (manager, window);
     }
+
+    /* we need to disconnect_window_signals() right now above to avoid an X11 error that looks
+     * like a bug in GtkSocket/GtkPlug, so we also need to reset this flag just in case */
+    manager->priv->dialog_up = FALSE;
 
     for (gint n = 0; n < n_monitors; n++) {
         GdkRectangle rect;
