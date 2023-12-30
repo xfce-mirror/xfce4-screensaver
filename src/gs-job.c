@@ -35,6 +35,7 @@
 #include <glib/gstdio.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
+#include <gtk/gtkx.h>
 
 #if defined(HAVE_SETPRIORITY) && defined(PRIO_PROCESS)
 #include <sys/resource.h>
@@ -76,8 +77,7 @@ widget_get_id_string (GtkWidget *widget) {
 
     g_return_val_if_fail (widget != NULL, NULL);
 
-    id = g_strdup_printf ("0x%X",
-                          (guint32)GDK_WINDOW_XID (gtk_widget_get_window (widget)));
+    id = g_strdup_printf ("0x%lX", gtk_socket_get_id (GTK_SOCKET (widget)));
     return id;
 }
 
