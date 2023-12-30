@@ -59,8 +59,6 @@ libgs_theme_engine_a_CFLAGS = \
 
 libgs_theme_engine_a_SOURCES = \
 	$(BUILT_SOURCES)   \
-	gs-theme-window.h  \
-	gs-theme-window.c  \
 	gs-theme-engine.c  \
 	gs-theme-engine.h  \
 	$(NULL)
