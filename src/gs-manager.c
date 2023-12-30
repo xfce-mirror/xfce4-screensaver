@@ -844,6 +844,7 @@ add_overlays (GSManager *manager) {
     g_hash_table_iter_init (&iter, manager->priv->windows);
     while (g_hash_table_iter_next (&iter, NULL, &window)) {
         g_signal_handlers_disconnect_by_func (window, remove_overlays, manager);
+        disconnect_window_signals (manager, window);
     }
 
     for (gint n = 0; n < n_monitors; n++) {
