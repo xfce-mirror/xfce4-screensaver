@@ -1962,6 +1962,9 @@ configure_capplet (void) {
     g_signal_connect (fullscreen_preview_area,
                       "draw", G_CALLBACK (preview_on_draw),
                       NULL);
+    g_signal_connect (fullscreen_preview_area,
+                      "plug-removed", G_CALLBACK (gtk_true),
+                      NULL);
 
     /* Update list of themes if using random screensaver */
     mode = xfconf_channel_get_int (screensaver_channel, KEY_MODE, DEFAULT_KEY_MODE);
@@ -1973,6 +1976,7 @@ configure_capplet (void) {
     }
 
     g_signal_connect (preview, "draw", G_CALLBACK (preview_on_draw), NULL);
+    g_signal_connect (preview, "plug-removed", G_CALLBACK (gtk_true), NULL);
     gs_job_set_widget (job, preview);
 
     setup_for_lid_switch ();
