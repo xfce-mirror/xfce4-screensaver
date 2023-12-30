@@ -28,11 +28,10 @@
 
 #include <glib.h>
 #include <glib/gstdio.h>
-#include <gtk/gtk.h>
+#include <gtk/gtkx.h>
 
 #include <libxfce4util/libxfce4util.h>
 
-#include "gs-theme-window.h"
 #include "gs-theme-engine.h"
 #include "gste-slideshow.h"
 #include "xdg-user-dir-lookup.h"
@@ -86,7 +85,8 @@ main (int argc, char **argv) {
 
     g_set_prgname ("slideshow");
 
-    window = gs_theme_window_new ();
+    window = gtk_plug_new (strtoul (g_getenv ("XSCREENSAVER_WINDOW"), NULL, 0));
+    gtk_widget_set_app_paintable (window, TRUE);
     g_signal_connect (G_OBJECT (window), "destroy",
                       G_CALLBACK (gtk_main_quit), NULL);
 
