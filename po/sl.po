@@ -192,7 +192,7 @@ msgstr "ni povezave z vodilom za sporočila"
 
 #: ../src/gs-listener-dbus.c:1990 ../src/gs-listener-dbus.c:2020
 msgid "screensaver already running in this session"
-msgstr "ohranjevalnih zaslona je v tej seansi že zagnan"
+msgstr "ohranjevalnik zaslona je v tej seji že zagnan"
 
 #: ../src/gs-lock-plug.c:296
 msgctxt "Date"
@@ -688,7 +688,7 @@ msgstr "Omogoči zaklepanje zaslona"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:23
 msgid "Lock Screen with Screensaver"
-msgstr "Ob zagonu ohranjevalnika zakleni zaslona"
+msgstr "Ob zagonu ohranjevalnika zakleni zaslon"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:24
 msgid "Lock the screen after the screensaver is active for:"
@@ -704,7 +704,7 @@ msgstr "Ukaz za tipkovnico na zaslonu:"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:27
 msgid "Session Status Messages"
-msgstr "Sporočila o stanju seanse"
+msgstr "Sporočila o stanju seje"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:28
 msgid "Logout"
