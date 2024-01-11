@@ -67,9 +67,7 @@ main (int argc, char **argv) {
         { NULL }
     };
 
-    bindtextdomain (GETTEXT_PACKAGE, XFCELOCALEDIR);
-    bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
-    textdomain (GETTEXT_PACKAGE);
+    xfce_textdomain (GETTEXT_PACKAGE, XFCELOCALEDIR, "UTF-8");
 
     error = NULL;
 
