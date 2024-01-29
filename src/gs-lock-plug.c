@@ -1170,7 +1170,6 @@ gs_lock_plug_enable_prompt (GSLockPlug *plug,
 
     gtk_widget_set_sensitive (plug->priv->auth_unlock_button, TRUE);
     gtk_widget_show (plug->priv->auth_unlock_button);
-    gtk_widget_grab_default (plug->priv->auth_unlock_button);
 
     gtk_label_set_text(GTK_LABEL(plug->priv->auth_prompt_label), message);
     if (g_utf8_strlen(message, -1) == 0) {
@@ -1200,13 +1199,8 @@ void
 gs_lock_plug_disable_prompt (GSLockPlug *plug) {
     g_return_if_fail (GS_IS_LOCK_PLUG (plug));
 
-    /* gtk_widget_hide (plug->priv->auth_prompt_entry); */
-    /* gtk_widget_hide (plug->priv->auth_prompt_label); */
     gtk_widget_set_sensitive (plug->priv->auth_unlock_button, FALSE);
     gtk_widget_set_sensitive (plug->priv->auth_prompt_entry, FALSE);
-    /* gtk_widget_hide (plug->priv->auth_unlock_button); */
-
-    gtk_widget_grab_default (plug->priv->auth_cancel_button);
 }
 
 void
@@ -1407,6 +1401,12 @@ expand_string_for_label (GtkWidget *label) {
     str = expand_string (template);
     gtk_label_set_label (GTK_LABEL (label), str);
     g_free (str);
+}
+
+static void
+prompt_entry_activate (GtkEntry *entry,
+                       GSLockPlug *plug) {
+    g_signal_emit_by_name (plug->priv->auth_unlock_button, "activate");
 }
 
 static void
@@ -1636,8 +1636,6 @@ gs_lock_plug_init (GSLockPlug *plug) {
         }
     }
 
-    gtk_widget_grab_default (plug->priv->auth_unlock_button);
-
     if (plug->priv->auth_username_label != NULL) {
         expand_string_for_label (plug->priv->auth_username_label);
     }
@@ -1658,7 +1656,8 @@ gs_lock_plug_init (GSLockPlug *plug) {
     /* button press handler used to inhibit popup menu */
     g_signal_connect (plug->priv->auth_prompt_entry, "button_press_event",
                       G_CALLBACK (entry_button_press), NULL);
-    gtk_entry_set_activates_default (GTK_ENTRY (plug->priv->auth_prompt_entry), TRUE);
+    g_signal_connect (plug->priv->auth_prompt_entry, "activate",
+                      G_CALLBACK (prompt_entry_activate), plug);
     gtk_entry_set_visibility (GTK_ENTRY (plug->priv->auth_prompt_entry), FALSE);
 
     g_signal_connect (plug->priv->auth_unlock_button, "clicked",

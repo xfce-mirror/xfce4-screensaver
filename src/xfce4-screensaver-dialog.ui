@@ -93,7 +93,6 @@
                         <property name="valign">center</property>
                         <property name="hexpand">True</property>
                         <property name="visibility">False</property>
-                        <property name="activates_default">True</property>
                         <property name="primary_icon_activatable">False</property>
                         <property name="secondary_icon_activatable">False</property>
                         <property name="placeholder_text" translatable="yes">Enter your password</property>
