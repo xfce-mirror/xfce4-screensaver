@@ -1453,8 +1453,10 @@ get_draw_dimensions(GSLockPlug *plug,
     gdk_monitor_get_geometry(monitor, &geometry);
     *monitor_width = geometry.width;
     *monitor_height = geometry.height;
-    *screen_width = WidthOfScreen(gdk_x11_screen_get_xscreen(screen));
-    *screen_height = HeightOfScreen(gdk_x11_screen_get_xscreen(screen));
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+    *screen_width = gdk_screen_get_width (screen);
+    *screen_height = gdk_screen_get_height (screen);
+G_GNUC_END_IGNORE_DEPRECATIONS
 }
 
 static void
