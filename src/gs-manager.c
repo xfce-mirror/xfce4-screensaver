@@ -499,30 +499,34 @@ window_deactivated_cb (GSWindow  *window,
 
 static GSWindow *
 find_window_at_pointer (GSManager *manager) {
-    GdkDisplay *display;
-    GdkDevice  *device;
-    GdkMonitor *monitor;
-    int         x, y;
-    GSWindow   *window;
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        GdkDisplay *display = gdk_display_get_default ();
+        GdkDevice *device = gdk_seat_get_pointer (gdk_display_get_default_seat (display));
+        GdkMonitor *monitor;
+        int x, y;
 
-    display = gdk_display_get_default ();
-
-    device = gdk_seat_get_pointer (gdk_display_get_default_seat (display));
-    gdk_device_get_position (device, NULL, &x, &y);
-    monitor = gdk_display_get_monitor_at_point (display, x, y);
-
-    /* Find the gs-window that is on that monitor */
-    window = g_hash_table_lookup (manager->priv->windows, monitor);
-
-    if (window == NULL) {
-        gs_debug ("WARNING: Could not find the GSWindow for display %s",
-                  gdk_display_get_name (display));
-    } else {
-        gs_debug ("Requesting unlock for display %s",
-                  gdk_display_get_name (display));
+        gdk_device_get_position (device, NULL, &x, &y);
+        monitor = gdk_display_get_monitor_at_point (display, x, y);
+        return g_hash_table_lookup (manager->priv->windows, monitor);
     }
+#endif
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+        GHashTableIter iter;
+        gpointer window;
 
-    return window;
+        g_hash_table_iter_init (&iter, manager->priv->windows);
+        while (g_hash_table_iter_next (&iter, NULL, &window)) {
+            if (gtk_window_is_active (GTK_WINDOW (window))) {
+                break;
+            }
+        }
+        return window;
+    }
+#endif
+
+    return NULL;
 }
 
 void
