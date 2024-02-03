@@ -78,6 +78,7 @@ floaters_CFLAGS = \
 	$(GLIB_CFLAGS) \
 	$(GTK_CFLAGS) \
 	$(LIBXFCE4UTIL_CFLAGS) \
+	$(LIBWLEMBED_GTK3_CFLAGS) \
 	$(NULL)
 
 floaters_LDADD = \
@@ -85,6 +86,7 @@ floaters_LDADD = \
 	$(GLIB_LIBS) \
 	$(GTK_LIBS) \
 	$(LIBXFCE4UTIL_LIBS) \
+	$(LIBWLEMBED_GTK3_LIBS) \
 	$(NULL)
 
 popsquares_SOURCES = \
@@ -97,6 +99,7 @@ popsquares_CFLAGS = \
 	$(GLIB_CFLAGS) \
 	$(GTK_CFLAGS) \
 	$(LIBXFCE4UTIL_CFLAGS) \
+	$(LIBWLEMBED_GTK3_CFLAGS) \
 	$(NULL)
 
 popsquares_LDADD = \
@@ -104,6 +107,7 @@ popsquares_LDADD = \
 	$(GLIB_LIBS) \
 	$(GTK_LIBS) \
 	$(LIBXFCE4UTIL_LIBS) \
+	$(LIBWLEMBED_GTK3_LIBS) \
 	$(NULL)
 
 slideshow_SOURCES = \
@@ -118,6 +122,7 @@ slideshow_CFLAGS = \
 	$(GLIB_CFLAGS) \
 	$(GTK_CFLAGS) \
 	$(LIBXFCE4UTIL_CFLAGS) \
+	$(LIBWLEMBED_GTK3_CFLAGS) \
 	$(NULL)
 
 slideshow_LDADD = \
@@ -125,6 +130,7 @@ slideshow_LDADD = \
 	$(GLIB_LIBS) \
 	$(GTK_LIBS) \
 	$(LIBXFCE4UTIL_LIBS) \
+	$(LIBWLEMBED_GTK3_LIBS) \
 	$(NULL)
 
 EXTRA_DIST = \
