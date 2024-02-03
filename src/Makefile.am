@@ -206,8 +206,8 @@ xfce4_screensaver_SOURCES = \
 	gs-monitor.h                \
 	gs-listener-dbus.c          \
 	gs-listener-dbus.h          \
-	gs-listener-x11.c           \
-	gs-listener-x11.h           \
+	gs-listener.c               \
+	gs-listener.h               \
 	gs-manager.c                \
 	gs-manager.h                \
 	gs-window-x11.c             \
@@ -254,12 +254,30 @@ xfce4_screensaver_LDADD = \
 	$(GARCON_GTK3_LIBS) \
 	$(SYSTEMD_LIBS) \
 	$(ELOGIND_LIBS) \
+	$(NULL)
+
+if ENABLE_X11
+xfce4_screensaver_SOURCES += \
+	gs-listener-x11.c \
+	gs-listener-x11.h \
+	$(NULL)
+
+xfce4_screensaver_CFLAGS += \
+	$(LIBX11_CFLAGS) \
+	$(LIBXEXT_CFLAGS) \
+	$(LIBXSCRNSAVER_CFLAGS) \
+	$(LIBXKLAVIER_CFLAGS) \
+	$(LIBWNCK_CFLAGS) \
+	$(NULL)
+
+xfce4_screensaver_LDADD += \
 	$(LIBX11_LIBS) \
 	$(LIBXEXT_LIBS) \
 	$(LIBXSCRNSAVER_LIBS) \
 	$(LIBXKLAVIER_LIBS) \
 	$(LIBWNCK_LIBS) \
 	$(NULL)
+endif
 
 xfce4_screensaver_LDFLAGS = -export-dynamic
 
