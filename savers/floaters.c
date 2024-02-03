@@ -38,6 +38,10 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtkx.h>
 #endif
+#ifdef ENABLE_WAYLAND
+#include <gdk/gdkwayland.h>
+#include <libwlembed-gtk3/libwlembed-gtk.h>
+#endif
 
 #include <libxfce4util/libxfce4util.h>
 
@@ -1151,6 +1155,11 @@ main (int   argc,
 #ifdef ENABLE_X11
     if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
         window = gtk_plug_new (strtoul (g_getenv ("XSCREENSAVER_WINDOW"), NULL, 0));
+    }
+#endif
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+        window = wle_gtk_plug_new (g_getenv ("XSCREENSAVER_WINDOW"));
     }
 #endif
     gtk_widget_set_app_paintable (window, TRUE);
