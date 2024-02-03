@@ -36,6 +36,7 @@
 #include <glib/gstdio.h>
 #include <gdk/gdkkeysyms.h>
 #include <gdk/gdkx.h>
+#include <gtk/gtkx.h>
 #include <gtk/gtk.h>
 
 #include <libxfce4util/libxfce4util.h>
@@ -67,6 +68,7 @@
 static void gs_lock_plug_finalize   (GObject         *object);
 
 struct GSLockPlugPrivate {
+    GtkWidget   *plug_widget;
     GtkWidget   *vbox;
     GtkWidget   *auth_action_area;
 
@@ -117,7 +119,6 @@ struct _ResponseData {
 
 enum {
     RESPONSE,
-    CLOSE,
     LAST_SIGNAL
 };
 
@@ -132,18 +133,16 @@ enum {
 
 static guint lock_plug_signals[LAST_SIGNAL] = { 0 };
 
-G_DEFINE_TYPE_WITH_PRIVATE (GSLockPlug, gs_lock_plug, GTK_TYPE_PLUG)
+G_DEFINE_TYPE_WITH_PRIVATE (GSLockPlug, gs_lock_plug, G_TYPE_OBJECT)
 
 static void
 gs_lock_plug_style_set (GtkWidget *widget,
                         GtkStyle  *previous_style) {
     GSLockPlug *plug;
 
-    if (GTK_WIDGET_CLASS (gs_lock_plug_parent_class)->style_set) {
-        GTK_WIDGET_CLASS (gs_lock_plug_parent_class)->style_set (widget, previous_style);
-    }
+    g_signal_chain_from_overridden_handler (widget, previous_style);
 
-    plug = GS_LOCK_PLUG (widget);
+    plug = g_object_get_data (G_OBJECT (widget), "gs-lock-plug");
 
     if (!plug->priv->vbox) {
         return;
@@ -487,7 +486,7 @@ run_response_handler (GSLockPlug *plug,
 }
 
 static gint
-run_delete_handler (GSLockPlug  *plug,
+run_delete_handler (GtkWidget   *plug,
                     GdkEventAny *event,
                     gpointer     data) {
     RunInfo *ri = data;
@@ -526,18 +525,18 @@ gs_lock_plug_run (GSLockPlug *plug) {
 
     g_return_val_if_fail (GS_IS_LOCK_PLUG (plug), -1);
 
-    g_object_ref (plug);
+    g_object_ref (plug->priv->plug_widget);
 
-    was_modal = gtk_window_get_modal (GTK_WINDOW (plug));
+    was_modal = gtk_window_get_modal (GTK_WINDOW (plug->priv->plug_widget));
     if (!was_modal) {
-        gtk_window_set_modal (GTK_WINDOW (plug), TRUE);
+        gtk_window_set_modal (GTK_WINDOW (plug->priv->plug_widget), TRUE);
     }
 
-    if (!gtk_widget_get_visible (GTK_WIDGET (plug))) {
-        gtk_widget_show (GTK_WIDGET (plug));
+    if (!gtk_widget_get_visible (GTK_WIDGET (plug->priv->plug_widget))) {
+        gtk_widget_show (GTK_WIDGET (plug->priv->plug_widget));
     }
 
-    keymap = gdk_keymap_get_for_display (gtk_widget_get_display (GTK_WIDGET (plug)));
+    keymap = gdk_keymap_get_for_display (gtk_widget_get_display (GTK_WIDGET (plug->priv->plug_widget)));
 
     keymap_handler =
         g_signal_connect (keymap,
@@ -552,19 +551,19 @@ gs_lock_plug_run (GSLockPlug *plug) {
                           &ri);
 
     unmap_handler =
-        g_signal_connect (plug,
+        g_signal_connect (plug->priv->plug_widget,
                           "unmap",
                           G_CALLBACK (run_unmap_handler),
                           &ri);
 
     deletion_handler =
-        g_signal_connect (plug,
-                          "delete_event",
+        g_signal_connect (plug->priv->plug_widget,
+                          "delete-event",
                           G_CALLBACK (run_delete_handler),
                           &ri);
 
     destroy_handler =
-        g_signal_connect (plug,
+        g_signal_connect (plug->priv->plug_widget,
                           "destroy",
                           G_CALLBACK (run_destroy_handler),
                           &ri);
@@ -579,17 +578,17 @@ gs_lock_plug_run (GSLockPlug *plug) {
 
     if (!ri.destroyed) {
         if (!was_modal) {
-            gtk_window_set_modal (GTK_WINDOW (plug), FALSE);
+            gtk_window_set_modal (GTK_WINDOW (plug->priv->plug_widget), FALSE);
         }
 
         g_signal_handler_disconnect (plug, response_handler);
-        g_signal_handler_disconnect (plug, unmap_handler);
-        g_signal_handler_disconnect (plug, deletion_handler);
-        g_signal_handler_disconnect (plug, destroy_handler);
+        g_signal_handler_disconnect (plug->priv->plug_widget, unmap_handler);
+        g_signal_handler_disconnect (plug->priv->plug_widget, deletion_handler);
+        g_signal_handler_disconnect (plug->priv->plug_widget, destroy_handler);
         g_signal_handler_disconnect (keymap, keymap_handler);
     }
 
-    g_object_unref (plug);
+    g_object_unref (plug->priv->plug_widget);
 
     return ri.response_id;
 }
@@ -770,15 +769,12 @@ set_face_image (GSLockPlug *plug) {
 
 static void
 gs_lock_plug_show (GtkWidget *widget) {
-    GSLockPlug *plug = GS_LOCK_PLUG (widget);
+    GSLockPlug *plug = g_object_get_data (G_OBJECT (widget), "gs-lock-plug");
 
     gs_profile_start (NULL);
 
     gs_profile_start ("parent");
-    if (GTK_WIDGET_CLASS (gs_lock_plug_parent_class)->show) {
-        GTK_WIDGET_CLASS (gs_lock_plug_parent_class)->show (widget);
-    }
-
+    g_signal_chain_from_overridden_handler (widget);
     gs_profile_end ("parent");
 
     if (plug->priv->auth_face_image) {
@@ -792,11 +788,20 @@ gs_lock_plug_show (GtkWidget *widget) {
     gs_profile_end (NULL);
 }
 
-static void
-gs_lock_plug_hide (GtkWidget *widget) {
-    if (GTK_WIDGET_CLASS (gs_lock_plug_parent_class)->hide) {
-        GTK_WIDGET_CLASS (gs_lock_plug_parent_class)->hide (widget);
+static gboolean
+gs_lock_plug_key_release_event (GtkWidget *widget,
+                                GdkEvent  *event) {
+    GdkEventKey *key_event = (GdkEventKey *) event;
+    gboolean ret = FALSE;
+
+    if (key_event->keyval == GDK_KEY_Escape) {
+        GSLockPlug *plug = g_object_get_data (G_OBJECT (widget), "gs-lock-plug");
+        gs_lock_plug_response (plug, GS_LOCK_PLUG_RESPONSE_CANCEL);
+        return TRUE;
     }
+
+    g_signal_chain_from_overridden_handler (widget, event, &ret);
+    return ret;
 }
 
 static void
@@ -815,7 +820,7 @@ forward_key_events (GSLockPlug *plug) {
     while (plug->priv->key_events != NULL) {
         GdkEventKey *event = plug->priv->key_events->data;
 
-        gtk_window_propagate_key_event (GTK_WINDOW (plug), event);
+        gtk_window_propagate_key_event (GTK_WINDOW (plug->priv->plug_widget), event);
 
         gdk_event_free ((GdkEvent *)event);
 
@@ -992,35 +997,16 @@ gs_lock_plug_set_property (GObject      *object,
 }
 
 static void
-gs_lock_plug_close (GSLockPlug *plug) {
-    /* Synthesize delete_event to close dialog. */
-
-    GtkWidget *widget = GTK_WIDGET (plug);
-    GdkEvent  *event;
-
-    event = gdk_event_new (GDK_DELETE);
-    event->any.window = g_object_ref (gtk_widget_get_window(widget));
-    event->any.send_event = TRUE;
-
-    gtk_main_do_event (event);
-    gdk_event_free (event);
-}
-
-static void
 gs_lock_plug_class_init (GSLockPlugClass *klass) {
-    GObjectClass   *object_class = G_OBJECT_CLASS (klass);
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
-    GtkBindingSet  *binding_set;
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
     object_class->finalize     = gs_lock_plug_finalize;
     object_class->get_property = gs_lock_plug_get_property;
     object_class->set_property = gs_lock_plug_set_property;
 
-    widget_class->style_set                      = gs_lock_plug_style_set;
-    widget_class->show                           = gs_lock_plug_show;
-    widget_class->hide                           = gs_lock_plug_hide;
-
-    klass->close = gs_lock_plug_close;
+    g_signal_override_class_handler ("style-set", GTK_TYPE_WINDOW, G_CALLBACK (gs_lock_plug_style_set));
+    g_signal_override_class_handler ("show", GTK_TYPE_WINDOW, G_CALLBACK (gs_lock_plug_show));
+    g_signal_override_class_handler ("key-release-event", GTK_TYPE_WINDOW, G_CALLBACK (gs_lock_plug_key_release_event));
 
     lock_plug_signals[RESPONSE] = g_signal_new ("response",
                                                 G_OBJECT_CLASS_TYPE (klass),
@@ -1030,13 +1016,6 @@ gs_lock_plug_class_init (GSLockPlugClass *klass) {
                                                 g_cclosure_marshal_VOID__INT,
                                                 G_TYPE_NONE, 1,
                                                 G_TYPE_INT);
-    lock_plug_signals[CLOSE] = g_signal_new ("close",
-                                             G_OBJECT_CLASS_TYPE (klass),
-                                             G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
-                                             G_STRUCT_OFFSET (GSLockPlugClass, close),
-                                             NULL, NULL,
-                                             g_cclosure_marshal_VOID__VOID,
-                                             G_TYPE_NONE, 0);
 
     g_object_class_install_property (object_class,
                                      PROP_LOGOUT_ENABLED,
@@ -1075,21 +1054,16 @@ gs_lock_plug_class_init (GSLockPlugClass *klass) {
                                                        200,
                                                        0,
                                                        G_PARAM_READWRITE));
-
-    binding_set = gtk_binding_set_by_class (klass);
-
-    gtk_binding_entry_add_signal (binding_set, GDK_KEY_Escape, 0,
-                                  "close", 0);
 }
 
 static void
 clear_clipboards (GSLockPlug *plug) {
     GtkClipboard *clipboard;
 
-    clipboard = gtk_widget_get_clipboard (GTK_WIDGET (plug), GDK_SELECTION_PRIMARY);
+    clipboard = gtk_widget_get_clipboard (GTK_WIDGET (plug->priv->plug_widget), GDK_SELECTION_PRIMARY);
     gtk_clipboard_clear (clipboard);
     gtk_clipboard_set_text (clipboard, "", -1);
-    clipboard = gtk_widget_get_clipboard (GTK_WIDGET (plug), GDK_SELECTION_CLIPBOARD);
+    clipboard = gtk_widget_get_clipboard (GTK_WIDGET (plug->priv->plug_widget), GDK_SELECTION_CLIPBOARD);
     gtk_clipboard_clear (clipboard);
     gtk_clipboard_set_text (clipboard, "", -1);
 }
@@ -1136,9 +1110,9 @@ gs_lock_plug_set_busy (GSLockPlug *plug) {
     GdkCursor  *cursor;
     GtkWidget  *top_level;
 
-    top_level = gtk_widget_get_toplevel (GTK_WIDGET (plug));
+    top_level = gtk_widget_get_toplevel (GTK_WIDGET (plug->priv->plug_widget));
 
-    display = gtk_widget_get_display (GTK_WIDGET (plug));
+    display = gtk_widget_get_display (GTK_WIDGET (plug->priv->plug_widget));
     cursor = gdk_cursor_new_for_display (display, GDK_WATCH);
 
     gdk_window_set_cursor (gtk_widget_get_window (top_level), cursor);
@@ -1151,9 +1125,9 @@ gs_lock_plug_set_ready (GSLockPlug *plug) {
     GdkCursor  *cursor;
     GtkWidget  *top_level;
 
-    top_level = gtk_widget_get_toplevel (GTK_WIDGET (plug));
+    top_level = gtk_widget_get_toplevel (GTK_WIDGET (plug->priv->plug_widget));
 
-    display = gtk_widget_get_display (GTK_WIDGET (plug));
+    display = gtk_widget_get_display (GTK_WIDGET (plug->priv->plug_widget));
     cursor = gdk_cursor_new_for_display (display, GDK_LEFT_PTR);
     gdk_window_set_cursor (gtk_widget_get_window (top_level), cursor);
     g_object_unref (cursor);
@@ -1447,7 +1421,7 @@ get_draw_dimensions(GSLockPlug *plug,
     GdkMonitor   *monitor;
     GdkRectangle  geometry;
 
-    window = gtk_widget_get_window (GTK_WIDGET(plug));
+    window = gtk_widget_get_window (GTK_WIDGET(plug->priv->plug_widget));
     if (window != NULL) {
         display = gdk_window_get_display(window);
     } else {
@@ -1533,7 +1507,7 @@ gs_lock_plug_add_login_window (GSLockPlug *plug) {
     gtk_widget_set_valign(GTK_WIDGET(lock_dialog), GTK_ALIGN_CENTER);
     gtk_overlay_add_overlay(GTK_OVERLAY(lock_overlay), GTK_WIDGET(lock_dialog));
 
-    gtk_container_add(GTK_CONTAINER(plug), lock_overlay);
+    gtk_container_add(GTK_CONTAINER(plug->priv->plug_widget), lock_overlay);
 
     plug->priv->vbox = NULL;
 
@@ -1597,6 +1571,8 @@ gs_lock_plug_init (GSLockPlug *plug) {
     gs_profile_start (NULL);
 
     plug->priv = gs_lock_plug_get_instance_private (plug);
+    plug->priv->plug_widget = gtk_plug_new (0);
+    g_object_set_data (G_OBJECT (plug->priv->plug_widget), "gs-lock-plug", plug);
 
     clear_clipboards (plug);
 
@@ -1652,11 +1628,11 @@ gs_lock_plug_init (GSLockPlug *plug) {
         }
     }
 
-    g_signal_connect (plug, "key_press_event",
+    g_signal_connect (plug->priv->plug_widget, "key-press-event",
                       G_CALLBACK (entry_key_press), plug);
 
     /* button press handler used to inhibit popup menu */
-    g_signal_connect (plug->priv->auth_prompt_entry, "button_press_event",
+    g_signal_connect (plug->priv->auth_prompt_entry, "button-press-event",
                       G_CALLBACK (entry_button_press), NULL);
     g_signal_connect (plug->priv->auth_prompt_entry, "activate",
                       G_CALLBACK (prompt_entry_activate), plug);
@@ -1689,7 +1665,7 @@ gs_lock_plug_init (GSLockPlug *plug) {
                           G_CALLBACK (logout_button_clicked), plug);
     }
 
-    g_signal_connect (plug, "delete_event", G_CALLBACK (delete_handler), NULL);
+    g_signal_connect (plug->priv->plug_widget, "delete-event", G_CALLBACK (delete_handler), NULL);
 
     gs_profile_end (NULL);
 }
@@ -1717,13 +1693,19 @@ gs_lock_plug_finalize (GObject *object) {
     G_OBJECT_CLASS (gs_lock_plug_parent_class)->finalize (object);
 }
 
-GtkWidget *
+GSLockPlug *
 gs_lock_plug_new (void) {
-    GtkWidget *result;
+    GSLockPlug *result;
 
     result = g_object_new (GS_TYPE_LOCK_PLUG, NULL);
 
-    gtk_window_set_focus_on_map (GTK_WINDOW (result), TRUE);
+    gtk_window_set_focus_on_map (GTK_WINDOW (result->priv->plug_widget), TRUE);
 
     return result;
+}
+
+GtkWidget *
+gs_lock_plug_get_widget (GSLockPlug *plug) {
+    g_return_val_if_fail (GS_IS_LOCK_PLUG (plug), NULL);
+    return plug->priv->plug_widget;
 }
