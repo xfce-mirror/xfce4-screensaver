@@ -147,14 +147,22 @@ test_window_LDADD += \
 endif
 
 if ENABLE_WAYLAND
+test_window_SOURCES += \
+	gs-session-lock-manager.c \
+	gs-session-lock-manager.h \
+	$(NULL)
+
 test_window_CFLAGS += \
 	$(LIBWLEMBED_CFLAGS) \
 	$(LIBWLEMBED_GTK3_CFLAGS) \
+	$(WAYLAND_CLIENT_CFLAGS) \
 	$(NULL)
 
 test_window_LDADD += \
+	$(top_builddir)/protocols/libprotocols.la \
 	$(LIBWLEMBED_LIBS) \
 	$(LIBWLEMBED_GTK3_LIBS) \
+	$(WAYLAND_CLIENT_LIBS) \
 	$(NULL)
 endif
 
@@ -316,14 +324,22 @@ xfce4_screensaver_LDADD += \
 endif
 
 if ENABLE_WAYLAND
+xfce4_screensaver_SOURCES += \
+	gs-session-lock-manager.c \
+	gs-session-lock-manager.h \
+	$(NULL)
+
 xfce4_screensaver_CFLAGS += \
 	$(LIBWLEMBED_CFLAGS) \
 	$(LIBWLEMBED_GTK3_CFLAGS) \
+	$(WAYLAND_CLIENT_CFLAGS) \
 	$(NULL)
 
 xfce4_screensaver_LDADD += \
+	$(top_builddir)/protocols/libprotocols.la \
 	$(LIBWLEMBED_LIBS) \
 	$(LIBWLEMBED_GTK3_LIBS) \
+	$(WAYLAND_CLIENT_LIBS) \
 	$(NULL)
 endif
 
