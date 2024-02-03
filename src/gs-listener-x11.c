@@ -43,12 +43,17 @@
 #include "gs-prefs.h"
 
 static void         gs_listener_x11_finalize        (GObject            *object);
+static void         gs_listener_x11_set_timeouts    (GSListener         *listener,
+                                                     gboolean            enabled,
+                                                     guint               timeout,
+                                                     guint               lock_timeout);
 
 static void         reset_timer                     (GSListenerX11      *listener,
                                                      guint               timeout);
 
 struct GSListenerX11Private {
     int scrnsaver_event_base;
+    gboolean enabled;
     guint    timeout;
     guint    lock_timeout;
     guint    timer_id;
@@ -56,43 +61,16 @@ struct GSListenerX11Private {
     WnckScreen *wnck_screen;
 };
 
-enum {
-    ACTIVATE,
-    LOCK,
-    LAST_SIGNAL
-};
-
-static guint         signals[LAST_SIGNAL] = { 0, };
-
-G_DEFINE_TYPE_WITH_PRIVATE (GSListenerX11, gs_listener_x11, G_TYPE_OBJECT)
+G_DEFINE_TYPE_WITH_PRIVATE (GSListenerX11, gs_listener_x11, GS_TYPE_LISTENER)
 
 static void
 gs_listener_x11_class_init (GSListenerX11Class *klass) {
-    GObjectClass   *object_class = G_OBJECT_CLASS (klass);
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
+    GSListenerClass *listener_class = GS_LISTENER_CLASS (klass);
 
-    object_class->finalize       = gs_listener_x11_finalize;
+    object_class->finalize = gs_listener_x11_finalize;
 
-    signals[ACTIVATE] =
-        g_signal_new ("activate",
-                      G_TYPE_FROM_CLASS (object_class),
-                      G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (GSListenerX11Class, activate),
-                      NULL,
-                      NULL,
-                      g_cclosure_marshal_VOID__VOID,
-                      G_TYPE_NONE,
-                      0);
-
-    signals[LOCK] =
-        g_signal_new ("lock",
-                      G_TYPE_FROM_CLASS (object_class),
-                      G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (GSListenerX11Class, lock),
-                      NULL,
-                      NULL,
-                      g_cclosure_marshal_VOID__VOID,
-                      G_TYPE_NONE,
-                      0);
+    listener_class->set_timeouts = gs_listener_x11_set_timeouts;
 }
 
 static gboolean
@@ -137,7 +115,7 @@ lock_timer (gpointer user_data) {
     gboolean lock_state;
     gboolean fullscreen_inhibition = FALSE;
 
-    if (!listener->priv->prefs->saver_enabled || !listener->priv->prefs->idle_activation_enabled)
+    if (!listener->priv->enabled)
         return TRUE;
 
     if (get_x11_idle_info (&idle_time, &state) == FALSE)
@@ -154,9 +132,8 @@ lock_timer (gpointer user_data) {
         fullscreen_inhibition = check_fullscreen_window(listener);
     }
 
-    gs_debug("Idle: %us, Saver: %s, Saver Timeout: %is, Lock: %s, Lock Timeout: %is, Lock Timer: %us, Lock Status: %s, Fullscreen: %s",
+    gs_debug("Idle: %us, Saver Timeout: %is, Lock: %s, Lock Timeout: %is, Lock Timer: %us, Lock Status: %s, Fullscreen: %s",
              idle_time,
-             listener->priv->prefs->idle_activation_enabled ? "Enabled" : "Disabled",
              listener->priv->timeout,
              listener->priv->prefs->lock_with_saver_enabled ? "Enabled" : "Disabled",
              listener->priv->lock_timeout,
@@ -173,13 +150,12 @@ lock_timer (gpointer user_data) {
         return FALSE;
     }
 
-    if (listener->priv->prefs->idle_activation_enabled &&
-            idle_time >= listener->priv->timeout &&
+    if (idle_time >= listener->priv->timeout &&
             state != ScreenSaverDisabled) {
         if (lock_state)
-            g_signal_emit(listener, signals[LOCK], 0);
+            g_signal_emit_by_name(listener, "lock");
         else
-            g_signal_emit(listener, signals[ACTIVATE], 0);
+            g_signal_emit_by_name(listener, "activate");
     } else {
         switch (state) {
             case ScreenSaverOff:
@@ -199,7 +175,7 @@ lock_timer (gpointer user_data) {
             case ScreenSaverOn:
                 // lock now!
                 if (lock_state)
-                    g_signal_emit(listener, signals[LOCK], 0);
+                    g_signal_emit_by_name(listener, "lock");
                 break;
         }
     }
@@ -235,7 +211,7 @@ xroot_filter (GdkXEvent *xevent,
 
     listener = GS_LISTENER_X11 (data);
 
-    if (!listener->priv->prefs->saver_enabled || !listener->priv->prefs->idle_activation_enabled)
+    if (!listener->priv->enabled)
         return GDK_FILTER_CONTINUE;
 
     ev = xevent;
@@ -259,7 +235,7 @@ xroot_filter (GdkXEvent *xevent,
                         reset_timer (listener, listener->priv->timeout);
                     } else {
                         gs_debug ("Activating screensaver on ScreenSaverOn");
-                        g_signal_emit (listener, signals[ACTIVATE], 0);
+                        g_signal_emit_by_name (listener, "activate");
                     }
                     break;
             }
@@ -271,14 +247,14 @@ xroot_filter (GdkXEvent *xevent,
 }
 
 
-gboolean
+static void
 gs_listener_x11_acquire (GSListenerX11 *listener) {
     GdkDisplay *display;
     GdkScreen *screen;
     GdkWindow *window;
     int scrnsaver_error_base;
 
-    g_return_val_if_fail (listener != NULL, FALSE);
+    g_return_if_fail (listener != NULL);
 
     display = gdk_display_get_default ();
     screen = gdk_display_get_default_screen (display);
@@ -299,47 +275,32 @@ gs_listener_x11_acquire (GSListenerX11 *listener) {
     gdk_x11_display_error_trap_pop_ignored (display);
 
     gdk_window_add_filter (NULL, (GdkFilterFunc)xroot_filter, listener);
-
-    return TRUE;
 }
 
 static void
-gs_listener_x11_set_timeouts (GSListenerX11 *listener) {
+gs_listener_x11_set_timeouts (GSListener *_listener,
+                              gboolean enabled,
+                              guint timeout,
+                              guint lock_timeout) {
+    GSListenerX11 *listener = GS_LISTENER_X11 (_listener);
     Display *display = gdk_x11_display_get_xdisplay(gdk_display_get_default());
-    guint    timeout = listener->priv->prefs->timeout * 60;
-    guint    lock_timeout = listener->priv->prefs->lock_timeout * 60;
-    gboolean trigger_reset_timer = FALSE;
+
+    listener->priv->enabled = enabled;
+    listener->priv->timeout = timeout;
+    listener->priv->lock_timeout = lock_timeout;
 
     /* set X server timeouts and disable screen blanking */
     XSetScreenSaver(display, timeout, timeout, DontPreferBlanking, DontAllowExposures);
 
-    if (listener->priv->timeout != timeout) {
-        listener->priv->timeout = timeout;
-        gs_debug("Saver timeout updated to %i seconds", timeout);
-        trigger_reset_timer = TRUE;
-    }
-
-    if (listener->priv->lock_timeout != lock_timeout) {
-        listener->priv->lock_timeout = lock_timeout;
-        gs_debug("Lock timeout updated to %i seconds", lock_timeout);
-        trigger_reset_timer = TRUE;
-    }
-
-    if (trigger_reset_timer) {
-        reset_timer(listener, timeout);
-    }
+    reset_timer (listener, timeout);
 }
 
 static void
 gs_listener_x11_init (GSListenerX11 *listener) {
     listener->priv = gs_listener_x11_get_instance_private (listener);
-
-    listener->priv->timeout = 0;
-
-    listener->priv->prefs = gs_prefs_new();
-    listener->priv->wnck_screen = wnck_screen_get_default();
-    gs_listener_x11_set_timeouts (listener);
-    g_signal_connect_swapped(listener->priv->prefs, "changed", G_CALLBACK(gs_listener_x11_set_timeouts), listener);
+    listener->priv->prefs = gs_prefs_new ();
+    listener->priv->wnck_screen = wnck_screen_get_default ();
+    gs_listener_x11_acquire (listener);
 }
 
 static void
@@ -354,17 +315,7 @@ gs_listener_x11_finalize (GObject *object) {
     g_return_if_fail (listener->priv != NULL);
 
     gdk_window_remove_filter (NULL, (GdkFilterFunc)xroot_filter, NULL);
-    g_signal_handlers_disconnect_by_func(listener->priv->prefs, gs_listener_x11_set_timeouts, listener);
     g_object_unref (listener->priv->prefs);
 
     G_OBJECT_CLASS (gs_listener_x11_parent_class)->finalize (object);
-}
-
-GSListenerX11 *
-gs_listener_x11_new (void) {
-    GSListenerX11 *listener;
-
-    listener = g_object_new (GS_TYPE_LISTENER_X11, NULL);
-
-    return GS_LISTENER_X11 (listener);
 }
