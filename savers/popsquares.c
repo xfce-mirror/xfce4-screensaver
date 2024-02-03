@@ -24,7 +24,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <gtk/gtk.h>
+#ifdef ENABLE_X11
+#include <gdk/gdkx.h>
 #include <gtk/gtkx.h>
+#endif
 
 #include <libxfce4util/libxfce4util.h>
 
@@ -35,7 +39,7 @@ int
 main (int    argc,
       char **argv) {
     GSThemeEngine *engine;
-    GtkWidget     *window;
+    GtkWidget     *window = NULL;
     GError        *error;
 
     xfce_textdomain (GETTEXT_PACKAGE, XFCELOCALEDIR, "UTF-8");
@@ -49,7 +53,11 @@ main (int    argc,
         exit (1);
     }
 
-    window = gtk_plug_new (strtoul (g_getenv ("XSCREENSAVER_WINDOW"), NULL, 0));
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        window = gtk_plug_new (strtoul (g_getenv ("XSCREENSAVER_WINDOW"), NULL, 0));
+    }
+#endif
     gtk_widget_set_app_paintable (window, TRUE);
     g_signal_connect (G_OBJECT (window), "destroy",
                       G_CALLBACK (gtk_main_quit), NULL);
