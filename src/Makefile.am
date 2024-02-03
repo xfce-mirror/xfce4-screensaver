@@ -329,12 +329,15 @@ if ENABLE_WAYLAND
 xfce4_screensaver_SOURCES += \
 	gs-session-lock-manager.c \
 	gs-session-lock-manager.h \
+	gs-listener-wayland.c \
+	gs-listener-wayland.h \
 	$(NULL)
 
 xfce4_screensaver_CFLAGS += \
 	$(LIBWLEMBED_CFLAGS) \
 	$(LIBWLEMBED_GTK3_CFLAGS) \
 	$(WAYLAND_CLIENT_CFLAGS) \
+	$(LIBXFCE4WINDOWING_CFLAGS) \
 	$(NULL)
 
 xfce4_screensaver_LDADD += \
@@ -342,6 +345,7 @@ xfce4_screensaver_LDADD += \
 	$(LIBWLEMBED_LIBS) \
 	$(LIBWLEMBED_GTK3_LIBS) \
 	$(WAYLAND_CLIENT_LIBS) \
+	$(LIBXFCE4WINDOWING_LIBS) \
 	$(NULL)
 endif
 
