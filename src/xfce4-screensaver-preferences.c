@@ -1615,7 +1615,9 @@ constrain_list_size (GtkWidget      *widget,
     int            max_height;
 
     /* constrain height to be the tree height up to a max */
-    max_height = (HeightOfScreen (gdk_x11_screen_get_xscreen (gtk_widget_get_screen (widget)))) / 4;
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+    max_height = gdk_screen_get_height (gtk_widget_get_screen (widget)) / 4;
+G_GNUC_END_IGNORE_DEPRECATIONS
 
     gtk_widget_get_preferred_size (to_size, &req, NULL);
     allocation->height = MIN (req.height, max_height);
