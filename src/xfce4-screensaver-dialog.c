@@ -33,7 +33,10 @@
 #include <unistd.h>
 
 #include <gtk/gtk.h>
+#ifdef ENABLE_X11
+#include <gdk/gdkx.h>
 #include <gtk/gtkx.h>
+#endif
 
 #include <libxfce4util/libxfce4util.h>
 #include <xfconf/xfconf.h>
@@ -87,7 +90,12 @@ static char* get_id_string(GtkWidget* widget) {
     g_return_val_if_fail(widget != NULL, NULL);
     g_return_val_if_fail(GTK_IS_WIDGET(widget), NULL);
 
-    id = g_strdup_printf ("%lu", gtk_plug_get_id (GTK_PLUG (widget)));
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        id = g_strdup_printf ("%lu", gtk_plug_get_id (GTK_PLUG (widget)));
+    }
+#endif
+
     return id;
 }
 
