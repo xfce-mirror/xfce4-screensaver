@@ -58,6 +58,8 @@ m4_define([libxscrnsaver_min_version], [1.2.3])
 m4_define([libxklavier_min_version], [5.2])
 m4_define([libwnck_min_version], [3.20])
 
+m4_define([libwlembed_min_version], [0.0.0])
+
 XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [glib_min_version])
 XDT_CHECK_PACKAGE([GIO], [gio-2.0], [glib_min_version])
 XDT_CHECK_PACKAGE([GTK], [gtk+-3.0], [gtk_min_version])
@@ -83,6 +85,8 @@ XDT_CHECK_OPTIONAL_FEATURE([WAYLAND],
                            [wayland],
                            [
                              XDT_FEATURE_DEPENDENCY([GDK_WAYLAND], [gdk-wayland-3.0], [gtk_min_version])
+                             XDT_FEATURE_DEPENDENCY([LIBWLEMBED], [libwlembed-0], [libwlembed_min_version])
+                             XDT_FEATURE_DEPENDENCY([LIBWLEMBED_GTK3], [libwlembed-gtk3-0], [libwlembed_min_version])
                            ],
                            [the Wayland windowing system])
 if test x"$ENABLE_X11" != x"yes" -a x"$ENABLE_WAYLAND" != x"yes"; then
