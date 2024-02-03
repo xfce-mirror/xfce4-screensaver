@@ -1658,7 +1658,9 @@ gs_window_real_motion_notify_event (GtkWidget      *widget,
 
     display = gs_window_get_display (window);
     screen = gdk_display_get_default_screen (display);
-    min_distance = WidthOfScreen (gdk_x11_screen_get_xscreen (screen)) * min_percentage;
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+    min_distance = gdk_screen_get_width (screen) * min_percentage;
+G_GNUC_END_IGNORE_DEPRECATIONS
 
     /* if the last position was not set then don't detect motion */
     if (window->priv->last_x < 0 || window->priv->last_y < 0) {
