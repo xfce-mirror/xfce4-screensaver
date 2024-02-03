@@ -43,6 +43,10 @@
 #include "xfcekbd-indicator.h"
 #endif
 #endif
+#ifdef ENABLE_WAYLAND
+#include <gdk/gdkwayland.h>
+#include <libwlembed-gtk3/libwlembed-gtk.h>
+#endif
 
 #include <libxfce4util/libxfce4util.h>
 #include <xfconf/xfconf.h>
@@ -1577,6 +1581,11 @@ gs_lock_plug_init (GSLockPlug *plug) {
 #ifdef ENABLE_X11
     if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
         plug->priv->plug_widget = gtk_plug_new (0);
+    }
+#endif
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+        plug->priv->plug_widget = wle_gtk_plug_new (g_getenv ("WLE_EMBEDDING_TOKEN"));
     }
 #endif
     g_object_set_data (G_OBJECT (plug->priv->plug_widget), "gs-lock-plug", plug);

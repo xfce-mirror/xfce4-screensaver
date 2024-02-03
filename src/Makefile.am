@@ -104,6 +104,12 @@ test_window_SOURCES = \
 	subprocs.h       \
 	xfce-desktop-utils.c \
 	xfce-desktop-utils.h \
+	gs-manager.c \
+	gs-manager.h \
+	gs-theme-manager.c \
+	gs-theme-manager.h \
+	gs-job.c \
+	gs-job.h \
 	$(NULL)
 
 test_window_CFLAGS = \
@@ -112,6 +118,7 @@ test_window_CFLAGS = \
 	$(DBUS_GLIB_CFLAGS) \
 	$(LIBXFCE4UI_CFLAGS) \
 	$(XFCONF_CFLAGS) \
+	$(GARCON_GTK3_CFLAGS) \
 	$(NULL)
 
 test_window_LDADD = \
@@ -120,6 +127,7 @@ test_window_LDADD = \
 	$(DBUS_GLIB_LIBS) \
 	$(LIBXFCE4UI_LIBS) \
 	$(XFCONF_LIBS) \
+	$(GARCON_GTK3_LIBS) \
 	$(NULL)
 
 if ENABLE_X11
@@ -138,6 +146,18 @@ test_window_LDADD += \
 	$(LIBX11_LIBS) \
 	$(LIBXEXT_LIBS) \
 	$(LIBXKLAVIER_LIBS) \
+	$(NULL)
+endif
+
+if ENABLE_WAYLAND
+test_window_CFLAGS += \
+	$(LIBWLEMBED_CFLAGS) \
+	$(LIBWLEMBED_GTK3_CFLAGS) \
+	$(NULL)
+
+test_window_LDADD += \
+	$(LIBWLEMBED_LIBS) \
+	$(LIBWLEMBED_GTK3_LIBS) \
 	$(NULL)
 endif
 
@@ -179,6 +199,7 @@ xfce4_screensaver_dialog_CFLAGS = \
 	$(LIBXFCE4UI_CFLAGS) \
 	$(XFCONF_CFLAGS) \
 	$(AUTH_CFLAGS) \
+	$(LIBWLEMBED_GTK3_CFLAGS) \
 	$(NULL)
 
 xfce4_screensaver_dialog_LDADD = \
@@ -188,6 +209,7 @@ xfce4_screensaver_dialog_LDADD = \
 	$(LIBXFCE4UI_LIBS) \
 	$(XFCONF_LIBS) \
 	$(AUTH_LIBS) \
+	$(LIBWLEMBED_GTK3_LIBS) \
 	$(NULL)
 
 if ENABLE_X11
@@ -296,6 +318,18 @@ xfce4_screensaver_LDADD += \
 	$(NULL)
 endif
 
+if ENABLE_WAYLAND
+xfce4_screensaver_CFLAGS += \
+	$(LIBWLEMBED_CFLAGS) \
+	$(LIBWLEMBED_GTK3_CFLAGS) \
+	$(NULL)
+
+xfce4_screensaver_LDADD += \
+	$(LIBWLEMBED_LIBS) \
+	$(LIBWLEMBED_GTK3_LIBS) \
+	$(NULL)
+endif
+
 xfce4_screensaver_LDFLAGS = -export-dynamic
 
 xfce4_screensaver_preferences_built_sources = \
@@ -325,6 +359,8 @@ xfce4_screensaver_preferences_CFLAGS = \
 	$(XFCONF_CFLAGS) \
 	$(GARCON_GTK3_CFLAGS) \
 	$(LIBXKLAVIER_CFLAGS) \
+	$(LIBWLEMBED_CFLAGS) \
+	$(LIBWLEMBED_GTK3_CFLAGS) \
 	$(NULL)
 
 xfce4_screensaver_preferences_LDADD = \
@@ -334,6 +370,8 @@ xfce4_screensaver_preferences_LDADD = \
 	$(XFCONF_LIBS) \
 	$(GARCON_GTK3_LIBS) \
 	$(LIBXKLAVIER_LIBS) \
+	$(LIBWLEMBED_LIBS) \
+	$(LIBWLEMBED_GTK3_LIBS) \
 	$(NULL)
 
 if MAINTAINER_MODE
