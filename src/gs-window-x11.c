@@ -28,12 +28,13 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-#include <gdk/gdkx.h>
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtk.h>
+#ifdef ENABLE_X11
+#include <gdk/gdkx.h>
 #include <gtk/gtkx.h>
-
 #include <X11/extensions/shape.h>
+#endif
 
 #include "gs-debug.h"
 #include "gs-marshal.h"
@@ -140,6 +141,7 @@ set_invisible_cursor (GdkWindow *window,
     }
 }
 
+#ifdef ENABLE_X11
 /* derived from tomboy */
 static void
 gs_window_override_user_time (GSWindow *window) {
@@ -212,11 +214,17 @@ widget_clear_all_children (GtkWidget *widget) {
 
     gdk_x11_display_error_trap_pop_ignored (display);
 }
+#endif
 
 void
 gs_window_clear (GSWindow *window) {
+#ifdef ENABLE_X11
     GdkDisplay *display;
     g_return_if_fail (GS_IS_WINDOW (window));
+
+    if (!GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        return;
+    }
 
     gs_debug ("Clearing widgets");
 
@@ -234,6 +242,7 @@ gs_window_clear (GSWindow *window) {
 
     display = gtk_widget_get_display (GTK_WIDGET(window));
     gdk_display_flush (display);
+#endif
 }
 
 static cairo_region_t *
@@ -367,7 +376,11 @@ gs_window_real_realize (GtkWidget *widget) {
         GTK_WIDGET_CLASS (gs_window_parent_class)->realize (widget);
     }
 
-    gs_window_override_user_time (GS_WINDOW (widget));
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        gs_window_override_user_time (GS_WINDOW (widget));
+    }
+#endif
 
     gs_window_move_resize_window (GS_WINDOW (widget), TRUE, TRUE);
 
@@ -434,6 +447,7 @@ add_emit_deactivated_idle (GSWindow *window) {
     window->priv->deactivated_idle_id = g_idle_add (emit_deactivated_idle, window);
 }
 
+#ifdef ENABLE_X11
 static void
 gs_window_raise (GSWindow *window) {
     GdkWindow *win;
@@ -562,6 +576,7 @@ window_select_shape_events (GSWindow *window) {
 
     gdk_x11_display_error_trap_pop_ignored (display);
 }
+#endif
 
 static gboolean
 gs_window_real_draw (GtkWidget *widget,
@@ -593,9 +608,13 @@ gs_window_real_show (GtkWidget *widget) {
     remove_watchdog_timer (window);
     add_watchdog_timer (window, 30);
 
-    select_popup_events ();
-    window_select_shape_events (window);
-    gdk_window_add_filter (NULL, (GdkFilterFunc)xevent_filter, window);
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        select_popup_events ();
+        window_select_shape_events (window);
+        gdk_window_add_filter (NULL, (GdkFilterFunc)xevent_filter, window);
+    }
+#endif
 }
 
 static void
@@ -698,7 +717,11 @@ gs_window_real_hide (GtkWidget *widget) {
 
     window = GS_WINDOW (widget);
 
-    gdk_window_remove_filter (NULL, (GdkFilterFunc)xevent_filter, window);
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        gdk_window_remove_filter (NULL, (GdkFilterFunc)xevent_filter, window);
+    }
+#endif
 
     remove_watchdog_timer (window);
 
@@ -963,6 +986,16 @@ lock_socket_destroyed (GtkWidget *widget,
     window->priv->lock_socket = NULL;
 }
 
+static GtkWidget *
+socket_new (GSWindow *window) {
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        return gtk_socket_new ();
+    }
+#endif
+    return NULL;
+}
+
 static void
 create_keyboard_socket (GSWindow *window,
                         gulong    id) {
@@ -992,7 +1025,7 @@ create_keyboard_socket (GSWindow *window,
         width = 1400; // Native width for onboard
     }
 
-    window->priv->keyboard_socket = gtk_socket_new ();
+    window->priv->keyboard_socket = socket_new (window);
     gtk_widget_set_size_request (window->priv->keyboard_socket, width, height);
     gtk_widget_set_halign (window->priv->keyboard_socket, GTK_ALIGN_CENTER);
     gtk_widget_set_valign (window->priv->keyboard_socket, GTK_ALIGN_END);
@@ -1005,7 +1038,11 @@ create_keyboard_socket (GSWindow *window,
                       G_CALLBACK (keyboard_plug_removed), window);
 
     gtk_overlay_add_overlay (GTK_OVERLAY (window->priv->overlay), window->priv->keyboard_socket);
-    gtk_socket_add_id (GTK_SOCKET (window->priv->keyboard_socket), id);
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        gtk_socket_add_id (GTK_SOCKET (window->priv->keyboard_socket), id);
+    }
+#endif
 
     if (!window->priv->prefs->keyboard_displayed) {
         gtk_widget_hide (window->priv->keyboard_socket);
@@ -1146,7 +1183,7 @@ embed_keyboard (GSWindow *window) {
 static void
 create_lock_socket (GSWindow *window,
                     gulong    id) {
-    window->priv->lock_socket = gtk_socket_new ();
+    window->priv->lock_socket = socket_new (window);
     window->priv->lock_box = gtk_grid_new ();
     gtk_widget_set_halign (GTK_WIDGET (window->priv->lock_box),
                            GTK_ALIGN_CENTER);
@@ -1170,7 +1207,11 @@ create_lock_socket (GSWindow *window,
     g_signal_connect (window->priv->lock_socket, "plug_removed",
                       G_CALLBACK (lock_plug_removed), window);
 
-    gtk_socket_add_id (GTK_SOCKET (window->priv->lock_socket), id);
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        gtk_socket_add_id (GTK_SOCKET (window->priv->lock_socket), id);
+    }
+#endif
 
     if (window->priv->prefs->keyboard_enabled) {
         embed_keyboard (window);
@@ -1776,6 +1817,7 @@ gs_window_reposition (GSWindow *window) {
     gs_window_real_size_request (GTK_WIDGET (window), &requisition);
 }
 
+#ifdef ENABLE_X11
 static gboolean
 gs_window_real_grab_broken (GtkWidget          *widget,
                             GdkEventGrabBroken *event) {
@@ -1792,6 +1834,7 @@ gs_window_real_grab_broken (GtkWidget          *widget,
 
     return FALSE;
 }
+#endif
 
 gboolean
 gs_window_is_obscured (GSWindow *window) {
@@ -1857,7 +1900,11 @@ gs_window_class_init (GSWindowClass *klass) {
     widget_class->scroll_event            = gs_window_real_scroll_event;
     widget_class->get_preferred_width     = gs_window_real_get_preferred_width;
     widget_class->get_preferred_height    = gs_window_real_get_preferred_height;
-    widget_class->grab_broken_event       = gs_window_real_grab_broken;
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        widget_class->grab_broken_event   = gs_window_real_grab_broken;
+    }
+#endif
     widget_class->visibility_notify_event = gs_window_real_visibility_notify_event;
 
     signals[ACTIVITY] =
@@ -1959,7 +2006,7 @@ gs_window_init (GSWindow *window) {
     gtk_widget_show (window->priv->vbox);
     gtk_container_add (GTK_CONTAINER (window), window->priv->vbox);
 
-    window->priv->drawing_area = gtk_socket_new ();
+    window->priv->drawing_area = socket_new (window);
     gtk_widget_show (window->priv->drawing_area);
     gtk_widget_set_app_paintable (window->priv->drawing_area, TRUE);
     gtk_box_pack_start (GTK_BOX (window->priv->vbox),

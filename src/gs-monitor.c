@@ -28,11 +28,10 @@
 #include <string.h>
 #include <unistd.h>
 
+#ifdef ENABLE_X11
 #include <X11/extensions/scrnsaver.h>
-
-#include <glib.h>
-#include <glib-object.h>
 #include <gdk/gdkx.h>
+#endif
 
 #include "gs-debug.h"
 #include "gs-listener-dbus.h"
@@ -64,11 +63,15 @@ static void manager_deactivated_cb(GSManager* manager, GSMonitor* monitor) {
 }
 
 static void gs_monitor_simulate_user_activity(GSMonitor* monitor) {
-    Display *display = gdk_x11_display_get_xdisplay (gdk_display_get_default ());
-    XScreenSaverSuspend (display, TRUE);
-    XSync (display, FALSE);
-    XScreenSaverSuspend (display, FALSE);
-    XSync (display, FALSE);
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        Display *display = gdk_x11_display_get_xdisplay (gdk_display_get_default ());
+        XScreenSaverSuspend (display, TRUE);
+        XSync (display, FALSE);
+        XScreenSaverSuspend (display, FALSE);
+        XSync (display, FALSE);
+    }
+#endif
 
     /* request that the manager unlock -
        will pop up a dialog if necessary */
