@@ -90,7 +90,7 @@ test_passwd_LDADD = \
 test_window_SOURCES = \
 	test-window.c    \
 	gs-window.h      \
-	gs-window-x11.c  \
+	gs-window.c      \
 	gs-marshal.c     \
 	gs-marshal.h     \
 	gs-debug.c       \
@@ -129,7 +129,7 @@ test_window_LDADD = \
 
 if ENABLE_X11
 test_window_SOURCES += \
-	gs-grab-x11.c \
+	gs-grab.c \
 	gs-grab.h \
 	$(NULL)
 
@@ -251,7 +251,7 @@ xfce4_screensaver_SOURCES = \
 	gs-listener.h               \
 	gs-manager.c                \
 	gs-manager.h                \
-	gs-window-x11.c             \
+	gs-window.c                 \
 	gs-window.h                 \
 	gs-prefs.c                  \
 	gs-prefs.h                  \
@@ -294,7 +294,7 @@ if ENABLE_X11
 xfce4_screensaver_SOURCES += \
 	gs-listener-x11.c \
 	gs-listener-x11.h \
-	gs-grab-x11.c \
+	gs-grab.c \
 	gs-grab.h \
 	$(NULL)
 
