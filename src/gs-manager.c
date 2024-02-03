@@ -29,6 +29,9 @@
 #include <gdk/gdkx.h>
 #include "gs-grab.h"
 #endif
+#ifdef ENABLE_WAYLAND
+#include <gdk/gdkwayland.h>
+#endif
 
 #include "gs-debug.h"
 #include "gs-job.h"
@@ -60,6 +63,9 @@ struct GSManagerPrivate {
 
 #ifdef ENABLE_X11
     GSGrab         *grab;
+#endif
+#ifdef ENABLE_WAYLAND
+    WleEmbeddedCompositor *compositor;
 #endif
 };
 
@@ -445,6 +451,18 @@ gs_manager_init (GSManager *manager) {
                                                  NULL, (GDestroyNotify) remove_job);
     manager->priv->windows = g_hash_table_new_full (g_direct_hash, g_direct_equal,
                                                     NULL, (GDestroyNotify) gs_window_destroy);
+
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+        struct wl_display *wl_display = gdk_wayland_display_get_wl_display (gdk_display_get_default ());
+        GError *error = NULL;
+        manager->priv->compositor = wle_embedded_compositor_new ("xfce4-screensaver", wl_display, &error);
+        if (manager->priv->compositor == NULL) {
+            g_critical ("Failed to create embedded compositor: %s", error->message);
+            g_error_free (error);
+        }
+    }
+#endif
 }
 
 static void
@@ -953,6 +971,12 @@ gs_manager_finalize (GObject *object) {
 
     g_object_unref (manager->priv->prefs);
 
+#ifdef ENABLE_WAYLAND
+    if (manager->priv->compositor != NULL) {
+        g_object_unref (manager->priv->compositor);
+    }
+#endif
+
     G_OBJECT_CLASS (gs_manager_parent_class)->finalize (object);
 }
 
@@ -978,14 +1002,13 @@ gs_manager_create_windows (GSManager *manager) {
 
 GSManager *
 gs_manager_new (void) {
-    GObject   *manager;
-    GSManager *mgr;
-
-    manager = g_object_new (GS_TYPE_MANAGER, NULL);
-
-    mgr = GS_MANAGER (manager);
-
-    return mgr;
+    static GSManager *manager = NULL;
+    if (manager == NULL) {
+        manager = g_object_new (GS_TYPE_MANAGER, NULL);
+    } else {
+        g_object_ref (manager);
+    }
+    return manager;
 }
 
 static void
@@ -1012,6 +1035,14 @@ gs_manager_activate (GSManager *manager) {
 #ifdef ENABLE_X11
     if (manager->priv->grab != NULL) {
         if (!gs_grab_grab_root (manager->priv->grab, FALSE, FALSE)) {
+            return FALSE;
+        }
+    }
+#endif
+
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+        if (manager->priv->compositor == NULL) {
             return FALSE;
         }
     }
@@ -1096,3 +1127,10 @@ gs_manager_request_unlock (GSManager *manager) {
 
     return TRUE;
 }
+
+#ifdef ENABLE_WAYLAND
+WleEmbeddedCompositor *
+gs_manager_get_compositor (GSManager *manager) {
+    return manager->priv->compositor;
+}
+#endif
