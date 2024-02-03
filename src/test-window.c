@@ -31,10 +31,13 @@
 #include <xfconf/xfconf.h>
 
 #include "gs-debug.h"
-#include "gs-grab.h"
 #include "gs-window.h"
 
+#ifdef ENABLE_X11
+#include <gdk/gdkx.h>
+#include "gs-grab.h"
 static GSGrab *grab = NULL;
+#endif
 
 static void
 window_deactivated_cb (GSWindow *window,
@@ -55,11 +58,15 @@ window_dialog_down_cb (GSWindow *window,
 static void
 window_show_cb (GSWindow *window,
                 gpointer  data) {
-    /* move devices grab so that dialog can be used */
-    gs_grab_move_to_window (grab,
-                            gs_window_get_gdk_window (window),
-                            gs_window_get_display (window),
-                            TRUE, FALSE);
+#ifdef ENABLE_X11
+    if (grab != NULL) {
+        /* move devices grab so that dialog can be used */
+        gs_grab_move_to_window (grab,
+                                gs_window_get_gdk_window (window),
+                                gs_window_get_display (window),
+                                TRUE, FALSE);
+    }
+#endif
 }
 
 static gboolean
@@ -91,7 +98,11 @@ static void
 window_destroyed_cb (GtkWindow *window,
                      gpointer   data) {
     disconnect_window_signals (GS_WINDOW (window));
-    gs_grab_release (grab, TRUE);
+#ifdef ENABLE_X11
+    if (grab != NULL) {
+        gs_grab_release (grab, TRUE);
+    }
+#endif
     gtk_main_quit ();
 }
 
@@ -152,7 +163,11 @@ main (int    argc,
 
     gs_debug_init (TRUE, FALSE);
 
-    grab = gs_grab_new ();
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        grab = gs_grab_new ();
+    }
+#endif
 
     test_window ();
 
@@ -161,7 +176,11 @@ main (int    argc,
 
     gtk_main ();
 
-    g_object_unref (grab);
+#ifdef ENABLE_X11
+    if (grab != NULL) {
+        g_object_unref (grab);
+    }
+#endif
 
     gs_debug_shutdown ();
     xfconf_shutdown ();
