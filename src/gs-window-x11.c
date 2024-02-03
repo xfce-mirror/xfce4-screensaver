@@ -965,7 +965,7 @@ lock_socket_destroyed (GtkWidget *widget,
 
 static void
 create_keyboard_socket (GSWindow *window,
-                        guint32   id) {
+                        gulong    id) {
     GdkDisplay   *display;
     GdkMonitor   *monitor;
     GdkWindow    *g_window;
@@ -1083,10 +1083,10 @@ keyboard_process_watch (GIOChannel   *source,
         switch (status) {
             case G_IO_STATUS_NORMAL:
             {
-                guint32 id;
-                char    c;
+                gulong id;
+                char c;
                 gs_debug ("Keyboard command output: %s", line);
-                if (1 == sscanf (line, " %" G_GUINT32_FORMAT " %c", &id, &c)) {
+                if (1 == sscanf (line, " %lu %c", &id, &c)) {
                     create_keyboard_socket (window, id);
                 }
             }
@@ -1145,7 +1145,7 @@ embed_keyboard (GSWindow *window) {
 
 static void
 create_lock_socket (GSWindow *window,
-                    guint32   id) {
+                    gulong    id) {
     window->priv->lock_socket = gtk_socket_new ();
     window->priv->lock_box = gtk_grid_new ();
     gtk_widget_set_halign (GTK_WIDGET (window->priv->lock_box),
@@ -1268,9 +1268,9 @@ dialog_process_watch (GIOChannel   *source,
                 gs_debug ("Command output: %s", line);
 
                 if (strstr (line, "WINDOW ID=") != NULL) {
-                    guint32 id;
-                    char    c;
-                    if (1 == sscanf (line, " WINDOW ID= %" G_GUINT32_FORMAT " %c", &id, &c)) {
+                    gulong id;
+                    char c;
+                    if (1 == sscanf (line, " WINDOW ID= %lu %c", &id, &c)) {
                         create_lock_socket (window, id);
                     }
                 } else if (strstr (line, "NOTICE=") != NULL) {
@@ -1778,13 +1778,13 @@ static gboolean
 gs_window_real_grab_broken (GtkWidget          *widget,
                             GdkEventGrabBroken *event) {
     if (event->grab_window != NULL) {
-        gs_debug ("Grab broken on window %X %s, new grab on window %X",
-                  (guint32) GDK_WINDOW_XID (event->window),
+        gs_debug ("Grab broken on window %lX %s, new grab on window %lX",
+                  GDK_WINDOW_XID (event->window),
                   event->keyboard ? "keyboard" : "pointer",
-                  (guint32) GDK_WINDOW_XID (event->grab_window));
+                  GDK_WINDOW_XID (event->grab_window));
     } else {
-        gs_debug ("Grab broken on window %X %s, new grab is outside application",
-                  (guint32) GDK_WINDOW_XID (event->window),
+        gs_debug ("Grab broken on window %lX %s, new grab is outside application",
+                  GDK_WINDOW_XID (event->window),
                   event->keyboard ? "keyboard" : "pointer");
     }
 
