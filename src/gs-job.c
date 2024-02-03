@@ -37,6 +37,11 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtkx.h>
 #endif
+#ifdef ENABLE_WAYLAND
+#include <gdk/gdkwayland.h>
+#include <libwlembed/libwlembed.h>
+#include <libwlembed-gtk3/libwlembed-gtk3.h>
+#endif
 
 #if defined(HAVE_SETPRIORITY) && defined(PRIO_PROCESS)
 #include <sys/resource.h>
@@ -47,6 +52,7 @@
 #include "gs-prefs.h"
 #include "gs-theme-manager.h"
 #include "subprocs.h"
+#include "xfce-desktop-utils.h"
 
 static void gs_job_finalize   (GObject    *object);
 
@@ -81,6 +87,11 @@ widget_get_id_string (GtkWidget *widget) {
 #ifdef ENABLE_X11
     if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
         id = g_strdup_printf ("0x%lX", gtk_socket_get_id (GTK_SOCKET (widget)));
+    }
+#endif
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+        id = g_strdup (wle_gtk_socket_get_embedding_token (WLE_GTK_SOCKET (widget)));
     }
 #endif
 
@@ -281,13 +292,25 @@ get_env_vars (GtkWidget *widget) {
         "LANG",
         "LANGUAGE",
         "DBUS_SESSION_BUS_ADDRESS",
-        "G_DEBUG"
+        "G_DEBUG",
+        "LD_LIBRARY_PATH",
+        "XDG_RUNTIME_DIR",
     };
 
     env = g_ptr_array_new ();
 
     display_name = gdk_display_get_name (gtk_widget_get_display (widget));
-    g_ptr_array_add (env, g_strdup_printf ("DISPLAY=%s", display_name));
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        g_ptr_array_add (env, g_strdup_printf ("DISPLAY=%s", display_name));
+    }
+#endif
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+        g_ptr_array_add (env, g_strdup_printf ("WAYLAND_DISPLAY=%s", display_name));
+        g_ptr_array_add (env, g_strdup_printf ("DISPLAY=%s", g_getenv ("DISPLAY")));
+    }
+#endif
 
     g_ptr_array_add (env, g_strdup_printf ("HOME=%s",
                                            g_get_home_dir ()));
@@ -342,17 +365,18 @@ spawn_on_widget (GtkWidget  *widget,
     env = get_env_vars (widget);
 
     error = NULL;
-    result = g_spawn_async_with_pipes (NULL,
-                                       argv,
-                                       (char **)env->pdata,
-                                       G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
-                                       NULL,
-                                       NULL,
-                                       &child_pid,
-                                       NULL,
-                                       NULL,
-                                       watch_func != NULL ? &standard_error : NULL,
-                                       &error);
+    result = spawn_async_with_pipes (widget,
+                                     NULL,
+                                     argv,
+                                     (char **)env->pdata,
+                                     G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
+                                     NULL,
+                                     NULL,
+                                     &child_pid,
+                                     NULL,
+                                     NULL,
+                                     watch_func != NULL ? &standard_error : NULL,
+                                     &error);
 
     for (guint i = 0; i < env->len; i++) {
         g_free (g_ptr_array_index (env, i));
