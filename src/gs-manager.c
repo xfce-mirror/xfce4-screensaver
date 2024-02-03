@@ -32,6 +32,7 @@
 #ifdef ENABLE_WAYLAND
 #include <gdk/gdkwayland.h>
 #include <libwlembed-gtk3/libwlembed-gtk3.h>
+#include "gs-session-lock-manager.h"
 #endif
 
 #include "gs-debug.h"
@@ -67,6 +68,7 @@ struct GSManagerPrivate {
 #endif
 #ifdef ENABLE_WAYLAND
     WleEmbeddedCompositor *compositor;
+    GSSessionLockManager *lock_manager;
 #endif
 };
 
@@ -461,6 +463,8 @@ gs_manager_init (GSManager *manager) {
             g_critical ("Failed to create embedded compositor: %s", error->message);
             g_error_free (error);
         }
+
+        manager->priv->lock_manager = gs_session_lock_manager_new ();
     }
 #endif
 }
@@ -821,6 +825,11 @@ gs_manager_create_window_for_monitor (GSManager  *manager,
     gs_window_set_status_message (window, manager->priv->status_message);
     gs_window_set_lock_active (window, manager->priv->lock_active);
     connect_window_signals (manager, window);
+#ifdef ENABLE_WAYLAND
+    if (manager->priv->lock_manager != NULL) {
+        gs_session_lock_manager_add_window (manager->priv->lock_manager, window);
+    }
+#endif
 
     g_hash_table_insert (manager->priv->windows, monitor, window);
 
@@ -830,6 +839,16 @@ gs_manager_create_window_for_monitor (GSManager  *manager,
 
     return GTK_WIDGET (window);
 }
+
+#ifdef ENABLE_WAYLAND
+static void
+remove_window (gpointer monitor,
+               gpointer window,
+               gpointer data) {
+    GSManager *manager = data;
+    gs_session_lock_manager_remove_window (manager->priv->lock_manager, window);
+}
+#endif
 
 static gboolean
 remove_overlays (GtkWidget *window,
@@ -866,6 +885,11 @@ recreate_windows (GtkWidget *overlay,
     gs_debug("Reconfiguring monitors, recreating windows");
 
     g_hash_table_remove_all (manager->priv->jobs);
+#ifdef ENABLE_WAYLAND
+    if (manager->priv->lock_manager != NULL) {
+        g_hash_table_foreach (manager->priv->windows, remove_window, manager);
+    }
+#endif
     g_hash_table_remove_all (manager->priv->windows);
     manager->priv->n_overlay_signal_received = 0;
 
@@ -945,6 +969,11 @@ gs_manager_destroy_windows (GSManager *manager) {
                                           on_display_monitor_added,
                                           manager);
 
+#ifdef ENABLE_WAYLAND
+    if (manager->priv->lock_manager != NULL) {
+        g_hash_table_foreach (manager->priv->windows, remove_window, manager);
+    }
+#endif
     g_hash_table_remove_all (manager->priv->windows);
     g_list_free_full (manager->priv->overlays, (GDestroyNotify) gtk_widget_destroy);
     manager->priv->overlays = NULL;
@@ -979,6 +1008,9 @@ gs_manager_finalize (GObject *object) {
 #ifdef ENABLE_WAYLAND
     if (manager->priv->compositor != NULL) {
         g_object_unref (manager->priv->compositor);
+    }
+    if (manager->priv->lock_manager != NULL) {
+        g_object_unref (manager->priv->lock_manager);
     }
 #endif
 
@@ -1047,7 +1079,9 @@ gs_manager_activate (GSManager *manager) {
 
 #ifdef ENABLE_WAYLAND
     if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
-        if (manager->priv->compositor == NULL) {
+        if (manager->priv->compositor == NULL
+            || manager->priv->lock_manager == NULL
+            || !gs_session_lock_manager_lock (manager->priv->lock_manager)) {
             return FALSE;
         }
     }
@@ -1080,6 +1114,11 @@ gs_manager_deactivate (GSManager *manager) {
 #endif
     g_hash_table_remove_all (manager->priv->jobs);
     gs_manager_destroy_windows (manager);
+#ifdef ENABLE_WAYLAND
+    if (manager->priv->lock_manager != NULL) {
+        gs_session_lock_manager_unlock (manager->priv->lock_manager);
+    }
+#endif
 
     /* reset state */
     manager->priv->active = FALSE;
