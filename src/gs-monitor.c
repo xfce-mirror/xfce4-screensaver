@@ -36,7 +36,7 @@
 
 #include "gs-debug.h"
 #include "gs-listener-dbus.h"
-#include "gs-listener-x11.h"
+#include "gs-listener.h"
 #include "gs-manager.h"
 #include "gs-monitor.h"
 #include "gs-prefs.h"
@@ -46,7 +46,7 @@ static void gs_monitor_finalize(GObject* object);
 
 struct GSMonitorPrivate {
     GSListenerDBus* listener_dbus;
-    GSListenerX11 *listener_x11;
+    GSListener *listener;
     GSManager* manager;
     GSPrefs* prefs;
 };
@@ -84,7 +84,7 @@ static void listener_dbus_lock_cb(GSListenerDBus* listener, GSMonitor* monitor) 
     }
 }
 
-static void listener_x11_activate_cb(GSListenerX11* listener, GSMonitor* monitor) {
+static void listener_activate_cb(GSListener* listener, GSMonitor* monitor) {
     if (gs_listener_dbus_is_inhibited(monitor->priv->listener_dbus)) {
         gs_debug("Idle screen saving inhibited via dbus");
         return;
@@ -93,7 +93,7 @@ static void listener_x11_activate_cb(GSListenerX11* listener, GSMonitor* monitor
     gs_listener_dbus_activate_saver(monitor->priv->listener_dbus, TRUE);
 }
 
-static void listener_x11_lock_cb(GSListenerX11* listener, GSMonitor* monitor) {
+static void listener_lock_cb(GSListener* listener, GSMonitor* monitor) {
     if (gs_listener_dbus_is_inhibited(monitor->priv->listener_dbus)) {
         gs_debug("Idle locking inhibited via dbus");
         return;
@@ -150,8 +150,8 @@ static void disconnect_listener_signals(GSMonitor* monitor) {
     g_signal_handlers_disconnect_by_func(monitor->priv->listener_dbus, listener_dbus_simulate_user_activity_cb, monitor);
     g_signal_handlers_disconnect_by_func(monitor->priv->listener_dbus, listener_dbus_show_message_cb, monitor);
 
-    g_signal_handlers_disconnect_by_func(monitor->priv->listener_x11, listener_x11_activate_cb, monitor);
-    g_signal_handlers_disconnect_by_func(monitor->priv->listener_x11, listener_x11_lock_cb, monitor);
+    g_signal_handlers_disconnect_by_func(monitor->priv->listener, listener_activate_cb, monitor);
+    g_signal_handlers_disconnect_by_func(monitor->priv->listener, listener_lock_cb, monitor);
 }
 
 static void connect_listener_signals(GSMonitor* monitor) {
@@ -170,10 +170,10 @@ static void connect_listener_signals(GSMonitor* monitor) {
     g_signal_connect(monitor->priv->listener_dbus, "show-message",
                      G_CALLBACK(listener_dbus_show_message_cb), monitor);
 
-    g_signal_connect(monitor->priv->listener_x11, "activate",
-                     G_CALLBACK(listener_x11_activate_cb), monitor);
-    g_signal_connect(monitor->priv->listener_x11, "lock",
-                     G_CALLBACK(listener_x11_lock_cb), monitor);
+    g_signal_connect(monitor->priv->listener, "activate",
+                     G_CALLBACK(listener_activate_cb), monitor);
+    g_signal_connect(monitor->priv->listener, "lock",
+                     G_CALLBACK(listener_lock_cb), monitor);
 }
 
 static void gs_monitor_init(GSMonitor* monitor) {
@@ -182,7 +182,7 @@ static void gs_monitor_init(GSMonitor* monitor) {
     monitor->priv->prefs = gs_prefs_new();
 
     monitor->priv->listener_dbus = gs_listener_dbus_new();
-    monitor->priv->listener_x11 = gs_listener_x11_new();
+    monitor->priv->listener = gs_listener_new();
     connect_listener_signals(monitor);
 
     monitor->priv->manager = gs_manager_new();
@@ -204,7 +204,7 @@ static void gs_monitor_finalize(GObject* object) {
     g_signal_handlers_disconnect_by_func(monitor->priv->manager, manager_deactivated_cb, monitor);
 
     g_object_unref(monitor->priv->listener_dbus);
-    g_object_unref(monitor->priv->listener_x11);
+    g_object_unref(monitor->priv->listener);
     g_object_unref(monitor->priv->manager);
     g_object_unref(monitor->priv->prefs);
 
@@ -225,8 +225,6 @@ gboolean gs_monitor_start(GSMonitor* monitor, GError** error) {
     if (!gs_listener_dbus_acquire(monitor->priv->listener_dbus, error)) {
         return FALSE;
     }
-
-    gs_listener_x11_acquire(monitor->priv->listener_x11);
 
     return TRUE;
 }
