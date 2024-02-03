@@ -25,9 +25,12 @@
 
 #include <gdk/gdk.h>
 #include <gio/gio.h>
+#ifdef ENABLE_X11
+#include <gdk/gdkx.h>
+#include "gs-grab.h"
+#endif
 
 #include "gs-debug.h"
-#include "gs-grab.h"
 #include "gs-job.h"
 #include "gs-manager.h"
 #include "gs-prefs.h"
@@ -55,7 +58,9 @@ struct GSManagerPrivate {
     guint           lock_timeout_id;
     guint           cycle_timeout_id;
 
+#ifdef ENABLE_X11
     GSGrab         *grab;
+#endif
 };
 
 enum {
@@ -430,7 +435,11 @@ static void
 gs_manager_init (GSManager *manager) {
     manager->priv = gs_manager_get_instance_private (manager);
 
-    manager->priv->grab = gs_grab_new ();
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        manager->priv->grab = gs_grab_new ();
+    }
+#endif
     manager->priv->prefs = gs_prefs_new();
     manager->priv->jobs = g_hash_table_new_full (g_direct_hash, g_direct_equal,
                                                  NULL, (GDestroyNotify) remove_job);
@@ -512,6 +521,7 @@ gs_manager_show_message (GSManager  *manager,
     gs_manager_request_unlock (manager);
 }
 
+#ifdef ENABLE_X11
 static gboolean
 manager_maybe_grab_window (GSManager *manager,
                            GSWindow  *window) {
@@ -564,13 +574,18 @@ window_grab_broken_cb (GSWindow           *window,
             gs_grab_reset (manager->priv->grab);
     }
 }
+#endif
 
 static gboolean
 window_map_event_cb (GSWindow  *window,
                      GdkEvent  *event,
                      GSManager *manager) {
     gs_debug ("Handling window map_event event");
-    manager_maybe_grab_window (manager, window);
+#ifdef ENABLE_X11
+    if (manager->priv->grab != NULL) {
+        manager_maybe_grab_window (manager, window);
+    }
+#endif
     manager_maybe_start_job_for_window (manager, window);
     return FALSE;
 }
@@ -646,14 +661,18 @@ handle_window_dialog_up (GSManager *manager,
         }
     }
 
-    /* move devices grab so that dialog can be used;
-       release the pointer grab while dialog is up so that
-       the dialog can be used. We'll regrab it when the dialog goes down */
-    gs_debug ("Initiate pointer-less grab move to %p", window);
-    gs_grab_move_to_window (manager->priv->grab,
-                            gs_window_get_gdk_window (window),
-                            gs_window_get_display (window),
-                            TRUE, FALSE);
+#ifdef ENABLE_X11
+    if (manager->priv->grab != NULL) {
+        /* move devices grab so that dialog can be used;
+           release the pointer grab while dialog is up so that
+           the dialog can be used. We'll regrab it when the dialog goes down */
+        gs_debug ("Initiate pointer-less grab move to %p", window);
+        gs_grab_move_to_window (manager->priv->grab,
+                                gs_window_get_gdk_window (window),
+                                gs_window_get_display (window),
+                                TRUE, FALSE);
+    }
+#endif
 
     if (!manager->priv->throttled) {
         gs_debug ("Suspending jobs");
@@ -672,11 +691,15 @@ handle_window_dialog_down (GSManager *manager,
 
     gs_debug ("Handling dialog down");
 
-    /* regrab pointer */
-    gs_grab_move_to_window (manager->priv->grab,
-                            gs_window_get_gdk_window (window),
-                            gs_window_get_display (window),
-                            FALSE, FALSE);
+#ifdef ENABLE_X11
+    if (manager->priv->grab != NULL) {
+        /* regrab pointer */
+        gs_grab_move_to_window (manager->priv->grab,
+                                gs_window_get_gdk_window (window),
+                                gs_window_get_display (window),
+                                FALSE, FALSE);
+    }
+#endif
 
     /* make all windows sensitive to get events */
     g_hash_table_iter_init (&iter, manager->priv->windows);
@@ -726,7 +749,11 @@ disconnect_window_signals (GSManager *manager,
     g_signal_handlers_disconnect_by_func (window, window_map_event_cb, manager);
     g_signal_handlers_disconnect_by_func (window, window_obscured_cb, manager);
     g_signal_handlers_disconnect_by_func (window, window_dialog_up_changed_cb, manager);
-    g_signal_handlers_disconnect_by_func (window, window_grab_broken_cb, manager);
+#ifdef ENABLE_X11
+    if (manager->priv->grab != NULL) {
+        g_signal_handlers_disconnect_by_func (window, window_grab_broken_cb, manager);
+    }
+#endif
 }
 
 static void
@@ -752,8 +779,12 @@ connect_window_signals (GSManager *manager,
                              G_CALLBACK (window_obscured_cb), manager, G_CONNECT_AFTER);
     g_signal_connect_object (window, "notify::dialog-up",
                              G_CALLBACK (window_dialog_up_changed_cb), manager, 0);
-    g_signal_connect_object (window, "grab_broken_event",
-                             G_CALLBACK (window_grab_broken_cb), manager, G_CONNECT_AFTER);
+#ifdef ENABLE_X11
+    if (manager->priv->grab != NULL) {
+        g_signal_connect_object (window, "grab-broken-event",
+                                 G_CALLBACK (window_grab_broken_cb), manager, G_CONNECT_AFTER);
+    }
+#endif
 }
 
 
@@ -908,14 +939,18 @@ gs_manager_finalize (GObject *object) {
     g_return_if_fail (manager->priv != NULL);
 
     remove_timers(manager);
-    gs_grab_release (manager->priv->grab, TRUE);
+#ifdef ENABLE_X11
+    if (manager->priv->grab != NULL) {
+        gs_grab_release (manager->priv->grab, TRUE);
+        g_object_unref (manager->priv->grab);
+    }
+#endif
     g_hash_table_destroy (manager->priv->jobs);
     gs_manager_destroy_windows (manager);
     g_hash_table_destroy (manager->priv->windows);
 
     manager->priv->active = FALSE;
 
-    g_object_unref (manager->priv->grab);
     g_object_unref (manager->priv->prefs);
 
     G_OBJECT_CLASS (gs_manager_parent_class)->finalize (object);
@@ -966,8 +1001,6 @@ show_windows (GHashTable *windows) {
 
 static gboolean
 gs_manager_activate (GSManager *manager) {
-    gboolean    res;
-
     g_return_val_if_fail (manager != NULL, FALSE);
     g_return_val_if_fail (GS_IS_MANAGER (manager), FALSE);
 
@@ -976,10 +1009,13 @@ gs_manager_activate (GSManager *manager) {
         return FALSE;
     }
 
-    res = gs_grab_grab_root (manager->priv->grab, FALSE, FALSE);
-    if (!res) {
-        return FALSE;
+#ifdef ENABLE_X11
+    if (manager->priv->grab != NULL) {
+        if (!gs_grab_grab_root (manager->priv->grab, FALSE, FALSE)) {
+            return FALSE;
+        }
     }
+#endif
 
     gs_manager_create_windows (GS_MANAGER (manager));
 
@@ -1001,7 +1037,11 @@ gs_manager_deactivate (GSManager *manager) {
     }
 
     remove_timers (manager);
-    gs_grab_release (manager->priv->grab, TRUE);
+#ifdef ENABLE_X11
+    if (manager->priv->grab != NULL) {
+        gs_grab_release (manager->priv->grab, TRUE);
+    }
+#endif
     g_hash_table_remove_all (manager->priv->jobs);
     gs_manager_destroy_windows (manager);
 
