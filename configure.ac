@@ -61,6 +61,8 @@ m4_define([libxklavier_min_version], [5.2])
 m4_define([libwnck_min_version], [3.20])
 
 m4_define([libwlembed_min_version], [0.0.0])
+m4_define([wayland_min_version], [1.15])
+m4_define([wayland_protocols_min_version], [1.20])
 
 XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [glib_min_version])
 XDT_CHECK_PACKAGE([GIO], [gio-2.0], [glib_min_version])
@@ -89,11 +91,22 @@ XDT_CHECK_OPTIONAL_FEATURE([WAYLAND],
                              XDT_FEATURE_DEPENDENCY([GDK_WAYLAND], [gdk-wayland-3.0], [gtk_min_version])
                              XDT_FEATURE_DEPENDENCY([LIBWLEMBED], [libwlembed-0], [libwlembed_min_version])
                              XDT_FEATURE_DEPENDENCY([LIBWLEMBED_GTK3], [libwlembed-gtk3-0], [libwlembed_min_version])
+                             XDT_FEATURE_DEPENDENCY([WAYLAND_CLIENT], [wayland-client], [wayland_min_version])
+                             XDT_FEATURE_DEPENDENCY([WAYLAND_SCANNER], [wayland-scanner], [wayland_min_version])
+                             XDT_FEATURE_DEPENDENCY([WAYLAND_PROTOCOLS], [wayland-protocols], [wayland_protocols_min_version])
                            ],
                            [the Wayland windowing system])
 if test x"$ENABLE_X11" != x"yes" -a x"$ENABLE_WAYLAND" != x"yes"; then
   AC_MSG_ERROR([Either both X11 and Wayland support was disabled, or required dependencies are missing. One of the two must be enabled.])
 fi
+
+if test x"$ENABLE_WAYLAND" = x"yes"; then
+  WAYLAND_PROTOCOLS_PKGDATADIR=`$PKG_CONFIG --variable=pkgdatadir wayland-protocols`
+  AC_SUBST([WAYLAND_PROTOCOLS_PKGDATADIR])
+fi
+dnl FIXME: Bump wayland_protocols_min_version to 1.25 when it is an acceptable requirement,
+dnl and remove this and protocols/ext-session-lock-v1.xml
+AM_CONDITIONAL([HAVE_SESSION_LOCK], [test -f "$WAYLAND_PROTOCOLS_PKGDATADIR/staging/ext-session-lock/ext-session-lock-v1.xml"])
 
 if test x"$ENABLE_X11" = x"yes"; then
 
@@ -878,6 +891,7 @@ AC_SUBST(themesdir)
 
 AC_CONFIG_FILES([
 Makefile
+protocols/Makefile
 po/Makefile.in
 src/Makefile
 src/xfce4-screensaver.desktop.in
