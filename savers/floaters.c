@@ -33,9 +33,11 @@
 #include <sysexits.h>
 #include <time.h>
 
-#include <glib.h>
-#include <gdk/gdk.h>
+#include <gtk/gtk.h>
+#ifdef ENABLE_X11
+#include <gdk/gdkx.h>
 #include <gtk/gtkx.h>
+#endif
 
 #include <libxfce4util/libxfce4util.h>
 
@@ -1111,7 +1113,7 @@ int
 main (int   argc,
       char *argv[]) {
     ScreenSaver     *screen_saver;
-    GtkWidget       *window;
+    GtkWidget       *window = NULL;
     GtkWidget       *drawing_area;
     GError          *error;
     gboolean         success;
@@ -1146,7 +1148,11 @@ main (int   argc,
         return EX_USAGE;
     }
 
-    window = gtk_plug_new (strtoul (g_getenv ("XSCREENSAVER_WINDOW"), NULL, 0));
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        window = gtk_plug_new (strtoul (g_getenv ("XSCREENSAVER_WINDOW"), NULL, 0));
+    }
+#endif
     gtk_widget_set_app_paintable (window, TRUE);
 
     g_signal_connect (G_OBJECT (window), "destroy",

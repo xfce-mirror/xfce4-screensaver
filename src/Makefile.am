@@ -93,8 +93,6 @@ test_window_SOURCES = \
 	test-window.c    \
 	gs-window.h      \
 	gs-window-x11.c  \
-	gs-grab-x11.c    \
-	gs-grab.h        \
 	gs-marshal.c     \
 	gs-marshal.h     \
 	gs-debug.c       \
@@ -113,9 +111,6 @@ test_window_CFLAGS = \
 	$(DBUS_GLIB_CFLAGS) \
 	$(LIBXFCE4UI_CFLAGS) \
 	$(XFCONF_CFLAGS) \
-	$(LIBX11_CFLAGS) \
-	$(LIBXEXT_CFLAGS) \
-	$(LIBXKLAVIER_CFLAGS) \
 	$(NULL)
 
 test_window_LDADD = \
@@ -124,10 +119,26 @@ test_window_LDADD = \
 	$(DBUS_GLIB_LIBS) \
 	$(LIBXFCE4UI_LIBS) \
 	$(XFCONF_LIBS) \
+	$(NULL)
+
+if ENABLE_X11
+test_window_SOURCES += \
+	gs-grab-x11.c \
+	gs-grab.h \
+	$(NULL)
+
+test_window_CFLAGS += \
+	$(LIBX11_CFLAGS) \
+	$(LIBXEXT_CFLAGS) \
+	$(LIBXKLAVIER_CFLAGS) \
+	$(NULL)
+
+test_window_LDADD += \
 	$(LIBX11_LIBS) \
 	$(LIBXEXT_LIBS) \
 	$(LIBXKLAVIER_LIBS) \
 	$(NULL)
+endif
 
 xfce4_screensaver_dialog_built_sources = \
 	xfce4-screensaver-dialog-css.h  \
@@ -148,8 +159,6 @@ xfce4_screensaver_dialog_SOURCES = \
 	subprocs.h                                 \
 	xfce-desktop-utils.c                       \
 	xfce-desktop-utils.h                       \
-	xfcekbd-indicator.c                        \
-	xfcekbd-indicator.h                        \
 	xfce-bg.c                                  \
 	xfce-bg.h                                  \
 	$(AUTH_SOURCES)                            \
@@ -169,9 +178,6 @@ xfce4_screensaver_dialog_CFLAGS = \
 	$(LIBXFCE4UI_CFLAGS) \
 	$(XFCONF_CFLAGS) \
 	$(AUTH_CFLAGS) \
-	$(LIBX11_CFLAGS) \
-	$(LIBXEXT_CFLAGS) \
-	$(LIBXKLAVIER_CFLAGS) \
 	$(NULL)
 
 xfce4_screensaver_dialog_LDADD = \
@@ -181,10 +187,26 @@ xfce4_screensaver_dialog_LDADD = \
 	$(LIBXFCE4UI_LIBS) \
 	$(XFCONF_LIBS) \
 	$(AUTH_LIBS) \
+	$(NULL)
+
+if ENABLE_X11
+xfce4_screensaver_dialog_SOURCES += \
+	xfcekbd-indicator.c \
+	xfcekbd-indicator.h \
+	$(NULL)
+
+xfce4_screensaver_dialog_CFLAGS += \
+	$(LIBX11_CFLAGS) \
+	$(LIBXEXT_CFLAGS) \
+	$(LIBXKLAVIER_CFLAGS) \
+	$(NULL)
+
+xfce4_screensaver_dialog_LDADD += \
 	$(LIBX11_LIBS) \
 	$(LIBXEXT_LIBS) \
 	$(LIBXKLAVIER_LIBS) \
 	$(NULL)
+endif
 
 BUILT_SOURCES = \
 	gs-marshal.c                 \
@@ -221,8 +243,6 @@ xfce4_screensaver_SOURCES = \
 	gs-debug.h                  \
 	subprocs.c                  \
 	subprocs.h                  \
-	gs-grab-x11.c               \
-	gs-grab.h                   \
 	xfce-desktop-utils.c        \
 	xfce-desktop-utils.h        \
 	$(BUILT_SOURCES)            \
@@ -237,11 +257,6 @@ xfce4_screensaver_CFLAGS = \
 	$(GARCON_GTK3_CFLAGS) \
 	$(SYSTEMD_CFLAGS) \
 	$(ELOGIND_CFLAGS) \
-	$(LIBX11_CFLAGS) \
-	$(LIBXEXT_CFLAGS) \
-	$(LIBXSCRNSAVER_CFLAGS) \
-	$(LIBXKLAVIER_CFLAGS) \
-	$(LIBWNCK_CFLAGS) \
 	$(NULL)
 
 xfce4_screensaver_LDADD = \
@@ -259,6 +274,8 @@ if ENABLE_X11
 xfce4_screensaver_SOURCES += \
 	gs-listener-x11.c \
 	gs-listener-x11.h \
+	gs-grab-x11.c \
+	gs-grab.h \
 	$(NULL)
 
 xfce4_screensaver_CFLAGS += \
