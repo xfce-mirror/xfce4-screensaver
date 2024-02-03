@@ -380,13 +380,16 @@ gs_listener_dbus_activate_saver (GSListenerDBus *listener,
     g_return_val_if_fail (GS_IS_LISTENER_DBUS (listener), FALSE);
 
     if (listener->priv->active == active) {
-        return FALSE;
+        return TRUE;
     }
 
     g_signal_emit (listener, signals[ACTIVE_CHANGED], 0, active, &res);
-    listener_set_active_internal (listener, active);
+    if (res) {
+        listener_set_active_internal (listener, active);
+        return TRUE;
+    }
 
-    return TRUE;
+    return FALSE;
 }
 
 gboolean
