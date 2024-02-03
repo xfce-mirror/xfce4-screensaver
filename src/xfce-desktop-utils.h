@@ -26,19 +26,29 @@
 #ifndef SRC_XFCE_DESKTOP_UTILS_H_
 #define SRC_XFCE_DESKTOP_UTILS_H_
 
-#include <glib.h>
-#include <gdk/gdk.h>
 #include <gtk/gtk.h>
 
 G_BEGIN_DECLS
 
 /* replace gdk_spawn_command_line_on_screen, not available in GTK3 */
-gboolean xfce_gdk_spawn_command_line_on_screen (GdkScreen    *screen,
-                                                const gchar  *command,
-                                                GError      **error);
+gboolean      xfce_gdk_spawn_command_line_on_screen       (GdkScreen               *screen,
+                                                           const gchar             *command,
+                                                           GError                 **error);
 
-gchar  **spawn_make_environment_for_display    (GdkDisplay   *display,
-                                                gchar       **envp);
+gchar       **spawn_make_environment_for_display          (GtkWidget               *socket);
+
+gboolean      spawn_async_with_pipes                      (GtkWidget               *socket,
+                                                           const gchar             *working_directory,
+                                                           gchar                  **argv,
+                                                           gchar                  **envp,
+                                                           GSpawnFlags              flags,
+                                                           GSpawnChildSetupFunc     child_setup,
+                                                           gpointer                 user_data,
+                                                           GPid                    *child_pid,
+                                                           gint                    *standard_input,
+                                                           gint                    *standard_output,
+                                                           gint                    *standard_error,
+                                                           GError                 **error);
 
 G_END_DECLS
 
