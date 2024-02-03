@@ -31,11 +31,12 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#include <glib.h>
 #include <glib/gstdio.h>
-#include <gdk/gdk.h>
+#include <gtk/gtk.h>
+#ifdef ENABLE_X11
 #include <gdk/gdkx.h>
 #include <gtk/gtkx.h>
+#endif
 
 #if defined(HAVE_SETPRIORITY) && defined(PRIO_PROCESS)
 #include <sys/resource.h>
@@ -77,7 +78,12 @@ widget_get_id_string (GtkWidget *widget) {
 
     g_return_val_if_fail (widget != NULL, NULL);
 
-    id = g_strdup_printf ("0x%lX", gtk_socket_get_id (GTK_SOCKET (widget)));
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        id = g_strdup_printf ("0x%lX", gtk_socket_get_id (GTK_SOCKET (widget)));
+    }
+#endif
+
     return id;
 }
 
