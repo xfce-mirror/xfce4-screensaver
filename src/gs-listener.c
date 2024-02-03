@@ -22,6 +22,10 @@
 #include <gdk/gdkx.h>
 #include "gs-listener-x11.h"
 #endif
+#ifdef ENABLE_WAYLAND
+#include <gdk/gdkwayland.h>
+#include "gs-listener-wayland.h"
+#endif
 
 #include "gs-listener.h"
 #include "gs-debug.h"
@@ -43,6 +47,7 @@ typedef struct _GSListenerPrivate {
 enum {
     ACTIVATE,
     LOCK,
+    POKE,
     LAST_SIGNAL
 };
 
@@ -70,6 +75,14 @@ gs_listener_class_init (GSListenerClass *klass) {
 
     signals[LOCK] =
         g_signal_new ("lock",
+                      G_TYPE_FROM_CLASS (object_class),
+                      G_SIGNAL_RUN_LAST,
+                      0, NULL, NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE, 0);
+
+    signals[POKE] =
+        g_signal_new ("poke",
                       G_TYPE_FROM_CLASS (object_class),
                       G_SIGNAL_RUN_LAST,
                       0, NULL, NULL,
@@ -139,6 +152,11 @@ gs_listener_new (void) {
 #ifdef ENABLE_X11
     if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
         return g_object_new (GS_TYPE_LISTENER_X11, NULL);
+    }
+#endif
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+        return g_object_new (GS_TYPE_LISTENER_WAYLAND, NULL);
     }
 #endif
 
