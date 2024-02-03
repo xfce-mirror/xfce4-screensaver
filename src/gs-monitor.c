@@ -105,6 +105,10 @@ static void listener_lock_cb(GSListener* listener, GSMonitor* monitor) {
     listener_dbus_lock_cb (NULL, monitor);
 }
 
+static void listener_poke_cb(GSListener* listener, GSMonitor* monitor) {
+    gs_monitor_simulate_user_activity(monitor);
+}
+
 static void listener_dbus_quit_cb(GSListenerDBus* listener, GSMonitor* monitor) {
     gs_listener_dbus_activate_saver(monitor->priv->listener_dbus, FALSE);
     xfce4_screensaver_quit();
@@ -155,6 +159,7 @@ static void disconnect_listener_signals(GSMonitor* monitor) {
 
     g_signal_handlers_disconnect_by_func(monitor->priv->listener, listener_activate_cb, monitor);
     g_signal_handlers_disconnect_by_func(monitor->priv->listener, listener_lock_cb, monitor);
+    g_signal_handlers_disconnect_by_func(monitor->priv->listener, listener_poke_cb, monitor);
 }
 
 static void connect_listener_signals(GSMonitor* monitor) {
@@ -177,6 +182,8 @@ static void connect_listener_signals(GSMonitor* monitor) {
                      G_CALLBACK(listener_activate_cb), monitor);
     g_signal_connect(monitor->priv->listener, "lock",
                      G_CALLBACK(listener_lock_cb), monitor);
+    g_signal_connect(monitor->priv->listener, "poke",
+                     G_CALLBACK(listener_poke_cb), monitor);
 }
 
 static void gs_monitor_init(GSMonitor* monitor) {
