@@ -106,6 +106,7 @@ struct GSLockPlugPrivate {
 
     guint        datetime_timeout_id;
     guint        cancel_timeout_id;
+    guint        grab_focus_timeout_id;
     guint        auth_check_idle_id;
     guint        response_idle_id;
 
@@ -1602,6 +1603,21 @@ delete_handler (GSLockPlug  *plug,
     return TRUE; /* Do not destroy */
 }
 
+#ifdef ENABLE_WAYLAND
+static gboolean
+grab_focus (gpointer data) {
+    GSLockPlug *plug = data;
+    if (!gtk_widget_has_focus (plug->priv->auth_prompt_entry)
+        && !gtk_widget_has_focus (plug->priv->auth_unlock_button)
+        && !gtk_widget_has_focus (plug->priv->auth_cancel_button)
+        && !gtk_widget_has_focus (plug->priv->auth_logout_button)
+        && !gtk_widget_has_focus (plug->priv->auth_switch_button)) {
+        gtk_widget_grab_focus (plug->priv->auth_prompt_entry);
+    }
+    return TRUE;
+}
+#endif
+
 static void
 gs_lock_plug_init (GSLockPlug *plug) {
     gs_profile_start (NULL);
@@ -1615,6 +1631,7 @@ gs_lock_plug_init (GSLockPlug *plug) {
 #ifdef ENABLE_WAYLAND
     if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
         plug->priv->plug_widget = wle_gtk_plug_new (g_getenv ("WLE_EMBEDDING_TOKEN"));
+        plug->priv->grab_focus_timeout_id = g_timeout_add_seconds (1, grab_focus, plug);
     }
 #endif
     g_object_set_data (G_OBJECT (plug->priv->plug_widget), "gs-lock-plug", plug);
@@ -1743,6 +1760,9 @@ gs_lock_plug_finalize (GObject *object) {
     remove_response_idle (plug);
     remove_cancel_timeout (plug);
     remove_datetime_timeout (plug);
+    if (plug->priv->grab_focus_timeout_id != 0) {
+        g_source_remove (plug->priv->grab_focus_timeout_id);
+    }
 
     G_OBJECT_CLASS (gs_lock_plug_parent_class)->finalize (object);
 }
