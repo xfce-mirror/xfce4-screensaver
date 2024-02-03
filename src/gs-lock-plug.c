@@ -35,9 +35,14 @@
 #include <glib/gprintf.h>
 #include <glib/gstdio.h>
 #include <gdk/gdkkeysyms.h>
+#include <gtk/gtk.h>
+#ifdef ENABLE_X11
 #include <gdk/gdkx.h>
 #include <gtk/gtkx.h>
-#include <gtk/gtk.h>
+#ifdef WITH_KBD_LAYOUT_INDICATOR
+#include "xfcekbd-indicator.h"
+#endif
+#endif
 
 #include <libxfce4util/libxfce4util.h>
 #include <xfconf/xfconf.h>
@@ -48,10 +53,6 @@
 #include "xfce-bg.h"
 #include "xfce-desktop-utils.h"
 #include "xfce4-screensaver-dialog-ui.h"
-
-#ifdef WITH_KBD_LAYOUT_INDICATOR
-#include "xfcekbd-indicator.h"
-#endif
 
 #define MDM_FLEXISERVER_COMMAND "mdmflexiserver"
 #define MDM_FLEXISERVER_ARGS    "--startnew Standard"
@@ -1573,7 +1574,11 @@ gs_lock_plug_init (GSLockPlug *plug) {
     gs_profile_start (NULL);
 
     plug->priv = gs_lock_plug_get_instance_private (plug);
-    plug->priv->plug_widget = gtk_plug_new (0);
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        plug->priv->plug_widget = gtk_plug_new (0);
+    }
+#endif
     g_object_set_data (G_OBJECT (plug->priv->plug_widget), "gs-lock-plug", plug);
 
     clear_clipboards (plug);
@@ -1583,7 +1588,7 @@ gs_lock_plug_init (GSLockPlug *plug) {
 
     /* Layout indicator */
 #ifdef WITH_KBD_LAYOUT_INDICATOR
-    if (plug->priv->auth_prompt_kbd_layout_indicator != NULL) {
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
         XklEngine *engine;
 
         engine = xkl_engine_get_instance (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()));
