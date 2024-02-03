@@ -37,6 +37,9 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtkx.h>
 #endif
+#ifdef ENABLE_WAYLAND
+#include <gdk/gdkwayland.h>
+#endif
 
 #include <libxfce4util/libxfce4util.h>
 #include <xfconf/xfconf.h>
@@ -93,6 +96,11 @@ static char* get_id_string(GtkWidget* widget) {
 #ifdef ENABLE_X11
     if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
         id = g_strdup_printf ("%lu", gtk_plug_get_id (GTK_PLUG (widget)));
+    }
+#endif
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+        id = g_strdup ("");
     }
 #endif
 
