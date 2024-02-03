@@ -1054,7 +1054,7 @@ reload_theme (GtkWidget *treeview) {
         return;
     }
 
-    preview  = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_preview_area"));
+    preview  = gtk_bin_get_child (GTK_BIN (gtk_builder_get_object (builder, "saver_themes_preview_area")));
     preview_set_theme (preview, theme, name);
 
     g_free (theme);
@@ -1570,10 +1570,10 @@ fullscreen_preview_cancelled_cb (GtkWidget *button,
     GtkWidget *preview_area;
     GtkWidget *dialog;
 
-    preview_area = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_preview_area"));
+    preview_area = gtk_bin_get_child (GTK_BIN (gtk_builder_get_object (builder, "saver_themes_preview_area")));
     gs_job_set_widget (job, preview_area);
 
-    fullscreen_preview_area = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_area"));
+    fullscreen_preview_area = gtk_bin_get_child (GTK_BIN (gtk_builder_get_object (builder, "fullscreen_preview_area")));
     gtk_widget_queue_draw (fullscreen_preview_area);
 
     fullscreen_preview_window = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_window"));
@@ -1602,7 +1602,7 @@ fullscreen_preview_start_cb (GtkWidget *widget,
     gtk_widget_show (fullscreen_preview_window);
     gtk_widget_grab_focus (fullscreen_preview_window);
 
-    fullscreen_preview_area = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_area"));
+    fullscreen_preview_area = gtk_bin_get_child (GTK_BIN (gtk_builder_get_object (builder, "fullscreen_preview_area")));
     gtk_widget_queue_draw (fullscreen_preview_area);
     gs_job_set_widget (job, fullscreen_preview_area);
 }
@@ -1710,7 +1710,7 @@ setup_treeview_idle (gpointer user_data) {
     GtkWidget *preview;
     GtkWidget *treeview;
 
-    preview  = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_preview_area"));
+    preview  = gtk_bin_get_child (GTK_BIN (gtk_builder_get_object (builder, "saver_themes_preview_area")));
     treeview = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_treeview"));
 
     setup_treeview (treeview, preview);
@@ -1802,6 +1802,16 @@ configure_capplet (void) {
     fullscreen_preview_close    = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_close"));
     fullscreen_preview_previous = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_previous_button"));
     fullscreen_preview_next     = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_next_button"));
+
+    gtk_container_add (GTK_CONTAINER (preview), gtk_socket_new ());
+    gtk_container_add (GTK_CONTAINER (fullscreen_preview_area), gtk_socket_new ());
+    preview = gtk_bin_get_child (GTK_BIN (preview));
+    gtk_widget_set_app_paintable (preview, TRUE);
+    gtk_widget_set_hexpand (preview, TRUE);
+    gtk_widget_set_vexpand (preview, TRUE);
+    fullscreen_preview_area = gtk_bin_get_child (GTK_BIN (fullscreen_preview_area));
+    gtk_widget_set_app_paintable (fullscreen_preview_area, TRUE);
+    gtk_widget_show (fullscreen_preview_area);
 
     gtk_widget_set_no_show_all (root_warning_infobar, TRUE);
 
