@@ -37,6 +37,11 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtkx.h>
 #endif
+#ifdef ENABLE_WAYLAND
+#include <gdk/gdkwayland.h>
+#include <libwlembed/libwlembed.h>
+#include <libwlembed-gtk3/libwlembed-gtk3.h>
+#endif
 
 #include <libxfce4ui/libxfce4ui.h>
 #include <xfconf/xfconf.h>
@@ -68,6 +73,9 @@ static GSThemeManager *theme_manager = NULL;
 static GSJob          *job = NULL;
 static XfconfChannel  *screensaver_channel = NULL;
 static XfceScreensaver *xfce_screensaver = NULL;
+#ifdef ENABLE_WAYLAND
+static WleEmbeddedCompositor *compositor = NULL;
+#endif
 
 static gboolean        idle_delay_writable;
 static gboolean        lock_delay_writable;
@@ -611,17 +619,26 @@ preview_on_draw (GtkWidget *widget,
 }
 
 static void
-preview_set_theme (GtkWidget  *widget,
-                   const char *theme,
+preview_set_theme (const char *theme,
                    const char *name) {
-    GtkWidget *label;
+    GtkWidget *label, *preview;
     char      *markup;
+
+    preview = gtk_bin_get_child (GTK_BIN (gtk_builder_get_object (builder, "saver_themes_preview_area")));
+    if (!gtk_widget_is_visible (preview)) {
+        preview = gtk_bin_get_child (GTK_BIN (gtk_builder_get_object (builder, "fullscreen_preview_area")));
+    }
 
     if (job != NULL) {
         gs_job_stop (job);
+#ifdef ENABLE_WAYLAND
+        if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+            wle_gtk_socket_destroy_embedded_view (WLE_GTK_SOCKET (preview));
+        }
+#endif
     }
 
-    gtk_widget_queue_draw (widget);
+    gtk_widget_queue_draw (preview);
 
     label = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_theme_label"));
     markup = g_markup_printf_escaped ("<i>%s</i>", name);
@@ -787,8 +804,7 @@ tree_selection_next (GtkTreeSelection *selection) {
 }
 
 static void
-tree_selection_changed_cb (GtkTreeSelection *selection,
-                           GtkWidget        *preview) {
+tree_selection_changed_cb (GtkTreeSelection *selection) {
     GtkWidget    *configure_button;
     GtkTreeIter   iter;
     GtkTreeModel *model;
@@ -814,7 +830,7 @@ tree_selection_changed_cb (GtkTreeSelection *selection,
         return;
     }
 
-    preview_set_theme (preview, theme, name);
+    preview_set_theme (theme, name);
     config_set_theme (theme);
 
     g_free (theme);
@@ -1020,12 +1036,11 @@ setup_treeview (GtkWidget *tree,
     gtk_tree_selection_set_mode (select, GTK_SELECTION_SINGLE);
     g_signal_connect (G_OBJECT (select), "changed",
                       G_CALLBACK (tree_selection_changed_cb),
-                      preview);
+                      NULL);
 }
 
 static void
 reload_theme (GtkWidget *treeview) {
-    GtkWidget        *preview;
     GtkTreeIter       iter;
     GtkTreeModel     *model;
     GtkTreeSelection *selection;
@@ -1054,8 +1069,7 @@ reload_theme (GtkWidget *treeview) {
         return;
     }
 
-    preview  = gtk_bin_get_child (GTK_BIN (gtk_builder_get_object (builder, "saver_themes_preview_area")));
-    preview_set_theme (preview, theme, name);
+    preview_set_theme (theme, name);
 
     g_free (theme);
     g_free (name);
@@ -1811,6 +1825,19 @@ configure_capplet (void) {
         gtk_container_add (GTK_CONTAINER (fullscreen_preview_area), gtk_socket_new ());
     }
 #endif
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+        GError *_error = NULL;
+        compositor = wle_gtk_create_embedded_compositor ("xfce4-screensaver-preferences", &_error);
+        if (compositor == NULL) {
+            g_critical ("Failed to create embedded compositor: %s", _error->message);
+            g_error_free (_error);
+        } else {
+            gtk_container_add (GTK_CONTAINER (preview), wle_gtk_socket_new (compositor));
+            gtk_container_add (GTK_CONTAINER (fullscreen_preview_area), wle_gtk_socket_new (compositor));
+        }
+    }
+#endif
     preview = gtk_bin_get_child (GTK_BIN (preview));
     gtk_widget_set_app_paintable (preview, TRUE);
     gtk_widget_set_hexpand (preview, TRUE);
@@ -2024,6 +2051,11 @@ finalize_capplet (void) {
 
     if (active_theme)
         g_free (active_theme);
+
+#ifdef ENABLE_WAYLAND
+    if (compositor)
+        g_object_unref (compositor);
+#endif
 }
 
 int
