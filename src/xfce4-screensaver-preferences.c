@@ -32,9 +32,11 @@
 #include <unistd.h>
 
 #include <gio/gio.h>
-#include <gdk/gdkx.h>
 #include <gtk/gtk.h>
+#ifdef ENABLE_X11
+#include <gdk/gdkx.h>
 #include <gtk/gtkx.h>
+#endif
 
 #include <libxfce4ui/libxfce4ui.h>
 #include <xfconf/xfconf.h>
@@ -1805,8 +1807,12 @@ configure_capplet (void) {
     fullscreen_preview_previous = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_previous_button"));
     fullscreen_preview_next     = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_next_button"));
 
-    gtk_container_add (GTK_CONTAINER (preview), gtk_socket_new ());
-    gtk_container_add (GTK_CONTAINER (fullscreen_preview_area), gtk_socket_new ());
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        gtk_container_add (GTK_CONTAINER (preview), gtk_socket_new ());
+        gtk_container_add (GTK_CONTAINER (fullscreen_preview_area), gtk_socket_new ());
+    }
+#endif
     preview = gtk_bin_get_child (GTK_BIN (preview));
     gtk_widget_set_app_paintable (preview, TRUE);
     gtk_widget_set_hexpand (preview, TRUE);
@@ -2068,11 +2074,17 @@ main (int    argc,
 
         gtk_widget_show_all (dialog);
 
-        /* To prevent the settings dialog to be saved in the session */
-        gdk_x11_set_sm_client_id("FAKE ID");
+#ifdef ENABLE_X11
+        if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+            /* To prevent the settings dialog to be saved in the session */
+            gdk_x11_set_sm_client_id("FAKE ID");
+        }
+#endif
 
         gtk_main();
-    } else {
+    }
+#ifdef ENABLE_X11
+    else if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
         GtkWidget *plug;
         GObject   *plug_child;
 
@@ -2097,6 +2109,7 @@ main (int    argc,
         /* Enter main loop */
         gtk_main();
     }
+#endif
 
     finalize_capplet ();
 
