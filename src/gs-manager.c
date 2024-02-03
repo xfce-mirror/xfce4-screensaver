@@ -481,9 +481,7 @@ window_deactivated_idle (gpointer user_data) {
     g_return_val_if_fail (manager != NULL, FALSE);
     g_return_val_if_fail (GS_IS_MANAGER (manager), FALSE);
 
-    /* don't deactivate directly but only emit a signal
-       so that we let the parent deactivate */
-    g_signal_emit (manager, signals[DEACTIVATED], 0);
+    gs_manager_activate_saver (manager, FALSE);
 
     return FALSE;
 }
@@ -632,9 +630,6 @@ manager_show_window (GSManager *manager,
         remove_cycle_timer (manager);
         add_cycle_timer (manager, manager->priv->prefs->cycle);
     }
-
-    /* FIXME: only emit signal once */
-    g_signal_emit (manager, signals[ACTIVATED], 0);
 }
 
 static void
@@ -1065,7 +1060,7 @@ gs_manager_activate (GSManager *manager) {
 
     if (manager->priv->active) {
         gs_debug ("Trying to activate manager when already active");
-        return FALSE;
+        return TRUE;
     }
 
 #ifdef ENABLE_X11
@@ -1092,6 +1087,8 @@ gs_manager_activate (GSManager *manager) {
 
     show_windows (manager->priv->windows);
 
+    g_signal_emit (manager, signals[ACTIVATED], 0);
+
     return TRUE;
 }
 
@@ -1102,7 +1099,7 @@ gs_manager_deactivate (GSManager *manager) {
 
     if (!manager->priv->active) {
         gs_debug ("Trying to deactivate a screensaver that is not active");
-        return FALSE;
+        return TRUE;
     }
 
     remove_timers (manager);
@@ -1124,6 +1121,8 @@ gs_manager_deactivate (GSManager *manager) {
     manager->priv->dialog_up = FALSE;
 
     gs_manager_enable_locker (manager, FALSE);
+
+    g_signal_emit (manager, signals[DEACTIVATED], 0);
 
     return TRUE;
 }
