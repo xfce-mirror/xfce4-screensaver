@@ -63,6 +63,7 @@ m4_define([libwnck_min_version], [3.20])
 m4_define([libwlembed_min_version], [0.0.0])
 m4_define([wayland_min_version], [1.15])
 m4_define([wayland_protocols_min_version], [1.20])
+m4_define([libxfce4windowing_min_version], [4.19.2])
 
 XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [glib_min_version])
 XDT_CHECK_PACKAGE([GIO], [gio-2.0], [glib_min_version])
@@ -82,6 +83,8 @@ XDT_CHECK_OPTIONAL_FEATURE([X11],
                              XDT_FEATURE_DEPENDENCY([LIBXEXT], [xext], [libxext_min_version])
                              XDT_FEATURE_DEPENDENCY([LIBXSCRNSAVER], [xscrnsaver], [libxscrnsaver_min_version])
                              XDT_FEATURE_DEPENDENCY([LIBXKLAVIER], [libxklavier], [libxklavier_min_version])
+                             dnl FIXME: to be removed when libxfce4windowing is an acceptable requirement
+                             dnl and reassemble the code from gs-listener-{x11,wayland}.c in gs-listener.c
                              XDT_FEATURE_DEPENDENCY([LIBWNCK], [libwnck-3.0], [libwnck_min_version])
                            ],
                            [the X11 windowing system])
@@ -94,6 +97,7 @@ XDT_CHECK_OPTIONAL_FEATURE([WAYLAND],
                              XDT_FEATURE_DEPENDENCY([WAYLAND_CLIENT], [wayland-client], [wayland_min_version])
                              XDT_FEATURE_DEPENDENCY([WAYLAND_SCANNER], [wayland-scanner], [wayland_min_version])
                              XDT_FEATURE_DEPENDENCY([WAYLAND_PROTOCOLS], [wayland-protocols], [wayland_protocols_min_version])
+                             XDT_FEATURE_DEPENDENCY([LIBXFCE4WINDOWING], [libxfce4windowing-0], [libxfce4windowing_min_version])
                            ],
                            [the Wayland windowing system])
 if test x"$ENABLE_X11" != x"yes" -a x"$ENABLE_WAYLAND" != x"yes"; then
@@ -107,6 +111,9 @@ fi
 dnl FIXME: Bump wayland_protocols_min_version to 1.25 when it is an acceptable requirement,
 dnl and remove this and protocols/ext-session-lock-v1.xml
 AM_CONDITIONAL([HAVE_SESSION_LOCK], [test -f "$WAYLAND_PROTOCOLS_PKGDATADIR/staging/ext-session-lock/ext-session-lock-v1.xml"])
+dnl FIXME: Bump wayland_protocols_min_version to 1.27 when it is an acceptable requirement,
+dnl and remove this and protocols/ext-idle-notify-v1.xml
+AM_CONDITIONAL([HAVE_IDLE_NOTIFY], [test -f "$WAYLAND_PROTOCOLS_PKGDATADIR/staging/ext-idle-notify/ext-idle-notify-v1.xml"])
 
 if test x"$ENABLE_X11" = x"yes"; then
 
