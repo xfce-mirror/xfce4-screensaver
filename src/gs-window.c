@@ -1446,6 +1446,17 @@ popup_dialog (GSWindow *window) {
     char     *tmp;
     GString  *command;
 
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+        if (!gtk_window_is_active (GTK_WINDOW (window))) {
+            /* active window changed the time we got here, we won't have focus */
+            gs_debug ("Cancelling dialog popup because window is not active");
+            popdown_dialog (window);
+            return;
+        }
+    }
+#endif
+
     gs_debug ("Popping up dialog");
 
     tmp = g_build_filename (LIBEXECDIR, "xfce4-screensaver-dialog", NULL);
