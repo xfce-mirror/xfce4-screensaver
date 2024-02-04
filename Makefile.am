@@ -7,6 +7,7 @@ DISTCHECK_CONFIGURE_FLAGS = \
 	--without-systemd
 
 SUBDIRS = \
+	protocols      \
 	src      \
 	savers   \
 	po       \

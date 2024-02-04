@@ -6,11 +6,6 @@ themesdir = $(pkgdatadir)/themes
 AM_CPPFLAGS = \
 	-I.                                         \
 	-I$(srcdir)                                 \
-	-DXFCEMENU_I_KNOW_THIS_IS_UNSTABLE          \
-	$(XFCE_SCREENSAVER_CFLAGS)                  \
-	$(XFCE_SCREENSAVER_DIALOG_CFLAGS)           \
-	$(XFCE_SCREENSAVER_CAPPLET_CFLAGS)          \
-	$(DISABLE_DEPRECATED_CFLAGS)                \
 	-DPREFIX=\""$(prefix)"\"                    \
 	-DBINDIR=\""$(bindir)"\"                    \
 	-DLIBDIR=\""$(libdir)"\"                    \
@@ -22,15 +17,6 @@ AM_CPPFLAGS = \
 	-DTHEMESDIR=\""$(themesdir)"\"              \
 	-DGTKBUILDERDIR=\"$(pkgdatadir)\"           \
 	-DPAM_SERVICE_NAME=\""xfce4-screensaver"\"  \
-	$(WARN_CFLAGS)                              \
-	$(AUTH_CFLAGS)                              \
-	$(DEBUG_CFLAGS)                             \
-	$(DBUS_CFLAGS)                              \
-	$(LIBXFCEKBDUI_CFLAGS)                      \
-	$(LIBXKLAVIER_CFLAGS)                       \
-	$(SYSTEMD_CFLAGS)                           \
-	$(ELOGIND_CFLAGS)                           \
-	$(WNCK_LIBS)								\
 	$(NULL)
 
 bin_PROGRAMS = \
@@ -45,7 +31,6 @@ bin_SCRIPTS = \
 
 libexec_PROGRAMS = \
 	xfce4-screensaver-dialog     \
-	xfce4-screensaver-gl-helper  \
 	$(NULL)
 
 noinst_PROGRAMS = \
@@ -62,13 +47,29 @@ xfce4_screensaver_command_SOURCES = \
 	xfce4-screensaver-command.c  \
 	$(NULL)
 
+xfce4_screensaver_command_CFLAGS = \
+	$(GLIB_CFLAGS) \
+	$(GIO_CFLAGS) \
+	$(LIBXFCE4UTIL_CFLAGS) \
+	$(NULL)
+
 xfce4_screensaver_command_LDADD = \
-	$(XFCE_SCREENSAVER_COMMAND_LIBS)  \
+	$(GLIB_LIBS) \
+	$(GIO_LIBS) \
+	$(LIBXFCE4UTIL_LIBS) \
 	$(NULL)
 
 AUTH_SOURCES = \
 	gs-auth.h                \
 	gs-auth-@AUTH_SCHEME@.c  \
+	$(NULL)
+
+# Generates one warning at the start of the build instead of many afterwards
+EXTRA_AUTH_SOURCES = \
+	gs-auth-helper.c            \
+	gs-auth-pam.c               \
+	gs-auth-pwent.c             \
+	gs-auth-bsdauth.c           \
 	$(NULL)
 
 test_passwd_SOURCES = \
@@ -80,17 +81,24 @@ test_passwd_SOURCES = \
 	subprocs.h       \
 	$(NULL)
 
+test_passwd_CFLAGS = \
+	$(GLIB_CFLAGS) \
+	$(GTK_CFLAGS) \
+	$(LIBXFCE4UTIL_CFLAGS) \
+	$(AUTH_CFLAGS) \
+	$(NULL)
+
 test_passwd_LDADD = \
-	$(XFCE_SCREENSAVER_DIALOG_LIBS)  \
-	$(AUTH_LIBS)                     \
+	$(GLIB_LIBS) \
+	$(GTK_LIBS) \
+	$(LIBXFCE4UTIL_LIBS) \
+	$(AUTH_LIBS) \
 	$(NULL)
 
 test_window_SOURCES = \
 	test-window.c    \
 	gs-window.h      \
-	gs-window-x11.c  \
-	gs-grab-x11.c    \
-	gs-grab.h        \
+	gs-window.c      \
 	gs-marshal.c     \
 	gs-marshal.h     \
 	gs-debug.c       \
@@ -101,12 +109,70 @@ test_window_SOURCES = \
 	subprocs.h       \
 	xfce-desktop-utils.c \
 	xfce-desktop-utils.h \
+	gs-manager.c \
+	gs-manager.h \
+	gs-theme-manager.c \
+	gs-theme-manager.h \
+	gs-job.c \
+	gs-job.h \
+	$(NULL)
+
+test_window_CFLAGS = \
+	$(GLIB_CFLAGS) \
+	$(GTK_CFLAGS) \
+	$(DBUS_GLIB_CFLAGS) \
+	$(LIBXFCE4UI_CFLAGS) \
+	$(XFCONF_CFLAGS) \
+	$(GARCON_GTK3_CFLAGS) \
 	$(NULL)
 
 test_window_LDADD = \
-	$(XFCE_SCREENSAVER_LIBS)  \
-	$(SAVER_LIBS)             \
+	$(GLIB_LIBS) \
+	$(GTK_LIBS) \
+	$(DBUS_GLIB_LIBS) \
+	$(LIBXFCE4UI_LIBS) \
+	$(XFCONF_LIBS) \
+	$(GARCON_GTK3_LIBS) \
 	$(NULL)
+
+if ENABLE_X11
+test_window_SOURCES += \
+	gs-grab.c \
+	gs-grab.h \
+	$(NULL)
+
+test_window_CFLAGS += \
+	$(LIBX11_CFLAGS) \
+	$(LIBXEXT_CFLAGS) \
+	$(LIBXKLAVIER_CFLAGS) \
+	$(NULL)
+
+test_window_LDADD += \
+	$(LIBX11_LIBS) \
+	$(LIBXEXT_LIBS) \
+	$(LIBXKLAVIER_LIBS) \
+	$(NULL)
+endif
+
+if ENABLE_WAYLAND
+test_window_SOURCES += \
+	gs-session-lock-manager.c \
+	gs-session-lock-manager.h \
+	$(NULL)
+
+test_window_CFLAGS += \
+	$(LIBWLEMBED_CFLAGS) \
+	$(LIBWLEMBED_GTK3_CFLAGS) \
+	$(WAYLAND_CLIENT_CFLAGS) \
+	$(NULL)
+
+test_window_LDADD += \
+	$(top_builddir)/protocols/libprotocols.la \
+	$(LIBWLEMBED_LIBS) \
+	$(LIBWLEMBED_GTK3_LIBS) \
+	$(WAYLAND_CLIENT_LIBS) \
+	$(NULL)
+endif
 
 xfce4_screensaver_dialog_built_sources = \
 	xfce4-screensaver-dialog-css.h  \
@@ -127,31 +193,49 @@ xfce4_screensaver_dialog_SOURCES = \
 	subprocs.h                                 \
 	xfce-desktop-utils.c                       \
 	xfce-desktop-utils.h                       \
-	xfcekbd-indicator.c                        \
-	xfcekbd-indicator.h                        \
 	xfce-bg.c                                  \
 	xfce-bg.h                                  \
 	$(AUTH_SOURCES)                            \
 	$(NULL)
 
-EXTRA_xfce4_screensaver_dialog_SOURCES = \
-	gs-auth-helper.c            \
-	gs-auth-pam.c               \
-	gs-auth-pwent.c             \
-	gs-auth-bsdauth.c           \
-	xfce-desktop-utils.c        \
-	xfce-desktop-utils.h        \
-	xfcekbd-indicator.c         \
-	xfcekbd-indicator.h         \
+xfce4_screensaver_dialog_CFLAGS = \
+	$(GLIB_CFLAGS) \
+	$(GTK_CFLAGS) \
+	$(DBUS_GLIB_CFLAGS) \
+	$(LIBXFCE4UI_CFLAGS) \
+	$(XFCONF_CFLAGS) \
+	$(AUTH_CFLAGS) \
+	$(LIBWLEMBED_GTK3_CFLAGS) \
 	$(NULL)
 
 xfce4_screensaver_dialog_LDADD = \
-	$(XFCE_SCREENSAVER_DIALOG_LIBS)  \
-	$(XFCE_SCREENSAVER_LIBS)         \
-	$(SAVER_LIBS)                    \
-	$(AUTH_LIBS)                     \
-	$(LIBXFCEKBDUI_LIBS)             \
+	$(GLIB_LIBS) \
+	$(GTK_LIBS) \
+	$(DBUS_GLIB_LIBS) \
+	$(LIBXFCE4UI_LIBS) \
+	$(XFCONF_LIBS) \
+	$(AUTH_LIBS) \
+	$(LIBWLEMBED_GTK3_LIBS) \
 	$(NULL)
+
+if ENABLE_X11
+xfce4_screensaver_dialog_SOURCES += \
+	xfcekbd-indicator.c \
+	xfcekbd-indicator.h \
+	$(NULL)
+
+xfce4_screensaver_dialog_CFLAGS += \
+	$(LIBX11_CFLAGS) \
+	$(LIBXEXT_CFLAGS) \
+	$(LIBXKLAVIER_CFLAGS) \
+	$(NULL)
+
+xfce4_screensaver_dialog_LDADD += \
+	$(LIBX11_LIBS) \
+	$(LIBXEXT_LIBS) \
+	$(LIBXKLAVIER_LIBS) \
+	$(NULL)
+endif
 
 BUILT_SOURCES = \
 	gs-marshal.c                 \
@@ -172,11 +256,11 @@ xfce4_screensaver_SOURCES = \
 	gs-monitor.h                \
 	gs-listener-dbus.c          \
 	gs-listener-dbus.h          \
-	gs-listener-x11.c           \
-	gs-listener-x11.h           \
+	gs-listener.c               \
+	gs-listener.h               \
 	gs-manager.c                \
 	gs-manager.h                \
-	gs-window-x11.c             \
+	gs-window.c                 \
 	gs-window.h                 \
 	gs-prefs.c                  \
 	gs-prefs.h                  \
@@ -188,35 +272,81 @@ xfce4_screensaver_SOURCES = \
 	gs-debug.h                  \
 	subprocs.c                  \
 	subprocs.h                  \
-	gs-grab-x11.c               \
-	gs-grab.h                   \
-	xfce-bg.c                   \
-	xfce-bg.h                   \
 	xfce-desktop-utils.c        \
 	xfce-desktop-utils.h        \
-	xfcekbd-indicator.c         \
-	xfcekbd-indicator.h         \
 	$(BUILT_SOURCES)            \
 	$(NULL)
 
-xfce4_screensaver_gl_helper_LDADD = \
-	$(XFCE_SCREENSAVER_LIBS)  \
-	$(GL_LIBS)                \
-	$(NULL)
-
-xfce4_screensaver_gl_helper_SOURCES = \
-	xfce4-screensaver-gl-helper.c  \
-	gs-visual-gl.c                 \
-	gs-visual-gl.h                 \
+xfce4_screensaver_CFLAGS = \
+	$(GLIB_CFLAGS) \
+	$(GTK_CFLAGS) \
+	$(DBUS_GLIB_CFLAGS) \
+	$(LIBXFCE4UI_CFLAGS) \
+	$(XFCONF_CFLAGS) \
+	$(GARCON_GTK3_CFLAGS) \
+	$(SYSTEMD_CFLAGS) \
+	$(ELOGIND_CFLAGS) \
 	$(NULL)
 
 xfce4_screensaver_LDADD = \
-	$(XFCE_SCREENSAVER_LIBS)  \
-	$(SAVER_LIBS)             \
-	$(SYSTEMD_LIBS)           \
-	$(ELOGIND_LIBS)           \
-	$(WNCK_LIBS)			  \
+	$(GLIB_LIBS) \
+	$(GTK_LIBS) \
+	$(DBUS_GLIB_LIBS) \
+	$(LIBXFCE4UI_LIBS) \
+	$(XFCONF_LIBS) \
+	$(GARCON_GTK3_LIBS) \
+	$(SYSTEMD_LIBS) \
+	$(ELOGIND_LIBS) \
 	$(NULL)
+
+if ENABLE_X11
+xfce4_screensaver_SOURCES += \
+	gs-listener-x11.c \
+	gs-listener-x11.h \
+	gs-grab.c \
+	gs-grab.h \
+	$(NULL)
+
+xfce4_screensaver_CFLAGS += \
+	$(LIBX11_CFLAGS) \
+	$(LIBXEXT_CFLAGS) \
+	$(LIBXSCRNSAVER_CFLAGS) \
+	$(LIBXKLAVIER_CFLAGS) \
+	$(LIBWNCK_CFLAGS) \
+	$(NULL)
+
+xfce4_screensaver_LDADD += \
+	$(LIBX11_LIBS) \
+	$(LIBXEXT_LIBS) \
+	$(LIBXSCRNSAVER_LIBS) \
+	$(LIBXKLAVIER_LIBS) \
+	$(LIBWNCK_LIBS) \
+	$(NULL)
+endif
+
+if ENABLE_WAYLAND
+xfce4_screensaver_SOURCES += \
+	gs-session-lock-manager.c \
+	gs-session-lock-manager.h \
+	gs-listener-wayland.c \
+	gs-listener-wayland.h \
+	$(NULL)
+
+xfce4_screensaver_CFLAGS += \
+	$(LIBWLEMBED_CFLAGS) \
+	$(LIBWLEMBED_GTK3_CFLAGS) \
+	$(WAYLAND_CLIENT_CFLAGS) \
+	$(LIBXFCE4WINDOWING_CFLAGS) \
+	$(NULL)
+
+xfce4_screensaver_LDADD += \
+	$(top_builddir)/protocols/libprotocols.la \
+	$(LIBWLEMBED_LIBS) \
+	$(LIBWLEMBED_GTK3_LIBS) \
+	$(WAYLAND_CLIENT_LIBS) \
+	$(LIBXFCE4WINDOWING_LIBS) \
+	$(NULL)
+endif
 
 xfce4_screensaver_LDFLAGS = -export-dynamic
 
@@ -238,12 +368,28 @@ xfce4_screensaver_preferences_SOURCES = \
 	subprocs.h                                      \
 	xfce-desktop-utils.c                            \
 	xfce-desktop-utils.h                            \
-	xfcekbd-indicator.c                             \
-	xfcekbd-indicator.h                             \
+	$(NULL)
+
+xfce4_screensaver_preferences_CFLAGS = \
+	$(GLIB_CFLAGS) \
+	$(GTK_CFLAGS) \
+	$(LIBXFCE4UI_CFLAGS) \
+	$(XFCONF_CFLAGS) \
+	$(GARCON_GTK3_CFLAGS) \
+	$(LIBXKLAVIER_CFLAGS) \
+	$(LIBWLEMBED_CFLAGS) \
+	$(LIBWLEMBED_GTK3_CFLAGS) \
 	$(NULL)
 
 xfce4_screensaver_preferences_LDADD = \
-	$(XFCE_SCREENSAVER_CAPPLET_LIBS)  \
+	$(GLIB_LIBS) \
+	$(GTK_LIBS) \
+	$(LIBXFCE4UI_LIBS) \
+	$(XFCONF_LIBS) \
+	$(GARCON_GTK3_LIBS) \
+	$(LIBXKLAVIER_LIBS) \
+	$(LIBWLEMBED_LIBS) \
+	$(LIBWLEMBED_GTK3_LIBS) \
 	$(NULL)
 
 if MAINTAINER_MODE
@@ -276,8 +422,6 @@ EXTRA_DIST = \
 	xfce4-screensaver-dialog.ui       \
 	xfce4-screensaver-preferences.ui  \
 	$(NULL)
-
-GLIB_GENMARSHAL = $(shell pkg-config --variable=glib_genmarshal glib-2.0)
 
 CLEANFILES = \
 	$(desktop_DATA)               \
