@@ -1705,7 +1705,7 @@ gs_lock_plug_finalize (GObject *object) {
 
     g_free (plug->priv->logout_command);
 
-    g_free (plug->priv->prefs);
+    g_object_unref (plug->priv->prefs);
     plug->priv->prefs = NULL;
 
     remove_response_idle (plug);

@@ -2021,6 +2021,7 @@ gs_window_finalize (GObject *object) {
     remove_command_watches (window);
 
     gs_window_dialog_finish (window);
+    g_object_unref (window->priv->prefs);
 
     G_OBJECT_CLASS (gs_window_parent_class)->finalize (object);
 }

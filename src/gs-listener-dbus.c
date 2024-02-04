@@ -2238,6 +2238,7 @@ gs_listener_finalize (GObject *object) {
 
     g_free (listener->priv->session_id);
     remove_sleep_inhibit (listener);
+    g_object_unref (listener->priv->prefs);
 
     G_OBJECT_CLASS (gs_listener_parent_class)->finalize (object);
 }

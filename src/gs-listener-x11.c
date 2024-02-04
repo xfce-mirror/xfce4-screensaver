@@ -356,6 +356,7 @@ gs_listener_x11_finalize (GObject *object) {
 
     gdk_window_remove_filter (NULL, (GdkFilterFunc)xroot_filter, NULL);
     g_signal_handlers_disconnect_by_func(listener->priv->prefs, gs_listener_x11_set_timeouts, listener);
+    g_object_unref (listener->priv->prefs);
 
     G_OBJECT_CLASS (gs_listener_x11_parent_class)->finalize (object);
 }
