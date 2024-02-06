@@ -24,23 +24,23 @@
 #include <config.h>
 
 #include <gdk/gdk.h>
-#include <gdk/gdkx.h>
 #include <gio/gio.h>
-
-#include <X11/extensions/dpms.h>
+#ifdef ENABLE_X11
+#include <gdk/gdkx.h>
+#include "gs-grab.h"
+#endif
+#ifdef ENABLE_WAYLAND
+#include <gdk/gdkwayland.h>
+#include "gs-session-lock-manager.h"
+#endif
 
 #include "gs-debug.h"
-#include "gs-grab.h"
 #include "gs-job.h"
 #include "gs-manager.h"
 #include "gs-prefs.h"
 #include "gs-window.h"
 
 static void     gs_manager_finalize   (GObject        *object);
-
-static void     remove_dpms_timer     (GSManager      *manager);
-static void     add_dpms_timer        (GSManager      *manager,
-                                       glong           timeout);
 
 struct GSManagerPrivate {
     GHashTable     *windows;
@@ -61,11 +61,14 @@ struct GSManagerPrivate {
 
     guint           lock_timeout_id;
     guint           cycle_timeout_id;
-    guint           dpms_timeout_id;
 
+#ifdef ENABLE_X11
     GSGrab         *grab;
-    guint           deepsleep_idle_id;
-    gboolean        deepsleep;
+#endif
+#ifdef ENABLE_WAYLAND
+    WleEmbeddedCompositor *compositor;
+    GSSessionLockManager *lock_manager;
+#endif
 };
 
 enum {
@@ -86,9 +89,6 @@ enum {
 static guint         signals[LAST_SIGNAL] = { 0, };
 
 G_DEFINE_TYPE_WITH_PRIVATE (GSManager, gs_manager, G_TYPE_OBJECT)
-
-static void         remove_deepsleep_idle   (GSManager *manager);
-static void         add_deepsleep_idle      (GSManager *manager);
 
 static void
 manager_maybe_stop_job_for_window (GSManager *manager,
@@ -443,69 +443,36 @@ static void
 gs_manager_init (GSManager *manager) {
     manager->priv = gs_manager_get_instance_private (manager);
 
-    manager->priv->grab = gs_grab_new ();
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        manager->priv->grab = gs_grab_new ();
+    }
+#endif
     manager->priv->prefs = gs_prefs_new();
     manager->priv->jobs = g_hash_table_new_full (g_direct_hash, g_direct_equal,
                                                  NULL, (GDestroyNotify) remove_job);
     manager->priv->windows = g_hash_table_new_full (g_direct_hash, g_direct_equal,
                                                     NULL, (GDestroyNotify) gs_window_destroy);
 
-    add_deepsleep_idle(manager);
-}
-
-static gboolean
-activate_dpms_timeout (gpointer user_data) {
-    GSManager *manager = user_data;
-    BOOL state;
-    CARD16 power_level;
-
-    if (manager->priv->active) {
-        if (DPMSInfo(gdk_x11_get_default_xdisplay(), &power_level, &state)) {
-            if (state) {
-                if (power_level == DPMSModeOn) {
-                    gs_debug("DPMS: On -> Standby");
-                    DPMSForceLevel (gdk_x11_get_default_xdisplay(), DPMSModeStandby);
-                    remove_dpms_timer (manager);
-                    add_dpms_timer (manager, manager->priv->prefs->dpms_off_timeout * 60);
-                    return FALSE;
-                } else if (power_level == DPMSModeStandby || power_level == DPMSModeSuspend) {
-                    gs_debug("DPMS: %s -> Off", power_level == DPMSModeStandby ? "Standby" : "Suspend");
-                    DPMSForceLevel (gdk_x11_get_default_xdisplay(), DPMSModeOff);
-                }
-            }
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+        struct wl_display *wl_display = gdk_wayland_display_get_wl_display (gdk_display_get_default ());
+        GError *error = NULL;
+        manager->priv->compositor = wle_embedded_compositor_new ("xfce4-screensaver", wl_display, &error);
+        if (manager->priv->compositor == NULL) {
+            g_critical ("Failed to create embedded compositor: %s", error->message);
+            g_error_free (error);
         }
+
+        manager->priv->lock_manager = gs_session_lock_manager_new ();
     }
-
-    manager->priv->dpms_timeout_id = 0;
-    return FALSE;
-}
-
-static void
-remove_dpms_timer (GSManager *manager) {
-    if (manager->priv->dpms_timeout_id != 0) {
-        g_source_remove (manager->priv->dpms_timeout_id);
-        manager->priv->dpms_timeout_id = 0;
-    }
-}
-
-static void
-add_dpms_timer (GSManager *manager,
-                glong      timeout) {
-    if (manager->priv->prefs->mode != GS_MODE_BLANK_ONLY)
-        return;
-
-    if (timeout == 0)
-        return;
-
-    gs_debug ("Scheduling DPMS change after screensaver is idling for %i seconds(s)", timeout);
-    manager->priv->dpms_timeout_id = g_timeout_add_seconds (timeout, activate_dpms_timeout, manager);
+#endif
 }
 
 static void
 remove_timers (GSManager *manager) {
     remove_lock_timer (manager);
     remove_cycle_timer (manager);
-    remove_dpms_timer (manager);
 }
 
 static gboolean
@@ -514,9 +481,7 @@ window_deactivated_idle (gpointer user_data) {
     g_return_val_if_fail (manager != NULL, FALSE);
     g_return_val_if_fail (GS_IS_MANAGER (manager), FALSE);
 
-    /* don't deactivate directly but only emit a signal
-       so that we let the parent deactivate */
-    g_signal_emit (manager, signals[DEACTIVATED], 0);
+    gs_manager_activate_saver (manager, FALSE);
 
     return FALSE;
 }
@@ -532,30 +497,34 @@ window_deactivated_cb (GSWindow  *window,
 
 static GSWindow *
 find_window_at_pointer (GSManager *manager) {
-    GdkDisplay *display;
-    GdkDevice  *device;
-    GdkMonitor *monitor;
-    int         x, y;
-    GSWindow   *window;
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        GdkDisplay *display = gdk_display_get_default ();
+        GdkDevice *device = gdk_seat_get_pointer (gdk_display_get_default_seat (display));
+        GdkMonitor *monitor;
+        int x, y;
 
-    display = gdk_display_get_default ();
-
-    device = gdk_seat_get_pointer (gdk_display_get_default_seat (display));
-    gdk_device_get_position (device, NULL, &x, &y);
-    monitor = gdk_display_get_monitor_at_point (display, x, y);
-
-    /* Find the gs-window that is on that monitor */
-    window = g_hash_table_lookup (manager->priv->windows, monitor);
-
-    if (window == NULL) {
-        gs_debug ("WARNING: Could not find the GSWindow for display %s",
-                  gdk_display_get_name (display));
-    } else {
-        gs_debug ("Requesting unlock for display %s",
-                  gdk_display_get_name (display));
+        gdk_device_get_position (device, NULL, &x, &y);
+        monitor = gdk_display_get_monitor_at_point (display, x, y);
+        return g_hash_table_lookup (manager->priv->windows, monitor);
     }
+#endif
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+        GHashTableIter iter;
+        gpointer window;
 
-    return window;
+        g_hash_table_iter_init (&iter, manager->priv->windows);
+        while (g_hash_table_iter_next (&iter, NULL, &window)) {
+            if (gtk_window_is_active (GTK_WINDOW (window))) {
+                break;
+            }
+        }
+        return window;
+    }
+#endif
+
+    return NULL;
 }
 
 void
@@ -576,6 +545,7 @@ gs_manager_show_message (GSManager  *manager,
     gs_manager_request_unlock (manager);
 }
 
+#ifdef ENABLE_X11
 static gboolean
 manager_maybe_grab_window (GSManager *manager,
                            GSWindow  *window) {
@@ -628,55 +598,18 @@ window_grab_broken_cb (GSWindow           *window,
             gs_grab_reset (manager->priv->grab);
     }
 }
-
-static void
-remove_deepsleep_idle (GSManager *manager) {
-    if (manager->priv->deepsleep_idle_id > 0) {
-        g_source_remove (manager->priv->deepsleep_idle_id);
-        manager->priv->deepsleep_idle_id = 0;
-    }
-}
-
-static gboolean
-deepsleep_idle (gpointer user_data) {
-    GSManager *manager = user_data;
-    BOOL state;
-    CARD16 power_level;
-
-    if (!DPMSInfo(gdk_x11_get_default_xdisplay(), &power_level, &state)) {
-        if (manager->priv->deepsleep) {
-            gs_debug ("Unable to read DPMS state, exiting deep sleep");
-            manager->priv->deepsleep = FALSE;
-        }
-        return TRUE;
-    }
-
-    if (power_level == DPMSModeOn) {
-        if (manager->priv->deepsleep) {
-            gs_debug ("Exiting deep sleep");
-            manager->priv->deepsleep = FALSE;
-        }
-    } else if (!manager->priv->throttled && !manager->priv->deepsleep) {
-        gs_debug ("Entering deep sleep, suspending jobs");
-        manager->priv->deepsleep = TRUE;
-        g_hash_table_foreach (manager->priv->jobs, (GHFunc) suspend_job, manager);
-    }
-
-    return TRUE;
-}
-
-static void
-add_deepsleep_idle (GSManager *manager) {
-    remove_deepsleep_idle(manager);
-    manager->priv->deepsleep_idle_id = g_timeout_add_seconds (15, deepsleep_idle, manager);
-}
+#endif
 
 static gboolean
 window_map_event_cb (GSWindow  *window,
                      GdkEvent  *event,
                      GSManager *manager) {
     gs_debug ("Handling window map_event event");
-    manager_maybe_grab_window (manager, window);
+#ifdef ENABLE_X11
+    if (manager->priv->grab != NULL) {
+        manager_maybe_grab_window (manager, window);
+    }
+#endif
     manager_maybe_start_job_for_window (manager, window);
     return FALSE;
 }
@@ -697,12 +630,6 @@ manager_show_window (GSManager *manager,
         remove_cycle_timer (manager);
         add_cycle_timer (manager, manager->priv->prefs->cycle);
     }
-
-    remove_dpms_timer (manager);
-    add_dpms_timer (manager, manager->priv->prefs->dpms_sleep_timeout);
-
-    /* FIXME: only emit signal once */
-    g_signal_emit (manager, signals[ACTIVATED], 0);
 }
 
 static void
@@ -755,21 +682,23 @@ handle_window_dialog_up (GSManager *manager,
         }
     }
 
-    /* move devices grab so that dialog can be used;
-       release the pointer grab while dialog is up so that
-       the dialog can be used. We'll regrab it when the dialog goes down */
-    gs_debug ("Initiate pointer-less grab move to %p", window);
-    gs_grab_move_to_window (manager->priv->grab,
-                            gs_window_get_gdk_window (window),
-                            gs_window_get_display (window),
-                            TRUE, FALSE);
+#ifdef ENABLE_X11
+    if (manager->priv->grab != NULL) {
+        /* move devices grab so that dialog can be used;
+           release the pointer grab while dialog is up so that
+           the dialog can be used. We'll regrab it when the dialog goes down */
+        gs_debug ("Initiate pointer-less grab move to %p", window);
+        gs_grab_move_to_window (manager->priv->grab,
+                                gs_window_get_gdk_window (window),
+                                gs_window_get_display (window),
+                                TRUE, FALSE);
+    }
+#endif
 
     if (!manager->priv->throttled) {
         gs_debug ("Suspending jobs");
         g_hash_table_foreach (manager->priv->jobs, (GHFunc) suspend_job, manager);
     }
-
-    remove_dpms_timer (manager);
 }
 
 static void
@@ -783,11 +712,15 @@ handle_window_dialog_down (GSManager *manager,
 
     gs_debug ("Handling dialog down");
 
-    /* regrab pointer */
-    gs_grab_move_to_window (manager->priv->grab,
-                            gs_window_get_gdk_window (window),
-                            gs_window_get_display (window),
-                            FALSE, FALSE);
+#ifdef ENABLE_X11
+    if (manager->priv->grab != NULL) {
+        /* regrab pointer */
+        gs_grab_move_to_window (manager->priv->grab,
+                                gs_window_get_gdk_window (window),
+                                gs_window_get_display (window),
+                                FALSE, FALSE);
+    }
+#endif
 
     /* make all windows sensitive to get events */
     g_hash_table_iter_init (&iter, manager->priv->windows);
@@ -800,9 +733,6 @@ handle_window_dialog_down (GSManager *manager,
     if (!manager->priv->throttled) {
         g_hash_table_foreach (manager->priv->jobs, (GHFunc) resume_job, manager);
     }
-
-    remove_dpms_timer (manager);
-    add_dpms_timer (manager, manager->priv->prefs->dpms_sleep_timeout);
 
     g_signal_emit (manager, signals[AUTH_REQUEST_END], 0);
 }
@@ -840,7 +770,11 @@ disconnect_window_signals (GSManager *manager,
     g_signal_handlers_disconnect_by_func (window, window_map_event_cb, manager);
     g_signal_handlers_disconnect_by_func (window, window_obscured_cb, manager);
     g_signal_handlers_disconnect_by_func (window, window_dialog_up_changed_cb, manager);
-    g_signal_handlers_disconnect_by_func (window, window_grab_broken_cb, manager);
+#ifdef ENABLE_X11
+    if (manager->priv->grab != NULL) {
+        g_signal_handlers_disconnect_by_func (window, window_grab_broken_cb, manager);
+    }
+#endif
 }
 
 static void
@@ -866,8 +800,12 @@ connect_window_signals (GSManager *manager,
                              G_CALLBACK (window_obscured_cb), manager, G_CONNECT_AFTER);
     g_signal_connect_object (window, "notify::dialog-up",
                              G_CALLBACK (window_dialog_up_changed_cb), manager, 0);
-    g_signal_connect_object (window, "grab_broken_event",
-                             G_CALLBACK (window_grab_broken_cb), manager, G_CONNECT_AFTER);
+#ifdef ENABLE_X11
+    if (manager->priv->grab != NULL) {
+        g_signal_connect_object (window, "grab-broken-event",
+                                 G_CALLBACK (window_grab_broken_cb), manager, G_CONNECT_AFTER);
+    }
+#endif
 }
 
 
@@ -886,6 +824,11 @@ gs_manager_create_window_for_monitor (GSManager  *manager,
     gs_window_set_status_message (window, manager->priv->status_message);
     gs_window_set_lock_active (window, manager->priv->lock_active);
     connect_window_signals (manager, window);
+#ifdef ENABLE_WAYLAND
+    if (manager->priv->lock_manager != NULL) {
+        gs_session_lock_manager_add_window (manager->priv->lock_manager, window);
+    }
+#endif
 
     g_hash_table_insert (manager->priv->windows, monitor, window);
 
@@ -895,6 +838,16 @@ gs_manager_create_window_for_monitor (GSManager  *manager,
 
     return GTK_WIDGET (window);
 }
+
+#ifdef ENABLE_WAYLAND
+static void
+remove_window (gpointer monitor,
+               gpointer window,
+               gpointer data) {
+    GSManager *manager = data;
+    gs_session_lock_manager_remove_window (manager->priv->lock_manager, window);
+}
+#endif
 
 static gboolean
 remove_overlays (GtkWidget *window,
@@ -931,6 +884,11 @@ recreate_windows (GtkWidget *overlay,
     gs_debug("Reconfiguring monitors, recreating windows");
 
     g_hash_table_remove_all (manager->priv->jobs);
+#ifdef ENABLE_WAYLAND
+    if (manager->priv->lock_manager != NULL) {
+        g_hash_table_foreach (manager->priv->windows, remove_window, manager);
+    }
+#endif
     g_hash_table_remove_all (manager->priv->windows);
     manager->priv->n_overlay_signal_received = 0;
 
@@ -1005,6 +963,11 @@ gs_manager_destroy_windows (GSManager *manager) {
                                           on_display_monitor_added,
                                           manager);
 
+#ifdef ENABLE_WAYLAND
+    if (manager->priv->lock_manager != NULL) {
+        g_hash_table_foreach (manager->priv->windows, remove_window, manager);
+    }
+#endif
     g_hash_table_remove_all (manager->priv->windows);
     g_list_free_full (manager->priv->overlays, (GDestroyNotify) gtk_widget_destroy);
     manager->priv->overlays = NULL;
@@ -1021,17 +984,29 @@ gs_manager_finalize (GObject *object) {
 
     g_return_if_fail (manager->priv != NULL);
 
-    remove_deepsleep_idle (manager);
     remove_timers(manager);
-    gs_grab_release (manager->priv->grab, TRUE);
+#ifdef ENABLE_X11
+    if (manager->priv->grab != NULL) {
+        gs_grab_release (manager->priv->grab, TRUE);
+        g_object_unref (manager->priv->grab);
+    }
+#endif
     g_hash_table_destroy (manager->priv->jobs);
     gs_manager_destroy_windows (manager);
     g_hash_table_destroy (manager->priv->windows);
 
     manager->priv->active = FALSE;
 
-    g_object_unref (manager->priv->grab);
     g_object_unref (manager->priv->prefs);
+
+#ifdef ENABLE_WAYLAND
+    if (manager->priv->compositor != NULL) {
+        g_object_unref (manager->priv->compositor);
+    }
+    if (manager->priv->lock_manager != NULL) {
+        g_object_unref (manager->priv->lock_manager);
+    }
+#endif
 
     G_OBJECT_CLASS (gs_manager_parent_class)->finalize (object);
 }
@@ -1058,14 +1033,13 @@ gs_manager_create_windows (GSManager *manager) {
 
 GSManager *
 gs_manager_new (void) {
-    GObject   *manager;
-    GSManager *mgr;
-
-    manager = g_object_new (GS_TYPE_MANAGER, NULL);
-
-    mgr = GS_MANAGER (manager);
-
-    return mgr;
+    static GSManager *manager = NULL;
+    if (manager == NULL) {
+        manager = g_object_new (GS_TYPE_MANAGER, NULL);
+    } else {
+        g_object_ref (manager);
+    }
+    return manager;
 }
 
 static void
@@ -1081,26 +1055,39 @@ show_windows (GHashTable *windows) {
 
 static gboolean
 gs_manager_activate (GSManager *manager) {
-    gboolean    res;
-
     g_return_val_if_fail (manager != NULL, FALSE);
     g_return_val_if_fail (GS_IS_MANAGER (manager), FALSE);
 
     if (manager->priv->active) {
         gs_debug ("Trying to activate manager when already active");
-        return FALSE;
+        return TRUE;
     }
 
-    res = gs_grab_grab_root (manager->priv->grab, FALSE, FALSE);
-    if (!res) {
-        return FALSE;
+#ifdef ENABLE_X11
+    if (manager->priv->grab != NULL) {
+        if (!gs_grab_grab_root (manager->priv->grab, FALSE, FALSE)) {
+            return FALSE;
+        }
     }
+#endif
+
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+        if (manager->priv->compositor == NULL
+            || manager->priv->lock_manager == NULL
+            || !gs_session_lock_manager_lock (manager->priv->lock_manager)) {
+            return FALSE;
+        }
+    }
+#endif
 
     gs_manager_create_windows (GS_MANAGER (manager));
 
     manager->priv->active = TRUE;
 
     show_windows (manager->priv->windows);
+
+    g_signal_emit (manager, signals[ACTIVATED], 0);
 
     return TRUE;
 }
@@ -1112,19 +1099,30 @@ gs_manager_deactivate (GSManager *manager) {
 
     if (!manager->priv->active) {
         gs_debug ("Trying to deactivate a screensaver that is not active");
-        return FALSE;
+        return TRUE;
     }
 
     remove_timers (manager);
-    gs_grab_release (manager->priv->grab, TRUE);
+#ifdef ENABLE_X11
+    if (manager->priv->grab != NULL) {
+        gs_grab_release (manager->priv->grab, TRUE);
+    }
+#endif
     g_hash_table_remove_all (manager->priv->jobs);
     gs_manager_destroy_windows (manager);
+#ifdef ENABLE_WAYLAND
+    if (manager->priv->lock_manager != NULL) {
+        gs_session_lock_manager_unlock (manager->priv->lock_manager);
+    }
+#endif
 
     /* reset state */
     manager->priv->active = FALSE;
     manager->priv->dialog_up = FALSE;
 
     gs_manager_enable_locker (manager, FALSE);
+
+    g_signal_emit (manager, signals[DEACTIVATED], 0);
 
     return TRUE;
 }
@@ -1171,3 +1169,10 @@ gs_manager_request_unlock (GSManager *manager) {
 
     return TRUE;
 }
+
+#ifdef ENABLE_WAYLAND
+WleEmbeddedCompositor *
+gs_manager_get_compositor (GSManager *manager) {
+    return manager->priv->compositor;
+}
+#endif
