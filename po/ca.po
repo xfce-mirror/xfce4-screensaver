@@ -8,7 +8,7 @@
 # Nick Schermer <nick@xfce.org>, 2020
 # Xfce Bot <transifex@xfce.org>, 2023
 # Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>, 2023
-# Oscar Perez <oscarpc@gmail.com>, 2023
+# Oscar Perez <oscarpc@gmail.com>, 2024
 # 
 #, fuzzy
 msgid ""
@@ -17,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-02 00:49+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Oscar Perez <oscarpc@gmail.com>, 2023\n"
+"Last-Translator: Oscar Perez <oscarpc@gmail.com>, 2024\n"
 "Language-Team: Catalan (https://app.transifex.com/xfce/teams/16840/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -309,6 +309,13 @@ msgid ""
 "If your displays are powering off at different\n"
 "intervals, be sure to check for conflicting settings."
 msgstr ""
+"Potenciat per DPMS (Display Power Management Signaling),\n"
+"l'estalvi de pantalla de Xfce pot suspendre automàticament les\n"
+"pantalles per estalviar energia.\n"
+"\n"
+"El gestor d'energia de Xfce i altres aplicacions també gestionen\n"
+"els ajusts de DPMS. Si els ajusts indicats aquí no funcionen, assegureu-vos que no s'hi ha inhabilitat el control d'energia de la pantalla. Si les vostres pantalles s’apaguen en intervals\n"
+"diferents, assegureu-vos de comprovar els ajusts conflictius."
 
 #: ../src/xfce4-screensaver-configure:188
 msgid "Part of Xfce Screensaver"
@@ -316,7 +323,7 @@ msgstr "Part de l'estalvi de pantalla de Xfce"
 
 #: ../src/xfce4-screensaver-configure:199
 msgid "After blanking, put display to sleep after:"
-msgstr ""
+msgstr "Després de deixar en negre, posa la pantalla en espera després de:"
 
 #: ../src/xfce4-screensaver-configure:201
 #: ../src/xfce4-screensaver-configure:205
@@ -325,31 +332,31 @@ msgstr "Mai"
 
 #: ../src/xfce4-screensaver-configure:201
 msgid "60 seconds"
-msgstr ""
+msgstr "60 segons"
 
 #: ../src/xfce4-screensaver-configure:203
 msgid "After sleeping, switch display off after:"
-msgstr ""
+msgstr "Després de posar en espera, apaga la pantalla després de:"
 
 #: ../src/xfce4-screensaver-configure:205
 msgid "60 minutes"
-msgstr ""
+msgstr "60 minuts"
 
 #: ../src/xfce4-screensaver-configure:208
 msgid "Max number of images"
-msgstr ""
+msgstr "Número màxim d'imatges"
 
 #: ../src/xfce4-screensaver-configure:211
 msgid "Show paths"
-msgstr ""
+msgstr "Mostra els camins"
 
 #: ../src/xfce4-screensaver-configure:213
 msgid "Do rotations"
-msgstr ""
+msgstr "Fes rotacions"
 
 #: ../src/xfce4-screensaver-configure:215
 msgid "Print stats"
-msgstr ""
+msgstr "Mostra les estadístiques"
 
 #: ../src/xfce4-screensaver-configure:218
 msgid "Location"
@@ -361,11 +368,11 @@ msgstr "Color del fons"
 
 #: ../src/xfce4-screensaver-configure:223
 msgid "Do not randomize images"
-msgstr ""
+msgstr "No ordenis aleatòriament les imatges"
 
 #: ../src/xfce4-screensaver-configure:225
 msgid "Do not stretch images"
-msgstr ""
+msgstr "No estiris les imatges"
 
 #: ../src/xfce4-screensaver-configure:417
 msgid "Restore Defaults"
@@ -385,15 +392,15 @@ msgstr "Vídeo"
 
 #: ../src/xfce4-screensaver-configure:756
 msgid "Configure an individual screensaver"
-msgstr ""
+msgstr "Configura un estalvi de pantalla individual"
 
 #: ../src/xfce4-screensaver-configure:758
 msgid "screensaver name to configure"
-msgstr ""
+msgstr "nom de l'estalvi de pantalla a configurar"
 
 #: ../src/xfce4-screensaver-configure:760
 msgid "check if screensaver is configurable"
-msgstr ""
+msgstr "marqueu si l'estalvi de pantalla és configurable"
 
 #: ../src/xfce4-screensaver-configure:764
 msgid "Unable to configure screensaver"
