@@ -1,0 +1,754 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Efstathios Iosifidis <iefstathios@gmail.com>, 2019
+# Nick Schermer <nick@xfce.org>, 2019
+# Ápo. <apostolos.papadimitriu@gmail.com>, 2020
+# Στέργιος Γέμελας <sgemelas@protonmail.com>, 2021
+# Xfce Bot <transifex@xfce.org>, 2023
+# Ioannis LM, 2024
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-08-02 00:49+0200\n"
+"PO-Revision-Date: 2018-10-16 16:27+0000\n"
+"Last-Translator: Ioannis LM, 2024\n"
+"Language-Team: Greek (https://app.transifex.com/xfce/teams/16840/el/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../data/xfce4-screensaver-preferences.desktop.in.h:1
+#: ../src/xfce4-screensaver.desktop.in.in.h:1
+msgid "Xfce Screensaver"
+msgstr "Xfce Προστασία οθόνης"
+
+#: ../data/xfce4-screensaver-preferences.desktop.in.h:2
+msgid "Set your screensaver preferences"
+msgstr "Ρύθμιση των προτιμήσεων σας για τη προστασία οθόνης"
+
+#: ../data/xfce4-screensaver-preferences.desktop.in.h:3
+#: ../src/xfce4-screensaver-preferences.ui.h:21
+#: ../src/xfce4-screensaver.desktop.in.in.h:3
+msgid "Screensaver"
+msgstr "Προστασία οθόνης"
+
+#: ../data/xfce4-screensaver.directory.in.h:1
+msgid "Screensavers"
+msgstr "Θέματα"
+
+#: ../data/xfce4-screensaver.directory.in.h:2
+msgid "Screensaver themes"
+msgstr "Θέματα προστασίας οθόνης"
+
+#: ../savers/floaters.c:89
+msgid "Show paths that images follow"
+msgstr "Εμφάνιση διαδρομών κίνησης των εικόνων"
+
+#: ../savers/floaters.c:94
+msgid "Occasionally rotate images as they move"
+msgstr "Περιστασιακή περιστροφή των εικόνων καθώς κινούνται"
+
+#: ../savers/floaters.c:99
+msgid "Print out frame rate and other statistics"
+msgstr "Εμφάνιση ρυθμού καρέ και άλλων στατιστικών"
+
+#: ../savers/floaters.c:104
+msgid "The maximum number of images to keep on screen"
+msgstr "Ο μέγιστος αριθμός των εικόνων που εμφανίζονται στην οθόνη"
+
+#: ../savers/floaters.c:104
+msgid "MAX_IMAGES"
+msgstr "ΕΙ_ΚΟΝΕΣ"
+
+#: ../savers/floaters.c:109
+msgid "The initial size and position of window"
+msgstr "Αρχικό μέγεθος και θέση του παραθύρου"
+
+#: ../savers/floaters.c:109
+msgid "WIDTHxHEIGHT+X+Y"
+msgstr "ΠΛΑΤΟΣxΥΨΟΣ+X+Y"
+
+#: ../savers/floaters.c:114
+msgid "The source image to use"
+msgstr "Η αρχική εικόνα που θα χρησιμοποιηθεί"
+
+#. translators: the word "image" here
+#. * represents a command line argument
+#: ../savers/floaters.c:1131
+msgid "image - floats images around the screen"
+msgstr "image - αιωρούμενες εικόνες στην οθόνη"
+
+#: ../savers/floaters.c:1135 ../savers/popsquares.c:49
+#, c-format
+msgid "%s. See --help for usage information.\n"
+msgstr "%s. Δείτε με --help πληροφορίες χρήσης.\n"
+
+#: ../savers/floaters.c:1142
+#, c-format
+msgid "Failed to initialize the windowing system."
+msgstr "Αποτυχία έναρξης του συστήματος παραθύρων."
+
+#: ../savers/floaters.c:1148
+#, c-format
+msgid "You must specify one image.  See --help for usage information.\n"
+msgstr ""
+"Πρέπει να καθορίσετε μια εικόνα.  Δείτε με --help τις πληροφορίες χρήσης.\n"
+
+#: ../savers/slideshow.c:53
+msgid "Location to get images from"
+msgstr "Η τοποθεσία για τη συλλογή εικόνων"
+
+#: ../savers/slideshow.c:53
+msgid "PATH"
+msgstr "ΔΙΑΔΡΟΜΗ"
+
+#: ../savers/slideshow.c:57
+msgid "Color to use for images background"
+msgstr "Το χρώμα φόντου στις εικόνες"
+
+#: ../savers/slideshow.c:57
+msgid "\"#rrggbb\""
+msgstr "\"#rrggbb\""
+
+#: ../savers/slideshow.c:61
+msgid "Do not randomize pictures from location"
+msgstr "Χωρίς τυχαία επιλογή εικόνων από τη τοποθεσία"
+
+#: ../savers/slideshow.c:65
+msgid "Do not try to stretch images on screen"
+msgstr "Χωρίς τέντωμα των εικόνων στην οθόνη"
+
+#: ../savers/xfce-floaters.desktop.in.in.h:1
+msgid "Floating Xfce"
+msgstr "Floating Xfce"
+
+#: ../savers/xfce-floaters.desktop.in.in.h:2
+msgid "Bubbles the Xfce logo around the screen"
+msgstr "Φυσαλίδες του λογότυπου Xfce στην οθόνη"
+
+#: ../savers/xfce-personal-slideshow.desktop.in.in.h:1
+msgid "Slideshow"
+msgstr "Slideshow"
+
+#: ../savers/xfce-personal-slideshow.desktop.in.in.h:2
+msgid "Display a slideshow from your Pictures folder"
+msgstr "Εμφάνιση προβολής διαφανειών από το φάκελο σας Εικόνες"
+
+#: ../savers/xfce-popsquares.desktop.in.in.h:1
+msgid "Pop art squares"
+msgstr "Pop art squares"
+
+#: ../savers/xfce-popsquares.desktop.in.in.h:2
+msgid "A pop-art-ish grid of pulsing colors."
+msgstr "Πλέγμα παλλόμενων χρωμάτων"
+
+#: ../src/gs-auth-pam.c:163
+msgid "Password:"
+msgstr "Κωδικός:"
+
+#: ../src/gs-auth-pam.c:375
+#, c-format
+msgid "Unable to establish service %s: %s\n"
+msgstr "Αδυναμία ρύθμισης της υπηρεσίας %s: %s\n"
+
+#: ../src/gs-auth-pam.c:401
+#, c-format
+msgid "Can't set PAM_TTY=%s"
+msgstr "Δεν μπορεί να να οριστεί το PAM_TTY=%s"
+
+#: ../src/gs-auth-pam.c:432
+msgid "Incorrect password."
+msgstr "Λάθος κωδικός."
+
+#: ../src/gs-auth-pam.c:434 ../src/xfce4-screensaver-dialog.c:312
+msgid "Authentication failed."
+msgstr "Απέτυχε η ταυτοποίηση."
+
+#: ../src/gs-auth-pam.c:448
+msgid "Not permitted to gain access at this time."
+msgstr "Αυτή τη στιγμή δεν επιτρέπεται η πρόσβαση."
+
+#: ../src/gs-auth-pam.c:454
+msgid "No longer permitted to access the system."
+msgstr "Δεν επιτέπεται η πρόσβαση στο σύστημα."
+
+#: ../src/gs-auth-pam.c:662
+msgid "Username:"
+msgstr "Όνομα χρήστη:"
+
+#: ../src/gs-listener-dbus.c:1971
+msgid "failed to register with the message bus"
+msgstr "απέτυχε η σύνδεση με το δίαυλο μηνυμάτων"
+
+#: ../src/gs-listener-dbus.c:1981
+msgid "not connected to the message bus"
+msgstr "χωρίς σύνδεση με το δίαυλο μηνυμάτων"
+
+#: ../src/gs-listener-dbus.c:1990 ../src/gs-listener-dbus.c:2020
+msgid "screensaver already running in this session"
+msgstr "η προστασία οθόνης τρέχει ήδη"
+
+#: ../src/gs-lock-plug.c:296
+msgctxt "Date"
+msgid "%A, %B %e   %H:%M"
+msgstr "%A, %B %e   %H:%M"
+
+#: ../src/gs-lock-plug.c:387
+msgid "Time has expired."
+msgstr "Έληξε ο χρόνος."
+
+#: ../src/xfce4-screensaver-command.c:56
+msgid "Causes the screensaver to exit gracefully"
+msgstr "Προκαλεί ομαλή έξοδο από τη προστασία οθόνης"
+
+#: ../src/xfce4-screensaver-command.c:60
+msgid "Query the state of the screensaver"
+msgstr "Ερώτηση για τη κατάσταση της προστασίας οθόνης"
+
+#: ../src/xfce4-screensaver-command.c:64
+msgid "Query the length of time the screensaver has been active"
+msgstr "Ερώτηση για τη διάρκεια ενεργοποίησης της προστασίας οθόνης"
+
+#: ../src/xfce4-screensaver-command.c:68
+msgid "Tells the running screensaver process to lock the screen immediately"
+msgstr "Ζητά από τη προστασία οθόνης να κλειδώσει αμέσως την οθόνη"
+
+#: ../src/xfce4-screensaver-command.c:72
+msgid "If the screensaver is active then switch to another graphics demo"
+msgstr "Αν η προστασία οθόνης είναι ενεργή, εναλλαγή σε άλλο γραφικό θέμα"
+
+#: ../src/xfce4-screensaver-command.c:76
+msgid "Turn the screensaver on (blank the screen)"
+msgstr "Έναρξη προστασίας οθόνης (μαύρισμα οθόνης)"
+
+#: ../src/xfce4-screensaver-command.c:80
+msgid "If the screensaver is active then deactivate it (un-blank the screen)"
+msgstr ""
+"Αν η προστασία οθόνης είναι ενεργή, άμεση απενεργοποίηση (επαναφορά από το "
+"μαύρισμα)"
+
+#: ../src/xfce4-screensaver-command.c:84
+msgid "Poke the running screensaver to simulate user activity"
+msgstr "Προσομοίωση δραστηριότητας του χρήστη στη τρέχουσα προστασία οθόνης"
+
+#: ../src/xfce4-screensaver-command.c:88
+msgid ""
+"Inhibit the screensaver from activating.  Command blocks while inhibit is "
+"active."
+msgstr ""
+"Διακοπή προστασίας της οθόνης.  Η εντολή διακόπτει την ενεργοποιημένη "
+"προστασία."
+
+#: ../src/xfce4-screensaver-command.c:92
+msgid "The calling application that is inhibiting the screensaver"
+msgstr "Εφαρμογή που διακόπτει τη προστασία οθόνης"
+
+#: ../src/xfce4-screensaver-command.c:96
+msgid "The reason for inhibiting the screensaver"
+msgstr "Αιτία διακοπής της προστασίας οθόνης"
+
+#: ../src/xfce4-screensaver-command.c:100 ../src/xfce4-screensaver-dialog.c:65
+#: ../src/xfce4-screensaver.c:57
+msgid "Version of this application"
+msgstr "Έκδοση της εφαρμογής"
+
+#: ../src/xfce4-screensaver-command.c:209
+#, c-format
+msgid "The screensaver is %s\n"
+msgstr "Η προστασία οθόνης είναι %s\n"
+
+#: ../src/xfce4-screensaver-command.c:209
+msgid "active"
+msgstr "ενεργή"
+
+#: ../src/xfce4-screensaver-command.c:209
+msgid "inactive"
+msgstr "ανενεργή"
+
+#: ../src/xfce4-screensaver-command.c:220
+#, c-format
+msgid "The screensaver is not inhibited\n"
+msgstr "Δεν εμποδίζεται η προστασία οθόνης\n"
+
+#: ../src/xfce4-screensaver-command.c:222
+#, c-format
+msgid "The screensaver is being inhibited by:\n"
+msgstr "Η προστασία οθόνης εμποδίστηκε από:\n"
+
+#: ../src/xfce4-screensaver-command.c:238
+#, c-format
+msgid "The screensaver has been active for %d seconds.\n"
+msgstr "Ενεργοποιήθηκε προστασία οθόνης για %d δευτερόλεπτα.\n"
+
+#: ../src/xfce4-screensaver-configure:151
+#: ../src/xfce4-screensaver-preferences.c:710
+msgid "Blank screen"
+msgstr "Κενή οθόνη"
+
+#: ../src/xfce4-screensaver-configure:152
+msgid ""
+"Powered by Display Power Management Signaling (DPMS),\n"
+"Xfce Screensaver can automatically suspend your displays\n"
+"to save power.\n"
+"\n"
+"Xfce Power Manager and other applications also manage\n"
+"DPMS settings. If the settings here won't work, make sure\n"
+"display power management wasn't disabled there.\n"
+"If your displays are powering off at different\n"
+"intervals, be sure to check for conflicting settings."
+msgstr ""
+"Με την υποστήριξη του Display Power Management Signaling (DPMS),\n"
+"Η Xfce Προστασία οθόνης μπορεί αυτόματα να απενεργοποιήσει τις\n"
+"οθόνες σας για εξοικονόμηση ενέργειας.\n"
+"\n"
+"Ο διαχειριστής ρεύματος Xfce καθώς και άλλες εφαρμογές χρησιμοποιούν\n"
+"τις ρυθμίσεις DPMS. Εάν οι ρυθμίσεις δεν λειτουργούν, βεβαιωθείτε ότι\n"
+"η διαχείριση ενέργειας της οθόνης δεν έχει απενεργοποιηθεί εκεί.\n"
+"Αν οι οθόνες σας απενεργοποιούνται σε διαφορετικά χρονικά διαστήματα,\n"
+"πρέπει να ελέγξετε αν υπάρχουν αντικρουόμενες ρυθμίσεις."
+
+#: ../src/xfce4-screensaver-configure:188
+msgid "Part of Xfce Screensaver"
+msgstr "Κομμάτι του Xfce Προστασία οθόνης"
+
+#: ../src/xfce4-screensaver-configure:199
+msgid "After blanking, put display to sleep after:"
+msgstr "Μετά το μαύρισμα, να τεθεί η οθόνη σε αναμονή μετά από:"
+
+#: ../src/xfce4-screensaver-configure:201
+#: ../src/xfce4-screensaver-configure:205
+msgid "Never"
+msgstr "Ποτέ"
+
+#: ../src/xfce4-screensaver-configure:201
+msgid "60 seconds"
+msgstr "60 δευτερόλεπτα"
+
+#: ../src/xfce4-screensaver-configure:203
+msgid "After sleeping, switch display off after:"
+msgstr "Μετά την αναμονή, να κλείσει η οθόνη μετά από:"
+
+#: ../src/xfce4-screensaver-configure:205
+msgid "60 minutes"
+msgstr "60 λεπτά"
+
+#: ../src/xfce4-screensaver-configure:208
+msgid "Max number of images"
+msgstr "Μέγιστος αριθμός εικόνων"
+
+#: ../src/xfce4-screensaver-configure:211
+msgid "Show paths"
+msgstr "Εμφάνιση διαδρομών"
+
+#: ../src/xfce4-screensaver-configure:213
+msgid "Do rotations"
+msgstr "Περιστροφές"
+
+#: ../src/xfce4-screensaver-configure:215
+msgid "Print stats"
+msgstr "Στατιστικά εμφάνισης"
+
+#: ../src/xfce4-screensaver-configure:218
+msgid "Location"
+msgstr "Τοποθεσία"
+
+#: ../src/xfce4-screensaver-configure:221
+msgid "Background color"
+msgstr "Χρώμα φόντου"
+
+#: ../src/xfce4-screensaver-configure:223
+msgid "Do not randomize images"
+msgstr "Χωρίς τυχαία επιλογή εικόνων"
+
+#: ../src/xfce4-screensaver-configure:225
+msgid "Do not stretch images"
+msgstr "Χωρίς τέντωμα εικόνων"
+
+#: ../src/xfce4-screensaver-configure:417
+msgid "Restore Defaults"
+msgstr "Επαναφορά"
+
+#: ../src/xfce4-screensaver-configure:430
+msgid "Preferences"
+msgstr "Προτιμήσεις"
+
+#: ../src/xfce4-screensaver-configure:436
+msgid "About"
+msgstr "Σχετικά"
+
+#: ../src/xfce4-screensaver-configure:449
+msgid "Video"
+msgstr "Εικόνα"
+
+#: ../src/xfce4-screensaver-configure:756
+msgid "Configure an individual screensaver"
+msgstr "Ρύθμιση μιας προστασίας οθόνης"
+
+#: ../src/xfce4-screensaver-configure:758
+msgid "screensaver name to configure"
+msgstr "όνομα προστασίας οθόνης"
+
+#: ../src/xfce4-screensaver-configure:760
+msgid "check if screensaver is configurable"
+msgstr "έλεγχος δυνατότητας ρύθμισης"
+
+#: ../src/xfce4-screensaver-configure:764
+msgid "Unable to configure screensaver"
+msgstr "Δεν είναι δυνατή η ρύθμιση προστασίας οθόνης"
+
+#: ../src/xfce4-screensaver-configure:768
+msgid "Screensaver required."
+msgstr "Απαιτείται προστασία οθόνης."
+
+#: ../src/xfce4-screensaver-configure:776
+#, c-format
+msgid "File not found: %s"
+msgstr "Δεν βρέθηκε το αρχείο: %s"
+
+#: ../src/xfce4-screensaver-configure:784
+#, c-format
+msgid "Unrecognized file type: %s"
+msgstr "Δεν αναγνωρίστηκε ο τύπος του αρχείου: %s"
+
+#: ../src/xfce4-screensaver-configure:788
+#, c-format
+msgid "Failed to process file: %s"
+msgstr "Απέτυχε η επεξεργασία του αρχείου: %s"
+
+#: ../src/xfce4-screensaver-configure:793
+#, c-format
+msgid "Screensaver %s is configurable."
+msgstr "Η προστασία οθόνης %s έχει τη δυνατότητα ρύθμισης."
+
+#: ../src/xfce4-screensaver-configure:795
+#, c-format
+msgid "Screensaver %s is not configurable."
+msgstr "Η προστασία οθόνης %s δεν έχει τη δυνατότητα ρύθμισης."
+
+#: ../src/xfce4-screensaver-configure:799
+#, c-format
+msgid "Screensaver %s has no configuration options."
+msgstr "Η προστασία οθόνης %s δεν έχει επιλογές ρυθμίσεων."
+
+#: ../src/xfce4-screensaver-dialog.c:63
+msgid "Show debugging output"
+msgstr "Εμφάνιση αποσφαλμάτωσης"
+
+#: ../src/xfce4-screensaver-dialog.c:67
+msgid "Show the logout button"
+msgstr "Εμφάνιση του κουμπιού Αποσύνδεση"
+
+#: ../src/xfce4-screensaver-dialog.c:69
+msgid "Command to invoke from the logout button"
+msgstr "Εντολή ενεργοποίησης από το κουμπί Αποσύνδεση"
+
+#: ../src/xfce4-screensaver-dialog.c:71
+msgid "Show the switch user button"
+msgstr "Εμφάνιση του κουμπιού Αλλαγή χρήστη"
+
+#: ../src/xfce4-screensaver-dialog.c:73
+msgid "Message to show in the dialog"
+msgstr "Μήνυμα για εμφάνιση στο παράθυρο"
+
+#: ../src/xfce4-screensaver-dialog.c:73 ../src/xfce4-screensaver-dialog.c:75
+msgid "MESSAGE"
+msgstr "ΜΗΝΥΜΑ"
+
+#: ../src/xfce4-screensaver-dialog.c:75
+msgid "Not used"
+msgstr "Δεν χρησιμοποιείται"
+
+#: ../src/xfce4-screensaver-dialog.c:77
+msgid "Monitor height"
+msgstr "Ύψος οθόνης"
+
+#: ../src/xfce4-screensaver-dialog.c:79
+msgid "Monitor width"
+msgstr "Πλάτος οθόνης"
+
+#: ../src/xfce4-screensaver-dialog.c:81
+msgid "Monitor index"
+msgstr "Δείκτης οθόνης"
+
+#: ../src/xfce4-screensaver-dialog.c:175 ../src/xfce4-screensaver-dialog.c:177
+#: ../src/xfce4-screensaver-dialog.c:178
+msgid "Please enter your username."
+msgstr "Παρακαλώ εισάγετε το όνομα σας."
+
+#: ../src/xfce4-screensaver-dialog.c:184
+msgid "You are required to change your password immediately (password aged)"
+msgstr "Πρέπει άμεσα να αλλάξετε κωδικό (κωδικός πολύ παλιός)"
+
+#: ../src/xfce4-screensaver-dialog.c:186
+msgid "You are required to change your password immediately (root enforced)"
+msgstr ""
+"Απαιτείται άμεση αλλαγή του κωδικού πρόσβασης (χρειάζεται ο διαχειριστής)"
+
+#: ../src/xfce4-screensaver-dialog.c:188
+msgid "Your account has expired; please contact your system administrator"
+msgstr ""
+"Ο κωδικός σας έχει λήξει, παρακαλώ επικοινωνήστε με το διαχειριστή του "
+"συστήματος"
+
+#: ../src/xfce4-screensaver-dialog.c:190
+msgid "No password supplied."
+msgstr "Δεν δόθηκε κωδικός."
+
+#: ../src/xfce4-screensaver-dialog.c:192
+msgid "Password unchanged."
+msgstr "Ο κωδικός δεν άλλαξε."
+
+#: ../src/xfce4-screensaver-dialog.c:194
+msgid "Can not get username."
+msgstr "Δεν βρέθηκε το όνομα του χρήστη."
+
+#: ../src/xfce4-screensaver-dialog.c:196
+msgid "Retype your new password."
+msgstr "Επανάληψη του νέου κωδικού."
+
+#: ../src/xfce4-screensaver-dialog.c:198
+msgid "Enter your new password."
+msgstr "Εισαγωγή νέου κωδικού."
+
+#: ../src/xfce4-screensaver-dialog.c:200
+msgid "Enter your current password:"
+msgstr "Εισαγωγή του κωδικού πρόσβασης."
+
+#: ../src/xfce4-screensaver-dialog.c:202
+msgid "Error while changing NIS password."
+msgstr "Σφάλμα στη αλλαγή του κωδικού."
+
+#: ../src/xfce4-screensaver-dialog.c:204
+msgid "You must choose a longer password."
+msgstr "Θα πρέπει να επιλέξετε ένα μεγαλύτερο κωδικό."
+
+#: ../src/xfce4-screensaver-dialog.c:206
+msgid "Password has been already used. Choose another."
+msgstr "Ο κωδικός χρησιμοποιείται ήδη. Διαλέξτε άλλο."
+
+#: ../src/xfce4-screensaver-dialog.c:208
+msgid "You must wait longer to change your password."
+msgstr "Πρέπει να περιμένετε για την αλλαγή του κωδικού."
+
+#: ../src/xfce4-screensaver-dialog.c:210
+msgid "Sorry, passwords do not match."
+msgstr "Συγνώμη αλλά οι κωδικοί δεν ταιριάζουν."
+
+#: ../src/xfce4-screensaver-dialog.c:274
+msgid "Checking..."
+msgstr "Έλεγχος..."
+
+#: ../src/xfce4-screensaver-dialog.ui.h:2
+#, no-c-format
+msgid "%U"
+msgstr "%U"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:3
+msgid "Enter your password"
+msgstr "Εισαγωγή κωδικού"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:4
+msgid "You have the Caps Lock key on."
+msgstr "Έχετε πατημένο το κουμπιού Caps Lock."
+
+#: ../src/xfce4-screensaver-dialog.ui.h:5
+msgid "_Switch User"
+msgstr "Αλλαγή _χρήστη"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:6
+msgid "_Log Out"
+msgstr "Α_ποσύνδεση"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:7
+msgid "_Cancel"
+msgstr "Άκ_υρο"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:8
+msgid "_Unlock"
+msgstr "_Ξεκλείδωμα"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:10
+#, no-c-format
+msgid "<b>%h</b>"
+msgstr "<b>%h</b>"
+
+#: ../src/xfce4-screensaver-dialog.ui.h:12
+#, no-c-format
+msgid "<b>%s</b>"
+msgstr "<b>%s</b>"
+
+#: ../src/xfce4-screensaver-preferences.c:80
+msgid "Settings manager socket"
+msgstr "Υποδοχή διαχειριστή ρυθμίσεων"
+
+#: ../src/xfce4-screensaver-preferences.c:80
+msgid "SOCKET ID"
+msgstr "ID ΥΠΟΔΟΧΗΣ"
+
+#: ../src/xfce4-screensaver-preferences.c:716
+msgid "Random"
+msgstr "Τυχαία επιλογή"
+
+#: ../src/xfce4-screensaver-preferences.c:1734
+msgid "Setting locked by administrator."
+msgstr "Οι ρυθμίσεις έχουν απολειστεί από το διαχειριστή."
+
+#: ../src/xfce4-screensaver-preferences.c:1775
+msgid "Could not load the main interface"
+msgstr "Δεν φορτώθηκε η διαπαφή"
+
+#: ../src/xfce4-screensaver-preferences.c:1777
+msgid "Please make sure that the screensaver is properly installed"
+msgstr "Παρακαλώ βεβαιωθείτε ότι η προστασία οθόνης έχει εγκατασταθεί σωστά"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:1
+msgid "Screensaver Preview"
+msgstr "Προεπισκόπηση προστασίας οθόνης"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:2
+msgid "<b>Screensaver preview</b>"
+msgstr "<b>Προεπισκόπηση προστασίας οθόνης</b>"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:3
+msgid "Screensaver Preferences"
+msgstr "Προτιμήσεις προστασίας οθόνης"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:4
+msgid "Configure your screensaver and locker"
+msgstr "Ρύθμιση της προφύλαξης οθόνης και του κλειδώματος"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:5
+msgid "Power _Management"
+msgstr "_Διαχείριση ενέργειας"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:6
+msgid "Preview"
+msgstr "Προεπισκόπιση"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:7
+msgid "Running as root"
+msgstr "Εκτέλεση ως διαχειριστής"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:8
+msgid "The screen will not be locked for the root user."
+msgstr "Η οθόνη δεν θα κλειδώνει για τον διαχειριστή."
+
+#: ../src/xfce4-screensaver-preferences.ui.h:9
+msgid "Resolve"
+msgstr "Επίλυση"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:10
+msgid "Xfce Power Manager is not configured to handle laptop lid events"
+msgstr ""
+"Η διαχείριση ρεύματος Xfce δεν ρυθμίστηκε για συμβάντα με το καπάκι του "
+"φορητού"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:11
+msgid "Your computer may not be locked when you close the lid."
+msgstr "Ο υπολογιστής σας μπορεί να μη κλειδώνει όταν κλείνετε το καπάκι."
+
+#: ../src/xfce4-screensaver-preferences.ui.h:12
+msgid "Enable Screensaver"
+msgstr "Ενεργοποίηση προφύλαξης οθόνης"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:13
+msgid "Theme"
+msgstr "Θέμα"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:14
+msgid "Configure screensaver"
+msgstr "Ρύθμιση προστασίας οθόνης"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:15
+msgid "Configure..."
+msgstr "Ρύθμιση..."
+
+#: ../src/xfce4-screensaver-preferences.ui.h:16
+msgid "Change theme after:"
+msgstr "Αλλαγή θέματος μετά από:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:17
+msgid "minutes"
+msgstr "λεπτά"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:18
+msgid "Activate screensaver when computer is idle"
+msgstr "Ενεργοποίηση προστασίας οθόνης όταν ο υπολογιστής είναι σε αδράνεια"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:19
+msgid "Regard the computer as _idle after:"
+msgstr "Να θεωρείται α_δρανής ο υπολογιστής μετά από:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:20
+msgid "Inhibit screensaver for fullscreen applications"
+msgstr "Αναστολή προστασίας οθόνης για μεγιστοποιημένες εφαρμογές"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:22
+msgid "Enable Lock Screen"
+msgstr "Ενεργοποίηση προστασίας οθόνης"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:23
+msgid "Lock Screen with Screensaver"
+msgstr "Κλείδωμα της οθόνης με τη προστασία οθόνης"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:24
+msgid "Lock the screen after the screensaver is active for:"
+msgstr ""
+"Μετά από την ενεργοποίηση προστασίας οθόνης, κλείδωμα της οθόνης μετά από:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:25
+msgid "On Screen Keyboard"
+msgstr "Πληκτρολόγιο στην οθόνη"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:26
+msgid "On screen keyboard command:"
+msgstr "Εντολή για πληκτρολόγιο στην οθόνη:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:27
+msgid "Session Status Messages"
+msgstr "Μηνύματα κατάστασης"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:28
+msgid "Logout"
+msgstr "Αποσύνδεση"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:29
+msgid "Logout command:"
+msgstr "Εντολή για αποσύνδεση:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:30
+msgid "Enable logout after:"
+msgstr "Ενεργοποίηση αποσύνδεσης μετά από:"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:31
+msgid "User Switching"
+msgstr "Αλλαγή χρήστη"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:32
+msgid "Lock Screen with System Sleep"
+msgstr "Κλείδωμα της οθόνης με το σύστημα σε αναμονή"
+
+#: ../src/xfce4-screensaver-preferences.ui.h:33
+msgid "Lock Screen"
+msgstr "Κλείδωμα οθόνης"
+
+#: ../src/xfce4-screensaver.c:58
+msgid "Enable debugging code"
+msgstr "Ενεργοποίηση κώδικα εντοπισμού σφαλμάτων"
+
+#: ../src/xfce4-screensaver.desktop.in.in.h:2
+msgid "Launch screensaver and locker program"
+msgstr "Εκκίνηση προγράμματος προστασίας οθόνης και κλειδώματος"
+
+#: ../src/xfcekbd-indicator.c:406
+msgid "XKB initialization error"
+msgstr "Σφάλμα έναρξης του XKB"
