@@ -624,7 +624,7 @@ msgstr "Προτιμήσεις προστασίας οθόνης"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:4
 msgid "Configure your screensaver and locker"
-msgstr "Ρύθμιση της προφύλαξης οθόνης και του κλειδώματος"
+msgstr "Ρύθμιση της προστασίας οθόνης και του κλειδώματος"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:5
 msgid "Power _Management"
@@ -658,7 +658,7 @@ msgstr "Ο υπολογιστής σας μπορεί να μη κλειδώνε
 
 #: ../src/xfce4-screensaver-preferences.ui.h:12
 msgid "Enable Screensaver"
-msgstr "Ενεργοποίηση προφύλαξης οθόνης"
+msgstr "Ενεργοποίηση προστασίας οθόνης"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:13
 msgid "Theme"
