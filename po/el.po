@@ -67,7 +67,7 @@ msgstr "Ο μέγιστος αριθμός των εικόνων που εμφα
 
 #: ../savers/floaters.c:104
 msgid "MAX_IMAGES"
-msgstr "ΕΙ_ΚΟΝΕΣ"
+msgstr "ΜΕΓΙΣΤΟΣ ΑΡ. ΕΙ_ΚΟΝΩΝ"
 
 #: ../savers/floaters.c:109
 msgid "The initial size and position of window"
@@ -307,7 +307,7 @@ msgid ""
 "intervals, be sure to check for conflicting settings."
 msgstr ""
 "Με την υποστήριξη του Display Power Management Signaling (DPMS),\n"
-"Η Xfce Προστασία οθόνης μπορεί αυτόματα να απενεργοποιήσει τις\n"
+"η προστασία οθόνης του Xfce μπορεί αυτόματα να απενεργοποιήσει τις\n"
 "οθόνες σας για εξοικονόμηση ενέργειας.\n"
 "\n"
 "Ο διαχειριστής ρεύματος Xfce καθώς και άλλες εφαρμογές χρησιμοποιούν\n"
@@ -491,7 +491,8 @@ msgstr "Πρέπει άμεσα να αλλάξετε κωδικό (κωδικό
 #: ../src/xfce4-screensaver-dialog.c:186
 msgid "You are required to change your password immediately (root enforced)"
 msgstr ""
-"Απαιτείται άμεση αλλαγή του κωδικού πρόσβασης (χρειάζεται ο διαχειριστής)"
+"Απαιτείται άμεση αλλαγή του κωδικού πρόσβασης (επιβάλλεται από το "
+"διαχειριστή)"
 
 #: ../src/xfce4-screensaver-dialog.c:188
 msgid "Your account has expired; please contact your system administrator"
@@ -694,7 +695,7 @@ msgstr "Αναστολή προστασίας οθόνης για μεγιστο
 
 #: ../src/xfce4-screensaver-preferences.ui.h:22
 msgid "Enable Lock Screen"
-msgstr "Ενεργοποίηση προστασίας οθόνης"
+msgstr "Ενεργοποίηση κλειδώματος οθόνης"
 
 #: ../src/xfce4-screensaver-preferences.ui.h:23
 msgid "Lock Screen with Screensaver"
