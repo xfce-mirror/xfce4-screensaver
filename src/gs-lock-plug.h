@@ -23,7 +23,7 @@
 #ifndef SRC_GS_LOCK_PLUG_H_
 #define SRC_GS_LOCK_PLUG_H_
 
-#include <glib.h>
+#include <glib-object.h>
 
 G_BEGIN_DECLS
 
@@ -45,23 +45,21 @@ typedef struct GSLockPlugPrivate GSLockPlugPrivate;
 
 typedef struct
 {
-    GtkPlug            parent;
+    GObject            parent;
 
     GSLockPlugPrivate *priv;
 } GSLockPlug;
 
 typedef struct
 {
-    GtkPlugClass         parent_class;
+    GObjectClass         parent_class;
 
     void (* response) (GSLockPlug *plug, gint response_id);
-
-    /* Keybinding signals */
-    void (* close)    (GSLockPlug *plug);
 } GSLockPlugClass;
 
 GType       gs_lock_plug_get_type       (void);
-GtkWidget * gs_lock_plug_new            (void);
+GSLockPlug *gs_lock_plug_new            (void);
+GtkWidget  *gs_lock_plug_get_widget     (GSLockPlug  *plug);
 
 int         gs_lock_plug_run            (GSLockPlug  *plug);
 void        gs_lock_plug_set_sensitive  (GSLockPlug  *plug,
