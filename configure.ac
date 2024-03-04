@@ -2,7 +2,7 @@ dnl -*- mode: m4 -*-
 
 XDT_VERSION_INIT([4.18.2], [git])
 
-AC_COPYRIGHT([Copyright (c) 2011-2023 The Xfce development team. All rights reserved.])
+AC_COPYRIGHT([Copyright (c) 2011-2024 The Xfce development team. All rights reserved.])
 AC_PREREQ(2.69)
 AC_INIT([xfce4-screensaver],
         [xdt_version],
