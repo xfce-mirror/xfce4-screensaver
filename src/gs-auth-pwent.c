@@ -38,7 +38,9 @@
 #endif
 
 #ifdef HAVE_LIBCRYPT
-# include <crypt.h>
+# ifndef __FreeBSD__
+#  include <crypt.h>
+# endif
 #else
 # define crypt(a, b) NULL
 #endif
