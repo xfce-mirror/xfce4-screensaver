@@ -176,6 +176,11 @@ static const char* maybe_translate_message(const char* msg) {
         g_hash_table_insert(hash, "Username:",
                             _("Please enter your username."));
         g_hash_table_insert(hash, "username:", _("Please enter your username."));
+        /* Map these to an empty string so these are not shown in status text */
+        /* https://gitlab.xfce.org/apps/xfce4-screensaver/-/issues/35 */
+        g_hash_table_insert(hash, _("Password:"),
+                            "");
+        /* Prevent edge case when translated in xfce4-screensaver but not in pam */
         g_hash_table_insert(hash, "Password:",
                             "");
         g_hash_table_insert(hash, "password:",
