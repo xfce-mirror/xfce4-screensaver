@@ -158,73 +158,12 @@ static char* request_response(GSLockPlug* plug,
     return text;
 }
 
-/* Adapted from MDM2 daemon/verify-pam.c on 2006-06-13 */
-static const char* maybe_translate_message(const char* msg) {
-    char              *s;
-    const char        *ret;
-    static GHashTable *hash = NULL;
-
-    if (hash == NULL) {
-        /* Here we come with some fairly standard messages so that
-           we have as much as possible translated.  Should really be
-           translated in pam I suppose.  This way we can "change"
-           some of these messages to be more sane. */
-        hash = g_hash_table_new (g_str_hash, g_str_equal);
-        /* login: is whacked always translate to Username: */
-        g_hash_table_insert(hash, "login:",
-                            _("Please enter your username."));
-        g_hash_table_insert(hash, "Username:",
-                            _("Please enter your username."));
-        g_hash_table_insert(hash, "username:", _("Please enter your username."));
-        /* Map these to an empty string so these are not shown in status text */
-        /* https://gitlab.xfce.org/apps/xfce4-screensaver/-/issues/35 */
-        g_hash_table_insert(hash, _("Password:"),
-                            "");
-        /* Prevent edge case when translated in xfce4-screensaver but not in pam */
-        g_hash_table_insert(hash, "Password:",
-                            "");
-        g_hash_table_insert(hash, "password:",
-                            "");
-        g_hash_table_insert(hash, "You are required to change your password immediately (password aged)",
-                            _("You are required to change your password immediately (password aged)"));
-        g_hash_table_insert(hash, "You are required to change your password immediately (root enforced)",
-                            _("You are required to change your password immediately (root enforced)"));
-        g_hash_table_insert(hash, "Your account has expired; please contact your system administrator",
-                            _("Your account has expired; please contact your system administrator"));
-        g_hash_table_insert(hash, "No password supplied",
-                            _("No password supplied."));
-        g_hash_table_insert(hash, "Password unchanged",
-                            _("Password unchanged."));
-        g_hash_table_insert(hash, "Can not get username",
-                            _("Can not get username."));
-        g_hash_table_insert(hash, "Retype new UNIX password:",
-                            _("Retype your new password."));
-        g_hash_table_insert(hash, "Enter new UNIX password:",
-                            _("Enter your new password."));
-        g_hash_table_insert(hash, "(current) UNIX password:",
-                            _("Enter your current password:"));
-        g_hash_table_insert(hash, "Error while changing NIS password.",
-                            _("Error while changing NIS password."));
-        g_hash_table_insert(hash, "You must choose a longer password",
-                            _("You must choose a longer password."));
-        g_hash_table_insert(hash, "Password has been already used. Choose another.",
-                            _("Password has been already used. Choose another."));
-        g_hash_table_insert(hash, "You must wait longer to change your password",
-                            _("You must wait longer to change your password."));
-        g_hash_table_insert(hash, "Sorry, passwords do not match",
-                            _("Sorry, passwords do not match."));
-        /* FIXME: what about messages which have some variables in them, perhaps try to do those as well */
-    }
-
-    s = g_strstrip(g_strdup(msg));
-    ret = g_hash_table_lookup(hash, s);
-    g_free(s);
-
-    if (ret != NULL) {
-        return ret;
-    } else {
-        return msg;
-    }
+static gboolean status_text_should_hidden(const char* msg) {
+    /* This string comes from pam. Both the raw string and the
+       localized string are checked to prevent edge case when
+       translated in xfce4-screensaver but not in pam */
+    return g_str_equal(g_strstrip(msg), _("Password:")) ||
+           g_str_equal(g_strstrip(msg), "Password:");
 }
 
 static gboolean auth_message_handler(GSAuthMessageStyle   style,
@@ -245,7 +184,7 @@ static gboolean auth_message_handler(GSAuthMessageStyle   style,
 
     ret = TRUE;
     *response = NULL;
-    message = maybe_translate_message(msg);
+    message = status_text_should_hidden(msg) ? "" : msg;
 
     switch (style) {
         case GS_AUTH_MESSAGE_PROMPT_ECHO_ON:
