@@ -158,6 +158,12 @@ static char* request_response(GSLockPlug* plug,
     return text;
 }
 
+static gboolean status_text_should_hidden(const char* msg) {
+    return g_str_equal(msg, pam_dgettext("Password: ")) ||
+           // "Password:" is the default on OpenPAM.
+           g_str_equal(msg, "Password:");
+}
+
 static gboolean auth_message_handler(GSAuthMessageStyle   style,
                                      const char          *msg,
                                      char               **response,
@@ -176,7 +182,7 @@ static gboolean auth_message_handler(GSAuthMessageStyle   style,
 
     ret = TRUE;
     *response = NULL;
-    message = msg;
+    message = status_text_should_hidden(msg) ? "" : msg;
 
     switch (style) {
         case GS_AUTH_MESSAGE_PROMPT_ECHO_ON:
@@ -480,6 +486,10 @@ int main(int    argc,
     GError *error = NULL;
     char   *nolock_reason = NULL;
 
+    /* The order matters since xfce_textdomain sets default domain. */
+#ifdef HAVE_LINUX_PAM
+    xfce_textdomain ("Linux-PAM", LINUXPAMLOCALEDIR, "UTF-8");
+#endif
     xfce_textdomain (GETTEXT_PACKAGE, XFCELOCALEDIR, "UTF-8");
 
     gs_profile_start(NULL);
