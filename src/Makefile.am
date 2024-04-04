@@ -18,6 +18,7 @@ AM_CPPFLAGS = \
 	-DDATADIR=\""$(datadir)"\"                  \
 	-DSYSCONFDIR=\""$(sysconfdir)"\"            \
 	-DXFCELOCALEDIR=\""$(datadir)/locale"\"     \
+	-DLINUXPAMLOCALEDIR=\""$(LINUX_PAM_LOCALEDIR)"\" \
 	-DSAVERDIR=\""$(saverdir)"\"                \
 	-DTHEMESDIR=\""$(themesdir)"\"              \
 	-DGTKBUILDERDIR=\"$(pkgdatadir)\"           \

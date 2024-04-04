@@ -613,6 +613,15 @@ fi
 AM_CONDITIONAL(HAVE_PAM, test x$have_pam = xyes)
 AC_SUBST(HAVE_PAM)
 
+#       Check if Linux-PAM is used (OpenPAM should have none of the following).
+
+AC_CHECK_HEADER([security/_pam_types.h],
+                [AC_DEFINE([HAVE_LINUX_PAM], 1, [Using Linux-PAM], [])])
+
+PKG_CHECK_MODULES([LINUX_PAM], [pam],
+                  [LINUX_PAM_LOCALEDIR="`$PKG_CONFIG --variable=prefix pam`/share/locale"],
+                  [LINUX_PAM_LOCALEDIR="$datadir/locale"])
+AC_SUBST([LINUX_PAM_LOCALEDIR])
 
 #       Check for the nine billion variants of shadow passwords...
 
