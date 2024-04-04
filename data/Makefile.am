@@ -10,13 +10,15 @@ man_MANS = \
 	xfce4-screensaver-preferences.1  \
 	$(NULL)
 
-@INTLTOOL_DESKTOP_RULE@
+xfce4-screensaver-preferences.desktop: xfce4-screensaver-preferences.desktop.in
+	$(AM_V_GEN)$(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
 
 desktopdir = $(datadir)/applications
 desktop_in_files = xfce4-screensaver-preferences.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
-@INTLTOOL_DIRECTORY_RULE@
+xfce4-screensaver.directory: xfce4-screensaver.directory.in
+	$(AM_V_GEN)$(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
 
 directorydir = $(datadir)/desktop-directories
 directory_in_files = \
@@ -31,8 +33,6 @@ menu_DATA = \
 
 dbussessionservicedir = $(DBUS_SESSION_SERVICE_DIR)
 dbussessionservice_DATA = org.xfce.ScreenSaver.service
-
-@INTLTOOL_XML_NOMERGE_RULE@
 
 EXTRA_DIST = \
 	$(desktop_in_files)              \

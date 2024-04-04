@@ -23,7 +23,6 @@ dnl Silence warning: `ar: 'u' modifier ignored since 'D' is the default`
 dnl SEE https://www.mail-archive.com/automake-patches@gnu.org/msg07705.html
 AC_SUBST(AR_FLAGS, [cr])
 
-IT_PROG_INTLTOOL([0.50.1])
 AC_PROG_CC
 AM_PROG_CC_C_O
 AC_CANONICAL_HOST
@@ -36,9 +35,12 @@ AC_SUBST(VERSION)
 # Save flags to aclocal
 ACLOCAL="$ACLOCAL $ACLOCAL_FLAGS"
 
-GETTEXT_PACKAGE=xfce4-screensaver
-AC_SUBST(GETTEXT_PACKAGE)
-AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [Name of default gettext domain])
+GETTEXT_PACKAGE="$PACKAGE"
+AC_SUBST([GETTEXT_PACKAGE])
+AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [Name of default gettext domain])
+
+AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION([0.19.8])
 
 dnl
 dnl Enable gsettings schema macros

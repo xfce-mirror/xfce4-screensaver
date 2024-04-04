@@ -1,7 +1,7 @@
 [Desktop Entry]
-_Name=Xfce Screensaver
-_Comment=Set your screensaver preferences
-_GenericName=Screensaver
+Name=Xfce Screensaver
+Comment=Set your screensaver preferences
+GenericName=Screensaver
 Icon=org.xfce.ScreenSaver
 Exec=xfce4-screensaver-preferences
 Terminal=false
