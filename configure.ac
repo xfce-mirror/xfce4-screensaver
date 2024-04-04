@@ -32,9 +32,6 @@ LT_INIT([disable-static])
 
 AC_SUBST(VERSION)
 
-# Save flags to aclocal
-ACLOCAL="$ACLOCAL $ACLOCAL_FLAGS"
-
 GETTEXT_PACKAGE="$PACKAGE"
 AC_SUBST([GETTEXT_PACKAGE])
 AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [Name of default gettext domain])
@@ -42,116 +39,143 @@ AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [Name of default get
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.19.8])
 
-dnl
-dnl Enable gsettings schema macros
-dnl
-
-GLIB_GSETTINGS
-
 # Dependencies
 
-m4_define([glib_required_version], [2.50.0])
-GLIB_REQUIRED_VERSION=glib_required_version
-GTK_REQUIRED_VERSION=3.24.0
-DBUS_REQUIRED_VERSION=0.30
-X11_REQUIRED_VERSION=1.0
-LIBXKLAVIER_REQUIRED=5.2
-XRANDR_REQUIRED=1.3
-LIBXFCONF_REQUIRED=4.12.1
-LIBXFCE4UI_REQUIRED=4.18.4
-LIBXFCE4UTIL_REQUIRED=4.12.1
-LIBGARCON_REQUIRED=0.5.0
-LIBWNCK_REQUIRED=3.20
-
-AC_CHECK_HEADERS(unistd.h)
-AC_CHECK_HEADERS(crypt.h sys/select.h)
-AC_CHECK_FUNCS(select fcntl uname nice setpriority getcwd getwd putenv sbrk)
-AC_CHECK_FUNCS(sigaction syslog realpath setrlimit)
-AC_CHECK_FUNCS(getresuid)
+AC_CHECK_HEADERS(unistd.h crypt.h)
+AC_CHECK_FUNCS(fcntl uname setpriority getresuid)
 AC_TYPE_UID_T
-
-dnl Checks for X is RANDR extension
-
-AC_MSG_CHECKING(for xrandr)
-if $PKG_CONFIG --atleast-version $XRANDR_REQUIRED xrandr; then
-  AC_MSG_RESULT(yes)
-  AC_DEFINE(HAVE_RANDR, 1,
-            [Define if the xrandr-$XRANDR_REQUIRED library is present])
-  have_randr=yes
-  RANDR_PACKAGE=xrandr
-else
-  AC_MSG_RESULT(no)
-  have_randr=no
-  RANDR_PACKAGE=
-fi
-
-AC_SUBST(RANDR_PACKAGE)
-
-dnl This is to set GLib macros via XDT_CHECK_PACKAGE when building with
-dnl xfce4-dev-tools >= 4.17.1
-XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [glib_required_version])
-
-AC_CHECK_FUNCS([setresuid setenv unsetenv clearenv])
-PKG_CHECK_MODULES(XFCE_SCREENSAVER,
-        x11 >= $X11_REQUIRED_VERSION
-        xscrnsaver
-        gtk+-3.0 >= $GTK_REQUIRED_VERSION
-        dbus-glib-1 >= $DBUS_REQUIRED_VERSION
-        gio-2.0 >= $GLIB_REQUIRED_VERSION
-        libxklavier >= $LIBXKLAVIER_REQUIRED
-        libxfconf-0 >= $LIBXFCONF_REQUIRED
-        garcon-gtk3-1 >= $LIBGARCON_REQUIRED
-        libwnck-3.0 >= $LIBWNCK_REQUIRED
-        $RANDR_PACKAGE)
-AC_SUBST(XFCE_SCREENSAVER_CFLAGS)
-AC_SUBST(XFCE_SCREENSAVER_LIBS)
-
-PKG_CHECK_MODULES(XFCE_SCREENSAVER_DIALOG,
-        gio-2.0 >= $GLIB_REQUIRED_VERSION
-        gthread-2.0
-        gtk+-3.0 >= $GTK_REQUIRED_VERSION
-        libxfce4util-1.0 >= $LIBXFCE4UTIL_REQUIRED)
-AC_SUBST(XFCE_SCREENSAVER_DIALOG_CFLAGS)
-AC_SUBST(XFCE_SCREENSAVER_DIALOG_LIBS)
-
-PKG_CHECK_MODULES(XFCE_SCREENSAVER_CAPPLET,
-        gio-2.0 >= $GLIB_REQUIRED_VERSION
-        gtk+-3.0 >= $GTK_REQUIRED_VERSION
-        libxklavier >= $LIBXKLAVIER_REQUIRED
-        libxfce4ui-2 >= $LIBXFCE4UI_REQUIRED
-        libxfconf-0 >= $LIBXFCONF_REQUIRED
-        garcon-gtk3-1 >= $LIBGARCON_REQUIRED)
-AC_SUBST(XFCE_SCREENSAVER_CAPPLET_CFLAGS)
-AC_SUBST(XFCE_SCREENSAVER_CAPPLET_LIBS)
-
-PKG_CHECK_MODULES(XFCE_SCREENSAVER_COMMAND,
-        gobject-2.0 >= $GLIB_REQUIRED_VERSION
-        gio-2.0 >= $GLIB_REQUIRED_VERSION
-        libxfce4util-1.0 >= $LIBXFCE4UTIL_REQUIRED)
-AC_SUBST(XFCE_SCREENSAVER_COMMAND_CFLAGS)
-AC_SUBST(XFCE_SCREENSAVER_COMMAND_LIBS)
-
-PKG_CHECK_MODULES(XFCE_SCREENSAVER_SAVER,
-        gthread-2.0
-        gtk+-3.0 >= $GTK_REQUIRED_VERSION
-        gobject-2.0 >= $GLIB_REQUIRED_VERSION
-        libxfce4util-1.0 >= $LIBXFCE4UTIL_REQUIRED)
-AC_SUBST(XFCE_SCREENSAVER_SAVER_CFLAGS)
-AC_SUBST(XFCE_SCREENSAVER_SAVER_LIBS)
-
-AC_PATH_XTRA
-
-ALL_X_LIBS="$X_LIBS $X_PRE_LIBS -lXext -lX11 $X_EXTRA_LIBS"
-SAVER_LIBS="$ALL_X_LIBS"
-
 AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
 
-# Solaris requires libresolv for daemon()
-case "$host" in
-	*-*-solaris*)
-		AC_CHECK_LIB(resolv, daemon, [XFCE_SCREENSAVER_LIBS="$XFCE_SCREENSAVER_LIBS -lresolv"])
-	;;
-esac
+m4_define([glib_min_version], [2.50.0])
+m4_define([gtk_min_version], [3.24.0])
+m4_define([dbus_glib_min_version], [0.30])
+m4_define([xfconf_min_version], [4.12.1])
+m4_define([libxfce4ui_min_version], [4.18.4])
+m4_define([libxfce4util_min_version], [4.12.1])
+m4_define([garcon_min_version], [0.5.0])
+
+m4_define([libx11_min_version], [1.6.7])
+m4_define([libxext_min_version], [1.0.0])
+m4_define([libxscrnsaver_min_version], [1.2.3])
+m4_define([libxklavier_min_version], [5.2])
+m4_define([libwnck_min_version], [3.20])
+
+m4_define([libwlembed_min_version], [0.0.0])
+m4_define([wayland_min_version], [1.15])
+m4_define([wayland_protocols_min_version], [1.20])
+m4_define([libxfce4windowing_min_version], [4.19.2])
+
+XDT_CHECK_PACKAGE([GLIB], [glib-2.0], [glib_min_version])
+XDT_CHECK_PACKAGE([GIO], [gio-2.0], [glib_min_version])
+XDT_CHECK_PACKAGE([GTK], [gtk+-3.0], [gtk_min_version])
+XDT_CHECK_PACKAGE([DBUS_GLIB], [dbus-glib-1], [dbus_glib_min_version])
+XDT_CHECK_PACKAGE([XFCONF], [libxfconf-0], [xfconf_min_version])
+XDT_CHECK_PACKAGE([LIBXFCE4UI], [libxfce4ui-2], [libxfce4ui_min_version])
+XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [libxfce4util_min_version])
+XDT_CHECK_PACKAGE([GARCON_GTK3], [garcon-gtk3-1], [garcon_min_version])
+
+XDT_CHECK_OPTIONAL_FEATURE([X11],
+                           [x11],
+                           [
+                             XDT_FEATURE_DEPENDENCY([GDK_X11], [gdk-x11-3.0], [gtk_min_version])
+                             XDT_FEATURE_DEPENDENCY([GTK_X11], [gtk+-x11-3.0], [gtk_min_version])
+                             XDT_FEATURE_DEPENDENCY([LIBX11], [x11], [libx11_min_version])
+                             XDT_FEATURE_DEPENDENCY([LIBXEXT], [xext], [libxext_min_version])
+                             XDT_FEATURE_DEPENDENCY([LIBXSCRNSAVER], [xscrnsaver], [libxscrnsaver_min_version])
+                             XDT_FEATURE_DEPENDENCY([LIBXKLAVIER], [libxklavier], [libxklavier_min_version])
+                             dnl FIXME: to be removed when libxfce4windowing is an acceptable requirement
+                             dnl and reassemble the code from gs-listener-{x11,wayland}.c in gs-listener.c
+                             XDT_FEATURE_DEPENDENCY([LIBWNCK], [libwnck-3.0], [libwnck_min_version])
+                           ],
+                           [the X11 windowing system])
+XDT_CHECK_OPTIONAL_FEATURE([WAYLAND],
+                           [wayland],
+                           [
+                             XDT_FEATURE_DEPENDENCY([GDK_WAYLAND], [gdk-wayland-3.0], [gtk_min_version])
+                             XDT_FEATURE_DEPENDENCY([LIBWLEMBED], [libwlembed-0], [libwlembed_min_version])
+                             XDT_FEATURE_DEPENDENCY([LIBWLEMBED_GTK3], [libwlembed-gtk3-0], [libwlembed_min_version])
+                             XDT_FEATURE_DEPENDENCY([WAYLAND_CLIENT], [wayland-client], [wayland_min_version])
+                             XDT_FEATURE_DEPENDENCY([WAYLAND_SCANNER], [wayland-scanner], [wayland_min_version])
+                             XDT_FEATURE_DEPENDENCY([WAYLAND_PROTOCOLS], [wayland-protocols], [wayland_protocols_min_version])
+                             XDT_FEATURE_DEPENDENCY([LIBXFCE4WINDOWING], [libxfce4windowing-0], [libxfce4windowing_min_version])
+                           ],
+                           [the Wayland windowing system])
+if test x"$ENABLE_X11" != x"yes" -a x"$ENABLE_WAYLAND" != x"yes"; then
+  AC_MSG_ERROR([Either both X11 and Wayland support was disabled, or required dependencies are missing. One of the two must be enabled.])
+fi
+
+if test x"$ENABLE_WAYLAND" = x"yes"; then
+  WAYLAND_PROTOCOLS_PKGDATADIR=`$PKG_CONFIG --variable=pkgdatadir wayland-protocols`
+  AC_SUBST([WAYLAND_PROTOCOLS_PKGDATADIR])
+fi
+dnl FIXME: Bump wayland_protocols_min_version to 1.25 when it is an acceptable requirement,
+dnl and remove this and protocols/ext-session-lock-v1.xml
+AM_CONDITIONAL([HAVE_SESSION_LOCK], [test -f "$WAYLAND_PROTOCOLS_PKGDATADIR/staging/ext-session-lock/ext-session-lock-v1.xml"])
+dnl FIXME: Bump wayland_protocols_min_version to 1.27 when it is an acceptable requirement,
+dnl and remove this and protocols/ext-idle-notify-v1.xml
+AM_CONDITIONAL([HAVE_IDLE_NOTIFY], [test -f "$WAYLAND_PROTOCOLS_PKGDATADIR/staging/ext-idle-notify/ext-idle-notify-v1.xml"])
+
+if test x"$ENABLE_X11" = x"yes"; then
+
+  # Check whether to use a xscreensaver hacks configuration directory
+  AC_MSG_CHECKING([whether to use xscreensaver hacks configuration])
+  AC_ARG_WITH(xscreensaverdir, AS_HELP_STRING([--with-xscreensaverdir=dir], [Use xscreensaver hack configs found in directory],))
+  xscreensaverdir=
+  if test "x$with_xscreensaverdir" = "xyes"; then
+    if test -d /usr/share/xscreensaver/config; then
+      xscreensaverdir=/usr/share/xscreensaver/config
+    elif test -d /etc/xscreensaver; then
+      xscreensaverdir=/etc/xscreensaver
+    fi
+  elif test "x$with_xscreensaverdir" = "x" -o "x$with_xscreensaverdir" = "xno"; then
+    xscreensaverdir=
+  else
+    xscreensaverdir="$with_xscreensaverdir"
+  fi
+
+  if test "x$xscreensaverdir" != "x" ; then
+    AC_DEFINE_UNQUOTED(XSCREENSAVER_CONFIG_DIR, "$xscreensaverdir", [Define to the directory containing XScreensaver configuration files])
+    AC_MSG_RESULT([$xscreensaverdir])
+  else
+    AC_MSG_RESULT([no])
+  fi
+
+  # Path to xscreensaver hack executables
+  AC_ARG_WITH(xscreensaverhackdir, AS_HELP_STRING([--with-xscreensaverhackdir=dir], [Look for xscreensaver hack executables in directory],))
+  AC_MSG_CHECKING([for location of xscreensaver hack executables])
+  xscreensaverhackdir=
+  if test "x$with_xscreensaverhackdir" = "xyes" -o "x$with_xscreensaverhackdir" = "x"; then
+    if test -d /usr/X11R6/lib/xscreensaver; then
+      xscreensaverhackdir=/usr/X11R6/lib/xscreensaver
+    elif test -d $prefix/libexec/xscreensaver; then
+      xscreensaverhackdir=$prefix/libexec/xscreensaver
+    elif test -d /usr/libexec/xscreensaver; then
+      xscreensaverhackdir=/usr/libexec/xscreensaver
+    elif test -d /usr/lib/xscreensaver; then
+      xscreensaverhackdir=/usr/lib/xscreensaver
+    elif test -d /usr/lib64/xscreensaver; then
+      xscreensaverhackdir=/usr/lib64/xscreensaver
+    fi
+  elif test "x$with_xscreensaverhackdir" != "xno"; then
+    xscreensaverhackdir="$with_xscreensaverhackdir"
+  fi
+
+  if test "x$xscreensaverhackdir" != "x" ; then
+    AC_DEFINE_UNQUOTED(XSCREENSAVER_HACK_DIR, "$xscreensaverhackdir", [Define to the directory containing XScreensaver hack executables])
+    AC_MSG_RESULT([$xscreensaverhackdir])
+  else
+    AC_MSG_RESULT([no])
+    AC_MSG_WARN([could not find directory containing xscreensaver hacks])
+  fi
+
+  have_libxfcekbdui=no
+  AC_ARG_WITH(kbd-layout-indicator,[  --without-kbd-layout-indicator         disable keyboard layout indicator],
+              [with_kbd_layout_indicator="$withval"],[with_kbd_layout_indicator=yes])
+  if test x$with_kbd_layout_indicator != xno; then
+    AC_DEFINE(WITH_KBD_LAYOUT_INDICATOR, 1, [Define if keyboard layout indicator should be built])
+  fi
+
+fi # ENABLE_X11
 
 # Find out where the session service file goes
 # The sad sed hack is recomended by section 27.10 of the automake manual.
@@ -190,10 +214,6 @@ if test x$withval != x; then
 fi])
 PAM_AUTH_TYPE="$ac_cv_pam_auth_type"
 AC_SUBST(PAM_AUTH_TYPE)
-
-# Translation distcheck fix
-XGETTEXT_ARGS=
-AC_SUBST(XGETTEXT_ARGS)
 
 dnl ---------------------------------------------------------------------------
 dnl - Where should we put documentation ?
@@ -238,17 +258,6 @@ dnl ---------------------------------------------------------------------------
 dnl - Some utility functions to make checking for X things easier.
 dnl ---------------------------------------------------------------------------
 
-# Like AC_CHECK_HEADER, but it uses the already-computed -I directories.
-#
-AC_DEFUN([AC_CHECK_X_HEADER], [
-  ac_save_CPPFLAGS="$CPPFLAGS"
-  if test \! -z "$includedir" ; then
-    CPPFLAGS="$CPPFLAGS -I$includedir"
-  fi
-  CPPFLAGS="$CPPFLAGS $X_CFLAGS"
-  AC_CHECK_HEADER([$1],[$2],[$3],[$4])
-  CPPFLAGS="$ac_save_CPPFLAGS"])
-
 # Like AC_COMPILE_IFELSE, but it uses the already-computed -I directories.
 #
 AC_DEFUN([AC_TRY_X_COMPILE], [
@@ -259,34 +268,6 @@ AC_DEFUN([AC_TRY_X_COMPILE], [
   CPPFLAGS="$CPPFLAGS $X_CFLAGS"
   AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[$1]], [[$2]])], [$3], [$4])
   CPPFLAGS="$ac_save_CPPFLAGS"])
-
-
-# Like AC_CHECK_LIB, but it uses the already-computed -I and -L directories.
-# Use this sparingly; it probably doesn't work very well on X programs.
-#
-AC_DEFUN([AC_CHECK_X_LIB], [
-  ac_save_CPPFLAGS="$CPPFLAGS"
-  ac_save_LDFLAGS="$LDFLAGS"
-#  ac_save_LIBS="$LIBS"
-
-  if test \! -z "$includedir" ; then
-    CPPFLAGS="$CPPFLAGS -I$includedir"
-  fi
-  # note: $X_CFLAGS includes $x_includes
-  CPPFLAGS="$CPPFLAGS $X_CFLAGS"
-
-  if test \! -z "$libdir" ; then
-    LDFLAGS="$LDFLAGS -L$libdir"
-  fi
-  # note: $X_LIBS includes $x_libraries
-  LDFLAGS="$LDFLAGS $ALL_X_LIBS"
-
-  AC_CHECK_LIB([$1], [$2], [$3], [$4], [$5])
-  CPPFLAGS="$ac_save_CPPFLAGS"
-  LDFLAGS="$ac_save_LDFLAGS"
-#  LIBS="$ac_save_LIBS"
-  ])
-
 
 # Usage: HANDLE_X_PATH_ARG([variable_name],
 #                          [--command-line-option],
@@ -343,77 +324,6 @@ AC_DEFUN([HANDLE_X_PATH_ARG], [
   ])
 
 dnl ---------------------------------------------------------------------------
-dnl - Check for shaped window extension
-dnl ---------------------------------------------------------------------------
-
-have_shape=no
-AC_CHECK_X_HEADER(X11/extensions/shape.h, [have_shape=yes],,
-                    [#include <X11/Xlib.h>])
-if test "$have_shape" = yes; then
-  AC_DEFINE(HAVE_SHAPE_EXT, 1, [Define if shape extension is available])
-fi
-
-dnl ---------------------------------------------------------------------------
-dnl - Check for the XF86VMODE server extension (for gamma fading.)
-dnl ---------------------------------------------------------------------------
-
-have_xf86vmode=no
-have_xf86gamma=no
-have_xf86gamma_ramp=no
-with_xf86gamma_req=unspecified
-AC_ARG_WITH(xf86gamma-ext,
-[  --with-xf86gamma-ext    Include support for XFree86 gamma fading.],
-  [with_xf86gamma="$withval"; with_xf86gamma_req="$withval"],
-  [with_xf86gamma=yes])
-
-HANDLE_X_PATH_ARG(with_xf86gamma, --with-xf86gamma-ext, xf86gamma)
-
-if test "$with_xf86gamma" = yes; then
-
-  # first check for xf86vmode.h, if we haven't already
-  if test "$have_xf86vmode" = yes; then
-    have_xf86gamma=yes
-  else
-    AC_CHECK_X_HEADER(X11/extensions/xf86vmode.h, [have_xf86gamma=yes],,
-                      [#include <X11/Xlib.h>])
-  fi
-
-  # if that succeeded, then check for the -lXxf86vm
-  if test "$have_xf86gamma" = yes; then
-    have_xf86gamma=no
-    AC_CHECK_X_LIB(Xxf86vm, XF86VidModeSetGamma,
-                  [have_xf86gamma=yes],
-                   [true], -lXext -lX11)
-  fi
-
-  # check for the Ramp versions of the functions too.
-  if test "$have_xf86gamma" = yes; then
-    have_xf86gamma_ramp=no
-    AC_CHECK_X_LIB(Xxf86vm, XF86VidModeSetGammaRamp,
-                  [have_xf86gamma_ramp=yes],
-                   [true], -lXext -lX11)
-  fi
-
-  # if those tests succeeded, then we've really got the functions.
-  if test "$have_xf86gamma" = yes; then
-    AC_DEFINE(HAVE_XF86VMODE_GAMMA, 1, [Define if XF86VMODE Gamma is available])
-  fi
-
-  if test "$have_xf86gamma_ramp" = yes; then
-    AC_DEFINE(HAVE_XF86VMODE_GAMMA_RAMP, 1, [Define if XF86VMODE Gamma Ramp is available])
-  fi
-
-  # pull in the lib, if we haven't already
-  if test "$have_xf86gamma" = yes -a "$have_xf86vmode" = no; then
-    SAVER_LIBS="$SAVER_LIBS -lXxf86vm"
-  fi
-
-elif test "$with_xf86gamma" != no; then
-  echo "error: must be yes or no: --with-xf86gamma-ext=$with_xf86vmode"
-  exit 1
-fi
-
-dnl ---------------------------------------------------------------------------
 dnl - The --enable-locking option
 dnl ---------------------------------------------------------------------------
 
@@ -430,82 +340,6 @@ elif test "$enable_locking" = no; then
 else
   echo "error: must be yes or no: --enable-locking=$enable_locking"
   exit 1
-fi
-
-# Check whether to use a xscreensaver hacks configuration directory
-AC_MSG_CHECKING([whether to use xscreensaver hacks configuration])
-AC_ARG_WITH(xscreensaverdir, AS_HELP_STRING([--with-xscreensaverdir=dir], [Use xscreensaver hack configs found in directory],))
-xscreensaverdir=
-if test "x$with_xscreensaverdir" = "xyes"; then
-  if test -d /usr/share/xscreensaver/config; then
-    xscreensaverdir=/usr/share/xscreensaver/config
-  elif test -d /etc/xscreensaver; then
-    xscreensaverdir=/etc/xscreensaver
-  fi
-elif test "x$with_xscreensaverdir" = "x" -o "x$with_xscreensaverdir" = "xno"; then
-  xscreensaverdir=
-else
-  xscreensaverdir="$with_xscreensaverdir"
-fi
-
-if test "x$xscreensaverdir" != "x" ; then
-  AC_DEFINE_UNQUOTED(XSCREENSAVER_CONFIG_DIR, "$xscreensaverdir", [Define to the directory containing XScreensaver configuration files])
-  AC_MSG_RESULT([$xscreensaverdir])
-else
-  AC_MSG_RESULT([no])
-fi
-
-# Path to xscreensaver hack executables
-AC_ARG_WITH(xscreensaverhackdir, AS_HELP_STRING([--with-xscreensaverhackdir=dir], [Look for xscreensaver hack executables in directory],))
-AC_MSG_CHECKING([for location of xscreensaver hack executables])
-xscreensaverhackdir=
-if test "x$with_xscreensaverhackdir" = "xyes" -o "x$with_xscreensaverhackdir" = "x"; then
-  if test -d /usr/X11R6/lib/xscreensaver; then
-    xscreensaverhackdir=/usr/X11R6/lib/xscreensaver
-  elif test -d $prefix/libexec/xscreensaver; then
-    xscreensaverhackdir=$prefix/libexec/xscreensaver
-  elif test -d /usr/libexec/xscreensaver; then
-    xscreensaverhackdir=/usr/libexec/xscreensaver
-  elif test -d /usr/lib/xscreensaver; then
-    xscreensaverhackdir=/usr/lib/xscreensaver
-  elif test -d /usr/lib64/xscreensaver; then
-    xscreensaverhackdir=/usr/lib64/xscreensaver
-  fi
-elif test "x$with_xscreensaverhackdir" != "xno"; then
-  xscreensaverhackdir="$with_xscreensaverhackdir"
-fi
-
-if test "x$xscreensaverhackdir" != "x" ; then
-  AC_DEFINE_UNQUOTED(XSCREENSAVER_HACK_DIR, "$xscreensaverhackdir", [Define to the directory containing XScreensaver hack executables])
-  AC_MSG_RESULT([$xscreensaverhackdir])
-else
-  AC_MSG_RESULT([no])
-  AC_MSG_WARN([could not find directory containing xscreensaver hacks])
-fi
-
-dnl ---------------------------------------------------------------------------
-dnl - Check for GL
-dnl ---------------------------------------------------------------------------
-
-AC_ARG_WITH(libgl, [  --with-libgl	  build with GL support])
-have_libgl=no
-GL_LIBS=""
-
-if test x$with_libgl != xno; then
-  AC_CHECK_X_HEADER(GL/gl.h, have_gl=yes, have_gl=no)
-  if test "$have_gl" = yes ; then
-    AC_CHECK_X_HEADER(GL/glx.h, have_gl=yes, have_gl=no,
-                      [#include <GL/gl.h>])
-  fi
-
-  if test "$have_gl" = yes ; then
-    AC_CHECK_X_LIB(GL, glXChooseVisual, have_libgl=yes, have_libgl=no)
-  fi
-fi
-
-if test "x$have_libgl" = "xyes"; then
-    AC_DEFINE(HAVE_LIBGL, 1, [Define if libgl is available])
-    GL_LIBS="-lGL $GL_LIBS"
 fi
 
 dnl ---------------------------------------------------------------------------
@@ -785,6 +619,8 @@ if test "$enable_locking" = yes ; then
   fi
 fi
 
+AC_SUBST(AUTH_LIBS)
+
 # Most of the above shadow mechanisms will have set need_setuid to yes,
 # if they were found.  But, on some systems, we need setuid even when
 # using plain old vanilla passwords.
@@ -977,24 +813,8 @@ AC_SUBST(ELOGIND_CFLAGS)
 AC_SUBST(ELOGIND_LIBS)
 
 dnl ---------------------------------------------------------------------------
-dnl libxfcekbd
-dnl ---------------------------------------------------------------------------
-
-have_libxfcekbdui=no
-AC_ARG_WITH(kbd-layout-indicator,[  --without-kbd-layout-indicator         disable keyboard layout indicator],
-            [with_kbd_layout_indicator="$withval"],[with_kbd_layout_indicator=yes])
-if test x$with_kbd_layout_indicator != xno; then
-  AC_DEFINE(WITH_KBD_LAYOUT_INDICATOR, 1, [Define if keyboard layout indicator should be built])
-fi
-
-dnl ---------------------------------------------------------------------------
 dnl Finish
 dnl ---------------------------------------------------------------------------
-
-AC_SUBST(AUTH_LIBS)
-AC_SUBST(SAVER_LIBS)
-AC_SUBST(GL_LIBS)
-
 
 REAL_PREFIX=
 if test "x$prefix" = "xNONE"; then
@@ -1078,6 +898,7 @@ AC_SUBST(themesdir)
 
 AC_CONFIG_FILES([
 Makefile
+protocols/Makefile
 po/Makefile.in
 src/Makefile
 src/xfce4-screensaver.desktop.in
@@ -1113,15 +934,14 @@ echo "
         source code location:     ${srcdir}
         compiler:                 ${CC}
         cflags:                   ${CFLAGS}
-        Base libs:                ${XFCE_SCREENSAVER_LIBS}
-        Extension libs:           ${SAVER_LIBS}
         Maintainer mode:          ${USE_MAINTAINER_MODE}
         Docs enabled:             ${enable_docbook_docs}
 
-        GL:                       ${have_libgl}
+        X11 Support:              ${ENABLE_X11:-no}
+          Keyboard indicator:     ${with_kbd_layout_indicator}
+        Wayland Support:          ${ENABLE_WAYLAND:-no}
 
         Screen locking enabled:   ${enable_locking}
-        Show keyboard indicator:  ${with_kbd_layout_indicator}
         systemd support:          ${use_systemd}
         elogind support:          ${use_elogind}
         ConsoleKit support:       ${use_console_kit}
