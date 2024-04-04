@@ -26,6 +26,13 @@
 
 G_BEGIN_DECLS
 
+#ifdef HAVE_LINUX_PAM
+#include <libintl.h>
+#define pam_dgettext(msgid) dgettext ("Linux-PAM", msgid)
+#else
+#define pam_dgettext(msgid) (msgid)
+#endif
+
 typedef enum
 {
     GS_AUTH_MESSAGE_PROMPT_ECHO_ON,
