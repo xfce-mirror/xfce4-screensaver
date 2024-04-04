@@ -32,9 +32,14 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#include <gdk/gdkx.h>
 #include <gtk/gtk.h>
+#ifdef ENABLE_X11
+#include <gdk/gdkx.h>
 #include <gtk/gtkx.h>
+#endif
+#ifdef ENABLE_WAYLAND
+#include <gdk/gdkwayland.h>
+#endif
 
 #include <libxfce4util/libxfce4util.h>
 #include <xfconf/xfconf.h>
@@ -88,7 +93,17 @@ static char* get_id_string(GtkWidget* widget) {
     g_return_val_if_fail(widget != NULL, NULL);
     g_return_val_if_fail(GTK_IS_WIDGET(widget), NULL);
 
-    id = g_strdup_printf("%" G_GUINT32_FORMAT, (guint32) GDK_WINDOW_XID(gtk_widget_get_window(widget)));
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        id = g_strdup_printf ("%lu", gtk_plug_get_id (GTK_PLUG (widget)));
+    }
+#endif
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+        id = g_strdup ("");
+    }
+#endif
+
     return id;
 }
 
@@ -235,7 +250,7 @@ static gboolean auth_message_handler(GSAuthMessageStyle   style,
     gs_profile_start(NULL);
     gs_debug("Got message style %d: '%s'", style, msg);
 
-    gtk_widget_show(GTK_WIDGET(plug));
+    gtk_widget_show(gs_lock_plug_get_widget(plug));
     gs_lock_plug_set_ready(plug);
 
     ret = TRUE;
@@ -379,35 +394,37 @@ static void show_cb(GtkWidget *widget,
 }
 
 static gboolean popup_dialog_idle(gpointer user_data) {
-    GtkWidget      *widget;
+    GSLockPlug     *plug;
+    GtkWidget      *plug_widget;
     GtkCssProvider *css_provider;
 
     gs_profile_start(NULL);
 
-    widget = gs_lock_plug_new();
+    plug = gs_lock_plug_new();
+    plug_widget = gs_lock_plug_get_widget(plug);
 
     if (enable_logout) {
-        g_object_set(widget, "logout-enabled", TRUE, NULL);
+        g_object_set(plug, "logout-enabled", TRUE, NULL);
     }
 
     if (logout_command) {
-        g_object_set(widget, "logout-command", logout_command, NULL);
+        g_object_set(plug, "logout-command", logout_command, NULL);
     }
 
     if (enable_switch) {
-        g_object_set(widget, "switch-enabled", TRUE, NULL);
+        g_object_set(plug, "switch-enabled", TRUE, NULL);
     }
 
     if (status_message) {
-        g_object_set(widget, "status-message", status_message, NULL);
+        g_object_set(plug, "status-message", status_message, NULL);
     }
 
-    g_object_set(widget, "monitor-index", monitor_index, NULL);
+    g_object_set(plug, "monitor-index", monitor_index, NULL);
 
-    gtk_widget_set_size_request(widget, dialog_width, dialog_height);
+    gtk_widget_set_size_request(plug_widget, dialog_width, dialog_height);
 
-    g_signal_connect(GS_LOCK_PLUG(widget), "response", G_CALLBACK(response_cb), NULL);
-    g_signal_connect(widget, "show", G_CALLBACK(show_cb), NULL);
+    g_signal_connect(plug, "response", G_CALLBACK(response_cb), NULL);
+    g_signal_connect(plug_widget, "show", G_CALLBACK(show_cb), NULL);
 
     css_provider = gtk_css_provider_new ();
     gtk_css_provider_load_from_data (css_provider,
@@ -417,10 +434,10 @@ static gboolean popup_dialog_idle(gpointer user_data) {
     gtk_style_context_add_provider_for_screen (gdk_screen_get_default (), GTK_STYLE_PROVIDER (css_provider),
                                                GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-    gtk_widget_realize(widget);
-    gtk_widget_show(widget);
+    gtk_widget_realize(plug_widget);
+    gtk_widget_show(plug_widget);
 
-    g_idle_add(auth_check_idle, widget);
+    g_idle_add(auth_check_idle, plug);
 
     gs_profile_end(NULL);
 
