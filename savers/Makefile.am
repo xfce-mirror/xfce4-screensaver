@@ -24,7 +24,8 @@ xfce-personal-slideshow.desktop.in: xfce-personal-slideshow.desktop.in.in Makefi
 xfce-popsquares.desktop.in: xfce-popsquares.desktop.in.in Makefile
 	$(edit) $< >$@
 
-@INTLTOOL_DESKTOP_RULE@
+%.desktop: %.desktop.in
+	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
 
 edit = sed \
 	-e 's|@FLOATERS_XFCE_IMAGE[@]|$(FLOATERS_XFCE_IMAGE)|g'  \
