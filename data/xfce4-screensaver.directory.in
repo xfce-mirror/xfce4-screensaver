@@ -1,7 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
-_Name=Screensavers
-_Comment=Screensaver themes
+Name=Screensavers
+Comment=Screensaver themes
 Icon=org.xfce.ScreenSaver
 Type=Directory
 OnlyShowIn=XFCE;
