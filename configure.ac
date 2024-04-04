@@ -613,6 +613,30 @@ fi
 AM_CONDITIONAL(HAVE_PAM, test x$have_pam = xyes)
 AC_SUBST(HAVE_PAM)
 
+#       Check if Linux-PAM is used.
+
+# OpenPAM has security/pam_types.h instead.
+AC_CHECK_HEADER([security/_pam_types.h],
+                [have_linux_pam="yes"], [have_linux_pam="no"])
+if test "$have_linux_pam" = "yes" ; then
+  AC_DEFINE([HAVE_LINUX_PAM], 1, [Using Linux-PAM], [])
+fi
+
+AC_ARG_WITH([linux-pam-localedir],
+            [AS_HELP_STRING([--with-linux-pam-localedir=LINUX_PAM_LOCALEDIR],
+                            [Path to Linux-PAM localedir, used for auth message filtering])],
+            [linux_pam_localedir="$withval"], [])
+
+if test "$linux_pam_localedir" = "" ; then
+  linux_pam_localedir="`$PKG_CONFIG --variable=prefix pam 2>/dev/null`/share/locale"
+
+  # Provide fallback for Linux-PAM < 1.5.3.
+  if test "$linux_pam_localedir" = "/share/locale" ; then
+    linux_pam_localedir="/usr/share/locale"
+  fi
+fi
+
+AC_SUBST([linux_pam_localedir])
 
 #       Check for the nine billion variants of shadow passwords...
 
@@ -1110,6 +1134,14 @@ echo "
         localstatedir:            ${EXPANDED_LOCALSTATEDIR}
         datadir:                  ${EXPANDED_DATADIR}
         PAM prefix:               ${PAM_PREFIX}
+        Linux-PAM used:           ${have_linux_pam}"
+
+if test "x$have_linux_pam" = "xyes" ; then
+echo \
+"        Linux-PAM localedir:      ${linux_pam_localedir}"
+fi
+
+echo "
         source code location:     ${srcdir}
         compiler:                 ${CC}
         cflags:                   ${CFLAGS}
