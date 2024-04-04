@@ -160,8 +160,10 @@ auth_message_handler (GSAuthMessageStyle   style,
         case GS_AUTH_MESSAGE_PROMPT_ECHO_ON:
             break;
         case GS_AUTH_MESSAGE_PROMPT_ECHO_OFF:
-            if (msg != NULL && g_str_has_prefix (msg, _("Password:"))) {
-                did_we_ask_for_password = TRUE;
+            if (msg != NULL) {
+                did_we_ask_for_password = g_str_equal(msg, pam_dgettext("Password: ")) ||
+                // "Password:" is the default on OpenPAM.
+                g_str_equal(msg, "Password:");
             }
             break;
         case GS_AUTH_MESSAGE_ERROR_MSG:

@@ -18,6 +18,7 @@ AM_CPPFLAGS = \
 	-DDATADIR=\""$(datadir)"\"                  \
 	-DSYSCONFDIR=\""$(sysconfdir)"\"            \
 	-DXFCELOCALEDIR=\""$(datadir)/locale"\"     \
+	-DLINUXPAMLOCALEDIR=\""$(LINUX_PAM_LOCALEDIR)"\" \
 	-DSAVERDIR=\""$(saverdir)"\"                \
 	-DTHEMESDIR=\""$(themesdir)"\"              \
 	-DGTKBUILDERDIR=\"$(pkgdatadir)\"           \
@@ -56,7 +57,9 @@ noinst_PROGRAMS = \
 desktopdir = $(sysconfdir)/xdg/autostart
 desktop_in_files = xfce4-screensaver.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
-@INTLTOOL_DESKTOP_RULE@
+
+xfce4-screensaver.desktop: xfce4-screensaver.desktop.in
+	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
 
 xfce4_screensaver_command_SOURCES = \
 	xfce4-screensaver-command.c  \
