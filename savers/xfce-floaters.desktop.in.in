@@ -1,6 +1,6 @@
 [Desktop Entry]
-_Name=Floating Xfce
-_Comment=Bubbles the Xfce logo around the screen
+Name=Floating Xfce
+Comment=Bubbles the Xfce logo around the screen
 Exec=@SAVERDIR@/floaters @FLOATERS_XFCE_IMAGE@
 TryExec=@SAVERDIR@/floaters
 StartupNotify=false
