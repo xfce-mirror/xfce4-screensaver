@@ -1,13 +1,15 @@
-# please keep this list sorted alphabetically
-#
 be
 bg
 ca
 cs
 da
 de
+el
 en_AU
+en_CA
+en_GB
 es
+et
 eu
 fi
 fr
@@ -15,9 +17,12 @@ gl
 he
 hu
 hy_AM
+hye
+id
 is
 it
 ja
+kab
 ko
 lt
 ms
@@ -34,5 +39,6 @@ sr
 sv
 th
 tr
+uk
 zh_CN
 zh_TW

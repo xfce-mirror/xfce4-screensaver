@@ -9,9 +9,9 @@ DISTCHECK_CONFIGURE_FLAGS = \
 SUBDIRS = \
 	src      \
 	savers   \
-	po       \
 	data     \
 	doc      \
+	po       \
 	$(NULL)
 
 EXTRA_DIST = \
@@ -21,25 +21,12 @@ EXTRA_DIST = \
 	COPYING.LGPL         \
 	AUTHORS              \
 	INSTALL              \
-	README.md            \
 	ChangeLog            \
 	NEWS                 \
-	intltool-extract.in  \
-	intltool-merge.in    \
-	intltool-update.in   \
-	$(NULL)
-
-DISTCLEANFILES = \
-	intltool-extract            \
-	intltool-merge              \
-	intltool-update             \
-	./po/.intltool-merge-cache  \
-	./po/.intltool-merge-cache.lock \
 	$(NULL)
 
 MAINTAINERCLEANFILES = \
 	*~             \
-	intltool-*.in  \
 	compile        \
 	configure      \
 	INSTALL        \
