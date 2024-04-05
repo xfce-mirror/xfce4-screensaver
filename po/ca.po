@@ -4,8 +4,8 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
+# Nick Schermer <nick@xfce.org>, 2019
 # Davidmp <medipas@gmail.com>, 2019
-# Nick Schermer <nick@xfce.org>, 2020
 # Xfce Bot <transifex@xfce.org>, 2023
 # Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>, 2023
 # Oscar Perez <oscarpc@gmail.com>, 2024
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-02 00:49+0200\n"
+"POT-Creation-Date: 2024-04-05 00:51+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Oscar Perez <oscarpc@gmail.com>, 2024\n"
 "Language-Team: Catalan (https://app.transifex.com/xfce/teams/16840/ca/)\n"
@@ -24,29 +24,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: ../data/xfce4-screensaver-preferences.desktop.in.h:1
-#: ../src/xfce4-screensaver.desktop.in.in.h:1
-msgid "Xfce Screensaver"
-msgstr "Estalvi de pantalla del Xfce"
-
-#: ../data/xfce4-screensaver-preferences.desktop.in.h:2
-msgid "Set your screensaver preferences"
-msgstr "Establiu les preferències de l'estalvi de pantalla"
-
-#: ../data/xfce4-screensaver-preferences.desktop.in.h:3
-#: ../src/xfce4-screensaver-preferences.ui.h:21
-#: ../src/xfce4-screensaver.desktop.in.in.h:3
-msgid "Screensaver"
-msgstr "Estalvi de pantalla"
-
-#: ../data/xfce4-screensaver.directory.in.h:1
-msgid "Screensavers"
-msgstr "Estalvis de pantalla"
-
-#: ../data/xfce4-screensaver.directory.in.h:2
-msgid "Screensaver themes"
-msgstr "Temes d'estalvi de pantalla:"
 
 #: ../savers/floaters.c:89
 msgid "Show paths that images follow"
@@ -82,21 +59,21 @@ msgstr "La imatge d'origen a utilitzar"
 
 #. translators: the word "image" here
 #. * represents a command line argument
-#: ../savers/floaters.c:1131
+#: ../savers/floaters.c:1129
 msgid "image - floats images around the screen"
 msgstr "imatge - flota imatges a la pantalla"
 
-#: ../savers/floaters.c:1135 ../savers/popsquares.c:49
+#: ../savers/floaters.c:1133 ../savers/popsquares.c:47
 #, c-format
 msgid "%s. See --help for usage information.\n"
 msgstr "%s. Consulteu --help per a la informació d'ús.\n"
 
-#: ../savers/floaters.c:1142
+#: ../savers/floaters.c:1140
 #, c-format
 msgid "Failed to initialize the windowing system."
 msgstr "No es pot inicialitzar el sistema de finestres."
 
-#: ../savers/floaters.c:1148
+#: ../savers/floaters.c:1146
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr ""
@@ -125,30 +102,6 @@ msgstr "No aleatoritzis les imatges de la ubicació"
 #: ../savers/slideshow.c:65
 msgid "Do not try to stretch images on screen"
 msgstr "No intentis estirar les imatges a la pantalla"
-
-#: ../savers/xfce-floaters.desktop.in.in.h:1
-msgid "Floating Xfce"
-msgstr "Xfce flotant"
-
-#: ../savers/xfce-floaters.desktop.in.in.h:2
-msgid "Bubbles the Xfce logo around the screen"
-msgstr "Bombolles amb el logotip de Xfce per tota la pantalla"
-
-#: ../savers/xfce-personal-slideshow.desktop.in.in.h:1
-msgid "Slideshow"
-msgstr "Seqüència d'imatges"
-
-#: ../savers/xfce-personal-slideshow.desktop.in.in.h:2
-msgid "Display a slideshow from your Pictures folder"
-msgstr "Mostra una presentació de diapositives de la carpeta d'imatges"
-
-#: ../savers/xfce-popsquares.desktop.in.in.h:1
-msgid "Pop art squares"
-msgstr "Quadrats pop-art"
-
-#: ../savers/xfce-popsquares.desktop.in.in.h:2
-msgid "A pop-art-ish grid of pulsing colors."
-msgstr "Una xarxa de colors de pulsació d'estil pop-art."
 
 #: ../src/gs-auth-pam.c:163
 msgid "Password:"
@@ -549,45 +502,6 @@ msgstr "Les contrasenyes no coincideixen."
 msgid "Checking..."
 msgstr "S'està comprovant..."
 
-#: ../src/xfce4-screensaver-dialog.ui.h:2
-#, no-c-format
-msgid "%U"
-msgstr "%U"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:3
-msgid "Enter your password"
-msgstr "Introduïu la vostra contrasenya"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:4
-msgid "You have the Caps Lock key on."
-msgstr "Teniu activada la tecla Bloq. Maj."
-
-#: ../src/xfce4-screensaver-dialog.ui.h:5
-msgid "_Switch User"
-msgstr "Canvia d'u_suari"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:6
-msgid "_Log Out"
-msgstr "_Tanca la sessió"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:7
-msgid "_Cancel"
-msgstr "_Cancel·la"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:8
-msgid "_Unlock"
-msgstr "_Desbloqueja"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:10
-#, no-c-format
-msgid "<b>%h</b>"
-msgstr "<b>%h</b>"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:12
-#, no-c-format
-msgid "<b>%s</b>"
-msgstr "<b>%s</b>"
-
 #: ../src/xfce4-screensaver-preferences.c:80
 msgid "Settings manager socket"
 msgstr "Sòcol del gestor d'ajusts"
@@ -600,159 +514,22 @@ msgstr "ID SÒCOL"
 msgid "Random"
 msgstr "Aleatori"
 
-#: ../src/xfce4-screensaver-preferences.c:1734
+#: ../src/xfce4-screensaver-preferences.c:1736
 msgid "Setting locked by administrator."
 msgstr "Ajust bloquejat per l'administrador"
 
-#: ../src/xfce4-screensaver-preferences.c:1775
+#: ../src/xfce4-screensaver-preferences.c:1777
 msgid "Could not load the main interface"
 msgstr "No s'ha pogut carregar la interfície principal"
 
-#: ../src/xfce4-screensaver-preferences.c:1777
+#: ../src/xfce4-screensaver-preferences.c:1779
 msgid "Please make sure that the screensaver is properly installed"
 msgstr ""
 "Assegureu-vos que l'estalvi de pantalla estigui instal·lat correctament"
 
-#: ../src/xfce4-screensaver-preferences.ui.h:1
-msgid "Screensaver Preview"
-msgstr "Vista prèvia de l'estalvi de pantalla"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:2
-msgid "<b>Screensaver preview</b>"
-msgstr "<b>Vista prèvia de l'estalvi de pantalla</b>"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:3
-msgid "Screensaver Preferences"
-msgstr "Preferències de l'estalvi de pantalla"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:4
-msgid "Configure your screensaver and locker"
-msgstr "Configureu l'estalvi de pantalla i el bloquejador"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:5
-msgid "Power _Management"
-msgstr "Gestió de l'e_nergia"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:6
-msgid "Preview"
-msgstr "Vista prèvia"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:7
-msgid "Running as root"
-msgstr "Execució com a root"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:8
-msgid "The screen will not be locked for the root user."
-msgstr "La pantalla no es bloquejarà per a l'usuari root."
-
-#: ../src/xfce4-screensaver-preferences.ui.h:9
-msgid "Resolve"
-msgstr "Soluciona"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:10
-msgid "Xfce Power Manager is not configured to handle laptop lid events"
-msgstr ""
-"El gestor d'energia de Xfce no està configurat per gestionar els "
-"esdeveniments de la tapa del portàtil"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:11
-msgid "Your computer may not be locked when you close the lid."
-msgstr "És possible que l'ordinador no es bloquegi quan tanqueu la tapa."
-
-#: ../src/xfce4-screensaver-preferences.ui.h:12
-msgid "Enable Screensaver"
-msgstr "Habilita l'estalvi de pantalla"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:13
-msgid "Theme"
-msgstr "Tema"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:14
-msgid "Configure screensaver"
-msgstr "Configura l'estalvi de pantalla"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:15
-msgid "Configure..."
-msgstr "Configura..."
-
-#: ../src/xfce4-screensaver-preferences.ui.h:16
-msgid "Change theme after:"
-msgstr "Canvia el tema després de:"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:17
-msgid "minutes"
-msgstr "minuts"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:18
-msgid "Activate screensaver when computer is idle"
-msgstr "Activa l'estalvi de pantalla quan l'ordinador està inactiu"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:19
-msgid "Regard the computer as _idle after:"
-msgstr "Considera que l'ordinador està _inactiu després de:"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:20
-msgid "Inhibit screensaver for fullscreen applications"
-msgstr ""
-"Inhibeix l'estalvi de pantalla per a les aplicacions a pantalla completa"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:22
-msgid "Enable Lock Screen"
-msgstr "Habilita el bloqueig de la pantalla"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:23
-msgid "Lock Screen with Screensaver"
-msgstr "Bloqueja la pantalla amb l'estalvi de pantalla"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:24
-msgid "Lock the screen after the screensaver is active for:"
-msgstr ""
-"Bloqueja la pantalla després que l'estalvi de pantalla hagi estat actiu "
-"durant:"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:25
-msgid "On Screen Keyboard"
-msgstr "Teclat en pantalla"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:26
-msgid "On screen keyboard command:"
-msgstr "Ordre del teclat en pantalla:"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:27
-msgid "Session Status Messages"
-msgstr "Missatges d'estat de la sessió"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:28
-msgid "Logout"
-msgstr "Tanca la sessió"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:29
-msgid "Logout command:"
-msgstr "Ordre per al tancament de la sessió:"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:30
-msgid "Enable logout after:"
-msgstr "Habilita el tancament de la sessió després de:"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:31
-msgid "User Switching"
-msgstr "Canvi d'usuari"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:32
-msgid "Lock Screen with System Sleep"
-msgstr "Bloqueja la pantalla amb el repòs del sistema"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:33
-msgid "Lock Screen"
-msgstr "Bloqueja la pantalla"
-
 #: ../src/xfce4-screensaver.c:58
 msgid "Enable debugging code"
 msgstr "Habilita el codi de depuració"
-
-#: ../src/xfce4-screensaver.desktop.in.in.h:2
-msgid "Launch screensaver and locker program"
-msgstr "Llança l'estalvi de pantalla i el programa de bloqueig"
 
 #: ../src/xfcekbd-indicator.c:406
 msgid "XKB initialization error"
