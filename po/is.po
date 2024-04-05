@@ -1,21 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR Xfce
+# This file is distributed under the same license as the xfce-apps.xfce4-screensaver package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Sveinn í Felli <sv1@fellsnet.is>, 2019
-# Xfce Bot <transifex@xfce.org>, 2023
-# Nick Schermer <nick@xfce.org>, 2023
+# Nick Schermer <nick@xfce.org>, 2024
+# Xfce Bot <transifex@xfce.org>, 2024
+# Sveinn í Felli <sv1@fellsnet.is>, 2024
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-05 00:51+0200\n"
+"Project-Id-Version: xfce-apps.xfce4-screensaver\n"
+"Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
+"POT-Creation-Date: 2024-04-05 12:50+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Nick Schermer <nick@xfce.org>, 2023\n"
+"Last-Translator: Sveinn í Felli <sv1@fellsnet.is>, 2024\n"
 "Language-Team: Icelandic (https://app.transifex.com/xfce/teams/16840/is/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,172 +23,209 @@ msgstr ""
 "Language: is\n"
 "Plural-Forms: nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);\n"
 
-#: ../savers/floaters.c:89
+#: data/xfce4-screensaver-preferences.desktop.in:3
+#: src/xfce4-screensaver.desktop.in.in:4
+msgid "Xfce Screensaver"
+msgstr ""
+
+#: data/xfce4-screensaver-preferences.desktop.in:4
+msgid "Set your screensaver preferences"
+msgstr "Stilltu valmöguleika fyrir skjávhvíluna"
+
+#: data/xfce4-screensaver-preferences.desktop.in:5
+#: src/xfce4-screensaver-preferences.ui:879
+#: src/xfce4-screensaver.desktop.in.in:6
+msgid "Screensaver"
+msgstr "Skjáhvíla"
+
+#: savers/floaters.c:89
 msgid "Show paths that images follow"
 msgstr "Sýnir leiðir sem myndir fylgja"
 
-#: ../savers/floaters.c:94
+#: savers/floaters.c:94
 msgid "Occasionally rotate images as they move"
 msgstr "Snúa myndum af og til á meðan þær hreyfast"
 
-#: ../savers/floaters.c:99
+#: savers/floaters.c:99
 msgid "Print out frame rate and other statistics"
 msgstr "Skrifa út rammatíðni og aðra tölfræði"
 
-#: ../savers/floaters.c:104
+#: savers/floaters.c:104
 msgid "The maximum number of images to keep on screen"
 msgstr "Hámarksfjöldi mynda sem haldið er á skjánum"
 
-#: ../savers/floaters.c:104
+#: savers/floaters.c:104
 msgid "MAX_IMAGES"
 msgstr "MAX_IMAGES"
 
-#: ../savers/floaters.c:109
+#: savers/floaters.c:109
 msgid "The initial size and position of window"
 msgstr "Upprunalega stærð og staðsetning gluggans"
 
-#: ../savers/floaters.c:109
+#: savers/floaters.c:109
 msgid "WIDTHxHEIGHT+X+Y"
 msgstr "BREIDDxHÆÐ+X+Y"
 
-#: ../savers/floaters.c:114
+#: savers/floaters.c:114
 msgid "The source image to use"
 msgstr "Grunnmynd sem skal nota"
 
 #. translators: the word "image" here
 #. * represents a command line argument
-#: ../savers/floaters.c:1129
+#: savers/floaters.c:1129
 msgid "image - floats images around the screen"
 msgstr "image - flýgur með mynd um skjáinn"
 
-#: ../savers/floaters.c:1133 ../savers/popsquares.c:47
+#: savers/floaters.c:1133 savers/popsquares.c:47
 #, c-format
 msgid "%s. See --help for usage information.\n"
 msgstr "%s. Sjá --help fyrir upplýsingar um notkun.\n"
 
-#: ../savers/floaters.c:1140
-#, c-format
+#: savers/floaters.c:1140
 msgid "Failed to initialize the windowing system."
 msgstr ""
 
-#: ../savers/floaters.c:1146
-#, c-format
+#: savers/floaters.c:1146
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr ""
 "Þú verður að tilgreina eina mynd. Sjá --help fyrir upplýsingar um notkun.\n"
 
-#: ../savers/slideshow.c:53
+#: savers/slideshow.c:53
 msgid "Location to get images from"
 msgstr "Staðsetning til að sækja myndir frá"
 
-#: ../savers/slideshow.c:53
+#: savers/slideshow.c:53
 msgid "PATH"
 msgstr "SLÓÐ"
 
-#: ../savers/slideshow.c:57
+#: savers/slideshow.c:57
 msgid "Color to use for images background"
 msgstr "Litur sem notaður er fyrir myndabakgrunn"
 
-#: ../savers/slideshow.c:57
+#: savers/slideshow.c:57
 msgid "\"#rrggbb\""
 msgstr "\"#RRGGBB\""
 
-#: ../savers/slideshow.c:61
+#: savers/slideshow.c:61
 msgid "Do not randomize pictures from location"
 msgstr "Ekki handahófsraða myndum úr staðsetningu"
 
-#: ../savers/slideshow.c:65
+#: savers/slideshow.c:65
 msgid "Do not try to stretch images on screen"
 msgstr "Ekki reyna að teygja myndir á skjánum"
 
-#: ../src/gs-auth-pam.c:163
+#: savers/xfce-floaters.desktop.in.in:3
+msgid "Floating Xfce"
+msgstr "Fljótandi XFCE"
+
+#: savers/xfce-floaters.desktop.in.in:4
+msgid "Bubbles the Xfce logo around the screen"
+msgstr "Freyðir XFCE-merkinu um skjáinn"
+
+#: savers/xfce-personal-slideshow.desktop.in.in:3
+msgid "Slideshow"
+msgstr "Skyggnusýning"
+
+#: savers/xfce-personal-slideshow.desktop.in.in:4
+msgid "Display a slideshow from your Pictures folder"
+msgstr "Sýna skyggnusýningu úr myndamöppunni þinni"
+
+#: savers/xfce-popsquares.desktop.in.in:3
+msgid "Pop art squares"
+msgstr "Popplistar-ferningar"
+
+#: savers/xfce-popsquares.desktop.in.in:4
+msgid "A pop-art-ish grid of pulsing colors."
+msgstr "Net af popplistarlegum flöktandi litum"
+
+#: src/gs-auth-pam.c:163
 msgid "Password:"
 msgstr "Lykilorð:"
 
-#: ../src/gs-auth-pam.c:375
+#: src/gs-auth-pam.c:375
 #, c-format
 msgid "Unable to establish service %s: %s\n"
 msgstr "Gat ekki komið á þjónustu %s: %s\n"
 
-#: ../src/gs-auth-pam.c:401
+#: src/gs-auth-pam.c:401
 #, c-format
 msgid "Can't set PAM_TTY=%s"
 msgstr "Get ekki stillt PAM_TTY=%s"
 
-#: ../src/gs-auth-pam.c:432
+#: src/gs-auth-pam.c:432
 msgid "Incorrect password."
 msgstr "Rangt lykilorð."
 
-#: ../src/gs-auth-pam.c:434 ../src/xfce4-screensaver-dialog.c:312
+#: src/gs-auth-pam.c:434 src/xfce4-screensaver-dialog.c:312
 msgid "Authentication failed."
 msgstr "Auðkenning tókst ekki."
 
-#: ../src/gs-auth-pam.c:448
+#: src/gs-auth-pam.c:448
 msgid "Not permitted to gain access at this time."
 msgstr "Þér er ekki leyfður aðgangur í þetta sinn."
 
-#: ../src/gs-auth-pam.c:454
+#: src/gs-auth-pam.c:454
 msgid "No longer permitted to access the system."
 msgstr "Þér verður ekki gefinn aðgangur að kerfinu."
 
-#: ../src/gs-auth-pam.c:662
+#: src/gs-auth-pam.c:662
 msgid "Username:"
 msgstr "Notandanafn:"
 
-#: ../src/gs-listener-dbus.c:1971
+#: src/gs-listener-dbus.c:1971
 msgid "failed to register with the message bus"
 msgstr "mistókst að skrá sig í skilaboðarás"
 
-#: ../src/gs-listener-dbus.c:1981
+#: src/gs-listener-dbus.c:1981
 msgid "not connected to the message bus"
 msgstr "ekki tengt við skilaboðarás"
 
-#: ../src/gs-listener-dbus.c:1990 ../src/gs-listener-dbus.c:2020
+#: src/gs-listener-dbus.c:1990 src/gs-listener-dbus.c:2020
 msgid "screensaver already running in this session"
 msgstr "skjáhvíla er nú þegar keyrandi í þessari setu"
 
-#: ../src/gs-lock-plug.c:296
+#: src/gs-lock-plug.c:296
 msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A %e %B - %H:%M"
 
-#: ../src/gs-lock-plug.c:387
+#: src/gs-lock-plug.c:387
 msgid "Time has expired."
 msgstr "Tíminn er útrunninn."
 
-#: ../src/xfce4-screensaver-command.c:56
+#: src/xfce4-screensaver-command.c:56
 msgid "Causes the screensaver to exit gracefully"
 msgstr "Veldur því að skjáhvílan hættir með sæmd"
 
-#: ../src/xfce4-screensaver-command.c:60
+#: src/xfce4-screensaver-command.c:60
 msgid "Query the state of the screensaver"
 msgstr "Senda fyrirspurn um stöðu skjáhvílu"
 
-#: ../src/xfce4-screensaver-command.c:64
+#: src/xfce4-screensaver-command.c:64
 msgid "Query the length of time the screensaver has been active"
 msgstr "Senda fyrirspurn um tíma sem skjáhvílan hefur verið virk"
 
-#: ../src/xfce4-screensaver-command.c:68
+#: src/xfce4-screensaver-command.c:68
 msgid "Tells the running screensaver process to lock the screen immediately"
 msgstr "Skipa núverandi skjáhvílu að læsa skjánum strax"
 
-#: ../src/xfce4-screensaver-command.c:72
+#: src/xfce4-screensaver-command.c:72
 msgid "If the screensaver is active then switch to another graphics demo"
 msgstr "Ef skjáhvílan er virk skipta þá yfir í aðra myndræna sýningu"
 
-#: ../src/xfce4-screensaver-command.c:76
+#: src/xfce4-screensaver-command.c:76
 msgid "Turn the screensaver on (blank the screen)"
 msgstr "Kveikja á skjáhvílu (tæma skjáinn)"
 
-#: ../src/xfce4-screensaver-command.c:80
+#: src/xfce4-screensaver-command.c:80
 msgid "If the screensaver is active then deactivate it (un-blank the screen)"
 msgstr "Ef skjáhvíla er virk, þá afvirkja hana (birta það sem er á skjánum)"
 
-#: ../src/xfce4-screensaver-command.c:84
+#: src/xfce4-screensaver-command.c:84
 msgid "Poke the running screensaver to simulate user activity"
 msgstr "Ýta í skjáhvíluna til að líkja eftir virkni frá notanda"
 
-#: ../src/xfce4-screensaver-command.c:88
+#: src/xfce4-screensaver-command.c:88
 msgid ""
 "Inhibit the screensaver from activating.  Command blocks while inhibit is "
 "active."
@@ -196,53 +233,50 @@ msgstr ""
 "Hindra skjáhvíluna frá því að virkjast. Skipun rofin á meðan hindrun er "
 "virk."
 
-#: ../src/xfce4-screensaver-command.c:92
+#: src/xfce4-screensaver-command.c:92
 msgid "The calling application that is inhibiting the screensaver"
 msgstr "Kallandi forritið sem hindrar skjáhvíluna"
 
-#: ../src/xfce4-screensaver-command.c:96
+#: src/xfce4-screensaver-command.c:96
 msgid "The reason for inhibiting the screensaver"
 msgstr "Ástæðan fyrir hindrun skjáhvílunar"
 
-#: ../src/xfce4-screensaver-command.c:100 ../src/xfce4-screensaver-dialog.c:65
-#: ../src/xfce4-screensaver.c:57
+#: src/xfce4-screensaver-command.c:100 src/xfce4-screensaver-dialog.c:65
+#: src/xfce4-screensaver.c:57
 msgid "Version of this application"
 msgstr "Útgáfa þessa forrits"
 
-#: ../src/xfce4-screensaver-command.c:209
+#: src/xfce4-screensaver-command.c:209
 #, c-format
 msgid "The screensaver is %s\n"
 msgstr "Skjáhvílan er %s\n"
 
-#: ../src/xfce4-screensaver-command.c:209
+#: src/xfce4-screensaver-command.c:209
 msgid "active"
 msgstr "virk"
 
-#: ../src/xfce4-screensaver-command.c:209
+#: src/xfce4-screensaver-command.c:209
 msgid "inactive"
 msgstr "óvirk"
 
-#: ../src/xfce4-screensaver-command.c:220
-#, c-format
+#: src/xfce4-screensaver-command.c:220
 msgid "The screensaver is not inhibited\n"
 msgstr "Skjáhvílan er ekki hindruð\n"
 
-#: ../src/xfce4-screensaver-command.c:222
-#, c-format
+#: src/xfce4-screensaver-command.c:222
 msgid "The screensaver is being inhibited by:\n"
 msgstr "Skjáhvílan er hindruð af:\n"
 
-#: ../src/xfce4-screensaver-command.c:238
+#: src/xfce4-screensaver-command.c:238
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "Skjáhvílan hefur verið virk í %d sekúndur.\n"
 
-#: ../src/xfce4-screensaver-configure:151
-#: ../src/xfce4-screensaver-preferences.c:710
+#: src/xfce4-screensaver-configure:151 src/xfce4-screensaver-preferences.c:710
 msgid "Blank screen"
 msgstr "Auður skjár"
 
-#: ../src/xfce4-screensaver-configure:152
+#: src/xfce4-screensaver-configure:152
 msgid ""
 "Powered by Display Power Management Signaling (DPMS),\n"
 "Xfce Screensaver can automatically suspend your displays\n"
@@ -255,264 +289,439 @@ msgid ""
 "intervals, be sure to check for conflicting settings."
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:188
+#: src/xfce4-screensaver-configure:188
 msgid "Part of Xfce Screensaver"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:199
+#: src/xfce4-screensaver-configure:199
 msgid "After blanking, put display to sleep after:"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:201
-#: ../src/xfce4-screensaver-configure:205
+#: src/xfce4-screensaver-configure:201 src/xfce4-screensaver-configure:205
 msgid "Never"
 msgstr "Aldrei"
 
-#: ../src/xfce4-screensaver-configure:201
+#: src/xfce4-screensaver-configure:201
 msgid "60 seconds"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:203
+#: src/xfce4-screensaver-configure:203
 msgid "After sleeping, switch display off after:"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:205
+#: src/xfce4-screensaver-configure:205
 msgid "60 minutes"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:208
+#: src/xfce4-screensaver-configure:208
 msgid "Max number of images"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:211
+#: src/xfce4-screensaver-configure:211
 msgid "Show paths"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:213
+#: src/xfce4-screensaver-configure:213
 msgid "Do rotations"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:215
+#: src/xfce4-screensaver-configure:215
 msgid "Print stats"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:218
+#: src/xfce4-screensaver-configure:218
 msgid "Location"
 msgstr "Staðsetning"
 
-#: ../src/xfce4-screensaver-configure:221
+#: src/xfce4-screensaver-configure:221
 msgid "Background color"
 msgstr "Bakgrunnslitur"
 
-#: ../src/xfce4-screensaver-configure:223
+#: src/xfce4-screensaver-configure:223
 msgid "Do not randomize images"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:225
+#: src/xfce4-screensaver-configure:225
 msgid "Do not stretch images"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:417
+#: src/xfce4-screensaver-configure:417
 msgid "Restore Defaults"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:430
+#: src/xfce4-screensaver-configure:430
 msgid "Preferences"
 msgstr "Kjörstillingar"
 
-#: ../src/xfce4-screensaver-configure:436
+#: src/xfce4-screensaver-configure:436
 msgid "About"
 msgstr "Um hugbúnaðinn"
 
-#: ../src/xfce4-screensaver-configure:449
+#: src/xfce4-screensaver-configure:449
 msgid "Video"
 msgstr "Myndskeið"
 
-#: ../src/xfce4-screensaver-configure:756
+#: src/xfce4-screensaver-configure:756
 msgid "Configure an individual screensaver"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:758
+#: src/xfce4-screensaver-configure:758
 msgid "screensaver name to configure"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:760
+#: src/xfce4-screensaver-configure:760
 msgid "check if screensaver is configurable"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:764
+#: src/xfce4-screensaver-configure:764
 msgid "Unable to configure screensaver"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:768
+#: src/xfce4-screensaver-configure:768
 msgid "Screensaver required."
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:776
+#: src/xfce4-screensaver-configure:776
 #, c-format
 msgid "File not found: %s"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:784
+#: src/xfce4-screensaver-configure:784
 #, c-format
 msgid "Unrecognized file type: %s"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:788
+#: src/xfce4-screensaver-configure:788
 #, c-format
 msgid "Failed to process file: %s"
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:793
+#: src/xfce4-screensaver-configure:793
 #, c-format
 msgid "Screensaver %s is configurable."
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:795
+#: src/xfce4-screensaver-configure:795
 #, c-format
 msgid "Screensaver %s is not configurable."
 msgstr ""
 
-#: ../src/xfce4-screensaver-configure:799
+#: src/xfce4-screensaver-configure:799
 #, c-format
 msgid "Screensaver %s has no configuration options."
 msgstr ""
 
-#: ../src/xfce4-screensaver-dialog.c:63
+#: src/xfce4-screensaver-dialog.c:63
 msgid "Show debugging output"
 msgstr "Birta aflúsunarúttak"
 
-#: ../src/xfce4-screensaver-dialog.c:67
+#: src/xfce4-screensaver-dialog.c:67
 msgid "Show the logout button"
 msgstr "Sýna útskráningarhnapp"
 
-#: ../src/xfce4-screensaver-dialog.c:69
+#: src/xfce4-screensaver-dialog.c:69
 msgid "Command to invoke from the logout button"
 msgstr "Skipun sem á að keyra með útskráningarhnapp"
 
-#: ../src/xfce4-screensaver-dialog.c:71
+#: src/xfce4-screensaver-dialog.c:71
 msgid "Show the switch user button"
 msgstr "Sýna notendaskiptahnapp"
 
-#: ../src/xfce4-screensaver-dialog.c:73
+#: src/xfce4-screensaver-dialog.c:73
 msgid "Message to show in the dialog"
 msgstr "Skilaboð til að sýna í glugganum"
 
-#: ../src/xfce4-screensaver-dialog.c:73 ../src/xfce4-screensaver-dialog.c:75
+#: src/xfce4-screensaver-dialog.c:73 src/xfce4-screensaver-dialog.c:75
 msgid "MESSAGE"
 msgstr "SKILABOÐ"
 
-#: ../src/xfce4-screensaver-dialog.c:75
+#: src/xfce4-screensaver-dialog.c:75
 msgid "Not used"
 msgstr "Not used"
 
-#: ../src/xfce4-screensaver-dialog.c:77
+#: src/xfce4-screensaver-dialog.c:77
 msgid "Monitor height"
 msgstr "Hæð skjás"
 
-#: ../src/xfce4-screensaver-dialog.c:79
+#: src/xfce4-screensaver-dialog.c:79
 msgid "Monitor width"
 msgstr "Breidd skjás"
 
-#: ../src/xfce4-screensaver-dialog.c:81
+#: src/xfce4-screensaver-dialog.c:81
 msgid "Monitor index"
 msgstr "Númer skjás"
 
-#: ../src/xfce4-screensaver-dialog.c:175 ../src/xfce4-screensaver-dialog.c:177
-#: ../src/xfce4-screensaver-dialog.c:178
+#: src/xfce4-screensaver-dialog.c:175 src/xfce4-screensaver-dialog.c:177
+#: src/xfce4-screensaver-dialog.c:178
 msgid "Please enter your username."
 msgstr "Settu inn notandanafnið þitt."
 
-#: ../src/xfce4-screensaver-dialog.c:184
+#: src/xfce4-screensaver-dialog.c:184
 msgid "You are required to change your password immediately (password aged)"
 msgstr ""
 "Þú verður að breyta lykilorðinu þínu umsvifalaust (það er orðið of gamallt)"
 
-#: ../src/xfce4-screensaver-dialog.c:186
+#: src/xfce4-screensaver-dialog.c:186
 msgid "You are required to change your password immediately (root enforced)"
 msgstr ""
 "Þú verður að breyta lykilorðinu þínu umsvifalaust (skipun frá kerfisstjóra)"
 
-#: ../src/xfce4-screensaver-dialog.c:188
+#: src/xfce4-screensaver-dialog.c:188
 msgid "Your account has expired; please contact your system administrator"
 msgstr "Aðgangur þinn er útrunninn; hafðu samband við kerfisstjóra"
 
-#: ../src/xfce4-screensaver-dialog.c:190
+#: src/xfce4-screensaver-dialog.c:190
 msgid "No password supplied."
 msgstr "Ekkert lykilorð gefið."
 
-#: ../src/xfce4-screensaver-dialog.c:192
+#: src/xfce4-screensaver-dialog.c:192
 msgid "Password unchanged."
 msgstr "Lykilorð er óbreytt."
 
-#: ../src/xfce4-screensaver-dialog.c:194
+#: src/xfce4-screensaver-dialog.c:194
 msgid "Can not get username."
 msgstr "Get ekki náð í notandanafn."
 
-#: ../src/xfce4-screensaver-dialog.c:196
+#: src/xfce4-screensaver-dialog.c:196
 msgid "Retype your new password."
 msgstr "Endurtaktu nýja lykilorðið."
 
-#: ../src/xfce4-screensaver-dialog.c:198
+#: src/xfce4-screensaver-dialog.c:198
 msgid "Enter your new password."
 msgstr "Settu inn nýja lykilorðið þitt."
 
-#: ../src/xfce4-screensaver-dialog.c:200
+#: src/xfce4-screensaver-dialog.c:200
 msgid "Enter your current password:"
 msgstr "Settu inn núverandi lykilorð þitt:"
 
-#: ../src/xfce4-screensaver-dialog.c:202
+#: src/xfce4-screensaver-dialog.c:202
 msgid "Error while changing NIS password."
 msgstr "Villa kom upp við breytingu á NIS lykilorði."
 
-#: ../src/xfce4-screensaver-dialog.c:204
+#: src/xfce4-screensaver-dialog.c:204
 msgid "You must choose a longer password."
 msgstr "Þú verður að velja lengra lykilorð."
 
-#: ../src/xfce4-screensaver-dialog.c:206
+#: src/xfce4-screensaver-dialog.c:206
 msgid "Password has been already used. Choose another."
 msgstr "Þú hefur notað þetta lykilorð áður. Veldu annað."
 
-#: ../src/xfce4-screensaver-dialog.c:208
+#: src/xfce4-screensaver-dialog.c:208
 msgid "You must wait longer to change your password."
 msgstr "Þú verður að bíða lengur til þess að breyta lykilorðinu þínu."
 
-#: ../src/xfce4-screensaver-dialog.c:210
+#: src/xfce4-screensaver-dialog.c:210
 msgid "Sorry, passwords do not match."
 msgstr "Því miður, lykilorðin stemma ekki."
 
-#: ../src/xfce4-screensaver-dialog.c:274
+#: src/xfce4-screensaver-dialog.c:274
 msgid "Checking..."
 msgstr "Yfirfer..."
 
-#: ../src/xfce4-screensaver-preferences.c:80
+#: src/xfce4-screensaver-dialog.ui:70
+msgid "%U"
+msgstr "%U"
+
+#: src/xfce4-screensaver-dialog.ui:98
+msgid "Enter your password"
+msgstr "Settu inn lykilorðið þitt"
+
+#: src/xfce4-screensaver-dialog.ui:211
+msgid "You have the Caps Lock key on."
+msgstr "Þú ert að nota HÁSTAFI."
+
+#: src/xfce4-screensaver-dialog.ui:271
+msgid "_Switch User"
+msgstr "S_kipta um notenda"
+
+#: src/xfce4-screensaver-dialog.ui:287
+msgid "_Log Out"
+msgstr "S_krá út"
+
+#: src/xfce4-screensaver-dialog.ui:303
+msgid "_Cancel"
+msgstr "_Hætta við"
+
+#: src/xfce4-screensaver-dialog.ui:319
+msgid "_Unlock"
+msgstr "_Aflæsa"
+
+#: src/xfce4-screensaver-dialog.ui:377
+msgid "<b>%h</b>"
+msgstr "<b>%h</b>"
+
+#: src/xfce4-screensaver-dialog.ui:391
+#, c-format
+msgid "<b>%s</b>"
+msgstr "<b>%s</b>"
+
+#: src/xfce4-screensaver-preferences.c:80
 msgid "Settings manager socket"
 msgstr "Sökkull stillingastjórnunar"
 
-#: ../src/xfce4-screensaver-preferences.c:80
+#: src/xfce4-screensaver-preferences.c:80
 msgid "SOCKET ID"
 msgstr "AUÐKENNI SÖKKULS - ID"
 
-#: ../src/xfce4-screensaver-preferences.c:716
+#: src/xfce4-screensaver-preferences.c:716
 msgid "Random"
 msgstr "Slembið"
 
-#: ../src/xfce4-screensaver-preferences.c:1736
+#: src/xfce4-screensaver-preferences.c:1736
 msgid "Setting locked by administrator."
 msgstr "Þessi stilling er varin af kerfisstjóranum."
 
-#: ../src/xfce4-screensaver-preferences.c:1777
+#: src/xfce4-screensaver-preferences.c:1777
 msgid "Could not load the main interface"
 msgstr "Gat ekki hlaðið inn aðalviðmóti"
 
-#: ../src/xfce4-screensaver-preferences.c:1779
+#: src/xfce4-screensaver-preferences.c:1779
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "Gakktu úr skugga um að skjáhvílan sé rétt uppsett"
 
-#: ../src/xfce4-screensaver.c:58
+#: src/xfce4-screensaver-preferences.ui:38
+msgid "Screensaver Preview"
+msgstr "Forskoðun skjáhvílu"
+
+#: src/xfce4-screensaver-preferences.ui:78
+msgid "<b>Screensaver preview</b>"
+msgstr "<b>Forskoðun skjáhvílu</b>"
+
+#: src/xfce4-screensaver-preferences.ui:228
+msgid "Screensaver Preferences"
+msgstr "Kjörstillingar skjáhvílu"
+
+#: src/xfce4-screensaver-preferences.ui:233
+msgid "Configure your screensaver and locker"
+msgstr "Stilltu skjáhvílu og læsingaforrit"
+
+#: src/xfce4-screensaver-preferences.ui:264
+msgid "Power _Management"
+msgstr "A_flstjórnun"
+
+#: src/xfce4-screensaver-preferences.ui:281
+#: src/xfce4-screensaver-preferences.ui:610
+msgid "Preview"
+msgstr "Forskoðun"
+
+#: src/xfce4-screensaver-preferences.ui:372
+msgid "Running as root"
+msgstr "Keyri sem kerfisstjóri"
+
+#: src/xfce4-screensaver-preferences.ui:388
+msgid "The screen will not be locked for the root user."
+msgstr "Skjánum verður ekki læst fyrir kerfisstjórnanda."
+
+#: src/xfce4-screensaver-preferences.ui:429
+msgid "Resolve"
+msgstr "Leysa"
+
+#: src/xfce4-screensaver-preferences.ui:475
+msgid "Xfce Power Manager is not configured to handle laptop lid events"
+msgstr ""
+"XFCE-orkustýringin er ekki stillt til að meðhöndla atvik varðandi lok á "
+"fartölvu"
+
+#: src/xfce4-screensaver-preferences.ui:491
+msgid "Your computer may not be locked when you close the lid."
+msgstr ""
+"Tölvan þín er hugsanlega ekki læst þegar þú setur niður lokið á henni."
+
+#: src/xfce4-screensaver-preferences.ui:540
+msgid "Enable Screensaver"
+msgstr "Virkja skjáhvílu"
+
+#: src/xfce4-screensaver-preferences.ui:594
+msgid "Theme"
+msgstr "Þema"
+
+#: src/xfce4-screensaver-preferences.ui:692
+msgid "Configure screensaver"
+msgstr ""
+
+#: src/xfce4-screensaver-preferences.ui:693
+msgid "Configure..."
+msgstr ""
+
+#: src/xfce4-screensaver-preferences.ui:733
+msgid "Change theme after:"
+msgstr "Skipta um þema eftir:"
+
+#: src/xfce4-screensaver-preferences.ui:756
+#: src/xfce4-screensaver-preferences.ui:826
+#: src/xfce4-screensaver-preferences.ui:997
+#: src/xfce4-screensaver-preferences.ui:1174
+msgid "minutes"
+msgstr "mínútur"
+
+#: src/xfce4-screensaver-preferences.ui:771
+msgid "Activate screensaver when computer is idle"
+msgstr "Virkja skjáhvílu þegar tölvan er iðjulaus"
+
+#: src/xfce4-screensaver-preferences.ui:802
+msgid "Regard the computer as _idle after:"
+msgstr "Líta á tölvuna sem _iðjulausa eftir:"
+
+#: src/xfce4-screensaver-preferences.ui:841
+msgid "Inhibit screensaver for fullscreen applications"
+msgstr ""
+
+#: src/xfce4-screensaver-preferences.ui:900
+msgid "Enable Lock Screen"
+msgstr "Virkja skjálæsingu"
+
+#: src/xfce4-screensaver-preferences.ui:944
+msgid "Lock Screen with Screensaver"
+msgstr "Læsa skjá með skjáhvílu"
+
+#: src/xfce4-screensaver-preferences.ui:974
+msgid "Lock the screen after the screensaver is active for:"
+msgstr "Læsa skjá eftir að skjáhvíla hefur verið í gangi í:"
+
+#: src/xfce4-screensaver-preferences.ui:1012
+msgid "On Screen Keyboard"
+msgstr "Skjályklaborð"
+
+#: src/xfce4-screensaver-preferences.ui:1042
+msgid "On screen keyboard command:"
+msgstr "Skipun fyrir skjályklaborð:"
+
+#: src/xfce4-screensaver-preferences.ui:1067
+msgid "Session Status Messages"
+msgstr "Skilaboð um stöðu setu"
+
+#: src/xfce4-screensaver-preferences.ui:1097
+msgid "Logout"
+msgstr "Skrá út"
+
+#: src/xfce4-screensaver-preferences.ui:1127
+msgid "Logout command:"
+msgstr "Útskráningarskipun:"
+
+#: src/xfce4-screensaver-preferences.ui:1151
+msgid "Enable logout after:"
+msgstr "Virkja útskráningu eftir:"
+
+#: src/xfce4-screensaver-preferences.ui:1189
+msgid "User Switching"
+msgstr "Skipta um notanda"
+
+#: src/xfce4-screensaver-preferences.ui:1219
+msgid "Lock Screen with System Sleep"
+msgstr "Læsa skjá þegar kerfið fer í svæfingu"
+
+#: src/xfce4-screensaver-preferences.ui:1260
+msgid "Lock Screen"
+msgstr "Læsa skjá"
+
+#: src/xfce4-screensaver.c:58
 msgid "Enable debugging code"
 msgstr "Virkja aflúsunarkóða"
 
-#: ../src/xfcekbd-indicator.c:406
+#: src/xfce4-screensaver.desktop.in.in:5
+msgid "Launch screensaver and locker program"
+msgstr "Keyra skjáhvílu og læsingaforrit"
+
+#: src/xfcekbd-indicator.c:406
 msgid "XKB initialization error"
 msgstr "Frumstilling XKB mistókst"
