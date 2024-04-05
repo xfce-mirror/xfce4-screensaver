@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-02 00:49+0200\n"
+"POT-Creation-Date: 2024-04-05 00:51+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>, 2023\n"
 "Language-Team: Albanian (https://app.transifex.com/xfce/teams/16840/sq/)\n"
@@ -22,29 +22,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sq\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: ../data/xfce4-screensaver-preferences.desktop.in.h:1
-#: ../src/xfce4-screensaver.desktop.in.in.h:1
-msgid "Xfce Screensaver"
-msgstr "Ekrankursyes Xfce"
-
-#: ../data/xfce4-screensaver-preferences.desktop.in.h:2
-msgid "Set your screensaver preferences"
-msgstr "Caktoni parapëlqimet tuaja për ekrankursyesin"
-
-#: ../data/xfce4-screensaver-preferences.desktop.in.h:3
-#: ../src/xfce4-screensaver-preferences.ui.h:21
-#: ../src/xfce4-screensaver.desktop.in.in.h:3
-msgid "Screensaver"
-msgstr "Ekrankursyes"
-
-#: ../data/xfce4-screensaver.directory.in.h:1
-msgid "Screensavers"
-msgstr "Ekrankursyes"
-
-#: ../data/xfce4-screensaver.directory.in.h:2
-msgid "Screensaver themes"
-msgstr "Tema ekrankursyesi"
 
 #: ../savers/floaters.c:89
 msgid "Show paths that images follow"
@@ -80,21 +57,21 @@ msgstr "Figura burim për t’u përdorur"
 
 #. translators: the word "image" here
 #. * represents a command line argument
-#: ../savers/floaters.c:1131
+#: ../savers/floaters.c:1129
 msgid "image - floats images around the screen"
 msgstr "image - bën që figurat të enden në ekran"
 
-#: ../savers/floaters.c:1135 ../savers/popsquares.c:49
+#: ../savers/floaters.c:1133 ../savers/popsquares.c:47
 #, c-format
 msgid "%s. See --help for usage information.\n"
 msgstr "%s. Për të dhëna përdorimi, shihni --help.\n"
 
-#: ../savers/floaters.c:1142
+#: ../savers/floaters.c:1140
 #, c-format
 msgid "Failed to initialize the windowing system."
 msgstr "S'u arrit të gatitej sistemi i dritareve. "
 
-#: ../savers/floaters.c:1148
+#: ../savers/floaters.c:1146
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr ""
@@ -124,30 +101,6 @@ msgstr "Zgjedhjen e fotove në dosje mos e bëj kuturu"
 #: ../savers/slideshow.c:65
 msgid "Do not try to stretch images on screen"
 msgstr "Mos provo të shformosh figura në ekran"
-
-#: ../savers/xfce-floaters.desktop.in.in.h:1
-msgid "Floating Xfce"
-msgstr "Xfce pezull"
-
-#: ../savers/xfce-floaters.desktop.in.in.h:2
-msgid "Bubbles the Xfce logo around the screen"
-msgstr "Shfaq një flluskë me stemën e Xfce-së që lëviz nëpër ekran"
-
-#: ../savers/xfce-personal-slideshow.desktop.in.in.h:1
-msgid "Slideshow"
-msgstr "Si Diapozitiva"
-
-#: ../savers/xfce-personal-slideshow.desktop.in.in.h:2
-msgid "Display a slideshow from your Pictures folder"
-msgstr "Shfaq një varg diapozitivash prej dosjes tuaj Foto"
-
-#: ../savers/xfce-popsquares.desktop.in.in.h:1
-msgid "Pop art squares"
-msgstr "Katrorë arti pop"
-
-#: ../savers/xfce-popsquares.desktop.in.in.h:2
-msgid "A pop-art-ish grid of pulsing colors."
-msgstr "Një rrjetë në stil arti pop ngjyrash pulsuese."
 
 #: ../src/gs-auth-pam.c:163
 msgid "Password:"
@@ -550,45 +503,6 @@ msgstr "Na ndjeni, fjalëkalimet nuk përputhen."
 msgid "Checking..."
 msgstr "Po kontrollohet…"
 
-#: ../src/xfce4-screensaver-dialog.ui.h:2
-#, no-c-format
-msgid "%U"
-msgstr "%U"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:3
-msgid "Enter your password"
-msgstr "Jepni fjalëkalimin tuaj"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:4
-msgid "You have the Caps Lock key on."
-msgstr "Keni të aktivizuar tastin Caps Lock."
-
-#: ../src/xfce4-screensaver-dialog.ui.h:5
-msgid "_Switch User"
-msgstr "_Këmbeni Përdorues"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:6
-msgid "_Log Out"
-msgstr "_Dilni"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:7
-msgid "_Cancel"
-msgstr "_Anuloje"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:8
-msgid "_Unlock"
-msgstr "_Shkyçe"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:10
-#, no-c-format
-msgid "<b>%h</b>"
-msgstr "<b>%h</b>"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:12
-#, no-c-format
-msgid "<b>%s</b>"
-msgstr "<b>%s</b>"
-
 #: ../src/xfce4-screensaver-preferences.c:80
 msgid "Settings manager socket"
 msgstr "\"Socket\" përgjegjësi rregullimesh"
@@ -601,155 +515,21 @@ msgstr "ID SOCKET-i"
 msgid "Random"
 msgstr "Kuturu"
 
-#: ../src/xfce4-screensaver-preferences.c:1734
+#: ../src/xfce4-screensaver-preferences.c:1736
 msgid "Setting locked by administrator."
 msgstr "Rregullim i kyçur nga përgjegjësi."
 
-#: ../src/xfce4-screensaver-preferences.c:1775
+#: ../src/xfce4-screensaver-preferences.c:1777
 msgid "Could not load the main interface"
 msgstr "S’u arrit të ngarkohej ndërfaqja kryesore"
 
-#: ../src/xfce4-screensaver-preferences.c:1777
+#: ../src/xfce4-screensaver-preferences.c:1779
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "Ju lutemi, siguroni që ekrankursyesi të jetë instaluar si duhet"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:1
-msgid "Screensaver Preview"
-msgstr "Paraparje Ekrankursyesi"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:2
-msgid "<b>Screensaver preview</b>"
-msgstr "<b>Paraparje ekrankursyesi</b>"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:3
-msgid "Screensaver Preferences"
-msgstr "Parapëlqime Ekrankursyesi"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:4
-msgid "Configure your screensaver and locker"
-msgstr "Formësoni ekrankursyesin dhe kyçjen tuaj"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:5
-msgid "Power _Management"
-msgstr "_Administrim Energjie"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:6
-msgid "Preview"
-msgstr "Paraparje"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:7
-msgid "Running as root"
-msgstr "Po xhironi si rrënjë"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:8
-msgid "The screen will not be locked for the root user."
-msgstr "Ekrani nuk do të kyçet për përdoruesin rrënjë."
-
-#: ../src/xfce4-screensaver-preferences.ui.h:9
-msgid "Resolve"
-msgstr "Zgjidhe"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:10
-msgid "Xfce Power Manager is not configured to handle laptop lid events"
-msgstr ""
-"Përgjegjësi Xfce i Energjisë s’është formësuar të trajtojë akte kapaku "
-"laptopi"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:11
-msgid "Your computer may not be locked when you close the lid."
-msgstr "Kompjuteri juaj mund të mos kyçet kur mbyllni kapakun."
-
-#: ../src/xfce4-screensaver-preferences.ui.h:12
-msgid "Enable Screensaver"
-msgstr "Aktivizo Ekrankursyes"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:13
-msgid "Theme"
-msgstr "Temë"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:14
-msgid "Configure screensaver"
-msgstr "Formësoni ekrankursyesin"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:15
-msgid "Configure..."
-msgstr "Formësoni… "
-
-#: ../src/xfce4-screensaver-preferences.ui.h:16
-msgid "Change theme after:"
-msgstr "Ndryshoje temën pas:"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:17
-msgid "minutes"
-msgstr "minutash"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:18
-msgid "Activate screensaver when computer is idle"
-msgstr "Aktivizo ekrankursyes kur kompjuteri është i plogësht"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:19
-msgid "Regard the computer as _idle after:"
-msgstr "Konsideroje kompjuterin si të _plogësht pas:"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:20
-msgid "Inhibit screensaver for fullscreen applications"
-msgstr "Pengoje ekrankursyesin për aplikacione sa krejt ekrani"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:22
-msgid "Enable Lock Screen"
-msgstr "Aktivizo Kyçje Ekrani"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:23
-msgid "Lock Screen with Screensaver"
-msgstr "Kyçe Ekranin me Ekrankursyes"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:24
-msgid "Lock the screen after the screensaver is active for:"
-msgstr "Kyçe ekranin pasi ekrankursyesi të jetë aktiv për:"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:25
-msgid "On Screen Keyboard"
-msgstr "Tastierë Në Ekran"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:26
-msgid "On screen keyboard command:"
-msgstr "Urdhër për tastierë në ekran:"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:27
-msgid "Session Status Messages"
-msgstr "Mesazhe Gjendjeje Sesioni"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:28
-msgid "Logout"
-msgstr "Dalje"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:29
-msgid "Logout command:"
-msgstr "Urdhër daljeje:"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:30
-msgid "Enable logout after:"
-msgstr "Aktivizo dalje pas:"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:31
-msgid "User Switching"
-msgstr "Ndërrim Përdoruesi"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:32
-msgid "Lock Screen with System Sleep"
-msgstr "Kyçje Ekrani me Fjetje Sistemi"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:33
-msgid "Lock Screen"
-msgstr "Kyçje Ekrani"
 
 #: ../src/xfce4-screensaver.c:58
 msgid "Enable debugging code"
 msgstr "Aktivizo diagnostikim kodi"
-
-#: ../src/xfce4-screensaver.desktop.in.in.h:2
-msgid "Launch screensaver and locker program"
-msgstr "Nis programin ekrankursyes dhe kyçës"
 
 #: ../src/xfcekbd-indicator.c:406
 msgid "XKB initialization error"
