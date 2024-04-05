@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-02 00:49+0200\n"
+"POT-Creation-Date: 2024-04-05 00:51+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>, 2023\n"
 "Language-Team: Korean (https://app.transifex.com/xfce/teams/16840/ko/)\n"
@@ -24,29 +24,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-#: ../data/xfce4-screensaver-preferences.desktop.in.h:1
-#: ../src/xfce4-screensaver.desktop.in.in.h:1
-msgid "Xfce Screensaver"
-msgstr "Xfce 화면 보호기"
-
-#: ../data/xfce4-screensaver-preferences.desktop.in.h:2
-msgid "Set your screensaver preferences"
-msgstr "화면 보호기 기본 설정 항목을 설정합니다"
-
-#: ../data/xfce4-screensaver-preferences.desktop.in.h:3
-#: ../src/xfce4-screensaver-preferences.ui.h:21
-#: ../src/xfce4-screensaver.desktop.in.in.h:3
-msgid "Screensaver"
-msgstr "화면 보호기"
-
-#: ../data/xfce4-screensaver.directory.in.h:1
-msgid "Screensavers"
-msgstr "화면 보호기"
-
-#: ../data/xfce4-screensaver.directory.in.h:2
-msgid "Screensaver themes"
-msgstr "화면 보호기 테마"
 
 #: ../savers/floaters.c:89
 msgid "Show paths that images follow"
@@ -82,21 +59,21 @@ msgstr "사용할 원본 그림"
 
 #. translators: the word "image" here
 #. * represents a command line argument
-#: ../savers/floaters.c:1131
+#: ../savers/floaters.c:1129
 msgid "image - floats images around the screen"
 msgstr "image - 화면 여기저기에 띄울 그림"
 
-#: ../savers/floaters.c:1135 ../savers/popsquares.c:49
+#: ../savers/floaters.c:1133 ../savers/popsquares.c:47
 #, c-format
 msgid "%s. See --help for usage information.\n"
 msgstr "%s. 사용법을 보려면 --help를 참고하십시오.\n"
 
-#: ../savers/floaters.c:1142
+#: ../savers/floaters.c:1140
 #, c-format
 msgid "Failed to initialize the windowing system."
 msgstr "윈도우 시스템 초기화에 실패했습니다."
 
-#: ../savers/floaters.c:1148
+#: ../savers/floaters.c:1146
 #, c-format
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr "그림 하나를 선택해야 합니다. 사용법을 보려면 --help를 참고하십시오.\n"
@@ -124,30 +101,6 @@ msgstr "해당 위치에서 사진을 임의로 뽑아오지 않음"
 #: ../savers/slideshow.c:65
 msgid "Do not try to stretch images on screen"
 msgstr "그림 크기를 화면에 맞게 늘리지 않음"
-
-#: ../savers/xfce-floaters.desktop.in.in.h:1
-msgid "Floating Xfce"
-msgstr "떠다니는 Xfce"
-
-#: ../savers/xfce-floaters.desktop.in.in.h:2
-msgid "Bubbles the Xfce logo around the screen"
-msgstr "화면 여기저기에 Xfce 로고를 방울처럼 띄웁니다 "
-
-#: ../savers/xfce-personal-slideshow.desktop.in.in.h:1
-msgid "Slideshow"
-msgstr "슬라이드쇼"
-
-#: ../savers/xfce-personal-slideshow.desktop.in.in.h:2
-msgid "Display a slideshow from your Pictures folder"
-msgstr "사진 폴더의 그림을 슬라이드 쇼 형식으로 표시"
-
-#: ../savers/xfce-popsquares.desktop.in.in.h:1
-msgid "Pop art squares"
-msgstr "팝 아트 사각액자"
-
-#: ../savers/xfce-popsquares.desktop.in.in.h:2
-msgid "A pop-art-ish grid of pulsing colors."
-msgstr "팝 아트 풍의 주기적으로 바뀌는 색상의 격자 화면."
 
 #: ../src/gs-auth-pam.c:163
 msgid "Password:"
@@ -538,45 +491,6 @@ msgstr "죄송하지만, 암호가 일치하지 않습니다."
 msgid "Checking..."
 msgstr "확인 중..."
 
-#: ../src/xfce4-screensaver-dialog.ui.h:2
-#, no-c-format
-msgid "%U"
-msgstr "%U"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:3
-msgid "Enter your password"
-msgstr "암호를 입력하십시오"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:4
-msgid "You have the Caps Lock key on."
-msgstr "Caps Lock 키를 이미 눌렀습니다."
-
-#: ../src/xfce4-screensaver-dialog.ui.h:5
-msgid "_Switch User"
-msgstr "사용자 전환(_S)"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:6
-msgid "_Log Out"
-msgstr "로그아웃(_L)"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:7
-msgid "_Cancel"
-msgstr "취소(_C)"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:8
-msgid "_Unlock"
-msgstr "잠금 해제(_U)"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:10
-#, no-c-format
-msgid "<b>%h</b>"
-msgstr "<b>%h</b>"
-
-#: ../src/xfce4-screensaver-dialog.ui.h:12
-#, no-c-format
-msgid "<b>%s</b>"
-msgstr "<b>%s</b>"
-
 #: ../src/xfce4-screensaver-preferences.c:80
 msgid "Settings manager socket"
 msgstr "설정 관리자 소켓"
@@ -589,153 +503,21 @@ msgstr "SOCKET ID"
 msgid "Random"
 msgstr "임의"
 
-#: ../src/xfce4-screensaver-preferences.c:1734
+#: ../src/xfce4-screensaver-preferences.c:1736
 msgid "Setting locked by administrator."
 msgstr "관리자가 설정을 잠갔습니다."
 
-#: ../src/xfce4-screensaver-preferences.c:1775
+#: ../src/xfce4-screensaver-preferences.c:1777
 msgid "Could not load the main interface"
 msgstr "주 인터페이스를 불러올 수 없습니다"
 
-#: ../src/xfce4-screensaver-preferences.c:1777
+#: ../src/xfce4-screensaver-preferences.c:1779
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "화면 보호기 프로그램을 제대로 설치했는지 확인하십시오"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:1
-msgid "Screensaver Preview"
-msgstr "화면 보호기 미리보기"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:2
-msgid "<b>Screensaver preview</b>"
-msgstr "<b>화면 보호기 미리보기</b>"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:3
-msgid "Screensaver Preferences"
-msgstr "화면 보호기 기본 설정"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:4
-msgid "Configure your screensaver and locker"
-msgstr "화면 보호기 및 잠금 설정"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:5
-msgid "Power _Management"
-msgstr "전원 관리(_M)"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:6
-msgid "Preview"
-msgstr "미리 보기"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:7
-msgid "Running as root"
-msgstr "루트 계정으로 실행"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:8
-msgid "The screen will not be locked for the root user."
-msgstr "루트 사용자 화면은 잠그지 않습니다."
-
-#: ../src/xfce4-screensaver-preferences.ui.h:9
-msgid "Resolve"
-msgstr "해결"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:10
-msgid "Xfce Power Manager is not configured to handle laptop lid events"
-msgstr "랩톱 덮개 동작을 처리하도록 Xfce 전원 관리자를 설정하지 않았습니다."
-
-#: ../src/xfce4-screensaver-preferences.ui.h:11
-msgid "Your computer may not be locked when you close the lid."
-msgstr "덮개를 닫는다 할지라도 컴퓨터를 잠그지 못할 수도 있습니다."
-
-#: ../src/xfce4-screensaver-preferences.ui.h:12
-msgid "Enable Screensaver"
-msgstr "화면 보호기 사용"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:13
-msgid "Theme"
-msgstr "테마"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:14
-msgid "Configure screensaver"
-msgstr "화면 보호기 설정"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:15
-msgid "Configure..."
-msgstr "설정..."
-
-#: ../src/xfce4-screensaver-preferences.ui.h:16
-msgid "Change theme after:"
-msgstr "테마 변경:"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:17
-msgid "minutes"
-msgstr "분"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:18
-msgid "Activate screensaver when computer is idle"
-msgstr "컴퓨터가 대기 상태일 때 화면 보호기 실행"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:19
-msgid "Regard the computer as _idle after:"
-msgstr "다음 시간이 지나면 대기 상태로 간주(_I):"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:20
-msgid "Inhibit screensaver for fullscreen applications"
-msgstr "프로그램을 최대 화면으로 실행할 경우 화면 보호기 실행 안함"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:22
-msgid "Enable Lock Screen"
-msgstr "화면 잠금 사용"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:23
-msgid "Lock Screen with Screensaver"
-msgstr "화면 보호기 실행시 화면 잠금"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:24
-msgid "Lock the screen after the screensaver is active for:"
-msgstr "이 시간 동안 화면 보호기가 작동하면 화면 잠그기:"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:25
-msgid "On Screen Keyboard"
-msgstr "화상 키보드"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:26
-msgid "On screen keyboard command:"
-msgstr "화상 키보드 명령어:"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:27
-msgid "Session Status Messages"
-msgstr "세션 상태 메시지"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:28
-msgid "Logout"
-msgstr "로그아웃"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:29
-msgid "Logout command:"
-msgstr "로그아웃 명령어:"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:30
-msgid "Enable logout after:"
-msgstr "로그아웃 지정 시간:"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:31
-msgid "User Switching"
-msgstr "사용자 전환"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:32
-msgid "Lock Screen with System Sleep"
-msgstr "컴퓨터가 대기 상태일 때 화면 잠금"
-
-#: ../src/xfce4-screensaver-preferences.ui.h:33
-msgid "Lock Screen"
-msgstr "화면 잠금"
 
 #: ../src/xfce4-screensaver.c:58
 msgid "Enable debugging code"
 msgstr "디버깅 모드 활성화"
-
-#: ../src/xfce4-screensaver.desktop.in.in.h:2
-msgid "Launch screensaver and locker program"
-msgstr "화면 보호기 및 잠금 프로그램 실행"
 
 #: ../src/xfcekbd-indicator.c:406
 msgid "XKB initialization error"
