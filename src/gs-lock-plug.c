@@ -269,9 +269,9 @@ do_user_switch (GSLockPlug *plug) {
 static void
 set_status_text (GSLockPlug *plug,
                  const char *text) {
-    if (plug->priv->auth_message_label != NULL) {
+    if (plug->priv->auth_message_label != NULL && g_utf8_validate (text, -1, NULL)) {
         gtk_label_set_text (GTK_LABEL (plug->priv->auth_message_label), text);
-        if (g_utf8_strlen (text, 1) == 0) {
+        if (g_utf8_strlen (text, -1) == 0) {
             gtk_widget_hide (GTK_WIDGET (plug->priv->auth_message_label));
         } else {
             gtk_widget_show (GTK_WIDGET (plug->priv->auth_message_label));
