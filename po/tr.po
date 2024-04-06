@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce-apps.xfce4-screensaver\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-04-05 12:50+0200\n"
+"POT-Creation-Date: 2024-04-06 00:50+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Demiray Muhterem <mdemiray@msn.com>, 2024\n"
 "Language-Team: Turkish (https://app.transifex.com/xfce/teams/16840/tr/)\n"
@@ -142,37 +142,33 @@ msgstr "Sanatsal kareler"
 msgid "A pop-art-ish grid of pulsing colors."
 msgstr "Renk basıncı pop-art-ish ızgarası."
 
-#: src/gs-auth-pam.c:163
-msgid "Password:"
-msgstr "Parola:"
-
-#: src/gs-auth-pam.c:375
+#: src/gs-auth-pam.c:377
 #, c-format
 msgid "Unable to establish service %s: %s\n"
 msgstr "%shizmeti kurulamıyor: %s\n"
 
-#: src/gs-auth-pam.c:401
+#: src/gs-auth-pam.c:403
 #, c-format
 msgid "Can't set PAM_TTY=%s"
 msgstr "Ayarlanamadı PAM_TTY=%s"
 
-#: src/gs-auth-pam.c:432
+#: src/gs-auth-pam.c:434
 msgid "Incorrect password."
 msgstr "Yanlış parola."
 
-#: src/gs-auth-pam.c:434 src/xfce4-screensaver-dialog.c:312
+#: src/gs-auth-pam.c:436 src/xfce4-screensaver-dialog.c:254
 msgid "Authentication failed."
 msgstr "Doğrulamala başarısız oldu."
 
-#: src/gs-auth-pam.c:448
+#: src/gs-auth-pam.c:450
 msgid "Not permitted to gain access at this time."
 msgstr "Şu anda erişim sağlamak için izin verilmedi."
 
-#: src/gs-auth-pam.c:454
+#: src/gs-auth-pam.c:456
 msgid "No longer permitted to access the system."
 msgstr "Sistem erişimine artık izin verilmiyor."
 
-#: src/gs-auth-pam.c:662
+#: src/gs-auth-pam.c:664
 msgid "Username:"
 msgstr "Kullanıcı:"
 
@@ -466,68 +462,7 @@ msgstr "Ekran genişliği"
 msgid "Monitor index"
 msgstr "Ekran dizini"
 
-#: src/xfce4-screensaver-dialog.c:175 src/xfce4-screensaver-dialog.c:177
-#: src/xfce4-screensaver-dialog.c:178
-msgid "Please enter your username."
-msgstr "Lütfen kullanıcı adınızı girin."
-
-#: src/xfce4-screensaver-dialog.c:184
-msgid "You are required to change your password immediately (password aged)"
-msgstr "Parolanızı hemen değiştirmeniz gerekiyor (parola eski)"
-
-#: src/xfce4-screensaver-dialog.c:186
-msgid "You are required to change your password immediately (root enforced)"
-msgstr "Parolanızı hemen değiştirmeniz gerekiyor (kök zorunlu)"
-
-#: src/xfce4-screensaver-dialog.c:188
-msgid "Your account has expired; please contact your system administrator"
-msgstr "Hesabınızın süresi doldu; lütfen sistem yöneticinize başvurun"
-
-#: src/xfce4-screensaver-dialog.c:190
-msgid "No password supplied."
-msgstr "Parola yok."
-
-#: src/xfce4-screensaver-dialog.c:192
-msgid "Password unchanged."
-msgstr "Parola değişmedi."
-
-#: src/xfce4-screensaver-dialog.c:194
-msgid "Can not get username."
-msgstr "Kullanıcı adı alınamıyor."
-
-#: src/xfce4-screensaver-dialog.c:196
-msgid "Retype your new password."
-msgstr "Yeni parolanızı yeniden giriniz."
-
-#: src/xfce4-screensaver-dialog.c:198
-msgid "Enter your new password."
-msgstr "Yeni parolanızı giriniz."
-
-#: src/xfce4-screensaver-dialog.c:200
-msgid "Enter your current password:"
-msgstr "Geçerli parolanızı girin:"
-
-#: src/xfce4-screensaver-dialog.c:202
-msgid "Error while changing NIS password."
-msgstr "NIS parolası değiştirilirken hata oluştu."
-
-#: src/xfce4-screensaver-dialog.c:204
-msgid "You must choose a longer password."
-msgstr "Daha uzun parola seçmelisiniz."
-
-#: src/xfce4-screensaver-dialog.c:206
-msgid "Password has been already used. Choose another."
-msgstr "Parola zaten kullanıldı. Başka belirle."
-
-#: src/xfce4-screensaver-dialog.c:208
-msgid "You must wait longer to change your password."
-msgstr "Parolanızı değiştirmek için daha uzun süre beklemeniz gerekir."
-
-#: src/xfce4-screensaver-dialog.c:210
-msgid "Sorry, passwords do not match."
-msgstr "Üzgünüz, parolalar eşleşmiyor."
-
-#: src/xfce4-screensaver-dialog.c:274
+#: src/xfce4-screensaver-dialog.c:216
 msgid "Checking..."
 msgstr "Denetleniyor..."
 
