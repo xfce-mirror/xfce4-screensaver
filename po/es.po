@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce-apps.xfce4-screensaver\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-04-05 12:50+0200\n"
+"POT-Creation-Date: 2024-04-06 00:50+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Toni Estévez <toni.estevez@gmail.com>, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/xfce/teams/16840/es/)\n"
@@ -145,37 +145,33 @@ msgstr "Cuadros de arte pop"
 msgid "A pop-art-ish grid of pulsing colors."
 msgstr "Una cuadrícula estilo Pop-Art de colores pulsantes."
 
-#: src/gs-auth-pam.c:163
-msgid "Password:"
-msgstr "Contraseña:"
-
-#: src/gs-auth-pam.c:375
+#: src/gs-auth-pam.c:377
 #, c-format
 msgid "Unable to establish service %s: %s\n"
 msgstr "No se puedo establecer el servicio %s: %s\n"
 
-#: src/gs-auth-pam.c:401
+#: src/gs-auth-pam.c:403
 #, c-format
 msgid "Can't set PAM_TTY=%s"
 msgstr "No se puedo establecer PAM_TTY=%s"
 
-#: src/gs-auth-pam.c:432
+#: src/gs-auth-pam.c:434
 msgid "Incorrect password."
 msgstr "Contraseña incorrecta."
 
-#: src/gs-auth-pam.c:434 src/xfce4-screensaver-dialog.c:312
+#: src/gs-auth-pam.c:436 src/xfce4-screensaver-dialog.c:254
 msgid "Authentication failed."
 msgstr "Ha fallado la autenticación."
 
-#: src/gs-auth-pam.c:448
+#: src/gs-auth-pam.c:450
 msgid "Not permitted to gain access at this time."
 msgstr "No se permite el acceso en este momento."
 
-#: src/gs-auth-pam.c:454
+#: src/gs-auth-pam.c:456
 msgid "No longer permitted to access the system."
 msgstr "Ya no se permite el acceso al sistema."
 
-#: src/gs-auth-pam.c:662
+#: src/gs-auth-pam.c:664
 msgid "Username:"
 msgstr "Nombre de usuario:"
 
@@ -472,70 +468,7 @@ msgstr "Anchura del monitor"
 msgid "Monitor index"
 msgstr "Índice del monitor"
 
-#: src/xfce4-screensaver-dialog.c:175 src/xfce4-screensaver-dialog.c:177
-#: src/xfce4-screensaver-dialog.c:178
-msgid "Please enter your username."
-msgstr "Escriba su nombre de usuario."
-
-#: src/xfce4-screensaver-dialog.c:184
-msgid "You are required to change your password immediately (password aged)"
-msgstr "Debe cambiar su contraseña inmediatamente (contraseña caducada)"
-
-#: src/xfce4-screensaver-dialog.c:186
-msgid "You are required to change your password immediately (root enforced)"
-msgstr ""
-"Debe cambiar su contraseña inmediatamente (a petición del supeusuario)"
-
-#: src/xfce4-screensaver-dialog.c:188
-msgid "Your account has expired; please contact your system administrator"
-msgstr ""
-"Su cuenta ha caducado. Póngase en contacto con el administrador del sistema."
-
-#: src/xfce4-screensaver-dialog.c:190
-msgid "No password supplied."
-msgstr "No se brindó ninguna contraseña."
-
-#: src/xfce4-screensaver-dialog.c:192
-msgid "Password unchanged."
-msgstr "No se ha modificado la contraseña."
-
-#: src/xfce4-screensaver-dialog.c:194
-msgid "Can not get username."
-msgstr "No se puede obtener el nombre de usuario."
-
-#: src/xfce4-screensaver-dialog.c:196
-msgid "Retype your new password."
-msgstr "Escriba de nuevo la contraseña nueva."
-
-#: src/xfce4-screensaver-dialog.c:198
-msgid "Enter your new password."
-msgstr "Escriba la contraseña nueva."
-
-#: src/xfce4-screensaver-dialog.c:200
-msgid "Enter your current password:"
-msgstr "Escriba la contraseña actual:"
-
-#: src/xfce4-screensaver-dialog.c:202
-msgid "Error while changing NIS password."
-msgstr "Error al cambiar la contraseña del NIS."
-
-#: src/xfce4-screensaver-dialog.c:204
-msgid "You must choose a longer password."
-msgstr "Debe elegir una contraseña más larga."
-
-#: src/xfce4-screensaver-dialog.c:206
-msgid "Password has been already used. Choose another."
-msgstr "Ya ha empleado esta contraseña. Elija otra."
-
-#: src/xfce4-screensaver-dialog.c:208
-msgid "You must wait longer to change your password."
-msgstr "Debe esperar más tiempo antes de cambiar la contraseña."
-
-#: src/xfce4-screensaver-dialog.c:210
-msgid "Sorry, passwords do not match."
-msgstr "Las contraseñas no coinciden."
-
-#: src/xfce4-screensaver-dialog.c:274
+#: src/xfce4-screensaver-dialog.c:216
 msgid "Checking..."
 msgstr "Comprobando..."
 
