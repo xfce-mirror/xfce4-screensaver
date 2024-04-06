@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce-apps.xfce4-screensaver\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-04-05 12:50+0200\n"
+"POT-Creation-Date: 2024-04-06 00:50+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Kiril Kirilov <cybercop_montana@abv.bg>, 2024\n"
 "Language-Team: Bulgarian (https://app.transifex.com/xfce/teams/16840/bg/)\n"
@@ -140,37 +140,33 @@ msgstr "Поп-арт квадрати"
 msgid "A pop-art-ish grid of pulsing colors."
 msgstr "Поп-арт мрежа от пулсиращи цветове."
 
-#: src/gs-auth-pam.c:163
-msgid "Password:"
-msgstr "Парола:"
-
-#: src/gs-auth-pam.c:375
+#: src/gs-auth-pam.c:377
 #, c-format
 msgid "Unable to establish service %s: %s\n"
 msgstr "Не може да се установи услуга %s: %s\n"
 
-#: src/gs-auth-pam.c:401
+#: src/gs-auth-pam.c:403
 #, c-format
 msgid "Can't set PAM_TTY=%s"
 msgstr "Не може да се зададе PAM_TTY=%s"
 
-#: src/gs-auth-pam.c:432
+#: src/gs-auth-pam.c:434
 msgid "Incorrect password."
 msgstr "Некоректна парола."
 
-#: src/gs-auth-pam.c:434 src/xfce4-screensaver-dialog.c:312
+#: src/gs-auth-pam.c:436 src/xfce4-screensaver-dialog.c:254
 msgid "Authentication failed."
 msgstr "Идентификацията е неуспешна."
 
-#: src/gs-auth-pam.c:448
+#: src/gs-auth-pam.c:450
 msgid "Not permitted to gain access at this time."
 msgstr "В момента нямате права за достъп."
 
-#: src/gs-auth-pam.c:454
+#: src/gs-auth-pam.c:456
 msgid "No longer permitted to access the system."
 msgstr "Вече нямате достъп до системата."
 
-#: src/gs-auth-pam.c:662
+#: src/gs-auth-pam.c:664
 msgid "Username:"
 msgstr "Потребителско име:"
 
@@ -465,69 +461,7 @@ msgstr "Ширина на монитора"
 msgid "Monitor index"
 msgstr "Индекс на монитора"
 
-#: src/xfce4-screensaver-dialog.c:175 src/xfce4-screensaver-dialog.c:177
-#: src/xfce4-screensaver-dialog.c:178
-msgid "Please enter your username."
-msgstr "Моля, въведете вашето потребителско име"
-
-#: src/xfce4-screensaver-dialog.c:184
-msgid "You are required to change your password immediately (password aged)"
-msgstr "Необходимо е да смените вашата парола незабавно (остаряла парола)"
-
-#: src/xfce4-screensaver-dialog.c:186
-msgid "You are required to change your password immediately (root enforced)"
-msgstr "Трябва да смените вашата парола незабавно (с root права)"
-
-#: src/xfce4-screensaver-dialog.c:188
-msgid "Your account has expired; please contact your system administrator"
-msgstr ""
-"Профилът Ви е изтекъл; моля, свържете се със системния си администратор"
-
-#: src/xfce4-screensaver-dialog.c:190
-msgid "No password supplied."
-msgstr "Няма предоставена парола."
-
-#: src/xfce4-screensaver-dialog.c:192
-msgid "Password unchanged."
-msgstr "Паролата не е променена."
-
-#: src/xfce4-screensaver-dialog.c:194
-msgid "Can not get username."
-msgstr "Не може да бъде получено потребителско име."
-
-#: src/xfce4-screensaver-dialog.c:196
-msgid "Retype your new password."
-msgstr "Повторете вашата нова парола."
-
-#: src/xfce4-screensaver-dialog.c:198
-msgid "Enter your new password."
-msgstr "Въведете вашата нова парола."
-
-#: src/xfce4-screensaver-dialog.c:200
-msgid "Enter your current password:"
-msgstr "Въведете вашата текуща парола:"
-
-#: src/xfce4-screensaver-dialog.c:202
-msgid "Error while changing NIS password."
-msgstr "Грешка при промяна на NIS паролата."
-
-#: src/xfce4-screensaver-dialog.c:204
-msgid "You must choose a longer password."
-msgstr "Вие трябва да изберете по- дълга парола."
-
-#: src/xfce4-screensaver-dialog.c:206
-msgid "Password has been already used. Choose another."
-msgstr "Паролата вече е използвана. Изберете друга."
-
-#: src/xfce4-screensaver-dialog.c:208
-msgid "You must wait longer to change your password."
-msgstr "Вие трябва да изчакате по- дълго, за да се смени вашата парола."
-
-#: src/xfce4-screensaver-dialog.c:210
-msgid "Sorry, passwords do not match."
-msgstr "Съжалявам, паролите не съвпадат."
-
-#: src/xfce4-screensaver-dialog.c:274
+#: src/xfce4-screensaver-dialog.c:216
 msgid "Checking..."
 msgstr "Проверка..."
 
