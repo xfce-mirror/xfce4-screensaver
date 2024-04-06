@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce-apps.xfce4-screensaver\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-04-05 12:50+0200\n"
+"POT-Creation-Date: 2024-04-06 00:50+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Elishai Eliyahu <elishai@mailfence.com>, 2024\n"
 "Language-Team: Hebrew (https://app.transifex.com/xfce/teams/16840/he/)\n"
@@ -139,37 +139,33 @@ msgstr "ריבועי פופ ארט"
 msgid "A pop-art-ish grid of pulsing colors."
 msgstr "רשת פופ ארטית של צבעים פועמים."
 
-#: src/gs-auth-pam.c:163
-msgid "Password:"
-msgstr "סיסמה:"
-
-#: src/gs-auth-pam.c:375
+#: src/gs-auth-pam.c:377
 #, c-format
 msgid "Unable to establish service %s: %s\n"
 msgstr "לא יכול לבסס שירות %s:%s\n"
 
-#: src/gs-auth-pam.c:401
+#: src/gs-auth-pam.c:403
 #, c-format
 msgid "Can't set PAM_TTY=%s"
 msgstr "לא יכול לקבוע PAM_TTY=%s"
 
-#: src/gs-auth-pam.c:432
+#: src/gs-auth-pam.c:434
 msgid "Incorrect password."
 msgstr "סיסמה לא נכונה."
 
-#: src/gs-auth-pam.c:434 src/xfce4-screensaver-dialog.c:312
+#: src/gs-auth-pam.c:436 src/xfce4-screensaver-dialog.c:254
 msgid "Authentication failed."
 msgstr "אימות נכשל."
 
-#: src/gs-auth-pam.c:448
+#: src/gs-auth-pam.c:450
 msgid "Not permitted to gain access at this time."
 msgstr "לא מורשה לגשת בזמן זה."
 
-#: src/gs-auth-pam.c:454
+#: src/gs-auth-pam.c:456
 msgid "No longer permitted to access the system."
 msgstr "כבר לא מורשה לגשת למערכת."
 
-#: src/gs-auth-pam.c:662
+#: src/gs-auth-pam.c:664
 msgid "Username:"
 msgstr "שם משתמש:"
 
@@ -459,68 +455,7 @@ msgstr "רוחב מסך"
 msgid "Monitor index"
 msgstr "אינדקס מסך"
 
-#: src/xfce4-screensaver-dialog.c:175 src/xfce4-screensaver-dialog.c:177
-#: src/xfce4-screensaver-dialog.c:178
-msgid "Please enter your username."
-msgstr "אנא הכנס את שם המשתמש שלך."
-
-#: src/xfce4-screensaver-dialog.c:184
-msgid "You are required to change your password immediately (password aged)"
-msgstr "אתה נדרש לשנות את הסיסמה שלך מיד (הסיסמה ישנה מדי)"
-
-#: src/xfce4-screensaver-dialog.c:186
-msgid "You are required to change your password immediately (root enforced)"
-msgstr "אתנ נדרש לשנות את הסיסמה שלך מיד (דרישת משתמש על)"
-
-#: src/xfce4-screensaver-dialog.c:188
-msgid "Your account has expired; please contact your system administrator"
-msgstr "החשבון שלך פג תוקף, אנא צור קשר עם מנהל המערכת שלך"
-
-#: src/xfce4-screensaver-dialog.c:190
-msgid "No password supplied."
-msgstr "לא סופקה סיסמה."
-
-#: src/xfce4-screensaver-dialog.c:192
-msgid "Password unchanged."
-msgstr "סיסמה לא השתנתה."
-
-#: src/xfce4-screensaver-dialog.c:194
-msgid "Can not get username."
-msgstr "לא יכול להשיג שם משתמש."
-
-#: src/xfce4-screensaver-dialog.c:196
-msgid "Retype your new password."
-msgstr "הקלד שוב את הסיסמה החדשה שלך."
-
-#: src/xfce4-screensaver-dialog.c:198
-msgid "Enter your new password."
-msgstr "הכנס את הסיסמה החדשה שלך."
-
-#: src/xfce4-screensaver-dialog.c:200
-msgid "Enter your current password:"
-msgstr "הכנס את הסיסמה הנוכחית שלך:"
-
-#: src/xfce4-screensaver-dialog.c:202
-msgid "Error while changing NIS password."
-msgstr "שגיאה בעת שינוי סיסמת NIS."
-
-#: src/xfce4-screensaver-dialog.c:204
-msgid "You must choose a longer password."
-msgstr "אתה חייב לבחור סיסמה ארוכה יותר."
-
-#: src/xfce4-screensaver-dialog.c:206
-msgid "Password has been already used. Choose another."
-msgstr "הסיסמה כבר הייתה בשימוש. בחר אחרת."
-
-#: src/xfce4-screensaver-dialog.c:208
-msgid "You must wait longer to change your password."
-msgstr "אתה חייב לחכות עוד בשביל לשנות את הסיסמה שלך."
-
-#: src/xfce4-screensaver-dialog.c:210
-msgid "Sorry, passwords do not match."
-msgstr "סליחה, הסיסמאות אינן תואמות."
-
-#: src/xfce4-screensaver-dialog.c:274
+#: src/xfce4-screensaver-dialog.c:216
 msgid "Checking..."
 msgstr "בודק..."
 
