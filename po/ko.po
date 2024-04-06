@@ -4,7 +4,6 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Cybertramp <paran_son@outlook.com>, 2018
 # Nick Schermer <nick@xfce.org>, 2024
 # Seong-ho Cho <darkcircle.0426@gmail.com>, 2024
 # Xfce Bot <transifex@xfce.org>, 2024
@@ -15,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce-apps.xfce4-screensaver\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-04-05 12:50+0200\n"
+"POT-Creation-Date: 2024-04-06 00:50+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: 1763f4a4329a2376c933c5e919a36cbc_341ca53 <1f851310383599d03339229d772e1290_119292>, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/xfce/teams/16840/ko/)\n"
@@ -139,37 +138,33 @@ msgstr "팝 아트 사각액자"
 msgid "A pop-art-ish grid of pulsing colors."
 msgstr "팝 아트 풍의 주기적으로 바뀌는 색상의 격자 화면."
 
-#: src/gs-auth-pam.c:163
-msgid "Password:"
-msgstr "암호:"
-
-#: src/gs-auth-pam.c:375
+#: src/gs-auth-pam.c:377
 #, c-format
 msgid "Unable to establish service %s: %s\n"
 msgstr "%s서비스를 시작할 수 없습니다: %s\n"
 
-#: src/gs-auth-pam.c:401
+#: src/gs-auth-pam.c:403
 #, c-format
 msgid "Can't set PAM_TTY=%s"
 msgstr "PAM_TTY=%s 값을 설정할 수 없습니다"
 
-#: src/gs-auth-pam.c:432
+#: src/gs-auth-pam.c:434
 msgid "Incorrect password."
 msgstr "잘못된 암호입니다."
 
-#: src/gs-auth-pam.c:434 src/xfce4-screensaver-dialog.c:312
+#: src/gs-auth-pam.c:436 src/xfce4-screensaver-dialog.c:254
 msgid "Authentication failed."
 msgstr "인증이 실패했습니다."
 
-#: src/gs-auth-pam.c:448
+#: src/gs-auth-pam.c:450
 msgid "Not permitted to gain access at this time."
 msgstr "현재 접근을 허용하지 않습니다."
 
-#: src/gs-auth-pam.c:454
+#: src/gs-auth-pam.c:456
 msgid "No longer permitted to access the system."
 msgstr "시스템에 더 이상 접근을 허용하지 않습니다."
 
-#: src/gs-auth-pam.c:662
+#: src/gs-auth-pam.c:664
 msgid "Username:"
 msgstr "사용자 이름:"
 
@@ -459,68 +454,7 @@ msgstr "모니터 너비"
 msgid "Monitor index"
 msgstr "모니터 인덱스 번호"
 
-#: src/xfce4-screensaver-dialog.c:175 src/xfce4-screensaver-dialog.c:177
-#: src/xfce4-screensaver-dialog.c:178
-msgid "Please enter your username."
-msgstr "사용자 이름을 입력하십시오."
-
-#: src/xfce4-screensaver-dialog.c:184
-msgid "You are required to change your password immediately (password aged)"
-msgstr "암호를 지금 바꿔야합니다(암호 기간 경과)"
-
-#: src/xfce4-screensaver-dialog.c:186
-msgid "You are required to change your password immediately (root enforced)"
-msgstr "암호를 지금 바꿔야 합니다(루트에서 강제)"
-
-#: src/xfce4-screensaver-dialog.c:188
-msgid "Your account has expired; please contact your system administrator"
-msgstr "계정 유효 기간이 지났습니다. 시스템 관리자에게 문의하십시오."
-
-#: src/xfce4-screensaver-dialog.c:190
-msgid "No password supplied."
-msgstr "암호를 지정하지 않았습니다."
-
-#: src/xfce4-screensaver-dialog.c:192
-msgid "Password unchanged."
-msgstr "암호를 바꾸지 않았습니다."
-
-#: src/xfce4-screensaver-dialog.c:194
-msgid "Can not get username."
-msgstr "사용자 이름을 가져올 수 없습니다."
-
-#: src/xfce4-screensaver-dialog.c:196
-msgid "Retype your new password."
-msgstr "새 암호를 다시 입력하십시오."
-
-#: src/xfce4-screensaver-dialog.c:198
-msgid "Enter your new password."
-msgstr "새 암호를 입력하십시오."
-
-#: src/xfce4-screensaver-dialog.c:200
-msgid "Enter your current password:"
-msgstr "현재 암호를 입력하십시오:"
-
-#: src/xfce4-screensaver-dialog.c:202
-msgid "Error while changing NIS password."
-msgstr "NIS 암호를 바꾸는 도중 오류가 나타났습니다."
-
-#: src/xfce4-screensaver-dialog.c:204
-msgid "You must choose a longer password."
-msgstr "더 긴 암호를 입력해야합니다."
-
-#: src/xfce4-screensaver-dialog.c:206
-msgid "Password has been already used. Choose another."
-msgstr "이미 사용한 암호입니다. 다른 암호를 사용하십시오."
-
-#: src/xfce4-screensaver-dialog.c:208
-msgid "You must wait longer to change your password."
-msgstr "암호를 바꾸려면 더 기다려야합니다."
-
-#: src/xfce4-screensaver-dialog.c:210
-msgid "Sorry, passwords do not match."
-msgstr "죄송하지만, 암호가 일치하지 않습니다."
-
-#: src/xfce4-screensaver-dialog.c:274
+#: src/xfce4-screensaver-dialog.c:216
 msgid "Checking..."
 msgstr "확인 중..."
 
