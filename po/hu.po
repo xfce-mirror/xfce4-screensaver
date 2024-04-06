@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce-apps.xfce4-screensaver\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-04-05 12:50+0200\n"
+"POT-Creation-Date: 2024-04-06 00:50+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Balázs Meskó <meskobalazs@mailbox.org>, 2024\n"
 "Language-Team: Hungarian (https://app.transifex.com/xfce/teams/16840/hu/)\n"
@@ -142,37 +142,33 @@ msgstr "Pop-art négyzetek"
 msgid "A pop-art-ish grid of pulsing colors."
 msgstr "Egy pop-art szerű rács, pulzáló színekkel."
 
-#: src/gs-auth-pam.c:163
-msgid "Password:"
-msgstr "Jelszó:"
-
-#: src/gs-auth-pam.c:375
+#: src/gs-auth-pam.c:377
 #, c-format
 msgid "Unable to establish service %s: %s\n"
 msgstr "A(z) %s szolgáltatás nem létesíthető: %s\n"
 
-#: src/gs-auth-pam.c:401
+#: src/gs-auth-pam.c:403
 #, c-format
 msgid "Can't set PAM_TTY=%s"
 msgstr "A PAM_TTY=%s nem állítható be"
 
-#: src/gs-auth-pam.c:432
+#: src/gs-auth-pam.c:434
 msgid "Incorrect password."
 msgstr "Helytelen jelszó."
 
-#: src/gs-auth-pam.c:434 src/xfce4-screensaver-dialog.c:312
+#: src/gs-auth-pam.c:436 src/xfce4-screensaver-dialog.c:254
 msgid "Authentication failed."
 msgstr "A hitelesítés meghiúsult."
 
-#: src/gs-auth-pam.c:448
+#: src/gs-auth-pam.c:450
 msgid "Not permitted to gain access at this time."
 msgstr "Jelenleg nem férhet hozzá."
 
-#: src/gs-auth-pam.c:454
+#: src/gs-auth-pam.c:456
 msgid "No longer permitted to access the system."
 msgstr "Már nem férhet hozzá a rendszerhez."
 
-#: src/gs-auth-pam.c:662
+#: src/gs-auth-pam.c:664
 msgid "Username:"
 msgstr "Felhasználónév:"
 
@@ -458,69 +454,7 @@ msgstr "Kijelző szélessége"
 msgid "Monitor index"
 msgstr "Kijelző indexe"
 
-#: src/xfce4-screensaver-dialog.c:175 src/xfce4-screensaver-dialog.c:177
-#: src/xfce4-screensaver-dialog.c:178
-msgid "Please enter your username."
-msgstr "Adja meg a felhasználónevét."
-
-#: src/xfce4-screensaver-dialog.c:184
-msgid "You are required to change your password immediately (password aged)"
-msgstr "Azonnal meg kell változtatnia a jelszavát (a jelszó elévült)"
-
-#: src/xfce4-screensaver-dialog.c:186
-msgid "You are required to change your password immediately (root enforced)"
-msgstr ""
-"Azonnal meg kell változtatnia a jelszavát (rendszergazda által megkövetelt)"
-
-#: src/xfce4-screensaver-dialog.c:188
-msgid "Your account has expired; please contact your system administrator"
-msgstr "A fiókja lejárt; lépjen kapcsolatba a rendszergazdájával"
-
-#: src/xfce4-screensaver-dialog.c:190
-msgid "No password supplied."
-msgstr "Nincs megadva jelszó"
-
-#: src/xfce4-screensaver-dialog.c:192
-msgid "Password unchanged."
-msgstr "A jelszó változatlan."
-
-#: src/xfce4-screensaver-dialog.c:194
-msgid "Can not get username."
-msgstr "A felhasználónév nem kérhető le"
-
-#: src/xfce4-screensaver-dialog.c:196
-msgid "Retype your new password."
-msgstr "Adja meg újra a jelszavát."
-
-#: src/xfce4-screensaver-dialog.c:198
-msgid "Enter your new password."
-msgstr "Adja meg az új jelszavát."
-
-#: src/xfce4-screensaver-dialog.c:200
-msgid "Enter your current password:"
-msgstr "Adja meg a jelenlegi jelszavát:"
-
-#: src/xfce4-screensaver-dialog.c:202
-msgid "Error while changing NIS password."
-msgstr "Hiba a NIS jelszó módosításakor."
-
-#: src/xfce4-screensaver-dialog.c:204
-msgid "You must choose a longer password."
-msgstr "Hosszabb jelszót kell választania."
-
-#: src/xfce4-screensaver-dialog.c:206
-msgid "Password has been already used. Choose another."
-msgstr "A jelszó már volt használva. Válasszon másikat."
-
-#: src/xfce4-screensaver-dialog.c:208
-msgid "You must wait longer to change your password."
-msgstr "Tovább kell várnia, hogy megváltoztassa a jelszavát."
-
-#: src/xfce4-screensaver-dialog.c:210
-msgid "Sorry, passwords do not match."
-msgstr "Sajnáljuk, a jelszavak nem egyeznek."
-
-#: src/xfce4-screensaver-dialog.c:274
+#: src/xfce4-screensaver-dialog.c:216
 msgid "Checking..."
 msgstr "Ellenőrzés…"
 
