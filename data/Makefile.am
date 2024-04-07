@@ -17,14 +17,16 @@ desktopdir = $(datadir)/applications
 desktop_in_files = xfce4-screensaver-preferences.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 
-xfce4-screensaver.directory: xfce4-screensaver.directory.in
+# FIXME: xgettext doesn't recognize .directory.in files as desktop files so we
+# use .desktop.in for the translation: is there a proper solution?
+xfce4-screensaver.directory: xfce4-screensaver.desktop.in
 	$(AM_V_GEN)$(MSGFMT) --desktop --template $< -d $(top_srcdir)/po -o $@
 
 directorydir = $(datadir)/desktop-directories
 directory_in_files = \
-	xfce4-screensaver.directory.in  \
+	xfce4-screensaver.desktop.in  \
 	$(NULL)
-directory_DATA = $(directory_in_files:.directory.in=.directory)
+directory_DATA = $(directory_in_files:.desktop.in=.directory)
 
 menudir = $(sysconfdir)/xdg/menus
 menu_DATA = \

@@ -1,7 +1,7 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
 data/xfce4-screensaver-preferences.desktop.in
-data/xfce4-screensaver.directory.in
+data/xfce4-screensaver.desktop.in
 savers/floaters.c
 savers/popsquares.c
 savers/slideshow.c
