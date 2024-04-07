@@ -12,7 +12,7 @@ src/gs-auth-pam.c
 src/gs-listener-dbus.c
 src/gs-lock-plug.c
 src/xfce4-screensaver-command.c
-src/xfce4-screensaver-configure
+src/xfce4-screensaver-configure.py
 src/xfce4-screensaver-dialog.c
 src/xfce4-screensaver-dialog.ui
 src/xfce4-screensaver-preferences.c
