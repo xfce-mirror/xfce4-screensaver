@@ -47,7 +47,7 @@
 #include "xfce4-screensaver-preferences-ui.h"
 
 #define GPM_COMMAND "xfce4-power-manager-settings"
-#define CONFIGURE_COMMAND "xfce4-screensaver-configure"
+#define CONFIGURE_COMMAND "xfce4-screensaver-configure.py"
 
 enum {
     NAME_COLUMN = 0,

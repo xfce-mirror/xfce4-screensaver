@@ -41,7 +41,7 @@ bin_PROGRAMS = \
 	$(NULL)
 
 bin_SCRIPTS = \
-	xfce4-screensaver-configure    \
+	xfce4-screensaver-configure.py    \
 	$(NULL)
 
 libexec_PROGRAMS = \
@@ -274,7 +274,7 @@ EXTRA_DIST = \
 	debug-screensaver.sh              \
 	gs-marshal.list                   \
 	xfce4-screensaver.desktop.in      \
-	xfce4-screensaver-configure       \
+	xfce4-screensaver-configure.py    \
 	xfce4-screensaver-dialog.css      \
 	xfce4-screensaver-dialog.ui       \
 	xfce4-screensaver-preferences.ui  \
