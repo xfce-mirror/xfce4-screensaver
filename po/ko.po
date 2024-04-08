@@ -5,18 +5,18 @@
 # 
 # Translators:
 # Nick Schermer <nick@xfce.org>, 2024
-# Seong-ho Cho <darkcircle.0426@gmail.com>, 2024
 # Xfce Bot <transifex@xfce.org>, 2024
 # 1763f4a4329a2376c933c5e919a36cbc_341ca53 <1f851310383599d03339229d772e1290_119292>, 2024
+# Seong-ho Cho <darkcircle.0426@gmail.com>, 2024
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce-apps.xfce4-screensaver\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-04-06 00:50+0200\n"
+"POT-Creation-Date: 2024-04-08 00:50+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: 1763f4a4329a2376c933c5e919a36cbc_341ca53 <1f851310383599d03339229d772e1290_119292>, 2024\n"
+"Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/xfce/teams/16840/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,6 +38,14 @@ msgstr "화면 보호기 기본 설정 항목을 설정합니다"
 #: src/xfce4-screensaver.desktop.in.in:6
 msgid "Screensaver"
 msgstr "화면 보호기"
+
+#: data/xfce4-screensaver.desktop.in:4
+msgid "Screensavers"
+msgstr "화면 보호기"
+
+#: data/xfce4-screensaver.desktop.in:5
+msgid "Screensaver themes"
+msgstr "화면 보호기 테마"
 
 #: savers/floaters.c:89
 msgid "Show paths that images follow"
@@ -266,11 +274,12 @@ msgstr "화면 보호기 동작 억제 프로그램:\n"
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "%d초 동안 화면 보호기를 실행했습니다.\n"
 
-#: src/xfce4-screensaver-configure:151 src/xfce4-screensaver-preferences.c:710
+#: src/xfce4-screensaver-configure.py:151
+#: src/xfce4-screensaver-preferences.c:710
 msgid "Blank screen"
 msgstr "빈 화면"
 
-#: src/xfce4-screensaver-configure:152
+#: src/xfce4-screensaver-configure.py:152
 msgid ""
 "Powered by Display Power Management Signaling (DPMS),\n"
 "Xfce Screensaver can automatically suspend your displays\n"
@@ -292,125 +301,126 @@ msgstr ""
 "하십시오. 모니터 전원을 다른 시간 이후에 끌 때 설정\n"
 "값이 겹치는지 확인하십시오."
 
-#: src/xfce4-screensaver-configure:188
+#: src/xfce4-screensaver-configure.py:188
 msgid "Part of Xfce Screensaver"
 msgstr "Xfce 화면 보호기 프로그램의 일부"
 
-#: src/xfce4-screensaver-configure:199
+#: src/xfce4-screensaver-configure.py:199
 msgid "After blanking, put display to sleep after:"
 msgstr "화면을 비운 후, 다음 시간 이후 화면 대기 모드 설정:"
 
-#: src/xfce4-screensaver-configure:201 src/xfce4-screensaver-configure:205
+#: src/xfce4-screensaver-configure.py:201
+#: src/xfce4-screensaver-configure.py:205
 msgid "Never"
 msgstr "안함"
 
-#: src/xfce4-screensaver-configure:201
+#: src/xfce4-screensaver-configure.py:201
 msgid "60 seconds"
 msgstr "60초"
 
-#: src/xfce4-screensaver-configure:203
+#: src/xfce4-screensaver-configure.py:203
 msgid "After sleeping, switch display off after:"
 msgstr "화면 대기 설정 후, 다음 시간 이후 모니터 전원 끄기:"
 
-#: src/xfce4-screensaver-configure:205
+#: src/xfce4-screensaver-configure.py:205
 msgid "60 minutes"
 msgstr "60분"
 
-#: src/xfce4-screensaver-configure:208
+#: src/xfce4-screensaver-configure.py:208
 msgid "Max number of images"
 msgstr "최대 그림 갯수"
 
-#: src/xfce4-screensaver-configure:211
+#: src/xfce4-screensaver-configure.py:211
 msgid "Show paths"
 msgstr "경로 표시"
 
-#: src/xfce4-screensaver-configure:213
+#: src/xfce4-screensaver-configure.py:213
 msgid "Do rotations"
 msgstr "회전 수행"
 
-#: src/xfce4-screensaver-configure:215
+#: src/xfce4-screensaver-configure.py:215
 msgid "Print stats"
 msgstr "현황 표시"
 
-#: src/xfce4-screensaver-configure:218
+#: src/xfce4-screensaver-configure.py:218
 msgid "Location"
 msgstr "위치"
 
-#: src/xfce4-screensaver-configure:221
+#: src/xfce4-screensaver-configure.py:221
 msgid "Background color"
 msgstr "배경 색"
 
-#: src/xfce4-screensaver-configure:223
+#: src/xfce4-screensaver-configure.py:223
 msgid "Do not randomize images"
 msgstr "그림 임의 표시 안함"
 
-#: src/xfce4-screensaver-configure:225
+#: src/xfce4-screensaver-configure.py:225
 msgid "Do not stretch images"
 msgstr "그림 길이 늘이지 않음"
 
-#: src/xfce4-screensaver-configure:417
+#: src/xfce4-screensaver-configure.py:417
 msgid "Restore Defaults"
 msgstr "기본값 복원"
 
-#: src/xfce4-screensaver-configure:430
+#: src/xfce4-screensaver-configure.py:430
 msgid "Preferences"
 msgstr "기본 설정"
 
-#: src/xfce4-screensaver-configure:436
+#: src/xfce4-screensaver-configure.py:436
 msgid "About"
 msgstr "소개"
 
-#: src/xfce4-screensaver-configure:449
+#: src/xfce4-screensaver-configure.py:449
 msgid "Video"
 msgstr "동영상"
 
-#: src/xfce4-screensaver-configure:756
+#: src/xfce4-screensaver-configure.py:756
 msgid "Configure an individual screensaver"
 msgstr "개별 화면 보호기 설정"
 
-#: src/xfce4-screensaver-configure:758
+#: src/xfce4-screensaver-configure.py:758
 msgid "screensaver name to configure"
 msgstr "설정할 화면 보호기 이름"
 
-#: src/xfce4-screensaver-configure:760
+#: src/xfce4-screensaver-configure.py:760
 msgid "check if screensaver is configurable"
 msgstr "화면보호기를 설정할 수 있다면 표시"
 
-#: src/xfce4-screensaver-configure:764
+#: src/xfce4-screensaver-configure.py:764
 msgid "Unable to configure screensaver"
 msgstr "화면 보호기 프로그램을 설정할 수 없습니다"
 
-#: src/xfce4-screensaver-configure:768
+#: src/xfce4-screensaver-configure.py:768
 msgid "Screensaver required."
 msgstr "화면 보호기 프로그램이 필요합니다."
 
-#: src/xfce4-screensaver-configure:776
-#, c-format
+#: src/xfce4-screensaver-configure.py:776
+#, python-format
 msgid "File not found: %s"
 msgstr "파일이 없습니다: %s"
 
-#: src/xfce4-screensaver-configure:784
-#, c-format
+#: src/xfce4-screensaver-configure.py:784
+#, python-format
 msgid "Unrecognized file type: %s"
 msgstr "파일 형식을 알 수 없습니다: %s"
 
-#: src/xfce4-screensaver-configure:788
-#, c-format
+#: src/xfce4-screensaver-configure.py:788
+#, python-format
 msgid "Failed to process file: %s"
 msgstr "파일 처리에 실패했습니다: %s"
 
-#: src/xfce4-screensaver-configure:793
-#, c-format
+#: src/xfce4-screensaver-configure.py:793
+#, python-format
 msgid "Screensaver %s is configurable."
 msgstr "%s 화면 보호기 프로그램은 설정할 수 있습니다."
 
-#: src/xfce4-screensaver-configure:795
-#, c-format
+#: src/xfce4-screensaver-configure.py:795
+#, python-format
 msgid "Screensaver %s is not configurable."
 msgstr "%s 화면 보호기 프로그램은 설정할 수 없습니다."
 
-#: src/xfce4-screensaver-configure:799
-#, c-format
+#: src/xfce4-screensaver-configure.py:799
+#, python-format
 msgid "Screensaver %s has no configuration options."
 msgstr "%s 화면 보호기 프로그램에 설정 옵션이 없습니다."
 
