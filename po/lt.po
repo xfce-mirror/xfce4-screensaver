@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce-apps.xfce4-screensaver\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-04-08 00:50+0200\n"
+"POT-Creation-Date: 2024-04-09 00:50+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Moo, 2024\n"
 "Language-Team: Lithuanian (https://app.transifex.com/xfce/teams/16840/lt/)\n"
@@ -37,6 +37,12 @@ msgstr "Nusistatyti ekrano užsklandos nuostatas"
 #: src/xfce4-screensaver.desktop.in.in:6
 msgid "Screensaver"
 msgstr "Ekrano užsklanda"
+
+#: data/xfce4-screensaver-preferences.desktop.in:11
+msgid "settings;preferences;screensaver;lock screen;"
+msgstr ""
+"nustatymai;nuostatos;ekrano užsklanda;ekrano uzsklanda;ekrano "
+"užraktas;ekrano uzraktas;"
 
 #: data/xfce4-screensaver.desktop.in:4
 msgid "Screensavers"
