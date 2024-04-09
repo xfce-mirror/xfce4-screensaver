@@ -40,7 +40,7 @@ msgstr "Schermbeveiliging"
 
 #: data/xfce4-screensaver-preferences.desktop.in:11
 msgid "settings;preferences;screensaver;lock screen;"
-msgstr ""
+msgstr "instellingen;voorkeuren;schermbeveiliging;schermvergrendeling;"
 
 #: data/xfce4-screensaver.desktop.in:4
 msgid "Screensavers"
