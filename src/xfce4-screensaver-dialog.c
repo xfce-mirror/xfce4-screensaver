@@ -396,7 +396,7 @@ static gboolean privileged_initialization(int       *argc,
     ret = hack_uid(&nolock_reason, &orig_uid, &uid_message);
 
     if (nolock_reason) {
-        g_debug("Locking disabled: %s", nolock_reason);
+        gs_debug("Locking disabled: %s", nolock_reason);
     }
 
     if (uid_message && local_verbose) {
@@ -524,7 +524,7 @@ int main(int    argc,
 
     if (!lock_initialization(&argc, argv, &nolock_reason, verbose)) {
         if (nolock_reason != NULL) {
-            g_debug ("Screen locking disabled: %s", nolock_reason);
+            gs_debug ("Screen locking disabled: %s", nolock_reason);
             g_free (nolock_reason);
         }
 
