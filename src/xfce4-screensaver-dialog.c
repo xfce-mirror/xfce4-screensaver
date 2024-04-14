@@ -326,28 +326,8 @@ static gboolean popup_dialog_idle(gpointer user_data) {
 
     gs_profile_start(NULL);
 
-    widget = gs_lock_plug_new();
-
-    if (enable_logout) {
-        g_object_set(widget, "logout-enabled", TRUE, NULL);
-    }
-
-    if (logout_command) {
-        g_object_set(widget, "logout-command", logout_command, NULL);
-    }
-
-    if (enable_switch) {
-        g_object_set(widget, "switch-enabled", TRUE, NULL);
-    }
-
-    if (status_message) {
-        g_object_set(widget, "status-message", status_message, NULL);
-    }
-
-    g_object_set(widget, "monitor-index", monitor_index, NULL);
-
+    widget = gs_lock_plug_new(enable_logout, logout_command, enable_switch, status_message, monitor_index);
     gtk_widget_set_size_request(widget, dialog_width, dialog_height);
-
     g_signal_connect(GS_LOCK_PLUG(widget), "response", G_CALLBACK(response_cb), NULL);
     g_signal_connect(widget, "show", G_CALLBACK(show_cb), NULL);
 

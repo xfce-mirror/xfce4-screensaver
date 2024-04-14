@@ -61,7 +61,11 @@ typedef struct
 } GSLockPlugClass;
 
 GType       gs_lock_plug_get_type       (void);
-GtkWidget * gs_lock_plug_new            (void);
+GtkWidget * gs_lock_plug_new            (gboolean     logout_enabled,
+                                         const gchar *logout_command,
+                                         gboolean     switch_enabled,
+                                         const gchar *status_message,
+                                         gint         monitor_index);
 
 int         gs_lock_plug_run            (GSLockPlug  *plug);
 void        gs_lock_plug_set_sensitive  (GSLockPlug  *plug,

@@ -65,7 +65,8 @@
 #define LOGGED_IN_EMBLEM_SIZE 20
 #define LOGGED_IN_EMBLEM_ICON "emblem-default"
 
-static void gs_lock_plug_finalize   (GObject         *object);
+static void gs_lock_plug_constructed   (GObject         *object);
+static void gs_lock_plug_finalize      (GObject         *object);
 
 struct GSLockPlugPrivate {
     GtkWidget   *vbox;
@@ -1013,6 +1014,7 @@ gs_lock_plug_class_init (GSLockPlugClass *klass) {
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
     GtkBindingSet  *binding_set;
 
+    object_class->constructed  = gs_lock_plug_constructed;
     object_class->finalize     = gs_lock_plug_finalize;
     object_class->get_property = gs_lock_plug_get_property;
     object_class->set_property = gs_lock_plug_set_property;
@@ -1045,28 +1047,28 @@ gs_lock_plug_class_init (GSLockPlugClass *klass) {
                                                            NULL,
                                                            NULL,
                                                            FALSE,
-                                                           G_PARAM_READWRITE));
+                                                           G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
     g_object_class_install_property (object_class,
                                      PROP_LOGOUT_COMMAND,
                                      g_param_spec_string ("logout-command",
                                                           NULL,
                                                           NULL,
                                                           NULL,
-                                                          G_PARAM_READWRITE));
+                                                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
     g_object_class_install_property (object_class,
                                      PROP_STATUS_MESSAGE,
                                      g_param_spec_string ("status-message",
                                                           NULL,
                                                           NULL,
                                                           NULL,
-                                                          G_PARAM_READWRITE));
+                                                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
     g_object_class_install_property (object_class,
                                      PROP_SWITCH_ENABLED,
                                      g_param_spec_boolean ("switch-enabled",
                                                            NULL,
                                                            NULL,
                                                            FALSE,
-                                                           G_PARAM_READWRITE));
+                                                           G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
     g_object_class_install_property (object_class,
                                      PROP_MONITOR_INDEX,
                                      g_param_spec_int ("monitor-index",
@@ -1075,7 +1077,7 @@ gs_lock_plug_class_init (GSLockPlugClass *klass) {
                                                        0,
                                                        200,
                                                        0,
-                                                       G_PARAM_READWRITE));
+                                                       G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
 
     binding_set = gtk_binding_set_by_class (klass);
 
@@ -1573,8 +1575,6 @@ gs_lock_plug_add_login_window (GSLockPlug *plug) {
         gtk_widget_set_no_show_all (plug->priv->auth_switch_button, TRUE);
     }
 
-    redraw_background (plug);
-
     date_time_update (plug);
     gtk_widget_show_all (lock_dialog);
 
@@ -1693,6 +1693,15 @@ gs_lock_plug_init (GSLockPlug *plug) {
 }
 
 static void
+gs_lock_plug_constructed (GObject *object) {
+    GSLockPlug *plug = GS_LOCK_PLUG (object);
+
+    redraw_background (plug);
+
+    G_OBJECT_CLASS (gs_lock_plug_parent_class)->constructed (object);
+}
+
+static void
 gs_lock_plug_finalize (GObject *object) {
     GSLockPlug *plug;
 
@@ -1716,12 +1725,20 @@ gs_lock_plug_finalize (GObject *object) {
 }
 
 GtkWidget *
-gs_lock_plug_new (void) {
-    GtkWidget *result;
+gs_lock_plug_new (gboolean logout_enabled,
+                  const gchar *logout_command,
+                  gboolean switch_enabled,
+                  const gchar *status_message,
+                  gint monitor_index) {
+    GtkWidget *plug = g_object_new (GS_TYPE_LOCK_PLUG,
+                                    "logout-enabled", logout_enabled,
+                                    "logout-command", logout_command,
+                                    "switch-enabled", switch_enabled,
+                                    "status-message", status_message,
+                                    "monitor-index", monitor_index,
+                                    NULL);
 
-    result = g_object_new (GS_TYPE_LOCK_PLUG, NULL);
+    gtk_window_set_focus_on_map (GTK_WINDOW (plug), TRUE);
 
-    gtk_window_set_focus_on_map (GTK_WINDOW (result), TRUE);
-
-    return result;
+    return plug;
 }
