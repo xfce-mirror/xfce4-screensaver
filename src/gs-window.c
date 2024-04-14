@@ -28,13 +28,16 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-#include <gdk/gdkx.h>
 #include <gdk/gdkkeysyms.h>
 #include <gtk/gtk.h>
+#ifdef ENABLE_X11
+#include <gdk/gdkx.h>
 #include <gtk/gtkx.h>
-
-#ifdef HAVE_SHAPE_EXT
 #include <X11/extensions/shape.h>
+#endif
+#ifdef ENABLE_WAYLAND
+#include <gdk/gdkwayland.h>
+#include <libwlembed-gtk3/libwlembed-gtk.h>
 #endif
 
 #include "gs-debug.h"
@@ -43,6 +46,7 @@
 #include "gs-window.h"
 #include "subprocs.h"
 #include "xfce-desktop-utils.h"
+#include "gs-manager.h"
 
 static void     gs_window_finalize       (GObject       *object);
 
@@ -61,6 +65,7 @@ enum {
 #define INFO_BAR_SECONDS 30
 
 struct GSWindowPrivate {
+    GSManager       *manager;
     GdkMonitor      *monitor;
 
     GdkRectangle     geometry;
@@ -104,9 +109,7 @@ struct GSWindowPrivate {
 
     GTimer          *timer;
 
-#ifdef HAVE_SHAPE_EXT
     int              shape_event_base;
-#endif
 };
 
 enum {
@@ -144,6 +147,7 @@ set_invisible_cursor (GdkWindow *window,
     }
 }
 
+#ifdef ENABLE_X11
 /* derived from tomboy */
 static void
 gs_window_override_user_time (GSWindow *window) {
@@ -216,11 +220,17 @@ widget_clear_all_children (GtkWidget *widget) {
 
     gdk_x11_display_error_trap_pop_ignored (display);
 }
+#endif
 
 void
 gs_window_clear (GSWindow *window) {
+#ifdef ENABLE_X11
     GdkDisplay *display;
     g_return_if_fail (GS_IS_WINDOW (window));
+
+    if (!GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        return;
+    }
 
     gs_debug ("Clearing widgets");
 
@@ -238,6 +248,7 @@ gs_window_clear (GSWindow *window) {
 
     display = gtk_widget_get_display (GTK_WIDGET(window));
     gdk_display_flush (display);
+#endif
 }
 
 static cairo_region_t *
@@ -367,13 +378,15 @@ static void
 gs_window_real_realize (GtkWidget *widget) {
     GdkMonitor *monitor = GS_WINDOW (widget)->priv->monitor;
 
-    widget_set_best_visual (widget);
-
     if (GTK_WIDGET_CLASS (gs_window_parent_class)->realize) {
         GTK_WIDGET_CLASS (gs_window_parent_class)->realize (widget);
     }
 
-    gs_window_override_user_time (GS_WINDOW (widget));
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        gs_window_override_user_time (GS_WINDOW (widget));
+    }
+#endif
 
     gs_window_move_resize_window (GS_WINDOW (widget), TRUE, TRUE);
 
@@ -440,6 +453,7 @@ add_emit_deactivated_idle (GSWindow *window) {
     window->priv->deactivated_idle_id = g_idle_add (emit_deactivated_idle, window);
 }
 
+#ifdef ENABLE_X11
 static void
 gs_window_raise (GSWindow *window) {
     GdkWindow *win;
@@ -468,7 +482,6 @@ x11_window_is_ours (Window window) {
     return ret;
 }
 
-#ifdef HAVE_SHAPE_EXT
 static void
 unshape_window (GSWindow *window) {
     gdk_window_shape_combine_region (gtk_widget_get_window (GTK_WIDGET (window)),
@@ -476,7 +489,6 @@ unshape_window (GSWindow *window) {
                                      0,
                                      0);
 }
-#endif
 
 static void
 gs_window_xevent (GSWindow  *window,
@@ -514,13 +526,11 @@ gs_window_xevent (GSWindow  *window,
         }
         default:
             /* extension events */
-#ifdef HAVE_SHAPE_EXT
             if (ev->xany.type == (window->priv->shape_event_base + ShapeNotify)) {
                 /*XShapeEvent *xse = (XShapeEvent *) ev;*/
                 unshape_window (window);
                 gs_debug ("Window was reshaped!");
             }
-#endif
 
             break;
     }
@@ -556,7 +566,6 @@ select_popup_events (void) {
 
 static void
 window_select_shape_events (GSWindow *window) {
-#ifdef HAVE_SHAPE_EXT
     int            shape_error_base;
     GdkDisplay    *display;
 
@@ -572,8 +581,8 @@ window_select_shape_events (GSWindow *window) {
     }
 
     gdk_x11_display_error_trap_pop_ignored (display);
-#endif
 }
+#endif
 
 static gboolean
 gs_window_real_draw (GtkWidget *widget,
@@ -605,9 +614,13 @@ gs_window_real_show (GtkWidget *widget) {
     remove_watchdog_timer (window);
     add_watchdog_timer (window, 30);
 
-    select_popup_events ();
-    window_select_shape_events (window);
-    gdk_window_add_filter (NULL, (GdkFilterFunc)xevent_filter, window);
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        select_popup_events ();
+        window_select_shape_events (window);
+        gdk_window_add_filter (NULL, (GdkFilterFunc)xevent_filter, window);
+    }
+#endif
 }
 
 static void
@@ -710,7 +723,11 @@ gs_window_real_hide (GtkWidget *widget) {
 
     window = GS_WINDOW (widget);
 
-    gdk_window_remove_filter (NULL, (GdkFilterFunc)xevent_filter, window);
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        gdk_window_remove_filter (NULL, (GdkFilterFunc)xevent_filter, window);
+    }
+#endif
 
     remove_watchdog_timer (window);
 
@@ -785,7 +802,7 @@ error_watch (GIOChannel   *source,
 }
 
 static gboolean
-spawn_on_window (GSWindow *window,
+spawn_on_window (GtkWidget *socket,
                  char     *command,
                  int      *pid,
                  GIOFunc   watch_func,
@@ -811,18 +828,19 @@ spawn_on_window (GSWindow *window,
     }
 
     error = NULL;
-    envp = spawn_make_environment_for_display (gtk_widget_get_display (GTK_WIDGET (window)), NULL);
-    result = g_spawn_async_with_pipes (NULL,
-                                       argv,
-                                       envp,
-                                       G_SPAWN_DO_NOT_REAP_CHILD | G_SPAWN_SEARCH_PATH,
-                                       NULL,
-                                       NULL,
-                                       &child_pid,
-                                       NULL,
-                                       &standard_output,
-                                       redirect_stderr ? &standard_error : NULL,
-                                       &error);
+    envp = spawn_make_environment_for_display (socket);
+    result = spawn_async_with_pipes (socket,
+                                     NULL,
+                                     argv,
+                                     envp,
+                                     G_SPAWN_DO_NOT_REAP_CHILD | G_SPAWN_SEARCH_PATH,
+                                     NULL,
+                                     NULL,
+                                     &child_pid,
+                                     NULL,
+                                     &standard_output,
+                                     redirect_stderr ? &standard_error : NULL,
+                                     &error);
 
     if (!result) {
         gs_debug ("Could not start command '%s': %s", command, error->message);
@@ -873,15 +891,25 @@ spawn_on_window (GSWindow *window,
 }
 
 static void
-lock_plug_added (GtkWidget *widget,
-                 GSWindow  *window) {
-    gtk_widget_show (widget);
+lock_plug_added (GSWindow *window) {
+    gtk_widget_show (window->priv->lock_socket);
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+        // TODO: bug libwlembed -> set_child_packing intead of show/hide
+        gtk_box_set_child_packing (GTK_BOX (window->priv->vbox), window->priv->drawing_area, FALSE, FALSE, 0, GTK_PACK_END);
+    }
+#endif
 }
 
 static gboolean
-lock_plug_removed (GtkWidget *widget,
-                   GSWindow  *window) {
-    gtk_widget_hide (widget);
+lock_plug_removed (GSWindow *window) {
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+        // TODO: bug libwlembed -> set_child_packing intead of show/hide
+        gtk_box_set_child_packing (GTK_BOX (window->priv->vbox), window->priv->drawing_area, TRUE, TRUE, 0, GTK_PACK_START);
+    }
+#endif
+    gtk_widget_hide (window->priv->lock_socket);
     gtk_container_remove (GTK_CONTAINER (window->priv->overlay), GTK_WIDGET (window->priv->lock_box));
     window->priv->lock_box = NULL;
 
@@ -892,15 +920,13 @@ lock_plug_removed (GtkWidget *widget,
 }
 
 static void
-keyboard_plug_added (GtkWidget *widget,
-                     GSWindow  *window) {
-    gtk_widget_show (widget);
+keyboard_plug_added (GSWindow *window) {
+    gtk_widget_show (window->priv->keyboard_socket);
 }
 
 static gboolean
-keyboard_plug_removed (GtkWidget *widget,
-                       GSWindow  *window) {
-    gtk_widget_hide (widget);
+keyboard_plug_removed (GSWindow *window) {
+    gtk_widget_hide (window->priv->keyboard_socket);
     gtk_container_remove (GTK_CONTAINER (window->priv->overlay), GTK_WIDGET (window->priv->keyboard_socket));
 
     return TRUE;
@@ -975,9 +1001,24 @@ lock_socket_destroyed (GtkWidget *widget,
     window->priv->lock_socket = NULL;
 }
 
+static GtkWidget *
+socket_new (GSWindow *window) {
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        return gtk_socket_new ();
+    }
+#endif
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+        return wle_gtk_socket_new (gs_manager_get_compositor (window->priv->manager));
+    }
+#endif
+    return NULL;
+}
+
 static void
 create_keyboard_socket (GSWindow *window,
-                        guint32   id) {
+                        gulong    id) {
     GdkDisplay   *display;
     GdkMonitor   *monitor;
     GdkWindow    *g_window;
@@ -1004,20 +1045,24 @@ create_keyboard_socket (GSWindow *window,
         width = 1400; // Native width for onboard
     }
 
-    window->priv->keyboard_socket = gtk_socket_new ();
+    window->priv->keyboard_socket = socket_new (window);
     gtk_widget_set_size_request (window->priv->keyboard_socket, width, height);
     gtk_widget_set_halign (window->priv->keyboard_socket, GTK_ALIGN_CENTER);
     gtk_widget_set_valign (window->priv->keyboard_socket, GTK_ALIGN_END);
 
     g_signal_connect (window->priv->keyboard_socket, "destroy",
                       G_CALLBACK (keyboard_socket_destroyed), window);
-    g_signal_connect (window->priv->keyboard_socket, "plug_added",
-                      G_CALLBACK (keyboard_plug_added), window);
-    g_signal_connect (window->priv->keyboard_socket, "plug_removed",
-                      G_CALLBACK (keyboard_plug_removed), window);
+    g_signal_connect_swapped (window->priv->keyboard_socket, "plug_added",
+                              G_CALLBACK (keyboard_plug_added), window);
+    g_signal_connect_swapped (window->priv->keyboard_socket, "plug_removed",
+                              G_CALLBACK (keyboard_plug_removed), window);
 
     gtk_overlay_add_overlay (GTK_OVERLAY (window->priv->overlay), window->priv->keyboard_socket);
-    gtk_socket_add_id (GTK_SOCKET (window->priv->keyboard_socket), id);
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        gtk_socket_add_id (GTK_SOCKET (window->priv->keyboard_socket), id);
+    }
+#endif
 
     if (!window->priv->prefs->keyboard_displayed) {
         gtk_widget_hide (window->priv->keyboard_socket);
@@ -1074,6 +1119,12 @@ keyboard_process_finish (GSWindow *window) {
         g_spawn_close_pid (window->priv->keyboard_pid);
         window->priv->keyboard_pid = 0;
     }
+
+#ifdef ENABLE_WAYLAND
+    if (window->priv->keyboard_socket != NULL) {
+        keyboard_plug_removed (window);
+    }
+#endif
 }
 
 static gboolean
@@ -1095,12 +1146,16 @@ keyboard_process_watch (GIOChannel   *source,
         switch (status) {
             case G_IO_STATUS_NORMAL:
             {
-                guint32 id;
-                char    c;
-                gs_debug ("Keyboard command output: %s", line);
-                if (1 == sscanf (line, " %" G_GUINT32_FORMAT " %c", &id, &c)) {
-                    create_keyboard_socket (window, id);
+#ifdef ENABLE_X11
+                if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+                    gulong id;
+                    char c;
+                    gs_debug ("Keyboard command output: %s", line);
+                    if (1 == sscanf (line, " %lu %c", &id, &c)) {
+                        create_keyboard_socket (window, id);
+                    }
                 }
+#endif
             }
             break;
             case G_IO_STATUS_EOF:
@@ -1109,7 +1164,7 @@ keyboard_process_watch (GIOChannel   *source,
             case G_IO_STATUS_ERROR:
                 gs_debug ("Error reading from child: %s\n", error->message);
                 g_error_free (error);
-                return FALSE;
+                finished = TRUE;
             case G_IO_STATUS_AGAIN:
             default:
                 break;
@@ -1137,13 +1192,19 @@ embed_keyboard (GSWindow *window) {
             || window->priv->prefs->keyboard_command == NULL)
         return;
 
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+        create_keyboard_socket (window, 0);
+    }
+#endif
+
     gs_debug ("Adding embedded keyboard widget");
 
     /* FIXME: verify command is safe */
 
     gs_debug ("Running command: %s", window->priv->prefs->keyboard_command);
 
-    res = spawn_on_window (window,
+    res = spawn_on_window (window->priv->keyboard_socket,
                            window->priv->prefs->keyboard_command,
                            &window->priv->keyboard_pid,
                            (GIOFunc)keyboard_process_watch,
@@ -1157,8 +1218,8 @@ embed_keyboard (GSWindow *window) {
 
 static void
 create_lock_socket (GSWindow *window,
-                    guint32   id) {
-    window->priv->lock_socket = gtk_socket_new ();
+                    gulong    id) {
+    window->priv->lock_socket = socket_new (window);
     window->priv->lock_box = gtk_grid_new ();
     gtk_widget_set_halign (GTK_WIDGET (window->priv->lock_box),
                            GTK_ALIGN_CENTER);
@@ -1177,12 +1238,16 @@ create_lock_socket (GSWindow *window,
                       G_CALLBACK (lock_socket_show), window);
     g_signal_connect (window->priv->lock_socket, "destroy",
                       G_CALLBACK (lock_socket_destroyed), window);
-    g_signal_connect (window->priv->lock_socket, "plug_added",
-                      G_CALLBACK (lock_plug_added), window);
-    g_signal_connect (window->priv->lock_socket, "plug_removed",
-                      G_CALLBACK (lock_plug_removed), window);
+    g_signal_connect_swapped (window->priv->lock_socket, "plug-added",
+                              G_CALLBACK (lock_plug_added), window);
+    g_signal_connect_swapped (window->priv->lock_socket, "plug-removed",
+                              G_CALLBACK (lock_plug_removed), window);
 
-    gtk_socket_add_id (GTK_SOCKET (window->priv->lock_socket), id);
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        gtk_socket_add_id (GTK_SOCKET (window->priv->lock_socket), id);
+    }
+#endif
 
     if (window->priv->prefs->keyboard_enabled) {
         embed_keyboard (window);
@@ -1230,7 +1295,16 @@ static void
 popdown_dialog (GSWindow *window) {
     gs_window_dialog_finish (window);
 
-    gtk_widget_show (window->priv->drawing_area);
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        // TODO: bug libwlembed -> set_child_packing intead of show/hide
+        gtk_widget_show (window->priv->drawing_area);
+        // TODO: Avoids a critical warning due to GTK bug
+        // remove this if https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/6841 get merged
+        gtk_widget_set_can_focus (window->priv->drawing_area, TRUE);
+        gtk_widget_grab_focus (window->priv->drawing_area);
+    }
+#endif
 
     gs_window_clear (window);
     set_invisible_cursor (gtk_widget_get_window (GTK_WIDGET (window)), TRUE);
@@ -1241,14 +1315,8 @@ popdown_dialog (GSWindow *window) {
     window->priv->last_x = -1;
     window->priv->last_y = -1;
 
-    if (window->priv->lock_box != NULL) {
-        gtk_container_remove (GTK_CONTAINER (window->priv->overlay), GTK_WIDGET (window->priv->lock_box));
-        window->priv->lock_box = NULL;
-    }
-
-    if (window->priv->overlay != NULL) {
-        gtk_container_remove (GTK_CONTAINER (window->priv->vbox), GTK_WIDGET (window->priv->overlay));
-        window->priv->overlay = NULL;
+    if (window->priv->lock_socket != NULL) {
+        lock_plug_removed (window);
     }
 
     remove_popup_dialog_idle (window);
@@ -1276,11 +1344,15 @@ dialog_process_watch (GIOChannel   *source,
                 gs_debug ("Command output: %s", line);
 
                 if (strstr (line, "WINDOW ID=") != NULL) {
-                    guint32 id;
-                    char    c;
-                    if (1 == sscanf (line, " WINDOW ID= %" G_GUINT32_FORMAT " %c", &id, &c)) {
-                        create_lock_socket (window, id);
+#ifdef ENABLE_X11
+                    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+                        gulong id;
+                        char c;
+                        if (1 == sscanf (line, " WINDOW ID= %lu %c", &id, &c)) {
+                            create_lock_socket (window, id);
+                        }
                     }
+#endif
                 } else if (strstr (line, "NOTICE=") != NULL) {
                     if (strstr (line, "NOTICE=AUTH FAILED") != NULL) {
                         gs_debug ("Authorization failed");
@@ -1305,7 +1377,7 @@ dialog_process_watch (GIOChannel   *source,
             case G_IO_STATUS_ERROR:
                 gs_debug ("Error reading from child: %s\n", error->message);
                 g_error_free (error);
-                return FALSE;
+                finished = TRUE;
             case G_IO_STATUS_AGAIN:
             default:
                 break;
@@ -1317,10 +1389,13 @@ dialog_process_watch (GIOChannel   *source,
     }
 
     if (finished) {
-        popdown_dialog (window);
-
         if (window->priv->dialog_response == DIALOG_RESPONSE_OK) {
             add_emit_deactivated_idle (window);
+        } else {
+            /* do not notify dialog-up when the window is about to be destroyed,
+             * as this is unnecessary and may cause X11 errors related to grab
+             * and GtkSocket/GtkPlug (see also gs_manager.c:add_overlays) */
+            popdown_dialog (window);
         }
 
         window->priv->lock_watch_id = 0;
@@ -1415,13 +1490,24 @@ popup_dialog (GSWindow *window) {
         command = g_string_append (command, " --verbose");
     }
 
-    gtk_widget_hide (window->priv->drawing_area);
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        // TODO: bug libwlembed -> set_child_packing intead of show/hide
+        gtk_widget_hide (window->priv->drawing_area);
+    }
+#endif
 
     gtk_widget_queue_draw (GTK_WIDGET (window));
     set_invisible_cursor (gtk_widget_get_window (GTK_WIDGET (window)), FALSE);
 
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+        create_lock_socket (window, 0);
+    }
+#endif
+
     gs_debug ("Executing %s", command->str);
-    result = spawn_on_window (window,
+    result = spawn_on_window (window->priv->lock_socket,
                               command->str,
                               &window->priv->lock_pid,
                               (GIOFunc)dialog_process_watch,
@@ -1663,7 +1749,9 @@ gs_window_real_motion_notify_event (GtkWidget      *widget,
 
     display = gs_window_get_display (window);
     screen = gdk_display_get_default_screen (display);
-    min_distance = WidthOfScreen (gdk_x11_screen_get_xscreen (screen)) * min_percentage;
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+    min_distance = gdk_screen_get_width (screen) * min_percentage;
+G_GNUC_END_IGNORE_DEPRECATIONS
 
     /* if the last position was not set then don't detect motion */
     if (window->priv->last_x < 0 || window->priv->last_y < 0) {
@@ -1779,22 +1867,24 @@ gs_window_reposition (GSWindow *window) {
     gs_window_real_size_request (GTK_WIDGET (window), &requisition);
 }
 
+#ifdef ENABLE_X11
 static gboolean
 gs_window_real_grab_broken (GtkWidget          *widget,
                             GdkEventGrabBroken *event) {
     if (event->grab_window != NULL) {
-        gs_debug ("Grab broken on window %X %s, new grab on window %X",
-                  (guint32) GDK_WINDOW_XID (event->window),
+        gs_debug ("Grab broken on window %lX %s, new grab on window %lX",
+                  GDK_WINDOW_XID (event->window),
                   event->keyboard ? "keyboard" : "pointer",
-                  (guint32) GDK_WINDOW_XID (event->grab_window));
+                  GDK_WINDOW_XID (event->grab_window));
     } else {
-        gs_debug ("Grab broken on window %X %s, new grab is outside application",
-                  (guint32) GDK_WINDOW_XID (event->window),
+        gs_debug ("Grab broken on window %lX %s, new grab is outside application",
+                  GDK_WINDOW_XID (event->window),
                   event->keyboard ? "keyboard" : "pointer");
     }
 
     return FALSE;
 }
+#endif
 
 gboolean
 gs_window_is_obscured (GSWindow *window) {
@@ -1860,7 +1950,11 @@ gs_window_class_init (GSWindowClass *klass) {
     widget_class->scroll_event            = gs_window_real_scroll_event;
     widget_class->get_preferred_width     = gs_window_real_get_preferred_width;
     widget_class->get_preferred_height    = gs_window_real_get_preferred_height;
-    widget_class->grab_broken_event       = gs_window_real_grab_broken;
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        widget_class->grab_broken_event   = gs_window_real_grab_broken;
+    }
+#endif
     widget_class->visibility_notify_event = gs_window_real_visibility_notify_event;
 
     signals[ACTIVITY] =
@@ -1935,6 +2029,7 @@ gs_window_init (GSWindow *window) {
     window->priv->last_x = -1;
     window->priv->last_y = -1;
 
+    window->priv->manager = gs_manager_new ();
     window->priv->prefs = gs_prefs_new();
 
     gtk_window_set_decorated (GTK_WINDOW (window), FALSE);
@@ -1962,7 +2057,7 @@ gs_window_init (GSWindow *window) {
     gtk_widget_show (window->priv->vbox);
     gtk_container_add (GTK_CONTAINER (window), window->priv->vbox);
 
-    window->priv->drawing_area = gtk_drawing_area_new ();
+    window->priv->drawing_area = socket_new (window);
     gtk_widget_show (window->priv->drawing_area);
     gtk_widget_set_app_paintable (window->priv->drawing_area, TRUE);
     gtk_box_pack_start (GTK_BOX (window->priv->vbox),
@@ -1970,6 +2065,10 @@ gs_window_init (GSWindow *window) {
     g_signal_connect (window->priv->drawing_area,
                       "draw",
                       G_CALLBACK (on_drawing_area_draw),
+                      NULL);
+    g_signal_connect (window->priv->drawing_area,
+                      "plug-removed",
+                      G_CALLBACK (gtk_true),
                       NULL);
     create_info_bar (window);
 }
@@ -2022,6 +2121,7 @@ gs_window_finalize (GObject *object) {
 
     gs_window_dialog_finish (window);
     g_object_unref (window->priv->prefs);
+    g_object_unref (window->priv->manager);
 
     G_OBJECT_CLASS (gs_window_parent_class)->finalize (object);
 }
