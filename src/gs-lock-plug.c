@@ -1477,9 +1477,8 @@ get_draw_dimensions(GSLockPlug *plug,
     *screen_height = HeightOfScreen(gdk_x11_screen_get_xscreen(screen));
 }
 
-static gboolean
-redraw_background (gpointer data) {
-    GSLockPlug *plug = data;
+static void
+redraw_background (GSLockPlug *plug) {
     XfceBG    *bg;
     GdkPixbuf *pixbuf;
     gint       screen_width, screen_height, monitor_width, monitor_height, scale;
@@ -1489,7 +1488,6 @@ redraw_background (gpointer data) {
     get_draw_dimensions(plug, bg, &screen_width, &screen_height, &monitor_width, &monitor_height, &scale);
     pixbuf = xfce_bg_get_pixbuf(bg, screen_width, screen_height, monitor_width, monitor_height, scale);
     gtk_image_set_from_pixbuf(GTK_IMAGE(plug->priv->background_image), pixbuf);
-    return FALSE;
 }
 
 static void
@@ -1575,8 +1573,7 @@ gs_lock_plug_add_login_window (GSLockPlug *plug) {
         gtk_widget_set_no_show_all (plug->priv->auth_switch_button, TRUE);
     }
 
-    /* we need data set after the plug is created in this function so delay it */
-    g_idle_add (redraw_background, plug);
+    redraw_background (plug);
 
     date_time_update (plug);
     gtk_widget_show_all (lock_dialog);
