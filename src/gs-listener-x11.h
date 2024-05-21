@@ -23,6 +23,8 @@
 #ifndef SRC_GS_LISTENER_X11_H_
 #define SRC_GS_LISTENER_X11_H_
 
+#include "gs-listener.h"
+
 G_BEGIN_DECLS
 
 #define GS_TYPE_LISTENER_X11         (gs_listener_x11_get_type ())
@@ -36,22 +38,16 @@ typedef struct GSListenerX11Private GSListenerX11Private;
 
 typedef struct
 {
-    GObject               parent;
+    GSListener            parent;
     GSListenerX11Private *priv;
 } GSListenerX11;
 
 typedef struct
 {
-    GObjectClass          parent_class;
-
-    void         (* lock) (GSListenerX11 *listener);
-    void         (* activate) (GSListenerX11 *listener);
+    GSListenerClass parent_class;
 } GSListenerX11Class;
 
 GType                     gs_listener_x11_get_type                  (void);
-
-GSListenerX11            *gs_listener_x11_new                       (void);
-gboolean                  gs_listener_x11_acquire                   (GSListenerX11 *listener);
 
 G_END_DECLS
 
