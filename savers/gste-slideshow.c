@@ -594,6 +594,9 @@ op_load_image (GSTESlideshow *show,
 
     window_width = show->priv->window_width;
     window_height = show->priv->window_height;
+    if (window_width <= 1 || window_height <= 1) {
+        return;
+    }
 
     op_result = g_new0 (OpResult, 1);
 
