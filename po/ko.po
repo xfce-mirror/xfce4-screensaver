@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce-apps.xfce4-screensaver\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-04-08 00:50+0200\n"
+"POT-Creation-Date: 2024-04-09 00:50+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/xfce/teams/16840/ko/)\n"
@@ -38,6 +38,12 @@ msgstr "화면 보호기 기본 설정 항목을 설정합니다"
 #: src/xfce4-screensaver.desktop.in.in:6
 msgid "Screensaver"
 msgstr "화면 보호기"
+
+#: data/xfce4-screensaver-preferences.desktop.in:11
+msgid "settings;preferences;screensaver;lock screen;"
+msgstr ""
+"settings;설정;preferences;기본설정;기본;screensaver;스크린세이버;화면;보호기;화면보호기;lock "
+"screen;화면잠금;잠금;"
 
 #: data/xfce4-screensaver.desktop.in:4
 msgid "Screensavers"
