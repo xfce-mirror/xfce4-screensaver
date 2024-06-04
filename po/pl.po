@@ -615,7 +615,7 @@ msgstr "Zmień motyw po:"
 #: src/xfce4-screensaver-preferences.ui:997
 #: src/xfce4-screensaver-preferences.ui:1174
 msgid "minutes"
-msgstr "minut"
+msgstr "min"
 
 #: src/xfce4-screensaver-preferences.ui:771
 msgid "Activate screensaver when computer is idle"
