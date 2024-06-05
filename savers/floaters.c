@@ -197,9 +197,9 @@ struct _ScreenSaver {
     GList *floaters;
     gint max_floater_count;
 
-    gboolean should_do_rotations: 1;
-    gboolean should_show_paths : 1;
-    gboolean draw_ops_pending : 1;
+    guint should_do_rotations: 1;
+    guint should_show_paths : 1;
+    guint draw_ops_pending : 1;
 };
 
 static Path *path_new (Point *start_point,
