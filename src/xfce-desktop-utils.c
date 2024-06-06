@@ -129,8 +129,6 @@ spawn_command_line_on_display_sync (GdkDisplay  *display,
     char     **envp = NULL;
     gboolean   retval;
 
-    g_return_val_if_fail (command_line != NULL, FALSE);
-
     if (!g_shell_parse_argv (command_line, NULL, &argv, error)) {
         return FALSE;
     }

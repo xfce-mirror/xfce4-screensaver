@@ -179,12 +179,15 @@ process_is_running (const char * name) {
     int    num_processes;
     gchar *command = g_strdup_printf ("pidof %s | wc -l", name);
     FILE  *fp = popen(command, "r");
+    g_free (command);
+
+    if (fp == NULL)
+        return FALSE;
 
     if (fscanf(fp, "%d", &num_processes) != 1)
             num_processes = 0;
 
     pclose(fp);
-    g_free (command);
 
     if (num_processes > 0) {
         return TRUE;

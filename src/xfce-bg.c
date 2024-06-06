@@ -1496,22 +1496,28 @@ get_pixbuf_for_size (XfceBG *bg,
                 if (slide->fixed) {
                     FileSize *size = find_best_size (slide->file1,
                                      best_width, best_height);
-                    bg->pixbuf_cache =
-                        get_as_pixbuf_for_size (bg, size->file, monitor,
-                                    best_width, best_height);
+                    if (size != NULL) {
+                        bg->pixbuf_cache =
+                            get_as_pixbuf_for_size (bg, size->file, monitor,
+                                        best_width, best_height);
+                    }
                 } else {
                     FileSize *size;
-                    GdkPixbuf *p1, *p2;
+                    GdkPixbuf *p1 = NULL, *p2 = NULL;
 
                     size = find_best_size (slide->file1,
                                 best_width, best_height);
-                    p1 = get_as_pixbuf_for_size (bg, size->file, monitor,
-                                     best_width, best_height);
+                    if (size != NULL) {
+                        p1 = get_as_pixbuf_for_size (bg, size->file, monitor,
+                                         best_width, best_height);
+                    }
 
                     size = find_best_size (slide->file2,
                                 best_width, best_height);
-                    p2 = get_as_pixbuf_for_size (bg, size->file, monitor,
-                                     best_width, best_height);
+                    if (size != NULL) {
+                        p2 = get_as_pixbuf_for_size (bg, size->file, monitor,
+                                         best_width, best_height);
+                    }
 
                     if (p1 && p2)
                         bg->pixbuf_cache = blend (p1, p2, alpha);
