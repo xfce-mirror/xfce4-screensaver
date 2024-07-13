@@ -5,23 +5,23 @@
 # 
 # Translators:
 # 629cf3e396111bb8c5fb6664e2dbc91d, 2024
-# Casper, 2024
 # Ignacio Poggi <ignaciop.3@gmail.com>, 2024
 # Nick Schermer <nick@xfce.org>, 2024
-# Adolfo Jayme-Barrientos, 2024
+# Adolfo Jayme Barrientos, 2024
 # Xfce Bot <transifex@xfce.org>, 2024
 # Toni Estévez <toni.estevez@gmail.com>, 2024
 # Jaime Marquínez Ferrándiz, 2024
 # Pablo Lezaeta Reyes <prflr88@gmail.com>, 2024
+# Casper, 2024
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce-apps.xfce4-screensaver\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-04-08 00:50+0200\n"
+"POT-Creation-Date: 2024-04-09 00:50+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Pablo Lezaeta Reyes <prflr88@gmail.com>, 2024\n"
+"Last-Translator: Casper, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/xfce/teams/16840/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,6 +43,10 @@ msgstr "Establezca las preferencias del salvapantallas"
 #: src/xfce4-screensaver.desktop.in.in:6
 msgid "Screensaver"
 msgstr "Salvapantallas"
+
+#: data/xfce4-screensaver-preferences.desktop.in:11
+msgid "settings;preferences;screensaver;lock screen;"
+msgstr "configuración;preferencias;salvapantallas;pantalla de bloqueo;"
 
 #: data/xfce4-screensaver.desktop.in:4
 msgid "Screensavers"
