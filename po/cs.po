@@ -9,15 +9,16 @@
 # Nick Schermer <nick@xfce.org>, 2024
 # Michal Várady <miko.vaji@gmail.com>, 2024
 # Pavel Borecki <pavel.borecki@gmail.com>, 2024
+# a a, 2024
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce-apps.xfce4-screensaver\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-04-08 00:50+0200\n"
+"POT-Creation-Date: 2024-04-09 00:50+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>, 2024\n"
+"Last-Translator: a a, 2024\n"
 "Language-Team: Czech (https://app.transifex.com/xfce/teams/16840/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,7 +29,7 @@ msgstr ""
 #: data/xfce4-screensaver-preferences.desktop.in:3
 #: src/xfce4-screensaver.desktop.in.in:4
 msgid "Xfce Screensaver"
-msgstr ""
+msgstr "Šetřič obrazovky Xfce"
 
 #: data/xfce4-screensaver-preferences.desktop.in:4
 msgid "Set your screensaver preferences"
@@ -39,6 +40,10 @@ msgstr "Nastavte své předvolby pro šetřič obrazovky"
 #: src/xfce4-screensaver.desktop.in.in:6
 msgid "Screensaver"
 msgstr "Šetřič obrazovky"
+
+#: data/xfce4-screensaver-preferences.desktop.in:11
+msgid "settings;preferences;screensaver;lock screen;"
+msgstr ""
 
 #: data/xfce4-screensaver.desktop.in:4
 msgid "Screensavers"
@@ -328,7 +333,7 @@ msgstr "60 minut"
 
 #: src/xfce4-screensaver-configure.py:208
 msgid "Max number of images"
-msgstr ""
+msgstr "Maximální počet obrázků"
 
 #: src/xfce4-screensaver-configure.py:211
 msgid "Show paths"
@@ -336,7 +341,7 @@ msgstr "Ukázat cesty k souborům"
 
 #: src/xfce4-screensaver-configure.py:213
 msgid "Do rotations"
-msgstr ""
+msgstr "Točit obrázky"
 
 #: src/xfce4-screensaver-configure.py:215
 msgid "Print stats"
