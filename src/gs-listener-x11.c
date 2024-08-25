@@ -53,6 +53,7 @@ struct GSListenerX11Private {
     guint    lock_timeout;
     guint    timer_id;
     GSPrefs *prefs;
+    WnckScreen *wnck_screen;
 };
 
 enum {
@@ -118,16 +119,8 @@ get_x11_idle_info (guint *idle_time,
 }
 
 static gboolean
-check_fullscreen_window (void) {
-    WnckScreen *screen;
-    WnckWindow *window;
-
-    screen = wnck_screen_get_default ();
-    if (screen == NULL) {
-        return FALSE;
-    }
-
-    window = wnck_screen_get_active_window (screen);
+check_fullscreen_window (GSListenerX11 *listener) {
+    WnckWindow *window = wnck_screen_get_active_window (listener->priv->wnck_screen);
     if (window == NULL) {
         return FALSE;
     }
@@ -158,7 +151,7 @@ lock_timer (gpointer user_data) {
                   lock_time >= listener->priv->lock_timeout);
 
     if (listener->priv->prefs->fullscreen_inhibit) {
-        fullscreen_inhibition = check_fullscreen_window();
+        fullscreen_inhibition = check_fullscreen_window(listener);
     }
 
     gs_debug("Idle: %us, Saver: %s, Saver Timeout: %is, Lock: %s, Lock Timeout: %is, Lock Timer: %us, Lock Status: %s, Fullscreen: %s",
@@ -261,8 +254,13 @@ xroot_filter (GdkXEvent *xevent,
                     break;
 
                 case ScreenSaverOn:
-                    gs_debug("Activating screensaver on ScreenSaverOn");
-                    g_signal_emit (listener, signals[ACTIVATE], 0);
+                    if (listener->priv->prefs->fullscreen_inhibit && check_fullscreen_window (listener)) {
+                        gs_debug ("Fullscreen inhibit: ScreenSaver timer reset");
+                        reset_timer (listener, listener->priv->timeout);
+                    } else {
+                        gs_debug ("Activating screensaver on ScreenSaverOn");
+                        g_signal_emit (listener, signals[ACTIVATE], 0);
+                    }
                     break;
             }
         }
@@ -339,6 +337,7 @@ gs_listener_x11_init (GSListenerX11 *listener) {
     listener->priv->timeout = 0;
 
     listener->priv->prefs = gs_prefs_new();
+    listener->priv->wnck_screen = wnck_screen_get_default();
     gs_listener_x11_set_timeouts (listener);
     g_signal_connect_swapped(listener->priv->prefs, "changed", G_CALLBACK(gs_listener_x11_set_timeouts), listener);
 }
