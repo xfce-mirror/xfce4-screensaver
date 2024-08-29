@@ -144,30 +144,6 @@ _gs_prefs_set_cycle_timeout (GSPrefs *prefs,
 }
 
 static void
-_gs_prefs_set_dpms_sleep_timeout (GSPrefs *prefs,
-                                  int      value) {
-    if (value < 0)
-        value = 0;
-
-    if (value > 60)
-        value = 60;
-
-    prefs->dpms_sleep_timeout = value;
-}
-
-static void
-_gs_prefs_set_dpms_off_timeout (GSPrefs *prefs,
-                                int      value) {
-    if (value < 0)
-        value = 0;
-
-    if (value > 60)
-        value = 60;
-
-    prefs->dpms_off_timeout = value;
-}
-
-static void
 _gs_prefs_set_mode (GSPrefs    *prefs,
                     gint        mode) {
     prefs->mode = mode;
@@ -371,16 +347,6 @@ gs_prefs_load_from_settings (GSPrefs *prefs) {
                                     DEFAULT_KEY_CYCLE_DELAY);
     _gs_prefs_set_cycle_timeout (prefs, value);
 
-    value = xfconf_channel_get_double (prefs->priv->channel,
-                                       KEY_DPMS_SLEEP_AFTER,
-                                       DEFAULT_KEY_DPMS_SLEEP_AFTER);
-    _gs_prefs_set_dpms_sleep_timeout (prefs, (int)value);
-
-    value = xfconf_channel_get_double (prefs->priv->channel,
-                                       KEY_DPMS_OFF_AFTER,
-                                       DEFAULT_KEY_DPMS_OFF_AFTER);
-    _gs_prefs_set_dpms_off_timeout (prefs, (int)value);
-
     mode = xfconf_channel_get_int (prefs->priv->channel,
                                    KEY_MODE,
                                    DEFAULT_KEY_MODE);
@@ -517,16 +483,6 @@ key_changed_cb (XfconfChannel *channel,
 
         delay = xfconf_channel_get_int (channel, property, DEFAULT_KEY_CYCLE_DELAY);
         _gs_prefs_set_cycle_timeout (prefs, delay);
-    } else if (strcmp (property, KEY_DPMS_SLEEP_AFTER) == 0) {
-        double delay;
-
-        delay = xfconf_channel_get_double (channel, property, DEFAULT_KEY_DPMS_SLEEP_AFTER);
-        _gs_prefs_set_dpms_sleep_timeout (prefs, (int)delay);
-    } else if (strcmp (property, KEY_DPMS_OFF_AFTER) == 0) {
-        double delay;
-
-        delay = xfconf_channel_get_double (channel, property, DEFAULT_KEY_DPMS_OFF_AFTER);
-        _gs_prefs_set_dpms_off_timeout (prefs, (int)delay);
     } else if (strcmp (property, KEY_KEYBOARD_ENABLED) == 0) {
         gboolean enabled;
 
