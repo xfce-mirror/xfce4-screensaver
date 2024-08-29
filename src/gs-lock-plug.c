@@ -659,7 +659,7 @@ get_user_icon_from_accounts_service (void) {
                                                 FACE_ICON_SIZE, FACE_ICON_SIZE, FALSE,
                                                 &error);
     if (pixbuf == NULL) {
-        g_warning ("Could not load user avatar: %s", error->message);
+        gs_debug ("Could not load user avatar: %s", error->message);
         g_error_free (error);
     }
 
@@ -749,7 +749,7 @@ set_face_image (GSLockPlug *plug) {
         path = g_build_filename (g_get_home_dir(), ".face", NULL);
         pixbuf = gdk_pixbuf_new_from_file_at_scale (path, FACE_ICON_SIZE, FACE_ICON_SIZE, FALSE, &error);
         if (pixbuf == NULL) {
-            g_warning ("Could not load the user avatar: %s", error->message);
+            gs_debug ("Could not load user avatar: %s", error->message);
             g_error_free (error);
             return FALSE;
         }
