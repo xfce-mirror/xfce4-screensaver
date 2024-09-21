@@ -419,10 +419,7 @@ capslock_update (GSLockPlug *plug,
 }
 
 static gboolean
-is_capslock_on (void) {
-    GdkKeymap *keymap;
-
-    keymap = gdk_keymap_get_for_display (gdk_display_get_default());;
+is_capslock_on (GdkKeymap *keymap) {
     if (keymap == NULL)
         return FALSE;
 
@@ -514,7 +511,7 @@ run_destroy_handler (GSLockPlug *plug,
 static void
 run_keymap_handler (GdkKeymap  *keymap,
                     GSLockPlug *plug) {
-    capslock_update (plug, is_capslock_on ());
+    capslock_update (plug, is_capslock_on (keymap));
 }
 
 /* adapted from GTK+ gtkdialog.c */
@@ -776,6 +773,7 @@ set_face_image (GSLockPlug *plug) {
 static void
 gs_lock_plug_show (GtkWidget *widget) {
     GSLockPlug *plug = GS_LOCK_PLUG (widget);
+    GdkKeymap *keymap;
 
     gs_profile_start (NULL);
 
@@ -790,7 +788,9 @@ gs_lock_plug_show (GtkWidget *widget) {
         set_face_image (plug);
     }
 
-    capslock_update (plug, is_capslock_on ());
+    keymap = gdk_keymap_get_for_display (gtk_widget_get_display (GTK_WIDGET (plug)));
+
+    capslock_update (plug, is_capslock_on (keymap));
 
     restart_cancel_timeout (plug);
 
