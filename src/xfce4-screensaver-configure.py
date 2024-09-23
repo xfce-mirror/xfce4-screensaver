@@ -223,6 +223,8 @@ class DesktopScreensaverSettings(ScreensaverSettings):
                                       'label': _("Do not randomize images"), 'argument': '--sort-images'}
             options["no-stretch"] = {'id': 'no-stretch', 'type': 'checkbox',
                                      'label': _("Do not stretch images"), 'argument': '--no-stretch'}
+            options["no-crop"] = {'id': 'no-crop', 'type': 'checkbox',
+                                     'label': _("Do not crop images"), 'argument': '--no-crop'}
         return options
 
 
