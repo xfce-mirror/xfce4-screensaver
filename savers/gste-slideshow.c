@@ -68,6 +68,7 @@ struct GSTESlideshowPrivate {
     int              window_height;
     PangoColor      *background_color;
     gboolean         no_stretch_hint;
+    gboolean         no_crop_hint;
 
     guint            timeout_id;
 
@@ -80,7 +81,8 @@ enum {
     PROP_IMAGES_LOCATION,
     PROP_SORT_IMAGES,
     PROP_SOLID_BACKGROUND,
-    PROP_NO_STRETCH_HINT
+    PROP_NO_STRETCH_HINT,
+    PROP_NO_CROP_HINT
 };
 
 static GObjectClass *parent_class = NULL;
@@ -408,7 +410,8 @@ static GdkPixbuf *
 scale_pixbuf (GdkPixbuf *pixbuf,
               int        max_width,
               int        max_height,
-              gboolean   no_stretch_hint) {
+              gboolean   no_stretch_hint,
+              gboolean   no_crop_hint) {
     int        pw;
     int        ph;
     float      scale_factor_x = 1.0;
@@ -428,7 +431,7 @@ scale_pixbuf (GdkPixbuf *pixbuf,
     scale_factor_x = (float) max_width / (float) pw;
     scale_factor_y = (float) max_height / (float) ph;
 
-    if (scale_factor_x > scale_factor_y) {
+    if ((scale_factor_x > scale_factor_y && !no_crop_hint) || (scale_factor_x <= scale_factor_y && no_crop_hint)) {
         scale_factor = scale_factor_y;
     } else {
         scale_factor = scale_factor_x;
@@ -578,7 +581,7 @@ get_pixbuf (GSTESlideshow *show,
     pixbuf = get_pixbuf_from_location (show, location);
 
     if (pixbuf != NULL) {
-        scaled = scale_pixbuf (pixbuf, width, height, show->priv->no_stretch_hint);
+        scaled = scale_pixbuf (pixbuf, width, height, show->priv->no_stretch_hint, show->priv->no_crop_hint);
         g_object_unref (pixbuf);
     }
 
@@ -662,6 +665,14 @@ gste_slideshow_set_no_stretch_hint (GSTESlideshow *show,
     show->priv->no_stretch_hint = no_stretch_hint;
 }
 
+void gste_slideshow_set_no_crop_hint(GSTESlideshow *show,
+                                        gboolean no_crop_hint)
+{
+    g_return_if_fail(GSTE_IS_SLIDESHOW(show));
+
+    show->priv->no_crop_hint = no_crop_hint;
+}
+
 void
 gste_slideshow_set_background_color (GSTESlideshow *show,
                                      const char    *background_color) {
@@ -704,6 +715,9 @@ gste_slideshow_set_property (GObject            *object,
         case PROP_NO_STRETCH_HINT:
             gste_slideshow_set_no_stretch_hint (self, g_value_get_boolean (value));
             break;
+        case PROP_NO_CROP_HINT:
+            gste_slideshow_set_no_crop_hint(self, g_value_get_boolean(value));
+            break;
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
             break;
@@ -736,6 +750,9 @@ gste_slideshow_get_property (GObject    *object,
         }
         case PROP_NO_STRETCH_HINT:
             g_value_set_boolean (value, self->priv->no_stretch_hint);
+            break;
+        case PROP_NO_CROP_HINT:
+            g_value_set_boolean(value, self->priv->no_crop_hint);
             break;
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -859,6 +876,13 @@ gste_slideshow_class_init (GSTESlideshowClass *klass) {
     g_object_class_install_property (object_class,
                                      PROP_NO_STRETCH_HINT,
                                      g_param_spec_boolean ("no-stretch",
+                                                           NULL,
+                                                           NULL,
+                                                           FALSE,
+                                                           G_PARAM_READWRITE));
+    g_object_class_install_property (object_class,
+                                     PROP_NO_CROP_HINT,
+                                     g_param_spec_boolean ("no-crop",
                                                            NULL,
                                                            NULL,
                                                            FALSE,
