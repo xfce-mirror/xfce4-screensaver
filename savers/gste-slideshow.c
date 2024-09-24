@@ -431,7 +431,7 @@ scale_pixbuf (GdkPixbuf *pixbuf,
     scale_factor_x = (float) max_width / (float) pw;
     scale_factor_y = (float) max_height / (float) ph;
 
-    if ((scale_factor_x > scale_factor_y && !no_crop_hint) || (scale_factor_x <= scale_factor_y && no_crop_hint)) {
+    if ((scale_factor_x > scale_factor_y && no_crop_hint) || (scale_factor_x <= scale_factor_y && !no_crop_hint)) {
         scale_factor = scale_factor_y;
     } else {
         scale_factor = scale_factor_x;
