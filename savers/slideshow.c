@@ -47,6 +47,7 @@ main (int argc, char **argv) {
     char          *background_color = NULL;
     gboolean       sort_images = FALSE;
     gboolean       no_stretch = FALSE;
+    gboolean       no_crop = FALSE;
     GOptionEntry   entries[] = {
         {
             "location", 0, 0, G_OPTION_ARG_STRING, &location,
@@ -63,6 +64,10 @@ main (int argc, char **argv) {
         {
             "no-stretch", 0, 0, G_OPTION_ARG_NONE, &no_stretch,
             N_("Do not try to stretch images on screen"), NULL
+        },
+        {
+            "no-crop", 0, 0, G_OPTION_ARG_NONE, &no_crop,
+            N_("Do not crop images to the screen size"), NULL
         },
         { NULL }
     };
@@ -117,6 +122,10 @@ main (int argc, char **argv) {
 
     if (no_stretch) {
         g_object_set (engine, "no-stretch", no_stretch, NULL);
+    }
+
+    if (no_crop) {
+        g_object_set(engine, "no-crop", no_crop, NULL);
     }
 
     gtk_container_add (GTK_CONTAINER (window), GTK_WIDGET (engine));
