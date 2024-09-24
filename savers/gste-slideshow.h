@@ -65,6 +65,9 @@ void            gste_slideshow_set_background_color (GSTESlideshow *show,
 void            gste_slideshow_set_no_stretch_hint  (GSTESlideshow *show,
                                                      gboolean       no_stretch_hint);
 
+void            gste_slideshow_set_no_crop_hint  (GSTESlideshow *show,
+                                                     gboolean       no_crop_hint);
+
 G_END_DECLS
 
 #endif /* SAVERS_GSTE_SLIDESHOW_H_ */
