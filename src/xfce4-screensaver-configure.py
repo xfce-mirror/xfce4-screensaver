@@ -224,7 +224,7 @@ class DesktopScreensaverSettings(ScreensaverSettings):
             options["no-stretch"] = {'id': 'no-stretch', 'type': 'checkbox',
                                      'label': _("Do not stretch images"), 'argument': '--no-stretch'}
             options["no-crop"] = {'id': 'no-crop', 'type': 'checkbox',
-                                     'label': _("Do not crop images"), 'argument': '--no-crop'}
+                                  'label': _("Do not crop images"), 'argument': '--no-crop', 'default': True}
         return options
 
 
@@ -459,12 +459,16 @@ class ConfigurationWindow(Gtk.Window):
 
         if opt["type"] == "checkbox":
             widget = Gtk.CheckButton.new_with_label("")
+            try:
+                default = opt["default"]
+            except:
+                default = False
 
             if self.xfconf_settings.check_property(opt['id']):
                 active = self.xfconf_settings.get_boolean(opt['id'])
-                self.defaults[opt['id']] = False
+                self.defaults[opt['id']] = default
             else:
-                active = self.get_boolean(opt['id'], False)
+                active = self.get_boolean(opt['id'], default)
 
             widget.set_active(active)
             widget.connect("toggled", self.on_checkbutton_toggle, opt["id"])
