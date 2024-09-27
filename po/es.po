@@ -7,7 +7,7 @@
 # 629cf3e396111bb8c5fb6664e2dbc91d, 2024
 # Ignacio Poggi <ignaciop.3@gmail.com>, 2024
 # Nick Schermer <nick@xfce.org>, 2024
-# Adolfo Jayme Barrientos, 2024
+# Adolfo Jayme-Barrientos, 2024
 # Xfce Bot <transifex@xfce.org>, 2024
 # Toni Estévez <toni.estevez@gmail.com>, 2024
 # Jaime Marquínez Ferrándiz, 2024
@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce-apps.xfce4-screensaver\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-04-09 00:50+0200\n"
+"POT-Creation-Date: 2024-09-27 00:52+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Casper, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/xfce/teams/16840/es/)\n"
@@ -109,29 +109,33 @@ msgstr ""
 "Debe especificar una imagen. Consulte «--help» para obtener información "
 "sobre su uso.\n"
 
-#: savers/slideshow.c:53
+#: savers/slideshow.c:54
 msgid "Location to get images from"
 msgstr "Ubicación donde obtener las imágenes"
 
-#: savers/slideshow.c:53
+#: savers/slideshow.c:54
 msgid "PATH"
 msgstr "RUTA"
 
-#: savers/slideshow.c:57
+#: savers/slideshow.c:58
 msgid "Color to use for images background"
 msgstr "Color que utilizar como fondo de las imágenes"
 
-#: savers/slideshow.c:57
+#: savers/slideshow.c:58
 msgid "\"#rrggbb\""
 msgstr "«#rrggbb»"
 
-#: savers/slideshow.c:61
+#: savers/slideshow.c:62
 msgid "Do not randomize pictures from location"
 msgstr "No seleccionar al azar las imágenes de la ubicación"
 
-#: savers/slideshow.c:65
+#: savers/slideshow.c:66
 msgid "Do not try to stretch images on screen"
 msgstr "No intentar estirar las imágenes en la pantalla"
+
+#: savers/slideshow.c:70
+msgid "Do not crop images to the screen size"
+msgstr "No recorte las imágenes al tamaño de la pantalla"
 
 #: savers/xfce-floaters.desktop.in.in:3
 msgid "Floating Xfce"
@@ -199,12 +203,12 @@ msgstr "no conectado al bus de mensajes"
 msgid "screensaver already running in this session"
 msgstr "el salvapantallas ya se está ejecutando en esta sesión"
 
-#: src/gs-lock-plug.c:296
+#: src/gs-lock-plug.c:300
 msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, %B %e %H:%M"
 
-#: src/gs-lock-plug.c:387
+#: src/gs-lock-plug.c:391
 msgid "Time has expired."
 msgstr "Se ha agotado el tiempo."
 
@@ -376,68 +380,72 @@ msgstr "No aleatorizar imágenes"
 msgid "Do not stretch images"
 msgstr "No estirar imágenes"
 
-#: src/xfce4-screensaver-configure.py:417
+#: src/xfce4-screensaver-configure.py:227
+msgid "Do not crop images"
+msgstr "No recortar imágenes"
+
+#: src/xfce4-screensaver-configure.py:419
 msgid "Restore Defaults"
 msgstr "Restaurar valores predeterminados"
 
-#: src/xfce4-screensaver-configure.py:430
+#: src/xfce4-screensaver-configure.py:432
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: src/xfce4-screensaver-configure.py:436
+#: src/xfce4-screensaver-configure.py:438
 msgid "About"
 msgstr "Acerca de"
 
-#: src/xfce4-screensaver-configure.py:449
+#: src/xfce4-screensaver-configure.py:451
 msgid "Video"
 msgstr "Vídeo"
 
-#: src/xfce4-screensaver-configure.py:756
+#: src/xfce4-screensaver-configure.py:762
 msgid "Configure an individual screensaver"
 msgstr "Configurar un salvapantallas individual"
 
-#: src/xfce4-screensaver-configure.py:758
+#: src/xfce4-screensaver-configure.py:764
 msgid "screensaver name to configure"
 msgstr "nombre del salvapantallas a configurar"
 
-#: src/xfce4-screensaver-configure.py:760
+#: src/xfce4-screensaver-configure.py:766
 msgid "check if screensaver is configurable"
 msgstr "marcar si el salvapantallas es configurable"
 
-#: src/xfce4-screensaver-configure.py:764
+#: src/xfce4-screensaver-configure.py:770
 msgid "Unable to configure screensaver"
 msgstr "No se puede configurar el salvapantallas"
 
-#: src/xfce4-screensaver-configure.py:768
+#: src/xfce4-screensaver-configure.py:774
 msgid "Screensaver required."
 msgstr "Es necesario un salvapantallas."
 
-#: src/xfce4-screensaver-configure.py:776
+#: src/xfce4-screensaver-configure.py:782
 #, python-format
 msgid "File not found: %s"
 msgstr "Archivo no encontrado: %s"
 
-#: src/xfce4-screensaver-configure.py:784
+#: src/xfce4-screensaver-configure.py:790
 #, python-format
 msgid "Unrecognized file type: %s"
 msgstr "Tipo de archivo no reconocido: %s"
 
-#: src/xfce4-screensaver-configure.py:788
+#: src/xfce4-screensaver-configure.py:794
 #, python-format
 msgid "Failed to process file: %s"
 msgstr "No se ha podido procesar el archivo: %s"
 
-#: src/xfce4-screensaver-configure.py:793
+#: src/xfce4-screensaver-configure.py:799
 #, python-format
 msgid "Screensaver %s is configurable."
 msgstr "El salvapantallas %s se puede configurar."
 
-#: src/xfce4-screensaver-configure.py:795
+#: src/xfce4-screensaver-configure.py:801
 #, python-format
 msgid "Screensaver %s is not configurable."
 msgstr "El salvapantallas %s no se puede configurar."
 
-#: src/xfce4-screensaver-configure.py:799
+#: src/xfce4-screensaver-configure.py:805
 #, python-format
 msgid "Screensaver %s has no configuration options."
 msgstr "El salvapantallas %s no tiene opciones de configuración."
