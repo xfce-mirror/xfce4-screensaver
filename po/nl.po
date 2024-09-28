@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce-apps.xfce4-screensaver\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-04-09 00:50+0200\n"
+"POT-Creation-Date: 2024-09-27 00:52+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Pjotr <pjotrvertaalt@gmail.com>, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/xfce/teams/16840/nl/)\n"
@@ -102,29 +102,33 @@ msgid "You must specify one image.  See --help for usage information.\n"
 msgstr ""
 "U dient één afbeelding op te geven. Zie --help voor gebruiksinformatie.\n"
 
-#: savers/slideshow.c:53
+#: savers/slideshow.c:54
 msgid "Location to get images from"
 msgstr "Locatie om afbeeldingen vanuit op te halen"
 
-#: savers/slideshow.c:53
+#: savers/slideshow.c:54
 msgid "PATH"
 msgstr "PAD"
 
-#: savers/slideshow.c:57
+#: savers/slideshow.c:58
 msgid "Color to use for images background"
 msgstr "Kleur om te gebruiken voor achtergrond van afbeeldingen"
 
-#: savers/slideshow.c:57
+#: savers/slideshow.c:58
 msgid "\"#rrggbb\""
 msgstr "\"#rrggbb\""
 
-#: savers/slideshow.c:61
+#: savers/slideshow.c:62
 msgid "Do not randomize pictures from location"
 msgstr "Geef de afbeeldingen vanuit de locatie niet willekeurig weer"
 
-#: savers/slideshow.c:65
+#: savers/slideshow.c:66
 msgid "Do not try to stretch images on screen"
 msgstr "Probeer niet om afbeeldingen op het scherm uit te rekken"
+
+#: savers/slideshow.c:70
+msgid "Do not crop images to the screen size"
+msgstr "Maak afbeeldingen niet passend voor de schermgrootte"
 
 #: savers/xfce-floaters.desktop.in.in:3
 msgid "Floating Xfce"
@@ -192,12 +196,12 @@ msgstr "niet verbonden met de message bus"
 msgid "screensaver already running in this session"
 msgstr "schermbeveiliging is reeds actief in deze sessie"
 
-#: src/gs-lock-plug.c:296
+#: src/gs-lock-plug.c:300
 msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, %B %e   %H:%M"
 
-#: src/gs-lock-plug.c:387
+#: src/gs-lock-plug.c:391
 msgid "Time has expired."
 msgstr "Tijd is verlopen."
 
@@ -373,68 +377,72 @@ msgstr "Toon afbeeldingen niet in willekeurige volgorde"
 msgid "Do not stretch images"
 msgstr "Rek afbeeldingen niet uit"
 
-#: src/xfce4-screensaver-configure.py:417
+#: src/xfce4-screensaver-configure.py:227
+msgid "Do not crop images"
+msgstr "Afbeeldingen niet passend maken"
+
+#: src/xfce4-screensaver-configure.py:419
 msgid "Restore Defaults"
 msgstr "Standaardinstellingen terugzetten"
 
-#: src/xfce4-screensaver-configure.py:430
+#: src/xfce4-screensaver-configure.py:432
 msgid "Preferences"
 msgstr "Voorkeuren"
 
-#: src/xfce4-screensaver-configure.py:436
+#: src/xfce4-screensaver-configure.py:438
 msgid "About"
 msgstr "Over"
 
-#: src/xfce4-screensaver-configure.py:449
+#: src/xfce4-screensaver-configure.py:451
 msgid "Video"
 msgstr "Beeld"
 
-#: src/xfce4-screensaver-configure.py:756
+#: src/xfce4-screensaver-configure.py:762
 msgid "Configure an individual screensaver"
 msgstr "Stel een individuele schermbeveiliging in"
 
-#: src/xfce4-screensaver-configure.py:758
+#: src/xfce4-screensaver-configure.py:764
 msgid "screensaver name to configure"
 msgstr "in te stellen naam van schermbeveiliging"
 
-#: src/xfce4-screensaver-configure.py:760
+#: src/xfce4-screensaver-configure.py:766
 msgid "check if screensaver is configurable"
 msgstr "kijk na of schermbeveiliging instelbaar is"
 
-#: src/xfce4-screensaver-configure.py:764
+#: src/xfce4-screensaver-configure.py:770
 msgid "Unable to configure screensaver"
 msgstr "Kan schermbeveiliging niet instellen"
 
-#: src/xfce4-screensaver-configure.py:768
+#: src/xfce4-screensaver-configure.py:774
 msgid "Screensaver required."
 msgstr "Schermbeveiliging vereist."
 
-#: src/xfce4-screensaver-configure.py:776
+#: src/xfce4-screensaver-configure.py:782
 #, python-format
 msgid "File not found: %s"
 msgstr "Bestand niet gevonden: %s"
 
-#: src/xfce4-screensaver-configure.py:784
+#: src/xfce4-screensaver-configure.py:790
 #, python-format
 msgid "Unrecognized file type: %s"
 msgstr "Niet-herkend bestandtype: %s"
 
-#: src/xfce4-screensaver-configure.py:788
+#: src/xfce4-screensaver-configure.py:794
 #, python-format
 msgid "Failed to process file: %s"
 msgstr "Kon bestand niet verwerken: %s"
 
-#: src/xfce4-screensaver-configure.py:793
+#: src/xfce4-screensaver-configure.py:799
 #, python-format
 msgid "Screensaver %s is configurable."
 msgstr "Schermbeveiliging %s is instelbaar."
 
-#: src/xfce4-screensaver-configure.py:795
+#: src/xfce4-screensaver-configure.py:801
 #, python-format
 msgid "Screensaver %s is not configurable."
 msgstr "Schermbeveiliging %s is niet instelbaar."
 
-#: src/xfce4-screensaver-configure.py:799
+#: src/xfce4-screensaver-configure.py:805
 #, python-format
 msgid "Screensaver %s has no configuration options."
 msgstr "Schermbeveiliging %s heeft geen instellingsopties."
