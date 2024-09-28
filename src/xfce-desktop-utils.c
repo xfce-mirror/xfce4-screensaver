@@ -25,17 +25,18 @@
 
 #include <config.h>
 
-#include <string.h>
 #include <gio/gio.h>
-#include <glib.h>
-#include <gdk/gdk.h>
-#include <gtk/gtk.h>
-#include <gtk/gtkx.h>
+#ifdef ENABLE_X11
+#include <gdk/gdkx.h>
+#endif
+#ifdef ENABLE_WAYLAND
+#include <gdk/gdkwayland.h>
+#include <libwlembed-gtk3/libwlembed-gtk3.h>
+#endif
 
 #include <libxfce4util/libxfce4util.h>
 
-#include <xfce-desktop-utils.h>
-
+#include "xfce-desktop-utils.h"
 #include "gs-debug.h"
 
 /**
@@ -80,137 +81,65 @@ xfce_gdk_spawn_command_line_on_screen (GdkScreen    *screen,
 }
 
 gchar **
-spawn_make_environment_for_display (GdkDisplay  *display,
-                                    gchar      **envp) {
-    gchar       **retval = NULL;
-    const gchar  *display_name;
-    gint          display_index = -1;
-    gint          i, env_len;
-    gboolean      own_envp = FALSE;
+spawn_make_environment_for_display (GtkWidget *socket) {
+    gchar **retval = NULL;
+    const gchar *display_name = gdk_display_get_name (gdk_display_get_default ());
+    gchar **envp = g_get_environ ();
+    gint env_len = g_strv_length (envp);
 
-    g_return_val_if_fail (GDK_IS_DISPLAY (display), NULL);
-
-    if (envp == NULL) {
-        envp = g_get_environ ();
-        own_envp = TRUE;
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        retval = g_new0 (char *, env_len + 1);
+        for (gint i = 0; i < env_len; i++) {
+            if (strcmp (envp[i], "DISPLAY") == 0) {
+                retval[i] = g_strconcat ("DISPLAY=", display_name, NULL);
+            } else {
+                retval[i] = g_strdup (envp[i]);
+            }
+        }
     }
-
-    for (env_len = 0; envp[env_len]; env_len++)
-        if (strncmp (envp[env_len], "DISPLAY", strlen ("DISPLAY")) == 0)
-            display_index = env_len;
-
-    retval = g_new (char *, env_len + 1);
-    retval[env_len] = NULL;
-
-    display_name = gdk_display_get_name (display);
-
-    for (i = 0; i < env_len; i++)
-        if (i == display_index)
-            retval[i] = g_strconcat ("DISPLAY=", display_name, NULL);
-        else
+#endif
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+        retval = g_new0 (char *, env_len + 3);
+        for (gint i = 0; i < env_len; i++) {
             retval[i] = g_strdup (envp[i]);
-
-    if (own_envp)
-        g_strfreev (envp);
-
-    g_assert (i == env_len);
-
-    return retval;
-}
-
-static gboolean
-spawn_command_line_on_display_sync (GdkDisplay  *display,
-                                    const gchar  *command_line,
-                                    char        **standard_output,
-                                    char        **standard_error,
-                                    int          *exit_status,
-                                    GError      **error) {
-    char     **argv = NULL;
-    char     **envp = NULL;
-    gboolean   retval;
-
-    if (!g_shell_parse_argv (command_line, NULL, &argv, error)) {
-        return FALSE;
+        }
+        retval[env_len] = g_strdup_printf ("WAYLAND_DISPLAY=%s", display_name);
+        retval[env_len + 1] = g_strdup_printf ("WLE_EMBEDDING_TOKEN=%s", wle_gtk_socket_get_embedding_token (WLE_GTK_SOCKET (socket)));
     }
+#endif
 
-    envp = spawn_make_environment_for_display (display, NULL);
-
-    retval = g_spawn_sync (NULL,
-                           argv,
-                           envp,
-                           G_SPAWN_SEARCH_PATH,
-                           NULL,
-                           NULL,
-                           standard_output,
-                           standard_error,
-                           exit_status,
-                           error);
-
-    g_strfreev (argv);
     g_strfreev (envp);
 
     return retval;
 }
 
-static GdkVisual *
-get_best_visual_for_display (GdkDisplay *display) {
-    GdkScreen     *screen;
-    char          *command;
-    char          *std_output;
-    int            exit_status;
-    GError        *error;
-    unsigned long  v;
-    char           c;
-    GdkVisual     *visual;
-    gboolean       res;
-
-    visual = NULL;
-    screen = gdk_display_get_default_screen (display);
-
-    command = g_build_filename (LIBEXECDIR, "xfce4-screensaver-gl-helper", NULL);
-
-    error = NULL;
-    std_output = NULL;
-    res = spawn_command_line_on_display_sync (display,
-                                              command,
-                                              &std_output,
-                                              NULL,
-                                              &exit_status,
-                                              &error);
-    if (!res) {
-        gs_debug ("Could not run command '%s': %s", command, error->message);
-        g_error_free (error);
-        goto out;
+gboolean
+spawn_async_with_pipes (GtkWidget *socket,
+                        const gchar *working_directory,
+                        gchar **argv,
+                        gchar **envp,
+                        GSpawnFlags flags,
+                        GSpawnChildSetupFunc child_setup,
+                        gpointer user_data,
+                        GPid *child_pid,
+                        gint *standard_input,
+                        gint *standard_output,
+                        gint *standard_error,
+                        GError **error) {
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        return g_spawn_async_with_pipes (working_directory, argv, envp, flags, child_setup, user_data,
+                                         child_pid, standard_input, standard_output, standard_error, error);
     }
-
-    if (1 == sscanf (std_output, "0x%lx %c", &v, &c)) {
-        if (v != 0) {
-            VisualID      visual_id;
-
-            visual_id = (VisualID) v;
-            visual = gdk_x11_screen_lookup_visual (screen, visual_id);
-
-            gs_debug ("Found best GL visual for display %s: 0x%x",
-                      gdk_display_get_name (display),
-                      (unsigned int) visual_id);
-        }
+#endif
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+        return wle_embedded_compositor_spawn_with_pipes (wle_gtk_socket_get_embedded_compositor (WLE_GTK_SOCKET (socket)),
+                                                         working_directory, argv, envp, flags, child_setup, user_data,
+                                                         child_pid, standard_input, standard_output, standard_error, error);
     }
-out:
-    g_free (std_output);
-    g_free (command);
-
-    return g_object_ref (visual);
-}
-
-void
-widget_set_best_visual (GtkWidget *widget) {
-    GdkVisual *visual;
-
-    g_return_if_fail (widget != NULL);
-
-    visual = get_best_visual_for_display (gtk_widget_get_display (widget));
-    if (visual != NULL) {
-        gtk_widget_set_visual (widget, visual);
-        g_object_unref (visual);
-    }
+#endif
+    return FALSE;
 }
