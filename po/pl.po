@@ -118,7 +118,7 @@ msgstr "Kolor do użycia dla tła obrazów"
 
 #: savers/slideshow.c:58
 msgid "\"#rrggbb\""
-msgstr "\"#rrggbb\""
+msgstr "„#rrggbb”"
 
 #: savers/slideshow.c:62
 msgid "Do not randomize pictures from location"
@@ -255,7 +255,7 @@ msgstr ""
 
 #: src/xfce4-screensaver-command.c:92
 msgid "The calling application that is inhibiting the screensaver"
-msgstr "Aplikacja wywołująca, która powstrzymuje wygaszacz ekranu"
+msgstr "Program wywołujący, który powstrzymuje wygaszacz ekranu"
 
 #: src/xfce4-screensaver-command.c:96
 msgid "The reason for inhibiting the screensaver"
@@ -264,7 +264,7 @@ msgstr "Powód powstrzymania wygaszacza ekranu"
 #: src/xfce4-screensaver-command.c:100 src/xfce4-screensaver-dialog.c:65
 #: src/xfce4-screensaver.c:57
 msgid "Version of this application"
-msgstr "Wersja tej aplikacji"
+msgstr "Wersja tego programu"
 
 #: src/xfce4-screensaver-command.c:209
 #, c-format
@@ -313,7 +313,7 @@ msgstr ""
 "(DPMS) Wygaszacz ekranu Xfce może automatycznie\n"
 "wygaszać ekrany, aby oszczędzać energię.\n"
 "\n"
-"Menedżer zasilania Xfce i inne aplikacje również zarządzają\n"
+"Menedżer zasilania Xfce i inne programy również zarządzają\n"
 "ustawieniami DPMS. Jeśli ustawienia tutaj nie będą działać,\n"
 "upewnij się, że zarządzanie energią ekranu nie zostało tam\n"
 "wyłączone. Jeśli ekrany wyłączają się w różnych odstępach\n"
@@ -635,7 +635,7 @@ msgstr "Uznaj komputer jako _bezczynny po:"
 
 #: src/xfce4-screensaver-preferences.ui:841
 msgid "Inhibit screensaver for fullscreen applications"
-msgstr "Blokuj wygaszacz ekranu dla aplikacji pełnoekranowych"
+msgstr "Blokuj wygaszacz ekranu dla programów pełnoekranowych"
 
 #: src/xfce4-screensaver-preferences.ui:900
 msgid "Enable Lock Screen"
