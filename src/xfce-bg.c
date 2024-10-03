@@ -505,6 +505,7 @@ xfce_bg_load_from_xfconf (XfceBG        *bg,
     ctype = xfconf_channel_get_int(channel, property, XFCE_BG_COLOR_SOLID);
 
     g_free(property);
+    g_free(prop_prefix);
 
     xfce_bg_set_color (bg, ctype, &c1, &c2);
     xfce_bg_set_placement (bg, placement);
