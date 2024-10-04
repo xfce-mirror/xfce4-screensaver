@@ -745,6 +745,8 @@ set_face_image (GSLockPlug *plug) {
     if (pixbuf == NULL) {
         path = g_build_filename (g_get_home_dir(), ".face", NULL);
         pixbuf = gdk_pixbuf_new_from_file_at_scale (path, FACE_ICON_SIZE, FACE_ICON_SIZE, FALSE, &error);
+        g_free (path);
+
         if (pixbuf == NULL) {
             gs_debug ("Could not load user avatar: %s", error->message);
             g_error_free (error);
