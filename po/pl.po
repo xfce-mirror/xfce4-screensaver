@@ -69,7 +69,7 @@ msgstr "Maksymalna liczba obrazów do wyświetlenia na ekranie"
 
 #: savers/floaters.c:104
 msgid "MAX_IMAGES"
-msgstr "MAX_IMAGES"
+msgstr "MAKSIMUM_OBRAZÓW"
 
 #: savers/floaters.c:109
 msgid "The initial size and position of window"
@@ -87,7 +87,7 @@ msgstr "Obraz źródłowy do użycia"
 #. * represents a command line argument
 #: savers/floaters.c:1129
 msgid "image - floats images around the screen"
-msgstr "image - unosi obrazy po ekranie"
+msgstr "image – unosi obrazy po ekranie"
 
 #: savers/floaters.c:1133 savers/popsquares.c:47
 #, c-format
@@ -250,7 +250,7 @@ msgid ""
 "Inhibit the screensaver from activating.  Command blocks while inhibit is "
 "active."
 msgstr ""
-"Powstrzymuje wygaszacz ekranu przed aktywowaniem. Komenda blokuje podczas "
+"Powstrzymuje wygaszacz ekranu przed aktywowaniem. Polecenie blokuje podczas "
 "aktywności wstrzymania."
 
 #: src/xfce4-screensaver-command.c:92
