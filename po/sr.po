@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce-apps.xfce4-screensaver\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-04-09 00:50+0200\n"
+"POT-Creation-Date: 2024-09-27 00:52+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Саша Петровић <salepetronije@gmail.com>, 2024\n"
 "Language-Team: Serbian (https://app.transifex.com/xfce/teams/16840/sr/)\n"
@@ -104,29 +104,33 @@ msgstr "Нисам успео да покренем систем прозора.
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr "Мора да одредите једну слику. Погледајте --help за упутство.\n"
 
-#: savers/slideshow.c:53
+#: savers/slideshow.c:54
 msgid "Location to get images from"
 msgstr "Место за добављање слика"
 
-#: savers/slideshow.c:53
+#: savers/slideshow.c:54
 msgid "PATH"
 msgstr "ПУТАЊА"
 
-#: savers/slideshow.c:57
+#: savers/slideshow.c:58
 msgid "Color to use for images background"
 msgstr "Боја за позадину слика"
 
-#: savers/slideshow.c:57
+#: savers/slideshow.c:58
 msgid "\"#rrggbb\""
 msgstr "\"#rrggbb\""
 
-#: savers/slideshow.c:61
+#: savers/slideshow.c:62
 msgid "Do not randomize pictures from location"
 msgstr "Без насумичних слика са места"
 
-#: savers/slideshow.c:65
+#: savers/slideshow.c:66
 msgid "Do not try to stretch images on screen"
 msgstr "Не растежите слике на заслону"
+
+#: savers/slideshow.c:70
+msgid "Do not crop images to the screen size"
+msgstr "Не опсецај слике на величину заслона"
 
 #: savers/xfce-floaters.desktop.in.in:3
 msgid "Floating Xfce"
@@ -194,12 +198,12 @@ msgstr "нисам повезан са сабирницом порука"
 msgid "screensaver already running in this session"
 msgstr "чувар заслона већ ради у овој седници"
 
-#: src/gs-lock-plug.c:296
+#: src/gs-lock-plug.c:300
 msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, %B %e   %H:%M"
 
-#: src/gs-lock-plug.c:387
+#: src/gs-lock-plug.c:391
 msgid "Time has expired."
 msgstr "Време је истекло."
 
@@ -365,68 +369,72 @@ msgstr "Не постављај насумично слике"
 msgid "Do not stretch images"
 msgstr "Не развлачи слике"
 
-#: src/xfce4-screensaver-configure.py:417
+#: src/xfce4-screensaver-configure.py:227
+msgid "Do not crop images"
+msgstr "Не опсецај слике"
+
+#: src/xfce4-screensaver-configure.py:419
 msgid "Restore Defaults"
 msgstr "Врати на _подразумевано"
 
-#: src/xfce4-screensaver-configure.py:430
+#: src/xfce4-screensaver-configure.py:432
 msgid "Preferences"
 msgstr "Својства"
 
-#: src/xfce4-screensaver-configure.py:436
+#: src/xfce4-screensaver-configure.py:438
 msgid "About"
 msgstr "Опширније"
 
-#: src/xfce4-screensaver-configure.py:449
+#: src/xfce4-screensaver-configure.py:451
 msgid "Video"
 msgstr "Видео"
 
-#: src/xfce4-screensaver-configure.py:756
+#: src/xfce4-screensaver-configure.py:762
 msgid "Configure an individual screensaver"
 msgstr "Подеси појединачног чувара заслона"
 
-#: src/xfce4-screensaver-configure.py:758
+#: src/xfce4-screensaver-configure.py:764
 msgid "screensaver name to configure"
 msgstr "име чувара заслона за подешавање"
 
-#: src/xfce4-screensaver-configure.py:760
+#: src/xfce4-screensaver-configure.py:766
 msgid "check if screensaver is configurable"
 msgstr "провери да ли је чувар заслона подесив"
 
-#: src/xfce4-screensaver-configure.py:764
+#: src/xfce4-screensaver-configure.py:770
 msgid "Unable to configure screensaver"
 msgstr "Нисам успео да подесим чувара заслона"
 
-#: src/xfce4-screensaver-configure.py:768
+#: src/xfce4-screensaver-configure.py:774
 msgid "Screensaver required."
 msgstr "Неопходан је чувар заслона."
 
-#: src/xfce4-screensaver-configure.py:776
+#: src/xfce4-screensaver-configure.py:782
 #, python-format
 msgid "File not found: %s"
 msgstr "Непронађена датотека: %s"
 
-#: src/xfce4-screensaver-configure.py:784
+#: src/xfce4-screensaver-configure.py:790
 #, python-format
 msgid "Unrecognized file type: %s"
 msgstr "Непозната врста датотеке: %s"
 
-#: src/xfce4-screensaver-configure.py:788
+#: src/xfce4-screensaver-configure.py:794
 #, python-format
 msgid "Failed to process file: %s"
 msgstr "Нисам успео да обрадим датотеку: %s"
 
-#: src/xfce4-screensaver-configure.py:793
+#: src/xfce4-screensaver-configure.py:799
 #, python-format
 msgid "Screensaver %s is configurable."
 msgstr "Чувар заслона %s је подесив."
 
-#: src/xfce4-screensaver-configure.py:795
+#: src/xfce4-screensaver-configure.py:801
 #, python-format
 msgid "Screensaver %s is not configurable."
 msgstr "Чувар заслона %s није подесив."
 
-#: src/xfce4-screensaver-configure.py:799
+#: src/xfce4-screensaver-configure.py:805
 #, python-format
 msgid "Screensaver %s has no configuration options."
 msgstr "Чувар заслона %s нема могућности подешавања."
