@@ -1583,6 +1583,7 @@ gs_lock_plug_add_login_window (GSLockPlug *plug) {
     date_time_update (plug);
     gtk_widget_show_all (lock_dialog);
 
+    g_object_unref (builder);
     return TRUE;
 }
 
