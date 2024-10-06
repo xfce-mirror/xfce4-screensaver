@@ -138,7 +138,7 @@ msgstr "Ne pas essayer d’étirer les images à l’écran"
 
 #: savers/slideshow.c:70
 msgid "Do not crop images to the screen size"
-msgstr ""
+msgstr "Ne pas recadrer les images à la taille de l’écran"
 
 #: savers/xfce-floaters.desktop.in.in:3
 msgid "Floating Xfce"
@@ -386,7 +386,7 @@ msgstr "Ne pas étirer les images"
 
 #: src/xfce4-screensaver-configure.py:227
 msgid "Do not crop images"
-msgstr ""
+msgstr "Ne pas recadrer les images"
 
 #: src/xfce4-screensaver-configure.py:419
 msgid "Restore Defaults"
