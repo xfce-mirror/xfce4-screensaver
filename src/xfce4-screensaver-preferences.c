@@ -965,6 +965,7 @@ separator_func (GtkTreeModel *model,
     gtk_tree_model_get (model, iter, column, &text, -1);
 
     if (text != NULL && strcmp (text, "__separator") == 0) {
+        g_free (text);
         return TRUE;
     }
 
