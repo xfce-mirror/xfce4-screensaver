@@ -319,6 +319,7 @@ get_themes_menu (void) {
         g_warning("Failed to load menu.");
     }
 
+    g_free (menu_file);
     return menu;
 }
 
