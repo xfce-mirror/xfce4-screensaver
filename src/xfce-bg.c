@@ -438,10 +438,13 @@ xfce_bg_load_from_xfconf (XfceBG        *bg,
         property = g_strconcat(prop_prefix, "/image-path", NULL);
     }
     filename = NULL;
-    tmp = xfconf_channel_get_string(channel, property,
-                                    g_build_filename(find_system_backgrounds(),
-                                                     XFCE_BG_FALLBACK_IMG,
-                                                     NULL));
+
+    gchar *backgrounds_path = find_system_backgrounds();
+    gchar *fallback_name = g_build_filename(backgrounds_path, XFCE_BG_FALLBACK_IMG, NULL);
+    tmp = xfconf_channel_get_string(channel, property, fallback_name);
+    g_free (fallback_name);
+    g_free (backgrounds_path);
+
     if (tmp && *tmp != '\0') {
         /* FIXME: UTF-8 checks should go away.
          * picture-filename is of type string, which can only be used for
