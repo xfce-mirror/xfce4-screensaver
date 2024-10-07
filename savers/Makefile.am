@@ -3,12 +3,9 @@ NULL =
 AM_CPPFLAGS = \
 	-I.                                      \
 	-I$(srcdir)                              \
-	$(XFCE_SCREENSAVER_SAVER_CFLAGS)         \
-	$(DISABLE_DEPRECATED_CFLAGS)             \
 	-DLIBEXECDIR=\""$(libexecdir)"\"         \
 	-DXFCELOCALEDIR=\""$(datadir)/locale"\"  \
 	-DDATADIR=\""$(datadir)"\"               \
-	$(WARN_CFLAGS)                           \
 	$(NULL)
 
 DESKTOP_IN_IN_FILES = \
@@ -54,15 +51,14 @@ gs-theme-engine-marshal.h: gs-theme-engine-marshal.list
 noinst_LIBRARIES = \
 	libgs-theme-engine.a
 
-libgs_theme_engine_a_CPPFLAGS = \
-	$(XFCE_SCREENSAVER_SAVER_CFLAGS)  \
-	-DDATADIR=\""$(datadir)"\"        \
+libgs_theme_engine_a_CFLAGS = \
+	$(GLIB_CFLAGS) \
+	$(GTK_CFLAGS) \
+	$(LIBXFCE4UTIL_CFLAGS) \
 	$(NULL)
 
 libgs_theme_engine_a_SOURCES = \
 	$(BUILT_SOURCES)   \
-	gs-theme-window.h  \
-	gs-theme-window.c  \
 	gs-theme-engine.c  \
 	gs-theme-engine.h  \
 	$(NULL)
@@ -78,9 +74,19 @@ floaters_SOURCES = \
 	floaters.c  \
 	$(NULL)
 
+floaters_CFLAGS = \
+	$(GLIB_CFLAGS) \
+	$(GTK_CFLAGS) \
+	$(LIBXFCE4UTIL_CFLAGS) \
+	$(LIBWLEMBED_GTK3_CFLAGS) \
+	$(NULL)
+
 floaters_LDADD = \
-	libgs-theme-engine.a            \
-	$(XFCE_SCREENSAVER_SAVER_LIBS)  \
+	libgs-theme-engine.a \
+	$(GLIB_LIBS) \
+	$(GTK_LIBS) \
+	$(LIBXFCE4UTIL_LIBS) \
+	$(LIBWLEMBED_GTK3_LIBS) \
 	$(NULL)
 
 popsquares_SOURCES = \
@@ -89,9 +95,19 @@ popsquares_SOURCES = \
 	popsquares.c       \
 	$(NULL)
 
+popsquares_CFLAGS = \
+	$(GLIB_CFLAGS) \
+	$(GTK_CFLAGS) \
+	$(LIBXFCE4UTIL_CFLAGS) \
+	$(LIBWLEMBED_GTK3_CFLAGS) \
+	$(NULL)
+
 popsquares_LDADD = \
-	libgs-theme-engine.a            \
-	$(XFCE_SCREENSAVER_SAVER_LIBS)  \
+	libgs-theme-engine.a \
+	$(GLIB_LIBS) \
+	$(GTK_LIBS) \
+	$(LIBXFCE4UTIL_LIBS) \
+	$(LIBWLEMBED_GTK3_LIBS) \
 	$(NULL)
 
 slideshow_SOURCES = \
@@ -102,9 +118,19 @@ slideshow_SOURCES = \
 	slideshow.c            \
 	$(NULL)
 
+slideshow_CFLAGS = \
+	$(GLIB_CFLAGS) \
+	$(GTK_CFLAGS) \
+	$(LIBXFCE4UTIL_CFLAGS) \
+	$(LIBWLEMBED_GTK3_CFLAGS) \
+	$(NULL)
+
 slideshow_LDADD = \
-	libgs-theme-engine.a            \
-	$(XFCE_SCREENSAVER_SAVER_LIBS)  \
+	libgs-theme-engine.a \
+	$(GLIB_LIBS) \
+	$(GTK_LIBS) \
+	$(LIBXFCE4UTIL_LIBS) \
+	$(LIBWLEMBED_GTK3_LIBS) \
 	$(NULL)
 
 EXTRA_DIST = \
