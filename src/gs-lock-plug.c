@@ -1521,6 +1521,7 @@ gs_lock_plug_add_login_window (GSLockPlug *plug) {
                                       xfce4_screensaver_dialog_ui_length, &error)) {
         g_warning ("Error loading UI: %s", error->message);
         g_error_free(error);
+        g_object_unref (builder);
         return FALSE;
     }
 
@@ -1583,6 +1584,7 @@ gs_lock_plug_add_login_window (GSLockPlug *plug) {
     date_time_update (plug);
     gtk_widget_show_all (lock_dialog);
 
+    g_object_unref (builder);
     return TRUE;
 }
 
