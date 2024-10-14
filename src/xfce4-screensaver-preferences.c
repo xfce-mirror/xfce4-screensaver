@@ -32,9 +32,16 @@
 #include <unistd.h>
 
 #include <gio/gio.h>
-#include <gdk/gdkx.h>
 #include <gtk/gtk.h>
+#ifdef ENABLE_X11
+#include <gdk/gdkx.h>
 #include <gtk/gtkx.h>
+#endif
+#ifdef ENABLE_WAYLAND
+#include <gdk/gdkwayland.h>
+#include <libwlembed/libwlembed.h>
+#include <libwlembed-gtk3/libwlembed-gtk3.h>
+#endif
 
 #include <libxfce4ui/libxfce4ui.h>
 #include <xfconf/xfconf.h>
@@ -66,6 +73,9 @@ static GSThemeManager *theme_manager = NULL;
 static GSJob          *job = NULL;
 static XfconfChannel  *screensaver_channel = NULL;
 static XfceScreensaver *xfce_screensaver = NULL;
+#ifdef ENABLE_WAYLAND
+static WleEmbeddedCompositor *compositor = NULL;
+#endif
 
 static gboolean        idle_delay_writable;
 static gboolean        lock_delay_writable;
@@ -279,7 +289,7 @@ config_set_theme (const char *theme_id) {
         active_theme = g_strdup (theme_id);
     }
 
-    if (mode != GS_MODE_RANDOM) {
+    if (mode != GS_MODE_RANDOM && mode != GS_MODE_BLANK_ONLY) {
         GtkWidget *configure_button = GTK_WIDGET (gtk_builder_get_object (builder, "configure_button"));
         gtk_widget_set_sensitive (configure_button, TRUE);
     }
@@ -609,17 +619,26 @@ preview_on_draw (GtkWidget *widget,
 }
 
 static void
-preview_set_theme (GtkWidget  *widget,
-                   const char *theme,
+preview_set_theme (const char *theme,
                    const char *name) {
-    GtkWidget *label;
+    GtkWidget *label, *preview;
     char      *markup;
+
+    preview = gtk_bin_get_child (GTK_BIN (gtk_builder_get_object (builder, "saver_themes_preview_area")));
+    if (!gtk_widget_is_visible (preview)) {
+        preview = gtk_bin_get_child (GTK_BIN (gtk_builder_get_object (builder, "fullscreen_preview_area")));
+    }
 
     if (job != NULL) {
         gs_job_stop (job);
+#ifdef ENABLE_WAYLAND
+        if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+            wle_gtk_socket_destroy_embedded_view (WLE_GTK_SOCKET (preview));
+        }
+#endif
     }
 
-    gtk_widget_queue_draw (widget);
+    gtk_widget_queue_draw (preview);
 
     label = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_theme_label"));
     markup = g_markup_printf_escaped ("<i>%s</i>", name);
@@ -785,8 +804,7 @@ tree_selection_next (GtkTreeSelection *selection) {
 }
 
 static void
-tree_selection_changed_cb (GtkTreeSelection *selection,
-                           GtkWidget        *preview) {
+tree_selection_changed_cb (GtkTreeSelection *selection) {
     GtkWidget    *configure_button;
     GtkTreeIter   iter;
     GtkTreeModel *model;
@@ -812,7 +830,7 @@ tree_selection_changed_cb (GtkTreeSelection *selection,
         return;
     }
 
-    preview_set_theme (preview, theme, name);
+    preview_set_theme (theme, name);
     config_set_theme (theme);
 
     g_free (theme);
@@ -1018,12 +1036,11 @@ setup_treeview (GtkWidget *tree,
     gtk_tree_selection_set_mode (select, GTK_SELECTION_SINGLE);
     g_signal_connect (G_OBJECT (select), "changed",
                       G_CALLBACK (tree_selection_changed_cb),
-                      preview);
+                      NULL);
 }
 
 static void
 reload_theme (GtkWidget *treeview) {
-    GtkWidget        *preview;
     GtkTreeIter       iter;
     GtkTreeModel     *model;
     GtkTreeSelection *selection;
@@ -1052,8 +1069,7 @@ reload_theme (GtkWidget *treeview) {
         return;
     }
 
-    preview  = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_preview_area"));
-    preview_set_theme (preview, theme, name);
+    preview_set_theme (theme, name);
 
     g_free (theme);
     g_free (name);
@@ -1568,10 +1584,10 @@ fullscreen_preview_cancelled_cb (GtkWidget *button,
     GtkWidget *preview_area;
     GtkWidget *dialog;
 
-    preview_area = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_preview_area"));
+    preview_area = gtk_bin_get_child (GTK_BIN (gtk_builder_get_object (builder, "saver_themes_preview_area")));
     gs_job_set_widget (job, preview_area);
 
-    fullscreen_preview_area = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_area"));
+    fullscreen_preview_area = gtk_bin_get_child (GTK_BIN (gtk_builder_get_object (builder, "fullscreen_preview_area")));
     gtk_widget_queue_draw (fullscreen_preview_area);
 
     fullscreen_preview_window = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_window"));
@@ -1600,7 +1616,7 @@ fullscreen_preview_start_cb (GtkWidget *widget,
     gtk_widget_show (fullscreen_preview_window);
     gtk_widget_grab_focus (fullscreen_preview_window);
 
-    fullscreen_preview_area = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_area"));
+    fullscreen_preview_area = gtk_bin_get_child (GTK_BIN (gtk_builder_get_object (builder, "fullscreen_preview_area")));
     gtk_widget_queue_draw (fullscreen_preview_area);
     gs_job_set_widget (job, fullscreen_preview_area);
 }
@@ -1613,7 +1629,9 @@ constrain_list_size (GtkWidget      *widget,
     int            max_height;
 
     /* constrain height to be the tree height up to a max */
-    max_height = (HeightOfScreen (gdk_x11_screen_get_xscreen (gtk_widget_get_screen (widget)))) / 4;
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+    max_height = gdk_screen_get_height (gtk_widget_get_screen (widget)) / 4;
+G_GNUC_END_IGNORE_DEPRECATIONS
 
     gtk_widget_get_preferred_size (to_size, &req, NULL);
     allocation->height = MIN (req.height, max_height);
@@ -1708,7 +1726,7 @@ setup_treeview_idle (gpointer user_data) {
     GtkWidget *preview;
     GtkWidget *treeview;
 
-    preview  = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_preview_area"));
+    preview  = gtk_bin_get_child (GTK_BIN (gtk_builder_get_object (builder, "saver_themes_preview_area")));
     treeview = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_treeview"));
 
     setup_treeview (treeview, preview);
@@ -1801,8 +1819,34 @@ configure_capplet (void) {
     fullscreen_preview_previous = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_previous_button"));
     fullscreen_preview_next     = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_next_button"));
 
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        gtk_container_add (GTK_CONTAINER (preview), gtk_socket_new ());
+        gtk_container_add (GTK_CONTAINER (fullscreen_preview_area), gtk_socket_new ());
+    }
+#endif
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+        GError *_error = NULL;
+        compositor = wle_gtk_create_embedded_compositor ("xfce4-screensaver-preferences", &_error);
+        if (compositor == NULL) {
+            g_critical ("Failed to create embedded compositor: %s", _error->message);
+            g_error_free (_error);
+        } else {
+            gtk_container_add (GTK_CONTAINER (preview), wle_gtk_socket_new (compositor));
+            gtk_container_add (GTK_CONTAINER (fullscreen_preview_area), wle_gtk_socket_new (compositor));
+        }
+    }
+#endif
+    preview = gtk_bin_get_child (GTK_BIN (preview));
+    gtk_widget_set_app_paintable (preview, TRUE);
+    gtk_widget_set_hexpand (preview, TRUE);
+    gtk_widget_set_vexpand (preview, TRUE);
+    fullscreen_preview_area = gtk_bin_get_child (GTK_BIN (fullscreen_preview_area));
+    gtk_widget_set_app_paintable (fullscreen_preview_area, TRUE);
+    gtk_widget_show (fullscreen_preview_area);
+
     gtk_widget_set_no_show_all (root_warning_infobar, TRUE);
-    widget_set_best_visual (preview);
 
     if (!is_program_in_path (GPM_COMMAND)) {
         gtk_widget_set_no_show_all (gpm_button, TRUE);
@@ -1963,6 +2007,9 @@ configure_capplet (void) {
     g_signal_connect (fullscreen_preview_area,
                       "draw", G_CALLBACK (preview_on_draw),
                       NULL);
+    g_signal_connect (fullscreen_preview_area,
+                      "plug-removed", G_CALLBACK (gtk_true),
+                      NULL);
 
     /* Update list of themes if using random screensaver */
     mode = xfconf_channel_get_int (screensaver_channel, KEY_MODE, DEFAULT_KEY_MODE);
@@ -1974,6 +2021,7 @@ configure_capplet (void) {
     }
 
     g_signal_connect (preview, "draw", G_CALLBACK (preview_on_draw), NULL);
+    g_signal_connect (preview, "plug-removed", G_CALLBACK (gtk_true), NULL);
     gs_job_set_widget (job, preview);
 
     setup_for_lid_switch ();
@@ -2003,6 +2051,11 @@ finalize_capplet (void) {
 
     if (active_theme)
         g_free (active_theme);
+
+#ifdef ENABLE_WAYLAND
+    if (compositor)
+        g_object_unref (compositor);
+#endif
 }
 
 int
@@ -2051,11 +2104,17 @@ main (int    argc,
 
         gtk_widget_show_all (dialog);
 
-        /* To prevent the settings dialog to be saved in the session */
-        gdk_x11_set_sm_client_id("FAKE ID");
+#ifdef ENABLE_X11
+        if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+            /* To prevent the settings dialog to be saved in the session */
+            gdk_x11_set_sm_client_id("FAKE ID");
+        }
+#endif
 
         gtk_main();
-    } else {
+    }
+#ifdef ENABLE_X11
+    else if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
         GtkWidget *plug;
         GObject   *plug_child;
 
@@ -2080,6 +2139,7 @@ main (int    argc,
         /* Enter main loop */
         gtk_main();
     }
+#endif
 
     finalize_capplet ();
 
