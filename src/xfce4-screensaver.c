@@ -104,6 +104,7 @@ int main(int    argc,
             g_warning("Unable to start screensaver");
         }
 
+        g_object_unref(monitor);
         exit(1);
     }
 
