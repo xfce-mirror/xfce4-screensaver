@@ -628,10 +628,10 @@ get_user_icon_from_accounts_service (void) {
         return NULL;
     }
 
-    user_path = g_variant_get_string (g_variant_get_child_value (variant,
-                                                                 0),
-                                      NULL);
+    GVariant *child_val = g_variant_get_child_value (variant, 0);
+    user_path = g_variant_get_string (child_val, NULL);
     g_variant_unref (variant);
+
     variant = g_dbus_connection_call_sync (bus,
                                            "org.freedesktop.Accounts",
                                            user_path,
@@ -643,6 +643,7 @@ get_user_icon_from_accounts_service (void) {
                                            G_VARIANT_TYPE ("(v)"),
                                            G_DBUS_CALL_FLAGS_NONE,
                                            -1, NULL, &error);
+    g_variant_unref (child_val);
     if (variant == NULL) {
         gs_debug ("Could not find user icon: %s", error->message);
         g_error_free (error);
