@@ -255,14 +255,17 @@ do_user_switch (GSLockPlug *plug) {
                                               NULL,
                                               &error);
         if (proxy != NULL) {
-            g_dbus_proxy_call_sync (proxy,
-                                    "SwitchToGreeter",
-                                    g_variant_new ("()"),
-                                    G_DBUS_CALL_FLAGS_NONE,
-                                    -1,
-                                    NULL,
-                                    NULL);
+            GVariant *variant = g_dbus_proxy_call_sync (proxy,
+                                                        "SwitchToGreeter",
+                                                        g_variant_new ("()"),
+                                                        G_DBUS_CALL_FLAGS_NONE,
+                                                        -1,
+                                                        NULL,
+                                                        NULL);
             g_object_unref (proxy);
+            if (variant != NULL) {
+                g_variant_unref (variant);
+            }
         } else {
             gs_debug ("Unable to start LightDM greeter: %s", error->message);
             g_error_free (error);
