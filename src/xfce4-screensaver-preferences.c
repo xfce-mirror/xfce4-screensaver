@@ -767,6 +767,7 @@ tree_selection_previous (GtkTreeSelection *selection) {
     if (gtk_tree_path_prev (path)) {
         gtk_tree_selection_select_path (selection, path);
     }
+    gtk_tree_path_free (path);
 }
 
 static void
@@ -782,6 +783,7 @@ tree_selection_next (GtkTreeSelection *selection) {
     path = gtk_tree_model_get_path (model, &iter);
     gtk_tree_path_next (path);
     gtk_tree_selection_select_path (selection, path);
+    gtk_tree_path_free (path);
 }
 
 static void
