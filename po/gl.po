@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce-apps.xfce4-screensaver\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-04-08 00:50+0200\n"
+"POT-Creation-Date: 2024-09-27 00:52+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Daniel Muñiz Fontoira <dani@damufo.eu>, 2024\n"
 "Language-Team: Galician (https://app.transifex.com/xfce/teams/16840/gl/)\n"
@@ -27,7 +27,7 @@ msgstr ""
 #: data/xfce4-screensaver-preferences.desktop.in:3
 #: src/xfce4-screensaver.desktop.in.in:4
 msgid "Xfce Screensaver"
-msgstr ""
+msgstr "Protector de pantalla do Xfce"
 
 #: data/xfce4-screensaver-preferences.desktop.in:4
 msgid "Set your screensaver preferences"
@@ -38,6 +38,12 @@ msgstr "Estableza as preferencias do seu protector de pantalla"
 #: src/xfce4-screensaver.desktop.in.in:6
 msgid "Screensaver"
 msgstr "Protector de pantalla"
+
+#: data/xfce4-screensaver-preferences.desktop.in:11
+msgid "settings;preferences;screensaver;lock screen;"
+msgstr ""
+"settings;preferences;screensaver;lock "
+"screen;configuración;preferencias;protector;pantalla;bloqueo;"
 
 #: data/xfce4-screensaver.desktop.in:4
 msgid "Screensavers"
@@ -98,29 +104,33 @@ msgstr "Produciuse un fallo ao inicializar o sistema de xanelas."
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr "Debe especificar unha imaxe. Ver --help para a información de uso.\n"
 
-#: savers/slideshow.c:53
+#: savers/slideshow.c:54
 msgid "Location to get images from"
 msgstr "Localización de onde obter as  imaxes"
 
-#: savers/slideshow.c:53
+#: savers/slideshow.c:54
 msgid "PATH"
 msgstr "RUTA"
 
-#: savers/slideshow.c:57
+#: savers/slideshow.c:58
 msgid "Color to use for images background"
 msgstr "Cor a empregar para o fondo das imaxes"
 
-#: savers/slideshow.c:57
+#: savers/slideshow.c:58
 msgid "\"#rrggbb\""
 msgstr "\"#rrggbb\""
 
-#: savers/slideshow.c:61
+#: savers/slideshow.c:62
 msgid "Do not randomize pictures from location"
 msgstr "Non aleatorizar imaxes desde a localización"
 
-#: savers/slideshow.c:65
+#: savers/slideshow.c:66
 msgid "Do not try to stretch images on screen"
 msgstr "Non intentar estricar as imaxes na pantalla"
+
+#: savers/slideshow.c:70
+msgid "Do not crop images to the screen size"
+msgstr "Non recortar as imaxes ao tamaño da pantalla"
 
 #: savers/xfce-floaters.desktop.in.in:3
 msgid "Floating Xfce"
@@ -188,12 +198,12 @@ msgstr "non conectado ao «bus» de mensaxes"
 msgid "screensaver already running in this session"
 msgstr "o protector de pantalla xa está en execución nesta sesión"
 
-#: src/gs-lock-plug.c:296
+#: src/gs-lock-plug.c:300
 msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, %B %e   %H:%M"
 
-#: src/gs-lock-plug.c:387
+#: src/gs-lock-plug.c:391
 msgid "Time has expired."
 msgstr "O tempo caducou."
 
@@ -300,6 +310,15 @@ msgid ""
 "If your displays are powering off at different\n"
 "intervals, be sure to check for conflicting settings."
 msgstr ""
+"Con tecnoloxía do Display Power Management Signalling (DPMS),\n"
+"O protector de pantalla Xfce pode suspender automaticamente as\n"
+"súas pantallas para aforrar enerxía.\n"
+"\n"
+"O xestor de enerxía do Xfce e outras aplicacións tamén xestionan a \n"
+"configuración do DPMS. Se a configuración aquí non funciona, asegúrese\n"
+"de que a xestión de enerxía da pantalla non estea desactivada alí.\n"
+"Se as súas pantallas se apagan con diferentes intervalos,\n"
+"asegúrese de comprobar se hai configuracións conflitivas."
 
 #: src/xfce4-screensaver-configure.py:188
 msgid "Part of Xfce Screensaver"
@@ -307,7 +326,7 @@ msgstr "Parte do protector de pantalla do Xfce"
 
 #: src/xfce4-screensaver-configure.py:199
 msgid "After blanking, put display to sleep after:"
-msgstr ""
+msgstr "Despois de deixar a pantalla en negro, suspender despois de:"
 
 #: src/xfce4-screensaver-configure.py:201
 #: src/xfce4-screensaver-configure.py:205
@@ -316,31 +335,31 @@ msgstr "Nunca"
 
 #: src/xfce4-screensaver-configure.py:201
 msgid "60 seconds"
-msgstr ""
+msgstr "60 segundos"
 
 #: src/xfce4-screensaver-configure.py:203
 msgid "After sleeping, switch display off after:"
-msgstr ""
+msgstr "Despois de suspender a pantalla, apagar despois de:"
 
 #: src/xfce4-screensaver-configure.py:205
 msgid "60 minutes"
-msgstr ""
+msgstr "60 minutos"
 
 #: src/xfce4-screensaver-configure.py:208
 msgid "Max number of images"
-msgstr ""
+msgstr "Número máximo de imaxes"
 
 #: src/xfce4-screensaver-configure.py:211
 msgid "Show paths"
-msgstr ""
+msgstr "Amosar as rutas"
 
 #: src/xfce4-screensaver-configure.py:213
 msgid "Do rotations"
-msgstr ""
+msgstr "Facer rotacións"
 
 #: src/xfce4-screensaver-configure.py:215
 msgid "Print stats"
-msgstr ""
+msgstr "Imprimir as estatísticas"
 
 #: src/xfce4-screensaver-configure.py:218
 msgid "Location"
@@ -352,74 +371,78 @@ msgstr "Cor de fondo"
 
 #: src/xfce4-screensaver-configure.py:223
 msgid "Do not randomize images"
-msgstr ""
+msgstr "Non aleatorizar as imaxes"
 
 #: src/xfce4-screensaver-configure.py:225
 msgid "Do not stretch images"
-msgstr ""
+msgstr "Non estricar as imaxes"
 
-#: src/xfce4-screensaver-configure.py:417
+#: src/xfce4-screensaver-configure.py:227
+msgid "Do not crop images"
+msgstr "Non recortar as imaxes"
+
+#: src/xfce4-screensaver-configure.py:419
 msgid "Restore Defaults"
 msgstr "Restaurar a valores predeterminados"
 
-#: src/xfce4-screensaver-configure.py:430
+#: src/xfce4-screensaver-configure.py:432
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: src/xfce4-screensaver-configure.py:436
+#: src/xfce4-screensaver-configure.py:438
 msgid "About"
 msgstr "Sobre"
 
-#: src/xfce4-screensaver-configure.py:449
+#: src/xfce4-screensaver-configure.py:451
 msgid "Video"
 msgstr "Vídeo"
 
-#: src/xfce4-screensaver-configure.py:756
+#: src/xfce4-screensaver-configure.py:762
 msgid "Configure an individual screensaver"
-msgstr ""
-
-#: src/xfce4-screensaver-configure.py:758
-msgid "screensaver name to configure"
-msgstr ""
-
-#: src/xfce4-screensaver-configure.py:760
-msgid "check if screensaver is configurable"
-msgstr ""
+msgstr "Configurar un protector de pantalla individual"
 
 #: src/xfce4-screensaver-configure.py:764
+msgid "screensaver name to configure"
+msgstr "nome do protector de pantalla a configurar"
+
+#: src/xfce4-screensaver-configure.py:766
+msgid "check if screensaver is configurable"
+msgstr "comprobar se o protector de pantalla é configurábel"
+
+#: src/xfce4-screensaver-configure.py:770
 msgid "Unable to configure screensaver"
 msgstr "Non se puido configurar o protector de pantalla"
 
-#: src/xfce4-screensaver-configure.py:768
+#: src/xfce4-screensaver-configure.py:774
 msgid "Screensaver required."
 msgstr "Requírese un protector de pantalla."
 
-#: src/xfce4-screensaver-configure.py:776
+#: src/xfce4-screensaver-configure.py:782
 #, python-format
 msgid "File not found: %s"
 msgstr "Non se atopou o ficheiro: %s"
 
-#: src/xfce4-screensaver-configure.py:784
+#: src/xfce4-screensaver-configure.py:790
 #, python-format
 msgid "Unrecognized file type: %s"
 msgstr "Non se recoñece o tipo de ficheiro: %s"
 
-#: src/xfce4-screensaver-configure.py:788
+#: src/xfce4-screensaver-configure.py:794
 #, python-format
 msgid "Failed to process file: %s"
 msgstr "Produciuse un fallo ao procesar o ficheiro: %s"
 
-#: src/xfce4-screensaver-configure.py:793
+#: src/xfce4-screensaver-configure.py:799
 #, python-format
 msgid "Screensaver %s is configurable."
 msgstr "O protector de pantalla %s é configurábel."
 
-#: src/xfce4-screensaver-configure.py:795
+#: src/xfce4-screensaver-configure.py:801
 #, python-format
 msgid "Screensaver %s is not configurable."
 msgstr "O protector de pantalla %s non é configurábel."
 
-#: src/xfce4-screensaver-configure.py:799
+#: src/xfce4-screensaver-configure.py:805
 #, python-format
 msgid "Screensaver %s has no configuration options."
 msgstr "O protector de pantalla %s non ten opcións de configuración."
