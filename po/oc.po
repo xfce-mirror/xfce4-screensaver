@@ -26,7 +26,7 @@ msgstr ""
 #: data/xfce4-screensaver-preferences.desktop.in:3
 #: src/xfce4-screensaver.desktop.in.in:4
 msgid "Xfce Screensaver"
-msgstr ""
+msgstr "Estalviador d'ecran Xfce"
 
 #: data/xfce4-screensaver-preferences.desktop.in:4
 msgid "Set your screensaver preferences"
