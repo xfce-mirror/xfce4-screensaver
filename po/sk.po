@@ -6,18 +6,18 @@
 # Translators:
 # Dušan Kazik <prescott66@gmail.com>, 2024
 # Nick Schermer <nick@xfce.org>, 2024
-# Slavko <linux@slavino.sk>, 2024
 # Xfce Bot <transifex@xfce.org>, 2024
 # 785411ef824cced88d3e197f5af1b61a_da6a977 <e5fae5b35c0c625157d991b31e113de3_956341>, 2024
+# Slavko <linux@slavino.sk>, 2024
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: xfce-apps.xfce4-screensaver\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-04-05 12:50+0200\n"
+"POT-Creation-Date: 2024-09-27 00:52+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: 785411ef824cced88d3e197f5af1b61a_da6a977 <e5fae5b35c0c625157d991b31e113de3_956341>, 2024\n"
+"Last-Translator: Slavko <linux@slavino.sk>, 2024\n"
 "Language-Team: Slovak (https://app.transifex.com/xfce/teams/16840/sk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,6 +39,18 @@ msgstr "Vaše nastavenia šetriča obrazovky"
 #: src/xfce4-screensaver.desktop.in.in:6
 msgid "Screensaver"
 msgstr "Šetrič obrazovky"
+
+#: data/xfce4-screensaver-preferences.desktop.in:11
+msgid "settings;preferences;screensaver;lock screen;"
+msgstr ""
+
+#: data/xfce4-screensaver.desktop.in:4
+msgid "Screensavers"
+msgstr "Šetriče obrazovky"
+
+#: data/xfce4-screensaver.desktop.in:5
+msgid "Screensaver themes"
+msgstr "Témy šetriča obrazovky"
 
 #: savers/floaters.c:89
 msgid "Show paths that images follow"
@@ -91,29 +103,33 @@ msgstr ""
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr "Musíte zadať jeden obrázok. Viď --help s informáciami o použití.\n"
 
-#: savers/slideshow.c:53
+#: savers/slideshow.c:54
 msgid "Location to get images from"
 msgstr "Umiestnenie na získanie obrázkov"
 
-#: savers/slideshow.c:53
+#: savers/slideshow.c:54
 msgid "PATH"
 msgstr "CESTA"
 
-#: savers/slideshow.c:57
+#: savers/slideshow.c:58
 msgid "Color to use for images background"
 msgstr "Farba pozadia obrázkov"
 
-#: savers/slideshow.c:57
+#: savers/slideshow.c:58
 msgid "\"#rrggbb\""
 msgstr "\"#rrggbb\""
 
-#: savers/slideshow.c:61
+#: savers/slideshow.c:62
 msgid "Do not randomize pictures from location"
 msgstr ""
 
-#: savers/slideshow.c:65
+#: savers/slideshow.c:66
 msgid "Do not try to stretch images on screen"
 msgstr "Nerozťahovať obrázky na obrazovke"
+
+#: savers/slideshow.c:70
+msgid "Do not crop images to the screen size"
+msgstr ""
 
 #: savers/xfce-floaters.desktop.in.in:3
 msgid "Floating Xfce"
@@ -139,37 +155,33 @@ msgstr "Pop-art štvroce"
 msgid "A pop-art-ish grid of pulsing colors."
 msgstr ""
 
-#: src/gs-auth-pam.c:163
-msgid "Password:"
-msgstr "Heslo:"
-
-#: src/gs-auth-pam.c:375
+#: src/gs-auth-pam.c:377
 #, c-format
 msgid "Unable to establish service %s: %s\n"
 msgstr "Nemožno vytvoriť službu %s: %s\n"
 
-#: src/gs-auth-pam.c:401
+#: src/gs-auth-pam.c:403
 #, c-format
 msgid "Can't set PAM_TTY=%s"
 msgstr "Nemožno nastaviť PAM_TTY=%s"
 
-#: src/gs-auth-pam.c:432
+#: src/gs-auth-pam.c:434
 msgid "Incorrect password."
 msgstr "Neplatné heslo."
 
-#: src/gs-auth-pam.c:434 src/xfce4-screensaver-dialog.c:312
+#: src/gs-auth-pam.c:436 src/xfce4-screensaver-dialog.c:254
 msgid "Authentication failed."
 msgstr "Overenie zlyhalo."
 
-#: src/gs-auth-pam.c:448
+#: src/gs-auth-pam.c:450
 msgid "Not permitted to gain access at this time."
 msgstr ""
 
-#: src/gs-auth-pam.c:454
+#: src/gs-auth-pam.c:456
 msgid "No longer permitted to access the system."
 msgstr ""
 
-#: src/gs-auth-pam.c:662
+#: src/gs-auth-pam.c:664
 msgid "Username:"
 msgstr "Meno používatveľa:"
 
@@ -185,12 +197,12 @@ msgstr ""
 msgid "screensaver already running in this session"
 msgstr "šetrič obrazovky je už v tejto relácii spustený"
 
-#: src/gs-lock-plug.c:296
+#: src/gs-lock-plug.c:300
 msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, %B %e   %H:%M"
 
-#: src/gs-lock-plug.c:387
+#: src/gs-lock-plug.c:391
 msgid "Time has expired."
 msgstr "Čas vypršal."
 
@@ -271,11 +283,12 @@ msgstr ""
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr ""
 
-#: src/xfce4-screensaver-configure:151 src/xfce4-screensaver-preferences.c:710
+#: src/xfce4-screensaver-configure.py:151
+#: src/xfce4-screensaver-preferences.c:710
 msgid "Blank screen"
 msgstr "Prázdna obrazovka"
 
-#: src/xfce4-screensaver-configure:152
+#: src/xfce4-screensaver-configure.py:152
 msgid ""
 "Powered by Display Power Management Signaling (DPMS),\n"
 "Xfce Screensaver can automatically suspend your displays\n"
@@ -288,125 +301,130 @@ msgid ""
 "intervals, be sure to check for conflicting settings."
 msgstr ""
 
-#: src/xfce4-screensaver-configure:188
+#: src/xfce4-screensaver-configure.py:188
 msgid "Part of Xfce Screensaver"
 msgstr ""
 
-#: src/xfce4-screensaver-configure:199
+#: src/xfce4-screensaver-configure.py:199
 msgid "After blanking, put display to sleep after:"
 msgstr ""
 
-#: src/xfce4-screensaver-configure:201 src/xfce4-screensaver-configure:205
+#: src/xfce4-screensaver-configure.py:201
+#: src/xfce4-screensaver-configure.py:205
 msgid "Never"
 msgstr "Nikdy"
 
-#: src/xfce4-screensaver-configure:201
+#: src/xfce4-screensaver-configure.py:201
 msgid "60 seconds"
 msgstr ""
 
-#: src/xfce4-screensaver-configure:203
+#: src/xfce4-screensaver-configure.py:203
 msgid "After sleeping, switch display off after:"
 msgstr ""
 
-#: src/xfce4-screensaver-configure:205
+#: src/xfce4-screensaver-configure.py:205
 msgid "60 minutes"
 msgstr ""
 
-#: src/xfce4-screensaver-configure:208
+#: src/xfce4-screensaver-configure.py:208
 msgid "Max number of images"
 msgstr ""
 
-#: src/xfce4-screensaver-configure:211
+#: src/xfce4-screensaver-configure.py:211
 msgid "Show paths"
 msgstr ""
 
-#: src/xfce4-screensaver-configure:213
+#: src/xfce4-screensaver-configure.py:213
 msgid "Do rotations"
 msgstr ""
 
-#: src/xfce4-screensaver-configure:215
+#: src/xfce4-screensaver-configure.py:215
 msgid "Print stats"
 msgstr ""
 
-#: src/xfce4-screensaver-configure:218
+#: src/xfce4-screensaver-configure.py:218
 msgid "Location"
 msgstr "Miesto"
 
-#: src/xfce4-screensaver-configure:221
+#: src/xfce4-screensaver-configure.py:221
 msgid "Background color"
 msgstr "Farba pozadia"
 
-#: src/xfce4-screensaver-configure:223
+#: src/xfce4-screensaver-configure.py:223
 msgid "Do not randomize images"
 msgstr ""
 
-#: src/xfce4-screensaver-configure:225
+#: src/xfce4-screensaver-configure.py:225
 msgid "Do not stretch images"
 msgstr ""
 
-#: src/xfce4-screensaver-configure:417
+#: src/xfce4-screensaver-configure.py:227
+msgid "Do not crop images"
+msgstr ""
+
+#: src/xfce4-screensaver-configure.py:419
 msgid "Restore Defaults"
 msgstr ""
 
-#: src/xfce4-screensaver-configure:430
+#: src/xfce4-screensaver-configure.py:432
 msgid "Preferences"
 msgstr "Nastavenia"
 
-#: src/xfce4-screensaver-configure:436
+#: src/xfce4-screensaver-configure.py:438
 msgid "About"
 msgstr "O programe"
 
-#: src/xfce4-screensaver-configure:449
+#: src/xfce4-screensaver-configure.py:451
 msgid "Video"
 msgstr "Video"
 
-#: src/xfce4-screensaver-configure:756
+#: src/xfce4-screensaver-configure.py:762
 msgid "Configure an individual screensaver"
 msgstr ""
 
-#: src/xfce4-screensaver-configure:758
+#: src/xfce4-screensaver-configure.py:764
 msgid "screensaver name to configure"
 msgstr ""
 
-#: src/xfce4-screensaver-configure:760
+#: src/xfce4-screensaver-configure.py:766
 msgid "check if screensaver is configurable"
 msgstr ""
 
-#: src/xfce4-screensaver-configure:764
+#: src/xfce4-screensaver-configure.py:770
 msgid "Unable to configure screensaver"
 msgstr ""
 
-#: src/xfce4-screensaver-configure:768
+#: src/xfce4-screensaver-configure.py:774
 msgid "Screensaver required."
 msgstr ""
 
-#: src/xfce4-screensaver-configure:776
-#, c-format
+#: src/xfce4-screensaver-configure.py:782
+#, python-format
 msgid "File not found: %s"
 msgstr ""
 
-#: src/xfce4-screensaver-configure:784
-#, c-format
+#: src/xfce4-screensaver-configure.py:790
+#, python-format
 msgid "Unrecognized file type: %s"
 msgstr ""
 
-#: src/xfce4-screensaver-configure:788
-#, c-format
+#: src/xfce4-screensaver-configure.py:794
+#, python-format
 msgid "Failed to process file: %s"
 msgstr ""
 
-#: src/xfce4-screensaver-configure:793
-#, c-format
+#: src/xfce4-screensaver-configure.py:799
+#, python-format
 msgid "Screensaver %s is configurable."
 msgstr ""
 
-#: src/xfce4-screensaver-configure:795
-#, c-format
+#: src/xfce4-screensaver-configure.py:801
+#, python-format
 msgid "Screensaver %s is not configurable."
 msgstr ""
 
-#: src/xfce4-screensaver-configure:799
-#, c-format
+#: src/xfce4-screensaver-configure.py:805
+#, python-format
 msgid "Screensaver %s has no configuration options."
 msgstr ""
 
@@ -450,68 +468,7 @@ msgstr "Šírka monitora"
 msgid "Monitor index"
 msgstr "Číslo monitora"
 
-#: src/xfce4-screensaver-dialog.c:175 src/xfce4-screensaver-dialog.c:177
-#: src/xfce4-screensaver-dialog.c:178
-msgid "Please enter your username."
-msgstr "Prosím, zadajte prihlasovacie meno."
-
-#: src/xfce4-screensaver-dialog.c:184
-msgid "You are required to change your password immediately (password aged)"
-msgstr "Musíte bezodkladne zmeniť svoje heslo (heslo zastaralo)"
-
-#: src/xfce4-screensaver-dialog.c:186
-msgid "You are required to change your password immediately (root enforced)"
-msgstr "Musíte bezodkladne zmeniť svoje heslo (vynútené od root)"
-
-#: src/xfce4-screensaver-dialog.c:188
-msgid "Your account has expired; please contact your system administrator"
-msgstr "Váš účet vypršal, prosím kontaktujte správcu svojho systému"
-
-#: src/xfce4-screensaver-dialog.c:190
-msgid "No password supplied."
-msgstr "Nebolo zadané heslo."
-
-#: src/xfce4-screensaver-dialog.c:192
-msgid "Password unchanged."
-msgstr "Heslo nebolo zmenené."
-
-#: src/xfce4-screensaver-dialog.c:194
-msgid "Can not get username."
-msgstr "Nemožno získať meno používateľa."
-
-#: src/xfce4-screensaver-dialog.c:196
-msgid "Retype your new password."
-msgstr "Zdajte svoje heslo znova."
-
-#: src/xfce4-screensaver-dialog.c:198
-msgid "Enter your new password."
-msgstr "Zadajte svoje nové heslo."
-
-#: src/xfce4-screensaver-dialog.c:200
-msgid "Enter your current password:"
-msgstr "Zadajte svoje aktuálne heslo."
-
-#: src/xfce4-screensaver-dialog.c:202
-msgid "Error while changing NIS password."
-msgstr "Chyba pri zmene hesla NIS."
-
-#: src/xfce4-screensaver-dialog.c:204
-msgid "You must choose a longer password."
-msgstr "Musíte zvoliť dlhšie heslo."
-
-#: src/xfce4-screensaver-dialog.c:206
-msgid "Password has been already used. Choose another."
-msgstr "Heslo už bolo použité, zvoľte iné."
-
-#: src/xfce4-screensaver-dialog.c:208
-msgid "You must wait longer to change your password."
-msgstr "Musíte počkať dlhšie, kým môžete zmeniť svoje heslo."
-
-#: src/xfce4-screensaver-dialog.c:210
-msgid "Sorry, passwords do not match."
-msgstr "Prepáčte, heslá sa nezhodujú."
-
-#: src/xfce4-screensaver-dialog.c:274
+#: src/xfce4-screensaver-dialog.c:216
 msgid "Checking..."
 msgstr "Kontrolovanie…"
 
