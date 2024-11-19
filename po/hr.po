@@ -1,0 +1,677 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Xfce
+# This file is distributed under the same license as the xfce-apps.xfce4-screensaver package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Xfce Bot <transifex@xfce.org>, 2023
+# Nick Schermer <nick@xfce.org>, 2024
+# Edin Veskovic <edin.lockedin@gmail.com>, 2024
+# Ivica  Kolić <ikoli@yahoo.com>, 2024
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: xfce-apps.xfce4-screensaver\n"
+"Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
+"POT-Creation-Date: 2024-09-27 00:52+0200\n"
+"PO-Revision-Date: 2018-10-16 16:27+0000\n"
+"Last-Translator: Ivica  Kolić <ikoli@yahoo.com>, 2024\n"
+"Language-Team: Croatian (https://app.transifex.com/xfce/teams/16840/hr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hr\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+#: data/xfce4-screensaver-preferences.desktop.in:3
+#: src/xfce4-screensaver.desktop.in.in:4
+msgid "Xfce Screensaver"
+msgstr "Xfce čuvar zaslona"
+
+#: data/xfce4-screensaver-preferences.desktop.in:4
+msgid "Set your screensaver preferences"
+msgstr "Postavite osobitosti vašega čuvara zaslona"
+
+#: data/xfce4-screensaver-preferences.desktop.in:5
+#: src/xfce4-screensaver-preferences.ui:879
+#: src/xfce4-screensaver.desktop.in.in:6
+msgid "Screensaver"
+msgstr "Čuvar zaslona"
+
+#: data/xfce4-screensaver-preferences.desktop.in:11
+msgid "settings;preferences;screensaver;lock screen;"
+msgstr ""
+
+#: data/xfce4-screensaver.desktop.in:4
+msgid "Screensavers"
+msgstr "Čuvari zaslona"
+
+#: data/xfce4-screensaver.desktop.in:5
+msgid "Screensaver themes"
+msgstr "Teme čuvara zaslona"
+
+#: savers/floaters.c:89
+msgid "Show paths that images follow"
+msgstr "Pokaži putanju koju prate slike"
+
+#: savers/floaters.c:94
+msgid "Occasionally rotate images as they move"
+msgstr "Povremeno rotiraj slike dok se kreću"
+
+#: savers/floaters.c:99
+msgid "Print out frame rate and other statistics"
+msgstr "Ispiši brzinu iscrtavanja i ostalu statistiku"
+
+#: savers/floaters.c:104
+msgid "The maximum number of images to keep on screen"
+msgstr "Maksimalan broj slika zadržanih na zaslonu"
+
+#: savers/floaters.c:104
+msgid "MAX_IMAGES"
+msgstr ""
+
+#: savers/floaters.c:109
+msgid "The initial size and position of window"
+msgstr "Početna veličina i pozicija prozora"
+
+#: savers/floaters.c:109
+msgid "WIDTHxHEIGHT+X+Y"
+msgstr ""
+
+#: savers/floaters.c:114
+msgid "The source image to use"
+msgstr ""
+
+#. translators: the word "image" here
+#. * represents a command line argument
+#: savers/floaters.c:1129
+msgid "image - floats images around the screen"
+msgstr ""
+
+#: savers/floaters.c:1133 savers/popsquares.c:47
+#, c-format
+msgid "%s. See --help for usage information.\n"
+msgstr ""
+
+#: savers/floaters.c:1140
+msgid "Failed to initialize the windowing system."
+msgstr ""
+
+#: savers/floaters.c:1146
+msgid "You must specify one image.  See --help for usage information.\n"
+msgstr ""
+
+#: savers/slideshow.c:54
+msgid "Location to get images from"
+msgstr "Lokacija sa koje će se uzimati slike"
+
+#: savers/slideshow.c:54
+msgid "PATH"
+msgstr "PUTANJA"
+
+#: savers/slideshow.c:58
+msgid "Color to use for images background"
+msgstr "Boja koja će se koristiti za pozadinu slika"
+
+#: savers/slideshow.c:58
+msgid "\"#rrggbb\""
+msgstr "\"#rrggbb\""
+
+#: savers/slideshow.c:62
+msgid "Do not randomize pictures from location"
+msgstr ""
+
+#: savers/slideshow.c:66
+msgid "Do not try to stretch images on screen"
+msgstr "Ne pokušavajte raširiti slike na zaslonu"
+
+#: savers/slideshow.c:70
+msgid "Do not crop images to the screen size"
+msgstr ""
+
+#: savers/xfce-floaters.desktop.in.in:3
+msgid "Floating Xfce"
+msgstr "Plutajući Xfce"
+
+#: savers/xfce-floaters.desktop.in.in:4
+msgid "Bubbles the Xfce logo around the screen"
+msgstr ""
+
+#: savers/xfce-personal-slideshow.desktop.in.in:3
+msgid "Slideshow"
+msgstr "Klizni prikaz"
+
+#: savers/xfce-personal-slideshow.desktop.in.in:4
+msgid "Display a slideshow from your Pictures folder"
+msgstr ""
+
+#: savers/xfce-popsquares.desktop.in.in:3
+msgid "Pop art squares"
+msgstr ""
+
+#: savers/xfce-popsquares.desktop.in.in:4
+msgid "A pop-art-ish grid of pulsing colors."
+msgstr ""
+
+#: src/gs-auth-pam.c:377
+#, c-format
+msgid "Unable to establish service %s: %s\n"
+msgstr "NIje moguće uspostaviti uslugu %s:%s\n"
+
+#: src/gs-auth-pam.c:403
+#, c-format
+msgid "Can't set PAM_TTY=%s"
+msgstr ""
+
+#: src/gs-auth-pam.c:434
+msgid "Incorrect password."
+msgstr "Neispravna lozinka."
+
+#: src/gs-auth-pam.c:436 src/xfce4-screensaver-dialog.c:254
+msgid "Authentication failed."
+msgstr "Neuspjela autentikacija."
+
+#: src/gs-auth-pam.c:450
+msgid "Not permitted to gain access at this time."
+msgstr ""
+
+#: src/gs-auth-pam.c:456
+msgid "No longer permitted to access the system."
+msgstr ""
+
+#: src/gs-auth-pam.c:664
+msgid "Username:"
+msgstr "Korisničko ime:"
+
+#: src/gs-listener-dbus.c:1971
+msgid "failed to register with the message bus"
+msgstr ""
+
+#: src/gs-listener-dbus.c:1981
+msgid "not connected to the message bus"
+msgstr ""
+
+#: src/gs-listener-dbus.c:1990 src/gs-listener-dbus.c:2020
+msgid "screensaver already running in this session"
+msgstr "čuvar zaslona je već pokrenut u ovoj sesiji"
+
+#: src/gs-lock-plug.c:300
+msgctxt "Date"
+msgid "%A, %B %e   %H:%M"
+msgstr ""
+
+#: src/gs-lock-plug.c:391
+msgid "Time has expired."
+msgstr "Vrijeme je isteklo."
+
+#: src/xfce4-screensaver-command.c:56
+msgid "Causes the screensaver to exit gracefully"
+msgstr ""
+
+#: src/xfce4-screensaver-command.c:60
+msgid "Query the state of the screensaver"
+msgstr ""
+
+#: src/xfce4-screensaver-command.c:64
+msgid "Query the length of time the screensaver has been active"
+msgstr ""
+
+#: src/xfce4-screensaver-command.c:68
+msgid "Tells the running screensaver process to lock the screen immediately"
+msgstr ""
+
+#: src/xfce4-screensaver-command.c:72
+msgid "If the screensaver is active then switch to another graphics demo"
+msgstr ""
+
+#: src/xfce4-screensaver-command.c:76
+msgid "Turn the screensaver on (blank the screen)"
+msgstr ""
+
+#: src/xfce4-screensaver-command.c:80
+msgid "If the screensaver is active then deactivate it (un-blank the screen)"
+msgstr ""
+
+#: src/xfce4-screensaver-command.c:84
+msgid "Poke the running screensaver to simulate user activity"
+msgstr ""
+
+#: src/xfce4-screensaver-command.c:88
+msgid ""
+"Inhibit the screensaver from activating.  Command blocks while inhibit is "
+"active."
+msgstr ""
+
+#: src/xfce4-screensaver-command.c:92
+msgid "The calling application that is inhibiting the screensaver"
+msgstr ""
+
+#: src/xfce4-screensaver-command.c:96
+msgid "The reason for inhibiting the screensaver"
+msgstr ""
+
+#: src/xfce4-screensaver-command.c:100 src/xfce4-screensaver-dialog.c:65
+#: src/xfce4-screensaver.c:57
+msgid "Version of this application"
+msgstr "Inačica programa"
+
+#: src/xfce4-screensaver-command.c:209
+#, c-format
+msgid "The screensaver is %s\n"
+msgstr "Čuvar zaslona je %s\n"
+
+#: src/xfce4-screensaver-command.c:209
+msgid "active"
+msgstr "aktivan"
+
+#: src/xfce4-screensaver-command.c:209
+msgid "inactive"
+msgstr "neaktivan"
+
+#: src/xfce4-screensaver-command.c:220
+msgid "The screensaver is not inhibited\n"
+msgstr ""
+
+#: src/xfce4-screensaver-command.c:222
+msgid "The screensaver is being inhibited by:\n"
+msgstr ""
+
+#: src/xfce4-screensaver-command.c:238
+#, c-format
+msgid "The screensaver has been active for %d seconds.\n"
+msgstr "Čuvar zaslona je aktivan %d sekundi.\n"
+
+#: src/xfce4-screensaver-configure.py:151
+#: src/xfce4-screensaver-preferences.c:710
+msgid "Blank screen"
+msgstr "Prazan zaslon"
+
+#: src/xfce4-screensaver-configure.py:152
+msgid ""
+"Powered by Display Power Management Signaling (DPMS),\n"
+"Xfce Screensaver can automatically suspend your displays\n"
+"to save power.\n"
+"\n"
+"Xfce Power Manager and other applications also manage\n"
+"DPMS settings. If the settings here won't work, make sure\n"
+"display power management wasn't disabled there.\n"
+"If your displays are powering off at different\n"
+"intervals, be sure to check for conflicting settings."
+msgstr ""
+
+#: src/xfce4-screensaver-configure.py:188
+msgid "Part of Xfce Screensaver"
+msgstr ""
+
+#: src/xfce4-screensaver-configure.py:199
+msgid "After blanking, put display to sleep after:"
+msgstr ""
+
+#: src/xfce4-screensaver-configure.py:201
+#: src/xfce4-screensaver-configure.py:205
+msgid "Never"
+msgstr "Nikada"
+
+#: src/xfce4-screensaver-configure.py:201
+msgid "60 seconds"
+msgstr "60 sekunda"
+
+#: src/xfce4-screensaver-configure.py:203
+msgid "After sleeping, switch display off after:"
+msgstr ""
+
+#: src/xfce4-screensaver-configure.py:205
+msgid "60 minutes"
+msgstr "60 minuta"
+
+#: src/xfce4-screensaver-configure.py:208
+msgid "Max number of images"
+msgstr "Maksimalni broj slika"
+
+#: src/xfce4-screensaver-configure.py:211
+msgid "Show paths"
+msgstr ""
+
+#: src/xfce4-screensaver-configure.py:213
+msgid "Do rotations"
+msgstr ""
+
+#: src/xfce4-screensaver-configure.py:215
+msgid "Print stats"
+msgstr ""
+
+#: src/xfce4-screensaver-configure.py:218
+msgid "Location"
+msgstr "Lokacija"
+
+#: src/xfce4-screensaver-configure.py:221
+msgid "Background color"
+msgstr "Pozadinska boja"
+
+#: src/xfce4-screensaver-configure.py:223
+msgid "Do not randomize images"
+msgstr ""
+
+#: src/xfce4-screensaver-configure.py:225
+msgid "Do not stretch images"
+msgstr ""
+
+#: src/xfce4-screensaver-configure.py:227
+msgid "Do not crop images"
+msgstr ""
+
+#: src/xfce4-screensaver-configure.py:419
+msgid "Restore Defaults"
+msgstr ""
+
+#: src/xfce4-screensaver-configure.py:432
+msgid "Preferences"
+msgstr "Osobitosti"
+
+#: src/xfce4-screensaver-configure.py:438
+msgid "About"
+msgstr "O programu"
+
+#: src/xfce4-screensaver-configure.py:451
+msgid "Video"
+msgstr "Video"
+
+#: src/xfce4-screensaver-configure.py:762
+msgid "Configure an individual screensaver"
+msgstr ""
+
+#: src/xfce4-screensaver-configure.py:764
+msgid "screensaver name to configure"
+msgstr ""
+
+#: src/xfce4-screensaver-configure.py:766
+msgid "check if screensaver is configurable"
+msgstr ""
+
+#: src/xfce4-screensaver-configure.py:770
+msgid "Unable to configure screensaver"
+msgstr "Ne mogu konfigurirati čuvar zaslona"
+
+#: src/xfce4-screensaver-configure.py:774
+msgid "Screensaver required."
+msgstr "Potreban je čuvar zaslona."
+
+#: src/xfce4-screensaver-configure.py:782
+#, python-format
+msgid "File not found: %s"
+msgstr "Datoteka nije pronađena: %s"
+
+#: src/xfce4-screensaver-configure.py:790
+#, python-format
+msgid "Unrecognized file type: %s"
+msgstr ""
+
+#: src/xfce4-screensaver-configure.py:794
+#, python-format
+msgid "Failed to process file: %s"
+msgstr ""
+
+#: src/xfce4-screensaver-configure.py:799
+#, python-format
+msgid "Screensaver %s is configurable."
+msgstr ""
+
+#: src/xfce4-screensaver-configure.py:801
+#, python-format
+msgid "Screensaver %s is not configurable."
+msgstr ""
+
+#: src/xfce4-screensaver-configure.py:805
+#, python-format
+msgid "Screensaver %s has no configuration options."
+msgstr "Čuvar zaslona %s nema konfiguracijskih opcija."
+
+#: src/xfce4-screensaver-dialog.c:63
+msgid "Show debugging output"
+msgstr ""
+
+#: src/xfce4-screensaver-dialog.c:67
+msgid "Show the logout button"
+msgstr ""
+
+#: src/xfce4-screensaver-dialog.c:69
+msgid "Command to invoke from the logout button"
+msgstr ""
+
+#: src/xfce4-screensaver-dialog.c:71
+msgid "Show the switch user button"
+msgstr ""
+
+#: src/xfce4-screensaver-dialog.c:73
+msgid "Message to show in the dialog"
+msgstr ""
+
+#: src/xfce4-screensaver-dialog.c:73 src/xfce4-screensaver-dialog.c:75
+msgid "MESSAGE"
+msgstr "PORUKA"
+
+#: src/xfce4-screensaver-dialog.c:75
+msgid "Not used"
+msgstr "Nije korišteno"
+
+#: src/xfce4-screensaver-dialog.c:77
+msgid "Monitor height"
+msgstr "Visina monitora"
+
+#: src/xfce4-screensaver-dialog.c:79
+msgid "Monitor width"
+msgstr "Širina monitora"
+
+#: src/xfce4-screensaver-dialog.c:81
+msgid "Monitor index"
+msgstr ""
+
+#: src/xfce4-screensaver-dialog.c:216
+msgid "Checking..."
+msgstr "Provjeravam.."
+
+#: src/xfce4-screensaver-dialog.ui:70
+msgid "%U"
+msgstr "%U"
+
+#: src/xfce4-screensaver-dialog.ui:98
+msgid "Enter your password"
+msgstr "Unesite vašu lozinku"
+
+#: src/xfce4-screensaver-dialog.ui:211
+msgid "You have the Caps Lock key on."
+msgstr ""
+
+#: src/xfce4-screensaver-dialog.ui:271
+msgid "_Switch User"
+msgstr "_Promjeni korisnika"
+
+#: src/xfce4-screensaver-dialog.ui:287
+msgid "_Log Out"
+msgstr "_Odjava"
+
+#: src/xfce4-screensaver-dialog.ui:303
+msgid "_Cancel"
+msgstr "_Otkaži"
+
+#: src/xfce4-screensaver-dialog.ui:319
+msgid "_Unlock"
+msgstr "_Otključaj"
+
+#: src/xfce4-screensaver-dialog.ui:377
+msgid "<b>%h</b>"
+msgstr "<b>%h</b>"
+
+#: src/xfce4-screensaver-dialog.ui:391
+#, c-format
+msgid "<b>%s</b>"
+msgstr "<b>%s</b>"
+
+#: src/xfce4-screensaver-preferences.c:80
+msgid "Settings manager socket"
+msgstr ""
+
+#: src/xfce4-screensaver-preferences.c:80
+msgid "SOCKET ID"
+msgstr ""
+
+#: src/xfce4-screensaver-preferences.c:716
+msgid "Random"
+msgstr "Nasumično"
+
+#: src/xfce4-screensaver-preferences.c:1736
+msgid "Setting locked by administrator."
+msgstr ""
+
+#: src/xfce4-screensaver-preferences.c:1777
+msgid "Could not load the main interface"
+msgstr ""
+
+#: src/xfce4-screensaver-preferences.c:1779
+msgid "Please make sure that the screensaver is properly installed"
+msgstr ""
+
+#: src/xfce4-screensaver-preferences.ui:38
+msgid "Screensaver Preview"
+msgstr ""
+
+#: src/xfce4-screensaver-preferences.ui:78
+msgid "<b>Screensaver preview</b>"
+msgstr ""
+
+#: src/xfce4-screensaver-preferences.ui:228
+msgid "Screensaver Preferences"
+msgstr "Osobitosti čuvara zaslona"
+
+#: src/xfce4-screensaver-preferences.ui:233
+msgid "Configure your screensaver and locker"
+msgstr ""
+
+#: src/xfce4-screensaver-preferences.ui:264
+msgid "Power _Management"
+msgstr "Upravljanje _energijom"
+
+#: src/xfce4-screensaver-preferences.ui:281
+#: src/xfce4-screensaver-preferences.ui:610
+msgid "Preview"
+msgstr "Pretpregled"
+
+#: src/xfce4-screensaver-preferences.ui:372
+msgid "Running as root"
+msgstr ""
+
+#: src/xfce4-screensaver-preferences.ui:388
+msgid "The screen will not be locked for the root user."
+msgstr ""
+
+#: src/xfce4-screensaver-preferences.ui:429
+msgid "Resolve"
+msgstr ""
+
+#: src/xfce4-screensaver-preferences.ui:475
+msgid "Xfce Power Manager is not configured to handle laptop lid events"
+msgstr ""
+
+#: src/xfce4-screensaver-preferences.ui:491
+msgid "Your computer may not be locked when you close the lid."
+msgstr ""
+
+#: src/xfce4-screensaver-preferences.ui:540
+msgid "Enable Screensaver"
+msgstr "Omogući čuvara zaslona"
+
+#: src/xfce4-screensaver-preferences.ui:594
+msgid "Theme"
+msgstr "Tema"
+
+#: src/xfce4-screensaver-preferences.ui:692
+msgid "Configure screensaver"
+msgstr "Konfiguriraj čuvara zaslona"
+
+#: src/xfce4-screensaver-preferences.ui:693
+msgid "Configure..."
+msgstr "Konfiguriram..."
+
+#: src/xfce4-screensaver-preferences.ui:733
+msgid "Change theme after:"
+msgstr "Promijeni temu nakon:"
+
+#: src/xfce4-screensaver-preferences.ui:756
+#: src/xfce4-screensaver-preferences.ui:826
+#: src/xfce4-screensaver-preferences.ui:997
+#: src/xfce4-screensaver-preferences.ui:1174
+msgid "minutes"
+msgstr "minuta"
+
+#: src/xfce4-screensaver-preferences.ui:771
+msgid "Activate screensaver when computer is idle"
+msgstr ""
+
+#: src/xfce4-screensaver-preferences.ui:802
+msgid "Regard the computer as _idle after:"
+msgstr ""
+
+#: src/xfce4-screensaver-preferences.ui:841
+msgid "Inhibit screensaver for fullscreen applications"
+msgstr ""
+
+#: src/xfce4-screensaver-preferences.ui:900
+msgid "Enable Lock Screen"
+msgstr "Omogući zaključavanje zaslona"
+
+#: src/xfce4-screensaver-preferences.ui:944
+msgid "Lock Screen with Screensaver"
+msgstr "Zaključavanje zaslona pomoću čuvara zaslona"
+
+#: src/xfce4-screensaver-preferences.ui:974
+msgid "Lock the screen after the screensaver is active for:"
+msgstr ""
+
+#: src/xfce4-screensaver-preferences.ui:1012
+msgid "On Screen Keyboard"
+msgstr ""
+
+#: src/xfce4-screensaver-preferences.ui:1042
+msgid "On screen keyboard command:"
+msgstr ""
+
+#: src/xfce4-screensaver-preferences.ui:1067
+msgid "Session Status Messages"
+msgstr ""
+
+#: src/xfce4-screensaver-preferences.ui:1097
+msgid "Logout"
+msgstr "Odjava"
+
+#: src/xfce4-screensaver-preferences.ui:1127
+msgid "Logout command:"
+msgstr "Naredba odjave:"
+
+#: src/xfce4-screensaver-preferences.ui:1151
+msgid "Enable logout after:"
+msgstr "Omogući odjavu nakon:"
+
+#: src/xfce4-screensaver-preferences.ui:1189
+msgid "User Switching"
+msgstr "Promjena korisnika"
+
+#: src/xfce4-screensaver-preferences.ui:1219
+msgid "Lock Screen with System Sleep"
+msgstr ""
+
+#: src/xfce4-screensaver-preferences.ui:1260
+msgid "Lock Screen"
+msgstr ""
+
+#: src/xfce4-screensaver.c:58
+msgid "Enable debugging code"
+msgstr ""
+
+#: src/xfce4-screensaver.desktop.in.in:5
+msgid "Launch screensaver and locker program"
+msgstr ""
+
+#: src/xfcekbd-indicator.c:406
+msgid "XKB initialization error"
+msgstr ""
