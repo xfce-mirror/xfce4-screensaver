@@ -61,7 +61,7 @@ msgstr "Sporadycznie obracaj obrazy podczas ich poruszania"
 
 #: savers/floaters.c:99
 msgid "Print out frame rate and other statistics"
-msgstr "Wyświetl liczbę klatek na sekundę i inne statystyki"
+msgstr "Wyświetl liczbę klatek na sekundę i inne statystyki"
 
 #: savers/floaters.c:104
 msgid "The maximum number of images to keep on screen"
@@ -73,7 +73,7 @@ msgstr "MAKSIMUM_OBRAZÓW"
 
 #: savers/floaters.c:109
 msgid "The initial size and position of window"
-msgstr "Początkowy rozmiar i położenie okna"
+msgstr "Początkowy rozmiar i położenie okna"
 
 #: savers/floaters.c:109
 msgid "WIDTHxHEIGHT+X+Y"
@@ -106,7 +106,7 @@ msgstr ""
 
 #: savers/slideshow.c:54
 msgid "Location to get images from"
-msgstr "Lokalizacja, z której można uzyskać obrazy"
+msgstr "Lokalizacja, z której można uzyskać obrazy"
 
 #: savers/slideshow.c:54
 msgid "PATH"
@@ -122,7 +122,7 @@ msgstr "„#rrggbb”"
 
 #: savers/slideshow.c:62
 msgid "Do not randomize pictures from location"
-msgstr "Nie wybieraj losowo zdjęć z lokalizacji"
+msgstr "Nie wybieraj losowo zdjęć z lokalizacji"
 
 #: savers/slideshow.c:66
 msgid "Do not try to stretch images on screen"
@@ -146,7 +146,7 @@ msgstr "Pokaz slajdów"
 
 #: savers/xfce-personal-slideshow.desktop.in.in:4
 msgid "Display a slideshow from your Pictures folder"
-msgstr "Wyświetl pokaz slajdów z folderu Obrazy"
+msgstr "Wyświetl pokaz slajdów z folderu Obrazy"
 
 #: savers/xfce-popsquares.desktop.in.in:3
 msgid "Pop art squares"
@@ -188,7 +188,7 @@ msgstr "Nazwa użytkownika:"
 
 #: src/gs-listener-dbus.c:1971
 msgid "failed to register with the message bus"
-msgstr "nie udało się zarejestrować w magistrali komunikatów"
+msgstr "nie udało się zarejestrować w magistrali komunikatów"
 
 #: src/gs-listener-dbus.c:1981
 msgid "not connected to the message bus"
@@ -196,7 +196,7 @@ msgstr "nie podłączono do magistrali komunikatów"
 
 #: src/gs-listener-dbus.c:1990 src/gs-listener-dbus.c:2020
 msgid "screensaver already running in this session"
-msgstr "wygaszacz ekranu już uruchomiony w tej sesji"
+msgstr "wygaszacz ekranu już uruchomiony w tej sesji"
 
 #: src/gs-lock-plug.c:300
 msgctxt "Date"
@@ -456,7 +456,7 @@ msgstr "Pokaż przycisk wylogowania"
 
 #: src/xfce4-screensaver-dialog.c:69
 msgid "Command to invoke from the logout button"
-msgstr "Polecenie do wywołania z przycisku wylogowania"
+msgstr "Polecenie do wywołania z przycisku wylogowania"
 
 #: src/xfce4-screensaver-dialog.c:71
 msgid "Show the switch user button"
@@ -565,7 +565,7 @@ msgstr "Preferencje wygaszacza ekranu"
 
 #: src/xfce4-screensaver-preferences.ui:233
 msgid "Configure your screensaver and locker"
-msgstr "Skonfiguruj wygaszacz ekranu i blokadę"
+msgstr "Skonfiguruj wygaszacz ekranu i blokadę"
 
 #: src/xfce4-screensaver-preferences.ui:264
 msgid "Power _Management"
@@ -643,7 +643,7 @@ msgstr "Włącz blokadę ekranu"
 
 #: src/xfce4-screensaver-preferences.ui:944
 msgid "Lock Screen with Screensaver"
-msgstr "Blokada ekranu z wygaszaczem ekranu"
+msgstr "Blokada ekranu z wygaszaczem ekranu"
 
 #: src/xfce4-screensaver-preferences.ui:974
 msgid "Lock the screen after the screensaver is active for:"
@@ -679,7 +679,7 @@ msgstr "Przełączanie użytkowników"
 
 #: src/xfce4-screensaver-preferences.ui:1219
 msgid "Lock Screen with System Sleep"
-msgstr "Blokada ekranu z uśpieniem systemu"
+msgstr "Blokada ekranu z uśpieniem systemu"
 
 #: src/xfce4-screensaver-preferences.ui:1260
 msgid "Lock Screen"
@@ -691,7 +691,7 @@ msgstr "Włącz kod debugowania"
 
 #: src/xfce4-screensaver.desktop.in.in:5
 msgid "Launch screensaver and locker program"
-msgstr "Uruchom wygaszacz ekranu i program blokady"
+msgstr "Uruchom wygaszacz ekranu i program blokady"
 
 #: src/xfcekbd-indicator.c:406
 msgid "XKB initialization error"
