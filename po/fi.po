@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce-apps.xfce4-screensaver\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-04-08 00:50+0200\n"
+"POT-Creation-Date: 2024-09-27 00:52+0200\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/xfce/teams/16840/fi/)\n"
@@ -28,7 +28,7 @@ msgstr ""
 #: data/xfce4-screensaver-preferences.desktop.in:3
 #: src/xfce4-screensaver.desktop.in.in:4
 msgid "Xfce Screensaver"
-msgstr ""
+msgstr "Xfce:n näytönsäästäjä"
 
 #: data/xfce4-screensaver-preferences.desktop.in:4
 msgid "Set your screensaver preferences"
@@ -39,6 +39,12 @@ msgstr "Määritä näytönsäästäjän asetukset"
 #: src/xfce4-screensaver.desktop.in.in:6
 msgid "Screensaver"
 msgstr "Näytönsäästäjä"
+
+#: data/xfce4-screensaver-preferences.desktop.in:11
+msgid "settings;preferences;screensaver;lock screen;"
+msgstr ""
+"settings;preferences;screensaver;lock "
+"screen;asetukset;näytönsäästäjä;lukitusnäyttö;"
 
 #: data/xfce4-screensaver.desktop.in:4
 msgid "Screensavers"
@@ -93,36 +99,40 @@ msgstr "%s. Katso --help saadaksesi käyttöohjeita.\n"
 
 #: savers/floaters.c:1140
 msgid "Failed to initialize the windowing system."
-msgstr ""
+msgstr "Ikkunointijärjestelmän alustaminen epäonnistui."
 
 #: savers/floaters.c:1146
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr ""
 "Sinun täytyy määrittää yksi kuva. Katso --help saadaksesi käyttöohjeita.\n"
 
-#: savers/slideshow.c:53
+#: savers/slideshow.c:54
 msgid "Location to get images from"
 msgstr "Sijainti josta kuvat haetaan"
 
-#: savers/slideshow.c:53
+#: savers/slideshow.c:54
 msgid "PATH"
 msgstr "POLKU"
 
-#: savers/slideshow.c:57
+#: savers/slideshow.c:58
 msgid "Color to use for images background"
 msgstr "Kuvien taustalla käytettävä väri"
 
-#: savers/slideshow.c:57
+#: savers/slideshow.c:58
 msgid "\"#rrggbb\""
 msgstr "\"#rrggbb\""
 
-#: savers/slideshow.c:61
+#: savers/slideshow.c:62
 msgid "Do not randomize pictures from location"
 msgstr "Älä valitse kuvia satunnaisesti sijainnista"
 
-#: savers/slideshow.c:65
+#: savers/slideshow.c:66
 msgid "Do not try to stretch images on screen"
 msgstr "Älä yritä venyttää kuvia näytölle"
+
+#: savers/slideshow.c:70
+msgid "Do not crop images to the screen size"
+msgstr "Älä rajaa kuvia näytön kokoon"
 
 #: savers/xfce-floaters.desktop.in.in:3
 msgid "Floating Xfce"
@@ -190,12 +200,12 @@ msgstr "ei yhteyttä istuntoväylään"
 msgid "screensaver already running in this session"
 msgstr "näytönsäästäjä on jo käynissä tässä istunnossa"
 
-#: src/gs-lock-plug.c:296
+#: src/gs-lock-plug.c:300
 msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr ""
 
-#: src/gs-lock-plug.c:387
+#: src/gs-lock-plug.c:391
 msgid "Time has expired."
 msgstr "Aika on umpeutunut."
 
@@ -313,7 +323,7 @@ msgstr "Ei koskaan"
 
 #: src/xfce4-screensaver-configure.py:201
 msgid "60 seconds"
-msgstr ""
+msgstr "60 sekuntia"
 
 #: src/xfce4-screensaver-configure.py:203
 msgid "After sleeping, switch display off after:"
@@ -321,23 +331,23 @@ msgstr ""
 
 #: src/xfce4-screensaver-configure.py:205
 msgid "60 minutes"
-msgstr ""
+msgstr "60 minuuttia"
 
 #: src/xfce4-screensaver-configure.py:208
 msgid "Max number of images"
-msgstr ""
+msgstr "Kuvien enimmäismäärä"
 
 #: src/xfce4-screensaver-configure.py:211
 msgid "Show paths"
-msgstr ""
+msgstr "Näytä polut"
 
 #: src/xfce4-screensaver-configure.py:213
 msgid "Do rotations"
-msgstr ""
+msgstr "Tee käännöt"
 
 #: src/xfce4-screensaver-configure.py:215
 msgid "Print stats"
-msgstr ""
+msgstr "Tulosta tilastot"
 
 #: src/xfce4-screensaver-configure.py:218
 msgid "Location"
@@ -349,74 +359,78 @@ msgstr "Taustaväri"
 
 #: src/xfce4-screensaver-configure.py:223
 msgid "Do not randomize images"
-msgstr ""
+msgstr "Älä satunnaista kuvia"
 
 #: src/xfce4-screensaver-configure.py:225
 msgid "Do not stretch images"
-msgstr ""
+msgstr "Älä venytä kuvia"
 
-#: src/xfce4-screensaver-configure.py:417
+#: src/xfce4-screensaver-configure.py:227
+msgid "Do not crop images"
+msgstr "Älä rajaa kuvia"
+
+#: src/xfce4-screensaver-configure.py:419
 msgid "Restore Defaults"
 msgstr "Palauta oletukset"
 
-#: src/xfce4-screensaver-configure.py:430
+#: src/xfce4-screensaver-configure.py:432
 msgid "Preferences"
 msgstr "Asetukset"
 
-#: src/xfce4-screensaver-configure.py:436
+#: src/xfce4-screensaver-configure.py:438
 msgid "About"
 msgstr "Tietoja"
 
-#: src/xfce4-screensaver-configure.py:449
+#: src/xfce4-screensaver-configure.py:451
 msgid "Video"
 msgstr "Video"
 
-#: src/xfce4-screensaver-configure.py:756
+#: src/xfce4-screensaver-configure.py:762
 msgid "Configure an individual screensaver"
 msgstr ""
 
-#: src/xfce4-screensaver-configure.py:758
+#: src/xfce4-screensaver-configure.py:764
 msgid "screensaver name to configure"
 msgstr ""
 
-#: src/xfce4-screensaver-configure.py:760
+#: src/xfce4-screensaver-configure.py:766
 msgid "check if screensaver is configurable"
 msgstr ""
 
-#: src/xfce4-screensaver-configure.py:764
+#: src/xfce4-screensaver-configure.py:770
 msgid "Unable to configure screensaver"
-msgstr ""
+msgstr "Näytönsäästäjää ei voitu määrittää"
 
-#: src/xfce4-screensaver-configure.py:768
+#: src/xfce4-screensaver-configure.py:774
 msgid "Screensaver required."
 msgstr "Näytönsäästäjä vaaditaan."
 
-#: src/xfce4-screensaver-configure.py:776
+#: src/xfce4-screensaver-configure.py:782
 #, python-format
 msgid "File not found: %s"
 msgstr "Tiedostoa ei löydy: %s"
 
-#: src/xfce4-screensaver-configure.py:784
+#: src/xfce4-screensaver-configure.py:790
 #, python-format
 msgid "Unrecognized file type: %s"
-msgstr ""
+msgstr "Tunnistamaton tiedostotyyppi: %s"
 
-#: src/xfce4-screensaver-configure.py:788
+#: src/xfce4-screensaver-configure.py:794
 #, python-format
 msgid "Failed to process file: %s"
-msgstr ""
+msgstr "Tiedoston käsittely epäonnistui: %s"
 
-#: src/xfce4-screensaver-configure.py:793
+#: src/xfce4-screensaver-configure.py:799
 #, python-format
 msgid "Screensaver %s is configurable."
 msgstr ""
 
-#: src/xfce4-screensaver-configure.py:795
+#: src/xfce4-screensaver-configure.py:801
 #, python-format
 msgid "Screensaver %s is not configurable."
 msgstr ""
 
-#: src/xfce4-screensaver-configure.py:799
+#: src/xfce4-screensaver-configure.py:805
 #, python-format
 msgid "Screensaver %s has no configuration options."
 msgstr ""
