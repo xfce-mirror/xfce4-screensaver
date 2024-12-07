@@ -44,10 +44,6 @@ Authors: Soren Sandmann <sandmann@redhat.com>
 
 #include <cairo.h>
 #include <cairo-xlib.h>
-#include <gdk/gdkx.h>
-
-#include <X11/Xlib.h>
-#include <X11/Xatom.h>
 
 #include <xfce-bg.h>
 #include <xfconf/xfconf.h>

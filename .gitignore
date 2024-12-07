@@ -14,6 +14,8 @@ xfce4-screensaver-*/
 *.desktop
 *.gmo
 *.html
+*.la
+*.lo
 *.m4
 *.o
 *.pot
@@ -23,6 +25,7 @@ xfce4-screensaver-*/
 *marshal.h
 *~
 config.*
+!config.xsl
 stamp-*
 
 # File Match
@@ -56,6 +59,8 @@ po/insert-header.sin
 po/quot.sed
 po/remove-potcdate.sed
 po/remove-potcdate.sin
+protocols/*.c
+protocols/*.h
 savers/*.desktop.in
 savers/floaters
 savers/popsquares
@@ -68,7 +73,6 @@ src/xfce4-screensaver-command
 src/xfce4-screensaver-dialog
 src/xfce4-screensaver-dialog-css.h
 src/xfce4-screensaver-dialog-ui.h
-src/xfce4-screensaver-gl-helper
 src/xfce4-screensaver-preferences
 src/xfce4-screensaver-preferences-ui.h
 src/xfce4-screensaver.desktop.in

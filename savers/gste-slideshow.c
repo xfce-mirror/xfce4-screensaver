@@ -904,6 +904,12 @@ set_visual (GtkWidget *widget) {
 }
 
 static void
+size_allocate (GSTESlideshow *engine) {
+    g_signal_handlers_disconnect_by_func (engine, size_allocate, NULL);
+    g_thread_new ("loadthread", (GThreadFunc)load_threadfunc, engine->priv->op_q);
+}
+
+static void
 gste_slideshow_init (GSTESlideshow *engine) {
     engine->priv = gste_slideshow_get_instance_private (engine);
 
@@ -912,7 +918,8 @@ gste_slideshow_init (GSTESlideshow *engine) {
     engine->priv->op_q = g_async_queue_new ();
     engine->priv->results_q = g_async_queue_new ();
 
-    g_thread_new ("loadthread", (GThreadFunc)load_threadfunc, engine->priv->op_q);
+    /* only launch load_threadfunc when we have real width/height */
+    g_signal_connect (engine, "size-allocate", G_CALLBACK (size_allocate), NULL);
 
     set_visual (GTK_WIDGET (engine));
 }
