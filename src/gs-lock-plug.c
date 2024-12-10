@@ -600,7 +600,7 @@ gs_lock_plug_run (GSLockPlug *plug) {
 }
 
 static GdkPixbuf *
-get_user_icon_from_accounts_service (void) {
+get_user_icon_from_accounts_service (gint scale_factor) {
     GDBusConnection *bus;
     GError          *error = NULL;
     GVariant        *variant, *res;
@@ -657,7 +657,9 @@ get_user_icon_from_accounts_service (void) {
     g_variant_get_child (variant, 0, "v", &res);
     pixbuf = gdk_pixbuf_new_from_file_at_scale (g_variant_get_string (res,
                                                                       NULL),
-                                                FACE_ICON_SIZE, FACE_ICON_SIZE, FALSE,
+                                                FACE_ICON_SIZE * scale_factor,
+                                                FACE_ICON_SIZE * scale_factor,
+                                                FALSE,
                                                 &error);
     if (pixbuf == NULL) {
         gs_debug ("Could not load user avatar: %s", error->message);
@@ -672,17 +674,18 @@ get_user_icon_from_accounts_service (void) {
 }
 
 static GdkPixbuf *
-logged_in_pixbuf (GdkPixbuf *pixbuf)
+logged_in_pixbuf (GdkPixbuf *pixbuf, gint scale_factor)
 {
     GdkPixbuf *composite = NULL, *emblem = NULL;
-    gint width, height;
+    gint width, height, emblem_width, emblem_height;
     GError *error = NULL;
 
-    emblem = gtk_icon_theme_load_icon (gtk_icon_theme_get_default (),
-                                       LOGGED_IN_EMBLEM_ICON,
-                                       LOGGED_IN_EMBLEM_SIZE,
-                                       GTK_ICON_LOOKUP_FORCE_SIZE,
-                                       &error);
+    emblem = gtk_icon_theme_load_icon_for_scale (gtk_icon_theme_get_default (),
+                                                 LOGGED_IN_EMBLEM_ICON,
+                                                 LOGGED_IN_EMBLEM_SIZE,
+                                                 scale_factor,
+                                                 GTK_ICON_LOOKUP_FORCE_SIZE,
+                                                 &error);
 
     if (!emblem) {
         g_warning ("Failed to load the logged icon: %s", error->message);
@@ -695,13 +698,17 @@ logged_in_pixbuf (GdkPixbuf *pixbuf)
     width = gdk_pixbuf_get_width (composite);
     height = gdk_pixbuf_get_height (composite);
 
+    // Or LOGGED_IN_EMBLEM_SIZE * scale_factor.
+    emblem_width = gdk_pixbuf_get_width (emblem);
+    emblem_height = gdk_pixbuf_get_height (emblem);
+
     gdk_pixbuf_composite (emblem, composite,
-                          width - LOGGED_IN_EMBLEM_SIZE,
-                          height - LOGGED_IN_EMBLEM_SIZE,
-                          LOGGED_IN_EMBLEM_SIZE,
-                          LOGGED_IN_EMBLEM_SIZE,
-                          width - LOGGED_IN_EMBLEM_SIZE,
-                          height - LOGGED_IN_EMBLEM_SIZE,
+                          width - emblem_width,
+                          height - emblem_height,
+                          emblem_width,
+                          emblem_height,
+                          width - emblem_width,
+                          height - emblem_height,
                           1.0,
                           1.0,
                           GDK_INTERP_BILINEAR,
@@ -741,14 +748,21 @@ round_image (GdkPixbuf *pixbuf)
 
 static gboolean
 set_face_image (GSLockPlug *plug) {
-    char      *path;
-    GError    *error = NULL;
-    GdkPixbuf *pixbuf, *temp_image;
+    char            *path;
+    GError          *error = NULL;
+    GdkPixbuf       *pixbuf, *temp_image;
+    cairo_surface_t *surface;
+    gint            scale_factor;
 
-    pixbuf = get_user_icon_from_accounts_service ();
+    scale_factor = gtk_widget_get_scale_factor (GTK_WIDGET (plug));
+    pixbuf = get_user_icon_from_accounts_service (scale_factor);
     if (pixbuf == NULL) {
         path = g_build_filename (g_get_home_dir(), ".face", NULL);
-        pixbuf = gdk_pixbuf_new_from_file_at_scale (path, FACE_ICON_SIZE, FACE_ICON_SIZE, FALSE, &error);
+        pixbuf = gdk_pixbuf_new_from_file_at_scale (path,
+                                                    FACE_ICON_SIZE * scale_factor,
+                                                    FACE_ICON_SIZE * scale_factor,
+                                                    FALSE,
+                                                    &error);
         g_free (path);
 
         if (pixbuf == NULL) {
@@ -764,13 +778,15 @@ set_face_image (GSLockPlug *plug) {
         pixbuf = temp_image;
     }
 
-    temp_image = logged_in_pixbuf (pixbuf);
+    temp_image = logged_in_pixbuf (pixbuf, scale_factor);
     if (temp_image != NULL) {
         g_object_unref (pixbuf);
         pixbuf = temp_image;
     }
 
-    gtk_image_set_from_pixbuf (GTK_IMAGE (plug->priv->auth_face_image), pixbuf);
+    surface = gdk_cairo_surface_create_from_pixbuf (pixbuf, scale_factor, NULL);
+    gtk_image_set_from_surface (GTK_IMAGE (plug->priv->auth_face_image), surface);
+    cairo_surface_destroy (surface);
     g_object_unref (pixbuf);
 
     return TRUE;
