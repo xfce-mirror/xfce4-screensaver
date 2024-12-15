@@ -1023,7 +1023,7 @@ xfce_bg_get_pixbuf(XfceBG *bg,
     }
 
     pixbuf = gdk_pixbuf_new(GDK_COLORSPACE_RGB, FALSE, 8,
-                            width, height);
+                            width * scale, height * scale);
 
     xfce_bg_draw(bg, pixbuf);
 

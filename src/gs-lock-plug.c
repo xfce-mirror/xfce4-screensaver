@@ -1490,15 +1490,20 @@ get_draw_dimensions(GSLockPlug *plug,
 
 static void
 redraw_background (GSLockPlug *plug) {
-    XfceBG    *bg;
-    GdkPixbuf *pixbuf;
-    gint       screen_width, screen_height, monitor_width, monitor_height, scale;
+    cairo_surface_t *surface;
+    XfceBG          *bg;
+    GdkPixbuf       *pixbuf;
+    gint            screen_width, screen_height, monitor_width, monitor_height, scale;
 
     gs_debug ("Redrawing background");
     bg = xfce_bg_new();
     get_draw_dimensions(plug, bg, &screen_width, &screen_height, &monitor_width, &monitor_height, &scale);
     pixbuf = xfce_bg_get_pixbuf(bg, screen_width, screen_height, monitor_width, monitor_height, scale);
-    gtk_image_set_from_pixbuf(GTK_IMAGE(plug->priv->background_image), pixbuf);
+    surface = gdk_cairo_surface_create_from_pixbuf (pixbuf, scale, NULL);
+    gtk_image_set_from_surface (GTK_IMAGE (plug->priv->background_image), surface);
+    cairo_surface_destroy (surface);
+    g_object_unref (pixbuf);
+    g_object_unref (bg);
 }
 
 static void
