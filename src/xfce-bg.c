@@ -96,7 +96,6 @@ struct _XfceBG {
     XfceBGColorType  color_type;
     GdkRGBA          primary;
     GdkRGBA          secondary;
-    gboolean         is_enabled;
 
     GFileMonitor    *file_monitor;
 
@@ -427,8 +426,7 @@ xfce_bg_load_from_xfconf (XfceBG        *bg,
     prop_prefix = xfce_bg_get_property_prefix (channel, monitor_name);
 
     property = g_strconcat(prop_prefix, "/image-style", NULL);
-    placement = xfconf_channel_get_int(channel, property, XFCE_BG_PLACEMENT_NONE);
-    bg->is_enabled = placement != XFCE_BG_PLACEMENT_NONE;
+    placement = xfconf_channel_get_int(channel, property, XFCE_BG_PLACEMENT_ZOOMED);
 
     /* Filename */
     g_free(property);
