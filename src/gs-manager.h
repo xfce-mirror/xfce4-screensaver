@@ -24,6 +24,9 @@
 #define SRC_GS_MANAGER_H_
 
 #include "gs-prefs.h"
+#ifdef ENABLE_WAYLAND
+#include <libwlembed/libwlembed.h>
+#endif
 
 G_BEGIN_DECLS
 
@@ -71,6 +74,10 @@ void        gs_manager_show_message            (GSManager   *manager,
                                                 const char  *body,
                                                 const char  *icon);
 gboolean    gs_manager_request_unlock          (GSManager   *manager);
+
+#ifdef ENABLE_WAYLAND
+WleEmbeddedCompositor *gs_manager_get_compositor (GSManager *manager);
+#endif
 
 G_END_DECLS
 

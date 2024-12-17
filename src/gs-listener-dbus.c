@@ -47,18 +47,18 @@
 #include "gs-debug.h"
 #include "gs-prefs.h"
 
-static void              gs_listener_finalize           (GObject         *object);
+static void              gs_listener_dbus_finalize           (GObject         *object);
 
-static void              gs_listener_unregister_handler (DBusConnection  *connection,
-                                                         void            *data);
+static void              gs_listener_dbus_unregister_handler (DBusConnection  *connection,
+                                                              void            *data);
 
-static DBusHandlerResult gs_listener_message_handler    (DBusConnection  *connection,
-                                                         DBusMessage     *message,
-                                                         void            *user_data);
+static DBusHandlerResult gs_listener_dbus_message_handler    (DBusConnection  *connection,
+                                                              DBusMessage     *message,
+                                                              void            *user_data);
 
-#define GS_LISTENER_SERVICE   "org.xfce.ScreenSaver"
-#define GS_LISTENER_PATH      "/org/xfce/ScreenSaver"
-#define GS_LISTENER_INTERFACE "org.xfce.ScreenSaver"
+#define GS_LISTENER_DBUS_SERVICE   "org.xfce.ScreenSaver"
+#define GS_LISTENER_DBUS_PATH      "/org/xfce/ScreenSaver"
+#define GS_LISTENER_DBUS_INTERFACE "org.xfce.ScreenSaver"
 
 #define HAL_DEVICE_INTERFACE "org.freedesktop.Hal.Device"
 
@@ -76,9 +76,9 @@ static DBusHandlerResult gs_listener_message_handler    (DBusConnection  *connec
 #define CK_MANAGER_INTERFACE "org.freedesktop.ConsoleKit.Manager"
 #define CK_SESSION_INTERFACE "org.freedesktop.ConsoleKit.Session"
 
-#define TYPE_MISMATCH_ERROR GS_LISTENER_INTERFACE ".TypeMismatch"
+#define TYPE_MISMATCH_ERROR GS_LISTENER_DBUS_INTERFACE ".TypeMismatch"
 
-struct GSListenerPrivate {
+struct GSListenerDBusPrivate {
     DBusConnection *connection;
     DBusConnection *system_connection;
 
@@ -108,7 +108,7 @@ typedef struct {
     guint32    cookie;
     gint32     fd;
     GDateTime *since;
-} GSListenerRefEntry;
+} GSListenerDBusRefEntry;
 
 enum {
     LOCK,
@@ -132,30 +132,30 @@ enum {
 };
 
 static DBusObjectPathVTable
-gs_listener_vtable = { &gs_listener_unregister_handler,
-                       &gs_listener_message_handler,
-                       NULL,
-                       NULL,
-                       NULL,
-                       NULL
-                     };
+gs_listener_dbus_vtable = { &gs_listener_dbus_unregister_handler,
+                            &gs_listener_dbus_message_handler,
+                            NULL,
+                            NULL,
+                            NULL,
+                            NULL
+                          };
 
 static guint         signals[LAST_SIGNAL] = { 0, };
 
-G_DEFINE_TYPE_WITH_PRIVATE (GSListener, gs_listener, G_TYPE_OBJECT)
+G_DEFINE_TYPE_WITH_PRIVATE (GSListenerDBus, gs_listener_dbus, G_TYPE_OBJECT)
 
 GQuark
-gs_listener_error_quark (void) {
+gs_listener_dbus_error_quark (void) {
     static GQuark quark = 0;
     if (!quark) {
-        quark = g_quark_from_static_string ("gs_listener_error");
+        quark = g_quark_from_static_string ("gs_listener_dbus_error");
     }
 
     return quark;
 }
 
 static void
-gs_listener_ref_entry_free (GSListenerRefEntry *entry) {
+gs_listener_dbus_ref_entry_free (GSListenerDBusRefEntry *entry) {
     g_free (entry->connection);
     g_free (entry->application);
     g_free (entry->reason);
@@ -164,8 +164,8 @@ gs_listener_ref_entry_free (GSListenerRefEntry *entry) {
 }
 
 static void
-gs_listener_unregister_handler (DBusConnection *connection,
-                                void           *data) {
+gs_listener_dbus_unregister_handler (DBusConnection *connection,
+                                     void *data) {
 }
 
 static gboolean
@@ -193,16 +193,16 @@ send_dbus_message (DBusConnection *connection,
 }
 
 static void
-send_dbus_boolean_signal (GSListener *listener,
+send_dbus_boolean_signal (GSListenerDBus *listener,
                           const char *name,
-                          gboolean    value) {
+                          gboolean value) {
     DBusMessage    *message;
     DBusMessageIter iter;
 
     g_return_if_fail (listener != NULL);
 
-    message = dbus_message_new_signal (GS_LISTENER_PATH,
-                                       GS_LISTENER_SERVICE,
+    message = dbus_message_new_signal (GS_LISTENER_DBUS_PATH,
+                                       GS_LISTENER_DBUS_SERVICE,
                                        name);
 
     dbus_message_iter_init_append (message, &iter);
@@ -216,7 +216,7 @@ send_dbus_boolean_signal (GSListener *listener,
 }
 
 static void
-gs_listener_send_signal_active_changed (GSListener *listener) {
+gs_listener_dbus_send_signal_active_changed (GSListenerDBus *listener) {
     g_return_if_fail (listener != NULL);
 
     gs_debug ("Sending the ActiveChanged(%s) signal on the session bus",
@@ -245,8 +245,8 @@ get_name_for_entry_type (int entry_type) {
 }
 
 static GHashTable *
-get_hash_for_entry_type (GSListener *listener,
-                         int         entry_type) {
+get_hash_for_entry_type (GSListenerDBus *listener,
+                         int entry_type) {
     GHashTable *hash;
 
     switch (entry_type) {
@@ -268,9 +268,9 @@ static void
 list_ref_entry (gpointer key,
                 gpointer value,
                 gpointer user_data) {
-    GSListenerRefEntry *entry;
+    GSListenerDBusRefEntry *entry;
 
-    entry = (GSListenerRefEntry *)value;
+    entry = (GSListenerDBusRefEntry *)value;
 
     gs_debug ("%s: %s for reason: %s",
               get_name_for_entry_type (entry->entry_type),
@@ -279,8 +279,8 @@ list_ref_entry (gpointer key,
 }
 
 static gboolean
-listener_ref_entry_is_present (GSListener *listener,
-                               int         entry_type) {
+listener_ref_entry_is_present (GSListenerDBus *listener,
+                               int entry_type) {
     guint       n_entries;
     gboolean    is_set;
     GHashTable *hash;
@@ -301,7 +301,7 @@ listener_ref_entry_is_present (GSListener *listener,
 }
 
 static gboolean
-listener_check_activation (GSListener *listener) {
+listener_check_activation (GSListenerDBus *listener) {
     gboolean inhibited;
     gboolean res;
 
@@ -321,16 +321,16 @@ listener_check_activation (GSListener *listener) {
     res = FALSE;
     if (!inhibited) {
         gs_debug ("Trying to activate");
-        res = gs_listener_activate_saver (listener, TRUE);
+        res = gs_listener_dbus_activate_saver (listener, TRUE);
     }
 
     return res;
 }
 
 static void
-gs_listener_set_throttle (GSListener *listener,
-                          gboolean    throttled) {
-    g_return_if_fail (GS_IS_LISTENER (listener));
+gs_listener_dbus_set_throttle (GSListenerDBus *listener,
+                               gboolean throttled) {
+    g_return_if_fail (GS_IS_LISTENER_DBUS (listener));
 
     if (listener->priv->throttled != throttled) {
         gs_debug ("Changing throttle status: %d", throttled);
@@ -342,7 +342,7 @@ gs_listener_set_throttle (GSListener *listener,
 }
 
 static gboolean
-listener_check_throttle (GSListener *listener) {
+listener_check_throttle (GSListenerDBus *listener) {
     gboolean throttled;
 
     gs_debug ("Checking for throttle");
@@ -350,15 +350,15 @@ listener_check_throttle (GSListener *listener) {
     throttled = listener_ref_entry_is_present (listener, REF_ENTRY_TYPE_THROTTLE);
 
     if (throttled != listener->priv->throttled) {
-        gs_listener_set_throttle (listener, throttled);
+        gs_listener_dbus_set_throttle (listener, throttled);
     }
 
     return TRUE;
 }
 
 static gboolean
-listener_set_active_internal (GSListener *listener,
-                              gboolean    active) {
+listener_set_active_internal (GSListenerDBus *listener,
+                              gboolean active) {
     listener->priv->active = active;
 
     if (active) {
@@ -367,34 +367,37 @@ listener_set_active_internal (GSListener *listener,
         listener->priv->active_start = 0;
     }
 
-    gs_listener_send_signal_active_changed (listener);
+    gs_listener_dbus_send_signal_active_changed (listener);
 
     return TRUE;
 }
 
 gboolean
-gs_listener_activate_saver (GSListener *listener,
-                            gboolean    active) {
+gs_listener_dbus_activate_saver (GSListenerDBus *listener,
+                                 gboolean active) {
     gboolean res;
 
-    g_return_val_if_fail (GS_IS_LISTENER (listener), FALSE);
+    g_return_val_if_fail (GS_IS_LISTENER_DBUS (listener), FALSE);
 
     if (listener->priv->active == active) {
-        return FALSE;
+        return TRUE;
     }
 
     g_signal_emit (listener, signals[ACTIVE_CHANGED], 0, active, &res);
-    listener_set_active_internal (listener, active);
+    if (res) {
+        listener_set_active_internal (listener, active);
+        return TRUE;
+    }
 
-    return TRUE;
+    return FALSE;
 }
 
 gboolean
-gs_listener_is_inhibited (GSListener *listener)
+gs_listener_dbus_is_inhibited (GSListenerDBus *listener)
 {
     gboolean inhibited;
 
-    g_return_val_if_fail (GS_IS_LISTENER (listener), FALSE);
+    g_return_val_if_fail (GS_IS_LISTENER_DBUS (listener), FALSE);
 
     inhibited = listener_ref_entry_is_present (listener, REF_ENTRY_TYPE_INHIBIT);
 
@@ -402,16 +405,16 @@ gs_listener_is_inhibited (GSListener *listener)
 }
 
 static dbus_bool_t
-listener_property_set_bool (GSListener  *listener,
-                            guint        prop_id,
-                            dbus_bool_t  value) {
+listener_property_set_bool (GSListenerDBus *listener,
+                            guint prop_id,
+                            dbus_bool_t value) {
     dbus_bool_t ret;
 
     ret = FALSE;
 
     switch (prop_id) {
         case PROP_ACTIVE:
-            gs_listener_activate_saver (listener, value);
+            gs_listener_dbus_activate_saver (listener, value);
             ret = TRUE;
             break;
         default:
@@ -451,7 +454,7 @@ raise_syntax (DBusConnection *connection,
               DBusMessage    *in_reply_to,
               const char     *method_name) {
     raise_error (connection, in_reply_to,
-                 GS_LISTENER_SERVICE ".SyntaxError",
+                 GS_LISTENER_DBUS_SERVICE ".SyntaxError",
                  "There is a syntax error in the invocation of the method %s",
                  method_name);
 }
@@ -466,8 +469,8 @@ generate_cookie (void) {
 }
 
 static guint32
-listener_generate_unique_key (GSListener *listener,
-                              int         entry_type) {
+listener_generate_unique_key (GSListenerDBus *listener,
+                              int entry_type) {
     guint32     cookie;
     GHashTable *hash;
 
@@ -481,8 +484,8 @@ listener_generate_unique_key (GSListener *listener,
 }
 
 static void
-listener_ref_entry_check (GSListener *listener,
-                          int         entry_type) {
+listener_ref_entry_check (GSListenerDBus *listener,
+                          int entry_type) {
     switch (entry_type) {
         case REF_ENTRY_TYPE_INHIBIT:
             listener_check_activation (listener);
@@ -497,7 +500,7 @@ listener_ref_entry_check (GSListener *listener,
 }
 
 static void
-add_sleep_inhibit (GSListener *listener) {
+add_sleep_inhibit (GSListenerDBus *listener) {
     DBusMessage     *message = NULL, *reply = NULL;
     DBusMessageIter  iter, reply_iter;
     DBusError        error;
@@ -557,7 +560,7 @@ add_sleep_inhibit (GSListener *listener) {
 }
 
 static void
-remove_sleep_inhibit (GSListener *listener) {
+remove_sleep_inhibit (GSListenerDBus *listener) {
     g_return_if_fail (listener != NULL);
 
     if (listener->priv->sleep_inhibitor < 0) {
@@ -572,8 +575,8 @@ remove_sleep_inhibit (GSListener *listener) {
 }
 
 static void
-add_session_inhibit (GSListener         *listener,
-                     GSListenerRefEntry *entry) {
+add_session_inhibit (GSListenerDBus         *listener,
+                     GSListenerDBusRefEntry *entry) {
     DBusMessage     *message = NULL, *reply = NULL;
     DBusMessageIter  iter, reply_iter;
     DBusError        error;
@@ -634,7 +637,7 @@ add_session_inhibit (GSListener         *listener,
 }
 
 static void
-remove_session_inhibit (GSListenerRefEntry *entry) {
+remove_session_inhibit (GSListenerDBusRefEntry *entry) {
     if (entry->fd < 0) {
         gs_debug ("Can't remove inhibitor from session: Session cookie not set");
         return;
@@ -647,9 +650,9 @@ remove_session_inhibit (GSListenerRefEntry *entry) {
 }
 
 static void
-listener_add_ref_entry (GSListener         *listener,
-                        int                 entry_type,
-                        GSListenerRefEntry *entry) {
+listener_add_ref_entry (GSListenerDBus *listener,
+                        int entry_type,
+                        GSListenerDBusRefEntry *entry) {
     GHashTable *hash;
 
     gs_debug ("Adding %s from %s for reason '%s' on connection %s",
@@ -670,12 +673,12 @@ listener_add_ref_entry (GSListener         *listener,
 }
 
 static gboolean
-listener_remove_ref_entry (GSListener *listener,
-                           int         entry_type,
-                           guint32     cookie) {
+listener_remove_ref_entry (GSListenerDBus *listener,
+                           int entry_type,
+                           guint32 cookie) {
     GHashTable         *hash;
     gboolean            removed = FALSE;
-    GSListenerRefEntry *entry;
+    GSListenerDBusRefEntry *entry;
 
     hash = get_hash_for_entry_type (listener, entry_type);
 
@@ -743,9 +746,9 @@ listener_g_date_time_format_iso8601 (GDateTime *datetime)
 
 
 static void
-accumulate_ref_entry (gpointer            key,
-                      GSListenerRefEntry *entry,
-                      DBusMessageIter    *iter) {
+accumulate_ref_entry (gpointer key,
+                      GSListenerDBusRefEntry *entry,
+                      DBusMessageIter *iter) {
     char *description;
     char *time;
 
@@ -763,7 +766,7 @@ accumulate_ref_entry (gpointer            key,
 }
 
 static DBusHandlerResult
-listener_dbus_get_ref_entries (GSListener     *listener,
+listener_dbus_get_ref_entries (GSListenerDBus *listener,
                                int             entry_type,
                                DBusConnection *connection,
                                DBusMessage    *message) {
@@ -804,14 +807,14 @@ listener_dbus_get_ref_entries (GSListener     *listener,
 
 #ifdef WITH_CONSOLE_KIT
 static void
-listener_add_ck_ref_entry (GSListener     *listener,
+listener_add_ck_ref_entry (GSListenerDBus *listener,
                            int             entry_type,
                            DBusConnection *connection,
                            DBusMessage    *message,
                            guint32        *cookiep) {
-    GSListenerRefEntry *entry;
+    GSListenerDBusRefEntry *entry;
 
-    entry = g_new0 (GSListenerRefEntry, 1);
+    entry = g_new0 (GSListenerDBusRefEntry, 1);
     entry->entry_type = entry_type;
     entry->connection = g_strdup (dbus_message_get_sender (message));
     entry->cookie = listener_generate_unique_key (listener, entry_type);
@@ -828,9 +831,9 @@ listener_add_ck_ref_entry (GSListener     *listener,
 }
 
 static void
-listener_remove_ck_ref_entry (GSListener *listener,
-                              int         entry_type,
-                              guint32     cookie) {
+listener_remove_ck_ref_entry (GSListenerDBus *listener,
+                              int entry_type,
+                              guint32 cookie) {
     listener_remove_ref_entry (listener, entry_type, cookie);
 }
 #endif
@@ -855,7 +858,7 @@ listener_dbus_confirm (DBusConnection *connection,
 }
 
 static DBusHandlerResult
-listener_dbus_add_ref_entry (GSListener     *listener,
+listener_dbus_add_ref_entry (GSListenerDBus *listener,
                              int             entry_type,
                              DBusConnection *connection,
                              DBusMessage    *message) {
@@ -863,7 +866,7 @@ listener_dbus_add_ref_entry (GSListener     *listener,
     DBusError           error;
     const char         *application;
     const char         *reason;
-    GSListenerRefEntry *entry;
+    GSListenerDBusRefEntry *entry;
     DBusMessageIter     iter;
 
     dbus_error_init (&error);
@@ -887,7 +890,7 @@ listener_dbus_add_ref_entry (GSListener     *listener,
         g_error ("No memory");
     }
 
-    entry = g_new0 (GSListenerRefEntry, 1);
+    entry = g_new0 (GSListenerDBusRefEntry, 1);
     entry->entry_type = entry_type;
     entry->connection = g_strdup (dbus_message_get_sender (message));
     entry->cookie = listener_generate_unique_key (listener, entry_type);
@@ -910,7 +913,7 @@ listener_dbus_add_ref_entry (GSListener     *listener,
 }
 
 static DBusHandlerResult
-listener_dbus_remove_ref_entry (GSListener     *listener,
+listener_dbus_remove_ref_entry (GSListenerDBus *listener,
                                 int             entry_type,
                                 DBusConnection *connection,
                                 DBusMessage    *message) {
@@ -953,13 +956,13 @@ listener_dbus_remove_ref_entry (GSListener     *listener,
 }
 
 static gboolean
-listener_ref_entry_remove_for_connection (GSListener  *listener,
-                                          int          entry_type,
-                                          const char  *connection) {
+listener_ref_entry_remove_for_connection (GSListenerDBus *listener,
+                                          int entry_type,
+                                          const char *connection) {
     gboolean            removed;
     GHashTable         *hash;
     GHashTableIter      iter;
-    GSListenerRefEntry *entry;
+    GSListenerDBusRefEntry *entry;
 
     if (connection == NULL)
         return FALSE;
@@ -991,7 +994,7 @@ listener_ref_entry_remove_for_connection (GSListener  *listener,
 }
 
 static void
-listener_service_deleted (GSListener  *listener,
+listener_service_deleted (GSListenerDBus *listener,
                           DBusMessage *message) {
     const char *old_service_name;
     const char *new_service_name;
@@ -1042,7 +1045,7 @@ raise_property_type_error (DBusConnection *connection,
 }
 
 static DBusHandlerResult
-listener_set_property (GSListener     *listener,
+listener_set_property (GSListenerDBus *listener,
                        DBusConnection *connection,
                        DBusMessage    *message,
                        guint           prop_id) {
@@ -1092,7 +1095,7 @@ listener_set_property (GSListener     *listener,
 }
 
 static DBusHandlerResult
-listener_get_property (GSListener     *listener,
+listener_get_property (GSListenerDBus *listener,
                        DBusConnection *connection,
                        DBusMessage    *message,
                        guint           prop_id) {
@@ -1129,7 +1132,7 @@ listener_get_property (GSListener     *listener,
 }
 
 static DBusHandlerResult
-listener_get_active_time (GSListener     *listener,
+listener_get_active_time (GSListenerDBus *listener,
                           DBusConnection *connection,
                           DBusMessage    *message) {
     DBusMessageIter  iter;
@@ -1175,7 +1178,7 @@ listener_get_active_time (GSListener     *listener,
 }
 
 static DBusHandlerResult
-listener_show_message (GSListener     *listener,
+listener_show_message (GSListenerDBus *listener,
                        DBusConnection *connection,
                        DBusMessage    *message) {
     DBusMessageIter  iter;
@@ -1313,7 +1316,7 @@ listener_dbus_handle_session_message (DBusConnection *connection,
                                       DBusMessage    *message,
                                       void           *user_data,
                                       dbus_bool_t     local_interface) {
-    GSListener *listener = GS_LISTENER (user_data);
+    GSListenerDBus *listener = GS_LISTENER_DBUS (user_data);
 
 #if 0
     g_message ("obj_path=%s interface=%s method=%s destination=%s",
@@ -1326,46 +1329,46 @@ listener_dbus_handle_session_message (DBusConnection *connection,
     g_return_val_if_fail (connection != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
     g_return_val_if_fail (message != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
 
-    if (dbus_message_is_method_call (message, GS_LISTENER_SERVICE, "Lock")) {
+    if (dbus_message_is_method_call (message, GS_LISTENER_DBUS_SERVICE, "Lock")) {
         g_signal_emit (listener, signals[LOCK], 0);
         return listener_dbus_confirm (connection, message);
     }
-    if (dbus_message_is_method_call (message, GS_LISTENER_SERVICE, "Quit")) {
+    if (dbus_message_is_method_call (message, GS_LISTENER_DBUS_SERVICE, "Quit")) {
         g_signal_emit (listener, signals[QUIT], 0);
         return listener_dbus_confirm (connection, message);
     }
-    if (dbus_message_is_method_call (message, GS_LISTENER_SERVICE, "Cycle")) {
+    if (dbus_message_is_method_call (message, GS_LISTENER_DBUS_SERVICE, "Cycle")) {
         g_signal_emit (listener, signals[CYCLE], 0);
         return listener_dbus_confirm (connection, message);
     }
-    if (dbus_message_is_method_call (message, GS_LISTENER_SERVICE, "Inhibit")) {
+    if (dbus_message_is_method_call (message, GS_LISTENER_DBUS_SERVICE, "Inhibit")) {
         return listener_dbus_add_ref_entry (listener, REF_ENTRY_TYPE_INHIBIT, connection, message);
     }
-    if (dbus_message_is_method_call (message, GS_LISTENER_SERVICE, "UnInhibit")) {
+    if (dbus_message_is_method_call (message, GS_LISTENER_DBUS_SERVICE, "UnInhibit")) {
         return listener_dbus_remove_ref_entry (listener, REF_ENTRY_TYPE_INHIBIT, connection, message);
     }
-    if (dbus_message_is_method_call (message, GS_LISTENER_SERVICE, "GetInhibitors")) {
+    if (dbus_message_is_method_call (message, GS_LISTENER_DBUS_SERVICE, "GetInhibitors")) {
         return listener_dbus_get_ref_entries (listener, REF_ENTRY_TYPE_INHIBIT, connection, message);
     }
-    if (dbus_message_is_method_call (message, GS_LISTENER_SERVICE, "Throttle")) {
+    if (dbus_message_is_method_call (message, GS_LISTENER_DBUS_SERVICE, "Throttle")) {
         return listener_dbus_add_ref_entry (listener, REF_ENTRY_TYPE_THROTTLE, connection, message);
     }
-    if (dbus_message_is_method_call (message, GS_LISTENER_SERVICE, "UnThrottle")) {
+    if (dbus_message_is_method_call (message, GS_LISTENER_DBUS_SERVICE, "UnThrottle")) {
         return listener_dbus_remove_ref_entry (listener, REF_ENTRY_TYPE_THROTTLE, connection, message);
     }
-    if (dbus_message_is_method_call (message, GS_LISTENER_SERVICE, "SetActive")) {
+    if (dbus_message_is_method_call (message, GS_LISTENER_DBUS_SERVICE, "SetActive")) {
         return listener_set_property (listener, connection, message, PROP_ACTIVE);
     }
-    if (dbus_message_is_method_call (message, GS_LISTENER_SERVICE, "GetActive")) {
+    if (dbus_message_is_method_call (message, GS_LISTENER_DBUS_SERVICE, "GetActive")) {
         return listener_get_property (listener, connection, message, PROP_ACTIVE);
     }
-    if (dbus_message_is_method_call (message, GS_LISTENER_SERVICE, "GetActiveTime")) {
+    if (dbus_message_is_method_call (message, GS_LISTENER_DBUS_SERVICE, "GetActiveTime")) {
         return listener_get_active_time (listener, connection, message);
     }
-    if (dbus_message_is_method_call (message, GS_LISTENER_SERVICE, "ShowMessage")) {
+    if (dbus_message_is_method_call (message, GS_LISTENER_DBUS_SERVICE, "ShowMessage")) {
         return listener_show_message (listener, connection, message);
     }
-    if (dbus_message_is_method_call (message, GS_LISTENER_SERVICE, "SimulateUserActivity")) {
+    if (dbus_message_is_method_call (message, GS_LISTENER_DBUS_SERVICE, "SimulateUserActivity")) {
         g_signal_emit (listener, signals[SIMULATE_USER_ACTIVITY], 0);
         return listener_dbus_confirm (connection, message);
     }
@@ -1377,8 +1380,8 @@ listener_dbus_handle_session_message (DBusConnection *connection,
 }
 
 static gboolean
-_listener_message_path_is_our_session (GSListener  *listener,
-                                       DBusMessage *message) {
+_listener_dbus_message_path_is_our_session (GSListenerDBus *listener,
+                                            DBusMessage *message) {
     const char *ssid;
 
     ssid = dbus_message_get_path (message);
@@ -1469,7 +1472,7 @@ listener_dbus_handle_system_message (DBusConnection *connection,
                                      DBusMessage    *message,
                                      void           *user_data,
                                      dbus_bool_t     local_interface) {
-    GSListener *listener = GS_LISTENER (user_data);
+    GSListenerDBus *listener = GS_LISTENER_DBUS (user_data);
 
     g_return_val_if_fail (connection != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
     g_return_val_if_fail (message != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
@@ -1485,14 +1488,14 @@ listener_dbus_handle_system_message (DBusConnection *connection,
 #if defined(WITH_SYSTEMD) || defined(WITH_ELOGIND)
     if (listener->priv->have_logind) {
         if (dbus_message_is_signal (message, LOGIND_SESSION_INTERFACE, "Unlock")) {
-            if (_listener_message_path_is_our_session (listener, message)) {
+            if (_listener_dbus_message_path_is_our_session (listener, message)) {
                 gs_debug ("Systemd requested session unlock");
-                gs_listener_activate_saver (listener, FALSE);
+                gs_listener_dbus_activate_saver (listener, FALSE);
             }
 
             return DBUS_HANDLER_RESULT_HANDLED;
         } else if (dbus_message_is_signal (message, LOGIND_SESSION_INTERFACE, "Lock")) {
-            if (_listener_message_path_is_our_session (listener, message)) {
+            if (_listener_dbus_message_path_is_our_session (listener, message)) {
                 gs_debug ("Systemd requested session lock");
                 g_signal_emit (listener, signals[LOCK], 0);
             }
@@ -1531,7 +1534,7 @@ listener_dbus_handle_system_message (DBusConnection *connection,
 
             return DBUS_HANDLER_RESULT_HANDLED;
         } else if (dbus_message_is_signal (message, DBUS_INTERFACE_PROPERTIES, "PropertiesChanged")) {
-            if (_listener_message_path_is_our_session (listener, message)) {
+            if (_listener_dbus_message_path_is_our_session (listener, message)) {
                 if (properties_changed_match (message, "Active")) {
                     gboolean new_active;
 
@@ -1575,14 +1578,14 @@ listener_dbus_handle_system_message (DBusConnection *connection,
 
         return DBUS_HANDLER_RESULT_HANDLED;
     } else if (dbus_message_is_signal (message, CK_SESSION_INTERFACE, "Unlock")) {
-        if (_listener_message_path_is_our_session (listener, message)) {
+        if (_listener_dbus_message_path_is_our_session (listener, message)) {
             gs_debug ("Console kit requested session unlock");
-            gs_listener_activate_saver (listener, FALSE);
+            gs_listener_dbus_activate_saver (listener, FALSE);
         }
 
         return DBUS_HANDLER_RESULT_HANDLED;
     } else if (dbus_message_is_signal (message, CK_SESSION_INTERFACE, "Lock")) {
-        if (_listener_message_path_is_our_session (listener, message)) {
+        if (_listener_dbus_message_path_is_our_session (listener, message)) {
             gs_debug ("ConsoleKit requested session lock");
             g_signal_emit (listener, signals[LOCK], 0);
         }
@@ -1597,7 +1600,7 @@ listener_dbus_handle_system_message (DBusConnection *connection,
          * that's not what we're referring to here.
          */
 
-        if (_listener_message_path_is_our_session (listener, message)) {
+        if (_listener_dbus_message_path_is_our_session (listener, message)) {
             DBusError   error;
             dbus_bool_t new_active;
 
@@ -1647,9 +1650,9 @@ listener_dbus_handle_system_message (DBusConnection *connection,
 }
 
 static DBusHandlerResult
-gs_listener_message_handler (DBusConnection *connection,
-                             DBusMessage    *message,
-                             void           *user_data) {
+gs_listener_dbus_message_handler (DBusConnection *connection,
+                                  DBusMessage    *message,
+                                  void           *user_data) {
     g_return_val_if_fail (connection != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
     g_return_val_if_fail (message != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
 
@@ -1688,7 +1691,7 @@ gs_listener_message_handler (DBusConnection *connection,
 }
 
 static gboolean
-gs_listener_dbus_init (GSListener *listener) {
+gs_listener_dbus_dbus_init (GSListenerDBus *listener) {
     DBusError error;
 
     dbus_error_init (&error);
@@ -1728,11 +1731,11 @@ gs_listener_dbus_init (GSListener *listener) {
 
 static gboolean
 reinit_dbus (gpointer user_data) {
-    GSListener *listener = user_data;
+    GSListenerDBus *listener = user_data;
     gboolean initialized;
     gboolean try_again;
 
-    initialized = gs_listener_dbus_init (listener);
+    initialized = gs_listener_dbus_dbus_init (listener);
 
     /* if we didn't initialize then try again */
     /* FIXME: Should we keep trying forever?  If we fail more than
@@ -1748,7 +1751,7 @@ static DBusHandlerResult
 listener_dbus_filter_function (DBusConnection *connection,
                                DBusMessage    *message,
                                void           *user_data) {
-    GSListener *listener = GS_LISTENER (user_data);
+    GSListenerDBus *listener = GS_LISTENER_DBUS (user_data);
     const char *path;
 
     path = dbus_message_get_path (message);
@@ -1786,7 +1789,7 @@ static DBusHandlerResult
 listener_dbus_system_filter_function (DBusConnection *connection,
                                       DBusMessage    *message,
                                       void           *user_data) {
-    GSListener *listener = GS_LISTENER (user_data);
+    GSListenerDBus *listener = GS_LISTENER_DBUS (user_data);
     const char *path;
 
     path = dbus_message_get_path (message);
@@ -1808,17 +1811,17 @@ listener_dbus_system_filter_function (DBusConnection *connection,
 }
 
 static void
-gs_listener_set_property (GObject      *object,
-                          guint         prop_id,
-                          const GValue *value,
-                          GParamSpec   *pspec) {
-    GSListener *self;
+gs_listener_dbus_set_property (GObject      *object,
+                               guint         prop_id,
+                               const GValue *value,
+                               GParamSpec   *pspec) {
+    GSListenerDBus *self;
 
-    self = GS_LISTENER (object);
+    self = GS_LISTENER_DBUS (object);
 
     switch (prop_id) {
         case PROP_ACTIVE:
-            gs_listener_activate_saver (self, g_value_get_boolean (value));
+            gs_listener_dbus_activate_saver (self, g_value_get_boolean (value));
             break;
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -1827,13 +1830,13 @@ gs_listener_set_property (GObject      *object,
 }
 
 static void
-gs_listener_get_property (GObject    *object,
-                          guint       prop_id,
-                          GValue     *value,
-                          GParamSpec *pspec) {
-    GSListener *self;
+gs_listener_dbus_get_property (GObject    *object,
+                               guint       prop_id,
+                               GValue     *value,
+                               GParamSpec *pspec) {
+    GSListenerDBus *self;
 
-    self = GS_LISTENER (object);
+    self = GS_LISTENER_DBUS (object);
 
     switch (prop_id) {
         case PROP_ACTIVE:
@@ -1846,18 +1849,18 @@ gs_listener_get_property (GObject    *object,
 }
 
 static void
-gs_listener_class_init (GSListenerClass *klass) {
+gs_listener_dbus_class_init (GSListenerDBusClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-    object_class->finalize     = gs_listener_finalize;
-    object_class->get_property = gs_listener_get_property;
-    object_class->set_property = gs_listener_set_property;
+    object_class->finalize     = gs_listener_dbus_finalize;
+    object_class->get_property = gs_listener_dbus_get_property;
+    object_class->set_property = gs_listener_dbus_set_property;
 
     signals[LOCK] =
         g_signal_new ("lock",
                       G_TYPE_FROM_CLASS (object_class),
                       G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (GSListenerClass, lock),
+                      G_STRUCT_OFFSET (GSListenerDBusClass, lock),
                       NULL,
                       NULL,
                       g_cclosure_marshal_VOID__VOID,
@@ -1867,7 +1870,7 @@ gs_listener_class_init (GSListenerClass *klass) {
         g_signal_new ("quit",
                       G_TYPE_FROM_CLASS (object_class),
                       G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (GSListenerClass, quit),
+                      G_STRUCT_OFFSET (GSListenerDBusClass, quit),
                       NULL,
                       NULL,
                       g_cclosure_marshal_VOID__VOID,
@@ -1877,7 +1880,7 @@ gs_listener_class_init (GSListenerClass *klass) {
         g_signal_new ("cycle",
                       G_TYPE_FROM_CLASS (object_class),
                       G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (GSListenerClass, cycle),
+                      G_STRUCT_OFFSET (GSListenerDBusClass, cycle),
                       NULL,
                       NULL,
                       g_cclosure_marshal_VOID__VOID,
@@ -1887,7 +1890,7 @@ gs_listener_class_init (GSListenerClass *klass) {
         g_signal_new ("simulate-user-activity",
                       G_TYPE_FROM_CLASS (object_class),
                       G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (GSListenerClass, simulate_user_activity),
+                      G_STRUCT_OFFSET (GSListenerDBusClass, simulate_user_activity),
                       NULL,
                       NULL,
                       g_cclosure_marshal_VOID__VOID,
@@ -1897,7 +1900,7 @@ gs_listener_class_init (GSListenerClass *klass) {
         g_signal_new ("active-changed",
                       G_TYPE_FROM_CLASS (object_class),
                       G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (GSListenerClass, active_changed),
+                      G_STRUCT_OFFSET (GSListenerDBusClass, active_changed),
                       NULL,
                       NULL,
                       gs_marshal_BOOLEAN__BOOLEAN,
@@ -1908,7 +1911,7 @@ gs_listener_class_init (GSListenerClass *klass) {
         g_signal_new ("throttle-changed",
                       G_TYPE_FROM_CLASS (object_class),
                       G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (GSListenerClass, throttle_changed),
+                      G_STRUCT_OFFSET (GSListenerDBusClass, throttle_changed),
                       NULL,
                       NULL,
                       g_cclosure_marshal_VOID__BOOLEAN,
@@ -1919,7 +1922,7 @@ gs_listener_class_init (GSListenerClass *klass) {
         g_signal_new ("show-message",
                       G_TYPE_FROM_CLASS (object_class),
                       G_SIGNAL_RUN_LAST,
-                      G_STRUCT_OFFSET (GSListenerClass, show_message),
+                      G_STRUCT_OFFSET (GSListenerDBusClass, show_message),
                       NULL,
                       NULL,
                       gs_marshal_VOID__STRING_STRING_STRING,
@@ -1946,7 +1949,7 @@ screensaver_is_running (DBusConnection *connection) {
     g_return_val_if_fail (connection != NULL, FALSE);
 
     dbus_error_init (&error);
-    exists = dbus_bus_name_has_owner (connection, GS_LISTENER_SERVICE, &error);
+    exists = dbus_bus_name_has_owner (connection, GS_LISTENER_DBUS_SERVICE, &error);
     if (dbus_error_is_set (&error)) {
         dbus_error_free (&error);
     }
@@ -1955,8 +1958,8 @@ screensaver_is_running (DBusConnection *connection) {
 }
 
 gboolean
-gs_listener_acquire (GSListener  *listener,
-                     GError     **error) {
+gs_listener_dbus_acquire (GSListenerDBus *listener,
+                          GError **error) {
     int       acquired;
     DBusError buserror;
     gboolean  is_connected;
@@ -1965,8 +1968,8 @@ gs_listener_acquire (GSListener  *listener,
 
     if (!listener->priv->connection) {
         g_set_error (error,
-                     GS_LISTENER_ERROR,
-                     GS_LISTENER_ERROR_ACQUISITION_FAILURE,
+                     GS_LISTENER_DBUS_ERROR,
+                     GS_LISTENER_DBUS_ERROR_ACQUISITION_FAILURE,
                      "%s",
                      _("failed to register with the message bus"));
         return FALSE;
@@ -1975,8 +1978,8 @@ gs_listener_acquire (GSListener  *listener,
     is_connected = dbus_connection_get_is_connected (listener->priv->connection);
     if (!is_connected) {
         g_set_error (error,
-                     GS_LISTENER_ERROR,
-                     GS_LISTENER_ERROR_ACQUISITION_FAILURE,
+                     GS_LISTENER_DBUS_ERROR,
+                     GS_LISTENER_DBUS_ERROR_ACQUISITION_FAILURE,
                      "%s",
                      _("not connected to the message bus"));
         return FALSE;
@@ -1984,8 +1987,8 @@ gs_listener_acquire (GSListener  *listener,
 
     if (screensaver_is_running (listener->priv->connection)) {
         g_set_error (error,
-                     GS_LISTENER_ERROR,
-                     GS_LISTENER_ERROR_ACQUISITION_FAILURE,
+                     GS_LISTENER_DBUS_ERROR,
+                     GS_LISTENER_DBUS_ERROR_ACQUISITION_FAILURE,
                      "%s",
                      _("screensaver already running in this session"));
         return FALSE;
@@ -1994,28 +1997,28 @@ gs_listener_acquire (GSListener  *listener,
     dbus_error_init (&buserror);
 
     if (dbus_connection_register_object_path (listener->priv->connection,
-            GS_LISTENER_PATH,
-            &gs_listener_vtable,
+            GS_LISTENER_DBUS_PATH,
+            &gs_listener_dbus_vtable,
             listener) == FALSE) {
         g_critical ("out of memory registering object path");
         return FALSE;
     }
 
     acquired = dbus_bus_request_name (listener->priv->connection,
-                                      GS_LISTENER_SERVICE,
+                                      GS_LISTENER_DBUS_SERVICE,
                                       DBUS_NAME_FLAG_DO_NOT_QUEUE,
                                       &buserror);
     if (dbus_error_is_set (&buserror)) {
         g_set_error (error,
-                     GS_LISTENER_ERROR,
-                     GS_LISTENER_ERROR_ACQUISITION_FAILURE,
+                     GS_LISTENER_DBUS_ERROR,
+                     GS_LISTENER_DBUS_ERROR_ACQUISITION_FAILURE,
                      "%s",
                      buserror.message);
     }
     if (acquired == DBUS_REQUEST_NAME_REPLY_EXISTS) {
             g_set_error (error,
-                         GS_LISTENER_ERROR,
-                         GS_LISTENER_ERROR_ACQUISITION_FAILURE,
+                         GS_LISTENER_DBUS_ERROR,
+                         GS_LISTENER_DBUS_ERROR_ACQUISITION_FAILURE,
                          "%s",
                          _("screensaver already running in this session"));
             return FALSE;
@@ -2096,7 +2099,7 @@ gs_listener_acquire (GSListener  *listener,
 }
 
 static char *
-query_session_id (GSListener *listener) {
+query_session_id (GSListenerDBus *listener) {
     DBusMessage     *message;
     DBusMessage     *reply;
     DBusError        error;
@@ -2184,15 +2187,15 @@ query_session_id (GSListener *listener) {
 }
 
 static void
-init_session_id (GSListener *listener) {
+init_session_id (GSListenerDBus *listener) {
     g_free (listener->priv->session_id);
     listener->priv->session_id = query_session_id (listener);
     gs_debug ("Got session-id: %s", listener->priv->session_id);
 }
 
 static void
-gs_listener_init (GSListener *listener) {
-    listener->priv = gs_listener_get_instance_private (listener);
+gs_listener_dbus_init (GSListenerDBus *listener) {
+    listener->priv = gs_listener_dbus_get_instance_private (listener);
 
 #if defined(WITH_SYSTEMD) || defined(WITH_ELOGIND)
     /* check if logind is running */
@@ -2200,31 +2203,31 @@ gs_listener_init (GSListener *listener) {
 #endif
     listener->priv->prefs = gs_prefs_new();
 
-    gs_listener_dbus_init (listener);
+    gs_listener_dbus_dbus_init (listener);
 
     init_session_id (listener);
 
     listener->priv->inhibitors = g_hash_table_new_full (g_int_hash,
                                                         g_int_equal,
                                                         NULL,
-                                                        (GDestroyNotify)gs_listener_ref_entry_free);
+                                                        (GDestroyNotify)gs_listener_dbus_ref_entry_free);
     listener->priv->throttlers = g_hash_table_new_full (g_int_hash,
                                                         g_int_equal,
                                                         NULL,
-                                                        (GDestroyNotify)gs_listener_ref_entry_free);
+                                                        (GDestroyNotify)gs_listener_dbus_ref_entry_free);
 
     gs_debug ("Acquiring logind sleep inhibitor lock");
     add_sleep_inhibit (listener);
 }
 
 static void
-gs_listener_finalize (GObject *object) {
-    GSListener *listener;
+gs_listener_dbus_finalize (GObject *object) {
+    GSListenerDBus *listener;
 
     g_return_if_fail (object != NULL);
-    g_return_if_fail (GS_IS_LISTENER (object));
+    g_return_if_fail (GS_IS_LISTENER_DBUS (object));
 
-    listener = GS_LISTENER (object);
+    listener = GS_LISTENER_DBUS (object);
 
     g_return_if_fail (listener->priv != NULL);
 
@@ -2240,14 +2243,14 @@ gs_listener_finalize (GObject *object) {
     remove_sleep_inhibit (listener);
     g_object_unref (listener->priv->prefs);
 
-    G_OBJECT_CLASS (gs_listener_parent_class)->finalize (object);
+    G_OBJECT_CLASS (gs_listener_dbus_parent_class)->finalize (object);
 }
 
-GSListener *
-gs_listener_new (void) {
-    GSListener *listener;
+GSListenerDBus *
+gs_listener_dbus_new (void) {
+    GSListenerDBus *listener;
 
-    listener = g_object_new (GS_TYPE_LISTENER, NULL);
+    listener = g_object_new (GS_TYPE_LISTENER_DBUS, NULL);
 
-    return GS_LISTENER (listener);
+    return GS_LISTENER_DBUS (listener);
 }
