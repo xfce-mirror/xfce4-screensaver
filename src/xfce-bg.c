@@ -53,7 +53,10 @@ Authors: Soren Sandmann <sandmann@redhat.com>
 #include <xfconf/xfconf.h>
 
 #define XFCE_BG_CACHE_DIR "xfce/background"
-#define XFCE_BG_FALLBACK_IMG "xfce-teal.jpg"
+/* Default wallpaper in Xfce 4.20 */
+#define XFCE_BG_FALLBACK_IMG "xfce-x.svg"
+/* For legacy xfdesktop, this is no longer shipped in 4.20 */
+#define XFCE_BG_FALLBACK_IMG_4_18 "xfce-teal.jpg"
 
 /* We keep the large pixbufs around if the next update
    in the slideshow is less than 60 seconds away */
@@ -285,19 +288,23 @@ queue_transitioned (XfceBG *bg) {
 }
 
 static gchar *
-find_system_backgrounds (void) {
+find_system_default_background (void) {
     const gchar * const *dirs;
     gint                 i;
 
     dirs = g_get_system_data_dirs ();
     for (i = 0; dirs[i]; i++) {
         gchar *path;
-        path = g_build_path (G_DIR_SEPARATOR_S, dirs[i],
-                             "backgrounds", "xfce", NULL);
-        if (g_file_test (path, G_FILE_TEST_IS_DIR))
+
+        path = g_build_filename (dirs[i], "backgrounds", "xfce", XFCE_BG_FALLBACK_IMG, NULL);
+        if (g_file_test (path, G_FILE_TEST_EXISTS))
             return path;
-        else
-            g_free (path);
+        g_free (path);
+
+        path = g_build_filename (dirs[i], "backgrounds", "xfce", XFCE_BG_FALLBACK_IMG_4_18, NULL);
+        if (g_file_test (path, G_FILE_TEST_EXISTS))
+            return path;
+        g_free (path);
     }
 
     return NULL;
@@ -437,11 +444,9 @@ xfce_bg_load_from_xfconf (XfceBG        *bg,
     }
     filename = NULL;
 
-    gchar *backgrounds_path = find_system_backgrounds();
-    gchar *fallback_name = g_build_filename(backgrounds_path, XFCE_BG_FALLBACK_IMG, NULL);
-    tmp = xfconf_channel_get_string(channel, property, fallback_name);
-    g_free (fallback_name);
-    g_free (backgrounds_path);
+    gchar *background_path = find_system_default_background ();
+    tmp = xfconf_channel_get_string (channel, property, background_path);
+    g_free (background_path);
 
     if (tmp && *tmp != '\0') {
         /* FIXME: UTF-8 checks should go away.
@@ -458,16 +463,10 @@ xfce_bg_load_from_xfconf (XfceBG        *bg,
             filename = g_filename_from_utf8 (tmp, -1, NULL, NULL, NULL);
         }
 
-        /* Fallback to default BG if the filename set is non-existent */
+        /* Fallback to plain color if the filename set is non-existent */
         if (filename != NULL && !g_file_test (filename, G_FILE_TEST_EXISTS)) {
             g_free (filename);
-            filename = g_strdup(XFCE_BG_FALLBACK_IMG);
-
-            //* Check if default background exists, also */
-            if (filename != NULL && !g_file_test (filename, G_FILE_TEST_EXISTS)) {
-                g_free (filename);
-                filename = NULL;
-            }
+            filename = NULL;
         }
     }
     g_free (tmp);
