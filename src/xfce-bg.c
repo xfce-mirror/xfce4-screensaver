@@ -53,7 +53,7 @@ Authors: Soren Sandmann <sandmann@redhat.com>
 #include <xfconf/xfconf.h>
 
 #define XFCE_BG_CACHE_DIR "xfce/background"
-#define XFCE_BG_FALLBACK_IMG "xfce-teal.jpg"
+#define XFCE_BG_FALLBACK_IMG "xfce-x.svg"
 
 /* We keep the large pixbufs around if the next update
    in the slideshow is less than 60 seconds away */
