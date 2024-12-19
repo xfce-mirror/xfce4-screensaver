@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce-apps.xfce4-screensaver\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-04-09 00:50+0200\n"
+"POT-Creation-Date: 2024-12-19 12:50+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Balázs Meskó <meskobalazs@mailbox.org>, 2024\n"
 "Language-Team: Hungarian (https://app.transifex.com/xfce/teams/16840/hu/)\n"
@@ -35,7 +35,7 @@ msgid "Set your screensaver preferences"
 msgstr "Adja meg a képernyővédő beállításait"
 
 #: data/xfce4-screensaver-preferences.desktop.in:5
-#: src/xfce4-screensaver-preferences.ui:879
+#: src/xfce4-screensaver-preferences.ui:878
 #: src/xfce4-screensaver.desktop.in.in:6
 msgid "Screensaver"
 msgstr "Képernyővédő"
@@ -106,29 +106,33 @@ msgstr ""
 "Meg kell adnia egy képet. Lásd a --help parancsot a használati "
 "információkért.\n"
 
-#: savers/slideshow.c:53
+#: savers/slideshow.c:54
 msgid "Location to get images from"
 msgstr "Hely a képek lekéréséhez"
 
-#: savers/slideshow.c:53
+#: savers/slideshow.c:54
 msgid "PATH"
 msgstr "ÚTVONAL"
 
-#: savers/slideshow.c:57
+#: savers/slideshow.c:58
 msgid "Color to use for images background"
 msgstr "Képháttérként használandó szín"
 
-#: savers/slideshow.c:57
+#: savers/slideshow.c:58
 msgid "\"#rrggbb\""
 msgstr "\"#rrggbb\""
 
-#: savers/slideshow.c:61
+#: savers/slideshow.c:62
 msgid "Do not randomize pictures from location"
 msgstr "Ne legyenek véletlenszerűek a helyről származó képek"
 
-#: savers/slideshow.c:65
+#: savers/slideshow.c:66
 msgid "Do not try to stretch images on screen"
 msgstr "Ne próbálja meg nyújtani a képeket a képernyőn"
+
+#: savers/slideshow.c:70
+msgid "Do not crop images to the screen size"
+msgstr ""
 
 #: savers/xfce-floaters.desktop.in.in:3
 msgid "Floating Xfce"
@@ -196,12 +200,12 @@ msgstr "nem kapcsolódott az üzenetbuszhoz"
 msgid "screensaver already running in this session"
 msgstr "a képernyővédő már fut ebben a munkamenetben"
 
-#: src/gs-lock-plug.c:296
+#: src/gs-lock-plug.c:303
 msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%B %e, %a   %H:%M"
 
-#: src/gs-lock-plug.c:387
+#: src/gs-lock-plug.c:394
 msgid "Time has expired."
 msgstr "Az idő lejárt."
 
@@ -371,68 +375,72 @@ msgstr "Ne legyenek véletlenszerűek a képek"
 msgid "Do not stretch images"
 msgstr "Ne legyenek nyújtva a képek"
 
-#: src/xfce4-screensaver-configure.py:417
+#: src/xfce4-screensaver-configure.py:227
+msgid "Do not crop images"
+msgstr ""
+
+#: src/xfce4-screensaver-configure.py:419
 msgid "Restore Defaults"
 msgstr "Alapértékek visszaállítása"
 
-#: src/xfce4-screensaver-configure.py:430
+#: src/xfce4-screensaver-configure.py:432
 msgid "Preferences"
 msgstr "Beállítások"
 
-#: src/xfce4-screensaver-configure.py:436
+#: src/xfce4-screensaver-configure.py:438
 msgid "About"
 msgstr "Névjegy"
 
-#: src/xfce4-screensaver-configure.py:449
+#: src/xfce4-screensaver-configure.py:451
 msgid "Video"
 msgstr "Videó"
 
-#: src/xfce4-screensaver-configure.py:756
+#: src/xfce4-screensaver-configure.py:762
 msgid "Configure an individual screensaver"
 msgstr "Egyéni képernyővédő beállítása"
 
-#: src/xfce4-screensaver-configure.py:758
+#: src/xfce4-screensaver-configure.py:764
 msgid "screensaver name to configure"
 msgstr "beállítandó képernyővédő neve"
 
-#: src/xfce4-screensaver-configure.py:760
+#: src/xfce4-screensaver-configure.py:766
 msgid "check if screensaver is configurable"
 msgstr "ellenőrzés, hogy a képernyővédő beállítható-e"
 
-#: src/xfce4-screensaver-configure.py:764
+#: src/xfce4-screensaver-configure.py:770
 msgid "Unable to configure screensaver"
 msgstr "A képernyővédő beállítása nem lehetséges"
 
-#: src/xfce4-screensaver-configure.py:768
+#: src/xfce4-screensaver-configure.py:774
 msgid "Screensaver required."
 msgstr "Képernyővédő megadása szükséges."
 
-#: src/xfce4-screensaver-configure.py:776
+#: src/xfce4-screensaver-configure.py:782
 #, python-format
 msgid "File not found: %s"
 msgstr "A fájl nem található: %s"
 
-#: src/xfce4-screensaver-configure.py:784
+#: src/xfce4-screensaver-configure.py:790
 #, python-format
 msgid "Unrecognized file type: %s"
 msgstr "Ismeretlen fájltípus: %s"
 
-#: src/xfce4-screensaver-configure.py:788
+#: src/xfce4-screensaver-configure.py:794
 #, python-format
 msgid "Failed to process file: %s"
 msgstr "A fájl feldolgozása sikertelen: %s"
 
-#: src/xfce4-screensaver-configure.py:793
+#: src/xfce4-screensaver-configure.py:799
 #, python-format
 msgid "Screensaver %s is configurable."
 msgstr "A(z) %s képernyővédő beállítható."
 
-#: src/xfce4-screensaver-configure.py:795
+#: src/xfce4-screensaver-configure.py:801
 #, python-format
 msgid "Screensaver %s is not configurable."
 msgstr "A(z) %s képernyővédő nem állítható be."
 
-#: src/xfce4-screensaver-configure.py:799
+#: src/xfce4-screensaver-configure.py:805
 #, python-format
 msgid "Screensaver %s has no configuration options."
 msgstr "A(z) %s képernyővédőnek nincsenek módosítható beállításai."
@@ -530,15 +538,15 @@ msgstr "FOGLALATAZONOSÍTÓ"
 msgid "Random"
 msgstr "Véletlen"
 
-#: src/xfce4-screensaver-preferences.c:1736
+#: src/xfce4-screensaver-preferences.c:1739
 msgid "Setting locked by administrator."
 msgstr "A beállítást a rendszergazda zárolta."
 
-#: src/xfce4-screensaver-preferences.c:1777
+#: src/xfce4-screensaver-preferences.c:1780
 msgid "Could not load the main interface"
 msgstr "A fő felület nem tölthető be"
 
-#: src/xfce4-screensaver-preferences.c:1779
+#: src/xfce4-screensaver-preferences.c:1782
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "Győződjön meg róla, hogy a képernyővédő megfelelően van telepítve"
 
@@ -554,125 +562,121 @@ msgstr "<b>Képernyővédő előnézete</b>"
 msgid "Screensaver Preferences"
 msgstr "Képernyővédő beállításai"
 
-#: src/xfce4-screensaver-preferences.ui:233
-msgid "Configure your screensaver and locker"
-msgstr "A képernyővédő és a képernyőzár beállítása"
-
-#: src/xfce4-screensaver-preferences.ui:264
+#: src/xfce4-screensaver-preferences.ui:263
 msgid "Power _Management"
 msgstr "_Energiagazdálkodás"
 
-#: src/xfce4-screensaver-preferences.ui:281
-#: src/xfce4-screensaver-preferences.ui:610
+#: src/xfce4-screensaver-preferences.ui:280
+#: src/xfce4-screensaver-preferences.ui:609
 msgid "Preview"
 msgstr "Előnézet"
 
-#: src/xfce4-screensaver-preferences.ui:372
+#: src/xfce4-screensaver-preferences.ui:371
 msgid "Running as root"
 msgstr "Futtatás rendszergazdaként"
 
-#: src/xfce4-screensaver-preferences.ui:388
+#: src/xfce4-screensaver-preferences.ui:387
 msgid "The screen will not be locked for the root user."
 msgstr "A képernyő nem kerül zárolása a root felhasználónál."
 
-#: src/xfce4-screensaver-preferences.ui:429
+#: src/xfce4-screensaver-preferences.ui:428
 msgid "Resolve"
 msgstr "Megoldás"
 
-#: src/xfce4-screensaver-preferences.ui:475
+#: src/xfce4-screensaver-preferences.ui:474
 msgid "Xfce Power Manager is not configured to handle laptop lid events"
 msgstr ""
 "Az Xfce energiakezelő nincs beállítva, hogy kezelje a laptopfedél-"
 "eseményeket."
 
-#: src/xfce4-screensaver-preferences.ui:491
+#: src/xfce4-screensaver-preferences.ui:490
 msgid "Your computer may not be locked when you close the lid."
 msgstr "A számítógépet nem lehet zárolni, ha bezárja a fedelet."
 
-#: src/xfce4-screensaver-preferences.ui:540
+#: src/xfce4-screensaver-preferences.ui:539
 msgid "Enable Screensaver"
 msgstr "Képernyővédő engedélyezése"
 
-#: src/xfce4-screensaver-preferences.ui:594
+#: src/xfce4-screensaver-preferences.ui:593
 msgid "Theme"
 msgstr "Téma"
 
-#: src/xfce4-screensaver-preferences.ui:692
+#: src/xfce4-screensaver-preferences.ui:691
 msgid "Configure screensaver"
 msgstr "Képernyővédő beállítása"
 
-#: src/xfce4-screensaver-preferences.ui:693
+#: src/xfce4-screensaver-preferences.ui:692
 msgid "Configure..."
 msgstr "Beállítás..."
 
-#: src/xfce4-screensaver-preferences.ui:733
+#: src/xfce4-screensaver-preferences.ui:732
 msgid "Change theme after:"
 msgstr "Téma módosítása ennyi idő után:"
 
-#: src/xfce4-screensaver-preferences.ui:756
-#: src/xfce4-screensaver-preferences.ui:826
-#: src/xfce4-screensaver-preferences.ui:997
-#: src/xfce4-screensaver-preferences.ui:1174
+#: src/xfce4-screensaver-preferences.ui:755
+#: src/xfce4-screensaver-preferences.ui:825
+#: src/xfce4-screensaver-preferences.ui:996
+#: src/xfce4-screensaver-preferences.ui:1173
 msgid "minutes"
 msgstr "perc"
 
-#: src/xfce4-screensaver-preferences.ui:771
+#: src/xfce4-screensaver-preferences.ui:770
 msgid "Activate screensaver when computer is idle"
 msgstr "A képernyővédő aktiválása, ha a számítógép tétlen"
 
-#: src/xfce4-screensaver-preferences.ui:802
+#: src/xfce4-screensaver-preferences.ui:801
 msgid "Regard the computer as _idle after:"
 msgstr "A képernyő _tétlenként kezelése ennyi idő után:"
 
-#: src/xfce4-screensaver-preferences.ui:841
+#: src/xfce4-screensaver-preferences.ui:840
 msgid "Inhibit screensaver for fullscreen applications"
 msgstr "Képernyővédő tiltása teljes képernyős alkalmazások esetén."
 
-#: src/xfce4-screensaver-preferences.ui:900
+#: src/xfce4-screensaver-preferences.ui:899
 msgid "Enable Lock Screen"
 msgstr "Képernyőzár engedélyezése"
 
-#: src/xfce4-screensaver-preferences.ui:944
+#: src/xfce4-screensaver-preferences.ui:943
 msgid "Lock Screen with Screensaver"
 msgstr "Képernyő zárolása a képernyővédővel"
 
-#: src/xfce4-screensaver-preferences.ui:974
+#: src/xfce4-screensaver-preferences.ui:973
 msgid "Lock the screen after the screensaver is active for:"
 msgstr "A képernyő zárolása, ha a képernyővédő ennyi ideig:"
 
-#: src/xfce4-screensaver-preferences.ui:1012
+#: src/xfce4-screensaver-preferences.ui:1011
 msgid "On Screen Keyboard"
 msgstr "Képernyő-billentyűzet"
 
-#: src/xfce4-screensaver-preferences.ui:1042
+#: src/xfce4-screensaver-preferences.ui:1041
 msgid "On screen keyboard command:"
 msgstr "Képernyő-billentyűzet parancs"
 
-#: src/xfce4-screensaver-preferences.ui:1067
+#: src/xfce4-screensaver-preferences.ui:1066
 msgid "Session Status Messages"
 msgstr "Munkamenet-állapotüzenetek"
 
-#: src/xfce4-screensaver-preferences.ui:1097
+#: src/xfce4-screensaver-preferences.ui:1096
 msgid "Logout"
 msgstr "Kijelentkezés"
 
-#: src/xfce4-screensaver-preferences.ui:1127
+#: src/xfce4-screensaver-preferences.ui:1126
 msgid "Logout command:"
 msgstr "Kijelentkezés parancs:"
 
-#: src/xfce4-screensaver-preferences.ui:1151
+#: src/xfce4-screensaver-preferences.ui:1150
 msgid "Enable logout after:"
 msgstr "Kijelentkezés engedélyezése ennyi idő után:"
 
-#: src/xfce4-screensaver-preferences.ui:1189
+#: src/xfce4-screensaver-preferences.ui:1188
 msgid "User Switching"
 msgstr "Felhasználóváltás"
 
-#: src/xfce4-screensaver-preferences.ui:1219
+#: src/xfce4-screensaver-preferences.ui:1218
 msgid "Lock Screen with System Sleep"
 msgstr "Képernyő zárolása a rendszer alvó állapotával"
 
-#: src/xfce4-screensaver-preferences.ui:1260
+#: src/xfce4-screensaver-preferences.ui:1259
 msgid "Lock Screen"
 msgstr "Képernyő zárolása"
 
