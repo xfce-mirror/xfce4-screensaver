@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce-apps.xfce4-screensaver\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-09-27 00:52+0200\n"
+"POT-Creation-Date: 2024-12-19 12:50+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Andreas Eitel <github-aneitel@online.de>, 2024\n"
 "Language-Team: German (https://app.transifex.com/xfce/teams/16840/de/)\n"
@@ -37,7 +37,7 @@ msgid "Set your screensaver preferences"
 msgstr "Lege deine Bildschirmschoner-Einstellungen fest"
 
 #: data/xfce4-screensaver-preferences.desktop.in:5
-#: src/xfce4-screensaver-preferences.ui:879
+#: src/xfce4-screensaver-preferences.ui:878
 #: src/xfce4-screensaver.desktop.in.in:6
 msgid "Screensaver"
 msgstr "Bildschirmschoner"
@@ -199,12 +199,12 @@ msgstr "nicht mit dem Nachrichtenbus verbunden"
 msgid "screensaver already running in this session"
 msgstr "Bildschirmschoner läuft bereits in dieser Sitzung"
 
-#: src/gs-lock-plug.c:300
+#: src/gs-lock-plug.c:303
 msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, %B %e   %H:%M"
 
-#: src/gs-lock-plug.c:391
+#: src/gs-lock-plug.c:394
 msgid "Time has expired."
 msgstr "Zeit abgelaufen."
 
@@ -542,15 +542,15 @@ msgstr "SOCKET ID"
 msgid "Random"
 msgstr "Zufall"
 
-#: src/xfce4-screensaver-preferences.c:1736
+#: src/xfce4-screensaver-preferences.c:1739
 msgid "Setting locked by administrator."
 msgstr "Einstellungen vom Administrator gesperrt."
 
-#: src/xfce4-screensaver-preferences.c:1777
+#: src/xfce4-screensaver-preferences.c:1780
 msgid "Could not load the main interface"
 msgstr "Die Hauptoberfläche konnte nicht geladen werden"
 
-#: src/xfce4-screensaver-preferences.c:1779
+#: src/xfce4-screensaver-preferences.c:1782
 msgid "Please make sure that the screensaver is properly installed"
 msgstr ""
 "Bitte vergewissere dich, dass der Bildschirmschoner richtig installiert ist"
@@ -567,127 +567,123 @@ msgstr "<b>Vorschau des Bildschirmschoners</b>"
 msgid "Screensaver Preferences"
 msgstr "Bildschirmschoner-Einstellungen"
 
-#: src/xfce4-screensaver-preferences.ui:233
-msgid "Configure your screensaver and locker"
-msgstr "Richte deinen Bildschirmschoner und deinen Sperrbildschirm ein"
-
-#: src/xfce4-screensaver-preferences.ui:264
+#: src/xfce4-screensaver-preferences.ui:263
 msgid "Power _Management"
 msgstr "_Energieverwaltung"
 
-#: src/xfce4-screensaver-preferences.ui:281
-#: src/xfce4-screensaver-preferences.ui:610
+#: src/xfce4-screensaver-preferences.ui:280
+#: src/xfce4-screensaver-preferences.ui:609
 msgid "Preview"
 msgstr "Vorschau"
 
-#: src/xfce4-screensaver-preferences.ui:372
+#: src/xfce4-screensaver-preferences.ui:371
 msgid "Running as root"
 msgstr "Läuft mit Root-Rechten"
 
-#: src/xfce4-screensaver-preferences.ui:388
+#: src/xfce4-screensaver-preferences.ui:387
 msgid "The screen will not be locked for the root user."
 msgstr "Der Bildschirm ist für den Root-Benutzer nicht gesperrt."
 
-#: src/xfce4-screensaver-preferences.ui:429
+#: src/xfce4-screensaver-preferences.ui:428
 msgid "Resolve"
 msgstr "Lösen"
 
-#: src/xfce4-screensaver-preferences.ui:475
+#: src/xfce4-screensaver-preferences.ui:474
 msgid "Xfce Power Manager is not configured to handle laptop lid events"
 msgstr ""
 "Die Xfce Energieverwaltung ist nicht konfiguriert, um Ereignisse des "
 "Laptopdeckels zu verarbeiten."
 
-#: src/xfce4-screensaver-preferences.ui:491
+#: src/xfce4-screensaver-preferences.ui:490
 msgid "Your computer may not be locked when you close the lid."
 msgstr ""
 "Ihr Computer ist möglicherweise nicht gesperrt, wenn Sie den Deckel "
 "schließen."
 
-#: src/xfce4-screensaver-preferences.ui:540
+#: src/xfce4-screensaver-preferences.ui:539
 msgid "Enable Screensaver"
 msgstr "Bildschirmschoner aktivieren"
 
-#: src/xfce4-screensaver-preferences.ui:594
+#: src/xfce4-screensaver-preferences.ui:593
 msgid "Theme"
 msgstr "Thema"
 
-#: src/xfce4-screensaver-preferences.ui:692
+#: src/xfce4-screensaver-preferences.ui:691
 msgid "Configure screensaver"
 msgstr "Bildschirmschoner konfigurieren"
 
-#: src/xfce4-screensaver-preferences.ui:693
+#: src/xfce4-screensaver-preferences.ui:692
 msgid "Configure..."
 msgstr "Konfigurieren..."
 
-#: src/xfce4-screensaver-preferences.ui:733
+#: src/xfce4-screensaver-preferences.ui:732
 msgid "Change theme after:"
 msgstr "Ändere Thema nach:"
 
-#: src/xfce4-screensaver-preferences.ui:756
-#: src/xfce4-screensaver-preferences.ui:826
-#: src/xfce4-screensaver-preferences.ui:997
-#: src/xfce4-screensaver-preferences.ui:1174
+#: src/xfce4-screensaver-preferences.ui:755
+#: src/xfce4-screensaver-preferences.ui:825
+#: src/xfce4-screensaver-preferences.ui:996
+#: src/xfce4-screensaver-preferences.ui:1173
 msgid "minutes"
 msgstr "Minuten"
 
-#: src/xfce4-screensaver-preferences.ui:771
+#: src/xfce4-screensaver-preferences.ui:770
 msgid "Activate screensaver when computer is idle"
 msgstr "Aktiviere den Bildschirmschoner sobald der Computer bereit ist"
 
-#: src/xfce4-screensaver-preferences.ui:802
+#: src/xfce4-screensaver-preferences.ui:801
 msgid "Regard the computer as _idle after:"
 msgstr "Betrachte den Computer als _inaktiv nach:"
 
-#: src/xfce4-screensaver-preferences.ui:841
+#: src/xfce4-screensaver-preferences.ui:840
 msgid "Inhibit screensaver for fullscreen applications"
 msgstr "Bildschirmschoner für Vollbildanwendungen sperren"
 
-#: src/xfce4-screensaver-preferences.ui:900
+#: src/xfce4-screensaver-preferences.ui:899
 msgid "Enable Lock Screen"
 msgstr "Aktiviere den Sperrbildschirm"
 
-#: src/xfce4-screensaver-preferences.ui:944
+#: src/xfce4-screensaver-preferences.ui:943
 msgid "Lock Screen with Screensaver"
 msgstr "Bildschirm sperren mit Bildschirmschoner"
 
-#: src/xfce4-screensaver-preferences.ui:974
+#: src/xfce4-screensaver-preferences.ui:973
 msgid "Lock the screen after the screensaver is active for:"
 msgstr "Sperre den Bildschirm nachdem der Bildschirmschoner aktiv ist für:"
 
-#: src/xfce4-screensaver-preferences.ui:1012
+#: src/xfce4-screensaver-preferences.ui:1011
 msgid "On Screen Keyboard"
 msgstr "Bildschirmtastatur"
 
-#: src/xfce4-screensaver-preferences.ui:1042
+#: src/xfce4-screensaver-preferences.ui:1041
 msgid "On screen keyboard command:"
 msgstr "Bildschirmtastaturbefehl"
 
-#: src/xfce4-screensaver-preferences.ui:1067
+#: src/xfce4-screensaver-preferences.ui:1066
 msgid "Session Status Messages"
 msgstr "Sitzungsstatusmeldungen"
 
-#: src/xfce4-screensaver-preferences.ui:1097
+#: src/xfce4-screensaver-preferences.ui:1096
 msgid "Logout"
 msgstr "Abmelden"
 
-#: src/xfce4-screensaver-preferences.ui:1127
+#: src/xfce4-screensaver-preferences.ui:1126
 msgid "Logout command:"
 msgstr "Abmeldebefehl:"
 
-#: src/xfce4-screensaver-preferences.ui:1151
+#: src/xfce4-screensaver-preferences.ui:1150
 msgid "Enable logout after:"
 msgstr "Aktiviere Abmelden nach:"
 
-#: src/xfce4-screensaver-preferences.ui:1189
+#: src/xfce4-screensaver-preferences.ui:1188
 msgid "User Switching"
 msgstr "Benutzerwechsel"
 
-#: src/xfce4-screensaver-preferences.ui:1219
+#: src/xfce4-screensaver-preferences.ui:1218
 msgid "Lock Screen with System Sleep"
 msgstr "Bildschirm sperren mit dem Ruhezustand des Systems"
 
-#: src/xfce4-screensaver-preferences.ui:1260
+#: src/xfce4-screensaver-preferences.ui:1259
 msgid "Lock Screen"
 msgstr "Sperrbildschirm"
 
