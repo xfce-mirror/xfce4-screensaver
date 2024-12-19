@@ -230,7 +230,6 @@ Simon Steinbeiß
     <property name="default_height">400</property>
     <property name="icon_name">preferences-desktop-screensaver</property>
     <property name="type_hint">dialog</property>
-    <property name="subtitle" translatable="yes">Configure your screensaver and locker</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox1">
         <property name="visible">True</property>
