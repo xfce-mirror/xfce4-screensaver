@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce-apps.xfce4-screensaver\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-09-27 00:52+0200\n"
+"POT-Creation-Date: 2024-12-19 12:50+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Eder Etxebarria Rojo, 2024\n"
 "Language-Team: Basque (https://app.transifex.com/xfce/teams/16840/eu/)\n"
@@ -35,7 +35,7 @@ msgid "Set your screensaver preferences"
 msgstr "Ezarri zure pantaila-babeslearen hobespenak"
 
 #: data/xfce4-screensaver-preferences.desktop.in:5
-#: src/xfce4-screensaver-preferences.ui:879
+#: src/xfce4-screensaver-preferences.ui:878
 #: src/xfce4-screensaver.desktop.in.in:6
 msgid "Screensaver"
 msgstr "Pantaila-babeslea"
@@ -199,12 +199,12 @@ msgstr "mezuen busarekin ez konektatuta"
 msgid "screensaver already running in this session"
 msgstr "pantaila-babeslea dagoeneko martxan da saio honetan"
 
-#: src/gs-lock-plug.c:300
+#: src/gs-lock-plug.c:303
 msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, %B %e   %H:%M"
 
-#: src/gs-lock-plug.c:391
+#: src/gs-lock-plug.c:394
 msgid "Time has expired."
 msgstr "Denbora iraungi egin da."
 
@@ -541,15 +541,15 @@ msgstr "SOCKETaren IDa"
 msgid "Random"
 msgstr "Ausaz"
 
-#: src/xfce4-screensaver-preferences.c:1736
+#: src/xfce4-screensaver-preferences.c:1739
 msgid "Setting locked by administrator."
 msgstr "Ezarpen hau administratzaileak blokeatu du."
 
-#: src/xfce4-screensaver-preferences.c:1777
+#: src/xfce4-screensaver-preferences.c:1780
 msgid "Could not load the main interface"
 msgstr "Ezin izan da interfaze nagusia kargatu"
 
-#: src/xfce4-screensaver-preferences.c:1779
+#: src/xfce4-screensaver-preferences.c:1782
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "Mesedez egiaztatu pantaila-babeslea ondo instalatuta dagoela"
 
@@ -565,126 +565,122 @@ msgstr "<b>Pantaila-babeslearen aurrebista</b>"
 msgid "Screensaver Preferences"
 msgstr "Pantaila-babeslearen hobespenak"
 
-#: src/xfce4-screensaver-preferences.ui:233
-msgid "Configure your screensaver and locker"
-msgstr "Konfiguratu zure pantaila-babeslea eta blokeatzailea"
-
-#: src/xfce4-screensaver-preferences.ui:264
+#: src/xfce4-screensaver-preferences.ui:263
 msgid "Power _Management"
 msgstr "Energia kudeaketa"
 
-#: src/xfce4-screensaver-preferences.ui:281
-#: src/xfce4-screensaver-preferences.ui:610
+#: src/xfce4-screensaver-preferences.ui:280
+#: src/xfce4-screensaver-preferences.ui:609
 msgid "Preview"
 msgstr "Aurrebista"
 
-#: src/xfce4-screensaver-preferences.ui:372
+#: src/xfce4-screensaver-preferences.ui:371
 msgid "Running as root"
 msgstr "root bezala exekutatzen"
 
-#: src/xfce4-screensaver-preferences.ui:388
+#: src/xfce4-screensaver-preferences.ui:387
 msgid "The screen will not be locked for the root user."
 msgstr "Pantaila ez da blokeatuko root erabiltzailearentzat."
 
-#: src/xfce4-screensaver-preferences.ui:429
+#: src/xfce4-screensaver-preferences.ui:428
 msgid "Resolve"
 msgstr "Konpondu"
 
-#: src/xfce4-screensaver-preferences.ui:475
+#: src/xfce4-screensaver-preferences.ui:474
 msgid "Xfce Power Manager is not configured to handle laptop lid events"
 msgstr ""
 "Xfce energia kudeatzailea ez dago konfiguratuta eramangarriaren estalkiaren "
 "gertaerak kudeatzeko"
 
-#: src/xfce4-screensaver-preferences.ui:491
+#: src/xfce4-screensaver-preferences.ui:490
 msgid "Your computer may not be locked when you close the lid."
 msgstr "Baliteke zure ordenagailua ez blokeatzea estalkia ixten duzunean."
 
-#: src/xfce4-screensaver-preferences.ui:540
+#: src/xfce4-screensaver-preferences.ui:539
 msgid "Enable Screensaver"
 msgstr "Pantaila-babeslea gaitu"
 
-#: src/xfce4-screensaver-preferences.ui:594
+#: src/xfce4-screensaver-preferences.ui:593
 msgid "Theme"
 msgstr "Gaia"
 
-#: src/xfce4-screensaver-preferences.ui:692
+#: src/xfce4-screensaver-preferences.ui:691
 msgid "Configure screensaver"
 msgstr "Pantaila-babeslea konfiguratu"
 
-#: src/xfce4-screensaver-preferences.ui:693
+#: src/xfce4-screensaver-preferences.ui:692
 msgid "Configure..."
 msgstr "Konfiguratu..."
 
-#: src/xfce4-screensaver-preferences.ui:733
+#: src/xfce4-screensaver-preferences.ui:732
 msgid "Change theme after:"
 msgstr "Gaia aldatu denbora honen ostean:"
 
-#: src/xfce4-screensaver-preferences.ui:756
-#: src/xfce4-screensaver-preferences.ui:826
-#: src/xfce4-screensaver-preferences.ui:997
-#: src/xfce4-screensaver-preferences.ui:1174
+#: src/xfce4-screensaver-preferences.ui:755
+#: src/xfce4-screensaver-preferences.ui:825
+#: src/xfce4-screensaver-preferences.ui:996
+#: src/xfce4-screensaver-preferences.ui:1173
 msgid "minutes"
 msgstr "minutu"
 
-#: src/xfce4-screensaver-preferences.ui:771
+#: src/xfce4-screensaver-preferences.ui:770
 msgid "Activate screensaver when computer is idle"
 msgstr "Pantaila-babeslea aktibatu ordenagailua geldirik dagoenean"
 
-#: src/xfce4-screensaver-preferences.ui:802
+#: src/xfce4-screensaver-preferences.ui:801
 msgid "Regard the computer as _idle after:"
 msgstr "Gelditutzat hartu ordenagailua denbora honen ostean:"
 
-#: src/xfce4-screensaver-preferences.ui:841
+#: src/xfce4-screensaver-preferences.ui:840
 msgid "Inhibit screensaver for fullscreen applications"
 msgstr "Pantaila-babeslean ez sartu pantaila-osoko aplikazioetan"
 
-#: src/xfce4-screensaver-preferences.ui:900
+#: src/xfce4-screensaver-preferences.ui:899
 msgid "Enable Lock Screen"
 msgstr "Pantailaren blokeoa gaitu"
 
-#: src/xfce4-screensaver-preferences.ui:944
+#: src/xfce4-screensaver-preferences.ui:943
 msgid "Lock Screen with Screensaver"
 msgstr "Pantaila blokeatu pantaila-babeslearekin"
 
-#: src/xfce4-screensaver-preferences.ui:974
+#: src/xfce4-screensaver-preferences.ui:973
 msgid "Lock the screen after the screensaver is active for:"
 msgstr ""
 "Pantaila blokeatu pantaila-babeslea denbora honetan aktibo egon eta gero:"
 
-#: src/xfce4-screensaver-preferences.ui:1012
+#: src/xfce4-screensaver-preferences.ui:1011
 msgid "On Screen Keyboard"
 msgstr "Pantaila gaineko teklatua"
 
-#: src/xfce4-screensaver-preferences.ui:1042
+#: src/xfce4-screensaver-preferences.ui:1041
 msgid "On screen keyboard command:"
 msgstr "Pantaila gaineko teklatuaren komandoa:"
 
-#: src/xfce4-screensaver-preferences.ui:1067
+#: src/xfce4-screensaver-preferences.ui:1066
 msgid "Session Status Messages"
 msgstr "Saioaren egoera mezuak"
 
-#: src/xfce4-screensaver-preferences.ui:1097
+#: src/xfce4-screensaver-preferences.ui:1096
 msgid "Logout"
 msgstr "Saioa amaitu"
 
-#: src/xfce4-screensaver-preferences.ui:1127
+#: src/xfce4-screensaver-preferences.ui:1126
 msgid "Logout command:"
 msgstr "Saioa amaitzeko komandoa:"
 
-#: src/xfce4-screensaver-preferences.ui:1151
+#: src/xfce4-screensaver-preferences.ui:1150
 msgid "Enable logout after:"
 msgstr "Saioa amaitzea baimendu honen ostean:"
 
-#: src/xfce4-screensaver-preferences.ui:1189
+#: src/xfce4-screensaver-preferences.ui:1188
 msgid "User Switching"
 msgstr "Erabiltzaile aldatzailea"
 
-#: src/xfce4-screensaver-preferences.ui:1219
+#: src/xfce4-screensaver-preferences.ui:1218
 msgid "Lock Screen with System Sleep"
 msgstr "Pantaila blokeatu sistema lokartzerakoan"
 
-#: src/xfce4-screensaver-preferences.ui:1260
+#: src/xfce4-screensaver-preferences.ui:1259
 msgid "Lock Screen"
 msgstr "Pantaila blokeatu"
 
