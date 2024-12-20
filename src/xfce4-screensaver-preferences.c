@@ -2026,11 +2026,6 @@ main (int    argc,
         return EXIT_FAILURE;
     }
 
-    if (!GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
-        g_warning ("Unsupported windowing environment");
-        return EXIT_FAILURE;
-    }
-
     /* hook to make sure the libxfce4ui library is linked */
     if (xfce_titled_dialog_get_type() == 0)
         return EXIT_FAILURE;

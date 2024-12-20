@@ -25,7 +25,6 @@
 #include <string.h>
 
 #include <gtk/gtk.h>
-#include <gdk/gdkx.h>
 
 #include <libxfce4util/libxfce4util.h>
 
@@ -48,11 +47,6 @@ main (int    argc,
         g_printerr (_("%s. See --help for usage information.\n"),
                     error->message);
         g_error_free (error);
-        return EXIT_FAILURE;
-    }
-
-    if (!GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
-        g_warning ("Unsupported windowing environment");
         return EXIT_FAILURE;
     }
 

@@ -51,11 +51,6 @@ main (int    argc,
         return EXIT_FAILURE;
     }
 
-    if (!GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
-        g_warning ("Unsupported windowing environment");
-        return EXIT_FAILURE;
-    }
-
     display = gdk_display_get_default ();
     visual = gs_visual_gl_get_best_for_display (display);
 
