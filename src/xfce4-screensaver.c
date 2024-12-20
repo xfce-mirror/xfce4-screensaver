@@ -32,6 +32,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
+#include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 
 #include <libxfce4util/libxfce4util.h>
@@ -75,6 +76,11 @@ int main(int    argc,
     if (show_version) {
         g_print("%s %s\n", argv[0], VERSION);
         return EXIT_SUCCESS;
+    }
+
+    if (!GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        g_warning ("Unsupported windowing environment");
+        return EXIT_FAILURE;
     }
 
     if (!xfconf_init(&error)) {

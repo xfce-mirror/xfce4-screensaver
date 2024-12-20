@@ -35,6 +35,7 @@
 
 #include <glib.h>
 #include <gdk/gdk.h>
+#include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 
 #include <libxfce4util/libxfce4util.h>
@@ -1138,6 +1139,11 @@ main (int   argc,
 
     if (!success) {
         g_printerr (_("Failed to initialize the windowing system."));
+        return EX_SOFTWARE;
+    }
+
+    if (!GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        g_warning ("Unsupported windowing environment");
         return EX_SOFTWARE;
     }
 
