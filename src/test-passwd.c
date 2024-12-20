@@ -208,13 +208,13 @@ main (int    argc,
 
     gs_auth_set_verbose (verbose);
     if (!privileged_initialization ()) {
-        exit (1);
+        return EXIT_FAILURE;
     }
 
     if (!gtk_init_with_args (&argc, &argv, NULL, NULL, NULL, &error)) {
         fprintf (stderr, "%s", error->message);
         g_error_free (error);
-        exit (1);
+        return EXIT_FAILURE;
     }
 
     if (!lock_initialization (&nolock_reason)) {
@@ -223,7 +223,7 @@ main (int    argc,
             g_free (nolock_reason);
         }
 
-        exit (1);
+        return EXIT_FAILURE;
     }
 
 again:
@@ -240,5 +240,5 @@ again:
         goto again;
     }
 
-    return 0;
+    return EXIT_SUCCESS;
 }

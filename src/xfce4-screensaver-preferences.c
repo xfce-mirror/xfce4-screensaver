@@ -2028,7 +2028,7 @@ main (int    argc,
 
     /* hook to make sure the libxfce4ui library is linked */
     if (xfce_titled_dialog_get_type() == 0)
-        exit(1);
+        return EXIT_FAILURE;
 
     if (!xfconf_init(&error)) {
         g_error("Failed to connect to xfconf daemon: %s.", error->message);
@@ -2096,5 +2096,5 @@ main (int    argc,
 
     xfconf_shutdown ();
 
-    return 0;
+    return EXIT_SUCCESS;
 }

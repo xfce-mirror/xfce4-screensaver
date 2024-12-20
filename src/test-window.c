@@ -140,14 +140,14 @@ main (int    argc,
     if (!gtk_init_with_args (&argc, &argv, NULL, NULL, NULL, &error)) {
         fprintf (stderr, "%s", error->message);
         g_error_free (error);
-        exit (1);
+        return EXIT_FAILURE;
     }
 
     if (!xfconf_init(&error)) {
         g_error("Failed to connect to xfconf daemon: %s.", error->message);
         g_error_free(error);
 
-        exit(1);
+        return EXIT_FAILURE;
     }
 
     gs_debug_init (TRUE, FALSE);
@@ -166,5 +166,5 @@ main (int    argc,
     gs_debug_shutdown ();
     xfconf_shutdown ();
 
-    return 0;
+    return EXIT_SUCCESS;
 }

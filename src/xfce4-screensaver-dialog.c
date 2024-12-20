@@ -476,7 +476,7 @@ int main(int    argc,
 
     if (!privileged_initialization(&argc, argv, verbose)) {
         response_lock_init_failed();
-        exit(1);
+        return EXIT_FAILURE;
     }
 
     error = NULL;
@@ -487,19 +487,19 @@ int main(int    argc,
             g_error_free(error);
         }
 
-        exit(1);
+        return EXIT_FAILURE;
+    }
+
+    if (show_version) {
+        g_print("%s %s\n", argv[0], VERSION);
+        return EXIT_SUCCESS;
     }
 
     if (!xfconf_init(&error)) {
         g_error("Failed to connect to xfconf daemon: %s.", error->message);
         g_error_free(error);
 
-        exit(1);
-    }
-
-    if (show_version) {
-        g_print("%s %s\n", argv[0], VERSION);
-        exit(1);
+        return EXIT_FAILURE;
     }
 
     if (!lock_initialization(&argc, argv, &nolock_reason, verbose)) {
@@ -509,7 +509,7 @@ int main(int    argc,
         }
 
         response_lock_init_failed();
-        exit (1);
+        return EXIT_FAILURE;
     }
 
     gs_debug_init(verbose, FALSE);
@@ -522,5 +522,5 @@ int main(int    argc,
     gs_debug_shutdown();
     xfconf_shutdown ();
 
-    return 0;
+    return EXIT_SUCCESS;
 }

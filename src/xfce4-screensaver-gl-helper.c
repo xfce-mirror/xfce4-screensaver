@@ -48,7 +48,7 @@ main (int    argc,
         } else {
             g_warning ("Unable to initialize GTK+");
         }
-        exit (1);
+        return EXIT_FAILURE;
     }
 
     display = gdk_display_get_default ();
@@ -62,5 +62,5 @@ main (int    argc,
         printf ("none\n");
     }
 
-    return 0;
+    return EXIT_SUCCESS;
 }

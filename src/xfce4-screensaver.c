@@ -69,12 +69,12 @@ int main(int    argc,
             g_warning("Unable to initialize GTK+");
         }
 
-        exit(1);
+        return EXIT_FAILURE;
     }
 
     if (show_version) {
         g_print("%s %s\n", argv[0], VERSION);
-        exit(1);
+        return EXIT_SUCCESS;
     }
 
     if (!xfconf_init(&error)) {
@@ -91,7 +91,7 @@ int main(int    argc,
     monitor = gs_monitor_new();
 
     if (monitor == NULL) {
-        exit (1);
+        return EXIT_FAILURE;
     }
 
     error = NULL;
@@ -105,7 +105,7 @@ int main(int    argc,
         }
 
         g_object_unref(monitor);
-        exit(1);
+        return EXIT_FAILURE;
     }
 
     gtk_main();

@@ -84,7 +84,7 @@ main (int argc, char **argv) {
     if (!ret) {
         g_message ("%s", error->message);
         g_error_free (error);
-        exit (1);
+        return EXIT_FAILURE;
     }
 
     g_chdir (g_get_home_dir ());
@@ -137,5 +137,5 @@ main (int argc, char **argv) {
 
     gtk_main ();
 
-    return 0;
+    return EXIT_SUCCESS;
 }

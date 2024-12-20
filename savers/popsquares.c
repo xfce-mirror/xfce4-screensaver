@@ -47,7 +47,7 @@ main (int    argc,
         g_printerr (_("%s. See --help for usage information.\n"),
                     error->message);
         g_error_free (error);
-        exit (1);
+        return EXIT_FAILURE;
     }
 
     window = gs_theme_window_new ();
@@ -66,5 +66,5 @@ main (int    argc,
 
     gtk_main ();
 
-    return 0;
+    return EXIT_SUCCESS;
 }
