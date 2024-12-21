@@ -33,14 +33,17 @@
 #include <sysexits.h>
 #include <time.h>
 
-#include <glib.h>
-#include <gdk/gdk.h>
-#include <gdk/gdkx.h>
 #include <gtk/gtk.h>
+#ifdef ENABLE_X11
+#include <gdk/gdkx.h>
+#include <gtk/gtkx.h>
+#endif
+#ifdef ENABLE_WAYLAND
+#include <gdk/gdkwayland.h>
+#include <libwlembed-gtk3/libwlembed-gtk3.h>
+#endif
 
 #include <libxfce4util/libxfce4util.h>
-
-#include "gs-theme-window.h"
 
 #ifndef trunc
 #define trunc(x) (((x) > 0.0) ? floor((x)) : -floor(-(x)))
@@ -1114,7 +1117,7 @@ int
 main (int   argc,
       char *argv[]) {
     ScreenSaver     *screen_saver;
-    GtkWidget       *window;
+    GtkWidget       *window = NULL;
     GtkWidget       *drawing_area;
     GError          *error;
     gboolean         success;
@@ -1142,11 +1145,6 @@ main (int   argc,
         return EX_SOFTWARE;
     }
 
-    if (!GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
-        g_warning ("Unsupported windowing environment");
-        return EX_SOFTWARE;
-    }
-
     if ((filenames == NULL) || (filenames[0] == NULL) ||
             (filenames[1] != NULL)) {
         g_printerr (_("You must specify one image.  See --help for usage "
@@ -1154,7 +1152,17 @@ main (int   argc,
         return EX_USAGE;
     }
 
-    window = gs_theme_window_new ();
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        window = gtk_plug_new (strtoul (g_getenv ("XSCREENSAVER_WINDOW"), NULL, 0));
+    }
+#endif
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+        window = wle_gtk_plug_new (g_getenv ("XSCREENSAVER_WINDOW"));
+    }
+#endif
+    gtk_widget_set_app_paintable (window, TRUE);
 
     g_signal_connect (G_OBJECT (window), "destroy",
                       G_CALLBACK (gtk_main_quit), NULL);

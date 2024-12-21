@@ -26,14 +26,19 @@
 #include <string.h>
 #include <unistd.h>
 
-#include <glib.h>
 #include <glib/gstdio.h>
 #include <gtk/gtk.h>
+#ifdef ENABLE_X11
 #include <gdk/gdkx.h>
+#include <gtk/gtkx.h>
+#endif
+#ifdef ENABLE_WAYLAND
+#include <gdk/gdkwayland.h>
+#include <libwlembed-gtk3/libwlembed-gtk3.h>
+#endif
 
 #include <libxfce4util/libxfce4util.h>
 
-#include "gs-theme-window.h"
 #include "gs-theme-engine.h"
 #include "gste-slideshow.h"
 #include "xdg-user-dir-lookup.h"
@@ -41,7 +46,7 @@
 int
 main (int argc, char **argv) {
     GSThemeEngine *engine;
-    GtkWidget     *window;
+    GtkWidget     *window = NULL;
     GError        *error;
     gboolean       ret;
     char          *location = NULL;
@@ -88,16 +93,21 @@ main (int argc, char **argv) {
         return EXIT_FAILURE;
     }
 
-    if (!GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
-        g_warning ("Unsupported windowing environment");
-        return EXIT_FAILURE;
-    }
-
     g_chdir (g_get_home_dir ());
 
     g_set_prgname ("slideshow");
 
-    window = gs_theme_window_new ();
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        window = gtk_plug_new (strtoul (g_getenv ("XSCREENSAVER_WINDOW"), NULL, 0));
+    }
+#endif
+#ifdef ENABLE_WAYLAND
+    if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+        window = wle_gtk_plug_new (g_getenv ("XSCREENSAVER_WINDOW"));
+    }
+#endif
+    gtk_widget_set_app_paintable (window, TRUE);
     g_signal_connect (G_OBJECT (window), "destroy",
                       G_CALLBACK (gtk_main_quit), NULL);
 
