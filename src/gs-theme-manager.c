@@ -36,13 +36,14 @@
 #include "gs-debug.h"
 #include "gs-theme-manager.h"
 
-static void     gs_theme_manager_finalize   (GObject             *object);
+static void
+gs_theme_manager_finalize (GObject *object);
 
 struct _GSThemeInfo {
-    char  *name;
-    char  *exec;
-    char  *file_id;
-    guint  refcount;
+    char *name;
+    char *exec;
+    char *file_id;
+    guint refcount;
 };
 
 struct GSThemeManagerPrivate {
@@ -62,7 +63,8 @@ static const char *known_engine_locations[] = {
     LIBDIR "/xscreensaver",
     "/usr/libexec/xscreensaver",
     "/usr/lib/xscreensaver",
-    NULL};
+    NULL
+};
 
 /* Returns the full path to the queried command */
 static char *
@@ -76,7 +78,7 @@ find_command (const char *command) {
         for (i = 0; known_engine_locations[i]; i++) {
             if (strcmp (dirname, known_engine_locations[i]) == 0) {
                 if (g_file_test (command, G_FILE_TEST_IS_EXECUTABLE)
-                        && !g_file_test (command, G_FILE_TEST_IS_DIR)) {
+                    && !g_file_test (command, G_FILE_TEST_IS_DIR)) {
                     g_free (dirname);
                     return g_strdup (command);
                 }
@@ -90,7 +92,7 @@ find_command (const char *command) {
             path = g_build_filename (known_engine_locations[i], command, NULL);
 
             if (g_file_test (path, G_FILE_TEST_IS_EXECUTABLE)
-                    && !g_file_test (path, G_FILE_TEST_IS_DIR)) {
+                && !g_file_test (path, G_FILE_TEST_IS_DIR)) {
                 return path;
             }
 
@@ -123,7 +125,7 @@ check_command (const char *command) {
 static void
 add_known_engine_locations_to_path (void) {
     static gboolean already_added;
-    int      i;
+    int i;
     GString *str;
 
     /* We only want to add the items to the path once */
@@ -191,16 +193,16 @@ gs_theme_info_get_exec (GSThemeInfo *info) {
 }
 
 static GSThemeInfo *
-gs_theme_info_new_from_garcon_menu_item(GarconMenuItem *item) {
+gs_theme_info_new_from_garcon_menu_item (GarconMenuItem *item) {
     GSThemeInfo *info;
-    const char  *str;
-    char        *pos;
+    const char *str;
+    char *pos;
 
     info = g_new0 (GSThemeInfo, 1);
 
     info->refcount = 1;
-    info->name     = g_strdup (garcon_menu_item_get_name (item));
-    info->exec     = g_strdup (garcon_menu_item_get_command (item));
+    info->name = g_strdup (garcon_menu_item_get_name (item));
+    info->exec = g_strdup (garcon_menu_item_get_command (item));
 
     /* remove the .desktop suffix */
     str = garcon_menu_item_get_desktop_id (item);
@@ -208,7 +210,7 @@ gs_theme_info_new_from_garcon_menu_item(GarconMenuItem *item) {
     if (pos) {
         info->file_id = g_strndup (str, pos - str);
     } else {
-        info->file_id  = g_strdup (str);
+        info->file_id = g_strdup (str);
     }
 
     return info;
@@ -218,8 +220,8 @@ static GSThemeInfo *
 find_info_for_id (GarconMenu *menu,
                   const char *id) {
     GSThemeInfo *info;
-    GList       *items;
-    GList       *l;
+    GList *items;
+    GList *l;
 
     items = garcon_menu_get_items (menu);
 
@@ -228,7 +230,7 @@ find_info_for_id (GarconMenu *menu,
     for (l = items; l; l = l->next) {
         if (info == NULL) {
             GarconMenuItem *item = l->data;
-            const char     *file_id;
+            const char *file_id;
 
             file_id = garcon_menu_item_get_desktop_id (item);
             if (file_id && id && strcmp (file_id, id) == 0) {
@@ -244,9 +246,9 @@ find_info_for_id (GarconMenu *menu,
 
 GSThemeInfo *
 gs_theme_manager_lookup_theme_info (GSThemeManager *manager,
-                                    const char     *theme) {
+                                    const char *theme) {
     GSThemeInfo *info;
-    char        *id;
+    char *id;
 
     g_return_val_if_fail (GS_IS_THEME_MANAGER (manager), NULL);
     g_return_val_if_fail (theme != NULL, NULL);
@@ -259,8 +261,8 @@ gs_theme_manager_lookup_theme_info (GSThemeManager *manager,
 }
 
 static void
-theme_prepend_item (GSList         **parent_list,
-                    GarconMenuItem  *item) {
+theme_prepend_item (GSList **parent_list,
+                    GarconMenuItem *item) {
     GSThemeInfo *info;
 
     info = gs_theme_info_new_from_garcon_menu_item (item);
@@ -269,8 +271,8 @@ theme_prepend_item (GSList         **parent_list,
 }
 
 static void
-make_theme_list (GSList     **parent_list,
-                 GarconMenu  *menu) {
+make_theme_list (GSList **parent_list,
+                 GarconMenu *menu) {
     GList *items;
     GList *l;
 
@@ -287,7 +289,7 @@ make_theme_list (GSList     **parent_list,
 
 GSList *
 gs_theme_manager_get_info_list (GSThemeManager *manager) {
-    GSList             *l = NULL;
+    GSList *l = NULL;
 
     g_return_val_if_fail (GS_IS_THEME_MANAGER (manager), NULL);
 
@@ -298,7 +300,7 @@ gs_theme_manager_get_info_list (GSThemeManager *manager) {
 
 static void
 gs_theme_manager_class_init (GSThemeManagerClass *klass) {
-    GObjectClass   *object_class = G_OBJECT_CLASS (klass);
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
     object_class->finalize = gs_theme_manager_finalize;
 }
@@ -306,7 +308,7 @@ gs_theme_manager_class_init (GSThemeManagerClass *klass) {
 static GarconMenu *
 get_themes_menu (void) {
     GarconMenu *menu = NULL;
-    gchar      *menu_file = g_strconcat(SYSCONFDIR, "/xdg/menus/xfce4-screensavers.menu", NULL);
+    gchar *menu_file = g_strconcat (SYSCONFDIR, "/xdg/menus/xfce4-screensavers.menu", NULL);
 
     /* we only need to add the locations to the path once
        and since this is only run once we'll do it here */
@@ -314,7 +316,7 @@ get_themes_menu (void) {
 
     menu = garcon_menu_new_for_path (menu_file);
     if (!garcon_menu_load (menu, NULL, NULL)) {
-        g_warning("Failed to load menu.");
+        g_warning ("Failed to load menu.");
     }
 
     g_free (menu_file);
@@ -340,7 +342,7 @@ gs_theme_manager_finalize (GObject *object) {
     g_return_if_fail (theme_manager->priv != NULL);
 
     if (theme_manager->priv->menu != NULL) {
-        g_object_unref (G_OBJECT(theme_manager->priv->menu));
+        g_object_unref (G_OBJECT (theme_manager->priv->menu));
     }
 
     G_OBJECT_CLASS (gs_theme_manager_parent_class)->finalize (object);

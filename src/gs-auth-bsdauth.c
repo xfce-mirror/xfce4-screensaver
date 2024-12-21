@@ -61,11 +61,11 @@ gs_auth_get_verbose (void) {
 }
 
 gboolean
-gs_auth_verify_user (const char        *username,
-                     const char        *display,
-                     GSAuthMessageFunc  func,
-                     gpointer           data,
-                     GError           **error) {
+gs_auth_verify_user (const char *username,
+                     const char *display,
+                     GSAuthMessageFunc func,
+                     gpointer data,
+                     GError **error) {
     int res;
     char *password = NULL;
 
@@ -82,7 +82,7 @@ gs_auth_verify_user (const char        *username,
     }
 
     /* authenticate */
-    res = auth_userokay((char *)username, NULL, "auth-xfce4-screensaver", password);
+    res = auth_userokay ((char *) username, NULL, "auth-xfce4-screensaver", password);
 
     return res;
 }

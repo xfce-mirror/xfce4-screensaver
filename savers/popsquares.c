@@ -40,11 +40,11 @@
 #include "gste-popsquares.h"
 
 int
-main (int    argc,
+main (int argc,
       char **argv) {
     GSThemeEngine *engine;
-    GtkWidget     *window = NULL;
-    GError        *error;
+    GtkWidget *window = NULL;
+    GError *error;
 
     xfce_textdomain (GETTEXT_PACKAGE, XFCELOCALEDIR, "UTF-8");
 

@@ -33,41 +33,45 @@ G_BEGIN_DECLS
 #define pam_dgettext(msgid) (msgid)
 #endif
 
-typedef enum
-{
+typedef enum {
     GS_AUTH_MESSAGE_PROMPT_ECHO_ON,
     GS_AUTH_MESSAGE_PROMPT_ECHO_OFF,
     GS_AUTH_MESSAGE_ERROR_MSG,
     GS_AUTH_MESSAGE_TEXT_INFO
 } GSAuthMessageStyle;
 
-typedef enum
-{
+typedef enum {
     GS_AUTH_ERROR_GENERAL,
     GS_AUTH_ERROR_AUTH_ERROR,
     GS_AUTH_ERROR_USER_UNKNOWN,
     GS_AUTH_ERROR_AUTH_DENIED
 } GSAuthError;
 
-typedef gboolean  (* GSAuthMessageFunc) (GSAuthMessageStyle   style,
-                                         const char          *msg,
-                                         char               **response,
-                                         gpointer             data);
+typedef gboolean (*GSAuthMessageFunc) (GSAuthMessageStyle style,
+                                       const char *msg,
+                                       char **response,
+                                       gpointer data);
 
 #define GS_AUTH_ERROR gs_auth_error_quark ()
 
-GQuark   gs_auth_error_quark (void);
+GQuark
+gs_auth_error_quark (void);
 
-void     gs_auth_set_verbose (gboolean verbose);
-gboolean gs_auth_get_verbose (void);
+void
+gs_auth_set_verbose (gboolean verbose);
+gboolean
+gs_auth_get_verbose (void);
 
-gboolean gs_auth_priv_init   (void);
-gboolean gs_auth_init        (void);
-gboolean gs_auth_verify_user (const char         *username,
-                              const char         *display,
-                              GSAuthMessageFunc   func,
-                              gpointer            data,
-                              GError            **error);
+gboolean
+gs_auth_priv_init (void);
+gboolean
+gs_auth_init (void);
+gboolean
+gs_auth_verify_user (const char *username,
+                     const char *display,
+                     GSAuthMessageFunc func,
+                     gpointer data,
+                     GError **error);
 
 G_END_DECLS
 

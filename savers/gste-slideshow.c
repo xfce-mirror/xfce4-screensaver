@@ -29,7 +29,8 @@
 
 #include "gste-slideshow.h"
 
-static void     gste_slideshow_finalize   (GObject            *object);
+static void
+gste_slideshow_finalize (GObject *object);
 
 struct GSTESlideshowPrivate {
     /* Image at full opacity */
@@ -37,39 +38,39 @@ struct GSTESlideshowPrivate {
     /* Image at partial opacity */
     cairo_pattern_t *pat2;
     /* Alpha of pat2 */
-    gdouble          alpha2;
+    gdouble alpha2;
     /* edges of pat2 */
-    int              pat2top;
-    int              pat2bottom;
-    int              pat2left;
-    int              pat2right;
+    int pat2top;
+    int pat2bottom;
+    int pat2left;
+    int pat2right;
 
     /* backbuffer that we do all the alpha drawing into (no round
      * trips to the X server when the server doesn't support drawing
      * pixmaps with alpha?) */
     cairo_surface_t *surf;
 
-    gint64           fade_ticks;
+    gint64 fade_ticks;
 
-    GAsyncQueue     *op_q;
-    GAsyncQueue     *results_q;
+    GAsyncQueue *op_q;
+    GAsyncQueue *results_q;
 
-    guint            results_pull_id;
-    guint            update_image_id;
+    guint results_pull_id;
+    guint update_image_id;
 
-    GSList          *filename_list;
-    char            *images_location;
-    gboolean         sort_images;
-    int              window_width;
-    int              window_height;
-    PangoColor      *background_color;
-    gboolean         no_stretch_hint;
-    gboolean         no_crop_hint;
+    GSList *filename_list;
+    char *images_location;
+    gboolean sort_images;
+    int window_width;
+    int window_height;
+    PangoColor *background_color;
+    gboolean no_stretch_hint;
+    gboolean no_crop_hint;
 
-    guint            timeout_id;
+    guint timeout_id;
 
-    GTimer          *timer;
-    gboolean         fade_disabled;
+    GTimer *timer;
+    gboolean fade_disabled;
 };
 
 enum {
@@ -91,7 +92,7 @@ G_DEFINE_TYPE_WITH_PRIVATE (GSTESlideshow, gste_slideshow, GS_TYPE_THEME_ENGINE)
 #define IMAGE_LOAD_TIMEOUT 10000
 
 typedef struct _Op {
-    char          *location;
+    char *location;
     GSTESlideshow *slideshow;
 } Op;
 
@@ -120,26 +121,26 @@ push_load_image_func (gpointer user_data) {
 
 static void
 start_new_load (GSTESlideshow *show,
-                guint          timeout) {
+                guint timeout) {
     gs_theme_engine_profile_msg ("Scheduling a new image load");
 
     /* queue a new load */
     if (show->priv->update_image_id <= 0) {
         show->priv->update_image_id = g_timeout_add_full (G_PRIORITY_LOW, timeout,
-                                      push_load_image_func, show, NULL);
+                                                          push_load_image_func, show, NULL);
     }
 }
 
 static void
 start_fade (GSTESlideshow *show,
-            GdkPixbuf     *pixbuf) {
-    int      pw;
-    int      ph;
-    int      x;
-    int      y;
+            GdkPixbuf *pixbuf) {
+    int pw;
+    int ph;
+    int x;
+    int y;
     cairo_t *cr;
-    int      window_width;
-    int      window_height;
+    int window_width;
+    int window_height;
 
     gs_theme_engine_profile_start ("start");
 
@@ -157,7 +158,7 @@ start_fade (GSTESlideshow *show,
 
     if (gdk_pixbuf_get_has_alpha (pixbuf) && show->priv->background_color) {
         GdkPixbuf *colored;
-        guint32    color;
+        guint32 color;
 
         color = (show->priv->background_color->red << 16)
                 + (show->priv->background_color->green / 256 << 8)
@@ -175,7 +176,7 @@ start_fade (GSTESlideshow *show,
                               gdk_pixbuf_get_height (colored),
                               pixbuf, 0, 0);
 
-        g_object_unref(colored);
+        g_object_unref (colored);
     }
 
     cr = cairo_create (show->priv->surf);
@@ -214,8 +215,8 @@ finish_fade (GSTESlideshow *show) {
 
 static void
 update_display (GSTESlideshow *show) {
-    int      window_width;
-    int      window_height;
+    int window_width;
+    int window_height;
     cairo_t *cr;
 
     gs_theme_engine_profile_start ("start");
@@ -328,17 +329,14 @@ draw_iter (gpointer user_data) {
          * to be cleaned up by the last iteration, where alpha2
          * becomes 1 because new_opacity is 1.
          */
-        old_opacity = (double) (show->priv->fade_ticks - 1) /
-                      (double) N_FADE_TICKS;
-        new_opacity = (double) show->priv->fade_ticks /
-                      (double) N_FADE_TICKS;
-        show->priv->alpha2 = 1.0 - (1.0 - new_opacity) /
-                             (1.0 - old_opacity);
+        old_opacity = (double) (show->priv->fade_ticks - 1) / (double) N_FADE_TICKS;
+        new_opacity = (double) show->priv->fade_ticks / (double) N_FADE_TICKS;
+        show->priv->alpha2 = 1.0 - (1.0 - new_opacity) / (1.0 - old_opacity);
 
         update_display (show);
 
         elapsed = g_timer_elapsed (show->priv->timer, NULL);
-        fps = (gdouble)show->priv->fade_ticks / elapsed;
+        fps = (gdouble) show->priv->fade_ticks / elapsed;
         if (fps < MINIMUM_FPS) {
             g_warning ("Getting less than %.2f frames per second, disabling fade", MINIMUM_FPS);
             show->priv->fade_ticks = N_FADE_TICKS - 1;
@@ -355,7 +353,7 @@ draw_iter (gpointer user_data) {
 
 static void
 process_new_pixbuf (GSTESlideshow *show,
-                    GdkPixbuf     *pixbuf) {
+                    GdkPixbuf *pixbuf) {
     gs_theme_engine_profile_msg ("Processing a new image");
 
     if (pixbuf != NULL) {
@@ -404,15 +402,15 @@ results_pull_func (gpointer user_data) {
 
 static GdkPixbuf *
 scale_pixbuf (GdkPixbuf *pixbuf,
-              int        max_width,
-              int        max_height,
-              gboolean   no_stretch_hint,
-              gboolean   no_crop_hint) {
-    int        pw;
-    int        ph;
-    float      scale_factor_x = 1.0;
-    float      scale_factor_y = 1.0;
-    float      scale_factor = 1.0;
+              int max_width,
+              int max_height,
+              gboolean no_stretch_hint,
+              gboolean no_crop_hint) {
+    int pw;
+    int ph;
+    float scale_factor_x = 1.0;
+    float scale_factor_y = 1.0;
+    float scale_factor = 1.0;
 
     pw = gdk_pixbuf_get_width (pixbuf);
     ph = gdk_pixbuf_get_height (pixbuf);
@@ -450,9 +448,9 @@ scale_pixbuf (GdkPixbuf *pixbuf,
 }
 
 static void
-add_files_to_list (GSList     **list,
-                   const char  *base) {
-    GDir       *d;
+add_files_to_list (GSList **list,
+                   const char *base) {
+    GDir *d;
     const char *d_name;
 
     d = g_dir_open (base, 0, NULL);
@@ -500,10 +498,10 @@ gste_strcmp_compare_func (gconstpointer string_a,
 
 static GdkPixbuf *
 get_pixbuf_from_local_dir (GSTESlideshow *show,
-                           const char    *location) {
+                           const char *location) {
     GdkPixbuf *pixbuf, *transformed_pixbuf;
-    char      *filename;
-    GSList    *l;
+    char *filename;
+    GSList *l;
 
     /* rebuild the cache */
     if (show->priv->filename_list == NULL) {
@@ -545,9 +543,9 @@ get_pixbuf_from_local_dir (GSTESlideshow *show,
 
 static GdkPixbuf *
 get_pixbuf_from_location (GSTESlideshow *show,
-                          const char    *location) {
+                          const char *location) {
     GdkPixbuf *pixbuf = NULL;
-    gboolean   is_dir;
+    gboolean is_dir;
 
     if (location == NULL) {
         return NULL;
@@ -564,9 +562,9 @@ get_pixbuf_from_location (GSTESlideshow *show,
 
 static GdkPixbuf *
 get_pixbuf (GSTESlideshow *show,
-            const char    *location,
-            int            width,
-            int            height) {
+            const char *location,
+            int width,
+            int height) {
     GdkPixbuf *pixbuf;
     GdkPixbuf *scaled = NULL;
 
@@ -586,10 +584,10 @@ get_pixbuf (GSTESlideshow *show,
 
 static void
 op_load_image (GSTESlideshow *show,
-               const char    *location) {
+               const char *location) {
     OpResult *op_result;
-    int       window_width;
-    int       window_height;
+    int window_width;
+    int window_height;
 
     window_width = show->priv->window_width;
     window_height = show->priv->window_height;
@@ -637,7 +635,7 @@ load_threadfunc (GAsyncQueue *op_q) {
 
 void
 gste_slideshow_set_images_location (GSTESlideshow *show,
-                                    const char    *location) {
+                                    const char *location) {
     g_return_if_fail (GSTE_IS_SLIDESHOW (show));
 
     g_free (show->priv->images_location);
@@ -647,7 +645,7 @@ gste_slideshow_set_images_location (GSTESlideshow *show,
 
 void
 gste_slideshow_set_sort_images (GSTESlideshow *show,
-                                gboolean       sort_images) {
+                                gboolean sort_images) {
     g_return_if_fail (GSTE_IS_SLIDESHOW (show));
 
     show->priv->sort_images = sort_images;
@@ -655,23 +653,23 @@ gste_slideshow_set_sort_images (GSTESlideshow *show,
 
 void
 gste_slideshow_set_no_stretch_hint (GSTESlideshow *show,
-                                    gboolean       no_stretch_hint) {
+                                    gboolean no_stretch_hint) {
     g_return_if_fail (GSTE_IS_SLIDESHOW (show));
 
     show->priv->no_stretch_hint = no_stretch_hint;
 }
 
-void gste_slideshow_set_no_crop_hint(GSTESlideshow *show,
-                                        gboolean no_crop_hint)
-{
-    g_return_if_fail(GSTE_IS_SLIDESHOW(show));
+void
+gste_slideshow_set_no_crop_hint (GSTESlideshow *show,
+                                 gboolean no_crop_hint) {
+    g_return_if_fail (GSTE_IS_SLIDESHOW (show));
 
     show->priv->no_crop_hint = no_crop_hint;
 }
 
 void
 gste_slideshow_set_background_color (GSTESlideshow *show,
-                                     const char    *background_color) {
+                                     const char *background_color) {
     g_return_if_fail (GSTE_IS_SLIDESHOW (show));
 
     if (show->priv->background_color != NULL) {
@@ -690,10 +688,10 @@ gste_slideshow_set_background_color (GSTESlideshow *show,
 }
 
 static void
-gste_slideshow_set_property (GObject            *object,
-                             guint               prop_id,
-                             const GValue       *value,
-                             GParamSpec         *pspec) {
+gste_slideshow_set_property (GObject *object,
+                             guint prop_id,
+                             const GValue *value,
+                             GParamSpec *pspec) {
     GSTESlideshow *self;
 
     self = GSTE_SLIDESHOW (object);
@@ -712,7 +710,7 @@ gste_slideshow_set_property (GObject            *object,
             gste_slideshow_set_no_stretch_hint (self, g_value_get_boolean (value));
             break;
         case PROP_NO_CROP_HINT:
-            gste_slideshow_set_no_crop_hint(self, g_value_get_boolean(value));
+            gste_slideshow_set_no_crop_hint (self, g_value_get_boolean (value));
             break;
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -721,9 +719,9 @@ gste_slideshow_set_property (GObject            *object,
 }
 
 static void
-gste_slideshow_get_property (GObject    *object,
-                             guint       prop_id,
-                             GValue     *value,
+gste_slideshow_get_property (GObject *object,
+                             guint prop_id,
+                             GValue *value,
                              GParamSpec *pspec) {
     GSTESlideshow *self;
 
@@ -736,8 +734,7 @@ gste_slideshow_get_property (GObject    *object,
         case PROP_SORT_IMAGES:
             g_value_set_boolean (value, self->priv->sort_images);
             break;
-        case PROP_SOLID_BACKGROUND:
-        {
+        case PROP_SOLID_BACKGROUND: {
             char *color = NULL;
             color = pango_color_to_string (self->priv->background_color);
             g_value_set_string (value, color);
@@ -748,7 +745,7 @@ gste_slideshow_get_property (GObject    *object,
             g_value_set_boolean (value, self->priv->no_stretch_hint);
             break;
         case PROP_NO_CROP_HINT:
-            g_value_set_boolean(value, self->priv->no_crop_hint);
+            g_value_set_boolean (value, self->priv->no_crop_hint);
             break;
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -759,7 +756,7 @@ gste_slideshow_get_property (GObject    *object,
 static void
 gste_slideshow_real_show (GtkWidget *widget) {
     GSTESlideshow *show = GSTE_SLIDESHOW (widget);
-    int            delay;
+    int delay;
 
     if (GTK_WIDGET_CLASS (parent_class)->show) {
         GTK_WIDGET_CLASS (parent_class)->show (widget);
@@ -778,7 +775,7 @@ gste_slideshow_real_show (GtkWidget *widget) {
 
 static gboolean
 gste_slideshow_real_draw (GtkWidget *widget,
-                          cairo_t   *cr) {
+                          cairo_t *cr) {
     GSTESlideshow *show = GSTE_SLIDESHOW (widget);
 
     if (GTK_WIDGET_CLASS (parent_class)->draw) {
@@ -795,11 +792,11 @@ gste_slideshow_real_draw (GtkWidget *widget,
 }
 
 static gboolean
-gste_slideshow_real_configure (GtkWidget         *widget,
+gste_slideshow_real_configure (GtkWidget *widget,
                                GdkEventConfigure *event) {
     GSTESlideshow *show = GSTE_SLIDESHOW (widget);
-    gboolean       handled = FALSE;
-    cairo_t       *cr;
+    gboolean handled = FALSE;
+    cairo_t *cr;
 
     /* resize */
     gs_theme_engine_get_window_size (GS_THEME_ENGINE (show),
@@ -814,7 +811,7 @@ gste_slideshow_real_configure (GtkWidget         *widget,
         cairo_surface_destroy (show->priv->surf);
     }
 
-    G_GNUC_BEGIN_IGNORE_DEPRECATIONS /* GTK 3.22 */
+    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     cr = gdk_cairo_create (gtk_widget_get_window (widget));
     G_GNUC_END_IGNORE_DEPRECATIONS
     show->priv->surf = cairo_surface_create_similar (cairo_get_target (cr),
@@ -835,7 +832,7 @@ gste_slideshow_real_configure (GtkWidget         *widget,
 
 static void
 gste_slideshow_class_init (GSTESlideshowClass *klass) {
-    GObjectClass   *object_class = G_OBJECT_CLASS (klass);
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
     parent_class = g_type_class_peek_parent (klass);
@@ -902,7 +899,7 @@ set_visual (GtkWidget *widget) {
 static void
 size_allocate (GSTESlideshow *engine) {
     g_signal_handlers_disconnect_by_func (engine, size_allocate, NULL);
-    g_thread_new ("loadthread", (GThreadFunc)load_threadfunc, engine->priv->op_q);
+    g_thread_new ("loadthread", (GThreadFunc) load_threadfunc, engine->priv->op_q);
 }
 
 static void
@@ -923,7 +920,7 @@ gste_slideshow_init (GSTESlideshow *engine) {
 static void
 gste_slideshow_finalize (GObject *object) {
     GSTESlideshow *show;
-    gpointer       result;
+    gpointer result;
 
     g_return_if_fail (object != NULL);
     g_return_if_fail (GSTE_IS_SLIDESHOW (object));

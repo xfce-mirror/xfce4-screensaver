@@ -27,18 +27,18 @@
 
 G_BEGIN_DECLS
 
-#define GS_TYPE_LISTENER_X11         (gs_listener_x11_get_type ())
-#define GS_LISTENER_X11(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GS_TYPE_LISTENER_X11, GSListenerX11))
-#define GS_LISTENER_X11_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GS_TYPE_LISTENER_X11, GSListenerX11Class))
-#define GS_IS_LISTENER_X11(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GS_TYPE_LISTENER_X11))
-#define GS_IS_LISTENER_X11_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GS_TYPE_LISTENER_X11))
+#define GS_TYPE_LISTENER_X11 (gs_listener_x11_get_type ())
+#define GS_LISTENER_X11(o) (G_TYPE_CHECK_INSTANCE_CAST ((o), GS_TYPE_LISTENER_X11, GSListenerX11))
+#define GS_LISTENER_X11_CLASS(k) (G_TYPE_CHECK_CLASS_CAST ((k), GS_TYPE_LISTENER_X11, GSListenerX11Class))
+#define GS_IS_LISTENER_X11(o) (G_TYPE_CHECK_INSTANCE_TYPE ((o), GS_TYPE_LISTENER_X11))
+#define GS_IS_LISTENER_X11_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), GS_TYPE_LISTENER_X11))
 #define GS_LISTENER_X11_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GS_TYPE_LISTENER_X11, GSListenerX11Class))
 
 typedef struct GSListenerX11Private GSListenerX11Private;
 
 typedef struct
 {
-    GSListener            parent;
+    GSListener parent;
     GSListenerX11Private *priv;
 } GSListenerX11;
 
@@ -47,7 +47,8 @@ typedef struct
     GSListenerClass parent_class;
 } GSListenerX11Class;
 
-GType                     gs_listener_x11_get_type                  (void);
+GType
+gs_listener_x11_get_type (void);
 
 G_END_DECLS
 

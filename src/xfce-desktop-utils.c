@@ -62,12 +62,12 @@
  * Since: 1.7.1
  **/
 gboolean
-xfce_gdk_spawn_command_line_on_screen (GdkScreen    *screen,
-                                       const gchar  *command,
-                                       GError      **error) {
-    GAppInfo            *appinfo = NULL;
+xfce_gdk_spawn_command_line_on_screen (GdkScreen *screen,
+                                       const gchar *command,
+                                       GError **error) {
+    GAppInfo *appinfo = NULL;
     GdkAppLaunchContext *context = NULL;
-    gboolean             res = FALSE;
+    gboolean res = FALSE;
 
     appinfo = g_app_info_create_from_commandline (command, NULL, G_APP_INFO_CREATE_NONE, error);
 

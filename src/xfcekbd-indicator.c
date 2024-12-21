@@ -30,16 +30,16 @@
 #include "xfcekbd-indicator.h"
 
 typedef struct _gki_globals {
-    XklEngine               *engine;
-    const gchar             *tooltips_format;
-    GSList                  *widget_instances;
+    XklEngine *engine;
+    const gchar *tooltips_format;
+    GSList *widget_instances;
 
-    gboolean                 redraw_queued;
+    gboolean redraw_queued;
 } gki_globals;
 
 struct _XfcekbdIndicatorPrivate {
     gboolean set_parent_tooltips;
-    gdouble  angle;
+    gdouble angle;
 };
 
 /* one instance for ALL widgets */
@@ -47,30 +47,38 @@ static gki_globals globals;
 
 #define ForAllIndicators() \
     { \
-        GSList* cur; \
+        GSList *cur; \
         for (cur = globals.widget_instances; cur != NULL; cur = cur->next) { \
-            XfcekbdIndicator * gki = (XfcekbdIndicator*)cur->data;
+            XfcekbdIndicator *gki = (XfcekbdIndicator *) cur->data;
 #define NextIndicator() \
-        } \
+    } \
     }
 
 G_DEFINE_TYPE (XfcekbdIndicator, xfcekbd_indicator, GTK_TYPE_NOTEBOOK)
 
-static void        xfcekbd_indicator_global_init                    (void);
-static void        xfcekbd_indicator_global_term                    (void);
-static GtkWidget * xfcekbd_indicator_prepare_drawing                (XfcekbdIndicator *gki,
-                                                                     guint             group);
-static void        xfcekbd_indicator_set_current_page_for_group     (XfcekbdIndicator *gki,
-                                                                     int               group);
-static void        xfcekbd_indicator_set_current_page               (XfcekbdIndicator *gki);
-static void        xfcekbd_indicator_cleanup                        (XfcekbdIndicator *gki);
-static void        xfcekbd_indicator_fill                           (XfcekbdIndicator *gki);
-static void        xfcekbd_indicator_set_tooltips                   (XfcekbdIndicator *gki,
-                                                                     const char       *str);
+static void
+xfcekbd_indicator_global_init (void);
+static void
+xfcekbd_indicator_global_term (void);
+static GtkWidget *
+xfcekbd_indicator_prepare_drawing (XfcekbdIndicator *gki,
+                                   guint group);
+static void
+xfcekbd_indicator_set_current_page_for_group (XfcekbdIndicator *gki,
+                                              int group);
+static void
+xfcekbd_indicator_set_current_page (XfcekbdIndicator *gki);
+static void
+xfcekbd_indicator_cleanup (XfcekbdIndicator *gki);
+static void
+xfcekbd_indicator_fill (XfcekbdIndicator *gki);
+static void
+xfcekbd_indicator_set_tooltips (XfcekbdIndicator *gki,
+                                const char *str);
 
 void
 xfcekbd_indicator_set_tooltips (XfcekbdIndicator *gki,
-                                const char       *str) {
+                                const char *str) {
     g_assert (str == NULL || g_utf8_validate (str, -1, NULL));
 
     gtk_widget_set_tooltip_text (GTK_WIDGET (gki), str);
@@ -85,8 +93,8 @@ xfcekbd_indicator_set_tooltips (XfcekbdIndicator *gki,
 }
 
 void
-xfcekbd_indicator_cleanup (XfcekbdIndicator * gki) {
-    int          i;
+xfcekbd_indicator_cleanup (XfcekbdIndicator *gki) {
+    int i;
     GtkNotebook *notebook = GTK_NOTEBOOK (gki);
 
     /* Do not remove the first page! It is the default page */
@@ -96,8 +104,8 @@ xfcekbd_indicator_cleanup (XfcekbdIndicator * gki) {
 }
 
 void
-xfcekbd_indicator_fill (XfcekbdIndicator * gki) {
-    guint        total_groups = xkl_engine_get_num_groups (globals.engine);
+xfcekbd_indicator_fill (XfcekbdIndicator *gki) {
+    guint total_groups = xkl_engine_get_num_groups (globals.engine);
     GtkNotebook *notebook = GTK_NOTEBOOK (gki);
 
     for (guint grp = 0; grp < total_groups; grp++) {
@@ -111,9 +119,10 @@ xfcekbd_indicator_fill (XfcekbdIndicator * gki) {
     }
 }
 
-static gboolean xfcekbd_indicator_key_pressed (GtkWidget        *widget,
-                                               GdkEventKey      *event,
-                                               XfcekbdIndicator *gki) {
+static gboolean
+xfcekbd_indicator_key_pressed (GtkWidget *widget,
+                               GdkEventKey *event,
+                               XfcekbdIndicator *gki) {
     int group;
 
     switch (event->keyval) {
@@ -123,7 +132,7 @@ static gboolean xfcekbd_indicator_key_pressed (GtkWidget        *widget,
         case GDK_KEY_Return:
         case GDK_KEY_space:
         case GDK_KEY_KP_Space:
-            gs_debug("Switching language");
+            gs_debug ("Switching language");
             group = xkl_engine_get_next_group (globals.engine);
             xkl_engine_lock_group (globals.engine, group);
             globals.redraw_queued = TRUE;
@@ -136,12 +145,12 @@ static gboolean xfcekbd_indicator_key_pressed (GtkWidget        *widget,
 }
 
 static gboolean
-xfcekbd_indicator_button_pressed (GtkWidget        *widget,
-                                  GdkEventButton   *event,
+xfcekbd_indicator_button_pressed (GtkWidget *widget,
+                                  GdkEventButton *event,
                                   XfcekbdIndicator *gki) {
     if (event->button == 1 && event->type == GDK_BUTTON_PRESS) {
         int group;
-        gs_debug("Switching language");
+        gs_debug ("Switching language");
         group = xkl_engine_get_next_group (globals.engine);
         xkl_engine_lock_group (globals.engine, group);
         globals.redraw_queued = TRUE;
@@ -152,7 +161,7 @@ xfcekbd_indicator_button_pressed (GtkWidget        *widget,
 
 static gchar *
 xfcekbd_indicator_extract_layout_name (int groupId) {
-    const gchar** layouts;
+    const gchar **layouts;
 
     layouts = xkl_engine_get_groups_names (globals.engine);
 
@@ -163,13 +172,13 @@ xfcekbd_indicator_extract_layout_name (int groupId) {
 
 
 static gchar *
-xfcekbd_indicator_create_label_title (int          group,
+xfcekbd_indicator_create_label_title (int group,
                                       GHashTable **ln2cnt_map,
-                                      gchar       *layout_name) {
-    gpointer  pcounter = NULL;
-    char     *prev_layout_name = NULL;
-    char     *lbl_title = NULL;
-    int       counter = 0;
+                                      gchar *layout_name) {
+    gpointer pcounter = NULL;
+    char *prev_layout_name = NULL;
+    char *lbl_title = NULL;
+    int counter = 0;
 
     if (group == 0) {
         *ln2cnt_map = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
@@ -178,7 +187,7 @@ xfcekbd_indicator_create_label_title (int          group,
     /* Process layouts with repeating description */
     if (g_hash_table_lookup_extended (*ln2cnt_map,
                                       layout_name,
-                                      (gpointer *) & prev_layout_name,
+                                      (gpointer *) &prev_layout_name,
                                       &pcounter)) {
         /* "next" same description */
         gchar appendix[10] = "";
@@ -195,13 +204,13 @@ xfcekbd_indicator_create_label_title (int          group,
         lbl_title = g_strdup (layout_name);
     }
     g_hash_table_insert (*ln2cnt_map, layout_name,
-                 GINT_TO_POINTER (counter + 1));
+                         GINT_TO_POINTER (counter + 1));
     return lbl_title;
 }
 
 static GtkWidget *
 xfcekbd_indicator_prepare_drawing (XfcekbdIndicator *gki,
-                                   guint             groupId) {
+                                   guint groupId) {
     GtkWidget *ebox;
 
     char *lbl_title = NULL;
@@ -250,12 +259,12 @@ xfcekbd_indicator_prepare_drawing (XfcekbdIndicator *gki,
 static void
 xfcekbd_indicator_update_tooltips (XfcekbdIndicator *gki) {
     XklState *state = xkl_engine_get_current_state (globals.engine);
-    const gchar** layouts = xkl_engine_get_groups_names (globals.engine);
+    const gchar **layouts = xkl_engine_get_groups_names (globals.engine);
     gchar *buf;
 
-    if (state == NULL ||
-            state->group < 0 ||
-            state->group >= (gint) g_strv_length ((gchar **)layouts)) {
+    if (state == NULL
+        || state->group < 0
+        || state->group >= (gint) g_strv_length ((gchar **) layouts)) {
         return;
     }
 
@@ -273,11 +282,11 @@ xfcekbd_indicator_parent_set (GtkWidget *gki,
 
 /* Should be called once for all applets */
 static void
-xfcekbd_indicator_state_callback (XklEngine            *engine,
-                                  XklEngineStateChange  changeType,
-                                  gint                  group,
-                                  gboolean              restore) {
-    gs_debug("group is now %d, restore: %d\n", group, restore);
+xfcekbd_indicator_state_callback (XklEngine *engine,
+                                  XklEngineStateChange changeType,
+                                  gint group,
+                                  gboolean restore) {
+    gs_debug ("group is now %d, restore: %d\n", group, restore);
 
     if (changeType == GROUP_CHANGED) {
         ForAllIndicators () {
@@ -297,8 +306,8 @@ xfcekbd_indicator_set_current_page (XfcekbdIndicator *gki) {
 
 void
 xfcekbd_indicator_set_current_page_for_group (XfcekbdIndicator *gki,
-                                              int               group) {
-    gs_debug("Revalidating for group %d\n", group);
+                                              int group) {
+    gs_debug ("Revalidating for group %d\n", group);
 
     gtk_notebook_set_current_page (GTK_NOTEBOOK (gki), group + 1);
 
@@ -308,40 +317,36 @@ xfcekbd_indicator_set_current_page_for_group (XfcekbdIndicator *gki,
 /* Should be called once for all widgets */
 static GdkFilterReturn
 xfcekbd_indicator_filter_x_evt (GdkXEvent *xev,
-                                GdkEvent  *event,
-                                gpointer   data) {
+                                GdkEvent *event,
+                                gpointer data) {
     XEvent *xevent = (XEvent *) xev;
 
     xkl_engine_filter_events (globals.engine, xevent);
     switch (xevent->type) {
-        case ReparentNotify:
-            {
-                XReparentEvent *rne;
-                if (!globals.redraw_queued)
-                    return GDK_FILTER_CONTINUE;
+        case ReparentNotify: {
+            XReparentEvent *rne;
+            if (!globals.redraw_queued)
+                return GDK_FILTER_CONTINUE;
 
-                gs_debug("do repaint\n");
-                rne = (XReparentEvent *) xev;
+            gs_debug ("do repaint\n");
+            rne = (XReparentEvent *) xev;
 
-                ForAllIndicators () {
-                    GdkWindow *w =
-                        gtk_widget_get_parent_window
-                        (GTK_WIDGET (gki));
+            ForAllIndicators () {
+                GdkWindow *w =
+                    gtk_widget_get_parent_window (GTK_WIDGET (gki));
 
-                    /* compare the indicator's parent window with the even window */
-                    if (w != NULL
-                        && GDK_WINDOW_XID (w) == rne->window) {
-                        /* if so - make it transparent... */
-                        xkl_engine_set_window_transparent
-                            (globals.engine, rne->window,
-                            TRUE);
-                    }
+                /* compare the indicator's parent window with the even window */
+                if (w != NULL
+                    && GDK_WINDOW_XID (w) == rne->window) {
+                    /* if so - make it transparent... */
+                    xkl_engine_set_window_transparent (globals.engine, rne->window,
+                                                       TRUE);
                 }
-                NextIndicator ()
+            }
+            NextIndicator ()
 
                 globals.redraw_queued = FALSE;
-            }
-            break;
+        } break;
     }
     return GDK_FILTER_CONTINUE;
 }
@@ -350,8 +355,7 @@ xfcekbd_indicator_filter_x_evt (GdkXEvent *xev,
 /* Should be called once for all widgets */
 static void
 xfcekbd_indicator_start_listen (void) {
-    gdk_window_add_filter (NULL, (GdkFilterFunc)
-                           xfcekbd_indicator_filter_x_evt, NULL);
+    gdk_window_add_filter (NULL, (GdkFilterFunc) xfcekbd_indicator_filter_x_evt, NULL);
     gdk_window_add_filter (gdk_get_default_root_window (),
                            (GdkFilterFunc) xfcekbd_indicator_filter_x_evt, NULL);
 
@@ -364,33 +368,33 @@ static void
 xfcekbd_indicator_stop_listen (void) {
     xkl_engine_stop_listen (globals.engine, XKLL_TRACK_KEYBOARD_STATE);
 
-    gdk_window_remove_filter (NULL, (GdkFilterFunc)
-                              xfcekbd_indicator_filter_x_evt, NULL);
+    gdk_window_remove_filter (NULL, (GdkFilterFunc) xfcekbd_indicator_filter_x_evt, NULL);
     gdk_window_remove_filter (gdk_get_default_root_window (),
                               (GdkFilterFunc) xfcekbd_indicator_filter_x_evt,
                               NULL);
 }
 
 static gboolean
-xfcekbd_indicator_scroll (GtkWidget      *gki,
+xfcekbd_indicator_scroll (GtkWidget *gki,
                           GdkEventScroll *event) {
     /* mouse wheel events should be ignored, otherwise funny effects appear */
     return TRUE;
 }
 
-static void xfcekbd_indicator_init(XfcekbdIndicator *gki) {
-    GtkWidget   *def_drawing;
+static void
+xfcekbd_indicator_init (XfcekbdIndicator *gki) {
+    GtkWidget *def_drawing;
     GtkNotebook *notebook;
 
-    if (!g_slist_length(globals.widget_instances)) {
-        xfcekbd_indicator_global_init();
+    if (!g_slist_length (globals.widget_instances)) {
+        xfcekbd_indicator_global_init ();
     }
 
     gki->priv = g_new0 (XfcekbdIndicatorPrivate, 1);
 
     notebook = GTK_NOTEBOOK (gki);
 
-    gs_debug( "Initiating the widget startup process for %p\n", gki);
+    gs_debug ("Initiating the widget startup process for %p\n", gki);
 
     gtk_notebook_set_show_tabs (notebook, FALSE);
     gtk_notebook_set_show_border (notebook, FALSE);
@@ -420,14 +424,14 @@ static void xfcekbd_indicator_init(XfcekbdIndicator *gki) {
 static void
 xfcekbd_indicator_finalize (GObject *obj) {
     XfcekbdIndicator *gki = XFCEKBD_INDICATOR (obj);
-    gs_debug("Starting the xfce-kbd-indicator widget shutdown process for %p", gki);
+    gs_debug ("Starting the xfce-kbd-indicator widget shutdown process for %p", gki);
 
     /* remove BEFORE all termination work is finished */
     globals.widget_instances = g_slist_remove (globals.widget_instances, gki);
 
     xfcekbd_indicator_cleanup (gki);
 
-    gs_debug("The instance of xfce-kbd-indicator successfully finalized");
+    gs_debug ("The instance of xfce-kbd-indicator successfully finalized");
 
     g_free (gki->priv);
 
@@ -439,12 +443,12 @@ xfcekbd_indicator_finalize (GObject *obj) {
 
 static void
 xfcekbd_indicator_global_term (void) {
-    gs_debug( "*** Last  XfcekbdIndicator instance ***\n");
+    gs_debug ("*** Last  XfcekbdIndicator instance ***\n");
     xfcekbd_indicator_stop_listen ();
 
     g_object_unref (G_OBJECT (globals.engine));
     globals.engine = NULL;
-    gs_debug( "*** Terminated globals *** \n");
+    gs_debug ("*** Terminated globals *** \n");
 }
 
 static void
@@ -452,7 +456,7 @@ xfcekbd_indicator_class_init (XfcekbdIndicatorClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    gs_debug( "*** First XfcekbdIndicator instance ***");
+    gs_debug ("*** First XfcekbdIndicator instance ***");
 
     memset (&globals, 0, sizeof (globals));
 
@@ -468,15 +472,15 @@ xfcekbd_indicator_class_init (XfcekbdIndicatorClass *klass) {
 
 static void
 xfcekbd_indicator_global_init (void) {
-    globals.engine = xkl_engine_get_instance(GDK_DISPLAY_XDISPLAY(gdk_display_get_default()));
+    globals.engine = xkl_engine_get_instance (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()));
     if (globals.engine == NULL) {
-        gs_debug("Libxklavier initialization error");
+        gs_debug ("Libxklavier initialization error");
         return;
     }
     g_signal_connect (globals.engine, "X-state-changed",
                       G_CALLBACK (xfcekbd_indicator_state_callback), NULL);
     xfcekbd_indicator_start_listen ();
-    gs_debug( "*** Inited globals ***");
+    gs_debug ("*** Inited globals ***");
 }
 
 GtkWidget *
@@ -485,7 +489,7 @@ xfcekbd_indicator_new (void) {
 }
 
 void
-xfcekbd_indicator_set_parent_tooltips (XfcekbdIndicator * gki, gboolean spt) {
+xfcekbd_indicator_set_parent_tooltips (XfcekbdIndicator *gki, gboolean spt) {
     gki->priv->set_parent_tooltips = spt;
     xfcekbd_indicator_update_tooltips (gki);
 }

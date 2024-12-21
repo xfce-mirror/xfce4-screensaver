@@ -74,8 +74,8 @@ gs_auth_get_verbose (void) {
 static gboolean
 ext_run (const char *user,
          const char *typed_passwd,
-         gboolean    verbose) {
-    int   pfd[2], status;
+         gboolean verbose) {
+    int pfd[2], status;
     pid_t pid;
 
     if (pipe (pfd) < 0) {
@@ -143,13 +143,13 @@ ext_run (const char *user,
 }
 
 gboolean
-gs_auth_verify_user (const char         *username,
-                     const char         *display,
-                     GSAuthMessageFunc   func,
-                     gpointer            data,
-                     GError            **error) {
-    gboolean       res = FALSE;
-    char          *password;
+gs_auth_verify_user (const char *username,
+                     const char *display,
+                     GSAuthMessageFunc func,
+                     gpointer data,
+                     GError **error) {
+    gboolean res = FALSE;
+    char *password;
 
     password = NULL;
 

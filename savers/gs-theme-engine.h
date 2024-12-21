@@ -27,18 +27,18 @@
 
 G_BEGIN_DECLS
 
-#define GS_TYPE_THEME_ENGINE         (gs_theme_engine_get_type ())
-#define GS_THEME_ENGINE(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GS_TYPE_THEME_ENGINE, GSThemeEngine))
-#define GS_THEME_ENGINE_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GS_TYPE_THEME_ENGINE, GSThemeEngineClass))
-#define GS_IS_THEME_ENGINE(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GS_TYPE_THEME_ENGINE))
-#define GS_IS_THEME_ENGINE_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GS_TYPE_THEME_ENGINE))
+#define GS_TYPE_THEME_ENGINE (gs_theme_engine_get_type ())
+#define GS_THEME_ENGINE(o) (G_TYPE_CHECK_INSTANCE_CAST ((o), GS_TYPE_THEME_ENGINE, GSThemeEngine))
+#define GS_THEME_ENGINE_CLASS(k) (G_TYPE_CHECK_CLASS_CAST ((k), GS_TYPE_THEME_ENGINE, GSThemeEngineClass))
+#define GS_IS_THEME_ENGINE(o) (G_TYPE_CHECK_INSTANCE_TYPE ((o), GS_TYPE_THEME_ENGINE))
+#define GS_IS_THEME_ENGINE_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), GS_TYPE_THEME_ENGINE))
 #define GS_THEME_ENGINE_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GS_TYPE_THEME_ENGINE, GSThemeEngineClass))
 
 typedef struct GSThemeEnginePrivate GSThemeEnginePrivate;
 
 typedef struct
 {
-    GtkDrawingArea        parent;
+    GtkDrawingArea parent;
     GSThemeEnginePrivate *priv;
 } GSThemeEngine;
 
@@ -47,29 +47,32 @@ typedef struct
     GtkDrawingAreaClass parent_class;
 
     /* for signals later if needed */
-    gpointer            reserved_1;
-    gpointer            reserved_2;
-    gpointer            reserved_3;
-    gpointer            reserved_4;
+    gpointer reserved_1;
+    gpointer reserved_2;
+    gpointer reserved_3;
+    gpointer reserved_4;
 } GSThemeEngineClass;
 
-GType           gs_theme_engine_get_type        (void);
+GType
+gs_theme_engine_get_type (void);
 
-void            gs_theme_engine_get_window_size (GSThemeEngine *engine,
-                                                 int           *width,
-                                                 int           *height);
-GdkWindow      *gs_theme_engine_get_window      (GSThemeEngine *engine);
+void
+gs_theme_engine_get_window_size (GSThemeEngine *engine,
+                                 int *width,
+                                 int *height);
+GdkWindow *
+gs_theme_engine_get_window (GSThemeEngine *engine);
 
 #define ENABLE_PROFILING 1
 #ifdef ENABLE_PROFILING
 #ifdef G_HAVE_ISO_VARARGS
 #define gs_theme_engine_profile_start(...) _gs_theme_engine_profile_log (G_STRFUNC, "start", __VA_ARGS__)
-#define gs_theme_engine_profile_end(...)   _gs_theme_engine_profile_log (G_STRFUNC, "end", __VA_ARGS__)
-#define gs_theme_engine_profile_msg(...)   _gs_theme_engine_profile_log (NULL, NULL, __VA_ARGS__)
+#define gs_theme_engine_profile_end(...) _gs_theme_engine_profile_log (G_STRFUNC, "end", __VA_ARGS__)
+#define gs_theme_engine_profile_msg(...) _gs_theme_engine_profile_log (NULL, NULL, __VA_ARGS__)
 #elif defined(G_HAVE_GNUC_VARARGS)
 #define gs_theme_engine_profile_start(format...) _gs_theme_engine_profile_log (G_STRFUNC, "start", format)
-#define gs_theme_engine_profile_end(format...)   _gs_theme_engine_profile_log (G_STRFUNC, "end", format)
-#define gs_theme_engine_profile_msg(format...)   _gs_theme_engine_profile_log (NULL, NULL, format)
+#define gs_theme_engine_profile_end(format...) _gs_theme_engine_profile_log (G_STRFUNC, "end", format)
+#define gs_theme_engine_profile_msg(format...) _gs_theme_engine_profile_log (NULL, NULL, format)
 #endif
 #else
 #define gs_theme_engine_profile_start(...)
@@ -77,10 +80,11 @@ GdkWindow      *gs_theme_engine_get_window      (GSThemeEngine *engine);
 #define gs_theme_engine_profile_msg(...)
 #endif
 
-void            _gs_theme_engine_profile_log    (const char *func,
-                                                 const char *note,
-                                                 const char *format,
-                                                 ...) G_GNUC_PRINTF (3, 4);
+void
+_gs_theme_engine_profile_log (const char *func,
+                              const char *note,
+                              const char *format,
+                              ...) G_GNUC_PRINTF (3, 4);
 
 G_END_DECLS
 

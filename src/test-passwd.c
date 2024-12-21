@@ -42,10 +42,10 @@
 */
 static gboolean
 privileged_initialization (void) {
-    gboolean  ret;
-    char     *nolock_reason;
-    char     *orig_uid;
-    char     *uid_message;
+    gboolean ret;
+    char *nolock_reason;
+    char *orig_uid;
+    char *uid_message;
 
 #ifndef NO_LOCKING
     /* before hack_uid () for proper permissions */
@@ -128,11 +128,11 @@ lock_initialization (char **nolock_reason) {
 
 static char *
 request_password (const char *prompt) {
-    char            buf[255];
-    char           *pass;
-    char           *password;
-    struct termios  ts0;
-    struct termios  ts1;
+    char buf[255];
+    char *pass;
+    char *password;
+    struct termios ts0;
+    struct termios ts1;
 
     tcgetattr (fileno (stdin), &ts0);
     ts1 = ts0;
@@ -165,10 +165,10 @@ request_password (const char *prompt) {
 }
 
 static gboolean
-auth_message_handler (GSAuthMessageStyle   style,
-                      const char          *msg,
-                      char               **response,
-                      gpointer             data) {
+auth_message_handler (GSAuthMessageStyle style,
+                      const char *msg,
+                      char **response,
+                      gpointer data) {
     gboolean ret;
 
     g_message ("Got message style %d: '%s'", style, msg);
@@ -178,13 +178,11 @@ auth_message_handler (GSAuthMessageStyle   style,
     switch (style) {
         case GS_AUTH_MESSAGE_PROMPT_ECHO_ON:
             break;
-        case GS_AUTH_MESSAGE_PROMPT_ECHO_OFF:
-            {
-                char *password;
-                password = request_password (msg);
-                *response = password;
-            }
-            break;
+        case GS_AUTH_MESSAGE_PROMPT_ECHO_OFF: {
+            char *password;
+            password = request_password (msg);
+            *response = password;
+        } break;
         case GS_AUTH_MESSAGE_ERROR_MSG:
             break;
         case GS_AUTH_MESSAGE_TEXT_INFO:
@@ -197,11 +195,11 @@ auth_message_handler (GSAuthMessageStyle   style,
 }
 
 int
-main (int    argc,
+main (int argc,
       char **argv) {
-    GError         *error         = NULL;
-    gboolean        verbose       = TRUE;
-    char           *nolock_reason = NULL;
+    GError *error = NULL;
+    gboolean verbose = TRUE;
+    char *nolock_reason = NULL;
 
     xfce_textdomain (GETTEXT_PACKAGE, XFCELOCALEDIR, "UTF-8");
 

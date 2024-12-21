@@ -27,28 +27,30 @@
 
 G_BEGIN_DECLS
 
-#define GSTE_TYPE_POPSQUARES         (gste_popsquares_get_type ())
-#define GSTE_POPSQUARES(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GSTE_TYPE_POPSQUARES, GSTEPopsquares))
-#define GSTE_POPSQUARES_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GSTE_TYPE_POPSQUARES, GSTEPopsquaresClass))
-#define GSTE_IS_POPSQUARES(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSTE_TYPE_POPSQUARES))
-#define GSTE_IS_POPSQUARES_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GSTE_TYPE_POPSQUARES))
+#define GSTE_TYPE_POPSQUARES (gste_popsquares_get_type ())
+#define GSTE_POPSQUARES(o) (G_TYPE_CHECK_INSTANCE_CAST ((o), GSTE_TYPE_POPSQUARES, GSTEPopsquares))
+#define GSTE_POPSQUARES_CLASS(k) (G_TYPE_CHECK_CLASS_CAST ((k), GSTE_TYPE_POPSQUARES, GSTEPopsquaresClass))
+#define GSTE_IS_POPSQUARES(o) (G_TYPE_CHECK_INSTANCE_TYPE ((o), GSTE_TYPE_POPSQUARES))
+#define GSTE_IS_POPSQUARES_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), GSTE_TYPE_POPSQUARES))
 #define GSTE_POPSQUARES_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GSTE_TYPE_POPSQUARES, GSTEPopsquaresClass))
 
 typedef struct GSTEPopsquaresPrivate GSTEPopsquaresPrivate;
 
 typedef struct
 {
-    GSThemeEngine          parent;
+    GSThemeEngine parent;
     GSTEPopsquaresPrivate *priv;
 } GSTEPopsquares;
 
 typedef struct
 {
-    GSThemeEngineClass     parent_class;
+    GSThemeEngineClass parent_class;
 } GSTEPopsquaresClass;
 
-GType           gste_popsquares_get_type (void);
-GSThemeEngine  *gste_popsquares_new      (void);
+GType
+gste_popsquares_get_type (void);
+GSThemeEngine *
+gste_popsquares_new (void);
 
 G_END_DECLS
 

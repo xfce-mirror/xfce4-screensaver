@@ -47,7 +47,7 @@
 #include <libxfce4util/libxfce4util.h>
 
 #ifndef trunc
-#define trunc(x) (((x) > 0.0) ? floor((x)) : -floor(-(x)))
+#define trunc(x) (((x) > 0.0) ? floor ((x)) : -floor (-(x)))
 #endif
 
 #ifndef OPTIMAL_FRAME_RATE
@@ -89,37 +89,25 @@ static gchar *geometry = NULL;
 static gchar **filenames = NULL;
 
 static GOptionEntry options[] = {
-    {
-        "show-paths", 'p', 0, G_OPTION_ARG_NONE, &should_show_paths,
-        N_("Show paths that images follow"), NULL
-    },
+    { "show-paths", 'p', 0, G_OPTION_ARG_NONE, &should_show_paths,
+      N_ ("Show paths that images follow"), NULL },
 
-    {
-        "do-rotations", 'r', 0, G_OPTION_ARG_NONE, &should_do_rotations,
-        N_("Occasionally rotate images as they move"), NULL
-    },
+    { "do-rotations", 'r', 0, G_OPTION_ARG_NONE, &should_do_rotations,
+      N_ ("Occasionally rotate images as they move"), NULL },
 
-    {
-        "print-stats", 's', 0, G_OPTION_ARG_NONE, &should_print_stats,
-        N_("Print out frame rate and other statistics"), NULL
-    },
+    { "print-stats", 's', 0, G_OPTION_ARG_NONE, &should_print_stats,
+      N_ ("Print out frame rate and other statistics"), NULL },
 
-    {
-        "number-of-images", 'n', 0, G_OPTION_ARG_INT, &max_floater_count,
-        N_("The maximum number of images to keep on screen"), N_("MAX_IMAGES")
-    },
+    { "number-of-images", 'n', 0, G_OPTION_ARG_INT, &max_floater_count,
+      N_ ("The maximum number of images to keep on screen"), N_ ("MAX_IMAGES") },
 
-    {
-        "geometry", 0, 0, G_OPTION_ARG_STRING, &geometry,
-        N_("The initial size and position of window"), N_("WIDTHxHEIGHT+X+Y")
-    },
+    { "geometry", 0, 0, G_OPTION_ARG_STRING, &geometry,
+      N_ ("The initial size and position of window"), N_ ("WIDTHxHEIGHT+X+Y") },
 
-    {
-        G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_FILENAME_ARRAY, &filenames,
-        N_("The source image to use"), NULL
-    },
+    { G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_FILENAME_ARRAY, &filenames,
+      N_ ("The source image to use"), NULL },
 
-    {NULL}
+    { NULL }
 };
 
 
@@ -141,13 +129,13 @@ struct _Path {
     Point end_point;
 
     gdouble x_linear_coefficient,
-            y_linear_coefficient;
+        y_linear_coefficient;
 
     gdouble x_quadratic_coefficient,
-            y_quadratic_coefficient;
+        y_quadratic_coefficient;
 
     gdouble x_cubic_coefficient,
-            y_cubic_coefficient;
+        y_cubic_coefficient;
 
     gdouble duration;
 };
@@ -181,7 +169,7 @@ struct _ScreenSaverFloater {
 };
 
 struct _ScreenSaver {
-    GtkWidget  *drawing_area;
+    GtkWidget *drawing_area;
     Rectangle canvas_rectangle;
     GHashTable *cached_sources;
 
@@ -190,7 +178,7 @@ struct _ScreenSaver {
     gdouble first_update_time;
 
     gdouble last_calculated_stats_time,
-            current_calculated_stats_time;
+        current_calculated_stats_time;
     gint update_count, frame_count;
 
     gdouble updates_per_second;
@@ -202,92 +190,124 @@ struct _ScreenSaver {
     GList *floaters;
     gint max_floater_count;
 
-    guint should_do_rotations: 1;
+    guint should_do_rotations : 1;
     guint should_show_paths : 1;
     guint draw_ops_pending : 1;
 };
 
-static Path *path_new (Point *start_point,
-                       Point *start_control_point,
-                       Point *end_control_point,
-                       Point *end_point,
-                       gdouble duration);
-static void path_free (Path *path);
+static Path *
+path_new (Point *start_point,
+          Point *start_control_point,
+          Point *end_control_point,
+          Point *end_point,
+          gdouble duration);
+static void
+path_free (Path *path);
 
-static ScreenSaverFloater *screen_saver_floater_new (ScreenSaver *screen_saver,
-                                                     Point       *position,
-                                                     gdouble      scale);
-static gboolean screen_saver_floater_is_off_canvas (ScreenSaver        *screen_saver,
-                                                    ScreenSaverFloater *floater);
-static gboolean screen_saver_floater_should_bubble_up (ScreenSaver        *screen_saver,
-                                                       ScreenSaverFloater *floater,
-                                                       gdouble             performance_ratio,
-                                                       gdouble            *duration);
-static gboolean screen_saver_floater_should_come_on_screen (ScreenSaver   *screen_saver,
-                                                            ScreenSaverFloater *floater,
-                                                            gdouble             performance_ratio,
-                                                            gdouble            *duration);
-static Point screen_saver_floater_get_position_from_time (ScreenSaver        *screen_saver,
-                                                          ScreenSaverFloater *floater,
-                                                          gdouble             time);
-static gdouble screen_saver_floater_get_scale_from_time (ScreenSaver        *screen_saver,
-                                                         ScreenSaverFloater *floater,
-                                                         gdouble             time);
-static gdouble screen_saver_floater_get_angle_from_time (ScreenSaver        *screen_saver,
-                                                         ScreenSaverFloater *floater,
-                                                         gdouble             time);
+static ScreenSaverFloater *
+screen_saver_floater_new (ScreenSaver *screen_saver,
+                          Point *position,
+                          gdouble scale);
+static gboolean
+screen_saver_floater_is_off_canvas (ScreenSaver *screen_saver,
+                                    ScreenSaverFloater *floater);
+static gboolean
+screen_saver_floater_should_bubble_up (ScreenSaver *screen_saver,
+                                       ScreenSaverFloater *floater,
+                                       gdouble performance_ratio,
+                                       gdouble *duration);
+static gboolean
+screen_saver_floater_should_come_on_screen (ScreenSaver *screen_saver,
+                                            ScreenSaverFloater *floater,
+                                            gdouble performance_ratio,
+                                            gdouble *duration);
+static Point
+screen_saver_floater_get_position_from_time (ScreenSaver *screen_saver,
+                                             ScreenSaverFloater *floater,
+                                             gdouble time);
+static gdouble
+screen_saver_floater_get_scale_from_time (ScreenSaver *screen_saver,
+                                          ScreenSaverFloater *floater,
+                                          gdouble time);
+static gdouble
+screen_saver_floater_get_angle_from_time (ScreenSaver *screen_saver,
+                                          ScreenSaverFloater *floater,
+                                          gdouble time);
 
-static Path *screen_saver_floater_create_path_to_on_screen (ScreenSaver        *screen_saver,
-                                                            ScreenSaverFloater *floater,
-                                                            gdouble             duration);
-static Path *screen_saver_floater_create_path_to_bubble_up (ScreenSaver        *screen_saver,
-                                                            ScreenSaverFloater *floater,
-                                                            gdouble             duration);
-static Path *screen_saver_floater_create_path_to_random_point (ScreenSaver        *screen_saver,
-                                                              ScreenSaverFloater *floater,
-                                                              gdouble             duration);
-static Path *screen_saver_floater_create_path (ScreenSaver        *screen_saver,
-                                               ScreenSaverFloater *floater);
-static void screen_saver_floater_update_state (ScreenSaver        *screen_saver,
+static Path *
+screen_saver_floater_create_path_to_on_screen (ScreenSaver *screen_saver,
                                                ScreenSaverFloater *floater,
-                                               gdouble             time);
+                                               gdouble duration);
+static Path *
+screen_saver_floater_create_path_to_bubble_up (ScreenSaver *screen_saver,
+                                               ScreenSaverFloater *floater,
+                                               gdouble duration);
+static Path *
+screen_saver_floater_create_path_to_random_point (ScreenSaver *screen_saver,
+                                                  ScreenSaverFloater *floater,
+                                                  gdouble duration);
+static Path *
+screen_saver_floater_create_path (ScreenSaver *screen_saver,
+                                  ScreenSaverFloater *floater);
+static void
+screen_saver_floater_update_state (ScreenSaver *screen_saver,
+                                   ScreenSaverFloater *floater,
+                                   gdouble time);
 
-static gboolean screen_saver_floater_do_draw (ScreenSaver        *screen_saver,
-                                              ScreenSaverFloater *floater,
-                                              cairo_t            *context);
+static gboolean
+screen_saver_floater_do_draw (ScreenSaver *screen_saver,
+                              ScreenSaverFloater *floater,
+                              cairo_t *context);
 
-static CachedSource *cached_source_new (cairo_pattern_t *pattern,
-                                        gint             width,
-                                        gint             height);
-static void cached_source_free (CachedSource *source);
-
-static ScreenSaver *screen_saver_new (GtkWidget       *drawing_area,
-                                      const gchar     *filename,
-                                      gint             local_max_floater_count,
-                                      gboolean         local_should_do_rotations,
-                                      gboolean         local_should_show_paths);
-static void screen_saver_free (ScreenSaver *screen_saver);
-static gdouble screen_saver_get_timestamp (ScreenSaver *screen_saver);
-static void screen_saver_get_initial_state (ScreenSaver *screen_saver);
-static void screen_saver_update_state (ScreenSaver *screen_saver,
-                                       gdouble      time);
-static gboolean screen_saver_do_update_state (gpointer user_data);
-static gboolean screen_saver_do_update_stats (gpointer user_data);
-static gdouble screen_saver_get_updates_per_second (ScreenSaver *screen_saver);
-static gdouble screen_saver_get_frames_per_second (ScreenSaver *screen_saver);
-static gdouble screen_saver_get_image_cache_usage (ScreenSaver *screen_saver);
-static void screen_saver_create_floaters (ScreenSaver *screen_saver);
-static void screen_saver_destroy_floaters (ScreenSaver *screen_saver);
-static void screen_saver_on_size_allocate (ScreenSaver   *screen_saver,
-                                           GtkAllocation *allocation);
-static void screen_saver_on_draw (ScreenSaver *screen_saver,
-                                  cairo_t     *context);
-static GdkPixbuf *gamma_correct (const GdkPixbuf *input_pixbuf);
-
-static CachedSource*
+static CachedSource *
 cached_source_new (cairo_pattern_t *pattern,
-                   gint             width,
-                   gint             height) {
+                   gint width,
+                   gint height);
+static void
+cached_source_free (CachedSource *source);
+
+static ScreenSaver *
+screen_saver_new (GtkWidget *drawing_area,
+                  const gchar *filename,
+                  gint local_max_floater_count,
+                  gboolean local_should_do_rotations,
+                  gboolean local_should_show_paths);
+static void
+screen_saver_free (ScreenSaver *screen_saver);
+static gdouble
+screen_saver_get_timestamp (ScreenSaver *screen_saver);
+static void
+screen_saver_get_initial_state (ScreenSaver *screen_saver);
+static void
+screen_saver_update_state (ScreenSaver *screen_saver,
+                           gdouble time);
+static gboolean
+screen_saver_do_update_state (gpointer user_data);
+static gboolean
+screen_saver_do_update_stats (gpointer user_data);
+static gdouble
+screen_saver_get_updates_per_second (ScreenSaver *screen_saver);
+static gdouble
+screen_saver_get_frames_per_second (ScreenSaver *screen_saver);
+static gdouble
+screen_saver_get_image_cache_usage (ScreenSaver *screen_saver);
+static void
+screen_saver_create_floaters (ScreenSaver *screen_saver);
+static void
+screen_saver_destroy_floaters (ScreenSaver *screen_saver);
+static void
+screen_saver_on_size_allocate (ScreenSaver *screen_saver,
+                               GtkAllocation *allocation);
+static void
+screen_saver_on_draw (ScreenSaver *screen_saver,
+                      cairo_t *context);
+static GdkPixbuf *
+gamma_correct (const GdkPixbuf *input_pixbuf);
+
+static CachedSource *
+cached_source_new (cairo_pattern_t *pattern,
+                   gint width,
+                   gint height) {
     CachedSource *source;
 
     source = g_new (CachedSource, 1);
@@ -309,11 +329,11 @@ cached_source_free (CachedSource *source) {
 }
 
 static Path *
-path_new (Point   *start_point,
-          Point   *start_control_point,
-          Point   *end_control_point,
-          Point   *end_point,
-          gdouble  duration) {
+path_new (Point *start_point,
+          Point *start_control_point,
+          Point *end_control_point,
+          Point *end_point,
+          gdouble duration) {
     Path *path;
 
     path = g_new (Path, 1);
@@ -329,20 +349,12 @@ path_new (Point   *start_point,
      * B(t) = A * t^3 + B * t^2 + C * t + start_point
      */
     path->x_linear_coefficient = 3 * (start_control_point->x - start_point->x);
-    path->x_quadratic_coefficient = 3 * (end_control_point->x -
-                                         start_control_point->x) -
-                                    path->x_linear_coefficient;
-    path->x_cubic_coefficient = end_point->x - start_point->x -
-                                path->x_linear_coefficient -
-                                path->x_quadratic_coefficient;
+    path->x_quadratic_coefficient = 3 * (end_control_point->x - start_control_point->x) - path->x_linear_coefficient;
+    path->x_cubic_coefficient = end_point->x - start_point->x - path->x_linear_coefficient - path->x_quadratic_coefficient;
 
     path->y_linear_coefficient = 3 * (start_control_point->y - start_point->y);
-    path->y_quadratic_coefficient = 3 * (end_control_point->y -
-                                         start_control_point->y) -
-                                    path->y_linear_coefficient;
-    path->y_cubic_coefficient = end_point->y - start_point->y -
-                                path->y_linear_coefficient -
-                                path->y_quadratic_coefficient;
+    path->y_quadratic_coefficient = 3 * (end_control_point->y - start_control_point->y) - path->y_linear_coefficient;
+    path->y_cubic_coefficient = end_point->y - start_point->y - path->y_linear_coefficient - path->y_quadratic_coefficient;
     return path;
 }
 
@@ -351,10 +363,10 @@ path_free (Path *path) {
     g_free (path);
 }
 
-static ScreenSaverFloater*
+static ScreenSaverFloater *
 screen_saver_floater_new (ScreenSaver *screen_saver,
-                          Point       *position,
-                          gdouble      scale) {
+                          Point *position,
+                          gdouble scale) {
     ScreenSaverFloater *floater;
 
     floater = g_new (ScreenSaverFloater, 1);
@@ -375,27 +387,26 @@ screen_saver_floater_new (ScreenSaver *screen_saver,
 }
 
 static gboolean
-screen_saver_floater_is_off_canvas (ScreenSaver        *screen_saver,
+screen_saver_floater_is_off_canvas (ScreenSaver *screen_saver,
                                     ScreenSaverFloater *floater) {
-    if ((floater->position.x < screen_saver->canvas_rectangle.top_left_point.x) ||
-            (floater->position.x > screen_saver->canvas_rectangle.bottom_right_point.x) ||
-            (floater->position.y < screen_saver->canvas_rectangle.top_left_point.y) ||
-            (floater->position.y > screen_saver->canvas_rectangle.bottom_right_point.y))
+    if (floater->position.x < screen_saver->canvas_rectangle.top_left_point.x
+        || floater->position.x > screen_saver->canvas_rectangle.bottom_right_point.x
+        || floater->position.y < screen_saver->canvas_rectangle.top_left_point.y
+        || floater->position.y > screen_saver->canvas_rectangle.bottom_right_point.y)
         return TRUE;
 
     return FALSE;
 }
 
 static gboolean
-screen_saver_floater_should_come_on_screen (ScreenSaver        *screen_saver,
+screen_saver_floater_should_come_on_screen (ScreenSaver *screen_saver,
                                             ScreenSaverFloater *floater,
-                                            gdouble             performance_ratio,
-                                            gdouble            *duration) {
+                                            gdouble performance_ratio,
+                                            gdouble *duration) {
     if (!screen_saver_floater_is_off_canvas (screen_saver, floater))
         return FALSE;
 
-    if ((fabs (performance_ratio - .5) >= G_MINDOUBLE) &&
-            (g_random_double () > .5)) {
+    if (fabs (performance_ratio - .5) >= G_MINDOUBLE && g_random_double () > .5) {
         if (duration)
             *duration = g_random_double_range (3.0, 7.0);
 
@@ -406,10 +417,10 @@ screen_saver_floater_should_come_on_screen (ScreenSaver        *screen_saver,
 }
 
 static gboolean
-screen_saver_floater_should_bubble_up (ScreenSaver        *screen_saver,
+screen_saver_floater_should_bubble_up (ScreenSaver *screen_saver,
                                        ScreenSaverFloater *floater,
-                                       gdouble             performance_ratio,
-                                       gdouble            *duration) {
+                                       gdouble performance_ratio,
+                                       gdouble *duration) {
     if ((performance_ratio < .5) && (g_random_double () > .5)) {
         if (duration)
             *duration = performance_ratio * 30.0;
@@ -428,29 +439,29 @@ screen_saver_floater_should_bubble_up (ScreenSaver        *screen_saver,
 }
 
 static Point
-screen_saver_floater_get_position_from_time (ScreenSaver        *screen_saver,
+screen_saver_floater_get_position_from_time (ScreenSaver *screen_saver,
                                              ScreenSaverFloater *floater,
-                                             gdouble             time) {
+                                             gdouble time) {
     Point point;
 
     time = time / floater->path->duration;
 
-    point.x = floater->path->x_cubic_coefficient * (time * time * time) +
-              floater->path->x_quadratic_coefficient * (time * time) +
-              floater->path->x_linear_coefficient * (time) +
-              floater->path->start_point.x;
-    point.y = floater->path->y_cubic_coefficient * (time * time * time) +
-              floater->path->y_quadratic_coefficient * (time * time) +
-              floater->path->y_linear_coefficient * (time) +
-              floater->path->start_point.y;
+    point.x = floater->path->x_cubic_coefficient * (time * time * time)
+              + floater->path->x_quadratic_coefficient * (time * time)
+              + floater->path->x_linear_coefficient * (time)
+              + floater->path->start_point.x;
+    point.y = floater->path->y_cubic_coefficient * (time * time * time)
+              + floater->path->y_quadratic_coefficient * (time * time)
+              + floater->path->y_linear_coefficient * (time)
+              + floater->path->start_point.y;
 
     return point;
 }
 
 static gdouble
-screen_saver_floater_get_scale_from_time (ScreenSaver        *screen_saver,
+screen_saver_floater_get_scale_from_time (ScreenSaver *screen_saver,
                                           ScreenSaverFloater *floater,
-                                          gdouble             time) {
+                                          gdouble time) {
     gdouble completion_ratio, total_scale_growth, new_scale;
 
     completion_ratio = time / floater->path->duration;
@@ -461,9 +472,9 @@ screen_saver_floater_get_scale_from_time (ScreenSaver        *screen_saver,
 }
 
 static gdouble
-screen_saver_floater_get_angle_from_time (ScreenSaver        *screen_saver,
+screen_saver_floater_get_angle_from_time (ScreenSaver *screen_saver,
                                           ScreenSaverFloater *floater,
-                                          gdouble             time) {
+                                          gdouble time) {
     gdouble completion_ratio;
     gdouble total_rotation;
 
@@ -474,18 +485,18 @@ screen_saver_floater_get_angle_from_time (ScreenSaver        *screen_saver,
 }
 
 static Path *
-screen_saver_floater_create_path_to_on_screen (ScreenSaver        *screen_saver,
+screen_saver_floater_create_path_to_on_screen (ScreenSaver *screen_saver,
                                                ScreenSaverFloater *floater,
-                                               gdouble             duration) {
+                                               gdouble duration) {
     Point start_position, end_position, start_control_point, end_control_point;
     start_position = floater->position;
 
-    end_position.x = g_random_double_range (.25, .75) *
-                     (screen_saver->canvas_rectangle.top_left_point.x +
-                      screen_saver->canvas_rectangle.bottom_right_point.x);
-    end_position.y = g_random_double_range (.25, .75) *
-                     (screen_saver->canvas_rectangle.top_left_point.y +
-                      screen_saver->canvas_rectangle.bottom_right_point.y);
+    end_position.x = g_random_double_range (.25, .75)
+                     * (screen_saver->canvas_rectangle.top_left_point.x
+                        + screen_saver->canvas_rectangle.bottom_right_point.x);
+    end_position.y = g_random_double_range (.25, .75)
+                     * (screen_saver->canvas_rectangle.top_left_point.y
+                        + screen_saver->canvas_rectangle.bottom_right_point.y);
 
     start_control_point.x = start_position.x + .9 * (end_position.x - start_position.x);
     start_control_point.y = start_position.y + .9 * (end_position.y - start_position.y);
@@ -498,9 +509,9 @@ screen_saver_floater_create_path_to_on_screen (ScreenSaver        *screen_saver,
 }
 
 static Path *
-screen_saver_floater_create_path_to_bubble_up (ScreenSaver        *screen_saver,
+screen_saver_floater_create_path_to_bubble_up (ScreenSaver *screen_saver,
                                                ScreenSaverFloater *floater,
-                                               gdouble             duration) {
+                                               gdouble duration) {
     Point start_position, end_position, start_control_point, end_control_point;
 
     start_position = floater->position;
@@ -516,17 +527,15 @@ screen_saver_floater_create_path_to_bubble_up (ScreenSaver        *screen_saver,
 }
 
 static Path *
-screen_saver_floater_create_path_to_random_point (ScreenSaver        *screen_saver,
+screen_saver_floater_create_path_to_random_point (ScreenSaver *screen_saver,
                                                   ScreenSaverFloater *floater,
-                                                  gdouble             duration) {
+                                                  gdouble duration) {
     Point start_position, end_position, start_control_point, end_control_point;
 
     start_position = floater->position;
 
-    end_position.x = start_position.x +
-                     (g_random_double_range (-.5, .5) * 4 * FLOATER_MAX_SIZE);
-    end_position.y = start_position.y +
-                     (g_random_double_range (-.5, .5) * 4 * FLOATER_MAX_SIZE);
+    end_position.x = start_position.x + (g_random_double_range (-.5, .5) * 4 * FLOATER_MAX_SIZE);
+    end_position.y = start_position.y + (g_random_double_range (-.5, .5) * 4 * FLOATER_MAX_SIZE);
 
     start_control_point.x = start_position.x + .95 * (end_position.x - start_position.x);
     start_control_point.y = start_position.y + .95 * (end_position.y - start_position.y);
@@ -539,7 +548,7 @@ screen_saver_floater_create_path_to_random_point (ScreenSaver        *screen_sav
 }
 
 static Path *
-screen_saver_floater_create_path (ScreenSaver        *screen_saver,
+screen_saver_floater_create_path (ScreenSaver *screen_saver,
                                   ScreenSaverFloater *floater) {
     gdouble performance_ratio;
     gdouble duration;
@@ -557,13 +566,13 @@ screen_saver_floater_create_path (ScreenSaver        *screen_saver,
         return screen_saver_floater_create_path_to_on_screen (screen_saver, floater, duration);
 
     return screen_saver_floater_create_path_to_random_point (screen_saver, floater,
-            g_random_double_range (3.0, 7.0));
+                                                             g_random_double_range (3.0, 7.0));
 }
 
 static void
-screen_saver_floater_update_state (ScreenSaver        *screen_saver,
+screen_saver_floater_update_state (ScreenSaver *screen_saver,
                                    ScreenSaverFloater *floater,
-                                   gdouble             time) {
+                                   gdouble time) {
     gdouble performance_ratio;
 
     performance_ratio =
@@ -579,8 +588,7 @@ screen_saver_floater_update_state (ScreenSaver        *screen_saver,
             floater->path_end_scale = g_random_double_range (0.10, performance_ratio);
 
         /* poor man's distribution */
-        if (screen_saver->should_do_rotations &&
-                (g_random_double () < .75 * performance_ratio)) {
+        if (screen_saver->should_do_rotations && g_random_double () < .75 * performance_ratio) {
             gint r;
 
             r = g_random_int_range (0, 100);
@@ -599,8 +607,7 @@ screen_saver_floater_update_state (ScreenSaver        *screen_saver,
         path_time = time - floater->path_start_time;
 
         floater->position =
-            screen_saver_floater_get_position_from_time (screen_saver, floater,
-                    path_time);
+            screen_saver_floater_get_position_from_time (screen_saver, floater, path_time);
         floater->scale =
             screen_saver_floater_get_scale_from_time (screen_saver, floater, path_time);
 
@@ -644,9 +651,9 @@ gamma_correct (const GdkPixbuf *input_pixbuf) {
 }
 
 static gboolean
-screen_saver_floater_do_draw (ScreenSaver        *screen_saver,
+screen_saver_floater_do_draw (ScreenSaver *screen_saver,
                               ScreenSaverFloater *floater,
-                              cairo_t            *context) {
+                              cairo_t *context) {
     gint size;
     CachedSource *source;
 
@@ -662,8 +669,7 @@ screen_saver_floater_do_draw (ScreenSaver        *screen_saver,
         pixbuf = NULL;
         error = NULL;
 
-        pixbuf = gdk_pixbuf_new_from_file_at_size (screen_saver->filename, size, -1,
-                 &error);
+        pixbuf = gdk_pixbuf_new_from_file_at_size (screen_saver->filename, size, -1, &error);
         if (pixbuf == NULL) {
             g_assert (error != NULL);
             g_printerr ("%s", _(error->message));
@@ -784,11 +790,11 @@ screen_saver_floater_do_draw (ScreenSaver        *screen_saver,
 }
 
 static ScreenSaver *
-screen_saver_new (GtkWidget   *drawing_area,
+screen_saver_new (GtkWidget *drawing_area,
                   const gchar *filename,
-                  gint         local_max_floater_count,
-                  gboolean     local_should_do_rotations,
-                  gboolean     local_should_show_paths) {
+                  gint local_max_floater_count,
+                  gboolean local_should_do_rotations,
+                  gboolean local_should_show_paths) {
     ScreenSaver *screen_saver;
 
     screen_saver = g_new (ScreenSaver, 1);
@@ -858,7 +864,7 @@ screen_saver_free (ScreenSaver *screen_saver) {
 
 static gdouble
 screen_saver_get_timestamp (ScreenSaver *screen_saver) {
-    const gdouble microseconds_per_second = (gdouble ) G_USEC_PER_SEC;
+    const gdouble microseconds_per_second = (gdouble) G_USEC_PER_SEC;
     gdouble timestamp;
     GDateTime *now;
     gdouble now_sec;
@@ -870,8 +876,7 @@ screen_saver_get_timestamp (ScreenSaver *screen_saver) {
 
     g_date_time_unref (now);
 
-    timestamp = ((microseconds_per_second * now_sec) + now_usec) /
-                microseconds_per_second;
+    timestamp = ((microseconds_per_second * now_sec) + now_usec) / microseconds_per_second;
 
     return timestamp;
 }
@@ -894,8 +899,7 @@ screen_saver_create_floaters (ScreenSaver *screen_saver) {
 
         floater = screen_saver_floater_new (screen_saver, &position, scale);
 
-        screen_saver->floaters = g_list_prepend (screen_saver->floaters,
-                                 floater);
+        screen_saver->floaters = g_list_prepend (screen_saver->floaters, floater);
     }
 }
 
@@ -935,7 +939,7 @@ screen_saver_destroy_floaters (ScreenSaver *screen_saver) {
 }
 
 static void
-screen_saver_on_size_allocate (ScreenSaver   *screen_saver,
+screen_saver_on_size_allocate (ScreenSaver *screen_saver,
                                GtkAllocation *allocation) {
     Rectangle canvas_rectangle;
 
@@ -961,14 +965,14 @@ compare_floaters (ScreenSaverFloater *a,
 
 static void
 screen_saver_on_draw (ScreenSaver *screen_saver,
-                      cairo_t     *context) {
+                      cairo_t *context) {
     GList *tmp;
 
     if (screen_saver->floaters == NULL)
         screen_saver_create_floaters (screen_saver);
 
     screen_saver->floaters = g_list_sort (screen_saver->floaters,
-                                          (GCompareFunc)compare_floaters);
+                                          (GCompareFunc) compare_floaters);
 
     for (tmp = screen_saver->floaters; tmp != NULL; tmp = tmp->next) {
         ScreenSaverFloater *floater;
@@ -987,7 +991,7 @@ screen_saver_on_draw (ScreenSaver *screen_saver,
 
 static void
 screen_saver_update_state (ScreenSaver *screen_saver,
-                           gdouble      time) {
+                           gdouble time) {
     GList *tmp;
 
     tmp = screen_saver->floaters;
@@ -997,9 +1001,10 @@ screen_saver_update_state (ScreenSaver *screen_saver,
 
         screen_saver_floater_update_state (screen_saver, floater, time);
 
-        if (screen_saver->drawing_area != NULL &&
-                gtk_widget_get_realized (screen_saver->drawing_area) &&
-                (floater->bounds.width > 0) && (floater->bounds.height > 0)) {
+        if (screen_saver->drawing_area != NULL
+            && gtk_widget_get_realized (screen_saver->drawing_area)
+            && floater->bounds.width > 0
+            && floater->bounds.height > 0) {
             gint size;
             size = CLAMP ((int) (FLOATER_MAX_SIZE * floater->scale),
                           FLOATER_MIN_SIZE, FLOATER_MAX_SIZE);
@@ -1015,21 +1020,17 @@ screen_saver_update_state (ScreenSaver *screen_saver,
              */
             if (screen_saver->should_do_rotations)
                 gtk_widget_queue_draw_area (screen_saver->drawing_area,
-                                            (int) (floater->position.x -
-                                                   .5 * G_SQRT2 * size),
-                                            (int) (floater->position.y -
-                                                   .5 * G_SQRT2 * size),
+                                            (int) (floater->position.x - .5 * G_SQRT2 * size),
+                                            (int) (floater->position.y - .5 * G_SQRT2 * size),
                                             G_SQRT2 * size + 2,
                                             G_SQRT2 * size + 2);
             else
                 gtk_widget_queue_draw_area (screen_saver->drawing_area,
-                                            (int) (floater->position.x -
-                                                   .5 * size),
-                                            (int) (floater->position.y -
-                                                   .5 * size),
+                                            (int) (floater->position.x - .5 * size),
+                                            (int) (floater->position.y - .5 * size),
                                             size + 2, size + 2);
 
-            if  (screen_saver->should_show_paths)
+            if (screen_saver->should_show_paths)
                 gtk_widget_queue_draw (screen_saver->drawing_area);
         }
 
@@ -1055,14 +1056,13 @@ screen_saver_do_update_state (gpointer user_data) {
     if (screen_saver->draw_ops_pending) {
         GdkDisplay *display;
 
-        display = gtk_widget_get_display (GTK_WIDGET(screen_saver->drawing_area));
+        display = gtk_widget_get_display (GTK_WIDGET (screen_saver->drawing_area));
         gdk_display_flush (display);
         screen_saver->draw_ops_pending = FALSE;
     }
 
     current_update_time = screen_saver_get_timestamp (screen_saver);
-    screen_saver_update_state (screen_saver, current_update_time -
-                               screen_saver->first_update_time);
+    screen_saver_update_state (screen_saver, current_update_time - screen_saver->first_update_time);
     screen_saver->update_count++;
     return TRUE;
 }
@@ -1108,13 +1108,13 @@ do_print_screen_saver_stats (gpointer user_data) {
 }
 
 int
-main (int   argc,
+main (int argc,
       char *argv[]) {
-    ScreenSaver     *screen_saver;
-    GtkWidget       *window = NULL;
-    GtkWidget       *drawing_area;
-    GError          *error;
-    gboolean         success;
+    ScreenSaver *screen_saver;
+    GtkWidget *window = NULL;
+    GtkWidget *drawing_area;
+    GError *error;
+    gboolean success;
 
     error = NULL;
 
@@ -1122,14 +1122,13 @@ main (int   argc,
 
     success = gtk_init_with_args (&argc, &argv,
                                   /* translators: the word "image" here
-                                  * represents a command line argument
-                                  */
+                                   * represents a command line argument
+                                   */
                                   _("image - floats images around the screen"),
                                   options, GETTEXT_PACKAGE, &error);
 
     if (error != NULL) {
-        g_printerr (_("%s. See --help for usage information.\n"),
-                    _(error->message));
+        g_printerr (_("%s. See --help for usage information.\n"), error->message);
         g_error_free (error);
         return EX_SOFTWARE;
     }
@@ -1139,8 +1138,7 @@ main (int   argc,
         return EX_SOFTWARE;
     }
 
-    if ((filenames == NULL) || (filenames[0] == NULL) ||
-            (filenames[1] != NULL)) {
+    if (filenames == NULL || filenames[0] == NULL || filenames[1] != NULL) {
         g_printerr (_("You must specify one image.  See --help for usage "
                       "information.\n"));
         return EX_USAGE;
@@ -1174,9 +1172,9 @@ main (int   argc,
     if (should_print_stats)
         g_timeout_add (STAT_PRINT_FREQUENCY, do_print_screen_saver_stats, screen_saver);
 
-    G_GNUC_BEGIN_IGNORE_DEPRECATIONS /* GTK 3.20 */
-    if ((geometry == NULL)
-            || !gtk_window_parse_geometry (GTK_WINDOW (window), geometry))
+    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+    if (geometry == NULL
+        || !gtk_window_parse_geometry (GTK_WINDOW (window), geometry))
         gtk_window_set_default_size (GTK_WINDOW (window), 640, 480);
     G_GNUC_END_IGNORE_DEPRECATIONS
 

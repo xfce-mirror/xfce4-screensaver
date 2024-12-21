@@ -46,35 +46,25 @@
 int
 main (int argc, char **argv) {
     GSThemeEngine *engine;
-    GtkWidget     *window = NULL;
-    GError        *error;
-    gboolean       ret;
-    char          *location = NULL;
-    char          *background_color = NULL;
-    gboolean       sort_images = FALSE;
-    gboolean       no_stretch = FALSE;
-    gboolean       no_crop = FALSE;
-    GOptionEntry   entries[] = {
-        {
-            "location", 0, 0, G_OPTION_ARG_STRING, &location,
-            N_("Location to get images from"), N_("PATH")
-        },
-        {
-            "background-color", 0, 0, G_OPTION_ARG_STRING, &background_color,
-            N_("Color to use for images background"), N_("\"#rrggbb\"")
-        },
-        {
-            "sort-images", 0, 0, G_OPTION_ARG_NONE, &sort_images,
-            N_("Do not randomize pictures from location"), NULL
-        },
-        {
-            "no-stretch", 0, 0, G_OPTION_ARG_NONE, &no_stretch,
-            N_("Do not try to stretch images on screen"), NULL
-        },
-        {
-            "no-crop", 0, 0, G_OPTION_ARG_NONE, &no_crop,
-            N_("Do not crop images to the screen size"), NULL
-        },
+    GtkWidget *window = NULL;
+    GError *error;
+    gboolean ret;
+    char *location = NULL;
+    char *background_color = NULL;
+    gboolean sort_images = FALSE;
+    gboolean no_stretch = FALSE;
+    gboolean no_crop = FALSE;
+    GOptionEntry entries[] = {
+        { "location", 0, 0, G_OPTION_ARG_STRING, &location,
+          N_ ("Location to get images from"), N_ ("PATH") },
+        { "background-color", 0, 0, G_OPTION_ARG_STRING, &background_color,
+          N_ ("Color to use for images background"), N_ ("\"#rrggbb\"") },
+        { "sort-images", 0, 0, G_OPTION_ARG_NONE, &sort_images,
+          N_ ("Do not randomize pictures from location"), NULL },
+        { "no-stretch", 0, 0, G_OPTION_ARG_NONE, &no_stretch,
+          N_ ("Do not try to stretch images on screen"), NULL },
+        { "no-crop", 0, 0, G_OPTION_ARG_NONE, &no_crop,
+          N_ ("Do not crop images to the screen size"), NULL },
         { NULL }
     };
 
@@ -115,9 +105,7 @@ main (int argc, char **argv) {
 
     if (location == NULL) {
         location = xdg_user_dir_lookup ("PICTURES");
-        if (location == NULL ||
-                strcmp (location, "/tmp") == 0 ||
-                strcmp (location, g_get_home_dir ()) == 0) {
+        if (location == NULL || strcmp (location, "/tmp") == 0 || strcmp (location, g_get_home_dir ()) == 0) {
             g_free (location);
             location = g_build_filename (g_get_home_dir (), "Pictures", NULL);
         }
@@ -141,7 +129,7 @@ main (int argc, char **argv) {
     }
 
     if (no_crop) {
-        g_object_set(engine, "no-crop", no_crop, NULL);
+        g_object_set (engine, "no-crop", no_crop, NULL);
     }
 
     gtk_container_add (GTK_CONTAINER (window), GTK_WIDGET (engine));

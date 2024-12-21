@@ -40,21 +40,24 @@
 #include "gs-marshal.h"
 #include "gs-prefs.h"
 
-static void         gs_listener_x11_finalize        (GObject            *object);
-static void         gs_listener_x11_set_timeouts    (GSListener         *listener,
-                                                     gboolean            enabled,
-                                                     guint               timeout,
-                                                     guint               lock_timeout);
+static void
+gs_listener_x11_finalize (GObject *object);
+static void
+gs_listener_x11_set_timeouts (GSListener *listener,
+                              gboolean enabled,
+                              guint timeout,
+                              guint lock_timeout);
 
-static void         reset_timer                     (GSListenerX11      *listener,
-                                                     guint               timeout);
+static void
+reset_timer (GSListenerX11 *listener,
+             guint timeout);
 
 struct GSListenerX11Private {
     int scrnsaver_event_base;
     gboolean enabled;
-    guint    timeout;
-    guint    lock_timeout;
-    guint    timer_id;
+    guint timeout;
+    guint lock_timeout;
+    guint timer_id;
     GSPrefs *prefs;
     WnckScreen *wnck_screen;
 };
@@ -73,22 +76,22 @@ gs_listener_x11_class_init (GSListenerX11Class *klass) {
 
 static gboolean
 get_x11_idle_info (guint *idle_time,
-                   gint  *state) {
-    Display *display = gdk_x11_display_get_xdisplay(gdk_display_get_default());
+                   gint *state) {
+    Display *display = gdk_x11_display_get_xdisplay (gdk_display_get_default ());
     static XScreenSaverInfo *mit_info;
 
     if (mit_info == NULL)
-        mit_info = XScreenSaverAllocInfo();
+        mit_info = XScreenSaverAllocInfo ();
     if (mit_info == NULL)
         return FALSE;
 
-    if (XScreenSaverQueryInfo(display, GDK_ROOT_WINDOW(), mit_info) == 0)
+    if (XScreenSaverQueryInfo (display, GDK_ROOT_WINDOW (), mit_info) == 0)
         return FALSE;
 
-    gs_debug("XScreenSaverInfo: state %x kind %x tos %lu idle %lu m %lx",
-             mit_info->state, mit_info->kind, mit_info->til_or_since,
-             mit_info->idle, mit_info->eventMask);
-    *idle_time = mit_info->idle / 1000;  // seconds
+    gs_debug ("XScreenSaverInfo: state %x kind %x tos %lu idle %lu m %lx",
+              mit_info->state, mit_info->kind, mit_info->til_or_since,
+              mit_info->idle, mit_info->eventMask);
+    *idle_time = mit_info->idle / 1000; // seconds
     *state = mit_info->state;
 
     return TRUE;
@@ -107,9 +110,9 @@ check_fullscreen_window (GSListenerX11 *listener) {
 static gboolean
 lock_timer (gpointer user_data) {
     GSListenerX11 *listener = user_data;
-    guint    idle_time;
-    guint    lock_time = 0;
-    gint     state;
+    guint idle_time;
+    guint lock_time = 0;
+    gint state;
     gboolean lock_state;
     gboolean fullscreen_inhibition = FALSE;
 
@@ -122,46 +125,45 @@ lock_timer (gpointer user_data) {
     if (idle_time > listener->priv->timeout) {
         lock_time = idle_time - listener->priv->timeout;
     }
-    lock_state = (state == ScreenSaverOn &&
-                  listener->priv->prefs->lock_with_saver_enabled &&
-                  lock_time >= listener->priv->lock_timeout);
+    lock_state = (state == ScreenSaverOn
+                  && listener->priv->prefs->lock_with_saver_enabled
+                  && lock_time >= listener->priv->lock_timeout);
 
     if (listener->priv->prefs->fullscreen_inhibit) {
-        fullscreen_inhibition = check_fullscreen_window(listener);
+        fullscreen_inhibition = check_fullscreen_window (listener);
     }
 
-    gs_debug("Idle: %us, Saver Timeout: %is, Lock: %s, Lock Timeout: %is, Lock Timer: %us, Lock Status: %s, Fullscreen: %s",
-             idle_time,
-             listener->priv->timeout,
-             listener->priv->prefs->lock_with_saver_enabled ? "Enabled" : "Disabled",
-             listener->priv->lock_timeout,
-             lock_time,
-             lock_state ? "Locked" : "Unlocked",
-             fullscreen_inhibition ? "Inhibited" : "Uninhibited");
+    gs_debug ("Idle: %us, Saver Timeout: %is, Lock: %s, Lock Timeout: %is, Lock Timer: %us, Lock Status: %s, Fullscreen: %s",
+              idle_time,
+              listener->priv->timeout,
+              listener->priv->prefs->lock_with_saver_enabled ? "Enabled" : "Disabled",
+              listener->priv->lock_timeout,
+              lock_time,
+              lock_state ? "Locked" : "Unlocked",
+              fullscreen_inhibition ? "Inhibited" : "Uninhibited");
 
     if (fullscreen_inhibition) {
         if (idle_time < listener->priv->timeout) {
-            reset_timer(listener, listener->priv->timeout - idle_time);
+            reset_timer (listener, listener->priv->timeout - idle_time);
         } else {
-            reset_timer(listener, 30);
+            reset_timer (listener, 30);
         }
         return FALSE;
     }
 
-    if (idle_time >= listener->priv->timeout &&
-            state != ScreenSaverDisabled) {
+    if (idle_time >= listener->priv->timeout && state != ScreenSaverDisabled) {
         if (lock_state)
-            g_signal_emit_by_name(listener, "lock");
+            g_signal_emit_by_name (listener, "lock");
         else
-            g_signal_emit_by_name(listener, "activate");
+            g_signal_emit_by_name (listener, "activate");
     } else {
         switch (state) {
             case ScreenSaverOff:
                 // Reset the lock timer
                 if (idle_time < listener->priv->timeout) {
-                    reset_timer(listener, listener->priv->timeout - idle_time);
+                    reset_timer (listener, listener->priv->timeout - idle_time);
                 } else {
-                    reset_timer(listener, 30);
+                    reset_timer (listener, 30);
                 }
                 return FALSE;
                 break;
@@ -173,7 +175,7 @@ lock_timer (gpointer user_data) {
             case ScreenSaverOn:
                 // lock now!
                 if (lock_state)
-                    g_signal_emit_by_name(listener, "lock");
+                    g_signal_emit_by_name (listener, "lock");
                 break;
         }
     }
@@ -182,25 +184,25 @@ lock_timer (gpointer user_data) {
 }
 
 static void
-remove_lock_timer(GSListenerX11 *listener) {
+remove_lock_timer (GSListenerX11 *listener) {
     if (listener->priv->timer_id != 0) {
-        g_source_remove(listener->priv->timer_id);
+        g_source_remove (listener->priv->timer_id);
         listener->priv->timer_id = 0;
     }
 }
 
 static void
-reset_timer(GSListenerX11 *listener,
-            guint          timeout) {
-    remove_lock_timer(listener);
+reset_timer (GSListenerX11 *listener,
+             guint timeout) {
+    remove_lock_timer (listener);
 
-    listener->priv->timer_id = g_timeout_add_seconds(timeout, lock_timer, listener);
+    listener->priv->timer_id = g_timeout_add_seconds (timeout, lock_timer, listener);
 }
 
 static GdkFilterReturn
 xroot_filter (GdkXEvent *xevent,
-              GdkEvent  *event,
-              gpointer   data) {
+              GdkEvent *event,
+              gpointer data) {
     GSListenerX11 *listener;
     XEvent *ev;
 
@@ -215,30 +217,31 @@ xroot_filter (GdkXEvent *xevent,
     ev = xevent;
 
     switch (ev->xany.type) {
-    default:
-        /* extension events */
-        if (ev->xany.type == (listener->priv->scrnsaver_event_base + ScreenSaverNotify)) {
-            XScreenSaverNotifyEvent *xssne = (XScreenSaverNotifyEvent *) ev;
-            switch (xssne->state) {
-                case ScreenSaverOff:
-                case ScreenSaverDisabled:
-                    // Reset the lock timer
-                    gs_debug("ScreenSaver timer reset");
-                    reset_timer(listener, listener->priv->timeout);
-                    break;
-
-                case ScreenSaverOn:
-                    if (listener->priv->prefs->fullscreen_inhibit && check_fullscreen_window (listener)) {
-                        gs_debug ("Fullscreen inhibit: ScreenSaver timer reset");
+        default:
+            /* extension events */
+            if (ev->xany.type == (listener->priv->scrnsaver_event_base + ScreenSaverNotify)) {
+                XScreenSaverNotifyEvent *xssne = (XScreenSaverNotifyEvent *) ev;
+                switch (xssne->state) {
+                    case ScreenSaverOff:
+                    case ScreenSaverDisabled:
+                        // Reset the lock timer
+                        gs_debug ("ScreenSaver timer reset");
                         reset_timer (listener, listener->priv->timeout);
-                    } else {
-                        gs_debug ("Activating screensaver on ScreenSaverOn");
-                        g_signal_emit_by_name (listener, "activate");
-                    }
-                    break;
+                        break;
+
+                    case ScreenSaverOn:
+                        if (listener->priv->prefs->fullscreen_inhibit
+                            && check_fullscreen_window (listener)) {
+                            gs_debug ("Fullscreen inhibit: ScreenSaver timer reset");
+                            reset_timer (listener, listener->priv->timeout);
+                        } else {
+                            gs_debug ("Activating screensaver on ScreenSaverOn");
+                            g_signal_emit_by_name (listener, "activate");
+                        }
+                        break;
+                }
             }
-        }
-        break;
+            break;
     }
 
     return GDK_FILTER_CONTINUE;
@@ -272,7 +275,7 @@ gs_listener_x11_acquire (GSListenerX11 *listener) {
 
     gdk_x11_display_error_trap_pop_ignored (display);
 
-    gdk_window_add_filter (NULL, (GdkFilterFunc)xroot_filter, listener);
+    gdk_window_add_filter (NULL, (GdkFilterFunc) xroot_filter, listener);
 }
 
 static void
@@ -281,14 +284,14 @@ gs_listener_x11_set_timeouts (GSListener *_listener,
                               guint timeout,
                               guint lock_timeout) {
     GSListenerX11 *listener = GS_LISTENER_X11 (_listener);
-    Display *display = gdk_x11_display_get_xdisplay(gdk_display_get_default());
+    Display *display = gdk_x11_display_get_xdisplay (gdk_display_get_default ());
 
     listener->priv->enabled = enabled;
     listener->priv->timeout = timeout;
     listener->priv->lock_timeout = lock_timeout;
 
     /* set X server timeouts and disable screen blanking */
-    XSetScreenSaver(display, timeout, timeout, DontPreferBlanking, DontAllowExposures);
+    XSetScreenSaver (display, timeout, timeout, DontPreferBlanking, DontAllowExposures);
 
     reset_timer (listener, timeout);
 }
@@ -312,7 +315,7 @@ gs_listener_x11_finalize (GObject *object) {
 
     g_return_if_fail (listener->priv != NULL);
 
-    gdk_window_remove_filter (NULL, (GdkFilterFunc)xroot_filter, NULL);
+    gdk_window_remove_filter (NULL, (GdkFilterFunc) xroot_filter, NULL);
     g_object_unref (listener->priv->prefs);
 
     G_OBJECT_CLASS (gs_listener_x11_parent_class)->finalize (object);

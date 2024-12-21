@@ -30,9 +30,11 @@
 #include "gste-popsquares.h"
 #include "gs-theme-engine.h"
 
-static void     gste_popsquares_finalize   (GObject             *object);
-static void     draw_frame                 (GSTEPopsquares      *pop,
-                                            cairo_t             *cr);
+static void
+gste_popsquares_finalize (GObject *object);
+static void
+draw_frame (GSTEPopsquares *pop,
+            cairo_t *cr);
 
 typedef struct _square {
     int x, y, w, h;
@@ -40,13 +42,13 @@ typedef struct _square {
 } square;
 
 struct GSTEPopsquaresPrivate {
-    guint      timeout_id;
+    guint timeout_id;
 
-    int        ncolors;
-    int        subdivision;
+    int ncolors;
+    int subdivision;
 
-    GdkRGBA   *colors;
-    square    *squares;
+    GdkRGBA *colors;
+    square *squares;
 };
 
 static GObjectClass *parent_class = NULL;
@@ -54,16 +56,16 @@ static GObjectClass *parent_class = NULL;
 G_DEFINE_TYPE_WITH_PRIVATE (GSTEPopsquares, gste_popsquares, GS_TYPE_THEME_ENGINE)
 
 static void
-hsv_to_rgb (int     h,
-            double  s,
-            double  v,
+hsv_to_rgb (int h,
+            double s,
+            double v,
             double *r,
             double *g,
             double *b) {
     double H, S, V, R, G, B;
     double p1, p2, p3;
     double f;
-    int    i;
+    int i;
 
     if (s < 0) {
         s = 0;
@@ -119,16 +121,16 @@ hsv_to_rgb (int     h,
 }
 
 static void
-rgb_to_hsv (double  r,
-            double  g,
-            double  b,
-            int    *h,
+rgb_to_hsv (double r,
+            double g,
+            double b,
+            int *h,
             double *s,
             double *v) {
     double R, G, B, H, S, V;
     double cmax, cmin;
     double cmm;
-    int    imax;
+    int imax;
 
     R = r;
     G = g;
@@ -177,19 +179,19 @@ rgb_to_hsv (double  r,
 }
 
 static void
-make_color_ramp (int       h1,
-                 double    s1,
-                 double    v1,
-                 int       h2,
-                 double    s2,
-                 double    v2,
-                 GdkRGBA  *colors,
-                 int       n_colors,
-                 gboolean  closed) {
-    double dh, ds, dv;        /* deltas */
-    int    i;
-    int    ncolors;
-    int    total_ncolors = n_colors;
+make_color_ramp (int h1,
+                 double s1,
+                 double v1,
+                 int h2,
+                 double s2,
+                 double v2,
+                 GdkRGBA *colors,
+                 int n_colors,
+                 gboolean closed) {
+    double dh, ds, dv; /* deltas */
+    int i;
+    int ncolors;
+    int total_ncolors = n_colors;
 
     ncolors = total_ncolors;
 
@@ -204,7 +206,7 @@ make_color_ramp (int       h1,
        is always from h1 to h2 (rather than the shorter path.)  make_uniform
        depends on this.
     */
-    dh = ((double)h2 - (double)h1) / ncolors;
+    dh = ((double) h2 - (double) h1) / ncolors;
     ds = (s2 - s1) / ncolors;
     dv = (v2 - v1) / ncolors;
 
@@ -227,9 +229,9 @@ make_color_ramp (int       h1,
 
 static void
 randomize_square_colors (square *squares,
-                         int     nsquares,
-                         int     ncolors) {
-    int     i;
+                         int nsquares,
+                         int ncolors) {
+    int i;
     square *s;
 
     s = squares;
@@ -241,22 +243,22 @@ randomize_square_colors (square *squares,
 
 static void
 set_colors (GtkWidget *widget,
-            GdkRGBA   *fg,
-            GdkRGBA   *bg) {
-    GtkStyleContext  *style;
+            GdkRGBA *fg,
+            GdkRGBA *bg) {
+    GtkStyleContext *style;
 
     style = gtk_widget_get_style_context (widget);
 
     gtk_style_context_save (style);
     gtk_style_context_set_state (style, GTK_STATE_FLAG_SELECTED);
-    G_GNUC_BEGIN_IGNORE_DEPRECATIONS /* GTK 3.16 */
+    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     gtk_style_context_get_background_color (style,
                                             gtk_style_context_get_state (style),
                                             bg);
     G_GNUC_END_IGNORE_DEPRECATIONS
     if (bg->alpha == 0.0) {
         gtk_style_context_add_class (style, GTK_STYLE_CLASS_VIEW);
-        G_GNUC_BEGIN_IGNORE_DEPRECATIONS /* GTK 3.16 */
+        G_GNUC_BEGIN_IGNORE_DEPRECATIONS
         gtk_style_context_get_background_color (style,
                                                 gtk_style_context_get_state (style),
                                                 bg);
@@ -264,17 +266,17 @@ set_colors (GtkWidget *widget,
     }
     gtk_style_context_restore (style);
 
-    fg->red   = bg->red * 0.7;
+    fg->red = bg->red * 0.7;
     fg->green = bg->green * 0.7;
-    fg->blue  = bg->blue * 0.7;
+    fg->blue = bg->blue * 0.7;
     fg->alpha = bg->alpha;
 }
 
 static void
-gste_popsquares_set_property (GObject      *object,
-                              guint         prop_id,
+gste_popsquares_set_property (GObject *object,
+                              guint prop_id,
                               const GValue *value,
-                              GParamSpec   *pspec) {
+                              GParamSpec *pspec) {
     switch (prop_id) {
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -283,24 +285,24 @@ gste_popsquares_set_property (GObject      *object,
 }
 
 static void
-gste_popsquares_get_property (GObject    *object,
-                              guint       prop_id,
-                              GValue     *value,
+gste_popsquares_get_property (GObject *object,
+                              guint prop_id,
+                              GValue *value,
                               GParamSpec *pspec) {
     switch (prop_id) {
-    default:
-        G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-        break;
+        default:
+            G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+            break;
     }
 }
 
 static void
 setup_squares (GSTEPopsquares *pop) {
-    int       window_width;
-    int       window_height;
-    int       nsquares;
-    int       x, y;
-    int       sw, sh, gw, gh;
+    int window_width;
+    int window_height;
+    int nsquares;
+    int x, y;
+    int sw, sh, gw, gh;
     GdkWindow *window;
 
     window = gs_theme_engine_get_window (GS_THEME_ENGINE (pop));
@@ -336,11 +338,11 @@ setup_squares (GSTEPopsquares *pop) {
 
 static void
 setup_colors (GSTEPopsquares *pop) {
-    double    s1, v1, s2, v2 = 0;
-    int       h1, h2 = 0;
-    int       nsquares;
-    GdkRGBA   fg;
-    GdkRGBA   bg;
+    double s1, v1, s2, v2 = 0;
+    int h1, h2 = 0;
+    int nsquares;
+    GdkRGBA fg;
+    GdkRGBA bg;
     GdkWindow *window;
 
     window = gs_theme_engine_get_window (GS_THEME_ENGINE (pop));
@@ -385,7 +387,7 @@ gste_popsquares_real_show (GtkWidget *widget) {
 
 static gboolean
 gste_popsquares_real_draw (GtkWidget *widget,
-                           cairo_t   *cr) {
+                           cairo_t *cr) {
     if (GTK_WIDGET_CLASS (parent_class)->draw) {
         GTK_WIDGET_CLASS (parent_class)->draw (widget, cr);
     }
@@ -396,10 +398,10 @@ gste_popsquares_real_draw (GtkWidget *widget,
 }
 
 static gboolean
-gste_popsquares_real_configure (GtkWidget         *widget,
+gste_popsquares_real_configure (GtkWidget *widget,
                                 GdkEventConfigure *event) {
     GSTEPopsquares *pop = GSTE_POPSQUARES (widget);
-    gboolean        handled = FALSE;
+    gboolean handled = FALSE;
 
     /* resize */
 
@@ -419,7 +421,7 @@ gste_popsquares_real_configure (GtkWidget         *widget,
 
 static void
 gste_popsquares_class_init (GSTEPopsquaresClass *klass) {
-    GObjectClass   *object_class = G_OBJECT_CLASS (klass);
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
     parent_class = g_type_class_peek_parent (klass);
@@ -435,12 +437,12 @@ gste_popsquares_class_init (GSTEPopsquaresClass *klass) {
 
 static void
 draw_frame (GSTEPopsquares *pop,
-            cairo_t        *cr) {
-    int      border = 1;
-    int      x, y;
-    int      gw, gh;
-    int      window_width;
-    int      window_height;
+            cairo_t *cr) {
+    int border = 1;
+    int x, y;
+    int gw, gh;
+    int window_width;
+    int window_height;
     GdkWindow *window;
 
     window = gs_theme_engine_get_window (GS_THEME_ENGINE (pop));

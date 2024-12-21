@@ -26,17 +26,17 @@ G_BEGIN_DECLS
 #define GS_TYPE_LISTENER (gs_listener_get_type ())
 G_DECLARE_DERIVABLE_TYPE (GSListener, gs_listener, GS, LISTENER, GObject)
 
-struct _GSListenerClass
-{
+struct _GSListenerClass {
     GObjectClass parent_class;
 
-    void       (*set_timeouts)          (GSListener    *listener,
-                                         gboolean       enabled,
-                                         guint          timeout,
-                                         guint          lock_timeout);
+    void (*set_timeouts) (GSListener *listener,
+                          gboolean enabled,
+                          guint timeout,
+                          guint lock_timeout);
 };
 
-GSListener *gs_listener_new (void);
+GSListener *
+gs_listener_new (void);
 
 G_END_DECLS
 

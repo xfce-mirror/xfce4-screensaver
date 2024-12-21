@@ -22,13 +22,15 @@
 
 G_BEGIN_DECLS
 
-void unblock_sigchld (void);
+void
+unblock_sigchld (void);
 
 sigset_t
 block_sigchld (void);
 
-int  signal_pid           (int      pid,
-                           int      signal);
+int
+signal_pid (int pid,
+            int signal);
 
 G_END_DECLS
 

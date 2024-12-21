@@ -36,56 +36,56 @@
 #include <libxfce4util/libxfce4util.h>
 
 #ifdef HAVE_LIBCRYPT
-# ifndef __FreeBSD__
-#  include <crypt.h>
-# endif
+#ifndef __FreeBSD__
+#include <crypt.h>
+#endif
 #else
-# define crypt(a, b) NULL
+#define crypt(a, b) NULL
 #endif
 
 #ifdef __bsdi__
-# include <sys/param.h>
-# if _BSDI_VERSION >= 199608
-#  define BSD_AUTH
-# endif
+#include <sys/param.h>
+#if _BSDI_VERSION >= 199608
+#define BSD_AUTH
+#endif
 #endif /* __bsdi__ */
 
-#if defined(HAVE_SHADOW_PASSWD)       /* passwds live in /etc/shadow */
+#if defined(HAVE_SHADOW_PASSWD) /* passwds live in /etc/shadow */
 
-#   include <shadow.h>
-#   define PWTYPE   struct spwd *
-#   define PWPSLOT  sp_pwdp
-#   define GETPW    getspnam
+#include <shadow.h>
+#define PWTYPE struct spwd *
+#define PWPSLOT sp_pwdp
+#define GETPW getspnam
 
-#elif defined(HAVE_ENHANCED_PASSWD)      /* passwds live in /tcb/files/auth/ */
+#elif defined(HAVE_ENHANCED_PASSWD) /* passwds live in /tcb/files/auth/ */
 /* M.Matsumoto <matsu@yao.sharp.co.jp> */
-#   include <sys/security.h>
-#   include <prot.h>
+#include <prot.h>
+#include <sys/security.h>
 
-#   define PWTYPE   struct pr_passwd *
-#   define PWPSLOT  ufld.fd_encrypt
-#   define GETPW    getprpwnam
+#define PWTYPE struct pr_passwd *
+#define PWPSLOT ufld.fd_encrypt
+#define GETPW getprpwnam
 
 #elif defined(HAVE_ADJUNCT_PASSWD)
 
-#   include <sys/label.h>
-#   include <sys/audit.h>
-#   include <pwdadj.h>
+#include <pwdadj.h>
+#include <sys/audit.h>
+#include <sys/label.h>
 
-#   define PWTYPE   struct passwd_adjunct *
-#   define PWPSLOT  pwa_passwd
-#   define GETPW    getpwanam
+#define PWTYPE struct passwd_adjunct *
+#define PWPSLOT pwa_passwd
+#define GETPW getpwanam
 
 #elif defined(HAVE_HPUX_PASSWD)
 
-#   include <hpsecurity.h>
-#   include <prot.h>
+#include <hpsecurity.h>
+#include <prot.h>
 
-#   define PWTYPE   struct s_passwd *
-#   define PWPSLOT  pw_passwd
-#   define GETPW    getspwnam
+#define PWTYPE struct s_passwd *
+#define PWPSLOT pw_passwd
+#define GETPW getspwnam
 
-#   define HAVE_BIGCRYPT
+#define HAVE_BIGCRYPT
 
 #endif
 
@@ -117,9 +117,8 @@ gs_auth_get_verbose (void) {
 
 static gboolean
 passwd_known (const char *pw) {
-    return (pw &&
-            pw[0] != '*' && /* This would be sensible...         */
-            strlen (pw) > 4);   /* ...but this is what Solaris does. */
+    return (pw && pw[0] != '*' /* This would be sensible... */
+            && strlen (pw) > 4); /* ...but this is what Solaris does. */
 }
 
 static char *
@@ -211,7 +210,7 @@ gs_auth_init (void) {
 static gboolean
 passwds_match (const char *cleartext,
                const char *ciphertext) {
-    char *s = NULL;  /* note that on some systems, crypt() may return null */
+    char *s = NULL; /* note that on some systems, crypt() may return null */
 
     s = (char *) crypt (cleartext, ciphertext);
     if (s && !strcmp (s, ciphertext)) {
@@ -235,11 +234,11 @@ passwds_match (const char *cleartext,
 }
 
 gboolean
-gs_auth_verify_user (const char         *username,
-                     const char         *display,
-                     GSAuthMessageFunc   func,
-                     gpointer            data,
-                     GError            **error) {
+gs_auth_verify_user (const char *username,
+                     const char *display,
+                     GSAuthMessageFunc func,
+                     gpointer data,
+                     GError **error) {
     char *password;
 
     password = NULL;

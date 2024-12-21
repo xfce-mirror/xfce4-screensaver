@@ -30,7 +30,7 @@
 
 #ifdef VMS
 #include <processes.h>
-#include <unixio.h>  /* for close */
+#include <unixio.h> /* for close */
 #include <unixlib.h> /* for getpid */
 #define pid_t int
 #define fork vfork
@@ -39,7 +39,7 @@
 #include "subprocs.h"
 
 #if !defined(SIGCHLD) && defined(SIGCLD)
-# define SIGCHLD SIGCLD
+#define SIGCHLD SIGCLD
 #endif
 
 /* Semaphore to temporarily turn the SIGCHLD handler into a no-op.
@@ -80,9 +80,9 @@ signal_pid (int pid,
 
     if (block_sigchld_handler)
         /* This function should not be called from the signal handler. */
-        abort();
+        abort ();
 
-    block_sigchld ();                      /* we control the horizontal... */
+    block_sigchld (); /* we control the horizontal... */
 
     status = kill (pid, signal);
 

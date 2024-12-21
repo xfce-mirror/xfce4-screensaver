@@ -69,26 +69,26 @@ enum {
     TARGET_NS_URL
 };
 
-static GtkBuilder     *builder = NULL;
+static GtkBuilder *builder = NULL;
 static GSThemeManager *theme_manager = NULL;
-static GSJob          *job = NULL;
-static XfconfChannel  *screensaver_channel = NULL;
+static GSJob *job = NULL;
+static XfconfChannel *screensaver_channel = NULL;
 static XfceScreensaver *xfce_screensaver = NULL;
 #ifdef ENABLE_WAYLAND
 static WleEmbeddedCompositor *compositor = NULL;
 #endif
 
-static gboolean        idle_delay_writable;
-static gboolean        lock_delay_writable;
-static gboolean        keyboard_command_writable;
-static gboolean        logout_command_writable;
-static gboolean        logout_delay_writable;
-static gchar          *active_theme = NULL;
+static gboolean idle_delay_writable;
+static gboolean lock_delay_writable;
+static gboolean keyboard_command_writable;
+static gboolean logout_command_writable;
+static gboolean logout_delay_writable;
+static gchar *active_theme = NULL;
 
 static gint opt_socket_id = 0;
 static GOptionEntry entries[] = {
     { "socket-id", 's', G_OPTION_FLAG_IN_MAIN, G_OPTION_ARG_INT, &opt_socket_id,
-        N_("Settings manager socket"), N_("SOCKET ID") },
+      N_ ("Settings manager socket"), N_ ("SOCKET ID") },
     { NULL }
 };
 
@@ -98,7 +98,7 @@ config_get_idle_delay (gboolean *is_writable) {
 
     if (is_writable) {
         *is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
-                       KEY_IDLE_DELAY);
+                                                           KEY_IDLE_DELAY);
     }
 
     delay = xfconf_channel_get_int (screensaver_channel, KEY_IDLE_DELAY, DEFAULT_KEY_IDLE_DELAY);
@@ -121,7 +121,7 @@ config_get_lock_delay (gboolean *is_writable) {
 
     if (is_writable) {
         *is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
-                       KEY_LOCK_WITH_SAVER_DELAY);
+                                                           KEY_LOCK_WITH_SAVER_DELAY);
     }
 
     delay = xfconf_channel_get_int (screensaver_channel, KEY_LOCK_WITH_SAVER_DELAY, DEFAULT_KEY_LOCK_WITH_SAVER_DELAY);
@@ -144,7 +144,7 @@ config_get_cycle_delay (gboolean *is_writable) {
 
     if (is_writable) {
         *is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
-                       KEY_CYCLE_DELAY);
+                                                           KEY_CYCLE_DELAY);
     }
 
     delay = xfconf_channel_get_int (screensaver_channel, KEY_CYCLE_DELAY, DEFAULT_KEY_CYCLE_DELAY);
@@ -167,7 +167,7 @@ config_get_logout_delay (gboolean *is_writable) {
 
     if (is_writable) {
         *is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
-                       KEY_LOGOUT_DELAY);
+                                                           KEY_LOGOUT_DELAY);
     }
 
     delay = xfconf_channel_get_int (screensaver_channel, KEY_LOGOUT_DELAY, DEFAULT_KEY_LOGOUT_DELAY);
@@ -190,7 +190,7 @@ config_get_mode (gboolean *is_writable) {
 
     if (is_writable) {
         *is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
-                       KEY_MODE);
+                                                           KEY_MODE);
     }
 
     mode = xfconf_channel_get_int (screensaver_channel, KEY_MODE, DEFAULT_KEY_MODE);
@@ -213,7 +213,7 @@ config_set_mode (int mode) {
 static char *
 config_get_theme (gboolean *is_writable) {
     char *name;
-    int   mode;
+    int mode;
 
     if (is_writable) {
         gboolean can_write_theme = TRUE;
@@ -253,10 +253,10 @@ config_get_theme (gboolean *is_writable) {
 
 static gchar **
 get_all_theme_ids (GSThemeManager *local_theme_manager) {
-    gchar  **ids = NULL;
-    GSList  *themes;
-    GSList  *l;
-    guint    idx = 0;
+    gchar **ids = NULL;
+    GSList *themes;
+    GSList *l;
+    guint idx = 0;
 
     themes = gs_theme_manager_get_info_list (local_theme_manager);
     ids = g_new0 (gchar *, g_slist_length (themes) + 1);
@@ -274,7 +274,7 @@ get_all_theme_ids (GSThemeManager *local_theme_manager) {
 static void
 config_set_theme (const char *theme_id) {
     gchar **strv = NULL;
-    int     mode;
+    int mode;
 
     if (theme_id && strcmp (theme_id, "__blank-only") == 0) {
         mode = GS_MODE_BLANK_ONLY;
@@ -300,7 +300,7 @@ config_set_theme (const char *theme_id) {
     if (strv) {
         xfconf_channel_set_string_list (screensaver_channel,
                                         KEY_THEMES,
-                                        (const gchar * const*) strv);
+                                        (const gchar *const *) strv);
         g_strfreev (strv);
     } else {
         xfconf_channel_reset_property (screensaver_channel,
@@ -521,13 +521,13 @@ config_set_user_switch_enabled (gboolean enabled) {
     xfconf_channel_set_bool (screensaver_channel, KEY_USER_SWITCH_ENABLED, enabled);
 }
 
-static gchar*
+static gchar *
 config_get_keyboard_command (gboolean *is_writable) {
     gchar *command;
 
     if (is_writable) {
-        *is_writable = !xfconf_channel_is_property_locked(screensaver_channel,
-                                                          KEY_KEYBOARD_COMMAND);
+        *is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
+                                                           KEY_KEYBOARD_COMMAND);
     }
 
     command = xfconf_channel_get_string (screensaver_channel,
@@ -542,13 +542,13 @@ config_set_keyboard_command (const gchar *command) {
     xfconf_channel_set_string (screensaver_channel, KEY_KEYBOARD_COMMAND, command);
 }
 
-static gchar*
+static gchar *
 config_get_logout_command (gboolean *is_writable) {
     gchar *command;
 
     if (is_writable) {
-        *is_writable = !xfconf_channel_is_property_locked(screensaver_channel,
-                                                          KEY_LOGOUT_COMMAND);
+        *is_writable = !xfconf_channel_is_property_locked (screensaver_channel,
+                                                           KEY_LOGOUT_COMMAND);
     }
 
     command = xfconf_channel_get_string (screensaver_channel,
@@ -569,22 +569,22 @@ config_get_theme_arguments (const gchar *theme) {
     gchar *arguments;
     gchar *theme_name;
 
-    theme_name = g_utf8_substring (theme, 13, g_utf8_strlen(theme, -1));
+    theme_name = g_utf8_substring (theme, 13, g_utf8_strlen (theme, -1));
     property = g_strdup_printf ("/screensavers/%s/arguments", theme_name);
     arguments = xfconf_channel_get_string (screensaver_channel, property, "");
 
-    g_free(theme_name);
-    g_free(property);
+    g_free (theme_name);
+    g_free (property);
 
     return arguments;
 }
 
 static void
-job_set_theme (GSJob      *local_job,
+job_set_theme (GSJob *local_job,
                const char *theme) {
     GSThemeInfo *info;
-    gchar       *command = NULL;
-    gchar       *arguments = NULL;
+    gchar *command = NULL;
+    gchar *arguments = NULL;
 
     command = NULL;
 
@@ -608,8 +608,8 @@ job_set_theme (GSJob      *local_job,
 
 static gboolean
 preview_on_draw (GtkWidget *widget,
-                 cairo_t   *cr,
-                 gpointer   data) {
+                 cairo_t *cr,
+                 gpointer data) {
     if (job == NULL || !gs_job_is_running (job)) {
         cairo_set_operator (cr, CAIRO_OPERATOR_OVER);
         cairo_set_source_rgb (cr, 0, 0, 0);
@@ -623,7 +623,7 @@ static void
 preview_set_theme (const char *theme,
                    const char *name) {
     GtkWidget *label, *preview;
-    char      *markup;
+    char *markup;
 
     preview = gtk_bin_get_child (GTK_BIN (gtk_builder_get_object (builder, "saver_themes_preview_area")));
     if (!gtk_widget_is_visible (preview)) {
@@ -653,11 +653,11 @@ preview_set_theme (const char *theme,
 
         themes = get_all_theme_ids (theme_manager);
         if (themes != NULL) {
-            gint32  i;
+            gint32 i;
 
             i = g_random_int_range (0, g_strv_length (themes));
-                        job_set_theme (job, themes[i]);
-                        g_strfreev (themes);
+            job_set_theme (job, themes[i]);
+            g_strfreev (themes);
 
             gs_job_start (job);
         }
@@ -692,11 +692,11 @@ help_display (void) {
 
 static void
 response_cb (GtkWidget *widget,
-             int        response_id) {
+             int response_id) {
     if (response_id == GTK_RESPONSE_HELP) {
         help_display ();
     } else if (response_id == GTK_RESPONSE_REJECT) {
-        GError  *error;
+        GError *error;
         gboolean res;
 
         error = NULL;
@@ -721,9 +721,9 @@ get_theme_info_list (void) {
 
 static void
 populate_model (GtkTreeStore *store) {
-    GtkTreeIter  iter;
-    GSList      *themes = NULL;
-    GSList      *l;
+    GtkTreeIter iter;
+    GSList *themes = NULL;
+    GSList *l;
 
     gtk_tree_store_append (store, &iter, NULL);
     gtk_tree_store_set (store, &iter,
@@ -750,8 +750,8 @@ populate_model (GtkTreeStore *store) {
     }
 
     for (l = themes; l; l = l->next) {
-        const char  *name;
-        const char  *id;
+        const char *name;
+        const char *id;
         GSThemeInfo *info = l->data;
 
         if (info == NULL) {
@@ -775,9 +775,9 @@ populate_model (GtkTreeStore *store) {
 
 static void
 tree_selection_previous (GtkTreeSelection *selection) {
-    GtkTreeIter   iter;
+    GtkTreeIter iter;
     GtkTreeModel *model;
-    GtkTreePath  *path;
+    GtkTreePath *path;
 
     if (!gtk_tree_selection_get_selected (selection, &model, &iter)) {
         return;
@@ -792,9 +792,9 @@ tree_selection_previous (GtkTreeSelection *selection) {
 
 static void
 tree_selection_next (GtkTreeSelection *selection) {
-    GtkTreeIter   iter;
+    GtkTreeIter iter;
     GtkTreeModel *model;
-    GtkTreePath  *path;
+    GtkTreePath *path;
 
     if (!gtk_tree_selection_get_selected (selection, &model, &iter)) {
         return;
@@ -808,11 +808,11 @@ tree_selection_next (GtkTreeSelection *selection) {
 
 static void
 tree_selection_changed_cb (GtkTreeSelection *selection) {
-    GtkWidget    *configure_button;
-    GtkTreeIter   iter;
+    GtkWidget *configure_button;
+    GtkTreeIter iter;
     GtkTreeModel *model;
-    char         *theme;
-    char         *name;
+    char *theme;
+    char *name;
 
     if (!gtk_tree_selection_get_selected (selection, &model, &iter)) {
         return;
@@ -842,10 +842,10 @@ tree_selection_changed_cb (GtkTreeSelection *selection) {
 
 static void
 configure_button_clicked_cb (GtkToolButton *button,
-                             gpointer       user_data) {
-    gchar    *configure_cmd;
-    GError   *error = NULL;
-    gboolean  res;
+                             gpointer user_data) {
+    gchar *configure_cmd;
+    GError *error = NULL;
+    gboolean res;
 
     configure_cmd = g_strdup_printf ("%s %s", CONFIGURE_COMMAND, active_theme);
 
@@ -857,49 +857,48 @@ configure_button_clicked_cb (GtkToolButton *button,
         g_error_free (error);
     }
 
-    g_free(configure_cmd);
+    g_free (configure_cmd);
 }
 
 static void
 idle_delay_value_changed_cb (GtkSpinButton *spin,
-                                 gpointer  user_data) {
+                             gpointer user_data) {
     gdouble value;
 
     value = gtk_spin_button_get_value (spin);
-    config_set_idle_delay ((gint32)value);
+    config_set_idle_delay ((gint32) value);
 }
 
 static void
 lock_delay_value_changed_cb (GtkSpinButton *spin,
-                                 gpointer  user_data) {
+                             gpointer user_data) {
     gdouble value;
 
     value = gtk_spin_button_get_value (spin);
-    config_set_lock_delay ((gint32)value);
+    config_set_lock_delay ((gint32) value);
 }
 
 static void
 cycle_delay_value_changed_cb (GtkSpinButton *spin,
-                                 gpointer  user_data) {
+                              gpointer user_data) {
     gdouble value;
 
     value = gtk_spin_button_get_value (spin);
-    config_set_cycle_delay ((gint32)value);
+    config_set_cycle_delay ((gint32) value);
 }
 
 static void
 logout_delay_value_changed_cb (GtkSpinButton *spin,
-                                 gpointer  user_data) {
+                               gpointer user_data) {
     gdouble value;
 
     value = gtk_spin_button_get_value (spin);
-    config_set_logout_delay ((gint32)value);
+    config_set_logout_delay ((gint32) value);
 }
 
 static void
 keyboard_command_changed_cb (GtkEntry *widget,
-                             gpointer  user_data)
-{
+                             gpointer user_data) {
     const gchar *value;
 
     value = gtk_entry_get_text (widget);
@@ -908,8 +907,7 @@ keyboard_command_changed_cb (GtkEntry *widget,
 
 static void
 logout_command_changed_cb (GtkEntry *widget,
-                           gpointer  user_data)
-{
+                           gpointer user_data) {
     const gchar *value;
 
     value = gtk_entry_get_text (widget);
@@ -951,15 +949,15 @@ compare_theme_names (char *name_a,
 }
 
 static int
-compare_theme  (GtkTreeModel *model,
-                GtkTreeIter  *a,
-                GtkTreeIter  *b,
-                gpointer      user_data) {
+compare_theme (GtkTreeModel *model,
+               GtkTreeIter *a,
+               GtkTreeIter *b,
+               gpointer user_data) {
     char *name_a;
     char *name_b;
     char *id_a;
     char *id_b;
-    int   result;
+    int result;
 
     gtk_tree_model_get (model, a, NAME_COLUMN, &name_a, -1);
     gtk_tree_model_get (model, b, NAME_COLUMN, &name_b, -1);
@@ -978,9 +976,9 @@ compare_theme  (GtkTreeModel *model,
 
 static gboolean
 separator_func (GtkTreeModel *model,
-                GtkTreeIter  *iter,
-                gpointer      data) {
-    int   column = GPOINTER_TO_INT (data);
+                GtkTreeIter *iter,
+                gpointer data) {
+    int column = GPOINTER_TO_INT (data);
     char *text;
 
     gtk_tree_model_get (model, iter, column, &text, -1);
@@ -998,10 +996,10 @@ separator_func (GtkTreeModel *model,
 static void
 setup_treeview (GtkWidget *tree,
                 GtkWidget *preview) {
-    GtkTreeStore      *store;
+    GtkTreeStore *store;
     GtkTreeViewColumn *column;
-    GtkCellRenderer   *renderer;
-    GtkTreeSelection  *select;
+    GtkCellRenderer *renderer;
+    GtkTreeSelection *select;
 
     store = gtk_tree_store_new (N_COLUMNS,
                                 G_TYPE_STRING,
@@ -1017,8 +1015,8 @@ setup_treeview (GtkWidget *tree,
 
     renderer = gtk_cell_renderer_text_new ();
     column = gtk_tree_view_column_new_with_attributes ("Name", renderer,
-             "text", NAME_COLUMN,
-             NULL);
+                                                       "text", NAME_COLUMN,
+                                                       NULL);
     gtk_tree_view_append_column (GTK_TREE_VIEW (tree), column);
 
     gtk_tree_view_column_set_sort_column_id (column, NAME_COLUMN);
@@ -1044,11 +1042,11 @@ setup_treeview (GtkWidget *tree,
 
 static void
 reload_theme (GtkWidget *treeview) {
-    GtkTreeIter       iter;
-    GtkTreeModel     *model;
+    GtkTreeIter iter;
+    GtkTreeModel *model;
     GtkTreeSelection *selection;
-    char             *theme;
-    char             *name;
+    char *theme;
+    char *name;
 
     if (active_theme == NULL) {
         return;
@@ -1080,11 +1078,11 @@ reload_theme (GtkWidget *treeview) {
 
 static void
 setup_treeview_selection (GtkWidget *tree) {
-    char         *theme;
+    char *theme;
     GtkTreeModel *model;
-    GtkTreeIter   iter;
-    GtkTreePath  *path = NULL;
-    gboolean      is_writable;
+    GtkTreeIter iter;
+    GtkTreePath *path = NULL;
+    gboolean is_writable;
 
     theme = config_get_theme (&is_writable);
 
@@ -1243,8 +1241,8 @@ keyboard_toggled_cb (GtkSwitch *widget, gpointer user_data) {
 static void
 ui_set_saver_enabled (gboolean enabled) {
     GtkWidget *widget;
-    gboolean   active;
-    gboolean   writable;
+    gboolean active;
+    gboolean writable;
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "saver_enabled"));
 
@@ -1260,7 +1258,7 @@ ui_set_saver_enabled (gboolean enabled) {
 static void
 ui_set_lock_on_suspend_hibernate_enabled (gboolean enabled) {
     GtkWidget *widget;
-    gboolean   active;
+    gboolean active;
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_suspend_hibernate_enabled"));
 
@@ -1273,8 +1271,8 @@ ui_set_lock_on_suspend_hibernate_enabled (gboolean enabled) {
 static void
 ui_set_lock_enabled (gboolean enabled) {
     GtkWidget *widget;
-    gboolean   active;
-    gboolean   writable;
+    gboolean active;
+    gboolean writable;
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_enabled"));
 
@@ -1290,8 +1288,8 @@ ui_set_lock_enabled (gboolean enabled) {
 static void
 ui_set_lock_with_saver_enabled (gboolean enabled) {
     GtkWidget *widget;
-    gboolean   active;
-    gboolean   writable;
+    gboolean active;
+    gboolean writable;
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_saver_activation_enabled"));
 
@@ -1315,7 +1313,7 @@ ui_set_lock_with_saver_enabled (gboolean enabled) {
 static void
 ui_set_fullscreen_inhibit_enabled (gboolean enabled) {
     GtkWidget *widget;
-    gboolean   active;
+    gboolean active;
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "saver_fullscreen_inhibit_enabled"));
 
@@ -1328,8 +1326,8 @@ ui_set_fullscreen_inhibit_enabled (gboolean enabled) {
 static void
 ui_set_idle_activation_enabled (gboolean enabled) {
     GtkWidget *widget;
-    gboolean   active;
-    gboolean   writable;
+    gboolean active;
+    gboolean writable;
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "saver_idle_activation_enabled"));
     active = gtk_switch_get_active (GTK_SWITCH (widget));
@@ -1352,8 +1350,8 @@ ui_set_idle_activation_enabled (gboolean enabled) {
 static void
 ui_set_keyboard_enabled (gboolean enabled) {
     GtkWidget *widget;
-    gboolean   active;
-    gboolean   writable;
+    gboolean active;
+    gboolean writable;
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_embedded_keyboard_enabled"));
 
@@ -1374,8 +1372,8 @@ ui_set_keyboard_enabled (gboolean enabled) {
 static void
 ui_set_logout_enabled (gboolean enabled) {
     GtkWidget *widget;
-    gboolean   active;
-    gboolean   writable;
+    gboolean active;
+    gboolean writable;
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_logout_enabled"));
 
@@ -1420,7 +1418,7 @@ ui_set_cycle_delay (int delay) {
 
 static void
 ui_set_keyboard_command (gchar *command) {
-    GtkWidget   *widget;
+    GtkWidget *widget;
     const gchar *current;
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_embedded_keyboard_command"));
@@ -1434,7 +1432,7 @@ ui_set_keyboard_command (gchar *command) {
 static void
 ui_set_status_message_enabled (gboolean enabled) {
     GtkWidget *widget;
-    gboolean   active;
+    gboolean active;
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_status_messages_enabled"));
 
@@ -1454,7 +1452,7 @@ ui_set_logout_delay (int delay) {
 
 static void
 ui_set_logout_command (gchar *command) {
-    GtkWidget   *widget;
+    GtkWidget *widget;
     const gchar *current;
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_logout_command"));
@@ -1468,7 +1466,7 @@ ui_set_logout_command (gchar *command) {
 static void
 ui_set_user_switch_enabled (gboolean enabled) {
     GtkWidget *widget;
-    gboolean   active;
+    gboolean active;
 
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "lock_user_switching_enabled"));
 
@@ -1559,8 +1557,8 @@ key_changed_cb (XfconfChannel *channel, const gchar *key, gpointer data) {
 
 static void
 fullscreen_preview_previous_cb (GtkWidget *fullscreen_preview_window,
-                                gpointer   user_data) {
-    GtkWidget        *treeview;
+                                gpointer user_data) {
+    GtkWidget *treeview;
     GtkTreeSelection *selection;
 
     treeview = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_treeview"));
@@ -1570,8 +1568,8 @@ fullscreen_preview_previous_cb (GtkWidget *fullscreen_preview_window,
 
 static void
 fullscreen_preview_next_cb (GtkWidget *fullscreen_preview_window,
-                            gpointer   user_data) {
-    GtkWidget        *treeview;
+                            gpointer user_data) {
+    GtkWidget *treeview;
     GtkTreeSelection *selection;
 
     treeview = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_treeview"));
@@ -1581,7 +1579,7 @@ fullscreen_preview_next_cb (GtkWidget *fullscreen_preview_window,
 
 static void
 fullscreen_preview_cancelled_cb (GtkWidget *button,
-                                 gpointer   user_data) {
+                                 gpointer user_data) {
     GtkWidget *fullscreen_preview_area;
     GtkWidget *fullscreen_preview_window;
     GtkWidget *preview_area;
@@ -1603,7 +1601,7 @@ fullscreen_preview_cancelled_cb (GtkWidget *button,
 
 static void
 fullscreen_preview_start_cb (GtkWidget *widget,
-                             gpointer   user_data) {
+                             gpointer user_data) {
     GtkWidget *fullscreen_preview_area;
     GtkWidget *fullscreen_preview_window;
     GtkWidget *dialog;
@@ -1625,16 +1623,16 @@ fullscreen_preview_start_cb (GtkWidget *widget,
 }
 
 static void
-constrain_list_size (GtkWidget      *widget,
-                     GtkAllocation  *allocation,
-                     GtkWidget      *to_size) {
+constrain_list_size (GtkWidget *widget,
+                     GtkAllocation *allocation,
+                     GtkWidget *to_size) {
     GtkRequisition req;
-    int            max_height;
+    int max_height;
 
     /* constrain height to be the tree height up to a max */
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     max_height = gdk_screen_get_height (gtk_widget_get_screen (widget)) / 4;
-G_GNUC_END_IGNORE_DEPRECATIONS
+    G_GNUC_END_IGNORE_DEPRECATIONS
 
     gtk_widget_get_preferred_size (to_size, &req, NULL);
     allocation->height = MIN (req.height, max_height);
@@ -1654,8 +1652,7 @@ check_is_root_user (void) {
     gid_t rgid, egid, sgid; /* Real, effective and saved group ID's */
 
 #ifdef HAVE_GETRESUID
-    if (getresuid (&ruid, &euid, &suid) != 0 ||
-            getresgid (&rgid, &egid, &sgid) != 0)
+    if (getresuid (&ruid, &euid, &suid) != 0 || getresgid (&rgid, &egid, &sgid) != 0)
 #endif /* HAVE_GETRESUID */
     {
         suid = ruid = getuid ();
@@ -1687,14 +1684,14 @@ setup_for_root_user (void) {
 
 static void
 resolve_lid_switch_cb (GtkWidget *widget,
-                       gpointer   user_data) {
-    XfconfChannel *channel = xfconf_channel_get("xfce4-power-manager");
-    const gchar   *property = "/xfce4-power-manager/logind-handle-lid-switch";
-    gboolean       locked = xfconf_channel_is_property_locked(channel, property);
-    GtkWidget     *infobar = GTK_WIDGET (gtk_builder_get_object (builder, "logind_lid_infobar"));
+                       gpointer user_data) {
+    XfconfChannel *channel = xfconf_channel_get ("xfce4-power-manager");
+    const gchar *property = "/xfce4-power-manager/logind-handle-lid-switch";
+    gboolean locked = xfconf_channel_is_property_locked (channel, property);
+    GtkWidget *infobar = GTK_WIDGET (gtk_builder_get_object (builder, "logind_lid_infobar"));
 
     if (!locked) {
-        xfconf_channel_set_bool(channel, property, FALSE);
+        xfconf_channel_set_bool (channel, property, FALSE);
         gtk_widget_hide (GTK_WIDGET (infobar));
     }
 }
@@ -1702,11 +1699,11 @@ resolve_lid_switch_cb (GtkWidget *widget,
 static void
 setup_for_lid_switch (void) {
     XfconfChannel *channel = xfconf_channel_get ("xfce4-power-manager");
-    const gchar   *property = "/xfce4-power-manager/logind-handle-lid-switch";
-    gboolean       handled = xfconf_channel_get_bool (channel, property, FALSE);
-    gboolean       locked = xfconf_channel_is_property_locked (channel, property);
-    GtkWidget     *infobar;
-    GtkWidget     *button;
+    const gchar *property = "/xfce4-power-manager/logind-handle-lid-switch";
+    gboolean handled = xfconf_channel_get_bool (channel, property, FALSE);
+    gboolean locked = xfconf_channel_is_property_locked (channel, property);
+    GtkWidget *infobar;
+    GtkWidget *button;
 
     infobar = GTK_WIDGET (gtk_builder_get_object (builder, "logind_lid_infobar"));
     button = GTK_WIDGET (gtk_builder_get_object (builder, "logind_lid_resolve"));
@@ -1729,7 +1726,7 @@ setup_treeview_idle (gpointer user_data) {
     GtkWidget *preview;
     GtkWidget *treeview;
 
-    preview  = gtk_bin_get_child (GTK_BIN (gtk_builder_get_object (builder, "saver_themes_preview_area")));
+    preview = gtk_bin_get_child (GTK_BIN (gtk_builder_get_object (builder, "saver_themes_preview_area")));
     treeview = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_treeview"));
 
     setup_treeview (treeview, preview);
@@ -1751,8 +1748,7 @@ is_program_in_path (const char *program) {
 
 static void
 set_widget_writable (GtkWidget *widget,
-                     gboolean writable)
-{
+                     gboolean writable) {
     gtk_widget_set_sensitive (widget, writable);
     if (!writable) {
         gtk_widget_set_tooltip_text (widget, _("Setting locked by administrator."));
@@ -1777,19 +1773,19 @@ configure_capplet (void) {
     GtkWidget *fullscreen_preview_close;
 
     GtkWidget *widget;
-    gdouble    delay;
-    gboolean   enabled;
-    gboolean   is_writable;
-    gchar     *command;
+    gdouble delay;
+    gboolean enabled;
+    gboolean is_writable;
+    gchar *command;
 
-    GError    *error = NULL;
-    gint       mode;
+    GError *error = NULL;
+    gint mode;
 
-    builder = gtk_builder_new();
+    builder = gtk_builder_new ();
     if (!gtk_builder_add_from_string (builder, xfce4_screensaver_preferences_ui,
                                       xfce4_screensaver_preferences_ui_length, &error)) {
         g_warning ("Error loading UI: %s", error->message);
-        g_error_free(error);
+        g_error_free (error);
     }
 
     if (builder == NULL) {
@@ -1807,20 +1803,20 @@ configure_capplet (void) {
         exit (1);
     }
 
-    preview                     = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_preview_area"));
-    dialog                      = GTK_WIDGET (gtk_builder_get_object (builder, "prefs_dialog"));
-    treeview                    = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_treeview"));
-    list_scroller               = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_scrolled_window"));
-    root_warning_infobar        = GTK_WIDGET (gtk_builder_get_object (builder, "root_warning_infobar"));
-    preview_button              = GTK_WIDGET (gtk_builder_get_object (builder, "preview_button"));
-    gpm_button                  = GTK_WIDGET (gtk_builder_get_object (builder, "power_management_button"));
-    configure_button            = GTK_WIDGET (gtk_builder_get_object (builder, "configure_button"));
-    configure_toolbar           = GTK_WIDGET (gtk_builder_get_object (builder, "configure_toolbar"));
-    fullscreen_preview_window   = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_window"));
-    fullscreen_preview_area     = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_area"));
-    fullscreen_preview_close    = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_close"));
+    preview = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_preview_area"));
+    dialog = GTK_WIDGET (gtk_builder_get_object (builder, "prefs_dialog"));
+    treeview = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_treeview"));
+    list_scroller = GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_scrolled_window"));
+    root_warning_infobar = GTK_WIDGET (gtk_builder_get_object (builder, "root_warning_infobar"));
+    preview_button = GTK_WIDGET (gtk_builder_get_object (builder, "preview_button"));
+    gpm_button = GTK_WIDGET (gtk_builder_get_object (builder, "power_management_button"));
+    configure_button = GTK_WIDGET (gtk_builder_get_object (builder, "configure_button"));
+    configure_toolbar = GTK_WIDGET (gtk_builder_get_object (builder, "configure_toolbar"));
+    fullscreen_preview_window = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_window"));
+    fullscreen_preview_area = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_area"));
+    fullscreen_preview_close = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_close"));
     fullscreen_preview_previous = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_previous_button"));
-    fullscreen_preview_next     = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_next_button"));
+    fullscreen_preview_next = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_next_button"));
 
 #ifdef ENABLE_X11
     if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
@@ -1856,7 +1852,7 @@ configure_capplet (void) {
         gtk_widget_hide (gpm_button);
     }
 
-    screensaver_channel = xfconf_channel_get(SETTINGS_XFCONF_CHANNEL);
+    screensaver_channel = xfconf_channel_get (SETTINGS_XFCONF_CHANNEL);
     g_signal_connect (screensaver_channel,
                       "property-changed",
                       G_CALLBACK (key_changed_cb),
@@ -2019,7 +2015,7 @@ configure_capplet (void) {
     if (mode == GS_MODE_RANDOM) {
         gchar **list;
         list = get_all_theme_ids (theme_manager);
-        xfconf_channel_set_string_list (screensaver_channel, KEY_THEMES, (const gchar * const*) list);
+        xfconf_channel_set_string_list (screensaver_channel, KEY_THEMES, (const gchar *const *) list);
         g_strfreev (list);
     }
 
@@ -2050,7 +2046,7 @@ configure_capplet (void) {
 static void
 finalize_capplet (void) {
     if (screensaver_channel)
-      g_signal_handlers_disconnect_by_func (screensaver_channel, key_changed_cb, NULL);
+        g_signal_handlers_disconnect_by_func (screensaver_channel, key_changed_cb, NULL);
 
     if (active_theme)
         g_free (active_theme);
@@ -2062,9 +2058,9 @@ finalize_capplet (void) {
 }
 
 int
-main (int    argc,
+main (int argc,
       char **argv) {
-    GError    *error = NULL;
+    GError *error = NULL;
 
     xfce_textdomain (GETTEXT_PACKAGE, XFCELOCALEDIR, "UTF-8");
 
@@ -2081,12 +2077,12 @@ main (int    argc,
     }
 
     /* hook to make sure the libxfce4ui library is linked */
-    if (xfce_titled_dialog_get_type() == 0)
+    if (xfce_titled_dialog_get_type () == 0)
         return EXIT_FAILURE;
 
-    if (!xfconf_init(&error)) {
-        g_error("Failed to connect to xfconf daemon: %s.", error->message);
-        g_error_free(error);
+    if (!xfconf_init (&error)) {
+        g_error ("Failed to connect to xfconf daemon: %s.", error->message);
+        g_error_free (error);
 
         return EXIT_FAILURE;
     }
@@ -2099,48 +2095,48 @@ main (int    argc,
 
     configure_capplet ();
 
-    if (G_UNLIKELY(opt_socket_id == 0)) {
+    if (G_UNLIKELY (opt_socket_id == 0)) {
         GtkWidget *dialog = GTK_WIDGET (gtk_builder_get_object (builder, "prefs_dialog"));
 
-        g_signal_connect(dialog, "response",
-                         G_CALLBACK(response_cb), NULL);
+        g_signal_connect (dialog, "response",
+                          G_CALLBACK (response_cb), NULL);
 
         gtk_widget_show_all (dialog);
 
 #ifdef ENABLE_X11
         if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
             /* To prevent the settings dialog to be saved in the session */
-            gdk_x11_set_sm_client_id("FAKE ID");
+            gdk_x11_set_sm_client_id ("FAKE ID");
         }
 #endif
 
-        gtk_main();
+        gtk_main ();
     }
 #ifdef ENABLE_X11
     else if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
         GtkWidget *plug;
-        GObject   *plug_child;
+        GObject *plug_child;
 
         /* Create plug widget */
-        plug = gtk_plug_new(opt_socket_id);
-        g_signal_connect(plug, "delete-event", G_CALLBACK(gtk_main_quit), NULL);
-        gtk_widget_show(plug);
+        plug = gtk_plug_new (opt_socket_id);
+        g_signal_connect (plug, "delete-event", G_CALLBACK (gtk_main_quit), NULL);
+        gtk_widget_show (plug);
 
         /* Stop startup notification */
-        gdk_notify_startup_complete();
+        gdk_notify_startup_complete ();
 
         /* Get plug child widget */
         plug_child = gtk_builder_get_object (builder, "plug-child");
 
-        xfce_widget_reparent (GTK_WIDGET(plug_child), plug);
+        xfce_widget_reparent (GTK_WIDGET (plug_child), plug);
 
-        gtk_widget_show_all (GTK_WIDGET(plug_child));
+        gtk_widget_show_all (GTK_WIDGET (plug_child));
 
         /* To prevent the settings dialog to be saved in the session */
-        gdk_x11_set_sm_client_id("FAKE ID");
+        gdk_x11_set_sm_client_id ("FAKE ID");
 
         /* Enter main loop */
-        gtk_main();
+        gtk_main ();
     }
 #endif
 
