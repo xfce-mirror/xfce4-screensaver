@@ -1,3 +1,58 @@
+4.18.4 (2024-12-21)
+======
+- Exit early in non-X11 environments
+- Fix return codes in main() functions
+- prefs-dialog: Remove subtitle
+- Revert "prefs-dialog: Remove subtitle"
+- prefs-dialog: Remove subtitle
+- xfce-bg: Update default fallback wallpaper
+- xfce-bg: Default to XFCE_BG_PLACEMENT_ZOOMED when image-style is 
+missing
+- Fix blurry avatar when UI scale > 1
+- Fix blurry background when UI scale > 1
+- I18n: Update po/LINGUAS list
+- prefs-dialog: Fix GtkTreePath leaks
+- I18n: Update po/LINGUAS list
+- lock-plug: Fix GVariant leak when switching user
+- lock-plug: Fix GVariant leak
+- Fix GSMonitor leak when screensaver fails to start
+- lock-plug: Fix GtkBuilder leak
+- prefs-dialog: Fix string leak
+- Fix string leaks in xfce_bg_load_from_xfconf
+- Fix string leak in get_themes_menu
+- lock-plug: Fix string leak
+- Fix string leak in xfce_bg_load_from_xfconf
+- Added image cropping to the slideshow screensaver
+- lock-plug: Use consistent keymap for capslock detection
+- lock-plug: Silence gdk-pixbuf warning
+- listener: Fix fullscreen inhibit
+- gcc-analyzer: Fix -Wanalyzer-possible-null-argument
+- gcc-analyzer: Fix -Wanalyzer-null-dereference
+- build: clang: Fix -Wsingle-bit-bitfield-constant-conversion
+- slideshow: Do not load image if window size is invalid
+- lock-plug: Draw background in constructed()
+- Revert "lock-plug: Delay background drawing at startup"
+- Use same debug function everywhere
+- lock-plug: Delay background drawing at startup
+- xfce4-screensaver-preferences.desktop: Add Keywords
+- Rename directory file to desktop for gettext detection
+- Add .py extension to xfce4-screensaver-configure for gettext detection
+- xfce4-screensaver-dialog: Restore "Password:" filter
+- xfce4-screensaver-dialog: Remove custom status text mapper
+- gs-lock-plug: Improve utf8 string check in show_status_text
+- I18n: Update po/LINGUAS list
+- build: Switch from intltool to gettext
+- Skip including crypt.h on FreeBSD
+- Translation Updates:
+  Albanian, Armenian (Armenia), Basque, Belarusian, Bulgarian, Catalan,
+  Chinese (China), Chinese (Taiwan), Croatian, Czech, Danish, Dutch,
+  Eastern Armenian, English (Australia), English (Canada), English
+  (United Kingdom), Estonian, Finnish, French, Galician, German, Greek,
+  Hebrew, Hungarian, Icelandic, Indonesian, Italian, Japanese, Kabyle,
+  Korean, Lithuanian, Malay, Norwegian Bokmål, Occitan (post 1500),
+  Polish, Portuguese, Portuguese (Brazil), Russian, Serbian, Slovak,
+  Slovenian, Spanish, Swedish, Thai, Turkish, Ukrainian
+
 4.18.3 (2024-03-04)
 ======
 - Update copyright year
