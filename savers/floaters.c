@@ -217,8 +217,6 @@ static void path_free (Path *path);
 static ScreenSaverFloater *screen_saver_floater_new (ScreenSaver *screen_saver,
                                                      Point       *position,
                                                      gdouble      scale);
-static void screen_saver_floater_free (ScreenSaver        *screen_saver,
-                                       ScreenSaverFloater *floater);
 static gboolean screen_saver_floater_is_off_canvas (ScreenSaver        *screen_saver,
                                                     ScreenSaverFloater *floater);
 static gboolean screen_saver_floater_should_bubble_up (ScreenSaver        *screen_saver,
@@ -374,17 +372,6 @@ screen_saver_floater_new (ScreenSaver *screen_saver,
     floater->angle_increment = 0.0;
 
     return floater;
-}
-
-void
-screen_saver_floater_free (ScreenSaver        *screen_saver,
-                           ScreenSaverFloater *floater) {
-    if (floater == NULL)
-        return;
-
-    path_free (floater->path);
-
-    g_free (floater);
 }
 
 static gboolean
@@ -930,14 +917,20 @@ screen_saver_get_image_cache_usage (ScreenSaver *screen_saver) {
 }
 
 static void
+screen_saver_floater_free (ScreenSaverFloater *floater) {
+    if (floater == NULL)
+        return;
+
+    path_free (floater->path);
+    g_free (floater);
+}
+
+static void
 screen_saver_destroy_floaters (ScreenSaver *screen_saver) {
     if (screen_saver->floaters == NULL)
         return;
 
-    g_list_foreach (screen_saver->floaters, (GFunc) screen_saver_floater_free,
-                    NULL);
-    g_list_free (screen_saver->floaters);
-
+    g_list_free_full (screen_saver->floaters, (GDestroyNotify) screen_saver_floater_free);
     screen_saver->floaters = NULL;
 }
 
