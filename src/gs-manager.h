@@ -23,10 +23,13 @@
 #ifndef SRC_GS_MANAGER_H_
 #define SRC_GS_MANAGER_H_
 
-#include "gs-prefs.h"
 #ifdef ENABLE_WAYLAND
 #include <libwlembed/libwlembed.h>
 #endif
+
+#include <glib-object.h>
+
+#include "gs-prefs.h"
 
 G_BEGIN_DECLS
 

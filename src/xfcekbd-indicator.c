@@ -18,14 +18,12 @@
  * Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <memory.h>
-
+//
 #include <gdk/gdkkeysyms.h>
 #include <gdk/gdkx.h>
-#include <gtk/gtk.h>
-
 #include <libxfce4util/libxfce4util.h>
 
 #include "gs-debug.h"

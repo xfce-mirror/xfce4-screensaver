@@ -20,17 +20,13 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
-#include <glib.h>
-#include <gtk/gtk.h>
-
-#include "gs-theme-engine.h"
 #include "gste-slideshow.h"
 
 static void     gste_slideshow_finalize   (GObject            *object);

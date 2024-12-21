@@ -22,19 +22,19 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-
+//
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 
-#include "gs-window.h"
-#include "gs-grab.h"
 #include "gs-debug.h"
+#include "gs-grab.h"
+#include "gs-window.h"
 
 #define SLEEPTIMEOUT 100000
 static void     gs_grab_finalize   (GObject     *object);

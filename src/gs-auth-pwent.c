@@ -20,7 +20,7 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <grp.h>
 #include <pwd.h>
@@ -29,13 +29,11 @@
 #include <string.h>
 #include <sys/types.h>
 
-#include <glib.h>
+#ifdef HAVE_UNISTD_H
+#include <unistd.h>
+#endif
 
 #include <libxfce4util/libxfce4util.h>
-
-#ifdef HAVE_UNISTD_H
-# include <unistd.h>
-#endif
 
 #ifdef HAVE_LIBCRYPT
 # ifndef __FreeBSD__

@@ -21,9 +21,10 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkwayland.h>
 
-#include "gs-session-lock-manager.h"
 #include "protocols/ext-session-lock-v1-client.h"
+
 #include "gs-debug.h"
+#include "gs-session-lock-manager.h"
 
 static void     gs_session_lock_manager_finalize   (GObject        *object);
 

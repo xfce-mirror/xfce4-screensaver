@@ -30,11 +30,7 @@
  *                         -- Olaf Kirch <okir@suse.de>, 16-Dec-2003
  */
 
-#include <config.h>
-
-#ifdef HAVE_UNISTD_H
-# include <unistd.h>
-#endif
+#include "config.h"
 
 #include <errno.h>
 #include <pwd.h>
@@ -44,7 +40,10 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-#include <glib.h>
+#ifdef HAVE_UNISTD_H
+#include <unistd.h>
+#endif
+
 #include <glib/gstdio.h>
 
 #include "gs-auth.h"

@@ -21,7 +21,7 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -31,12 +31,10 @@
 #include <unistd.h>
 #endif /* HAVE_UNISTD_H */
 
-#include <glib-object.h>
-
 #include <garcon/garcon.h>
 
-#include "gs-theme-manager.h"
 #include "gs-debug.h"
+#include "gs-theme-manager.h"
 
 static void     gs_theme_manager_finalize   (GObject             *object);
 

@@ -21,7 +21,7 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -29,9 +29,8 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <termios.h>
-
+//
 #include <gtk/gtk.h>
-
 #include <libxfce4util/libxfce4util.h>
 
 #include "gs-auth.h"

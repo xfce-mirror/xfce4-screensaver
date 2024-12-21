@@ -20,17 +20,14 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
-#include <glib.h>
-#include <gtk/gtk.h>
-
-#include "gs-theme-engine.h"
 #include "gs-theme-engine-marshal.h"
+#include "gs-theme-engine.h"
 
 static void     gs_theme_engine_finalize   (GObject            *object);
 

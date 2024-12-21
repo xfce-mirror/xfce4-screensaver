@@ -14,7 +14,7 @@
  * implied warranty.
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <ctype.h>
 #include <signal.h> /* for the signal names */
@@ -23,8 +23,6 @@
 #include <string.h>
 #include <sys/time.h> /* sys/resource.h needs this for timeval */
 #include <sys/wait.h> /* for waitpid() and associated macros */
-
-#include <glib.h>
 
 #ifndef ESRCH
 #include <errno.h>

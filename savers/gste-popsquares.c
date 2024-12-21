@@ -20,18 +20,15 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
-#include <glib.h>
-#include <gtk/gtk.h>
-
-#include "gs-theme-engine.h"
 #include "gste-popsquares.h"
+#include "gs-theme-engine.h"
 
 static void     gste_popsquares_finalize   (GObject             *object);
 static void     draw_frame                 (GSTEPopsquares      *pop,

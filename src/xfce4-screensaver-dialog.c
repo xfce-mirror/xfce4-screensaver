@@ -22,7 +22,7 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <signal.h>
 #include <stdlib.h>
@@ -32,7 +32,6 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#include <gtk/gtk.h>
 #ifdef ENABLE_X11
 #include <gdk/gdkx.h>
 #include <gtk/gtkx.h>
@@ -41,6 +40,7 @@
 #include <gdk/gdkwayland.h>
 #endif
 
+#include <gtk/gtk.h>
 #include <libxfce4util/libxfce4util.h>
 #include <xfconf/xfconf.h>
 

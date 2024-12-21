@@ -30,6 +30,8 @@ Authors: Soren Sandmann <sandmann@redhat.com>
 
 */
 
+#include "config.h"
+
 #include <fcntl.h>
 #include <math.h>
 #include <stdarg.h>
@@ -37,16 +39,14 @@ Authors: Soren Sandmann <sandmann@redhat.com>
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-
-#include <gio/gio.h>
+//
+#include <cairo-xlib.h>
+#include <cairo.h>
 #include <glib/gprintf.h>
 #include <glib/gstdio.h>
-
-#include <cairo.h>
-#include <cairo-xlib.h>
-
-#include <xfce-bg.h>
 #include <xfconf/xfconf.h>
+
+#include "xfce-bg.h"
 
 #define XFCE_BG_CACHE_DIR "xfce/background"
 /* Default wallpaper in Xfce 4.20 */

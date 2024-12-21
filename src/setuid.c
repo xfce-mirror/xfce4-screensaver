@@ -13,7 +13,7 @@
  * implied warranty.
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <grp.h> /* for getgrgid() and struct group */
 #include <pwd.h> /* for getpwnam() and struct passwd */
@@ -21,8 +21,6 @@
 #include <string.h>
 #include <sys/types.h>
 #include <unistd.h>
-
-#include <glib.h>
 
 #ifndef EPERM
 #include <errno.h>

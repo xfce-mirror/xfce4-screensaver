@@ -20,26 +20,24 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
-
+//
+#include <X11/extensions/scrnsaver.h>
+#include <gdk/gdkx.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
-#include <gdk/gdkx.h>
-
 #define WNCK_I_KNOW_THIS_IS_UNSTABLE = 1
 #include <libwnck/libwnck.h>
 
-#include <X11/extensions/scrnsaver.h>
-
+#include "gs-debug.h"
 #include "gs-listener-x11.h"
 #include "gs-marshal.h"
-#include "gs-debug.h"
 #include "gs-prefs.h"
 
 static void         gs_listener_x11_finalize        (GObject            *object);

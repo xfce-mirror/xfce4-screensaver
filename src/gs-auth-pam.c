@@ -23,29 +23,26 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <errno.h>
 #include <fcntl.h>
 #include <grp.h>
 #include <pwd.h>
+#include <security/pam_appl.h>
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
 
-#include <security/pam_appl.h>
-
-#include <glib.h>
-#include <glib/gstdio.h>
-#include <gtk/gtk.h>
-
-#include <libxfce4util/libxfce4util.h>
-
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
+
+#include <glib/gstdio.h>
+#include <gtk/gtk.h>
+#include <libxfce4util/libxfce4util.h>
 
 #include "gs-auth.h"
 #include "subprocs.h"

@@ -21,7 +21,7 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <errno.h>
 #include <signal.h>
@@ -31,21 +31,23 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#include <glib/gstdio.h>
-#include <gtk/gtk.h>
+#if defined(HAVE_SETPRIORITY) && defined(PRIO_PROCESS)
+#include <sys/resource.h>
+#endif
+
 #ifdef ENABLE_X11
 #include <gdk/gdkx.h>
 #include <gtk/gtkx.h>
 #endif
+
 #ifdef ENABLE_WAYLAND
 #include <gdk/gdkwayland.h>
-#include <libwlembed/libwlembed.h>
 #include <libwlembed-gtk3/libwlembed-gtk3.h>
+#include <libwlembed/libwlembed.h>
 #endif
 
-#if defined(HAVE_SETPRIORITY) && defined(PRIO_PROCESS)
-#include <sys/resource.h>
-#endif
+#include <glib/gstdio.h>
+#include <gtk/gtk.h>
 
 #include "gs-debug.h"
 #include "gs-job.h"

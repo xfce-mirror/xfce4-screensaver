@@ -22,7 +22,7 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <errno.h>
 #include <stdlib.h>
@@ -31,11 +31,6 @@
 #include <time.h>
 #include <unistd.h>
 
-#include <gio/gio.h>
-#include <glib/gprintf.h>
-#include <glib/gstdio.h>
-#include <gdk/gdkkeysyms.h>
-#include <gtk/gtk.h>
 #ifdef ENABLE_X11
 #include <gdk/gdkx.h>
 #include <gtk/gtkx.h>
@@ -43,16 +38,22 @@
 #include "xfcekbd-indicator.h"
 #endif
 #endif
+
 #ifdef ENABLE_WAYLAND
 #include <gdk/gdkwayland.h>
 #include <libwlembed-gtk3/libwlembed-gtk3.h>
 #endif
 
+#include <gdk/gdkkeysyms.h>
+#include <gio/gio.h>
+#include <glib/gprintf.h>
+#include <glib/gstdio.h>
+#include <gtk/gtk.h>
 #include <libxfce4util/libxfce4util.h>
 #include <xfconf/xfconf.h>
 
-#include "gs-lock-plug.h"
 #include "gs-debug.h"
+#include "gs-lock-plug.h"
 #include "gs-prefs.h"
 #include "xfce-bg.h"
 #include "xfce-desktop-utils.h"

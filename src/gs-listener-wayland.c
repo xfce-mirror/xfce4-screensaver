@@ -21,11 +21,12 @@
 #include <gdk/gdkwayland.h>
 #include <libxfce4windowing/libxfce4windowing.h>
 
+#include "protocols/ext-idle-notify-v1-client.h"
+
+#include "gs-debug.h"
 #include "gs-listener-wayland.h"
 #include "gs-manager.h"
 #include "gs-prefs.h"
-#include "gs-debug.h"
-#include "protocols/ext-idle-notify-v1-client.h"
 
 static void     gs_listener_wayland_finalize               (GObject        *object);
 static void     gs_listener_wayland_set_timeouts           (GSListener     *listener,

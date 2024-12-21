@@ -23,7 +23,6 @@
 #ifndef SRC_GS_GRAB_H_
 #define SRC_GS_GRAB_H_
 
-#include <glib.h>
 #include <gdk/gdk.h>
 
 G_BEGIN_DECLS

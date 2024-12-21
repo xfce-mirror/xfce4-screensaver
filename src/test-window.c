@@ -21,23 +21,23 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <stdlib.h>
 
-#include <gtk/gtk.h>
+#ifdef ENABLE_X11
+#include <gdk/gdkx.h>
 
+#include "gs-grab.h"
+static GSGrab *grab = NULL;
+#endif
+
+#include <gtk/gtk.h>
 #include <libxfce4util/libxfce4util.h>
 #include <xfconf/xfconf.h>
 
 #include "gs-debug.h"
 #include "gs-window.h"
-
-#ifdef ENABLE_X11
-#include <gdk/gdkx.h>
-#include "gs-grab.h"
-static GSGrab *grab = NULL;
-#endif
 
 static void
 window_deactivated_cb (GSWindow *window,

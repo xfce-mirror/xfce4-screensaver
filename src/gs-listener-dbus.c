@@ -21,19 +21,13 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
-
-#include <dbus/dbus.h>
-#include <dbus/dbus-glib.h>
-#include <dbus/dbus-glib-lowlevel.h>
-
-#include <libxfce4util/libxfce4util.h>
 
 #ifdef WITH_SYSTEMD
 #include <systemd/sd-login.h>
@@ -42,9 +36,14 @@
 #include <elogind/sd-login.h>
 #endif
 
+#include <dbus/dbus-glib-lowlevel.h>
+#include <dbus/dbus-glib.h>
+#include <dbus/dbus.h>
+#include <libxfce4util/libxfce4util.h>
+
+#include "gs-debug.h"
 #include "gs-listener-dbus.h"
 #include "gs-marshal.h"
-#include "gs-debug.h"
 #include "gs-prefs.h"
 
 static void              gs_listener_dbus_finalize           (GObject         *object);

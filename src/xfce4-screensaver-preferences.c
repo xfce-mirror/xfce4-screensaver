@@ -23,26 +23,27 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
 #define _GNU_SOURCE
 #include <stdlib.h>
 #include <string.h>
-#include <sys/types.h>          /* For uid_t, gid_t */
+#include <sys/types.h> /* For uid_t, gid_t */
 #include <unistd.h>
 
-#include <gio/gio.h>
-#include <gtk/gtk.h>
 #ifdef ENABLE_X11
 #include <gdk/gdkx.h>
 #include <gtk/gtkx.h>
 #endif
+
 #ifdef ENABLE_WAYLAND
 #include <gdk/gdkwayland.h>
-#include <libwlembed/libwlembed.h>
 #include <libwlembed-gtk3/libwlembed-gtk3.h>
+#include <libwlembed/libwlembed.h>
 #endif
 
+#include <gio/gio.h>
+#include <gtk/gtk.h>
 #include <libxfce4ui/libxfce4ui.h>
 #include <xfconf/xfconf.h>
 

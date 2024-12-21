@@ -24,6 +24,7 @@
 #define SRC_GS_DEBUG_H_
 
 #include <stdarg.h>
+//
 #include <glib.h>
 
 G_BEGIN_DECLS

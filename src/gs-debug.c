@@ -20,18 +20,16 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
-#include <sys/time.h>
+#include <math.h>
 #include <signal.h>
-#include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
+#include <sys/time.h>
 #include <time.h>
-#include <math.h>
 #include <unistd.h>
-
-#include <glib.h>
+//
 #include <glib/gstdio.h>
 
 #include "gs-debug.h"

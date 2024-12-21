@@ -26,7 +26,6 @@
 #ifndef SRC_XFCE_BG_H_
 #define SRC_XFCE_BG_H_
 
-#include <glib.h>
 #include <gdk/gdk.h>
 #include <gio/gio.h>
 

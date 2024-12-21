@@ -19,24 +19,24 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <stdlib.h>
 #include <string.h>
 
-#include <gtk/gtk.h>
 #ifdef ENABLE_X11
 #include <gdk/gdkx.h>
 #include <gtk/gtkx.h>
 #endif
+
 #ifdef ENABLE_WAYLAND
 #include <gdk/gdkwayland.h>
 #include <libwlembed-gtk3/libwlembed-gtk3.h>
 #endif
 
+#include <gtk/gtk.h>
 #include <libxfce4util/libxfce4util.h>
 
-#include "gs-theme-engine.h"
 #include "gste-popsquares.h"
 
 int

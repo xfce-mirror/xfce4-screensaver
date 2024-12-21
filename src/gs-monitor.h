@@ -23,7 +23,7 @@
 #ifndef SRC_GS_MONITOR_H_
 #define SRC_GS_MONITOR_H_
 
-#include <glib.h>
+#include <glib-object.h>
 
 G_BEGIN_DECLS
 

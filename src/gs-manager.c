@@ -21,24 +21,27 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
-#include <gdk/gdk.h>
-#include <gio/gio.h>
 #ifdef ENABLE_X11
 #include <gdk/gdkx.h>
+
 #include "gs-grab.h"
 #endif
+
 #ifdef ENABLE_WAYLAND
 #include <gdk/gdkwayland.h>
 #include <libwlembed-gtk3/libwlembed-gtk3.h>
+
 #include "gs-session-lock-manager.h"
 #endif
+
+#include <gdk/gdk.h>
+#include <gio/gio.h>
 
 #include "gs-debug.h"
 #include "gs-job.h"
 #include "gs-manager.h"
-#include "gs-prefs.h"
 #include "gs-window.h"
 
 static void     gs_manager_finalize   (GObject        *object);

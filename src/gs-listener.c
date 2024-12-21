@@ -20,15 +20,18 @@
 
 #ifdef ENABLE_X11
 #include <gdk/gdkx.h>
+
 #include "gs-listener-x11.h"
 #endif
+
 #ifdef ENABLE_WAYLAND
 #include <gdk/gdkwayland.h>
+
 #include "gs-listener-wayland.h"
 #endif
 
-#include "gs-listener.h"
 #include "gs-debug.h"
+#include "gs-listener.h"
 #include "gs-prefs.h"
 
 #define get_instance_private(instance) ((GSListenerPrivate *) \

@@ -26,23 +26,24 @@
  *                         Sean Davis <bluesabre@xfce.org>
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <math.h>
 #include <stdlib.h>
 #include <sysexits.h>
 #include <time.h>
 
-#include <gtk/gtk.h>
 #ifdef ENABLE_X11
 #include <gdk/gdkx.h>
 #include <gtk/gtkx.h>
 #endif
+
 #ifdef ENABLE_WAYLAND
 #include <gdk/gdkwayland.h>
 #include <libwlembed-gtk3/libwlembed-gtk3.h>
 #endif
 
+#include <gtk/gtk.h>
 #include <libxfce4util/libxfce4util.h>
 
 #ifndef trunc

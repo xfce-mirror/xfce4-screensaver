@@ -22,7 +22,7 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <errno.h>
 #include <stdlib.h>
@@ -31,14 +31,13 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
-
+//
 #include <gtk/gtk.h>
-
 #include <libxfce4util/libxfce4util.h>
 #include <xfconf/xfconf.h>
 
-#include "gs-monitor.h"
 #include "gs-debug.h"
+#include "gs-monitor.h"
 #include "xfce4-screensaver.h"
 
 void xfce4_screensaver_quit(void) {

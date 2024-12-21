@@ -19,7 +19,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <pwd.h>
 #include <signal.h>
@@ -32,8 +32,8 @@
 #include <unistd.h>
 #endif
 
-#include <login_cap.h>
 #include <bsd_auth.h>
+#include <login_cap.h>
 
 #include "gs-auth.h"
 #include "subprocs.h"

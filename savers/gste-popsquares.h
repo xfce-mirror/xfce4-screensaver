@@ -23,9 +23,6 @@
 #ifndef SAVERS_GSTE_POPSQUARES_H_
 #define SAVERS_GSTE_POPSQUARES_H_
 
-#include <glib.h>
-#include <gdk/gdk.h>
-
 #include "gs-theme-engine.h"
 
 G_BEGIN_DECLS

@@ -22,12 +22,9 @@
 #define SRC_XFCEKBD_INDICATOR_H_
 
 #include <gtk/gtk.h>
-
 #include <libxklavier/xklavier.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+G_BEGIN_DECLS
 
 typedef struct _XfcekbdIndicator XfcekbdIndicator;
 typedef struct _XfcekbdIndicatorPrivate XfcekbdIndicatorPrivate;
@@ -61,7 +58,6 @@ extern GtkWidget *  xfcekbd_indicator_new                   (void);
 extern void         xfcekbd_indicator_set_parent_tooltips   (XfcekbdIndicator *gki,
                                                              gboolean          spt);
 
-#ifdef __cplusplus
-}
-#endif
+G_END_DECLS
+
 #endif /* SRC_XFCEKBD_INDICATOR_H_ */

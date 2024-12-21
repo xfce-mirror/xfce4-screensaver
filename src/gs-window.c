@@ -21,32 +21,33 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <errno.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 
-#include <gdk/gdkkeysyms.h>
-#include <gtk/gtk.h>
 #ifdef ENABLE_X11
+#include <X11/extensions/shape.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtkx.h>
-#include <X11/extensions/shape.h>
 #endif
+
 #ifdef ENABLE_WAYLAND
 #include <gdk/gdkwayland.h>
 #include <libwlembed-gtk3/libwlembed-gtk3.h>
 #endif
 
+#include <gdk/gdkkeysyms.h>
+
 #include "gs-debug.h"
+#include "gs-manager.h"
 #include "gs-marshal.h"
 #include "gs-prefs.h"
 #include "gs-window.h"
 #include "subprocs.h"
 #include "xfce-desktop-utils.h"
-#include "gs-manager.h"
 
 static void     gs_window_finalize       (GObject       *object);
 

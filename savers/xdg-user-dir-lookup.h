@@ -28,6 +28,12 @@
 #ifndef SAVERS_XDG_USER_DIR_LOOKUP_H_
 #define SAVERS_XDG_USER_DIR_LOOKUP_H_
 
+#include <glib.h>
+
+G_BEGIN_DECLS
+
 char * xdg_user_dir_lookup (const char *type);
+
+G_END_DECLS
 
 #endif /* SAVERS_XDG_USER_DIR_LOOKUP_H_ */

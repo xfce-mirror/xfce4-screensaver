@@ -21,16 +21,13 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <string.h>
-
+//
 #include <gio/gio.h>
-#include <glib.h>
-#include <glib-object.h>
-
-#include <xfconf/xfconf.h>
 #include <libxfce4ui/libxfce4ui.h>
+#include <xfconf/xfconf.h>
 
 #include "gs-prefs.h"
 

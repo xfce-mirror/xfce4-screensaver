@@ -21,14 +21,12 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <locale.h>
 #include <stdlib.h>
-
-#include <glib.h>
+//
 #include <gio/gio.h>
-
 #include <libxfce4util/libxfce4util.h>
 
 #define GS_SERVICE   "org.xfce.ScreenSaver"

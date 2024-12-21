@@ -20,6 +20,7 @@
 #define SRC_GS_SESSION_LOCK_MANAGER_H_
 
 #include <glib-object.h>
+
 #include "gs-window.h"
 
 G_BEGIN_DECLS

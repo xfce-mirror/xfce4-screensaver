@@ -25,11 +25,11 @@
   SOFTWARE.
 */
 
+#include "config.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#include <glib.h>
 
 #include "xdg-user-dir-lookup.h"
 
