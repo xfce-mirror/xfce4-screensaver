@@ -22,7 +22,7 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <errno.h>
 #include <stdlib.h>
@@ -31,64 +31,65 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
-
+//
 #include <gtk/gtk.h>
-
 #include <libxfce4util/libxfce4util.h>
 #include <xfconf/xfconf.h>
 
-#include "gs-monitor.h"
 #include "gs-debug.h"
+#include "gs-monitor.h"
 #include "xfce4-screensaver.h"
 
-void xfce4_screensaver_quit(void) {
-    gtk_main_quit();
+void
+xfce4_screensaver_quit (void) {
+    gtk_main_quit ();
 }
 
-int main(int    argc,
-         char **argv) {
+int
+main (int argc,
+      char **argv) {
     GSMonitor *monitor;
-    GError    *error = NULL;
+    GError *error = NULL;
 
     static gboolean show_version = FALSE;
     static gboolean debug = FALSE;
 
     static GOptionEntry entries[] = {
-        {"version", 0, 0, G_OPTION_ARG_NONE, &show_version, N_("Version of this application"), NULL},
-        {"debug", 0, 0, G_OPTION_ARG_NONE, &debug, N_("Enable debugging code"), NULL},
-        {NULL}
+        { "version", 0, 0, G_OPTION_ARG_NONE, &show_version, N_ ("Version of this application"), NULL },
+        { "debug", 0, 0, G_OPTION_ARG_NONE, &debug, N_ ("Enable debugging code"), NULL },
+        { NULL }
     };
 
     xfce_textdomain (GETTEXT_PACKAGE, XFCELOCALEDIR, "UTF-8");
 
-    if (!gtk_init_with_args(&argc, &argv, NULL, entries, NULL, &error)) {
+    if (!gtk_init_with_args (&argc, &argv, NULL, entries, NULL, &error)) {
         if (error) {
-            g_warning("%s", error->message);
-            g_error_free(error);
+            g_warning ("%s", error->message);
+            g_error_free (error);
         } else {
-            g_warning("Unable to initialize GTK+");
+            g_warning ("Unable to initialize GTK+");
         }
 
         return EXIT_FAILURE;
     }
 
     if (show_version) {
-        g_print("%s %s\n", argv[0], VERSION);
+        g_print ("%s %s\n", argv[0], VERSION);
         return EXIT_SUCCESS;
     }
 
-    if (!xfconf_init(&error)) {
-        g_error("Failed to connect to xfconf daemon: %s.", error->message);
-        g_error_free(error);
+    if (!xfconf_init (&error)) {
+        g_error ("Failed to connect to xfconf daemon: %s.", error->message);
+        g_error_free (error);
 
         return EXIT_FAILURE;
     }
 
     /* debug to a file if in deamon mode */
-    gs_debug_init(debug, FALSE);
-    gs_debug("Initializing xfce4-screensaver %s", VERSION);
+    gs_debug_init (debug, FALSE);
+    gs_debug ("Initializing xfce4-screensaver %s", VERSION);
 
-    monitor = gs_monitor_new();
+    monitor = gs_monitor_new ();
 
     if (monitor == NULL) {
         return EXIT_FAILURE;
@@ -96,25 +97,25 @@ int main(int    argc,
 
     error = NULL;
 
-    if (!gs_monitor_start(monitor, &error)) {
+    if (!gs_monitor_start (monitor, &error)) {
         if (error) {
-            g_warning("%s", error->message);
-            g_error_free(error);
+            g_warning ("%s", error->message);
+            g_error_free (error);
         } else {
-            g_warning("Unable to start screensaver");
+            g_warning ("Unable to start screensaver");
         }
 
-        g_object_unref(monitor);
+        g_object_unref (monitor);
         return EXIT_FAILURE;
     }
 
-    gtk_main();
+    gtk_main ();
 
-    g_object_unref(monitor);
+    g_object_unref (monitor);
 
-    gs_debug("xfce4-screensaver finished");
+    gs_debug ("xfce4-screensaver finished");
 
-    gs_debug_shutdown();
+    gs_debug_shutdown ();
     xfconf_shutdown ();
 
     return 0;

@@ -22,46 +22,45 @@
 #define SRC_XFCEKBD_INDICATOR_H_
 
 #include <gtk/gtk.h>
-
 #include <libxklavier/xklavier.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+G_BEGIN_DECLS
 
 typedef struct _XfcekbdIndicator XfcekbdIndicator;
 typedef struct _XfcekbdIndicatorPrivate XfcekbdIndicatorPrivate;
 typedef struct _XfcekbdIndicatorClass XfcekbdIndicatorClass;
 
-#define XFCEKBD_TYPE_INDICATOR             (xfcekbd_indicator_get_type ())
-#define XFCEKBD_INDICATOR(obj)             (G_TYPE_CHECK_INSTANCE_CAST ((obj), XFCEKBD_TYPE_INDICATOR, \
-                                            XfcekbdIndicator))
-#define XFCEKBD_INDICATOR_CLASS(obj)       (G_TYPE_CHECK_CLASS_CAST ((obj), XFCEKBD_TYPE_INDICATOR, \
-                                            XfcekbdIndicatorClass))
-#define XFCEKBD_IS_INDICATOR(obj)          (G_TYPE_CHECK_INSTANCE_TYPE ((obj), XFCEKBD_TYPE_INDICATOR))
-#define XFCEKBD_IS_INDICATOR_CLASS(obj)    (G_TYPE_CHECK_CLASS_TYPE ((obj), XFCEKBD_TYPE_INDICATOR))
-#define XFCEKBD_INDICATOR_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj), XFCEKBD_TYPE_INDICATOR, \
-                                            XfcekbdIndicatorClass))
+#define XFCEKBD_TYPE_INDICATOR (xfcekbd_indicator_get_type ())
+#define XFCEKBD_INDICATOR(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), XFCEKBD_TYPE_INDICATOR, \
+                                                            XfcekbdIndicator))
+#define XFCEKBD_INDICATOR_CLASS(obj) (G_TYPE_CHECK_CLASS_CAST ((obj), XFCEKBD_TYPE_INDICATOR, \
+                                                               XfcekbdIndicatorClass))
+#define XFCEKBD_IS_INDICATOR(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), XFCEKBD_TYPE_INDICATOR))
+#define XFCEKBD_IS_INDICATOR_CLASS(obj) (G_TYPE_CHECK_CLASS_TYPE ((obj), XFCEKBD_TYPE_INDICATOR))
+#define XFCEKBD_INDICATOR_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), XFCEKBD_TYPE_INDICATOR, \
+                                                                     XfcekbdIndicatorClass))
 
 struct _XfcekbdIndicator {
-    GtkNotebook              parent;
+    GtkNotebook parent;
     XfcekbdIndicatorPrivate *priv;
 };
 
 struct _XfcekbdIndicatorClass {
-    GtkNotebookClass   parent_class;
+    GtkNotebookClass parent_class;
 
-    void (*reinit_ui)  (XfcekbdIndicator * gki);
+    void (*reinit_ui) (XfcekbdIndicator *gki);
 };
 
-extern GType        xfcekbd_indicator_get_type              (void);
+extern GType
+xfcekbd_indicator_get_type (void);
 
-extern GtkWidget *  xfcekbd_indicator_new                   (void);
+extern GtkWidget *
+xfcekbd_indicator_new (void);
 
-extern void         xfcekbd_indicator_set_parent_tooltips   (XfcekbdIndicator *gki,
-                                                             gboolean          spt);
+extern void
+xfcekbd_indicator_set_parent_tooltips (XfcekbdIndicator *gki,
+                                       gboolean spt);
 
-#ifdef __cplusplus
-}
-#endif
+G_END_DECLS
+
 #endif /* SRC_XFCEKBD_INDICATOR_H_ */

@@ -21,84 +21,58 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <locale.h>
 #include <stdlib.h>
-
-#include <glib.h>
+//
 #include <gio/gio.h>
-
 #include <libxfce4util/libxfce4util.h>
 
-#define GS_SERVICE   "org.xfce.ScreenSaver"
-#define GS_PATH      "/org/xfce/ScreenSaver"
+#define GS_SERVICE "org.xfce.ScreenSaver"
+#define GS_PATH "/org/xfce/ScreenSaver"
 #define GS_INTERFACE "org.xfce.ScreenSaver"
 
-static gboolean do_quit             = FALSE;
-static gboolean do_lock             = FALSE;
-static gboolean do_cycle            = FALSE;
-static gboolean do_activate         = FALSE;
-static gboolean do_deactivate       = FALSE;
-static gboolean do_version          = FALSE;
-static gboolean do_poke             = FALSE;
-static gboolean do_inhibit          = FALSE;
+static gboolean do_quit = FALSE;
+static gboolean do_lock = FALSE;
+static gboolean do_cycle = FALSE;
+static gboolean do_activate = FALSE;
+static gboolean do_deactivate = FALSE;
+static gboolean do_version = FALSE;
+static gboolean do_poke = FALSE;
+static gboolean do_inhibit = FALSE;
 
-static gboolean do_query            = FALSE;
-static gboolean do_time             = FALSE;
+static gboolean do_query = FALSE;
+static gboolean do_time = FALSE;
 
-static char    *inhibit_reason      = NULL;
-static char    *inhibit_application = NULL;
+static char *inhibit_reason = NULL;
+static char *inhibit_application = NULL;
 
 static GOptionEntry entries[] = {
-    {
-        "exit", 0, 0, G_OPTION_ARG_NONE, &do_quit,
-        N_("Causes the screensaver to exit gracefully"), NULL
-    },
-    {
-        "query", 'q', 0, G_OPTION_ARG_NONE, &do_query,
-        N_("Query the state of the screensaver"), NULL
-    },
-    {
-        "time", 't', 0, G_OPTION_ARG_NONE, &do_time,
-        N_("Query the length of time the screensaver has been active"), NULL
-    },
-    {
-        "lock", 'l', 0, G_OPTION_ARG_NONE, &do_lock,
-        N_("Tells the running screensaver process to lock the screen immediately"), NULL
-    },
-    {
-        "cycle", 'c', 0, G_OPTION_ARG_NONE, &do_cycle,
-        N_("If the screensaver is active then switch to another graphics demo"), NULL
-    },
-    {
-        "activate", 'a', 0, G_OPTION_ARG_NONE, &do_activate,
-        N_("Turn the screensaver on (blank the screen)"), NULL
-    },
-    {
-        "deactivate", 'd', 0, G_OPTION_ARG_NONE, &do_deactivate,
-        N_("If the screensaver is active then deactivate it (un-blank the screen)"), NULL
-    },
-    {
-        "poke", 'p', 0, G_OPTION_ARG_NONE, &do_poke,
-        N_("Poke the running screensaver to simulate user activity"), NULL
-    },
-    {
-        "inhibit", 'i', 0, G_OPTION_ARG_NONE, &do_inhibit,
-        N_("Inhibit the screensaver from activating.  Command blocks while inhibit is active."), NULL
-    },
-    {
-        "application-name", 'n', 0, G_OPTION_ARG_STRING, &inhibit_application,
-        N_("The calling application that is inhibiting the screensaver"), NULL
-    },
-    {
-        "reason", 'r', 0, G_OPTION_ARG_STRING, &inhibit_reason,
-        N_("The reason for inhibiting the screensaver"), NULL
-    },
-    {
-        "version", 'V', 0, G_OPTION_ARG_NONE, &do_version,
-        N_("Version of this application"), NULL
-    },
+    { "exit", 0, 0, G_OPTION_ARG_NONE, &do_quit,
+      N_ ("Causes the screensaver to exit gracefully"), NULL },
+    { "query", 'q', 0, G_OPTION_ARG_NONE, &do_query,
+      N_ ("Query the state of the screensaver"), NULL },
+    { "time", 't', 0, G_OPTION_ARG_NONE, &do_time,
+      N_ ("Query the length of time the screensaver has been active"), NULL },
+    { "lock", 'l', 0, G_OPTION_ARG_NONE, &do_lock,
+      N_ ("Tells the running screensaver process to lock the screen immediately"), NULL },
+    { "cycle", 'c', 0, G_OPTION_ARG_NONE, &do_cycle,
+      N_ ("If the screensaver is active then switch to another graphics demo"), NULL },
+    { "activate", 'a', 0, G_OPTION_ARG_NONE, &do_activate,
+      N_ ("Turn the screensaver on (blank the screen)"), NULL },
+    { "deactivate", 'd', 0, G_OPTION_ARG_NONE, &do_deactivate,
+      N_ ("If the screensaver is active then deactivate it (un-blank the screen)"), NULL },
+    { "poke", 'p', 0, G_OPTION_ARG_NONE, &do_poke,
+      N_ ("Poke the running screensaver to simulate user activity"), NULL },
+    { "inhibit", 'i', 0, G_OPTION_ARG_NONE, &do_inhibit,
+      N_ ("Inhibit the screensaver from activating.  Command blocks while inhibit is active."), NULL },
+    { "application-name", 'n', 0, G_OPTION_ARG_STRING, &inhibit_application,
+      N_ ("The calling application that is inhibiting the screensaver"), NULL },
+    { "reason", 'r', 0, G_OPTION_ARG_STRING, &inhibit_reason,
+      N_ ("The reason for inhibiting the screensaver"), NULL },
+    { "version", 'V', 0, G_OPTION_ARG_NONE, &do_version,
+      N_ ("Version of this application"), NULL },
     { NULL }
 };
 
@@ -107,17 +81,17 @@ int return_code = EXIT_SUCCESS;
 
 static GDBusMessage *
 screensaver_send_message (GDBusConnection *conn,
-                          const char      *name,
-                          GVariant        *body,
-                          gboolean         expect_reply) {
+                          const char *name,
+                          GVariant *body,
+                          gboolean expect_reply) {
     GDBusMessage *message;
     GDBusMessage *reply = NULL;
-    GError       *error = NULL;
+    GError *error = NULL;
 
     g_return_val_if_fail (conn != NULL, NULL);
     g_return_val_if_fail (name != NULL, NULL);
 
-    message = g_dbus_message_new_method_call (GS_SERVICE, GS_PATH,  GS_INTERFACE, name);
+    message = g_dbus_message_new_method_call (GS_SERVICE, GS_PATH, GS_INTERFACE, name);
     if (message == NULL) {
         g_warning ("Couldn't allocate the dbus message");
         return NULL;
@@ -149,30 +123,29 @@ screensaver_send_message (GDBusConnection *conn,
 }
 
 static gboolean
-screensaver_is_running (GDBusConnection *connection)
-{
-        GVariant *reply;
-        gboolean exists = FALSE;
+screensaver_is_running (GDBusConnection *connection) {
+    GVariant *reply;
+    gboolean exists = FALSE;
 
-        g_return_val_if_fail (connection != NULL, FALSE);
+    g_return_val_if_fail (connection != NULL, FALSE);
 
-        reply = g_dbus_connection_call_sync (connection,
-                                             "org.freedesktop.DBus",
-                                             "/org/freedesktop/DBus",
-                                             "org.freedesktop.DBus",
-                                             "GetNameOwner",
-                                             g_variant_new ("(s)", GS_SERVICE),
-                                             NULL,
-                                             G_DBUS_CALL_FLAGS_NO_AUTO_START,
-                                             -1,
-                                             NULL,
-                                             NULL);
-        if (reply != NULL) {
-                exists = TRUE;
-                g_variant_unref (reply);
-        }
+    reply = g_dbus_connection_call_sync (connection,
+                                         "org.freedesktop.DBus",
+                                         "/org/freedesktop/DBus",
+                                         "org.freedesktop.DBus",
+                                         "GetNameOwner",
+                                         g_variant_new ("(s)", GS_SERVICE),
+                                         NULL,
+                                         G_DBUS_CALL_FLAGS_NO_AUTO_START,
+                                         -1,
+                                         NULL,
+                                         NULL);
+    if (reply != NULL) {
+        exists = TRUE;
+        g_variant_unref (reply);
+    }
 
-        return exists;
+    return exists;
 }
 
 static gboolean
@@ -192,10 +165,10 @@ do_command (gpointer user_data) {
     }
 
     if (do_query) {
-        GVariant     *body;
+        GVariant *body;
         GVariantIter *iter;
-        gboolean      is_active;
-        gchar        *str;
+        gboolean is_active;
+        gchar *str;
 
         reply = screensaver_send_message (conn, "GetActive", NULL, TRUE);
         if (!reply) {
@@ -216,7 +189,7 @@ do_command (gpointer user_data) {
         body = g_dbus_message_get_body (reply);
         g_variant_get (body, "(as)", &iter);
 
-        if (g_variant_iter_n_children(iter) <= 0) {
+        if (g_variant_iter_n_children (iter) <= 0) {
             g_print (_("The screensaver is not inhibited\n"));
         } else {
             g_print (_("The screensaver is being inhibited by:\n"));
@@ -230,7 +203,7 @@ do_command (gpointer user_data) {
 
     if (do_time) {
         GVariant *body;
-        guint32   t;
+        guint32 t;
 
         reply = screensaver_send_message (conn, "GetActiveTime", NULL, TRUE);
         body = g_dbus_message_get_body (reply);
@@ -262,7 +235,7 @@ do_command (gpointer user_data) {
     if (do_inhibit) {
         GVariant *body;
         body = g_variant_new ("(ss)", inhibit_application ? inhibit_application : "Unknown",
-                                    inhibit_reason ? inhibit_reason : "Unknown"); 
+                              inhibit_reason ? inhibit_reason : "Unknown");
         reply = screensaver_send_message (conn, "Inhibit", body, TRUE);
         if (!reply) {
             g_message ("Did not receive a reply from the screensaver.");
@@ -280,12 +253,12 @@ done:
 }
 
 int
-main (int    argc,
+main (int argc,
       char **argv) {
     GDBusConnection *conn;
     GOptionContext *context;
-    gboolean        retval;
-    GError         *error = NULL;
+    gboolean retval;
+    GError *error = NULL;
 
     xfce_textdomain (GETTEXT_PACKAGE, XFCELOCALEDIR, "UTF-8");
 
@@ -313,9 +286,9 @@ main (int    argc,
 
     conn = g_bus_get_sync (G_BUS_TYPE_SESSION, NULL, &error);
     if (conn == NULL) {
-            g_message ("Failed to get session bus: %s", error->message);
-            g_error_free (error);
-            return EXIT_FAILURE;
+        g_message ("Failed to get session bus: %s", error->message);
+        g_error_free (error);
+        return EXIT_FAILURE;
     }
     g_idle_add (do_command, conn);
 

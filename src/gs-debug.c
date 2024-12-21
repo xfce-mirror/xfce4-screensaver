@@ -20,24 +20,22 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
-#include <sys/time.h>
+#include <math.h>
 #include <signal.h>
-#include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
+#include <sys/time.h>
 #include <time.h>
-#include <math.h>
 #include <unistd.h>
-
-#include <glib.h>
+//
 #include <glib/gstdio.h>
 
 #include "gs-debug.h"
 
 static gboolean debugging = FALSE;
-static FILE    *debug_out = NULL;
+static FILE *debug_out = NULL;
 
 /* Based on rhythmbox/lib/rb-debug.c */
 /* Our own funky debugging function, should only be used when something
@@ -46,14 +44,14 @@ static FILE    *debug_out = NULL;
 void
 gs_debug_real (const char *func,
                const char *file,
-               const int   line,
+               const int line,
                const char *format, ...) {
     va_list args;
-    char    buffer[1025];
-    char    *str_time;
-    int     millisec;
-    struct  tm* tm_info;
-    struct  timeval tv;
+    char buffer[1025];
+    char *str_time;
+    int millisec;
+    struct tm *tm_info;
+    struct timeval tv;
 
 
     if (debugging == FALSE)
@@ -61,18 +59,18 @@ gs_debug_real (const char *func,
 
     va_start (args, format);
 
-    g_vsnprintf (buffer, sizeof(buffer), format, args);
+    g_vsnprintf (buffer, sizeof (buffer), format, args);
 
     va_end (args);
 
-    gettimeofday(&tv, NULL);
-    millisec = lrint(tv.tv_usec/1000.0);
+    gettimeofday (&tv, NULL);
+    millisec = lrint (tv.tv_usec / 1000.0);
     if (millisec >= 1000) {
         millisec -= 1000;
         tv.tv_sec++;
     }
 
-    tm_info = localtime(&tv.tv_sec);
+    tm_info = localtime (&tv.tv_sec);
     str_time = g_new0 (char, 255);
     strftime (str_time, 254, "%H:%M:%S", tm_info);
 
@@ -103,7 +101,7 @@ gs_debug_init (gboolean debug,
 
     if (debug && to_file) {
         const char path[50] = "xfce4_screensaver_debug_XXXXXX";
-        int        fd;
+        int fd;
 
         fd = g_file_open_tmp (path, NULL, NULL);
 
@@ -135,8 +133,8 @@ _gs_profile_log (const char *func,
                  const char *note,
                  const char *format,
                  ...) {
-    char   *str;
-    char   *formatted;
+    char *str;
+    char *formatted;
 
     if (format == NULL) {
         formatted = g_strdup ("");
@@ -148,9 +146,9 @@ _gs_profile_log (const char *func,
     }
 
     if (func != NULL) {
-        str = g_strdup_printf ("MARK: %s %s: %s %s", g_get_prgname(), func, note ? note : "", formatted);
+        str = g_strdup_printf ("MARK: %s %s: %s %s", g_get_prgname (), func, note ? note : "", formatted);
     } else {
-        str = g_strdup_printf ("MARK: %s: %s %s", g_get_prgname(), note ? note : "", formatted);
+        str = g_strdup_printf ("MARK: %s: %s %s", g_get_prgname (), note ? note : "", formatted);
     }
 
     g_free (formatted);

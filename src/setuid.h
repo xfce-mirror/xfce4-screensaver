@@ -18,9 +18,10 @@
 
 G_BEGIN_DECLS
 
-gboolean hack_uid (char **nolock_reason,
-                   char **orig_uid,
-                   char **uid_message);
+gboolean
+hack_uid (char **nolock_reason,
+          char **orig_uid,
+          char **uid_message);
 
 G_END_DECLS
 

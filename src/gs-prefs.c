@@ -21,20 +21,18 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <string.h>
-
+//
 #include <gio/gio.h>
-#include <glib.h>
-#include <glib-object.h>
-
-#include <xfconf/xfconf.h>
 #include <libxfce4ui/libxfce4ui.h>
+#include <xfconf/xfconf.h>
 
 #include "gs-prefs.h"
 
-static void gs_prefs_finalize   (GObject      *object);
+static void
+gs_prefs_finalize (GObject *object);
 
 static GSPrefs *global_prefs;
 
@@ -52,15 +50,17 @@ enum {
     PROP_0
 };
 
-static guint         signals[LAST_SIGNAL] = { 0, };
+static guint signals[LAST_SIGNAL] = {
+    0,
+};
 
 G_DEFINE_TYPE_WITH_PRIVATE (GSPrefs, gs_prefs, G_TYPE_OBJECT)
 
 static void
-gs_prefs_set_property (GObject      *object,
-                       guint         prop_id,
+gs_prefs_set_property (GObject *object,
+                       guint prop_id,
                        const GValue *value,
-                       GParamSpec   *pspec) {
+                       GParamSpec *pspec) {
     switch (prop_id) {
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
@@ -69,9 +69,9 @@ gs_prefs_set_property (GObject      *object,
 }
 
 static void
-gs_prefs_get_property (GObject    *object,
-                       guint       prop_id,
-                       GValue     *value,
+gs_prefs_get_property (GObject *object,
+                       guint prop_id,
+                       GValue *value,
                        GParamSpec *pspec) {
     switch (prop_id) {
         default:
@@ -84,7 +84,7 @@ static void
 gs_prefs_class_init (GSPrefsClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-    object_class->finalize     = gs_prefs_finalize;
+    object_class->finalize = gs_prefs_finalize;
     object_class->get_property = gs_prefs_get_property;
     object_class->set_property = gs_prefs_set_property;
 
@@ -103,7 +103,7 @@ gs_prefs_class_init (GSPrefsClass *klass) {
 
 static void
 _gs_prefs_set_timeout (GSPrefs *prefs,
-                       int      value) {
+                       int value) {
     if (value < 1)
         value = 10;
 
@@ -117,7 +117,7 @@ _gs_prefs_set_timeout (GSPrefs *prefs,
 
 static void
 _gs_prefs_set_lock_timeout (GSPrefs *prefs,
-                            int      value) {
+                            int value) {
     if (value < 0)
         value = 0;
 
@@ -131,7 +131,7 @@ _gs_prefs_set_lock_timeout (GSPrefs *prefs,
 
 static void
 _gs_prefs_set_cycle_timeout (GSPrefs *prefs,
-                             int      value) {
+                             int value) {
     if (value < 1)
         value = 1;
 
@@ -144,8 +144,8 @@ _gs_prefs_set_cycle_timeout (GSPrefs *prefs,
 }
 
 static void
-_gs_prefs_set_mode (GSPrefs    *prefs,
-                    gint        mode) {
+_gs_prefs_set_mode (GSPrefs *prefs,
+                    gint mode) {
     prefs->mode = mode;
 }
 
@@ -171,8 +171,8 @@ gs_prefs_get_theme (GSPrefs *prefs) {
 }
 
 static void
-_gs_prefs_set_themes (GSPrefs  *prefs,
-                      gchar   **values) {
+_gs_prefs_set_themes (GSPrefs *prefs,
+                      gchar **values) {
     guint i;
     if (prefs->themes) {
         g_slist_free_full (prefs->themes, g_free);
@@ -184,37 +184,37 @@ _gs_prefs_set_themes (GSPrefs  *prefs,
 
     /* take ownership of the list */
     prefs->themes = NULL;
-    for (i=0; values[i] != NULL; i++)
+    for (i = 0; values[i] != NULL; i++)
         prefs->themes = g_slist_append (prefs->themes, g_strdup (values[i]));
 }
 
 static void
-_gs_prefs_set_idle_activation_enabled (GSPrefs  *prefs,
-                                       gboolean  value) {
+_gs_prefs_set_idle_activation_enabled (GSPrefs *prefs,
+                                       gboolean value) {
     prefs->idle_activation_enabled = value;
 }
 
 static void
-_gs_prefs_set_sleep_activation_enabled (GSPrefs  *prefs,
-                                        gboolean  value) {
+_gs_prefs_set_sleep_activation_enabled (GSPrefs *prefs,
+                                        gboolean value) {
     prefs->sleep_activation_enabled = value;
 }
 
 static void
-_gs_prefs_set_saver_enabled (GSPrefs  *prefs,
-                            gboolean  value) {
+_gs_prefs_set_saver_enabled (GSPrefs *prefs,
+                             gboolean value) {
     prefs->saver_enabled = value;
 }
 
 static void
-_gs_prefs_set_lock_enabled (GSPrefs  *prefs,
-                            gboolean  value) {
+_gs_prefs_set_lock_enabled (GSPrefs *prefs,
+                            gboolean value) {
     prefs->lock_enabled = value;
 }
 
 static void
-_gs_prefs_set_lock_with_saver_enabled (GSPrefs  *prefs,
-                            gboolean  value) {
+_gs_prefs_set_lock_with_saver_enabled (GSPrefs *prefs,
+                                       gboolean value) {
     prefs->lock_with_saver_enabled = value;
 }
 
@@ -225,13 +225,13 @@ _gs_prefs_set_fullscreen_inhibit (GSPrefs *prefs,
 }
 
 static void
-_gs_prefs_set_keyboard_enabled (GSPrefs  *prefs,
-                                gboolean  value) {
+_gs_prefs_set_keyboard_enabled (GSPrefs *prefs,
+                                gboolean value) {
     prefs->keyboard_enabled = value;
 }
 
 static void
-_gs_prefs_set_keyboard_command (GSPrefs    *prefs,
+_gs_prefs_set_keyboard_command (GSPrefs *prefs,
                                 const char *value) {
     g_free (prefs->keyboard_command);
     prefs->keyboard_command = NULL;
@@ -244,25 +244,25 @@ _gs_prefs_set_keyboard_command (GSPrefs    *prefs,
 }
 
 static void
-_gs_prefs_set_keyboard_displayed (GSPrefs  *prefs,
-                                        gboolean  displayed) {
+_gs_prefs_set_keyboard_displayed (GSPrefs *prefs,
+                                  gboolean displayed) {
     prefs->keyboard_displayed = displayed;
 }
 
 static void
-_gs_prefs_set_status_message_enabled (GSPrefs  *prefs,
-                                      gboolean  enabled) {
+_gs_prefs_set_status_message_enabled (GSPrefs *prefs,
+                                      gboolean enabled) {
     prefs->status_message_enabled = enabled;
 }
 
 static void
-_gs_prefs_set_logout_enabled (GSPrefs  *prefs,
-                              gboolean  value) {
+_gs_prefs_set_logout_enabled (GSPrefs *prefs,
+                              gboolean value) {
     prefs->logout_enabled = value;
 }
 
 static void
-_gs_prefs_set_logout_command (GSPrefs    *prefs,
+_gs_prefs_set_logout_command (GSPrefs *prefs,
                               const char *value) {
     g_free (prefs->logout_command);
     prefs->logout_command = NULL;
@@ -276,7 +276,7 @@ _gs_prefs_set_logout_command (GSPrefs    *prefs,
 
 static void
 _gs_prefs_set_logout_timeout (GSPrefs *prefs,
-                              int      value) {
+                              int value) {
     if (value < 0)
         value = 0;
 
@@ -289,18 +289,18 @@ _gs_prefs_set_logout_timeout (GSPrefs *prefs,
 }
 
 static void
-_gs_prefs_set_user_switch_enabled (GSPrefs  *prefs,
-                                   gboolean  value) {
+_gs_prefs_set_user_switch_enabled (GSPrefs *prefs,
+                                   gboolean value) {
     prefs->user_switch_enabled = value;
 }
 
 static void
 gs_prefs_load_from_settings (GSPrefs *prefs) {
-    glong      value;
-    gboolean   bvalue;
-    char      *string;
-    gchar    **strv;
-    gint       mode;
+    glong value;
+    gboolean bvalue;
+    char *string;
+    gchar **strv;
+    gint mode;
 
     bvalue = xfconf_channel_get_bool (prefs->priv->channel,
                                       KEY_IDLE_ACTIVATION_ENABLED,
@@ -406,27 +406,27 @@ gs_prefs_load_from_settings (GSPrefs *prefs) {
 }
 
 gchar *
-gs_prefs_get_theme_arguments (GSPrefs     *prefs,
+gs_prefs_get_theme_arguments (GSPrefs *prefs,
                               const gchar *theme) {
     gchar *property;
     gchar *arguments;
     gchar *theme_name;
 
-    theme_name = g_utf8_substring (theme, 13, g_utf8_strlen(theme, -1));
+    theme_name = g_utf8_substring (theme, 13, g_utf8_strlen (theme, -1));
     property = g_strdup_printf ("/screensavers/%s/arguments", theme_name);
     arguments = xfconf_channel_get_string (prefs->priv->channel, property, "");
 
-    g_free(theme_name);
-    g_free(property);
+    g_free (theme_name);
+    g_free (property);
 
     return arguments;
 }
 
 static void
 key_changed_cb (XfconfChannel *channel,
-                gchar         *property,
-                GValue        *value,
-                GSPrefs       *prefs) {
+                gchar *property,
+                GValue *value,
+                GSPrefs *prefs) {
     if (strcmp (property, KEY_MODE) == 0) {
         gint mode;
 
@@ -542,21 +542,21 @@ gs_prefs_init (GSPrefs *prefs) {
     /* keep "/lock/sleep-activation" in sync with other components */
     prefs->priv->screensaver = xfce_screensaver_new ();
 
-    prefs->saver_enabled            = TRUE;
-    prefs->lock_enabled             = TRUE;
-    prefs->idle_activation_enabled  = TRUE;
+    prefs->saver_enabled = TRUE;
+    prefs->lock_enabled = TRUE;
+    prefs->idle_activation_enabled = TRUE;
     prefs->sleep_activation_enabled = TRUE;
-    prefs->lock_with_saver_enabled  = TRUE;
-    prefs->fullscreen_inhibit       = FALSE;
-    prefs->logout_enabled           = FALSE;
-    prefs->user_switch_enabled      = FALSE;
+    prefs->lock_with_saver_enabled = TRUE;
+    prefs->fullscreen_inhibit = FALSE;
+    prefs->logout_enabled = FALSE;
+    prefs->user_switch_enabled = FALSE;
 
-    prefs->timeout                  = 600000;
-    prefs->lock_timeout             = 0;
-    prefs->logout_timeout           = 14400;
-    prefs->cycle                    = 600;
+    prefs->timeout = 600000;
+    prefs->lock_timeout = 0;
+    prefs->logout_timeout = 14400;
+    prefs->cycle = 600;
 
-    prefs->mode                     = GS_MODE_SINGLE;
+    prefs->mode = GS_MODE_SINGLE;
 
     gs_prefs_load_from_settings (prefs);
 }
@@ -592,7 +592,7 @@ gs_prefs_new (void) {
         object = g_object_new (GS_TYPE_PREFS, NULL);
         global_prefs = GS_PREFS (object);
     } else
-       object = g_object_ref (G_OBJECT (global_prefs));
+        object = g_object_ref (G_OBJECT (global_prefs));
 
     return GS_PREFS (object);
 }

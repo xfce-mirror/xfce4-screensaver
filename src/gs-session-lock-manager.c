@@ -21,17 +21,24 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkwayland.h>
 
-#include "gs-session-lock-manager.h"
 #include "protocols/ext-session-lock-v1-client.h"
+
 #include "gs-debug.h"
+#include "gs-session-lock-manager.h"
 
-static void     gs_session_lock_manager_finalize   (GObject        *object);
+static void
+gs_session_lock_manager_finalize (GObject *object);
 
-static void registry_global (void *data, struct wl_registry *registry, uint32_t id, const char *interface, uint32_t version);
-static void registry_global_remove (void *data, struct wl_registry *registry, uint32_t id);
-static void lock_locked (void *data, struct ext_session_lock_v1 *lock);
-static void lock_finished (void *data, struct ext_session_lock_v1 *lock);
-static void surface_configure (void *data, struct ext_session_lock_surface_v1 *surface, uint32_t serial, uint32_t width, uint32_t height);
+static void
+registry_global (void *data, struct wl_registry *registry, uint32_t id, const char *interface, uint32_t version);
+static void
+registry_global_remove (void *data, struct wl_registry *registry, uint32_t id);
+static void
+lock_locked (void *data, struct ext_session_lock_v1 *lock);
+static void
+lock_finished (void *data, struct ext_session_lock_v1 *lock);
+static void
+surface_configure (void *data, struct ext_session_lock_surface_v1 *surface, uint32_t serial, uint32_t width, uint32_t height);
 
 struct _GSSessionLockManager {
     GObject __parent__;

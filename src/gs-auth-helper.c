@@ -30,11 +30,7 @@
  *                         -- Olaf Kirch <okir@suse.de>, 16-Dec-2003
  */
 
-#include <config.h>
-
-#ifdef HAVE_UNISTD_H
-# include <unistd.h>
-#endif
+#include "config.h"
 
 #include <errno.h>
 #include <pwd.h>
@@ -44,7 +40,10 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-#include <glib.h>
+#ifdef HAVE_UNISTD_H
+#include <unistd.h>
+#endif
+
 #include <glib/gstdio.h>
 
 #include "gs-auth.h"
@@ -75,8 +74,8 @@ gs_auth_get_verbose (void) {
 static gboolean
 ext_run (const char *user,
          const char *typed_passwd,
-         gboolean    verbose) {
-    int   pfd[2], status;
+         gboolean verbose) {
+    int pfd[2], status;
     pid_t pid;
 
     if (pipe (pfd) < 0) {
@@ -144,13 +143,13 @@ ext_run (const char *user,
 }
 
 gboolean
-gs_auth_verify_user (const char         *username,
-                     const char         *display,
-                     GSAuthMessageFunc   func,
-                     gpointer            data,
-                     GError            **error) {
-    gboolean       res = FALSE;
-    char          *password;
+gs_auth_verify_user (const char *username,
+                     const char *display,
+                     GSAuthMessageFunc func,
+                     gpointer data,
+                     GError **error) {
+    gboolean res = FALSE;
+    char *password;
 
     password = NULL;
 

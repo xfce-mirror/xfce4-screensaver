@@ -21,22 +21,29 @@
 #include <gdk/gdkwayland.h>
 #include <libxfce4windowing/libxfce4windowing.h>
 
+#include "protocols/ext-idle-notify-v1-client.h"
+
+#include "gs-debug.h"
 #include "gs-listener-wayland.h"
 #include "gs-manager.h"
 #include "gs-prefs.h"
-#include "gs-debug.h"
-#include "protocols/ext-idle-notify-v1-client.h"
 
-static void     gs_listener_wayland_finalize               (GObject        *object);
-static void     gs_listener_wayland_set_timeouts           (GSListener     *listener,
-                                                            gboolean        enabled,
-                                                            guint           timeout,
-                                                            guint           lock_timeout);
+static void
+gs_listener_wayland_finalize (GObject *object);
+static void
+gs_listener_wayland_set_timeouts (GSListener *listener,
+                                  gboolean enabled,
+                                  guint timeout,
+                                  guint lock_timeout);
 
-static void registry_global (void *data, struct wl_registry *registry, uint32_t id, const char *interface, uint32_t version);
-static void registry_global_remove (void *data, struct wl_registry *registry, uint32_t id);
-static void notification_idled (void *data, struct ext_idle_notification_v1 *notification);
-static void notification_resumed (void *data, struct ext_idle_notification_v1 *notification);
+static void
+registry_global (void *data, struct wl_registry *registry, uint32_t id, const char *interface, uint32_t version);
+static void
+registry_global_remove (void *data, struct wl_registry *registry, uint32_t id);
+static void
+notification_idled (void *data, struct ext_idle_notification_v1 *notification);
+static void
+notification_resumed (void *data, struct ext_idle_notification_v1 *notification);
 
 typedef enum _AlarmId {
     ALARM_ACTIVATE,

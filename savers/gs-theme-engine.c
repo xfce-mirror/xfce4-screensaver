@@ -20,19 +20,17 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
-#include <glib.h>
-#include <gtk/gtk.h>
-
-#include "gs-theme-engine.h"
 #include "gs-theme-engine-marshal.h"
+#include "gs-theme-engine.h"
 
-static void     gs_theme_engine_finalize   (GObject            *object);
+static void
+gs_theme_engine_finalize (GObject *object);
 
 struct GSThemeEnginePrivate {
     gpointer reserved;
@@ -48,17 +46,17 @@ _gs_theme_engine_profile_log (const char *func,
                               const char *format,
                               ...) {
     va_list args;
-    char   *str;
-    char   *formatted;
+    char *str;
+    char *formatted;
 
     va_start (args, format);
     formatted = g_strdup_vprintf (format, args);
     va_end (args);
 
     if (func != NULL) {
-        str = g_strdup_printf ("MARK: %s %s: %s %s", g_get_prgname(), func, note ? note : "", formatted);
+        str = g_strdup_printf ("MARK: %s %s: %s %s", g_get_prgname (), func, note ? note : "", formatted);
     } else {
-        str = g_strdup_printf ("MARK: %s: %s %s", g_get_prgname(), note ? note : "", formatted);
+        str = g_strdup_printf ("MARK: %s: %s %s", g_get_prgname (), note ? note : "", formatted);
     }
 
     g_free (formatted);
@@ -68,32 +66,32 @@ _gs_theme_engine_profile_log (const char *func,
 }
 
 static void
-gs_theme_engine_set_property (GObject      *object,
-                              guint         prop_id,
+gs_theme_engine_set_property (GObject *object,
+                              guint prop_id,
                               const GValue *value,
-                              GParamSpec   *pspec) {
+                              GParamSpec *pspec) {
     switch (prop_id) {
-    default:
-        G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-        break;
+        default:
+            G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+            break;
     }
 }
 
 static void
-gs_theme_engine_get_property (GObject    *object,
-                              guint       prop_id,
-                              GValue     *value,
+gs_theme_engine_get_property (GObject *object,
+                              guint prop_id,
+                              GValue *value,
                               GParamSpec *pspec) {
     switch (prop_id) {
-    default:
-        G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
-        break;
+        default:
+            G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
+            break;
     }
 }
 
 static gboolean
 gs_theme_engine_real_draw (GtkWidget *widget,
-                           cairo_t   *cr) {
+                           cairo_t *cr) {
     cairo_set_operator (cr, CAIRO_OPERATOR_OVER);
     cairo_set_source_rgb (cr, 0, 0, 0);
     cairo_paint (cr);
@@ -103,7 +101,7 @@ gs_theme_engine_real_draw (GtkWidget *widget,
 
 static void
 gs_theme_engine_class_init (GSThemeEngineClass *klass) {
-    GObjectClass   *object_class = G_OBJECT_CLASS (klass);
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
     GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
     parent_class = g_type_class_peek_parent (klass);
@@ -136,8 +134,8 @@ gs_theme_engine_finalize (GObject *object) {
 
 void
 gs_theme_engine_get_window_size (GSThemeEngine *engine,
-                                 int           *width,
-                                 int           *height) {
+                                 int *width,
+                                 int *height) {
     if (width != NULL) {
         *width = 0;
     }

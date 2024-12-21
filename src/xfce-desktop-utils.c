@@ -23,21 +23,22 @@
   @NOTATION@
  */
 
-#include <config.h>
+#include "config.h"
 
-#include <gio/gio.h>
 #ifdef ENABLE_X11
 #include <gdk/gdkx.h>
 #endif
+
 #ifdef ENABLE_WAYLAND
 #include <gdk/gdkwayland.h>
 #include <libwlembed-gtk3/libwlembed-gtk3.h>
 #endif
 
+#include <gio/gio.h>
 #include <libxfce4util/libxfce4util.h>
 
-#include "xfce-desktop-utils.h"
 #include "gs-debug.h"
+#include "xfce-desktop-utils.h"
 
 /**
  * xfce_gdk_spawn_command_line_on_screen:
@@ -61,12 +62,12 @@
  * Since: 1.7.1
  **/
 gboolean
-xfce_gdk_spawn_command_line_on_screen (GdkScreen    *screen,
-                                       const gchar  *command,
-                                       GError      **error) {
-    GAppInfo            *appinfo = NULL;
+xfce_gdk_spawn_command_line_on_screen (GdkScreen *screen,
+                                       const gchar *command,
+                                       GError **error) {
+    GAppInfo *appinfo = NULL;
     GdkAppLaunchContext *context = NULL;
-    gboolean             res = FALSE;
+    gboolean res = FALSE;
 
     appinfo = g_app_info_create_from_commandline (command, NULL, G_APP_INFO_CREATE_NONE, error);
 

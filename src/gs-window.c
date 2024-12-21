@@ -21,40 +21,46 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <errno.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 
-#include <gdk/gdkkeysyms.h>
-#include <gtk/gtk.h>
 #ifdef ENABLE_X11
+#include <X11/extensions/shape.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtkx.h>
-#include <X11/extensions/shape.h>
 #endif
+
 #ifdef ENABLE_WAYLAND
 #include <gdk/gdkwayland.h>
 #include <libwlembed-gtk3/libwlembed-gtk3.h>
 #endif
 
+#include <gdk/gdkkeysyms.h>
+
 #include "gs-debug.h"
+#include "gs-manager.h"
 #include "gs-marshal.h"
 #include "gs-prefs.h"
 #include "gs-window.h"
 #include "subprocs.h"
 #include "xfce-desktop-utils.h"
-#include "gs-manager.h"
 
-static void     gs_window_finalize       (GObject       *object);
+static void
+gs_window_finalize (GObject *object);
 
-static gboolean popup_dialog_idle        (gpointer user_data);
-static void     gs_window_dialog_finish  (GSWindow      *window);
-static void     gs_window_set_obscured   (GSWindow      *window,
-                                          gboolean       obscured);
-static void     remove_command_watches   (GSWindow      *window);
+static gboolean
+popup_dialog_idle (gpointer user_data);
+static void
+gs_window_dialog_finish (GSWindow *window);
+static void
+gs_window_set_obscured (GSWindow *window,
+                        gboolean obscured);
+static void
+remove_command_watches (GSWindow *window);
 
 enum {
     DIALOG_RESPONSE_CANCEL,
@@ -65,51 +71,51 @@ enum {
 #define INFO_BAR_SECONDS 30
 
 struct GSWindowPrivate {
-    GSManager       *manager;
-    GdkMonitor      *monitor;
+    GSManager *manager;
+    GdkMonitor *monitor;
 
-    GdkRectangle     geometry;
-    guint            obscured : 1;
-    guint            dialog_up : 1;
+    GdkRectangle geometry;
+    guint obscured : 1;
+    guint dialog_up : 1;
 
-    gboolean         lock_active;
-    char            *status_message;
-    GSPrefs         *prefs;
+    gboolean lock_active;
+    char *status_message;
+    GSPrefs *prefs;
 
-    GtkWidget       *vbox;
-    GtkWidget       *overlay;
-    GtkWidget       *drawing_area;
-    GtkWidget       *lock_box;
-    GtkWidget       *lock_socket;
-    GtkWidget       *keyboard_socket;
-    GtkWidget       *info_bar;
-    GtkWidget       *info_content;
+    GtkWidget *vbox;
+    GtkWidget *overlay;
+    GtkWidget *drawing_area;
+    GtkWidget *lock_box;
+    GtkWidget *lock_socket;
+    GtkWidget *keyboard_socket;
+    GtkWidget *info_bar;
+    GtkWidget *info_content;
 
-    guint            popup_dialog_idle_id;
-    guint            deactivated_idle_id;
+    guint popup_dialog_idle_id;
+    guint deactivated_idle_id;
 
-    guint            dialog_map_signal_id;
-    guint            dialog_unmap_signal_id;
-    guint            dialog_response_signal_id;
+    guint dialog_map_signal_id;
+    guint dialog_unmap_signal_id;
+    guint dialog_response_signal_id;
 
-    guint            watchdog_timer_id;
-    guint            info_bar_timer_id;
+    guint watchdog_timer_id;
+    guint info_bar_timer_id;
 
-    gint             lock_pid;
-    gint             lock_watch_id;
-    gint             dialog_response;
+    gint lock_pid;
+    gint lock_watch_id;
+    gint dialog_response;
 
-    gint             keyboard_pid;
-    gint             keyboard_watch_id;
+    gint keyboard_pid;
+    gint keyboard_watch_id;
 
-    GList           *key_events;
+    GList *key_events;
 
-    gdouble          last_x;
-    gdouble          last_y;
+    gdouble last_x;
+    gdouble last_y;
 
-    GTimer          *timer;
+    GTimer *timer;
 
-    int              shape_event_base;
+    int shape_event_base;
 };
 
 enum {
@@ -125,14 +131,16 @@ enum {
     PROP_MONITOR,
 };
 
-static guint           signals[LAST_SIGNAL] = { 0, };
+static guint signals[LAST_SIGNAL] = {
+    0,
+};
 
 G_DEFINE_TYPE_WITH_PRIVATE (GSWindow, gs_window, GTK_TYPE_WINDOW)
 
 static void
 set_invisible_cursor (GdkWindow *window,
-                      gboolean   invisible) {
-    GdkCursor  *cursor = NULL;
+                      gboolean invisible) {
+    GdkCursor *cursor = NULL;
 
     if (invisible) {
         GdkDisplay *display;
@@ -172,11 +180,11 @@ gs_window_override_user_time (GSWindow *window) {
 
 static void
 clear_children (Window window) {
-    Window        root;
-    Window        parent;
-    Window       *children;
-    unsigned int  n_children;
-    int           status;
+    Window root;
+    Window parent;
+    Window *children;
+    unsigned int n_children;
+    int status;
 
     children = NULL;
     status = XQueryTree (GDK_DISPLAY_XDISPLAY (gdk_display_get_default ()),
@@ -206,7 +214,7 @@ clear_children (Window window) {
 
 static void
 widget_clear_all_children (GtkWidget *widget) {
-    GdkWindow  *w;
+    GdkWindow *w;
     GdkDisplay *display;
 
     gs_debug ("Clearing all child windows");
@@ -246,16 +254,16 @@ gs_window_clear (GSWindow *window) {
         widget_clear_all_children (window->priv->drawing_area);
     }
 
-    display = gtk_widget_get_display (GTK_WIDGET(window));
+    display = gtk_widget_get_display (GTK_WIDGET (window));
     gdk_display_flush (display);
 #endif
 }
 
 static cairo_region_t *
 get_outside_region (GSWindow *window) {
-    GdkDisplay     *display;
-    int             i;
-    int             num_monitors;
+    GdkDisplay *display;
+    int i;
+    int num_monitors;
     cairo_region_t *region;
 
     display = gtk_widget_get_display (GTK_WIDGET (window));
@@ -286,7 +294,7 @@ get_outside_region (GSWindow *window) {
 
 static void
 update_geometry (GSWindow *window) {
-    GdkRectangle    geometry;
+    GdkRectangle geometry;
     cairo_region_t *outside_region;
     cairo_region_t *monitor_region;
 
@@ -298,11 +306,11 @@ update_geometry (GSWindow *window) {
               geometry.y,
               geometry.width,
               geometry.height);
-    monitor_region = cairo_region_create_rectangle ((const cairo_rectangle_int_t *)&geometry);
+    monitor_region = cairo_region_create_rectangle ((const cairo_rectangle_int_t *) &geometry);
     cairo_region_subtract (monitor_region, outside_region);
     cairo_region_destroy (outside_region);
 
-    cairo_region_get_extents (monitor_region, (cairo_rectangle_int_t *)&geometry);
+    cairo_region_get_extents (monitor_region, (cairo_rectangle_int_t *) &geometry);
     cairo_region_destroy (monitor_region);
 
     gs_debug ("Using geometry for monitor: x=%d y=%d w=%d h=%d",
@@ -320,7 +328,7 @@ update_geometry (GSWindow *window) {
 static void
 monitor_geometry_notify (GdkMonitor *monitor,
                          GParamSpec *pspec,
-                         GSWindow   *window) {
+                         GSWindow *window) {
     gs_debug ("Got monitor geometry notify signal");
     gtk_widget_queue_resize (GTK_WIDGET (window));
 }
@@ -328,8 +336,8 @@ monitor_geometry_notify (GdkMonitor *monitor,
 /* copied from panel-toplevel.c */
 static void
 gs_window_move_resize_window (GSWindow *window,
-                              gboolean  move,
-                              gboolean  resize) {
+                              gboolean move,
+                              gboolean resize) {
     GtkWidget *widget;
     GdkWindow *gdkwindow;
 
@@ -366,8 +374,7 @@ gs_window_real_unrealize (GtkWidget *widget) {
     GdkMonitor *monitor = GS_WINDOW (widget)->priv->monitor;
 
     if (monitor != NULL)
-        g_signal_handlers_disconnect_by_func (monitor, monitor_geometry_notify,
-                                            widget);
+        g_signal_handlers_disconnect_by_func (monitor, monitor_geometry_notify, widget);
 
     if (GTK_WIDGET_CLASS (gs_window_parent_class)->unrealize) {
         GTK_WIDGET_CLASS (gs_window_parent_class)->unrealize (widget);
@@ -418,7 +425,7 @@ remove_watchdog_timer (GSWindow *window) {
 
 static void
 add_watchdog_timer (GSWindow *window,
-                    glong     seconds) {
+                    glong seconds) {
     window->priv->watchdog_timer_id = g_timeout_add_seconds (seconds, watchdog_timer, window);
 }
 
@@ -470,7 +477,7 @@ gs_window_raise (GSWindow *window) {
 static gboolean
 x11_window_is_ours (Window window) {
     GdkWindow *gwindow;
-    gboolean   ret;
+    gboolean ret;
 
     ret = FALSE;
 
@@ -491,7 +498,7 @@ unshape_window (GSWindow *window) {
 }
 
 static void
-gs_window_xevent (GSWindow  *window,
+gs_window_xevent (GSWindow *window,
                   GdkXEvent *xevent) {
     XEvent *ev;
 
@@ -500,8 +507,7 @@ gs_window_xevent (GSWindow  *window,
     /* MapNotify is used to tell us when new windows are mapped.
        ConfigureNofify is used to tell us when windows are raised. */
     switch (ev->xany.type) {
-        case MapNotify:
-        {
+        case MapNotify: {
             XMapEvent *xme = &ev->xmap;
 
             if (!x11_window_is_ours (xme->window)) {
@@ -512,8 +518,7 @@ gs_window_xevent (GSWindow  *window,
 
             break;
         }
-        case ConfigureNotify:
-        {
+        case ConfigureNotify: {
             XConfigureEvent *xce = &ev->xconfigure;
 
             if (!x11_window_is_ours (xce->window)) {
@@ -538,8 +543,8 @@ gs_window_xevent (GSWindow  *window,
 
 static GdkFilterReturn
 xevent_filter (GdkXEvent *xevent,
-               GdkEvent  *event,
-               GSWindow  *window) {
+               GdkEvent *event,
+               GSWindow *window) {
     gs_window_xevent (window, xevent);
 
     return GDK_FILTER_CONTINUE;
@@ -547,9 +552,9 @@ xevent_filter (GdkXEvent *xevent,
 
 static void
 select_popup_events (void) {
-    XWindowAttributes  attr;
-    unsigned long      events;
-    GdkDisplay        *display;
+    XWindowAttributes attr;
+    unsigned long events;
+    GdkDisplay *display;
 
     display = gdk_display_get_default ();
 
@@ -566,10 +571,10 @@ select_popup_events (void) {
 
 static void
 window_select_shape_events (GSWindow *window) {
-    int            shape_error_base;
-    GdkDisplay    *display;
+    int shape_error_base;
+    GdkDisplay *display;
 
-    display = gtk_widget_get_display (GTK_WIDGET(window));
+    display = gtk_widget_get_display (GTK_WIDGET (window));
 
     gdk_x11_display_error_trap_push (display);
 
@@ -586,7 +591,7 @@ window_select_shape_events (GSWindow *window) {
 
 static gboolean
 gs_window_real_draw (GtkWidget *widget,
-                     cairo_t   *cr) {
+                     cairo_t *cr) {
     cairo_set_operator (cr, CAIRO_OPERATOR_OVER);
     cairo_set_source_rgb (cr, 0, 0, 0);
     cairo_paint (cr);
@@ -618,13 +623,13 @@ gs_window_real_show (GtkWidget *widget) {
     if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
         select_popup_events ();
         window_select_shape_events (window);
-        gdk_window_add_filter (NULL, (GdkFilterFunc)xevent_filter, window);
+        gdk_window_add_filter (NULL, (GdkFilterFunc) xevent_filter, window);
     }
 #endif
 }
 
 static void
-set_info_text_and_icon (GSWindow   *window,
+set_info_text_and_icon (GSWindow *window,
                         const char *icon_name,
                         const char *primary_text,
                         const char *secondary_text) {
@@ -632,7 +637,7 @@ set_info_text_and_icon (GSWindow   *window,
     GtkWidget *hbox_content;
     GtkWidget *image;
     GtkWidget *vbox;
-    gchar     *primary_markup;
+    gchar *primary_markup;
     GtkWidget *primary_label;
 
     hbox_content = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 8);
@@ -657,7 +662,7 @@ set_info_text_and_icon (GSWindow   *window,
     gtk_widget_set_halign (primary_label, GTK_ALIGN_START);
 
     if (secondary_text != NULL) {
-        gchar     *secondary_markup;
+        gchar *secondary_markup;
         GtkWidget *secondary_label;
         secondary_markup = g_strdup_printf ("<small>%s</small>",
                                             secondary_text);
@@ -691,7 +696,7 @@ info_bar_timeout (gpointer user_data) {
 }
 
 void
-gs_window_show_message (GSWindow   *window,
+gs_window_show_message (GSWindow *window,
                         const char *summary,
                         const char *body,
                         const char *icon) {
@@ -725,7 +730,7 @@ gs_window_real_hide (GtkWidget *widget) {
 
 #ifdef ENABLE_X11
     if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
-        gdk_window_remove_filter (NULL, (GdkFilterFunc)xevent_filter, window);
+        gdk_window_remove_filter (NULL, (GdkFilterFunc) xevent_filter, window);
     }
 #endif
 
@@ -761,15 +766,15 @@ gs_window_get_drawing_area (GSWindow *window) {
 
 /* just for debugging */
 static gboolean
-error_watch (GIOChannel   *source,
-             GIOCondition  condition,
-             gpointer      data) {
+error_watch (GIOChannel *source,
+             GIOCondition condition,
+             gpointer data) {
     gboolean finished = FALSE;
 
     if (condition & G_IO_IN) {
         GIOStatus status;
-        GError   *error = NULL;
-        char     *line;
+        GError *error = NULL;
+        char *line;
 
         line = NULL;
         status = g_io_channel_read_line (source, &line, NULL, NULL, &error);
@@ -803,22 +808,22 @@ error_watch (GIOChannel   *source,
 
 static gboolean
 spawn_on_window (GtkWidget *socket,
-                 char     *command,
-                 int      *pid,
-                 GIOFunc   watch_func,
-                 gboolean  redirect_stderr,
-                 gpointer  user_data,
-                 gint     *watch_id) {
-    int          argc;
-    char       **argv;
-    char       **envp;
-    GError      *error;
-    gboolean     result;
-    GIOChannel  *channel;
-    int          standard_output;
-    int          standard_error;
-    int          child_pid;
-    int          id;
+                 char *command,
+                 int *pid,
+                 GIOFunc watch_func,
+                 gboolean redirect_stderr,
+                 gpointer user_data,
+                 gint *watch_id) {
+    int argc;
+    char **argv;
+    char **envp;
+    GError *error;
+    gboolean result;
+    GIOChannel *channel;
+    int standard_output;
+    int standard_error;
+    int child_pid;
+    int id;
 
     error = NULL;
     if (!g_shell_parse_argv (command, &argc, &argv, &error)) {
@@ -922,7 +927,7 @@ keyboard_plug_removed (GSWindow *window) {
 
 static void
 keyboard_socket_destroyed (GtkWidget *widget,
-                           GSWindow  *window) {
+                           GSWindow *window) {
     g_signal_handlers_disconnect_by_func (widget, keyboard_socket_destroyed, window);
     g_signal_handlers_disconnect_by_func (widget, keyboard_plug_added, window);
     g_signal_handlers_disconnect_by_func (widget, keyboard_plug_removed, window);
@@ -939,9 +944,8 @@ forward_key_events (GSWindow *window) {
 
         gtk_window_propagate_key_event (GTK_WINDOW (window), event);
 
-        gdk_event_free ((GdkEvent *)event);
-        window->priv->key_events = g_list_delete_link (window->priv->key_events,
-                                   window->priv->key_events);
+        gdk_event_free ((GdkEvent *) event);
+        window->priv->key_events = g_list_delete_link (window->priv->key_events, window->priv->key_events);
     }
 }
 
@@ -952,14 +956,13 @@ remove_key_events (GSWindow *window) {
     while (window->priv->key_events) {
         GdkEventKey *event = window->priv->key_events->data;
 
-        gdk_event_free ((GdkEvent *)event);
-        window->priv->key_events = g_list_delete_link (window->priv->key_events,
-                                   window->priv->key_events);
+        gdk_event_free ((GdkEvent *) event);
+        window->priv->key_events = g_list_delete_link (window->priv->key_events, window->priv->key_events);
     }
 }
 
 static void
-prefs_changed (GSPrefs  *prefs,
+prefs_changed (GSPrefs *prefs,
                GSWindow *window) {
     if (window->priv->prefs->keyboard_enabled) {
         if (window->priv->keyboard_socket) {
@@ -970,7 +973,7 @@ prefs_changed (GSPrefs  *prefs,
 
 static void
 lock_socket_show (GtkWidget *widget,
-                  GSWindow  *window) {
+                  GSWindow *window) {
     gtk_widget_child_focus (window->priv->lock_socket, GTK_DIR_TAB_FORWARD);
 
     /* send queued events to the dialog */
@@ -979,7 +982,7 @@ lock_socket_show (GtkWidget *widget,
 
 static void
 lock_socket_destroyed (GtkWidget *widget,
-                       GSWindow  *window) {
+                       GSWindow *window) {
     g_signal_handlers_disconnect_by_func (widget, lock_socket_show, window);
     g_signal_handlers_disconnect_by_func (widget, lock_socket_destroyed, window);
     g_signal_handlers_disconnect_by_func (widget, lock_plug_added, window);
@@ -1006,11 +1009,11 @@ socket_new (GSWindow *window) {
 
 static void
 create_keyboard_socket (GSWindow *window,
-                        gulong    id) {
-    GdkDisplay   *display;
-    GdkMonitor   *monitor;
-    GdkWindow    *g_window;
-    GdkRectangle  geometry;
+                        gulong id) {
+    GdkDisplay *display;
+    GdkMonitor *monitor;
+    GdkWindow *g_window;
+    GdkRectangle geometry;
     gint screen_height, screen_width;
     gint height, width;
 
@@ -1116,24 +1119,23 @@ keyboard_process_finish (GSWindow *window) {
 }
 
 static gboolean
-keyboard_process_watch (GIOChannel   *source,
-                        GIOCondition  condition,
-                        GSWindow     *window) {
+keyboard_process_watch (GIOChannel *source,
+                        GIOCondition condition,
+                        GSWindow *window) {
     gboolean finished = FALSE;
 
     g_return_val_if_fail (GS_IS_WINDOW (window), FALSE);
 
     if (condition & G_IO_IN) {
         GIOStatus status;
-        GError   *error = NULL;
-        char     *line;
+        GError *error = NULL;
+        char *line;
 
         line = NULL;
         status = g_io_channel_read_line (source, &line, NULL, NULL, &error);
 
         switch (status) {
-            case G_IO_STATUS_NORMAL:
-            {
+            case G_IO_STATUS_NORMAL: {
 #ifdef ENABLE_X11
                 if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
                     gulong id;
@@ -1144,8 +1146,7 @@ keyboard_process_watch (GIOChannel   *source,
                     }
                 }
 #endif
-            }
-            break;
+            } break;
             case G_IO_STATUS_EOF:
                 finished = TRUE;
                 break;
@@ -1177,7 +1178,7 @@ embed_keyboard (GSWindow *window) {
     gboolean res;
 
     if (!window->priv->prefs->keyboard_enabled
-            || window->priv->prefs->keyboard_command == NULL)
+        || window->priv->prefs->keyboard_command == NULL)
         return;
 
 #ifdef ENABLE_WAYLAND
@@ -1195,7 +1196,7 @@ embed_keyboard (GSWindow *window) {
     res = spawn_on_window (window->priv->keyboard_socket,
                            window->priv->prefs->keyboard_command,
                            &window->priv->keyboard_pid,
-                           (GIOFunc)keyboard_process_watch,
+                           (GIOFunc) keyboard_process_watch,
                            TRUE,
                            window,
                            &window->priv->keyboard_watch_id);
@@ -1206,7 +1207,7 @@ embed_keyboard (GSWindow *window) {
 
 static void
 create_lock_socket (GSWindow *window,
-                    gulong    id) {
+                    gulong id) {
     window->priv->lock_socket = socket_new (window);
     window->priv->lock_box = gtk_grid_new ();
     gtk_widget_set_halign (GTK_WIDGET (window->priv->lock_box),
@@ -1270,7 +1271,7 @@ gs_window_dialog_finish (GSWindow *window) {
 
 static void
 window_set_dialog_up (GSWindow *window,
-                      gboolean  dialog_up) {
+                      gboolean dialog_up) {
     if (window->priv->dialog_up == dialog_up) {
         return;
     }
@@ -1311,17 +1312,17 @@ popdown_dialog (GSWindow *window) {
 }
 
 static gboolean
-dialog_process_watch (GIOChannel   *source,
-                    GIOCondition  condition,
-                    GSWindow     *window) {
+dialog_process_watch (GIOChannel *source,
+                      GIOCondition condition,
+                      GSWindow *window) {
     gboolean finished = FALSE;
 
     g_return_val_if_fail (GS_IS_WINDOW (window), FALSE);
 
     if (condition & G_IO_IN) {
         GIOStatus status;
-        GError   *error = NULL;
-        char     *line;
+        GError *error = NULL;
+        char *line;
 
         line = NULL;
         status = g_io_channel_read_line (source, &line, NULL, NULL, &error);
@@ -1407,7 +1408,7 @@ is_logout_enabled (GSWindow *window) {
 
     elapsed = g_timer_elapsed (window->priv->timer, NULL);
 
-    if (window->priv->prefs->logout_timeout < (guint)elapsed) {
+    if (window->priv->prefs->logout_timeout < (guint) elapsed) {
         return TRUE;
     }
 
@@ -1427,7 +1428,7 @@ is_status_message_enabled (GSWindow *window) {
 static gint
 get_monitor_index (GSWindow *window) {
     GdkDisplay *display = gs_window_get_display (window);
-    gint        idx;
+    gint idx;
 
     for (idx = 0; idx < gdk_display_get_n_monitors (display); idx++) {
         GdkMonitor *monitor;
@@ -1442,9 +1443,9 @@ get_monitor_index (GSWindow *window) {
 
 static void
 popup_dialog (GSWindow *window) {
-    gboolean  result;
-    char     *tmp;
-    GString  *command;
+    gboolean result;
+    char *tmp;
+    GString *command;
 
 #ifdef ENABLE_WAYLAND
     if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
@@ -1463,16 +1464,16 @@ popup_dialog (GSWindow *window) {
     command = g_string_new (tmp);
     g_free (tmp);
 
-    g_string_append_printf(command, " --monitor='%i'", get_monitor_index (window));
-    g_string_append_printf(command, " --height='%i'", window->priv->geometry.height);
-    g_string_append_printf(command, " --width='%i'", window->priv->geometry.width);
+    g_string_append_printf (command, " --monitor='%i'", get_monitor_index (window));
+    g_string_append_printf (command, " --height='%i'", window->priv->geometry.height);
+    g_string_append_printf (command, " --width='%i'", window->priv->geometry.width);
 
-    if (is_logout_enabled(window)) {
+    if (is_logout_enabled (window)) {
         command = g_string_append (command, " --enable-logout");
         g_string_append_printf (command, " --logout-command='%s'", window->priv->prefs->logout_command);
     }
 
-    if (is_status_message_enabled(window) && window->priv->status_message) {
+    if (is_status_message_enabled (window) && window->priv->status_message) {
         char *quoted;
 
         quoted = g_shell_quote (window->priv->status_message);
@@ -1503,7 +1504,7 @@ popup_dialog (GSWindow *window) {
     result = spawn_on_window (window->priv->lock_socket,
                               command->str,
                               &window->priv->lock_pid,
-                              (GIOFunc)dialog_process_watch,
+                              (GIOFunc) dialog_process_watch,
                               FALSE,
                               window,
                               &window->priv->lock_watch_id);
@@ -1552,20 +1553,20 @@ gs_window_request_unlock (GSWindow *window) {
 
 void
 gs_window_set_lock_active (GSWindow *window,
-                           gboolean  active) {
+                           gboolean active) {
     g_return_if_fail (GS_IS_WINDOW (window));
 
     if (window->priv->lock_active == active) {
         return;
     }
 
-    gs_debug("Setting lock active: %i", active);
+    gs_debug ("Setting lock active: %i", active);
 
     window->priv->lock_active = active;
 }
 
 void
-gs_window_cancel_unlock_request (GSWindow  *window) {
+gs_window_cancel_unlock_request (GSWindow *window) {
     /* FIXME: This is a bit of a hammer approach...
      * Maybe we should send a delete-event to the plug?
      */
@@ -1575,14 +1576,14 @@ gs_window_cancel_unlock_request (GSWindow  *window) {
 }
 
 GdkDisplay *
-gs_window_get_display (GSWindow  *window) {
+gs_window_get_display (GSWindow *window) {
     g_return_val_if_fail (GS_IS_WINDOW (window), NULL);
 
     return gtk_widget_get_display (GTK_WIDGET (window));
 }
 
 void
-gs_window_set_status_message (GSWindow   *window,
+gs_window_set_status_message (GSWindow *window,
                               const char *status_message) {
     g_return_if_fail (GS_IS_WINDOW (window));
 
@@ -1591,7 +1592,7 @@ gs_window_set_status_message (GSWindow   *window,
 }
 
 void
-gs_window_set_monitor (GSWindow   *window,
+gs_window_set_monitor (GSWindow *window,
                        GdkMonitor *monitor) {
     gint tmp;
 
@@ -1618,10 +1619,10 @@ gs_window_get_monitor (GSWindow *window) {
 }
 
 static void
-gs_window_set_property (GObject      *object,
-                        guint         prop_id,
+gs_window_set_property (GObject *object,
+                        guint prop_id,
                         const GValue *value,
-                        GParamSpec   *pspec) {
+                        GParamSpec *pspec) {
     GSWindow *self;
 
     self = GS_WINDOW (object);
@@ -1630,7 +1631,7 @@ gs_window_set_property (GObject      *object,
         case PROP_MONITOR:
             gs_window_set_monitor (self, g_value_get_pointer (value));
             break;
-       case PROP_OBSCURED:
+        case PROP_OBSCURED:
             gs_window_set_obscured (self, g_value_get_boolean (value));
             break;
         case PROP_DIALOG_UP:
@@ -1643,9 +1644,9 @@ gs_window_set_property (GObject      *object,
 }
 
 static void
-gs_window_get_property (GObject    *object,
-                        guint       prop_id,
-                        GValue     *value,
+gs_window_get_property (GObject *object,
+                        guint prop_id,
+                        GValue *value,
                         GParamSpec *pspec) {
     GSWindow *self;
 
@@ -1668,14 +1669,14 @@ gs_window_get_property (GObject    *object,
 }
 
 static void
-queue_key_event (GSWindow    *window,
+queue_key_event (GSWindow *window,
                  GdkEventKey *event) {
     /* Eat the first return, enter, escape, or space */
     if (window->priv->key_events == NULL
-            && (event->keyval == GDK_KEY_Return
-                || event->keyval == GDK_KEY_KP_Enter
-                || event->keyval == GDK_KEY_Escape
-                || event->keyval == GDK_KEY_space)) {
+        && (event->keyval == GDK_KEY_Return
+            || event->keyval == GDK_KEY_KP_Enter
+            || event->keyval == GDK_KEY_Escape
+            || event->keyval == GDK_KEY_space)) {
         return;
     }
 
@@ -1683,11 +1684,11 @@ queue_key_event (GSWindow    *window,
        something is wrong */
     /* Don't queue keys that may cause focus navigation in the dialog */
     if (g_list_length (window->priv->key_events) < MAX_QUEUED_EVENTS
-            && event->keyval != GDK_KEY_Tab
-            && event->keyval != GDK_KEY_Up
-            && event->keyval != GDK_KEY_Down) {
+        && event->keyval != GDK_KEY_Tab
+        && event->keyval != GDK_KEY_Up
+        && event->keyval != GDK_KEY_Down) {
         window->priv->key_events = g_list_prepend (window->priv->key_events,
-                                   gdk_event_copy ((GdkEvent *)event));
+                                                   gdk_event_copy ((GdkEvent *) event));
     }
 }
 
@@ -1699,7 +1700,7 @@ maybe_handle_activity (GSWindow *window) {
 
     /* if we already have a socket then don't bother */
     if (!window->priv->lock_socket
-            && gtk_widget_get_sensitive (GTK_WIDGET (window))) {
+        && gtk_widget_get_sensitive (GTK_WIDGET (window))) {
         g_signal_emit (window, signals[ACTIVITY], 0, &handled);
     }
 
@@ -1707,7 +1708,7 @@ maybe_handle_activity (GSWindow *window) {
 }
 
 static gboolean
-gs_window_real_key_press_event (GtkWidget   *widget,
+gs_window_real_key_press_event (GtkWidget *widget,
                                 GdkEventKey *event) {
     /*g_message ("KEY PRESS state: %u keyval %u", event->state, event->keyval);*/
 
@@ -1729,22 +1730,22 @@ gs_window_real_key_press_event (GtkWidget   *widget,
 }
 
 static gboolean
-gs_window_real_motion_notify_event (GtkWidget      *widget,
+gs_window_real_motion_notify_event (GtkWidget *widget,
                                     GdkEventMotion *event) {
-    GSWindow   *window;
-    gdouble     distance;
-    gdouble     min_distance;
-    gdouble     min_percentage = 0.1;
+    GSWindow *window;
+    gdouble distance;
+    gdouble min_distance;
+    gdouble min_percentage = 0.1;
     GdkDisplay *display;
-    GdkScreen  *screen;
+    GdkScreen *screen;
 
     window = GS_WINDOW (widget);
 
     display = gs_window_get_display (window);
     screen = gdk_display_get_default_screen (display);
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     min_distance = gdk_screen_get_width (screen) * min_percentage;
-G_GNUC_END_IGNORE_DEPRECATIONS
+    G_GNUC_END_IGNORE_DEPRECATIONS
 
     /* if the last position was not set then don't detect motion */
     if (window->priv->last_x < 0 || window->priv->last_y < 0) {
@@ -1769,7 +1770,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 }
 
 static gboolean
-gs_window_real_button_press_event (GtkWidget      *widget,
+gs_window_real_button_press_event (GtkWidget *widget,
                                    GdkEventButton *event) {
     GSWindow *window;
 
@@ -1780,7 +1781,7 @@ gs_window_real_button_press_event (GtkWidget      *widget,
 }
 
 static gboolean
-gs_window_real_scroll_event (GtkWidget      *widget,
+gs_window_real_scroll_event (GtkWidget *widget,
                              GdkEventScroll *event) {
     GSWindow *window;
 
@@ -1791,14 +1792,14 @@ gs_window_real_scroll_event (GtkWidget      *widget,
 }
 
 static void
-gs_window_real_size_request (GtkWidget      *widget,
+gs_window_real_size_request (GtkWidget *widget,
                              GtkRequisition *requisition) {
-    GSWindow      *window;
-    GtkBin        *bin;
-    GtkWidget     *child;
-    GdkRectangle   old_geometry;
-    int            position_changed = FALSE;
-    int            size_changed = FALSE;
+    GSWindow *window;
+    GtkBin *bin;
+    GtkWidget *child;
+    GdkRectangle old_geometry;
+    int position_changed = FALSE;
+    int size_changed = FALSE;
 
     window = GS_WINDOW (widget);
     bin = GTK_BIN (widget);
@@ -1816,20 +1817,20 @@ gs_window_real_size_request (GtkWidget      *widget,
 
     update_geometry (window);
 
-    requisition->width  = window->priv->geometry.width;
+    requisition->width = window->priv->geometry.width;
     requisition->height = window->priv->geometry.height;
 
     if (!gtk_widget_get_realized (widget)) {
         return;
     }
 
-    if (old_geometry.width  != window->priv->geometry.width ||
-            old_geometry.height != window->priv->geometry.height) {
+    if (old_geometry.width != window->priv->geometry.width
+        || old_geometry.height != window->priv->geometry.height) {
         size_changed = TRUE;
     }
 
-    if (old_geometry.x != window->priv->geometry.x ||
-            old_geometry.y != window->priv->geometry.y) {
+    if (old_geometry.x != window->priv->geometry.x
+        || old_geometry.y != window->priv->geometry.y) {
         position_changed = TRUE;
     }
 
@@ -1838,8 +1839,8 @@ gs_window_real_size_request (GtkWidget      *widget,
 
 static void
 gs_window_real_get_preferred_width (GtkWidget *widget,
-                                    gint      *minimal_width,
-                                    gint      *natural_width) {
+                                    gint *minimal_width,
+                                    gint *natural_width) {
     GtkRequisition requisition = { 0 };
     gs_window_real_size_request (widget, &requisition);
     *minimal_width = *natural_width = requisition.width;
@@ -1847,8 +1848,8 @@ gs_window_real_get_preferred_width (GtkWidget *widget,
 
 static void
 gs_window_real_get_preferred_height (GtkWidget *widget,
-                                     gint      *minimal_height,
-                                     gint      *natural_height) {
+                                     gint *minimal_height,
+                                     gint *natural_height) {
     GtkRequisition requisition = { 0 };
     gs_window_real_size_request (widget, &requisition);
     *minimal_height = *natural_height = requisition.height;
@@ -1862,7 +1863,7 @@ gs_window_reposition (GSWindow *window) {
 
 #ifdef ENABLE_X11
 static gboolean
-gs_window_real_grab_broken (GtkWidget          *widget,
+gs_window_real_grab_broken (GtkWidget *widget,
                             GdkEventGrabBroken *event) {
     if (event->grab_window != NULL) {
         gs_debug ("Grab broken on window %lX %s, new grab on window %lX",
@@ -1895,7 +1896,7 @@ gs_window_is_dialog_up (GSWindow *window) {
 
 static void
 gs_window_set_obscured (GSWindow *window,
-                        gboolean  obscured) {
+                        gboolean obscured) {
     if (window->priv->obscured == obscured) {
         return;
     }
@@ -1905,7 +1906,7 @@ gs_window_set_obscured (GSWindow *window,
 }
 
 static gboolean
-gs_window_real_visibility_notify_event (GtkWidget          *widget,
+gs_window_real_visibility_notify_event (GtkWidget *widget,
                                         GdkEventVisibility *event) {
     switch (event->state) {
         case GDK_VISIBILITY_FULLY_OBSCURED:
@@ -1925,27 +1926,27 @@ gs_window_real_visibility_notify_event (GtkWidget          *widget,
 
 static void
 gs_window_class_init (GSWindowClass *klass) {
-    GObjectClass   *object_class          = G_OBJECT_CLASS (klass);
-    GtkWidgetClass *widget_class          = GTK_WIDGET_CLASS (klass);
+    GObjectClass *object_class = G_OBJECT_CLASS (klass);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
 
-    object_class->finalize                = gs_window_finalize;
-    object_class->get_property            = gs_window_get_property;
-    object_class->set_property            = gs_window_set_property;
+    object_class->finalize = gs_window_finalize;
+    object_class->get_property = gs_window_get_property;
+    object_class->set_property = gs_window_set_property;
 
-    widget_class->show                    = gs_window_real_show;
-    widget_class->hide                    = gs_window_real_hide;
-    widget_class->draw                    = gs_window_real_draw;
-    widget_class->realize                 = gs_window_real_realize;
-    widget_class->unrealize               = gs_window_real_unrealize;
-    widget_class->key_press_event         = gs_window_real_key_press_event;
-    widget_class->motion_notify_event     = gs_window_real_motion_notify_event;
-    widget_class->button_press_event      = gs_window_real_button_press_event;
-    widget_class->scroll_event            = gs_window_real_scroll_event;
-    widget_class->get_preferred_width     = gs_window_real_get_preferred_width;
-    widget_class->get_preferred_height    = gs_window_real_get_preferred_height;
+    widget_class->show = gs_window_real_show;
+    widget_class->hide = gs_window_real_hide;
+    widget_class->draw = gs_window_real_draw;
+    widget_class->realize = gs_window_real_realize;
+    widget_class->unrealize = gs_window_real_unrealize;
+    widget_class->key_press_event = gs_window_real_key_press_event;
+    widget_class->motion_notify_event = gs_window_real_motion_notify_event;
+    widget_class->button_press_event = gs_window_real_button_press_event;
+    widget_class->scroll_event = gs_window_real_scroll_event;
+    widget_class->get_preferred_width = gs_window_real_get_preferred_width;
+    widget_class->get_preferred_height = gs_window_real_get_preferred_height;
 #ifdef ENABLE_X11
     if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
-        widget_class->grab_broken_event   = gs_window_real_grab_broken;
+        widget_class->grab_broken_event = gs_window_real_grab_broken;
     }
 #endif
     widget_class->visibility_notify_event = gs_window_real_visibility_notify_event;
@@ -2002,7 +2003,7 @@ create_info_bar (GSWindow *window) {
 
 static gboolean
 on_drawing_area_draw (GtkWidget *widget,
-                      cairo_t   *cr) {
+                      cairo_t *cr) {
     cairo_set_operator (cr, CAIRO_OPERATOR_OVER);
     cairo_set_source_rgb (cr, 0, 0, 0);
     cairo_paint (cr);
@@ -2014,16 +2015,16 @@ static void
 gs_window_init (GSWindow *window) {
     window->priv = gs_window_get_instance_private (window);
 
-    window->priv->geometry.x      = -1;
-    window->priv->geometry.y      = -1;
-    window->priv->geometry.width  = -1;
+    window->priv->geometry.x = -1;
+    window->priv->geometry.y = -1;
+    window->priv->geometry.width = -1;
     window->priv->geometry.height = -1;
 
     window->priv->last_x = -1;
     window->priv->last_y = -1;
 
     window->priv->manager = gs_manager_new ();
-    window->priv->prefs = gs_prefs_new();
+    window->priv->prefs = gs_prefs_new ();
 
     gtk_window_set_decorated (GTK_WINDOW (window), FALSE);
 
@@ -2036,15 +2037,15 @@ gs_window_init (GSWindow *window) {
 
     gtk_widget_set_events (GTK_WIDGET (window),
                            gtk_widget_get_events (GTK_WIDGET (window))
-                           | GDK_POINTER_MOTION_MASK
-                           | GDK_BUTTON_PRESS_MASK
-                           | GDK_BUTTON_RELEASE_MASK
-                           | GDK_KEY_PRESS_MASK
-                           | GDK_KEY_RELEASE_MASK
-                           | GDK_EXPOSURE_MASK
-                           | GDK_VISIBILITY_NOTIFY_MASK
-                           | GDK_ENTER_NOTIFY_MASK
-                           | GDK_LEAVE_NOTIFY_MASK);
+                               | GDK_POINTER_MOTION_MASK
+                               | GDK_BUTTON_PRESS_MASK
+                               | GDK_BUTTON_RELEASE_MASK
+                               | GDK_KEY_PRESS_MASK
+                               | GDK_KEY_RELEASE_MASK
+                               | GDK_EXPOSURE_MASK
+                               | GDK_VISIBILITY_NOTIFY_MASK
+                               | GDK_ENTER_NOTIFY_MASK
+                               | GDK_LEAVE_NOTIFY_MASK);
 
     window->priv->vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 12);
     gtk_widget_show (window->priv->vbox);
@@ -2121,9 +2122,9 @@ gs_window_finalize (GObject *object) {
 
 GSWindow *
 gs_window_new (GdkMonitor *monitor) {
-    GObject    *result;
+    GObject *result;
     GdkDisplay *display = gdk_monitor_get_display (monitor);
-    GdkScreen  *screen = gdk_display_get_default_screen (display);
+    GdkScreen *screen = gdk_display_get_default_screen (display);
 
     result = g_object_new (GS_TYPE_WINDOW,
                            "type", GTK_WINDOW_POPUP,

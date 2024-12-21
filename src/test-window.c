@@ -21,43 +21,43 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <stdlib.h>
 
-#include <gtk/gtk.h>
+#ifdef ENABLE_X11
+#include <gdk/gdkx.h>
 
+#include "gs-grab.h"
+static GSGrab *grab = NULL;
+#endif
+
+#include <gtk/gtk.h>
 #include <libxfce4util/libxfce4util.h>
 #include <xfconf/xfconf.h>
 
 #include "gs-debug.h"
 #include "gs-window.h"
 
-#ifdef ENABLE_X11
-#include <gdk/gdkx.h>
-#include "gs-grab.h"
-static GSGrab *grab = NULL;
-#endif
-
 static void
 window_deactivated_cb (GSWindow *window,
-                       gpointer  data) {
+                       gpointer data) {
     gs_window_destroy (window);
 }
 
 static void
 window_dialog_up_cb (GSWindow *window,
-                     gpointer  data) {
+                     gpointer data) {
 }
 
 static void
 window_dialog_down_cb (GSWindow *window,
-                       gpointer  data) {
+                       gpointer data) {
 }
 
 static void
 window_show_cb (GSWindow *window,
-                gpointer  data) {
+                gpointer data) {
 #ifdef ENABLE_X11
     if (grab != NULL) {
         /* move devices grab so that dialog can be used */
@@ -71,7 +71,7 @@ window_show_cb (GSWindow *window,
 
 static gboolean
 window_activity_cb (GSWindow *window,
-                    gpointer  data) {
+                    gpointer data) {
     gs_window_request_unlock (window);
 
     return TRUE;
@@ -79,7 +79,7 @@ window_activity_cb (GSWindow *window,
 
 static gboolean
 auth_timeout (gpointer user_data) {
-    gtk_main_quit();
+    gtk_main_quit ();
     return FALSE;
 }
 static void
@@ -96,7 +96,7 @@ disconnect_window_signals (GSWindow *window) {
 
 static void
 window_destroyed_cb (GtkWindow *window,
-                     gpointer   data) {
+                     gpointer data) {
     disconnect_window_signals (GS_WINDOW (window));
 #ifdef ENABLE_X11
     if (grab != NULL) {
@@ -128,7 +128,7 @@ connect_window_signals (GSWindow *window) {
 
 static void
 test_window (void) {
-    GSWindow   *window;
+    GSWindow *window;
     GdkDisplay *display;
     GdkMonitor *monitor;
 
@@ -142,7 +142,7 @@ test_window (void) {
 }
 
 int
-main (int    argc,
+main (int argc,
       char **argv) {
     GError *error = NULL;
 
@@ -154,9 +154,9 @@ main (int    argc,
         return EXIT_FAILURE;
     }
 
-    if (!xfconf_init(&error)) {
-        g_error("Failed to connect to xfconf daemon: %s.", error->message);
-        g_error_free(error);
+    if (!xfconf_init (&error)) {
+        g_error ("Failed to connect to xfconf daemon: %s.", error->message);
+        g_error_free (error);
 
         return EXIT_FAILURE;
     }

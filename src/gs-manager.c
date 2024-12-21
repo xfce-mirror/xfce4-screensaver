@@ -21,50 +21,54 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
-#include <gdk/gdk.h>
-#include <gio/gio.h>
 #ifdef ENABLE_X11
 #include <gdk/gdkx.h>
+
 #include "gs-grab.h"
 #endif
+
 #ifdef ENABLE_WAYLAND
 #include <gdk/gdkwayland.h>
 #include <libwlembed-gtk3/libwlembed-gtk3.h>
+
 #include "gs-session-lock-manager.h"
 #endif
+
+#include <gdk/gdk.h>
+#include <gio/gio.h>
 
 #include "gs-debug.h"
 #include "gs-job.h"
 #include "gs-manager.h"
-#include "gs-prefs.h"
 #include "gs-window.h"
 
-static void     gs_manager_finalize   (GObject        *object);
+static void
+gs_manager_finalize (GObject *object);
 
 struct GSManagerPrivate {
-    GHashTable     *windows;
-    GHashTable     *jobs;
-    GList          *overlays;
-    guint           n_overlay_signal_received;
+    GHashTable *windows;
+    GHashTable *jobs;
+    GList *overlays;
+    guint n_overlay_signal_received;
 
     /* Policy */
-    GSPrefs         *prefs;
-    guint           throttled : 1;
-    char           *status_message;
+    GSPrefs *prefs;
+    guint throttled : 1;
+    char *status_message;
 
     /* State */
-    guint           active : 1;
-    guint           lock_active : 1;
+    guint active : 1;
+    guint lock_active : 1;
 
-    guint           dialog_up : 1;
+    guint dialog_up : 1;
 
-    guint           lock_timeout_id;
-    guint           cycle_timeout_id;
+    guint lock_timeout_id;
+    guint cycle_timeout_id;
 
 #ifdef ENABLE_X11
-    GSGrab         *grab;
+    GSGrab *grab;
 #endif
 #ifdef ENABLE_WAYLAND
     WleEmbeddedCompositor *compositor;
@@ -87,13 +91,15 @@ enum {
     PROP_THROTTLED,
 };
 
-static guint         signals[LAST_SIGNAL] = { 0, };
+static guint signals[LAST_SIGNAL] = {
+    0,
+};
 
 G_DEFINE_TYPE_WITH_PRIVATE (GSManager, gs_manager, G_TYPE_OBJECT)
 
 static void
 manager_maybe_stop_job_for_window (GSManager *manager,
-                                   GSWindow  *window) {
+                                   GSWindow *window) {
     GSJob *job;
 
     job = g_hash_table_lookup (manager->priv->jobs, window);
@@ -108,7 +114,7 @@ manager_maybe_stop_job_for_window (GSManager *manager,
 
 static void
 manager_maybe_start_job_for_window (GSManager *manager,
-                                    GSWindow  *window) {
+                                    GSWindow *window) {
     GSJob *job;
 
     job = g_hash_table_lookup (manager->priv->jobs, window);
@@ -138,8 +144,8 @@ manager_maybe_start_job_for_window (GSManager *manager,
 }
 
 static void
-throttle_job (GSWindow  *window,
-              GSJob     *job,
+throttle_job (GSWindow *window,
+              GSJob *job,
               GSManager *manager) {
     if (manager->priv->throttled) {
         gs_job_stop (job);
@@ -149,8 +155,8 @@ throttle_job (GSWindow  *window,
 }
 
 static void
-resume_job (GSWindow  *window,
-            GSJob     *job,
+resume_job (GSWindow *window,
+            GSJob *job,
             GSManager *manager) {
     if (gs_job_is_running (job)) {
         gs_job_suspend (job, FALSE);
@@ -160,8 +166,8 @@ resume_job (GSWindow  *window,
 }
 
 static void
-suspend_job (GSWindow  *window,
-             GSJob     *job,
+suspend_job (GSWindow *window,
+             GSJob *job,
              GSManager *manager) {
     gs_job_suspend (job, TRUE);
 }
@@ -174,7 +180,7 @@ remove_job (GSJob *job) {
 
 void
 gs_manager_set_throttled (GSManager *manager,
-                          gboolean   throttled) {
+                          gboolean throttled) {
     g_return_if_fail (GS_IS_MANAGER (manager));
 
     if (manager->priv->throttled != throttled) {
@@ -195,7 +201,7 @@ gs_manager_set_throttled (GSManager *manager,
 
 void
 gs_manager_enable_locker (GSManager *manager,
-                          gboolean   lock_active) {
+                          gboolean lock_active) {
     GHashTableIter iter;
     gpointer window;
 
@@ -233,7 +239,7 @@ remove_lock_timer (GSManager *manager) {
 
 static void
 add_lock_timer (GSManager *manager,
-                guint      seconds) {
+                guint seconds) {
     if (!manager->priv->prefs->lock_enabled)
         return;
     if (!manager->priv->prefs->lock_with_saver_enabled)
@@ -246,7 +252,7 @@ add_lock_timer (GSManager *manager,
 }
 
 void
-gs_manager_set_status_message (GSManager  *manager,
+gs_manager_set_status_message (GSManager *manager,
                                const char *message) {
     GHashTableIter iter;
     gpointer window;
@@ -314,15 +320,15 @@ remove_cycle_timer (GSManager *manager) {
 
 static void
 add_cycle_timer (GSManager *manager,
-                 glong      seconds) {
+                 glong seconds) {
     manager->priv->cycle_timeout_id = g_timeout_add_seconds (seconds, cycle_timeout, manager);
 }
 
 static void
-gs_manager_set_property (GObject      *object,
-                         guint         prop_id,
+gs_manager_set_property (GObject *object,
+                         guint prop_id,
                          const GValue *value,
-                         GParamSpec   *pspec) {
+                         GParamSpec *pspec) {
     GSManager *self;
 
     self = GS_MANAGER (object);
@@ -344,9 +350,9 @@ gs_manager_set_property (GObject      *object,
 }
 
 static void
-gs_manager_get_property (GObject    *object,
-                         guint       prop_id,
-                         GValue     *value,
+gs_manager_get_property (GObject *object,
+                         guint prop_id,
+                         GValue *value,
                          GParamSpec *pspec) {
     GSManager *self;
 
@@ -372,7 +378,7 @@ static void
 gs_manager_class_init (GSManagerClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-    object_class->finalize     = gs_manager_finalize;
+    object_class->finalize = gs_manager_finalize;
     object_class->get_property = gs_manager_get_property;
     object_class->set_property = gs_manager_set_property;
 
@@ -432,12 +438,12 @@ gs_manager_class_init (GSManagerClass *klass) {
                                                            TRUE,
                                                            G_PARAM_READWRITE));
     g_object_class_install_property (object_class,
-                                 PROP_STATUS_MESSAGE,
-                                 g_param_spec_string ("status-message",
-                                                      NULL,
-                                                      NULL,
-                                                      NULL,
-                                                      G_PARAM_READWRITE));
+                                     PROP_STATUS_MESSAGE,
+                                     g_param_spec_string ("status-message",
+                                                          NULL,
+                                                          NULL,
+                                                          NULL,
+                                                          G_PARAM_READWRITE));
 }
 
 static void
@@ -449,7 +455,7 @@ gs_manager_init (GSManager *manager) {
         manager->priv->grab = gs_grab_new ();
     }
 #endif
-    manager->priv->prefs = gs_prefs_new();
+    manager->priv->prefs = gs_prefs_new ();
     manager->priv->jobs = g_hash_table_new_full (g_direct_hash, g_direct_equal,
                                                  NULL, (GDestroyNotify) remove_job);
     manager->priv->windows = g_hash_table_new_full (g_direct_hash, g_direct_equal,
@@ -487,7 +493,7 @@ window_deactivated_idle (gpointer user_data) {
 }
 
 static void
-window_deactivated_cb (GSWindow  *window,
+window_deactivated_cb (GSWindow *window,
                        GSManager *manager) {
     g_return_if_fail (manager != NULL);
     g_return_if_fail (GS_IS_MANAGER (manager));
@@ -528,7 +534,7 @@ find_window_at_pointer (GSManager *manager) {
 }
 
 void
-gs_manager_show_message (GSManager  *manager,
+gs_manager_show_message (GSManager *manager,
                          const char *summary,
                          const char *body,
                          const char *icon) {
@@ -548,12 +554,12 @@ gs_manager_show_message (GSManager  *manager,
 #ifdef ENABLE_X11
 static gboolean
 manager_maybe_grab_window (GSManager *manager,
-                           GSWindow  *window) {
+                           GSWindow *window) {
     GdkDisplay *display;
-    GdkDevice  *device;
+    GdkDevice *device;
     GdkMonitor *monitor;
-    int         x, y;
-    gboolean    grabbed;
+    int x, y;
+    gboolean grabbed;
 
     display = gdk_display_get_default ();
     device = gdk_seat_get_pointer (gdk_display_get_default_seat (display));
@@ -562,8 +568,8 @@ manager_maybe_grab_window (GSManager *manager,
 
     gdk_display_flush (display);
     grabbed = FALSE;
-    if (gs_window_get_display (window) == display &&
-            gs_window_get_monitor (window) == monitor) {
+    if (gs_window_get_display (window) == display
+        && gs_window_get_monitor (window) == monitor) {
         gs_debug ("Initiate grab move to %p", window);
         gs_grab_move_to_window (manager->priv->grab,
                                 gs_window_get_gdk_window (window),
@@ -576,12 +582,12 @@ manager_maybe_grab_window (GSManager *manager,
 }
 
 static void
-window_grab_broken_cb (GSWindow           *window,
+window_grab_broken_cb (GSWindow *window,
                        GdkEventGrabBroken *event,
-                       GSManager          *manager) {
+                       GSManager *manager) {
     GdkDisplay *display;
-    GdkSeat    *seat;
-    GdkDevice  *device;
+    GdkSeat *seat;
+    GdkDevice *device;
 
     display = gdk_window_get_display (gs_window_get_gdk_window (window));
     seat = gdk_display_get_default_seat (display);
@@ -601,8 +607,8 @@ window_grab_broken_cb (GSWindow           *window,
 #endif
 
 static gboolean
-window_map_event_cb (GSWindow  *window,
-                     GdkEvent  *event,
+window_map_event_cb (GSWindow *window,
+                     GdkEvent *event,
                      GSManager *manager) {
     gs_debug ("Handling window map_event event");
 #ifdef ENABLE_X11
@@ -616,7 +622,7 @@ window_map_event_cb (GSWindow  *window,
 
 static void
 manager_show_window (GSManager *manager,
-                     GSWindow  *window) {
+                     GSWindow *window) {
     GSJob *job;
 
     job = gs_job_new_for_widget (gs_window_get_drawing_area (window));
@@ -633,7 +639,7 @@ manager_show_window (GSManager *manager,
 }
 
 static void
-window_show_cb (GSWindow  *window,
+window_show_cb (GSWindow *window,
                 GSManager *manager) {
     g_return_if_fail (manager != NULL);
     g_return_if_fail (GS_IS_MANAGER (manager));
@@ -645,9 +651,9 @@ window_show_cb (GSWindow  *window,
 }
 
 static void
-window_obscured_cb (GSWindow   *window,
+window_obscured_cb (GSWindow *window,
                     GParamSpec *pspec,
-                    GSManager  *manager) {
+                    GSManager *manager) {
     gboolean obscured;
 
     obscured = gs_window_is_obscured (window);
@@ -662,7 +668,7 @@ window_obscured_cb (GSWindow   *window,
 
 static void
 handle_window_dialog_up (GSManager *manager,
-                         GSWindow  *window) {
+                         GSWindow *window) {
     GHashTableIter iter;
     gpointer pwindow;
 
@@ -703,7 +709,7 @@ handle_window_dialog_up (GSManager *manager,
 
 static void
 handle_window_dialog_down (GSManager *manager,
-                           GSWindow  *window) {
+                           GSWindow *window) {
     GHashTableIter iter;
     gpointer pwindow;
 
@@ -738,9 +744,9 @@ handle_window_dialog_down (GSManager *manager,
 }
 
 static void
-window_dialog_up_changed_cb (GSWindow   *window,
+window_dialog_up_changed_cb (GSWindow *window,
                              GParamSpec *pspec,
-                             GSManager  *manager) {
+                             GSManager *manager) {
     gboolean up;
 
     up = gs_window_is_dialog_up (window);
@@ -753,7 +759,7 @@ window_dialog_up_changed_cb (GSWindow   *window,
 }
 
 static gboolean
-window_activity_cb (GSWindow  *window,
+window_activity_cb (GSWindow *window,
                     GSManager *manager) {
     gboolean handled;
     handled = gs_manager_request_unlock (manager);
@@ -763,7 +769,7 @@ window_activity_cb (GSWindow  *window,
 
 static void
 disconnect_window_signals (GSManager *manager,
-                           GSWindow  *window) {
+                           GSWindow *window) {
     g_signal_handlers_disconnect_by_func (window, window_deactivated_cb, manager);
     g_signal_handlers_disconnect_by_func (window, window_activity_cb, manager);
     g_signal_handlers_disconnect_by_func (window, window_show_cb, manager);
@@ -785,7 +791,7 @@ window_destroyed_cb (GtkWindow *window,
 
 static void
 connect_window_signals (GSManager *manager,
-                        GSWindow  *window) {
+                        GSWindow *window) {
     g_signal_connect_object (window, "destroy",
                              G_CALLBACK (window_destroyed_cb), manager, 0);
     g_signal_connect_object (window, "activity",
@@ -810,9 +816,9 @@ connect_window_signals (GSManager *manager,
 
 
 static GtkWidget *
-gs_manager_create_window_for_monitor (GSManager  *manager,
+gs_manager_create_window_for_monitor (GSManager *manager,
                                       GdkMonitor *monitor) {
-    GSWindow    *window;
+    GSWindow *window;
     GdkRectangle rect;
 
     gdk_monitor_get_geometry (monitor, &rect);
@@ -861,7 +867,7 @@ remove_overlays (GtkWidget *window,
         return FALSE;
     }
 
-    gs_debug("Done reconfiguring monitors, removing overlays");
+    gs_debug ("Done reconfiguring monitors, removing overlays");
 
     g_list_free_full (manager->priv->overlays, (GDestroyNotify) gtk_widget_destroy);
     manager->priv->overlays = NULL;
@@ -881,7 +887,7 @@ recreate_windows (GtkWidget *overlay,
         return FALSE;
     }
 
-    gs_debug("Reconfiguring monitors, recreating windows");
+    gs_debug ("Reconfiguring monitors, recreating windows");
 
     g_hash_table_remove_all (manager->priv->jobs);
 #ifdef ENABLE_WAYLAND
@@ -908,7 +914,7 @@ add_overlays (GSManager *manager) {
     GHashTableIter iter;
     gpointer window;
 
-    gs_debug("Reconfiguring monitors, adding overlays");
+    gs_debug ("Reconfiguring monitors, adding overlays");
 
     g_list_free_full (manager->priv->overlays, (GDestroyNotify) gtk_widget_destroy);
     manager->priv->overlays = NULL;
@@ -938,7 +944,7 @@ add_overlays (GSManager *manager) {
 static void
 on_display_monitor_added (GdkDisplay *display,
                           GdkMonitor *monitor,
-                          GSManager  *manager) {
+                          GSManager *manager) {
     gs_debug ("Monitor %s added on display %s, now there are %d",
               gdk_monitor_get_model (monitor), gdk_display_get_name (display), gdk_display_get_n_monitors (display));
 
@@ -948,7 +954,7 @@ on_display_monitor_added (GdkDisplay *display,
 static void
 on_display_monitor_removed (GdkDisplay *display,
                             GdkMonitor *monitor,
-                            GSManager  *manager) {
+                            GSManager *manager) {
     gs_debug ("Monitor %s removed on display %s, now there are %d",
               gdk_monitor_get_model (monitor), gdk_display_get_name (display), gdk_display_get_n_monitors (display));
 
@@ -989,7 +995,7 @@ gs_manager_finalize (GObject *object) {
 
     g_return_if_fail (manager->priv != NULL);
 
-    remove_timers(manager);
+    remove_timers (manager);
 #ifdef ENABLE_X11
     if (manager->priv->grab != NULL) {
         gs_grab_release (manager->priv->grab, TRUE);
@@ -1134,7 +1140,7 @@ gs_manager_deactivate (GSManager *manager) {
 
 gboolean
 gs_manager_activate_saver (GSManager *manager,
-                           gboolean   active) {
+                           gboolean active) {
     if (active) {
         return gs_manager_activate (manager);
     }

@@ -21,7 +21,7 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <errno.h>
 #include <signal.h>
@@ -31,21 +31,23 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#include <glib/gstdio.h>
-#include <gtk/gtk.h>
+#if defined(HAVE_SETPRIORITY) && defined(PRIO_PROCESS)
+#include <sys/resource.h>
+#endif
+
 #ifdef ENABLE_X11
 #include <gdk/gdkx.h>
 #include <gtk/gtkx.h>
 #endif
+
 #ifdef ENABLE_WAYLAND
 #include <gdk/gdkwayland.h>
-#include <libwlembed/libwlembed.h>
 #include <libwlembed-gtk3/libwlembed-gtk3.h>
+#include <libwlembed/libwlembed.h>
 #endif
 
-#if defined(HAVE_SETPRIORITY) && defined(PRIO_PROCESS)
-#include <sys/resource.h>
-#endif
+#include <glib/gstdio.h>
+#include <gtk/gtk.h>
 
 #include "gs-debug.h"
 #include "gs-job.h"
@@ -54,7 +56,8 @@
 #include "subprocs.h"
 #include "xfce-desktop-utils.h"
 
-static void gs_job_finalize   (GObject    *object);
+static void
+gs_job_finalize (GObject *object);
 
 typedef enum {
     GS_JOB_INVALID,
@@ -65,14 +68,14 @@ typedef enum {
 } GSJobStatus;
 
 struct GSJobPrivate {
-    GtkWidget      *widget;
+    GtkWidget *widget;
 
-    GSJobStatus     status;
-    gint            pid;
-    guint           watch_id;
+    GSJobStatus status;
+    gint pid;
+    guint watch_id;
 
-    char           *command;
-    GSPrefs        *prefs;
+    char *command;
+    GSPrefs *prefs;
     GSThemeManager *theme_manager;
 };
 
@@ -109,7 +112,7 @@ static void
 gs_job_init (GSJob *job) {
     job->priv = gs_job_get_instance_private (job);
     job->priv->theme_manager = gs_theme_manager_new ();
-    job->priv->prefs = gs_prefs_new();
+    job->priv->prefs = gs_prefs_new ();
 }
 
 /* adapted from gspawn.c */
@@ -178,8 +181,8 @@ gs_job_finalize (GObject *object) {
 }
 
 void
-gs_job_set_widget  (GSJob     *job,
-                    GtkWidget *widget) {
+gs_job_set_widget (GSJob *job,
+                   GtkWidget *widget) {
     g_return_if_fail (job != NULL);
     g_return_if_fail (GS_IS_JOB (job));
 
@@ -195,11 +198,11 @@ gs_job_set_widget  (GSJob     *job,
 }
 
 static void
-gs_job_set_theme(GSJob *job) {
+gs_job_set_theme (GSJob *job) {
     GSThemeInfo *info;
-    const char  *theme;
-    gchar       *command = NULL;
-    gchar       *arguments = NULL;
+    const char *theme;
+    gchar *command = NULL;
+    gchar *arguments = NULL;
 
     theme = gs_prefs_get_theme (job->priv->prefs);
     if (!theme) {
@@ -227,8 +230,8 @@ gs_job_set_theme(GSJob *job) {
 }
 
 gboolean
-gs_job_set_command  (GSJob      *job,
-                     const char *command) {
+gs_job_set_command (GSJob *job,
+                    const char *command) {
     g_return_val_if_fail (GS_IS_JOB (job), FALSE);
 
     gs_debug ("Setting command for job: '%s'",
@@ -281,9 +284,9 @@ nice_process (int pid,
 
 static GPtrArray *
 get_env_vars (GtkWidget *widget) {
-    GPtrArray         *env;
-    const gchar       *display_name;
-    gchar             *str;
+    GPtrArray *env;
+    const gchar *display_name;
+    gchar *str;
     static const char *allowed_env_vars[] = {
         "PATH",
         "SESSION_MANAGER",
@@ -337,20 +340,20 @@ get_env_vars (GtkWidget *widget) {
 }
 
 static gboolean
-spawn_on_widget (GtkWidget  *widget,
+spawn_on_widget (GtkWidget *widget,
                  const char *command,
-                 int        *pid,
-                 GIOFunc     watch_func,
-                 gpointer    user_data,
-                 guint      *watch_id) {
-    char       **argv;
-    GPtrArray   *env;
-    gboolean     result;
-    GIOChannel  *channel;
-    GError      *error = NULL;
-    int          standard_error;
-    int          child_pid;
-    int          id = 0;
+                 int *pid,
+                 GIOFunc watch_func,
+                 gpointer user_data,
+                 guint *watch_id) {
+    char **argv;
+    GPtrArray *env;
+    gboolean result;
+    GIOChannel *channel;
+    GError *error = NULL;
+    int standard_error;
+    int child_pid;
+    int id = 0;
 
     if (command == NULL) {
         return FALSE;
@@ -368,7 +371,7 @@ spawn_on_widget (GtkWidget  *widget,
     result = spawn_async_with_pipes (widget,
                                      NULL,
                                      argv,
-                                     (char **)env->pdata,
+                                     (char **) env->pdata,
                                      G_SPAWN_SEARCH_PATH | G_SPAWN_DO_NOT_REAP_CHILD,
                                      NULL,
                                      NULL,
@@ -420,12 +423,12 @@ spawn_on_widget (GtkWidget  *widget,
 }
 
 static gboolean
-command_watch (GIOChannel   *source,
-               GIOCondition  condition,
-               GSJob        *job) {
-    GIOStatus  status;
-    GError    *error = NULL;
-    gboolean   done  = FALSE;
+command_watch (GIOChannel *source,
+               GIOCondition condition,
+               GSJob *job) {
+    GIOStatus status;
+    GError *error = NULL;
+    gboolean done = FALSE;
 
     g_return_val_if_fail (job != NULL, FALSE);
 
@@ -498,14 +501,14 @@ gs_job_start (GSJob *job) {
     }
 
     /* do not redirect stderr for our own commands */
-    redirect_stderr = ! g_str_has_prefix (job->priv->command, LIBEXECDIR "/xfce4-screensaver/floaters")
-                      && ! g_str_has_prefix (job->priv->command, LIBEXECDIR "/xfce4-screensaver/popsquares")
-                      && ! g_str_has_prefix (job->priv->command, LIBEXECDIR "/xfce4-screensaver/slideshow");
+    redirect_stderr = !g_str_has_prefix (job->priv->command, LIBEXECDIR "/xfce4-screensaver/floaters")
+                      && !g_str_has_prefix (job->priv->command, LIBEXECDIR "/xfce4-screensaver/popsquares")
+                      && !g_str_has_prefix (job->priv->command, LIBEXECDIR "/xfce4-screensaver/slideshow");
 
     result = spawn_on_widget (job->priv->widget,
                               job->priv->command,
                               &job->priv->pid,
-                              redirect_stderr ? (GIOFunc)command_watch : NULL,
+                              redirect_stderr ? (GIOFunc) command_watch : NULL,
                               job,
                               &job->priv->watch_id);
 
@@ -552,8 +555,8 @@ gs_job_stop (GSJob *job) {
 }
 
 gboolean
-gs_job_suspend (GSJob    *job,
-                gboolean  suspend) {
+gs_job_suspend (GSJob *job,
+                gboolean suspend) {
     g_return_val_if_fail (job != NULL, FALSE);
     g_return_val_if_fail (GS_IS_JOB (job), FALSE);
 

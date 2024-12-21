@@ -22,32 +22,33 @@
  *
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-
+//
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 
-#include "gs-window.h"
-#include "gs-grab.h"
 #include "gs-debug.h"
+#include "gs-grab.h"
+#include "gs-window.h"
 
 #define SLEEPTIMEOUT 100000
-static void     gs_grab_finalize   (GObject     *object);
+static void
+gs_grab_finalize (GObject *object);
 
 static gpointer grab_object = NULL;
 
 struct GSGrabPrivate {
-    GdkWindow  *grab_window;
+    GdkWindow *grab_window;
     GdkDisplay *grab_display;
-    guint       no_pointer_grab : 1;
-    guint       hide_cursor : 1;
+    guint no_pointer_grab : 1;
+    guint hide_cursor : 1;
 
-    GtkWidget  *invisible;
+    GtkWidget *invisible;
 };
 
 G_DEFINE_TYPE_WITH_PRIVATE (GSGrab, gs_grab, G_TYPE_OBJECT)
@@ -67,8 +68,7 @@ grab_string (int status) {
             return "GrabFrozen";
         case GDK_GRAB_FAILED:
             return "GrabFailed";
-        default:
-        {
+        default: {
             static char foo[255];
             sprintf (foo, "unknown status: %d", status);
             return foo;
@@ -77,22 +77,22 @@ grab_string (int status) {
 }
 
 static void
-prepare_window_grab_cb (GdkSeat   *seat,
+prepare_window_grab_cb (GdkSeat *seat,
                         GdkWindow *window,
-                        gpointer   user_data) {
+                        gpointer user_data) {
     gdk_window_show_unraised (window);
 }
 
 static int
-gs_grab_get (GSGrab     *grab,
-             GdkWindow  *window,
+gs_grab_get (GSGrab *grab,
+             GdkWindow *window,
              GdkDisplay *display,
-             gboolean    no_pointer_grab,
-             gboolean    hide_cursor) {
-    GdkGrabStatus        status;
-    GdkSeat             *seat;
-    GdkSeatCapabilities  caps;
-    GdkCursor           *cursor;
+             gboolean no_pointer_grab,
+             gboolean hide_cursor) {
+    GdkGrabStatus status;
+    GdkSeat *seat;
+    GdkSeatCapabilities caps;
+    GdkCursor *cursor;
 
     g_return_val_if_fail (window != NULL, FALSE);
     g_return_val_if_fail (display != NULL, FALSE);
@@ -117,8 +117,9 @@ gs_grab_get (GSGrab     *grab,
     /* make it release grabbed pointer if requested and if any;
        time between grabbing and ungrabbing is minimal as grab was already
        completed once */
-    if (status == GDK_GRAB_SUCCESS && no_pointer_grab &&
-            gdk_display_device_is_grabbed (display, gdk_seat_get_pointer (seat))) {
+    if (status == GDK_GRAB_SUCCESS
+        && no_pointer_grab
+        && gdk_display_device_is_grabbed (display, gdk_seat_get_pointer (seat))) {
         gs_grab_release (grab, FALSE);
         gs_debug ("Regrabbing keyboard");
         status = gdk_seat_grab (seat, window,
@@ -160,7 +161,7 @@ gs_grab_reset (GSGrab *grab) {
 void
 gs_grab_release (GSGrab *grab, gboolean flush) {
     GdkDisplay *display;
-    GdkSeat    *seat;
+    GdkSeat *seat;
 
     display = gdk_display_get_default ();
     seat = gdk_display_get_default_seat (display);
@@ -180,18 +181,18 @@ gs_grab_release (GSGrab *grab, gboolean flush) {
 }
 
 static gboolean
-gs_grab_move (GSGrab     *grab,
-              GdkWindow  *window,
+gs_grab_move (GSGrab *grab,
+              GdkWindow *window,
               GdkDisplay *display,
-              gboolean    no_pointer_grab,
-              gboolean    hide_cursor) {
-    int         result;
-    GdkWindow  *old_window;
+              gboolean no_pointer_grab,
+              gboolean hide_cursor) {
+    int result;
+    GdkWindow *old_window;
     GdkDisplay *old_display;
-    gboolean    old_hide_cursor;
+    gboolean old_hide_cursor;
 
-    if (grab->priv->grab_window == window &&
-        grab->priv->no_pointer_grab == no_pointer_grab) {
+    if (grab->priv->grab_window == window
+        && grab->priv->no_pointer_grab == no_pointer_grab) {
         gs_debug ("Window %X is already grabbed, skipping",
                   (guint32) GDK_WINDOW_XID (grab->priv->grab_window));
         return TRUE;
@@ -246,7 +247,7 @@ gs_grab_move (GSGrab     *grab,
 static void
 gs_grab_nuke_focus (GdkDisplay *display) {
     Window focus = 0;
-    int    rev = 0;
+    int rev = 0;
 
     gs_debug ("Nuking focus");
 
@@ -272,15 +273,15 @@ gs_grab_restore_focus (GdkDisplay *display, GdkWindow *window) {
 }
 
 gboolean
-gs_grab_grab_window (GSGrab     *grab,
-                     GdkWindow  *window,
+gs_grab_grab_window (GSGrab *grab,
+                     GdkWindow *window,
                      GdkDisplay *display,
-                     gboolean    no_pointer_grab,
-                     gboolean    hide_cursor) {
-    gint        status = FALSE;
-    gboolean    nuked = FALSE;
-    int         i;
-    int         retries = 12;
+                     gboolean no_pointer_grab,
+                     gboolean hide_cursor) {
+    gint status = FALSE;
+    gboolean nuked = FALSE;
+    int i;
+    int retries = 12;
 
     for (i = 0; i < retries; i++) {
         status = gs_grab_get (grab, window, display,
@@ -300,8 +301,7 @@ gs_grab_grab_window (GSGrab     *grab,
     /* Something else has grab. Begin aggressive grab cycle. */
     while (status == GDK_GRAB_ALREADY_GRABBED) {
         for (i = 0; i < retries; i++) {
-            status = gs_grab_get (grab, window, display,
-                                no_pointer_grab, hide_cursor);
+            status = gs_grab_get (grab, window, display, no_pointer_grab, hide_cursor);
             if (status == GDK_GRAB_SUCCESS) {
                 break;
             } else if (i == (int) (retries / 2)) {
@@ -333,14 +333,14 @@ gs_grab_grab_window (GSGrab     *grab,
 
 /* this is used to grab devices to the root */
 gboolean
-gs_grab_grab_root (GSGrab   *grab,
-                   gboolean  no_pointer_grab,
-                   gboolean  hide_cursor) {
+gs_grab_grab_root (GSGrab *grab,
+                   gboolean no_pointer_grab,
+                   gboolean hide_cursor) {
     GdkDisplay *display;
-    GdkWindow  *root;
-    GdkScreen  *screen;
-    GdkDevice  *device;
-    gboolean    res;
+    GdkWindow *root;
+    GdkScreen *screen;
+    GdkDevice *device;
+    gboolean res;
 
     gs_debug ("Grabbing the root window");
 
@@ -357,11 +357,11 @@ gs_grab_grab_root (GSGrab   *grab,
 
 /* this is similar to gs_grab_grab_window but doesn't fail */
 void
-gs_grab_move_to_window (GSGrab     *grab,
-                        GdkWindow  *window,
+gs_grab_move_to_window (GSGrab *grab,
+                        GdkWindow *window,
                         GdkDisplay *display,
-                        gboolean    no_pointer_grab,
-                        gboolean    hide_cursor) {
+                        gboolean no_pointer_grab,
+                        gboolean hide_cursor) {
     gboolean result = FALSE;
 
     g_return_if_fail (GS_IS_GRAB (grab));

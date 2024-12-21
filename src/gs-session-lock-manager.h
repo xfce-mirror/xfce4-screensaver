@@ -20,6 +20,7 @@
 #define SRC_GS_SESSION_LOCK_MANAGER_H_
 
 #include <glib-object.h>
+
 #include "gs-window.h"
 
 G_BEGIN_DECLS
@@ -27,13 +28,18 @@ G_BEGIN_DECLS
 #define GS_TYPE_SESSION_LOCK_MANAGER (gs_session_lock_manager_get_type ())
 G_DECLARE_FINAL_TYPE (GSSessionLockManager, gs_session_lock_manager, GS, SESSION_LOCK_MANAGER, GObject)
 
-GSSessionLockManager    *gs_session_lock_manager_new            (void);
-gboolean                 gs_session_lock_manager_lock           (GSSessionLockManager     *manager);
-void                     gs_session_lock_manager_unlock         (GSSessionLockManager     *manager);
-void                     gs_session_lock_manager_add_window     (GSSessionLockManager     *manager,
-                                                                 GSWindow                 *window);
-void                     gs_session_lock_manager_remove_window  (GSSessionLockManager     *manager,
-                                                                 GSWindow                 *window);
+GSSessionLockManager *
+gs_session_lock_manager_new (void);
+gboolean
+gs_session_lock_manager_lock (GSSessionLockManager *manager);
+void
+gs_session_lock_manager_unlock (GSSessionLockManager *manager);
+void
+gs_session_lock_manager_add_window (GSSessionLockManager *manager,
+                                    GSWindow *window);
+void
+gs_session_lock_manager_remove_window (GSSessionLockManager *manager,
+                                       GSWindow *window);
 
 G_END_DECLS
 

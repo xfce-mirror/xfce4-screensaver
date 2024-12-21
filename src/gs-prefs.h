@@ -24,15 +24,15 @@
 #ifndef SRC_GS_PREFS_H_
 #define SRC_GS_PREFS_H_
 
-#include <glib.h>
+#include <glib-object.h>
 
 G_BEGIN_DECLS
 
-#define GS_TYPE_PREFS         (gs_prefs_get_type ())
-#define GS_PREFS(o)           (G_TYPE_CHECK_INSTANCE_CAST ((o), GS_TYPE_PREFS, GSPrefs))
-#define GS_PREFS_CLASS(k)     (G_TYPE_CHECK_CLASS_CAST((k), GS_TYPE_PREFS, GSPrefsClass))
-#define GS_IS_PREFS(o)        (G_TYPE_CHECK_INSTANCE_TYPE ((o), GS_TYPE_PREFS))
-#define GS_IS_PREFS_CLASS(k)  (G_TYPE_CHECK_CLASS_TYPE ((k), GS_TYPE_PREFS))
+#define GS_TYPE_PREFS (gs_prefs_get_type ())
+#define GS_PREFS(o) (G_TYPE_CHECK_INSTANCE_CAST ((o), GS_TYPE_PREFS, GSPrefs))
+#define GS_PREFS_CLASS(k) (G_TYPE_CHECK_CLASS_CAST ((k), GS_TYPE_PREFS, GSPrefsClass))
+#define GS_IS_PREFS(o) (G_TYPE_CHECK_INSTANCE_TYPE ((o), GS_TYPE_PREFS))
+#define GS_IS_PREFS_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), GS_TYPE_PREFS))
 #define GS_PREFS_GET_CLASS(o) (G_TYPE_INSTANCE_GET_CLASS ((o), GS_TYPE_PREFS, GSPrefsClass))
 
 #define SETTINGS_XFCONF_CHANNEL "xfce4-screensaver"
@@ -185,8 +185,7 @@ G_BEGIN_DECLS
 #define KEY_USER_SWITCH_ENABLED "/lock/user-switching/enabled"
 #define DEFAULT_KEY_USER_SWITCH_ENABLED TRUE
 
-typedef enum
-{
+typedef enum {
     GS_MODE_BLANK_ONLY,
     GS_MODE_RANDOM,
     GS_MODE_SINGLE
@@ -196,47 +195,52 @@ typedef struct GSPrefsPrivate GSPrefsPrivate;
 
 typedef struct
 {
-    GObject          parent;
+    GObject parent;
 
-    GSPrefsPrivate  *priv;
+    GSPrefsPrivate *priv;
 
-    guint            saver_enabled : 1; /* global saver switch */
-    guint            lock_enabled : 1; /* global lock switch */
+    guint saver_enabled : 1; /* global saver switch */
+    guint lock_enabled : 1; /* global lock switch */
 
-    guint            idle_activation_enabled : 1; /* whether to activate when idle */
-    guint            sleep_activation_enabled : 1; /* whether to activate on suspend/hibernate */
-    guint            lock_with_saver_enabled : 1;           /* whether to lock when active */
-    guint            logout_enabled : 1;         /* Whether to offer the logout option */
-    guint            user_switch_enabled : 1;  /* Whether to offer the user switch option */
-    guint            keyboard_enabled : 1;       /* Whether to try to embed a keyboard */
-    guint            keyboard_displayed : 1;       /* Whether the keyboard is displayed */
-    guint            status_message_enabled : 1; /* show the status message in the lock */
-    guint            timeout;        /* how much idle time before activation */
-    guint            lock_timeout;   /* how many minutes after activation locking starts */
-    guint            logout_timeout; /* how many seconds until the logout option appears */
-    guint            cycle;          /* how many seconds each theme should run */
-    guint            fullscreen_inhibit : 1; /* inhibit screensaver when an application is fullscreen */
+    guint idle_activation_enabled : 1; /* whether to activate when idle */
+    guint sleep_activation_enabled : 1; /* whether to activate on suspend/hibernate */
+    guint lock_with_saver_enabled : 1; /* whether to lock when active */
+    guint logout_enabled : 1; /* Whether to offer the logout option */
+    guint user_switch_enabled : 1; /* Whether to offer the user switch option */
+    guint keyboard_enabled : 1; /* Whether to try to embed a keyboard */
+    guint keyboard_displayed : 1; /* Whether the keyboard is displayed */
+    guint status_message_enabled : 1; /* show the status message in the lock */
+    guint timeout; /* how much idle time before activation */
+    guint lock_timeout; /* how many minutes after activation locking starts */
+    guint logout_timeout; /* how many seconds until the logout option appears */
+    guint cycle; /* how many seconds each theme should run */
+    guint fullscreen_inhibit : 1; /* inhibit screensaver when an application is fullscreen */
 
-    char            *logout_command;   /* command to use to logout */
-    char            *keyboard_command; /* command to use to embed a keyboard */
+    char *logout_command; /* command to use to logout */
+    char *keyboard_command; /* command to use to embed a keyboard */
 
-    GSList          *themes;   /* the screensaver themes to run */
-    GSSaverMode      mode; /* theme selection mode */
+    GSList *themes; /* the screensaver themes to run */
+    GSSaverMode mode; /* theme selection mode */
 } GSPrefs;
 
 typedef struct
 {
-    GObjectClass     parent_class;
+    GObjectClass parent_class;
 
-    void            (* changed)        (GSPrefs *prefs);
+    void (*changed) (GSPrefs *prefs);
 } GSPrefsClass;
 
-GType       gs_prefs_get_type            (void);
-GSPrefs   * gs_prefs_new                 (void);
-void        gs_prefs_load                (GSPrefs     *prefs);
-const char* gs_prefs_get_theme           (GSPrefs     *prefs);
-gchar *     gs_prefs_get_theme_arguments (GSPrefs     *prefs,
-                                          const gchar *theme);
+GType
+gs_prefs_get_type (void);
+GSPrefs *
+gs_prefs_new (void);
+void
+gs_prefs_load (GSPrefs *prefs);
+const char *
+gs_prefs_get_theme (GSPrefs *prefs);
+gchar *
+gs_prefs_get_theme_arguments (GSPrefs *prefs,
+                              const gchar *theme);
 
 G_END_DECLS
 

@@ -13,7 +13,7 @@
  * implied warranty.
  */
 
-#include <config.h>
+#include "config.h"
 
 #include <grp.h> /* for getgrgid() and struct group */
 #include <pwd.h> /* for getpwnam() and struct passwd */
@@ -21,8 +21,6 @@
 #include <string.h>
 #include <sys/types.h>
 #include <unistd.h>
-
-#include <glib.h>
 
 #ifndef EPERM
 #include <errno.h>
@@ -33,9 +31,9 @@
 static char *
 uid_gid_string (uid_t uid,
                 gid_t gid) {
-    static char   *buf;
+    static char *buf;
     struct passwd *p = NULL;
-    struct group  *g = NULL;
+    struct group *g = NULL;
 
     p = getpwuid (uid);
     g = getgrgid (gid);
@@ -49,14 +47,14 @@ uid_gid_string (uid_t uid,
 }
 
 static gboolean
-set_ids_by_number (uid_t   uid,
-                   gid_t   gid,
-                   char  **message_ret) {
-    int            uid_errno = 0;
-    int            gid_errno = 0;
-    int            sgs_errno = 0;
+set_ids_by_number (uid_t uid,
+                   gid_t gid,
+                   char **message_ret) {
+    int uid_errno = 0;
+    int gid_errno = 0;
+    int sgs_errno = 0;
     struct passwd *p = getpwuid (uid);
-    struct group  *g = getgrgid (gid);
+    struct group *g = getgrgid (gid);
 
     if (message_ret)
         *message_ret = NULL;
@@ -69,8 +67,10 @@ set_ids_by_number (uid_t   uid,
        instead.  Note that this must be done after we've looked up the
        user/group names with getpwuid(-1) and/or getgrgid(-1).
     */
-    if (gid == (gid_t) -1) gid = (gid_t) -2;
-    if (uid == (uid_t) -1) uid = (uid_t) -2;
+    if (gid == (gid_t) -1)
+        gid = (gid_t) -2;
+    if (uid == (uid_t) -1)
+        uid = (uid_t) -2;
 
     errno = 0;
     if (setgroups (1, &gid) < 0)
@@ -163,8 +163,8 @@ gboolean
 hack_uid (char **nolock_reason,
           char **orig_uid,
           char **uid_message) {
-    char     *reason;
-    gboolean  ret;
+    char *reason;
+    gboolean ret;
 
     ret = TRUE;
     reason = NULL;
@@ -185,8 +185,8 @@ hack_uid (char **nolock_reason,
     {
         uid_t euid = geteuid ();
         gid_t egid = getegid ();
-        uid_t uid  = getuid ();
-        gid_t gid  = getgid ();
+        uid_t uid = getuid ();
+        gid_t gid = getgid ();
 
         if (orig_uid != NULL) {
             *orig_uid = uid_gid_string (euid, egid);
@@ -194,7 +194,7 @@ hack_uid (char **nolock_reason,
 
         if (uid != euid || gid != egid) {
 #ifdef HAVE_BSDAUTH /* we need to setgid auth to run the bsd_auth(3) login_* helpers */
-            struct group *authg = getgrnam("auth");
+            struct group *authg = getgrnam ("auth");
             if (!authg || !authg->gr_name || !*authg->gr_name) {
                 reason = g_strdup ("no such group as \"auth\" for bsdauth.");
                 ret = FALSE;

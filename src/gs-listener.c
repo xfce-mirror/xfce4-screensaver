@@ -20,21 +20,25 @@
 
 #ifdef ENABLE_X11
 #include <gdk/gdkx.h>
+
 #include "gs-listener-x11.h"
 #endif
+
 #ifdef ENABLE_WAYLAND
 #include <gdk/gdkwayland.h>
+
 #include "gs-listener-wayland.h"
 #endif
 
-#include "gs-listener.h"
 #include "gs-debug.h"
+#include "gs-listener.h"
 #include "gs-prefs.h"
 
-#define get_instance_private(instance) ((GSListenerPrivate *) \
-    gs_listener_get_instance_private (GS_LISTENER (instance)))
+#define get_instance_private(instance) \
+    ((GSListenerPrivate *) gs_listener_get_instance_private (GS_LISTENER (instance)))
 
-static void         gs_listener_finalize        (GObject            *object);
+static void
+gs_listener_finalize (GObject *object);
 
 typedef struct _GSListenerPrivate {
     GSPrefs *prefs;
@@ -101,25 +105,25 @@ set_timeouts (gpointer listener) {
     if (priv->enabled != enabled) {
         priv->enabled = enabled;
         update_needed = TRUE;
-        gs_debug("Saver state changed to %s", enabled ? "enabled" : "disabled");
+        gs_debug ("Saver state changed to %s", enabled ? "enabled" : "disabled");
     }
 
     if (priv->timeout != timeout) {
         priv->timeout = timeout;
         update_needed = TRUE;
-        gs_debug("Saver timeout updated to %d seconds", timeout);
+        gs_debug ("Saver timeout updated to %d seconds", timeout);
     }
 
     if (priv->lock_enabled != priv->prefs->lock_with_saver_enabled) {
         priv->lock_enabled = priv->prefs->lock_with_saver_enabled;
         update_needed = TRUE;
-        gs_debug("Lock with saver state changed to %s", priv->lock_enabled ? "enabled" : "disabled");
+        gs_debug ("Lock with saver state changed to %s", priv->lock_enabled ? "enabled" : "disabled");
     }
 
     if (priv->lock_timeout != lock_timeout) {
         priv->lock_timeout = lock_timeout;
         update_needed = TRUE;
-        gs_debug("Lock timeout updated to %d seconds", lock_timeout);
+        gs_debug ("Lock timeout updated to %d seconds", lock_timeout);
     }
 
     if (update_needed) {
