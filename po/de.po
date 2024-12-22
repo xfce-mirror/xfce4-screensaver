@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce-apps.xfce4-screensaver\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-12-19 12:50+0100\n"
+"POT-Creation-Date: 2024-12-22 00:50+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Andreas Eitel <github-aneitel@online.de>, 2024\n"
 "Language-Team: German (https://app.transifex.com/xfce/teams/16840/de/)\n"
@@ -37,7 +37,7 @@ msgid "Set your screensaver preferences"
 msgstr "Lege deine Bildschirmschoner-Einstellungen fest"
 
 #: data/xfce4-screensaver-preferences.desktop.in:5
-#: src/xfce4-screensaver-preferences.ui:878
+#: src/xfce4-screensaver-preferences.ui:875
 #: src/xfce4-screensaver.desktop.in.in:6
 msgid "Screensaver"
 msgstr "Bildschirmschoner"
@@ -54,11 +54,11 @@ msgstr "Bildschirmschoner"
 msgid "Screensaver themes"
 msgstr "Bildschirmschoner-Themen"
 
-#: savers/floaters.c:89
+#: savers/floaters.c:93
 msgid "Show paths that images follow"
 msgstr "Pfade anzeigen, denen die Bilder folgen"
 
-#: savers/floaters.c:94
+#: savers/floaters.c:96
 msgid "Occasionally rotate images as they move"
 msgstr "Bilder gelegentlich drehen, während sie sich bewegen"
 
@@ -66,70 +66,70 @@ msgstr "Bilder gelegentlich drehen, während sie sich bewegen"
 msgid "Print out frame rate and other statistics"
 msgstr "Bildrate und andere Statistiken anzeigen lassen"
 
-#: savers/floaters.c:104
+#: savers/floaters.c:102
 msgid "The maximum number of images to keep on screen"
 msgstr "Die maximale Anzahl der Bilder, die auf dem Bildschirm bleiben sollen"
 
-#: savers/floaters.c:104
+#: savers/floaters.c:102
 msgid "MAX_IMAGES"
 msgstr "MAX_IMAGES"
 
-#: savers/floaters.c:109
+#: savers/floaters.c:105
 msgid "The initial size and position of window"
 msgstr "Die ursprüngliche Größe und Position des Fensters"
 
-#: savers/floaters.c:109
+#: savers/floaters.c:105
 msgid "WIDTHxHEIGHT+X+Y"
 msgstr "BREITExHÖHE+X+Y"
 
-#: savers/floaters.c:114
+#: savers/floaters.c:108
 msgid "The source image to use"
 msgstr "Das zu verwendende Quellbild"
 
 #. translators: the word "image" here
 #. * represents a command line argument
-#: savers/floaters.c:1129
+#: savers/floaters.c:1127
 msgid "image - floats images around the screen"
 msgstr "Bild - schwebende Bilder auf dem Bildschirm"
 
-#: savers/floaters.c:1133 savers/popsquares.c:47
+#: savers/floaters.c:1131 savers/popsquares.c:54
 #, c-format
 msgid "%s. See --help for usage information.\n"
 msgstr "%s. Siehe --help für Nutzungshinweise.\n"
 
-#: savers/floaters.c:1140
+#: savers/floaters.c:1137
 msgid "Failed to initialize the windowing system."
 msgstr "Das Fenstersystem konnte nicht initialisiert werden."
 
-#: savers/floaters.c:1146
+#: savers/floaters.c:1142
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr "Du musst ein Bild angeben. Siehe --help für Nutzungshinweise.\n"
 
-#: savers/slideshow.c:54
+#: savers/slideshow.c:59
 msgid "Location to get images from"
 msgstr "Ort, von dem du Bilder erhalten möchtest"
 
-#: savers/slideshow.c:54
+#: savers/slideshow.c:59
 msgid "PATH"
 msgstr "PFAD"
 
-#: savers/slideshow.c:58
+#: savers/slideshow.c:61
 msgid "Color to use for images background"
 msgstr "Farbe für den Bildhintergrund"
 
-#: savers/slideshow.c:58
+#: savers/slideshow.c:61
 msgid "\"#rrggbb\""
 msgstr "\"#rrggbb\""
 
-#: savers/slideshow.c:62
+#: savers/slideshow.c:63
 msgid "Do not randomize pictures from location"
 msgstr "Bilder vom Speicherort nicht zufällig auswählen"
 
-#: savers/slideshow.c:66
+#: savers/slideshow.c:65
 msgid "Do not try to stretch images on screen"
 msgstr "Bilder dürfen auf dem Bildschirm nicht gestreckt werden"
 
-#: savers/slideshow.c:70
+#: savers/slideshow.c:67
 msgid "Do not crop images to the screen size"
 msgstr "Bilder nicht auf die Bildschirmgröße zuschneiden"
 
@@ -157,97 +157,98 @@ msgstr "Pop Art Quadrate"
 msgid "A pop-art-ish grid of pulsing colors."
 msgstr "Ein Pop-Art-ähnliches Gitter aus pulsierenden Farben."
 
-#: src/gs-auth-pam.c:377
+#: src/gs-auth-pam.c:373
 #, c-format
 msgid "Unable to establish service %s: %s\n"
 msgstr "Der Dienst %s kann nicht eingerichtet werden: %s\n"
 
-#: src/gs-auth-pam.c:403
+#: src/gs-auth-pam.c:399
 #, c-format
 msgid "Can't set PAM_TTY=%s"
 msgstr "PAM_TTY=%s kann nicht festgelegt werden"
 
-#: src/gs-auth-pam.c:434
+#: src/gs-auth-pam.c:430
 msgid "Incorrect password."
 msgstr "Falsches Passwort."
 
-#: src/gs-auth-pam.c:436 src/xfce4-screensaver-dialog.c:254
+#: src/gs-auth-pam.c:432 src/xfce4-screensaver-dialog.c:280
 msgid "Authentication failed."
 msgstr "Legitimierung fehlgeschlagen."
 
-#: src/gs-auth-pam.c:450
+#: src/gs-auth-pam.c:446
 msgid "Not permitted to gain access at this time."
 msgstr "Zu diesem Zeitpunkt ist der Zugriff nicht gestattet."
 
-#: src/gs-auth-pam.c:456
+#: src/gs-auth-pam.c:452
 msgid "No longer permitted to access the system."
 msgstr "Der Zugriff auf das System ist nicht mehr erlaubt."
 
-#: src/gs-auth-pam.c:664
+#: src/gs-auth-pam.c:660
 msgid "Username:"
 msgstr "Benutzername:"
 
-#: src/gs-listener-dbus.c:1971
+#: src/gs-listener-dbus.c:1968
 msgid "failed to register with the message bus"
 msgstr "konnte sich nicht am Nachrichtenbus anmelden"
 
-#: src/gs-listener-dbus.c:1981
+#: src/gs-listener-dbus.c:1978
 msgid "not connected to the message bus"
 msgstr "nicht mit dem Nachrichtenbus verbunden"
 
-#: src/gs-listener-dbus.c:1990 src/gs-listener-dbus.c:2020
+#: src/gs-listener-dbus.c:1987 src/gs-listener-dbus.c:2018
 msgid "screensaver already running in this session"
 msgstr "Bildschirmschoner läuft bereits in dieser Sitzung"
 
-#: src/gs-lock-plug.c:303
+#. TRANSLATORS: adjust this accordingly for your locale format
+#: src/gs-lock-plug.c:308
 msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, %B %e   %H:%M"
 
-#: src/gs-lock-plug.c:394
+#: src/gs-lock-plug.c:398
 msgid "Time has expired."
 msgstr "Zeit abgelaufen."
 
-#: src/xfce4-screensaver-command.c:56
+#: src/xfce4-screensaver-command.c:53
 msgid "Causes the screensaver to exit gracefully"
 msgstr "Beendet den Bildschirmschoner ordnungsgemäß"
 
-#: src/xfce4-screensaver-command.c:60
+#: src/xfce4-screensaver-command.c:55
 msgid "Query the state of the screensaver"
 msgstr "Status des Bildschirmschoners abfragen"
 
-#: src/xfce4-screensaver-command.c:64
+#: src/xfce4-screensaver-command.c:57
 msgid "Query the length of time the screensaver has been active"
 msgstr "Laufzeit des aktiven Bildschirmschoners abfragen"
 
-#: src/xfce4-screensaver-command.c:68
+#: src/xfce4-screensaver-command.c:59
 msgid "Tells the running screensaver process to lock the screen immediately"
 msgstr ""
 "Weist den laufenden Bildschirmschonerprozess an, den Bildschirm sofort zu "
 "sperren"
 
-#: src/xfce4-screensaver-command.c:72
+#: src/xfce4-screensaver-command.c:61
 msgid "If the screensaver is active then switch to another graphics demo"
 msgstr ""
 "Zu einer anderen Grafikdemo wechseln, falls der Bildschirmschoner aktiv ist"
 
-#: src/xfce4-screensaver-command.c:76
+#: src/xfce4-screensaver-command.c:63
 msgid "Turn the screensaver on (blank the screen)"
 msgstr "Bildschirmschoner einschalten (Bildschirm leeren)"
 
-#: src/xfce4-screensaver-command.c:80
+#: src/xfce4-screensaver-command.c:65
 msgid "If the screensaver is active then deactivate it (un-blank the screen)"
 msgstr ""
 "Deaktiviere den Bildschirmschoner, falls er aktiv ist (Bildschirm wieder "
 "einblenden)"
 
-#: src/xfce4-screensaver-command.c:84
+#: src/xfce4-screensaver-command.c:67
 msgid "Poke the running screensaver to simulate user activity"
 msgstr ""
 "Den laufenden Bildschirmschoner anstoßen, um Benutzeraktivitäten zu "
 "simulieren"
 
-#: src/xfce4-screensaver-command.c:88
+#: src/xfce4-screensaver-command.c:69
 msgid ""
 "Inhibit the screensaver from activating.  Command blocks while inhibit is "
 "active."
@@ -255,241 +256,192 @@ msgstr ""
 "Verhindert, dass der Bildschirmschoner aktiviert wird. Befehl ist bei "
 "aktiver Sperre blockiert."
 
-#: src/xfce4-screensaver-command.c:92
+#: src/xfce4-screensaver-command.c:71
 msgid "The calling application that is inhibiting the screensaver"
 msgstr "Die aufrufende Anwendung, welche den Bildschirmschoner blockiert"
 
-#: src/xfce4-screensaver-command.c:96
+#: src/xfce4-screensaver-command.c:73
 msgid "The reason for inhibiting the screensaver"
 msgstr "Der Grund für die Sperrung des Bildschirmschoners"
 
-#: src/xfce4-screensaver-command.c:100 src/xfce4-screensaver-dialog.c:65
-#: src/xfce4-screensaver.c:57
+#: src/xfce4-screensaver-command.c:75 src/xfce4-screensaver-dialog.c:70
+#: src/xfce4-screensaver.c:58
 msgid "Version of this application"
 msgstr "Version dieser Anwendung"
 
-#: src/xfce4-screensaver-command.c:209
+#: src/xfce4-screensaver-command.c:182
 #, c-format
 msgid "The screensaver is %s\n"
 msgstr "Der Bildschirmschoner ist %s\n"
 
-#: src/xfce4-screensaver-command.c:209
+#: src/xfce4-screensaver-command.c:182
 msgid "active"
 msgstr "aktiv"
 
-#: src/xfce4-screensaver-command.c:209
+#: src/xfce4-screensaver-command.c:182
 msgid "inactive"
 msgstr "inaktiv"
 
-#: src/xfce4-screensaver-command.c:220
+#: src/xfce4-screensaver-command.c:193
 msgid "The screensaver is not inhibited\n"
 msgstr "Der Bildschirmschoner ist nicht blockiert\n"
 
-#: src/xfce4-screensaver-command.c:222
+#: src/xfce4-screensaver-command.c:195
 msgid "The screensaver is being inhibited by:\n"
 msgstr "Der Bildschirmschoner wird blockiert durch:\n"
 
-#: src/xfce4-screensaver-command.c:238
+#: src/xfce4-screensaver-command.c:211
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "Der Bildschirmschoner ist seit %d Sekunden aktiv.\n"
 
-#: src/xfce4-screensaver-configure.py:151
-#: src/xfce4-screensaver-preferences.c:710
-msgid "Blank screen"
-msgstr "Leerer Bildschirm"
-
-#: src/xfce4-screensaver-configure.py:152
-msgid ""
-"Powered by Display Power Management Signaling (DPMS),\n"
-"Xfce Screensaver can automatically suspend your displays\n"
-"to save power.\n"
-"\n"
-"Xfce Power Manager and other applications also manage\n"
-"DPMS settings. If the settings here won't work, make sure\n"
-"display power management wasn't disabled there.\n"
-"If your displays are powering off at different\n"
-"intervals, be sure to check for conflicting settings."
-msgstr ""
-"Mit Hilfe von Display Power Management Signaling (DPMS),\n"
-"kann der Xfce-Bildschirmschoner Ihre Bildschirme automatisch sperren, \n"
-"um Energie zu sparen.\n"
-"\n"
-"Xfce Power Manager und andere Anwendungen verwalten auch\n"
-"DPMS-Einstellungen. Wenn die Einstellungen hier nicht funktionieren, stellen Sie sicher, dass \n"
-"die Energieverwaltung für die Anzeige dort nicht deaktiviert wurde.\n"
-"Wenn sich Ihre Bildschirme in unterschiedlichen Intervallen ausschalten,\n"
-"überprüfen Sie, ob es widersprüchliche Einstellungen gibt."
-
-#: src/xfce4-screensaver-configure.py:188
+#: src/xfce4-screensaver-configure.py:167
 msgid "Part of Xfce Screensaver"
 msgstr "Teil des Xfce Bildschirmschoners"
 
-#: src/xfce4-screensaver-configure.py:199
-msgid "After blanking, put display to sleep after:"
-msgstr ""
-"Nach dem Dunkelschalten das Display in den Ruhezustand versetzen nach:"
-
-#: src/xfce4-screensaver-configure.py:201
-#: src/xfce4-screensaver-configure.py:205
-msgid "Never"
-msgstr "Nie"
-
-#: src/xfce4-screensaver-configure.py:201
-msgid "60 seconds"
-msgstr "60 Sekunden"
-
-#: src/xfce4-screensaver-configure.py:203
-msgid "After sleeping, switch display off after:"
-msgstr "Schalten Sie das Display nach dem Schlafen aus nach:"
-
-#: src/xfce4-screensaver-configure.py:205
-msgid "60 minutes"
-msgstr "60 Minuten"
-
-#: src/xfce4-screensaver-configure.py:208
+#: src/xfce4-screensaver-configure.py:178
 msgid "Max number of images"
 msgstr "Maximale Anzahl von Bildern"
 
-#: src/xfce4-screensaver-configure.py:211
+#: src/xfce4-screensaver-configure.py:181
 msgid "Show paths"
 msgstr "Pfade anzeigen"
 
-#: src/xfce4-screensaver-configure.py:213
+#: src/xfce4-screensaver-configure.py:183
 msgid "Do rotations"
 msgstr "Drehungen durchführen"
 
-#: src/xfce4-screensaver-configure.py:215
+#: src/xfce4-screensaver-configure.py:185
 msgid "Print stats"
 msgstr "Statistiken drucken"
 
-#: src/xfce4-screensaver-configure.py:218
+#: src/xfce4-screensaver-configure.py:188
 msgid "Location"
 msgstr "Ort"
 
-#: src/xfce4-screensaver-configure.py:221
+#: src/xfce4-screensaver-configure.py:191
 msgid "Background color"
 msgstr "Hintergrundfarbe"
 
-#: src/xfce4-screensaver-configure.py:223
+#: src/xfce4-screensaver-configure.py:193
 msgid "Do not randomize images"
 msgstr "Bilder nicht zufällig auswählen"
 
-#: src/xfce4-screensaver-configure.py:225
+#: src/xfce4-screensaver-configure.py:195
 msgid "Do not stretch images"
 msgstr "Bilder nicht strecken"
 
-#: src/xfce4-screensaver-configure.py:227
+#: src/xfce4-screensaver-configure.py:197
 msgid "Do not crop images"
 msgstr "Bilder nicht zuschneiden"
 
-#: src/xfce4-screensaver-configure.py:419
+#: src/xfce4-screensaver-configure.py:389
 msgid "Restore Defaults"
 msgstr "Standardwerte wiederherstellen"
 
-#: src/xfce4-screensaver-configure.py:432
+#: src/xfce4-screensaver-configure.py:402
 msgid "Preferences"
 msgstr "Einstellungen"
 
-#: src/xfce4-screensaver-configure.py:438
+#: src/xfce4-screensaver-configure.py:408
 msgid "About"
 msgstr "Über"
 
-#: src/xfce4-screensaver-configure.py:451
+#: src/xfce4-screensaver-configure.py:421
 msgid "Video"
 msgstr "Video"
 
-#: src/xfce4-screensaver-configure.py:762
+#: src/xfce4-screensaver-configure.py:729
 msgid "Configure an individual screensaver"
 msgstr "Einen individuellen Bildschirmschoner konfigurieren"
 
-#: src/xfce4-screensaver-configure.py:764
+#: src/xfce4-screensaver-configure.py:731
 msgid "screensaver name to configure"
 msgstr "Name des zu konfigurierenden Bildschirmschoners"
 
-#: src/xfce4-screensaver-configure.py:766
+#: src/xfce4-screensaver-configure.py:733
 msgid "check if screensaver is configurable"
 msgstr "prüfen, ob der Bildschirmschoner konfigurierbar ist"
 
-#: src/xfce4-screensaver-configure.py:770
+#: src/xfce4-screensaver-configure.py:737
 msgid "Unable to configure screensaver"
 msgstr "Bildschirmschoner kann nicht konfiguriert werden"
 
-#: src/xfce4-screensaver-configure.py:774
+#: src/xfce4-screensaver-configure.py:741
 msgid "Screensaver required."
 msgstr "Bildschirmschoner erforderlich."
 
-#: src/xfce4-screensaver-configure.py:782
+#: src/xfce4-screensaver-configure.py:749
 #, python-format
 msgid "File not found: %s"
 msgstr "Datei nicht gefunden: %s"
 
-#: src/xfce4-screensaver-configure.py:790
+#: src/xfce4-screensaver-configure.py:757
 #, python-format
 msgid "Unrecognized file type: %s"
 msgstr "Nicht erkannter Dateityp: %s"
 
-#: src/xfce4-screensaver-configure.py:794
+#: src/xfce4-screensaver-configure.py:761
 #, python-format
 msgid "Failed to process file: %s"
 msgstr "Die Verarbeitung der Datei ist fehlgeschlagen: %s"
 
-#: src/xfce4-screensaver-configure.py:799
+#: src/xfce4-screensaver-configure.py:766
 #, python-format
 msgid "Screensaver %s is configurable."
 msgstr "Bildschirmschoner %s ist konfigurierbar."
 
-#: src/xfce4-screensaver-configure.py:801
+#: src/xfce4-screensaver-configure.py:768
 #, python-format
 msgid "Screensaver %s is not configurable."
 msgstr "Bildschirmschoner %s ist nicht konfigurierbar."
 
-#: src/xfce4-screensaver-configure.py:805
+#: src/xfce4-screensaver-configure.py:772
 #, python-format
 msgid "Screensaver %s has no configuration options."
 msgstr "Bildschirmschoner %s hat keine Konfigurationsoptionen."
 
-#: src/xfce4-screensaver-dialog.c:63
+#: src/xfce4-screensaver-dialog.c:68
 msgid "Show debugging output"
 msgstr "Ausgabe zur Fehlerdiagnose anzeigen"
 
-#: src/xfce4-screensaver-dialog.c:67
+#: src/xfce4-screensaver-dialog.c:72
 msgid "Show the logout button"
 msgstr "Button zum Abmelden anzeigen"
 
-#: src/xfce4-screensaver-dialog.c:69
+#: src/xfce4-screensaver-dialog.c:74
 msgid "Command to invoke from the logout button"
 msgstr "Von der Schaltfläche Abmeldung aufzurufender Befehl"
 
-#: src/xfce4-screensaver-dialog.c:71
+#: src/xfce4-screensaver-dialog.c:76
 msgid "Show the switch user button"
 msgstr "Schaltfläche Nutzerwechsel anzeigen"
 
-#: src/xfce4-screensaver-dialog.c:73
+#: src/xfce4-screensaver-dialog.c:78
 msgid "Message to show in the dialog"
 msgstr "Nachricht, die im Dialog angezeigt werden soll"
 
-#: src/xfce4-screensaver-dialog.c:73 src/xfce4-screensaver-dialog.c:75
+#: src/xfce4-screensaver-dialog.c:78 src/xfce4-screensaver-dialog.c:80
 msgid "MESSAGE"
 msgstr "NACHRICHT"
 
-#: src/xfce4-screensaver-dialog.c:75
+#: src/xfce4-screensaver-dialog.c:80
 msgid "Not used"
 msgstr "Nicht verwendet"
 
-#: src/xfce4-screensaver-dialog.c:77
+#: src/xfce4-screensaver-dialog.c:82
 msgid "Monitor height"
 msgstr "Bildschirmhöhe"
 
-#: src/xfce4-screensaver-dialog.c:79
+#: src/xfce4-screensaver-dialog.c:84
 msgid "Monitor width"
 msgstr "Bildschirmbreite"
 
-#: src/xfce4-screensaver-dialog.c:81
+#: src/xfce4-screensaver-dialog.c:86
 msgid "Monitor index"
 msgstr "Bildschirmindex"
 
-#: src/xfce4-screensaver-dialog.c:216
+#: src/xfce4-screensaver-dialog.c:240
 msgid "Checking..."
 msgstr "Überprüfen..."
 
@@ -530,27 +482,31 @@ msgstr "<b>%h</b>"
 msgid "<b>%s</b>"
 msgstr "<b>%s</b>"
 
-#: src/xfce4-screensaver-preferences.c:80
+#: src/xfce4-screensaver-preferences.c:91
 msgid "Settings manager socket"
 msgstr "Einstellungsverwaltungsanschluss"
 
-#: src/xfce4-screensaver-preferences.c:80
+#: src/xfce4-screensaver-preferences.c:91
 msgid "SOCKET ID"
 msgstr "SOCKET ID"
 
-#: src/xfce4-screensaver-preferences.c:716
+#: src/xfce4-screensaver-preferences.c:730
+msgid "Blank screen"
+msgstr "Leerer Bildschirm"
+
+#: src/xfce4-screensaver-preferences.c:736
 msgid "Random"
 msgstr "Zufall"
 
-#: src/xfce4-screensaver-preferences.c:1739
+#: src/xfce4-screensaver-preferences.c:1754
 msgid "Setting locked by administrator."
 msgstr "Einstellungen vom Administrator gesperrt."
 
-#: src/xfce4-screensaver-preferences.c:1780
+#: src/xfce4-screensaver-preferences.c:1795
 msgid "Could not load the main interface"
 msgstr "Die Hauptoberfläche konnte nicht geladen werden"
 
-#: src/xfce4-screensaver-preferences.c:1782
+#: src/xfce4-screensaver-preferences.c:1797
 msgid "Please make sure that the screensaver is properly installed"
 msgstr ""
 "Bitte vergewissere dich, dass der Bildschirmschoner richtig installiert ist"
@@ -563,131 +519,131 @@ msgstr "Vorschau des Bildschirmschoners"
 msgid "<b>Screensaver preview</b>"
 msgstr "<b>Vorschau des Bildschirmschoners</b>"
 
-#: src/xfce4-screensaver-preferences.ui:228
+#: src/xfce4-screensaver-preferences.ui:227
 msgid "Screensaver Preferences"
 msgstr "Bildschirmschoner-Einstellungen"
 
-#: src/xfce4-screensaver-preferences.ui:263
+#: src/xfce4-screensaver-preferences.ui:262
 msgid "Power _Management"
 msgstr "_Energieverwaltung"
 
-#: src/xfce4-screensaver-preferences.ui:280
-#: src/xfce4-screensaver-preferences.ui:609
+#: src/xfce4-screensaver-preferences.ui:279
+#: src/xfce4-screensaver-preferences.ui:608
 msgid "Preview"
 msgstr "Vorschau"
 
-#: src/xfce4-screensaver-preferences.ui:371
+#: src/xfce4-screensaver-preferences.ui:370
 msgid "Running as root"
 msgstr "Läuft mit Root-Rechten"
 
-#: src/xfce4-screensaver-preferences.ui:387
+#: src/xfce4-screensaver-preferences.ui:386
 msgid "The screen will not be locked for the root user."
 msgstr "Der Bildschirm ist für den Root-Benutzer nicht gesperrt."
 
-#: src/xfce4-screensaver-preferences.ui:428
+#: src/xfce4-screensaver-preferences.ui:427
 msgid "Resolve"
 msgstr "Lösen"
 
-#: src/xfce4-screensaver-preferences.ui:474
+#: src/xfce4-screensaver-preferences.ui:473
 msgid "Xfce Power Manager is not configured to handle laptop lid events"
 msgstr ""
 "Die Xfce Energieverwaltung ist nicht konfiguriert, um Ereignisse des "
 "Laptopdeckels zu verarbeiten."
 
-#: src/xfce4-screensaver-preferences.ui:490
+#: src/xfce4-screensaver-preferences.ui:489
 msgid "Your computer may not be locked when you close the lid."
 msgstr ""
 "Ihr Computer ist möglicherweise nicht gesperrt, wenn Sie den Deckel "
 "schließen."
 
-#: src/xfce4-screensaver-preferences.ui:539
+#: src/xfce4-screensaver-preferences.ui:538
 msgid "Enable Screensaver"
 msgstr "Bildschirmschoner aktivieren"
 
-#: src/xfce4-screensaver-preferences.ui:593
+#: src/xfce4-screensaver-preferences.ui:592
 msgid "Theme"
 msgstr "Thema"
 
-#: src/xfce4-screensaver-preferences.ui:691
+#: src/xfce4-screensaver-preferences.ui:688
 msgid "Configure screensaver"
 msgstr "Bildschirmschoner konfigurieren"
 
-#: src/xfce4-screensaver-preferences.ui:692
+#: src/xfce4-screensaver-preferences.ui:689
 msgid "Configure..."
 msgstr "Konfigurieren..."
 
-#: src/xfce4-screensaver-preferences.ui:732
+#: src/xfce4-screensaver-preferences.ui:729
 msgid "Change theme after:"
 msgstr "Ändere Thema nach:"
 
-#: src/xfce4-screensaver-preferences.ui:755
-#: src/xfce4-screensaver-preferences.ui:825
-#: src/xfce4-screensaver-preferences.ui:996
-#: src/xfce4-screensaver-preferences.ui:1173
+#: src/xfce4-screensaver-preferences.ui:752
+#: src/xfce4-screensaver-preferences.ui:822
+#: src/xfce4-screensaver-preferences.ui:993
+#: src/xfce4-screensaver-preferences.ui:1170
 msgid "minutes"
 msgstr "Minuten"
 
-#: src/xfce4-screensaver-preferences.ui:770
+#: src/xfce4-screensaver-preferences.ui:767
 msgid "Activate screensaver when computer is idle"
 msgstr "Aktiviere den Bildschirmschoner sobald der Computer bereit ist"
 
-#: src/xfce4-screensaver-preferences.ui:801
+#: src/xfce4-screensaver-preferences.ui:798
 msgid "Regard the computer as _idle after:"
 msgstr "Betrachte den Computer als _inaktiv nach:"
 
-#: src/xfce4-screensaver-preferences.ui:840
+#: src/xfce4-screensaver-preferences.ui:837
 msgid "Inhibit screensaver for fullscreen applications"
 msgstr "Bildschirmschoner für Vollbildanwendungen sperren"
 
-#: src/xfce4-screensaver-preferences.ui:899
+#: src/xfce4-screensaver-preferences.ui:896
 msgid "Enable Lock Screen"
 msgstr "Aktiviere den Sperrbildschirm"
 
-#: src/xfce4-screensaver-preferences.ui:943
+#: src/xfce4-screensaver-preferences.ui:940
 msgid "Lock Screen with Screensaver"
 msgstr "Bildschirm sperren mit Bildschirmschoner"
 
-#: src/xfce4-screensaver-preferences.ui:973
+#: src/xfce4-screensaver-preferences.ui:970
 msgid "Lock the screen after the screensaver is active for:"
 msgstr "Sperre den Bildschirm nachdem der Bildschirmschoner aktiv ist für:"
 
-#: src/xfce4-screensaver-preferences.ui:1011
+#: src/xfce4-screensaver-preferences.ui:1008
 msgid "On Screen Keyboard"
 msgstr "Bildschirmtastatur"
 
-#: src/xfce4-screensaver-preferences.ui:1041
+#: src/xfce4-screensaver-preferences.ui:1038
 msgid "On screen keyboard command:"
 msgstr "Bildschirmtastaturbefehl"
 
-#: src/xfce4-screensaver-preferences.ui:1066
+#: src/xfce4-screensaver-preferences.ui:1063
 msgid "Session Status Messages"
 msgstr "Sitzungsstatusmeldungen"
 
-#: src/xfce4-screensaver-preferences.ui:1096
+#: src/xfce4-screensaver-preferences.ui:1093
 msgid "Logout"
 msgstr "Abmelden"
 
-#: src/xfce4-screensaver-preferences.ui:1126
+#: src/xfce4-screensaver-preferences.ui:1123
 msgid "Logout command:"
 msgstr "Abmeldebefehl:"
 
-#: src/xfce4-screensaver-preferences.ui:1150
+#: src/xfce4-screensaver-preferences.ui:1147
 msgid "Enable logout after:"
 msgstr "Aktiviere Abmelden nach:"
 
-#: src/xfce4-screensaver-preferences.ui:1188
+#: src/xfce4-screensaver-preferences.ui:1185
 msgid "User Switching"
 msgstr "Benutzerwechsel"
 
-#: src/xfce4-screensaver-preferences.ui:1218
+#: src/xfce4-screensaver-preferences.ui:1215
 msgid "Lock Screen with System Sleep"
 msgstr "Bildschirm sperren mit dem Ruhezustand des Systems"
 
-#: src/xfce4-screensaver-preferences.ui:1259
+#: src/xfce4-screensaver-preferences.ui:1256
 msgid "Lock Screen"
 msgstr "Sperrbildschirm"
 
-#: src/xfce4-screensaver.c:58
+#: src/xfce4-screensaver.c:59
 msgid "Enable debugging code"
 msgstr "Code zur Fehlersuche aktivieren"
 
@@ -695,6 +651,6 @@ msgstr "Code zur Fehlersuche aktivieren"
 msgid "Launch screensaver and locker program"
 msgstr "Bildschirmschoner und das Sperrprogramm starten"
 
-#: src/xfcekbd-indicator.c:406
+#: src/xfcekbd-indicator.c:408
 msgid "XKB initialization error"
 msgstr "XKB Initialisierungsfehler"
