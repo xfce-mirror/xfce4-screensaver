@@ -1,0 +1,655 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Xfce
+# This file is distributed under the same license as the xfce-apps.xfce4-screensaver package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Xfce Bot <transifex@xfce.org>, 2023
+# vyper <xvirusxx@gmail.com>, 2024
+# Nick Schermer <nick@xfce.org>, 2024
+# Marius Ghita, 2024
+# Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2024
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: xfce-apps.xfce4-screensaver\n"
+"Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
+"POT-Creation-Date: 2024-12-22 00:50+0100\n"
+"PO-Revision-Date: 2018-10-16 16:27+0000\n"
+"Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2024\n"
+"Language-Team: Romanian (https://app.transifex.com/xfce/teams/16840/ro/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+
+#: data/xfce4-screensaver-preferences.desktop.in:3
+#: src/xfce4-screensaver.desktop.in.in:4
+msgid "Xfce Screensaver"
+msgstr "Protector de ecran Xfce"
+
+#: data/xfce4-screensaver-preferences.desktop.in:4
+msgid "Set your screensaver preferences"
+msgstr "Configurați-vă preferințele pentru protectorul de ecran"
+
+#: data/xfce4-screensaver-preferences.desktop.in:5
+#: src/xfce4-screensaver-preferences.ui:875
+#: src/xfce4-screensaver.desktop.in.in:6
+msgid "Screensaver"
+msgstr "Protector de ecran"
+
+#: data/xfce4-screensaver-preferences.desktop.in:11
+msgid "settings;preferences;screensaver;lock screen;"
+msgstr "configurări;opțiuni;preferințe;protector de ecran;blocare ecran;"
+
+#: data/xfce4-screensaver.desktop.in:4
+msgid "Screensavers"
+msgstr "Protectoare de ecran"
+
+#: data/xfce4-screensaver.desktop.in:5
+msgid "Screensaver themes"
+msgstr "Teme pentru protectorul de ecran"
+
+#: savers/floaters.c:93
+msgid "Show paths that images follow"
+msgstr "Afișează rutele imaginilor"
+
+#: savers/floaters.c:96
+msgid "Occasionally rotate images as they move"
+msgstr "Rotește ocazional imaginile pe măsură ce acestea se mișcă"
+
+#: savers/floaters.c:99
+msgid "Print out frame rate and other statistics"
+msgstr "Afișează rata cadrelor și alte statistici"
+
+#: savers/floaters.c:102
+msgid "The maximum number of images to keep on screen"
+msgstr "Numărul maxim de imagini reținute pe ecran"
+
+#: savers/floaters.c:102
+msgid "MAX_IMAGES"
+msgstr "MAX_IMAGINI"
+
+#: savers/floaters.c:105
+msgid "The initial size and position of window"
+msgstr "Dimensiunea și poziția inițială a ferestrei"
+
+#: savers/floaters.c:105
+msgid "WIDTHxHEIGHT+X+Y"
+msgstr "Lățimexînălțime+X+Y"
+
+#: savers/floaters.c:108
+msgid "The source image to use"
+msgstr "Imaginea sursă utilizată"
+
+#. translators: the word "image" here
+#. * represents a command line argument
+#: savers/floaters.c:1127
+msgid "image - floats images around the screen"
+msgstr "imagine - plutește imagini pe ecran"
+
+#: savers/floaters.c:1131 savers/popsquares.c:54
+#, c-format
+msgid "%s. See --help for usage information.\n"
+msgstr "%s. Consultați „--help” pentru informații de utilizare.\n"
+
+#: savers/floaters.c:1137
+msgid "Failed to initialize the windowing system."
+msgstr "Inițializarea sistemului de ferestre a eșuat."
+
+#: savers/floaters.c:1142
+msgid "You must specify one image.  See --help for usage information.\n"
+msgstr ""
+"Trebuie să specificați o imagine. Consultați „--help” pentru informații de "
+"utilizare.\n"
+
+#: savers/slideshow.c:59
+msgid "Location to get images from"
+msgstr "Locația de la care se obțin imaginile"
+
+#: savers/slideshow.c:59
+msgid "PATH"
+msgstr "RUTA"
+
+#: savers/slideshow.c:61
+msgid "Color to use for images background"
+msgstr "Culoarea de utilizat pentru fundalul imaginilor"
+
+#: savers/slideshow.c:61
+msgid "\"#rrggbb\""
+msgstr "\"#rrggbb\""
+
+#: savers/slideshow.c:63
+msgid "Do not randomize pictures from location"
+msgstr "Nu selecta aleatoriu imagini din locație"
+
+#: savers/slideshow.c:65
+msgid "Do not try to stretch images on screen"
+msgstr "Nu încerca să întinzi imaginile pe ecran"
+
+#: savers/slideshow.c:67
+msgid "Do not crop images to the screen size"
+msgstr "Nu decupa imaginile la dimensiunea ecranului"
+
+#: savers/xfce-floaters.desktop.in.in:3
+msgid "Floating Xfce"
+msgstr "Xfce plutitor"
+
+#: savers/xfce-floaters.desktop.in.in:4
+msgid "Bubbles the Xfce logo around the screen"
+msgstr "Creează baloane cu logo-ul Xfce pe ecran"
+
+#: savers/xfce-personal-slideshow.desktop.in.in:3
+msgid "Slideshow"
+msgstr "Prezentare"
+
+#: savers/xfce-personal-slideshow.desktop.in.in:4
+msgid "Display a slideshow from your Pictures folder"
+msgstr "Afișează o prezentare din dosarul cu imagini/fotografii"
+
+#: savers/xfce-popsquares.desktop.in.in:3
+msgid "Pop art squares"
+msgstr "Pătrate pop-art"
+
+#: savers/xfce-popsquares.desktop.in.in:4
+msgid "A pop-art-ish grid of pulsing colors."
+msgstr "O grilă pop-art de culori pulsatorii."
+
+#: src/gs-auth-pam.c:373
+#, c-format
+msgid "Unable to establish service %s: %s\n"
+msgstr "Nu s-a putut stabili serviciul %s: %s\n"
+
+#: src/gs-auth-pam.c:399
+#, c-format
+msgid "Can't set PAM_TTY=%s"
+msgstr "Nu se poate stabili PAM_TTY=%s"
+
+#: src/gs-auth-pam.c:430
+msgid "Incorrect password."
+msgstr "Parolă incorectă."
+
+#: src/gs-auth-pam.c:432 src/xfce4-screensaver-dialog.c:280
+msgid "Authentication failed."
+msgstr "Autentificarea a eșuat."
+
+#: src/gs-auth-pam.c:446
+msgid "Not permitted to gain access at this time."
+msgstr "Accesul nu este permis în acest moment."
+
+#: src/gs-auth-pam.c:452
+msgid "No longer permitted to access the system."
+msgstr "Nu mai este permis accesul în sistem."
+
+#: src/gs-auth-pam.c:660
+msgid "Username:"
+msgstr "Numele utilizatorului:"
+
+#: src/gs-listener-dbus.c:1968
+msgid "failed to register with the message bus"
+msgstr "nu s-a putut înregistra în magistrala de mesaje"
+
+#: src/gs-listener-dbus.c:1978
+msgid "not connected to the message bus"
+msgstr "nu este conectat la magistrala de mesaje"
+
+#: src/gs-listener-dbus.c:1987 src/gs-listener-dbus.c:2018
+msgid "screensaver already running in this session"
+msgstr "protectorul de ecran rulează deja în această sesiune"
+
+#. TRANSLATORS: adjust this accordingly for your locale format
+#: src/gs-lock-plug.c:308
+msgctxt "Date"
+msgid "%A, %B %e   %H:%M"
+msgstr "%A, %e %eB   %H:%M"
+
+#: src/gs-lock-plug.c:398
+msgid "Time has expired."
+msgstr "Timpul a expirat."
+
+#: src/xfce4-screensaver-command.c:53
+msgid "Causes the screensaver to exit gracefully"
+msgstr "Provoacă ieșirea normală a protectorului de ecran"
+
+#: src/xfce4-screensaver-command.c:55
+msgid "Query the state of the screensaver"
+msgstr "Interoghează starea protectorului de ecran"
+
+#: src/xfce4-screensaver-command.c:57
+msgid "Query the length of time the screensaver has been active"
+msgstr "Interoghează durata de timp în care protectorul de ecran a fost activ"
+
+#: src/xfce4-screensaver-command.c:59
+msgid "Tells the running screensaver process to lock the screen immediately"
+msgstr ""
+"Îi indică procesului protector de ecran care rulează să blocheze ecranul "
+"imediat"
+
+#: src/xfce4-screensaver-command.c:61
+msgid "If the screensaver is active then switch to another graphics demo"
+msgstr ""
+"Dacă protectorul de ecran este activ, schimbați la o altă demonstrație "
+"grafică"
+
+#: src/xfce4-screensaver-command.c:63
+msgid "Turn the screensaver on (blank the screen)"
+msgstr "Activează protectorul de ecran (întunecă ecranul)"
+
+#: src/xfce4-screensaver-command.c:65
+msgid "If the screensaver is active then deactivate it (un-blank the screen)"
+msgstr ""
+"Dacă protectorul de ecran este activ, îl dezactivează (restaurează ecranul)"
+
+#: src/xfce4-screensaver-command.c:67
+msgid "Poke the running screensaver to simulate user activity"
+msgstr ""
+"Păcălește protectorul de ecran care rulează pentru a simula activitatea "
+"utilizatorului"
+
+#: src/xfce4-screensaver-command.c:69
+msgid ""
+"Inhibit the screensaver from activating.  Command blocks while inhibit is "
+"active."
+msgstr ""
+"Inhibă activarea protectorului de ecran.  Comanda se blochează în timp ce "
+"inhibarea este activă."
+
+#: src/xfce4-screensaver-command.c:71
+msgid "The calling application that is inhibiting the screensaver"
+msgstr "Aplicația apelantă care blochează protectorul de ecran"
+
+#: src/xfce4-screensaver-command.c:73
+msgid "The reason for inhibiting the screensaver"
+msgstr "Motivul pentru inhibarea protectorului de ecran"
+
+#: src/xfce4-screensaver-command.c:75 src/xfce4-screensaver-dialog.c:70
+#: src/xfce4-screensaver.c:58
+msgid "Version of this application"
+msgstr "Versiunea acestei aplicații"
+
+#: src/xfce4-screensaver-command.c:182
+#, c-format
+msgid "The screensaver is %s\n"
+msgstr "Protectorul de ecran este %s\n"
+
+#: src/xfce4-screensaver-command.c:182
+msgid "active"
+msgstr "activ"
+
+#: src/xfce4-screensaver-command.c:182
+msgid "inactive"
+msgstr "inactiv"
+
+#: src/xfce4-screensaver-command.c:193
+msgid "The screensaver is not inhibited\n"
+msgstr "Protectorul de ecran nu este inhibat\n"
+
+#: src/xfce4-screensaver-command.c:195
+msgid "The screensaver is being inhibited by:\n"
+msgstr "Protectorul de ecran este inhibat de:\n"
+
+#: src/xfce4-screensaver-command.c:211
+#, c-format
+msgid "The screensaver has been active for %d seconds.\n"
+msgstr "Protectorul de ecran a fost activ timp de %d (de) secunde.\n"
+
+#: src/xfce4-screensaver-configure.py:167
+msgid "Part of Xfce Screensaver"
+msgstr "Parte a protectorului de ecran Xfce"
+
+#: src/xfce4-screensaver-configure.py:178
+msgid "Max number of images"
+msgstr "Numărul maxim de imagini"
+
+#: src/xfce4-screensaver-configure.py:181
+msgid "Show paths"
+msgstr "Afișează rutele"
+
+#: src/xfce4-screensaver-configure.py:183
+msgid "Do rotations"
+msgstr "Fă rotații"
+
+#: src/xfce4-screensaver-configure.py:185
+msgid "Print stats"
+msgstr "Afișează statistici"
+
+#: src/xfce4-screensaver-configure.py:188
+msgid "Location"
+msgstr "Locație"
+
+#: src/xfce4-screensaver-configure.py:191
+msgid "Background color"
+msgstr "Culoare de fundal"
+
+#: src/xfce4-screensaver-configure.py:193
+msgid "Do not randomize images"
+msgstr "Nu afișa aleatoriu imaginile"
+
+#: src/xfce4-screensaver-configure.py:195
+msgid "Do not stretch images"
+msgstr "Nu întinde imaginile"
+
+#: src/xfce4-screensaver-configure.py:197
+msgid "Do not crop images"
+msgstr "Nu decupa imaginile"
+
+#: src/xfce4-screensaver-configure.py:389
+msgid "Restore Defaults"
+msgstr "Restaurează valorile implicite"
+
+#: src/xfce4-screensaver-configure.py:402
+msgid "Preferences"
+msgstr "Preferințe"
+
+#: src/xfce4-screensaver-configure.py:408
+msgid "About"
+msgstr "Despre"
+
+#: src/xfce4-screensaver-configure.py:421
+msgid "Video"
+msgstr "Video"
+
+#: src/xfce4-screensaver-configure.py:729
+msgid "Configure an individual screensaver"
+msgstr "Configurați un protector de ecran individual"
+
+#: src/xfce4-screensaver-configure.py:731
+msgid "screensaver name to configure"
+msgstr "numele protectorului de ecran de configurat"
+
+#: src/xfce4-screensaver-configure.py:733
+msgid "check if screensaver is configurable"
+msgstr "verifică dacă protectorul de ecran este configurabil"
+
+#: src/xfce4-screensaver-configure.py:737
+msgid "Unable to configure screensaver"
+msgstr "Nu se poate configura protectorul de ecran"
+
+#: src/xfce4-screensaver-configure.py:741
+msgid "Screensaver required."
+msgstr "Se necesită un protector de ecran."
+
+#: src/xfce4-screensaver-configure.py:749
+#, python-format
+msgid "File not found: %s"
+msgstr "Fișier negăsit: %s"
+
+#: src/xfce4-screensaver-configure.py:757
+#, python-format
+msgid "Unrecognized file type: %s"
+msgstr "Tip de fișier nerecunoscut: %s"
+
+#: src/xfce4-screensaver-configure.py:761
+#, python-format
+msgid "Failed to process file: %s"
+msgstr "Procesarea fișierului a eșuat: %s"
+
+#: src/xfce4-screensaver-configure.py:766
+#, python-format
+msgid "Screensaver %s is configurable."
+msgstr "Protectorul de ecran %s este configurabil."
+
+#: src/xfce4-screensaver-configure.py:768
+#, python-format
+msgid "Screensaver %s is not configurable."
+msgstr "Protectorul de ecran %s nu este configurabil."
+
+#: src/xfce4-screensaver-configure.py:772
+#, python-format
+msgid "Screensaver %s has no configuration options."
+msgstr "Protectorul de ecran %s nu are opțiuni de configurare."
+
+#: src/xfce4-screensaver-dialog.c:68
+msgid "Show debugging output"
+msgstr "Afișează rezultatele depanării"
+
+#: src/xfce4-screensaver-dialog.c:72
+msgid "Show the logout button"
+msgstr "Afișează butonul de deconectare"
+
+#: src/xfce4-screensaver-dialog.c:74
+msgid "Command to invoke from the logout button"
+msgstr "Comanda de invocat de la butonul de deconectare"
+
+#: src/xfce4-screensaver-dialog.c:76
+msgid "Show the switch user button"
+msgstr "Afișează butonul de schimbare a utilizatorului"
+
+#: src/xfce4-screensaver-dialog.c:78
+msgid "Message to show in the dialog"
+msgstr "Mesajul de afișat în dialog"
+
+#: src/xfce4-screensaver-dialog.c:78 src/xfce4-screensaver-dialog.c:80
+msgid "MESSAGE"
+msgstr "MESAJ"
+
+#: src/xfce4-screensaver-dialog.c:80
+msgid "Not used"
+msgstr "Nefolosit"
+
+#: src/xfce4-screensaver-dialog.c:82
+msgid "Monitor height"
+msgstr "Înălțimea ecranului monitorului"
+
+#: src/xfce4-screensaver-dialog.c:84
+msgid "Monitor width"
+msgstr "Lățimea ecranului monitorului"
+
+#: src/xfce4-screensaver-dialog.c:86
+msgid "Monitor index"
+msgstr "Indexul monitorului"
+
+#: src/xfce4-screensaver-dialog.c:240
+msgid "Checking..."
+msgstr "Se verifică..."
+
+#: src/xfce4-screensaver-dialog.ui:70
+msgid "%U"
+msgstr "%U"
+
+#: src/xfce4-screensaver-dialog.ui:98
+msgid "Enter your password"
+msgstr "Introduceți-vă parola"
+
+#: src/xfce4-screensaver-dialog.ui:211
+msgid "You have the Caps Lock key on."
+msgstr "Aveți tasta Caps Lock activă."
+
+#: src/xfce4-screensaver-dialog.ui:271
+msgid "_Switch User"
+msgstr "Schimbare _utilizator"
+
+#: src/xfce4-screensaver-dialog.ui:287
+msgid "_Log Out"
+msgstr "_Ieșire"
+
+#: src/xfce4-screensaver-dialog.ui:303
+msgid "_Cancel"
+msgstr "_Renunță"
+
+#: src/xfce4-screensaver-dialog.ui:319
+msgid "_Unlock"
+msgstr "_Deblocare"
+
+#: src/xfce4-screensaver-dialog.ui:377
+msgid "<b>%h</b>"
+msgstr "<b>%h</b>"
+
+#: src/xfce4-screensaver-dialog.ui:391
+#, c-format
+msgid "<b>%s</b>"
+msgstr "<b>%s</b>"
+
+#: src/xfce4-screensaver-preferences.c:91
+msgid "Settings manager socket"
+msgstr "Socket al managerului opțiunilor"
+
+#: src/xfce4-screensaver-preferences.c:91
+msgid "SOCKET ID"
+msgstr "ID SOCLU"
+
+#: src/xfce4-screensaver-preferences.c:730
+msgid "Blank screen"
+msgstr "Ecran gol"
+
+#: src/xfce4-screensaver-preferences.c:736
+msgid "Random"
+msgstr "Aleator"
+
+#: src/xfce4-screensaver-preferences.c:1754
+msgid "Setting locked by administrator."
+msgstr "Configurație blocată de administrator."
+
+#: src/xfce4-screensaver-preferences.c:1795
+msgid "Could not load the main interface"
+msgstr "Nu s-a putut încărca interfața principală"
+
+#: src/xfce4-screensaver-preferences.c:1797
+msgid "Please make sure that the screensaver is properly installed"
+msgstr "Asigurați-vă că protectorul de ecran este instalat corect"
+
+#: src/xfce4-screensaver-preferences.ui:38
+msgid "Screensaver Preview"
+msgstr "Previzualizare protector de ecran"
+
+#: src/xfce4-screensaver-preferences.ui:78
+msgid "<b>Screensaver preview</b>"
+msgstr "<b>Previzualizare protector de ecran</b>"
+
+#: src/xfce4-screensaver-preferences.ui:227
+msgid "Screensaver Preferences"
+msgstr "Preferințe pentru protectorul de ecran"
+
+#: src/xfce4-screensaver-preferences.ui:262
+msgid "Power _Management"
+msgstr "_Gestionarea alimentării"
+
+#: src/xfce4-screensaver-preferences.ui:279
+#: src/xfce4-screensaver-preferences.ui:608
+msgid "Preview"
+msgstr "Previzualizare"
+
+#: src/xfce4-screensaver-preferences.ui:370
+msgid "Running as root"
+msgstr "Rulează ca root"
+
+#: src/xfce4-screensaver-preferences.ui:386
+msgid "The screen will not be locked for the root user."
+msgstr "Ecranul nu va fi blocat pentru utilizatorul root."
+
+#: src/xfce4-screensaver-preferences.ui:427
+msgid "Resolve"
+msgstr "Rezolvare"
+
+#: src/xfce4-screensaver-preferences.ui:473
+msgid "Xfce Power Manager is not configured to handle laptop lid events"
+msgstr ""
+"Administratorul de energie Xfce nu este configurat pentru a gestiona "
+"evenimentele de închidere a capacului laptopului"
+
+#: src/xfce4-screensaver-preferences.ui:489
+msgid "Your computer may not be locked when you close the lid."
+msgstr ""
+"Este posibil ca laptopul dvs. să nu fie blocat atunci când închideți "
+"capacul."
+
+#: src/xfce4-screensaver-preferences.ui:538
+msgid "Enable Screensaver"
+msgstr "Activează protectorul de ecran"
+
+#: src/xfce4-screensaver-preferences.ui:592
+msgid "Theme"
+msgstr "Temă"
+
+#: src/xfce4-screensaver-preferences.ui:688
+msgid "Configure screensaver"
+msgstr "Configurează protectorul de ecran"
+
+#: src/xfce4-screensaver-preferences.ui:689
+msgid "Configure..."
+msgstr "Configurează..."
+
+#: src/xfce4-screensaver-preferences.ui:729
+msgid "Change theme after:"
+msgstr "Schimbă tema după:"
+
+#: src/xfce4-screensaver-preferences.ui:752
+#: src/xfce4-screensaver-preferences.ui:822
+#: src/xfce4-screensaver-preferences.ui:993
+#: src/xfce4-screensaver-preferences.ui:1170
+msgid "minutes"
+msgstr "minute"
+
+#: src/xfce4-screensaver-preferences.ui:767
+msgid "Activate screensaver when computer is idle"
+msgstr "Activează protectorul de ecran când calculatorul este inactiv"
+
+#: src/xfce4-screensaver-preferences.ui:798
+msgid "Regard the computer as _idle after:"
+msgstr "Consideră calculatorul ca fiind inactiv după:"
+
+#: src/xfce4-screensaver-preferences.ui:837
+msgid "Inhibit screensaver for fullscreen applications"
+msgstr "Inhibă protectorul de ecran pentru aplicațiile pe ecran complet"
+
+#: src/xfce4-screensaver-preferences.ui:896
+msgid "Enable Lock Screen"
+msgstr "Activează blocarea ecranului"
+
+#: src/xfce4-screensaver-preferences.ui:940
+msgid "Lock Screen with Screensaver"
+msgstr "Blocarea ecranului cu protectorul de ecran"
+
+#: src/xfce4-screensaver-preferences.ui:970
+msgid "Lock the screen after the screensaver is active for:"
+msgstr "Blochează ecranul după ce protectorul de ecran este activ pentru:"
+
+#: src/xfce4-screensaver-preferences.ui:1008
+msgid "On Screen Keyboard"
+msgstr "Tastatură pe ecran"
+
+#: src/xfce4-screensaver-preferences.ui:1038
+msgid "On screen keyboard command:"
+msgstr "Comanda pentru tastatură pe ecran:"
+
+#: src/xfce4-screensaver-preferences.ui:1063
+msgid "Session Status Messages"
+msgstr "Mesaje privind starea sesiunii"
+
+#: src/xfce4-screensaver-preferences.ui:1093
+msgid "Logout"
+msgstr "Deconectare"
+
+#: src/xfce4-screensaver-preferences.ui:1123
+msgid "Logout command:"
+msgstr "Comanda de deconectare"
+
+#: src/xfce4-screensaver-preferences.ui:1147
+msgid "Enable logout after:"
+msgstr "Activează deconectarea după:"
+
+#: src/xfce4-screensaver-preferences.ui:1185
+msgid "User Switching"
+msgstr "Schimbarea utilizatorului"
+
+#: src/xfce4-screensaver-preferences.ui:1215
+msgid "Lock Screen with System Sleep"
+msgstr "Blocarea ecranului cu sistemul de repaus"
+
+#: src/xfce4-screensaver-preferences.ui:1256
+msgid "Lock Screen"
+msgstr "Blocare ecran"
+
+#: src/xfce4-screensaver.c:59
+msgid "Enable debugging code"
+msgstr "Activează codul de depanare"
+
+#: src/xfce4-screensaver.desktop.in.in:5
+msgid "Launch screensaver and locker program"
+msgstr "Lansează protectorul de ecran și programul de blocare"
+
+#: src/xfcekbd-indicator.c:408
+msgid "XKB initialization error"
+msgstr "Eroare de inițializare a XKB"
