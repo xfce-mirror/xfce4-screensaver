@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xfce-apps.xfce4-screensaver\n"
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
-"POT-Creation-Date: 2024-12-19 12:50+0100\n"
+"POT-Creation-Date: 2024-12-22 00:50+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>, 2024\n"
 "Language-Team: Albanian (https://app.transifex.com/xfce/teams/16840/sq/)\n"
@@ -33,7 +33,7 @@ msgid "Set your screensaver preferences"
 msgstr "Caktoni parapëlqimet tuaja për ekrankursyesin"
 
 #: data/xfce4-screensaver-preferences.desktop.in:5
-#: src/xfce4-screensaver-preferences.ui:878
+#: src/xfce4-screensaver-preferences.ui:875
 #: src/xfce4-screensaver.desktop.in.in:6
 msgid "Screensaver"
 msgstr "Ekrankursyes"
@@ -50,11 +50,11 @@ msgstr "Ekrankursyes"
 msgid "Screensaver themes"
 msgstr "Tema ekrankursyesi"
 
-#: savers/floaters.c:89
+#: savers/floaters.c:93
 msgid "Show paths that images follow"
 msgstr "Shfaq shtigje që ndjekin figurat"
 
-#: savers/floaters.c:94
+#: savers/floaters.c:96
 msgid "Occasionally rotate images as they move"
 msgstr "Rrotulloji, me raste, figurat teksa lëvizin"
 
@@ -62,72 +62,72 @@ msgstr "Rrotulloji, me raste, figurat teksa lëvizin"
 msgid "Print out frame rate and other statistics"
 msgstr "Shtyp shpejtësi kuadrosh dhe statistika të tjera"
 
-#: savers/floaters.c:104
+#: savers/floaters.c:102
 msgid "The maximum number of images to keep on screen"
 msgstr "Numri maksimum i figurave për t’u mbajtur në ekran"
 
-#: savers/floaters.c:104
+#: savers/floaters.c:102
 msgid "MAX_IMAGES"
 msgstr "MAKS_FIGURASH"
 
-#: savers/floaters.c:109
+#: savers/floaters.c:105
 msgid "The initial size and position of window"
 msgstr "Madhësia dhe pozicioni fillestar i dritares"
 
-#: savers/floaters.c:109
+#: savers/floaters.c:105
 msgid "WIDTHxHEIGHT+X+Y"
 msgstr "GJERËSIXLARTËSI+X+Y"
 
-#: savers/floaters.c:114
+#: savers/floaters.c:108
 msgid "The source image to use"
 msgstr "Figura burim për t’u përdorur"
 
 #. translators: the word "image" here
 #. * represents a command line argument
-#: savers/floaters.c:1129
+#: savers/floaters.c:1127
 msgid "image - floats images around the screen"
 msgstr "image - bën që figurat të enden në ekran"
 
-#: savers/floaters.c:1133 savers/popsquares.c:47
+#: savers/floaters.c:1131 savers/popsquares.c:54
 #, c-format
 msgid "%s. See --help for usage information.\n"
 msgstr "%s. Për të dhëna përdorimi, shihni --help.\n"
 
-#: savers/floaters.c:1140
+#: savers/floaters.c:1137
 msgid "Failed to initialize the windowing system."
 msgstr "S'u arrit të gatitej sistemi i dritareve. "
 
-#: savers/floaters.c:1146
+#: savers/floaters.c:1142
 msgid "You must specify one image.  See --help for usage information.\n"
 msgstr ""
 "Duhet të përcaktoni një figurë.  Për të dhëna rreth përdorimit, shihni "
 "--ndihmë.\n"
 
-#: savers/slideshow.c:54
+#: savers/slideshow.c:59
 msgid "Location to get images from"
 msgstr "Vendndodhje nga të merren figurat"
 
-#: savers/slideshow.c:54
+#: savers/slideshow.c:59
 msgid "PATH"
 msgstr "SHTEG"
 
-#: savers/slideshow.c:58
+#: savers/slideshow.c:61
 msgid "Color to use for images background"
 msgstr "Ngjyrë për t’u përdorur për sfond figurash"
 
-#: savers/slideshow.c:58
+#: savers/slideshow.c:61
 msgid "\"#rrggbb\""
 msgstr "\"#rrggbb\""
 
-#: savers/slideshow.c:62
+#: savers/slideshow.c:63
 msgid "Do not randomize pictures from location"
 msgstr "Zgjedhjen e fotove në dosje mos e bëj kuturu"
 
-#: savers/slideshow.c:66
+#: savers/slideshow.c:65
 msgid "Do not try to stretch images on screen"
 msgstr "Mos provo të shformosh figura në ekran"
 
-#: savers/slideshow.c:70
+#: savers/slideshow.c:67
 msgid "Do not crop images to the screen size"
 msgstr "Mos i qeth figurat sa madhësia e ekranit"
 
@@ -155,94 +155,95 @@ msgstr "Katrorë arti pop"
 msgid "A pop-art-ish grid of pulsing colors."
 msgstr "Një rrjetë në stil arti pop ngjyrash pulsuese."
 
-#: src/gs-auth-pam.c:377
+#: src/gs-auth-pam.c:373
 #, c-format
 msgid "Unable to establish service %s: %s\n"
 msgstr "S’arrihet të vendoset shërbim %s: %s\n"
 
-#: src/gs-auth-pam.c:403
+#: src/gs-auth-pam.c:399
 #, c-format
 msgid "Can't set PAM_TTY=%s"
 msgstr "S’caktohet dot PAM_TTY=%s"
 
-#: src/gs-auth-pam.c:434
+#: src/gs-auth-pam.c:430
 msgid "Incorrect password."
 msgstr "Fjalëkalim i pasaktë."
 
-#: src/gs-auth-pam.c:436 src/xfce4-screensaver-dialog.c:254
+#: src/gs-auth-pam.c:432 src/xfce4-screensaver-dialog.c:280
 msgid "Authentication failed."
 msgstr "Mirëfilltësimi dështoi."
 
-#: src/gs-auth-pam.c:450
+#: src/gs-auth-pam.c:446
 msgid "Not permitted to gain access at this time."
 msgstr "S’lejohet të përfitojë hyrje këtë herë."
 
-#: src/gs-auth-pam.c:456
+#: src/gs-auth-pam.c:452
 msgid "No longer permitted to access the system."
 msgstr "Jo më i lejuar të hyjë te sistemi."
 
-#: src/gs-auth-pam.c:664
+#: src/gs-auth-pam.c:660
 msgid "Username:"
 msgstr "Emër përdoruesi:"
 
-#: src/gs-listener-dbus.c:1971
+#: src/gs-listener-dbus.c:1968
 msgid "failed to register with the message bus"
 msgstr "s’u arrit të regjistrohet me bus mesazhesh"
 
-#: src/gs-listener-dbus.c:1981
+#: src/gs-listener-dbus.c:1978
 msgid "not connected to the message bus"
 msgstr "s’është i lidhur me bus mesazhesh"
 
-#: src/gs-listener-dbus.c:1990 src/gs-listener-dbus.c:2020
+#: src/gs-listener-dbus.c:1987 src/gs-listener-dbus.c:2018
 msgid "screensaver already running in this session"
 msgstr "ekrankursyes tashmë në xhirim e sipër në këtë sesion"
 
-#: src/gs-lock-plug.c:303
+#. TRANSLATORS: adjust this accordingly for your locale format
+#: src/gs-lock-plug.c:308
 msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
 msgstr "%A, %B %e   %H:%M"
 
-#: src/gs-lock-plug.c:394
+#: src/gs-lock-plug.c:398
 msgid "Time has expired."
 msgstr "Koha ka skaduar."
 
-#: src/xfce4-screensaver-command.c:56
+#: src/xfce4-screensaver-command.c:53
 msgid "Causes the screensaver to exit gracefully"
 msgstr "E bën ekrankursyesin të mbyllet bukur"
 
-#: src/xfce4-screensaver-command.c:60
+#: src/xfce4-screensaver-command.c:55
 msgid "Query the state of the screensaver"
 msgstr "Kërko gjendjen e ekrankursyesit"
 
-#: src/xfce4-screensaver-command.c:64
+#: src/xfce4-screensaver-command.c:57
 msgid "Query the length of time the screensaver has been active"
 msgstr "Mësoni sa kohë ka qenë aktiv ekrankursyesi"
 
-#: src/xfce4-screensaver-command.c:68
+#: src/xfce4-screensaver-command.c:59
 msgid "Tells the running screensaver process to lock the screen immediately"
 msgstr ""
 "I thotë procesit ekrankursyes në xhirim e sipër të kyçë menjëherë ekranin"
 
-#: src/xfce4-screensaver-command.c:72
+#: src/xfce4-screensaver-command.c:61
 msgid "If the screensaver is active then switch to another graphics demo"
 msgstr ""
 "Nëse ekrankursyesi është aktiv, atëherë kalo në një tjetër demonstrim grafik"
 
-#: src/xfce4-screensaver-command.c:76
+#: src/xfce4-screensaver-command.c:63
 msgid "Turn the screensaver on (blank the screen)"
 msgstr "Aktivizo ekrankursyesin (zbraze ekranin)"
 
-#: src/xfce4-screensaver-command.c:80
+#: src/xfce4-screensaver-command.c:65
 msgid "If the screensaver is active then deactivate it (un-blank the screen)"
 msgstr ""
 "Nëse ekrankursyesi është aktiv, atëherë çaktivizoje (prapëso zbrazjen e "
 "ekranit)"
 
-#: src/xfce4-screensaver-command.c:84
+#: src/xfce4-screensaver-command.c:67
 msgid "Poke the running screensaver to simulate user activity"
 msgstr "Cyte ekrankursyesin xhirues, për të simuluar veprimtari përdoruesi"
 
-#: src/xfce4-screensaver-command.c:88
+#: src/xfce4-screensaver-command.c:69
 msgid ""
 "Inhibit the screensaver from activating.  Command blocks while inhibit is "
 "active."
@@ -250,241 +251,192 @@ msgstr ""
 "Pengo ekrankursyesin të aktivizohet. Urdhri bllokohet kur pengimi është "
 "aktiv."
 
-#: src/xfce4-screensaver-command.c:92
+#: src/xfce4-screensaver-command.c:71
 msgid "The calling application that is inhibiting the screensaver"
 msgstr "Aplikacioni thirrës që po pengon ekrankursyesin"
 
-#: src/xfce4-screensaver-command.c:96
+#: src/xfce4-screensaver-command.c:73
 msgid "The reason for inhibiting the screensaver"
 msgstr "Arsyeja për pengimin e ekrankursyesit"
 
-#: src/xfce4-screensaver-command.c:100 src/xfce4-screensaver-dialog.c:65
-#: src/xfce4-screensaver.c:57
+#: src/xfce4-screensaver-command.c:75 src/xfce4-screensaver-dialog.c:70
+#: src/xfce4-screensaver.c:58
 msgid "Version of this application"
 msgstr "Version i këtij aplikacioni"
 
-#: src/xfce4-screensaver-command.c:209
+#: src/xfce4-screensaver-command.c:182
 #, c-format
 msgid "The screensaver is %s\n"
 msgstr "Ekrankursyesi është %s\n"
 
-#: src/xfce4-screensaver-command.c:209
+#: src/xfce4-screensaver-command.c:182
 msgid "active"
 msgstr "aktiv"
 
-#: src/xfce4-screensaver-command.c:209
+#: src/xfce4-screensaver-command.c:182
 msgid "inactive"
 msgstr "jo aktiv"
 
-#: src/xfce4-screensaver-command.c:220
+#: src/xfce4-screensaver-command.c:193
 msgid "The screensaver is not inhibited\n"
 msgstr "Ekrankursyesi s’është penguar\n"
 
-#: src/xfce4-screensaver-command.c:222
+#: src/xfce4-screensaver-command.c:195
 msgid "The screensaver is being inhibited by:\n"
 msgstr "Ekrankursyesi po pengohet nga:\n"
 
-#: src/xfce4-screensaver-command.c:238
+#: src/xfce4-screensaver-command.c:211
 #, c-format
 msgid "The screensaver has been active for %d seconds.\n"
 msgstr "Ekrankursyesi ka qenë aktiv për %d sekonda.\n"
 
-#: src/xfce4-screensaver-configure.py:151
-#: src/xfce4-screensaver-preferences.c:710
-msgid "Blank screen"
-msgstr "Ekran të zbrazët"
-
-#: src/xfce4-screensaver-configure.py:152
-msgid ""
-"Powered by Display Power Management Signaling (DPMS),\n"
-"Xfce Screensaver can automatically suspend your displays\n"
-"to save power.\n"
-"\n"
-"Xfce Power Manager and other applications also manage\n"
-"DPMS settings. If the settings here won't work, make sure\n"
-"display power management wasn't disabled there.\n"
-"If your displays are powering off at different\n"
-"intervals, be sure to check for conflicting settings."
-msgstr ""
-"Bazuar në Display Power Management Signaling (DPMS),\n"
-"Ekrankursyesi Xfce mund të pezullojë automatikisht\n"
-"ekranet tuaj, për të kursyer energji.\n"
-"\n"
-"Rregullime DPMS administrojnë gjithashtu Përgjegjësi Xfce\n"
-"i Energjisë dhe aplikacione të tjera.\n"
-"Nëse rregullimet e këtushme nuk bëjnë punë, sigurohuni se\n"
-"përgjegjësi i energjisë për ekranet s’qe çaktivizuar atje.\n"
-"Nëse ekranet tuaj fiken në intervale të ndryshëm, mos\n"
-"harroni të kontrolloni për rregullime që përplasen me njëra-tjetrën."
-
-#: src/xfce4-screensaver-configure.py:188
+#: src/xfce4-screensaver-configure.py:167
 msgid "Part of Xfce Screensaver"
 msgstr "Pjesë e Ekrankursyesit Xfce"
 
-#: src/xfce4-screensaver-configure.py:199
-msgid "After blanking, put display to sleep after:"
-msgstr "Pas fshirjes, vëre ekranin në gjumë pas:"
-
-#: src/xfce4-screensaver-configure.py:201
-#: src/xfce4-screensaver-configure.py:205
-msgid "Never"
-msgstr "Kurrë"
-
-#: src/xfce4-screensaver-configure.py:201
-msgid "60 seconds"
-msgstr "60 sekondash"
-
-#: src/xfce4-screensaver-configure.py:203
-msgid "After sleeping, switch display off after:"
-msgstr "Pas dremitjes, fike ekranin pas:"
-
-#: src/xfce4-screensaver-configure.py:205
-msgid "60 minutes"
-msgstr "60 minutash"
-
-#: src/xfce4-screensaver-configure.py:208
+#: src/xfce4-screensaver-configure.py:178
 msgid "Max number of images"
 msgstr "Numër maksimum figurash"
 
-#: src/xfce4-screensaver-configure.py:211
+#: src/xfce4-screensaver-configure.py:181
 msgid "Show paths"
 msgstr "Shfaqi shtigjet"
 
-#: src/xfce4-screensaver-configure.py:213
+#: src/xfce4-screensaver-configure.py:183
 msgid "Do rotations"
 msgstr "Bëji rrotullimet"
 
-#: src/xfce4-screensaver-configure.py:215
+#: src/xfce4-screensaver-configure.py:185
 msgid "Print stats"
 msgstr "Shtyp statistika"
 
-#: src/xfce4-screensaver-configure.py:218
+#: src/xfce4-screensaver-configure.py:188
 msgid "Location"
 msgstr "Vendndodhje"
 
-#: src/xfce4-screensaver-configure.py:221
+#: src/xfce4-screensaver-configure.py:191
 msgid "Background color"
 msgstr "Ngjyrë sfondi"
 
-#: src/xfce4-screensaver-configure.py:223
+#: src/xfce4-screensaver-configure.py:193
 msgid "Do not randomize images"
 msgstr "Mos i shfaq figurat kutur"
 
-#: src/xfce4-screensaver-configure.py:225
+#: src/xfce4-screensaver-configure.py:195
 msgid "Do not stretch images"
 msgstr "Mos i shformo figurat"
 
-#: src/xfce4-screensaver-configure.py:227
+#: src/xfce4-screensaver-configure.py:197
 msgid "Do not crop images"
 msgstr "Mos i qeth figurat"
 
-#: src/xfce4-screensaver-configure.py:419
+#: src/xfce4-screensaver-configure.py:389
 msgid "Restore Defaults"
 msgstr "Rikthe Parazgjedhjet"
 
-#: src/xfce4-screensaver-configure.py:432
+#: src/xfce4-screensaver-configure.py:402
 msgid "Preferences"
 msgstr "Parapëlqime"
 
-#: src/xfce4-screensaver-configure.py:438
+#: src/xfce4-screensaver-configure.py:408
 msgid "About"
 msgstr "Mbi"
 
-#: src/xfce4-screensaver-configure.py:451
+#: src/xfce4-screensaver-configure.py:421
 msgid "Video"
 msgstr "Video"
 
-#: src/xfce4-screensaver-configure.py:762
+#: src/xfce4-screensaver-configure.py:729
 msgid "Configure an individual screensaver"
 msgstr "Formësoni një ekrankuryes individual"
 
-#: src/xfce4-screensaver-configure.py:764
+#: src/xfce4-screensaver-configure.py:731
 msgid "screensaver name to configure"
 msgstr "emër ekrankursyesi për formësim"
 
-#: src/xfce4-screensaver-configure.py:766
+#: src/xfce4-screensaver-configure.py:733
 msgid "check if screensaver is configurable"
 msgstr "kontrollo nëse ekrankursyesi është i formësueshëm"
 
-#: src/xfce4-screensaver-configure.py:770
+#: src/xfce4-screensaver-configure.py:737
 msgid "Unable to configure screensaver"
 msgstr "S’arrihet të formësohet ekrankursyesi"
 
-#: src/xfce4-screensaver-configure.py:774
+#: src/xfce4-screensaver-configure.py:741
 msgid "Screensaver required."
 msgstr "Lypset ekrankursyes."
 
-#: src/xfce4-screensaver-configure.py:782
+#: src/xfce4-screensaver-configure.py:749
 #, python-format
 msgid "File not found: %s"
 msgstr "S'u gjet kartelë: %s"
 
-#: src/xfce4-screensaver-configure.py:790
+#: src/xfce4-screensaver-configure.py:757
 #, python-format
 msgid "Unrecognized file type: %s"
 msgstr "Lloj i papranuar kartele: %s"
 
-#: src/xfce4-screensaver-configure.py:794
+#: src/xfce4-screensaver-configure.py:761
 #, python-format
 msgid "Failed to process file: %s"
 msgstr "S’u arrit të përpunohej kartela: %s"
 
-#: src/xfce4-screensaver-configure.py:799
+#: src/xfce4-screensaver-configure.py:766
 #, python-format
 msgid "Screensaver %s is configurable."
 msgstr "Ekrankursyesi %s është i formësueshëm."
 
-#: src/xfce4-screensaver-configure.py:801
+#: src/xfce4-screensaver-configure.py:768
 #, python-format
 msgid "Screensaver %s is not configurable."
 msgstr "Ekrankursyesi %s s’është i formësueshëm."
 
-#: src/xfce4-screensaver-configure.py:805
+#: src/xfce4-screensaver-configure.py:772
 #, python-format
 msgid "Screensaver %s has no configuration options."
 msgstr "Ekrankursyesi %s s’ka mundësi formësimi."
 
-#: src/xfce4-screensaver-dialog.c:63
+#: src/xfce4-screensaver-dialog.c:68
 msgid "Show debugging output"
 msgstr "Shfaq përfundim diagnostikimi"
 
-#: src/xfce4-screensaver-dialog.c:67
+#: src/xfce4-screensaver-dialog.c:72
 msgid "Show the logout button"
 msgstr "Shfaq butonin e daljes"
 
-#: src/xfce4-screensaver-dialog.c:69
+#: src/xfce4-screensaver-dialog.c:74
 msgid "Command to invoke from the logout button"
 msgstr "Urdhër që duhet vënë në punë nga butoni i daljeve"
 
-#: src/xfce4-screensaver-dialog.c:71
+#: src/xfce4-screensaver-dialog.c:76
 msgid "Show the switch user button"
 msgstr "Shfaq butonin e ndërrimit të përdoruesit"
 
-#: src/xfce4-screensaver-dialog.c:73
+#: src/xfce4-screensaver-dialog.c:78
 msgid "Message to show in the dialog"
 msgstr "Mesazh për shfaqje te dialogu"
 
-#: src/xfce4-screensaver-dialog.c:73 src/xfce4-screensaver-dialog.c:75
+#: src/xfce4-screensaver-dialog.c:78 src/xfce4-screensaver-dialog.c:80
 msgid "MESSAGE"
 msgstr "MESAZH"
 
-#: src/xfce4-screensaver-dialog.c:75
+#: src/xfce4-screensaver-dialog.c:80
 msgid "Not used"
 msgstr "E papërdorur"
 
-#: src/xfce4-screensaver-dialog.c:77
+#: src/xfce4-screensaver-dialog.c:82
 msgid "Monitor height"
 msgstr "Lartësi monitori"
 
-#: src/xfce4-screensaver-dialog.c:79
+#: src/xfce4-screensaver-dialog.c:84
 msgid "Monitor width"
 msgstr "Gjerësi monitori"
 
-#: src/xfce4-screensaver-dialog.c:81
+#: src/xfce4-screensaver-dialog.c:86
 msgid "Monitor index"
 msgstr "Tregues monitori"
 
-#: src/xfce4-screensaver-dialog.c:216
+#: src/xfce4-screensaver-dialog.c:240
 msgid "Checking..."
 msgstr "Po kontrollohet…"
 
@@ -525,27 +477,31 @@ msgstr "<b>%h</b>"
 msgid "<b>%s</b>"
 msgstr "<b>%s</b>"
 
-#: src/xfce4-screensaver-preferences.c:80
+#: src/xfce4-screensaver-preferences.c:91
 msgid "Settings manager socket"
 msgstr "\"Socket\" përgjegjësi rregullimesh"
 
-#: src/xfce4-screensaver-preferences.c:80
+#: src/xfce4-screensaver-preferences.c:91
 msgid "SOCKET ID"
 msgstr "ID SOCKET-i"
 
-#: src/xfce4-screensaver-preferences.c:716
+#: src/xfce4-screensaver-preferences.c:730
+msgid "Blank screen"
+msgstr "Ekran të zbrazët"
+
+#: src/xfce4-screensaver-preferences.c:736
 msgid "Random"
 msgstr "Kuturu"
 
-#: src/xfce4-screensaver-preferences.c:1739
+#: src/xfce4-screensaver-preferences.c:1754
 msgid "Setting locked by administrator."
 msgstr "Rregullim i kyçur nga përgjegjësi."
 
-#: src/xfce4-screensaver-preferences.c:1780
+#: src/xfce4-screensaver-preferences.c:1795
 msgid "Could not load the main interface"
 msgstr "S’u arrit të ngarkohej ndërfaqja kryesore"
 
-#: src/xfce4-screensaver-preferences.c:1782
+#: src/xfce4-screensaver-preferences.c:1797
 msgid "Please make sure that the screensaver is properly installed"
 msgstr "Ju lutemi, siguroni që ekrankursyesi të jetë instaluar si duhet"
 
@@ -557,129 +513,129 @@ msgstr "Paraparje Ekrankursyesi"
 msgid "<b>Screensaver preview</b>"
 msgstr "<b>Paraparje ekrankursyesi</b>"
 
-#: src/xfce4-screensaver-preferences.ui:228
+#: src/xfce4-screensaver-preferences.ui:227
 msgid "Screensaver Preferences"
 msgstr "Parapëlqime Ekrankursyesi"
 
-#: src/xfce4-screensaver-preferences.ui:263
+#: src/xfce4-screensaver-preferences.ui:262
 msgid "Power _Management"
 msgstr "_Administrim Energjie"
 
-#: src/xfce4-screensaver-preferences.ui:280
-#: src/xfce4-screensaver-preferences.ui:609
+#: src/xfce4-screensaver-preferences.ui:279
+#: src/xfce4-screensaver-preferences.ui:608
 msgid "Preview"
 msgstr "Paraparje"
 
-#: src/xfce4-screensaver-preferences.ui:371
+#: src/xfce4-screensaver-preferences.ui:370
 msgid "Running as root"
 msgstr "Po xhironi si rrënjë"
 
-#: src/xfce4-screensaver-preferences.ui:387
+#: src/xfce4-screensaver-preferences.ui:386
 msgid "The screen will not be locked for the root user."
 msgstr "Ekrani nuk do të kyçet për përdoruesin rrënjë."
 
-#: src/xfce4-screensaver-preferences.ui:428
+#: src/xfce4-screensaver-preferences.ui:427
 msgid "Resolve"
 msgstr "Zgjidhe"
 
-#: src/xfce4-screensaver-preferences.ui:474
+#: src/xfce4-screensaver-preferences.ui:473
 msgid "Xfce Power Manager is not configured to handle laptop lid events"
 msgstr ""
 "Përgjegjësi Xfce i Energjisë s’është formësuar të trajtojë akte kapaku "
 "laptopi"
 
-#: src/xfce4-screensaver-preferences.ui:490
+#: src/xfce4-screensaver-preferences.ui:489
 msgid "Your computer may not be locked when you close the lid."
 msgstr "Kompjuteri juaj mund të mos kyçet kur mbyllni kapakun."
 
-#: src/xfce4-screensaver-preferences.ui:539
+#: src/xfce4-screensaver-preferences.ui:538
 msgid "Enable Screensaver"
 msgstr "Aktivizo Ekrankursyes"
 
-#: src/xfce4-screensaver-preferences.ui:593
+#: src/xfce4-screensaver-preferences.ui:592
 msgid "Theme"
 msgstr "Temë"
 
-#: src/xfce4-screensaver-preferences.ui:691
+#: src/xfce4-screensaver-preferences.ui:688
 msgid "Configure screensaver"
 msgstr "Formësoni ekrankursyesin"
 
-#: src/xfce4-screensaver-preferences.ui:692
+#: src/xfce4-screensaver-preferences.ui:689
 msgid "Configure..."
 msgstr "Formësoni… "
 
-#: src/xfce4-screensaver-preferences.ui:732
+#: src/xfce4-screensaver-preferences.ui:729
 msgid "Change theme after:"
 msgstr "Ndryshoje temën pas:"
 
-#: src/xfce4-screensaver-preferences.ui:755
-#: src/xfce4-screensaver-preferences.ui:825
-#: src/xfce4-screensaver-preferences.ui:996
-#: src/xfce4-screensaver-preferences.ui:1173
+#: src/xfce4-screensaver-preferences.ui:752
+#: src/xfce4-screensaver-preferences.ui:822
+#: src/xfce4-screensaver-preferences.ui:993
+#: src/xfce4-screensaver-preferences.ui:1170
 msgid "minutes"
 msgstr "minutash"
 
-#: src/xfce4-screensaver-preferences.ui:770
+#: src/xfce4-screensaver-preferences.ui:767
 msgid "Activate screensaver when computer is idle"
 msgstr "Aktivizo ekrankursyes kur kompjuteri është i plogësht"
 
-#: src/xfce4-screensaver-preferences.ui:801
+#: src/xfce4-screensaver-preferences.ui:798
 msgid "Regard the computer as _idle after:"
 msgstr "Konsideroje kompjuterin si të _plogësht pas:"
 
-#: src/xfce4-screensaver-preferences.ui:840
+#: src/xfce4-screensaver-preferences.ui:837
 msgid "Inhibit screensaver for fullscreen applications"
 msgstr "Pengoje ekrankursyesin për aplikacione sa krejt ekrani"
 
-#: src/xfce4-screensaver-preferences.ui:899
+#: src/xfce4-screensaver-preferences.ui:896
 msgid "Enable Lock Screen"
 msgstr "Aktivizo Kyçje Ekrani"
 
-#: src/xfce4-screensaver-preferences.ui:943
+#: src/xfce4-screensaver-preferences.ui:940
 msgid "Lock Screen with Screensaver"
 msgstr "Kyçe Ekranin me Ekrankursyes"
 
-#: src/xfce4-screensaver-preferences.ui:973
+#: src/xfce4-screensaver-preferences.ui:970
 msgid "Lock the screen after the screensaver is active for:"
 msgstr "Kyçe ekranin pasi ekrankursyesi të jetë aktiv për:"
 
-#: src/xfce4-screensaver-preferences.ui:1011
+#: src/xfce4-screensaver-preferences.ui:1008
 msgid "On Screen Keyboard"
 msgstr "Tastierë Në Ekran"
 
-#: src/xfce4-screensaver-preferences.ui:1041
+#: src/xfce4-screensaver-preferences.ui:1038
 msgid "On screen keyboard command:"
 msgstr "Urdhër për tastierë në ekran:"
 
-#: src/xfce4-screensaver-preferences.ui:1066
+#: src/xfce4-screensaver-preferences.ui:1063
 msgid "Session Status Messages"
 msgstr "Mesazhe Gjendjeje Sesioni"
 
-#: src/xfce4-screensaver-preferences.ui:1096
+#: src/xfce4-screensaver-preferences.ui:1093
 msgid "Logout"
 msgstr "Dalje"
 
-#: src/xfce4-screensaver-preferences.ui:1126
+#: src/xfce4-screensaver-preferences.ui:1123
 msgid "Logout command:"
 msgstr "Urdhër daljeje:"
 
-#: src/xfce4-screensaver-preferences.ui:1150
+#: src/xfce4-screensaver-preferences.ui:1147
 msgid "Enable logout after:"
 msgstr "Aktivizo dalje pas:"
 
-#: src/xfce4-screensaver-preferences.ui:1188
+#: src/xfce4-screensaver-preferences.ui:1185
 msgid "User Switching"
 msgstr "Ndërrim Përdoruesi"
 
-#: src/xfce4-screensaver-preferences.ui:1218
+#: src/xfce4-screensaver-preferences.ui:1215
 msgid "Lock Screen with System Sleep"
 msgstr "Kyçje Ekrani me Fjetje Sistemi"
 
-#: src/xfce4-screensaver-preferences.ui:1259
+#: src/xfce4-screensaver-preferences.ui:1256
 msgid "Lock Screen"
 msgstr "Kyçje Ekrani"
 
-#: src/xfce4-screensaver.c:58
+#: src/xfce4-screensaver.c:59
 msgid "Enable debugging code"
 msgstr "Aktivizo diagnostikim kodi"
 
@@ -687,6 +643,6 @@ msgstr "Aktivizo diagnostikim kodi"
 msgid "Launch screensaver and locker program"
 msgstr "Nis programin ekrankursyes dhe kyçës"
 
-#: src/xfcekbd-indicator.c:406
+#: src/xfcekbd-indicator.c:408
 msgid "XKB initialization error"
 msgstr "Gabim në gatitjen e XKB-së"
