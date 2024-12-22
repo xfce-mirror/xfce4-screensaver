@@ -1138,6 +1138,18 @@ main (int argc,
         return EX_SOFTWARE;
     }
 
+#if defined(ENABLE_X11) && !defined(ENABLE_WAYLAND)
+    if (!GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        g_warning ("Unsupported windowing environment");
+        return EX_SOFTWARE;
+    }
+#elif defined(ENABLE_WAYLAND) && !defined(ENABLE_X11)
+    if (!GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+        g_warning ("Unsupported windowing environment");
+        return EX_SOFTWARE;
+    }
+#endif
+
     if (filenames == NULL || filenames[0] == NULL || filenames[1] != NULL) {
         g_printerr (_("You must specify one image.  See --help for usage "
                       "information.\n"));

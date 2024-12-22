@@ -31,7 +31,15 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
-//
+
+#ifdef ENABLE_X11
+#include <gdk/gdkx.h>
+#endif
+
+#ifdef ENABLE_WAYLAND
+#include <gdk/gdkwayland.h>
+#endif
+
 #include <gtk/gtk.h>
 #include <libxfce4util/libxfce4util.h>
 #include <xfconf/xfconf.h>
@@ -77,6 +85,18 @@ main (int argc,
         g_print ("%s %s\n", argv[0], VERSION);
         return EXIT_SUCCESS;
     }
+
+#if defined(ENABLE_X11) && !defined(ENABLE_WAYLAND)
+    if (!GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        g_warning ("Unsupported windowing environment");
+        return EXIT_FAILURE;
+    }
+#elif defined(ENABLE_WAYLAND) && !defined(ENABLE_X11)
+    if (!GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+        g_warning ("Unsupported windowing environment");
+        return EXIT_FAILURE;
+    }
+#endif
 
     if (!xfconf_init (&error)) {
         g_error ("Failed to connect to xfconf daemon: %s.", error->message);

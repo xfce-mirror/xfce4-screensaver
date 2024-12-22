@@ -532,6 +532,18 @@ main (int argc,
         return EXIT_SUCCESS;
     }
 
+#if defined(ENABLE_X11) && !defined(ENABLE_WAYLAND)
+    if (!GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        g_warning ("Unsupported windowing environment");
+        return EXIT_FAILURE;
+    }
+#elif defined(ENABLE_WAYLAND) && !defined(ENABLE_X11)
+    if (!GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
+        g_warning ("Unsupported windowing environment");
+        return EXIT_FAILURE;
+    }
+#endif
+
     if (!xfconf_init (&error)) {
         g_error ("Failed to connect to xfconf daemon: %s.", error->message);
         g_error_free (error);
