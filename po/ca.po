@@ -4,11 +4,11 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Davidmp <medipas@gmail.com>, 2019
 # Xfce Bot <transifex@xfce.org>, 2023
 # Oscar Perez <oscarpc@gmail.com>, 2024
 # Nick Schermer <nick@xfce.org>, 2024
 # Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>, 2024
+# Davidmp <medipas@gmail.com>, 2025
 # 
 #, fuzzy
 msgid ""
@@ -17,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
 "POT-Creation-Date: 2024-12-22 00:50+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Robert Antoni Buj i Gelonch <rbuj@fedoraproject.org>, 2024\n"
+"Last-Translator: Davidmp <medipas@gmail.com>, 2025\n"
 "Language-Team: Catalan (https://app.transifex.com/xfce/teams/16840/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,7 +42,7 @@ msgstr "Estalvi de pantalla"
 
 #: data/xfce4-screensaver-preferences.desktop.in:11
 msgid "settings;preferences;screensaver;lock screen;"
-msgstr ""
+msgstr "configuració;preferències;salvapantalles;pantalla de blocatge;"
 
 #: data/xfce4-screensaver.desktop.in:4
 msgid "Screensavers"
@@ -130,7 +130,7 @@ msgstr "No intentis estirar les imatges a la pantalla"
 
 #: savers/slideshow.c:67
 msgid "Do not crop images to the screen size"
-msgstr ""
+msgstr "No retallis les imatges a la mida de la pantalla"
 
 #: savers/xfce-floaters.desktop.in.in:3
 msgid "Floating Xfce"
@@ -331,7 +331,7 @@ msgstr "No estiris les imatges"
 
 #: src/xfce4-screensaver-configure.py:197
 msgid "Do not crop images"
-msgstr ""
+msgstr "No retallis les imatges"
 
 #: src/xfce4-screensaver-configure.py:389
 msgid "Restore Defaults"
