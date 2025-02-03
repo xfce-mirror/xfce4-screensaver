@@ -72,6 +72,7 @@ XDT_CHECK_PACKAGE([DBUS_GLIB], [dbus-glib-1], [dbus_glib_min_version])
 XDT_CHECK_PACKAGE([XFCONF], [libxfconf-0], [xfconf_min_version])
 XDT_CHECK_PACKAGE([LIBXFCE4UI], [libxfce4ui-2], [libxfce4ui_min_version])
 XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [libxfce4util_min_version])
+XDT_CHECK_PACKAGE([GARCON], [garcon-1], [garcon_min_version])
 XDT_CHECK_PACKAGE([GARCON_GTK3], [garcon-gtk3-1], [garcon_min_version])
 
 XDT_CHECK_OPTIONAL_FEATURE([X11],
