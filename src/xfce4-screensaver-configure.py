@@ -639,7 +639,7 @@ class ConfigurationWindow(Gtk.Window):
                         except:
                             pass
                         argument = argument.replace("%", str(value))
-                    arguments.append(argument)
+                    arguments.append(GLib.shell_quote(argument))
         value = " ".join(arguments)
         self.xfconf_settings.set_string("arguments", value)
 
