@@ -440,24 +440,24 @@ class ConfigurationWindow(Gtk.Window):
             else:
                 active = self.get_boolean(opt['id'], default)
 
-            widget.set_active(active)
             widget.connect("toggled", self.on_checkbutton_toggle, opt["id"])
+            widget.set_active(active)
         elif opt["type"] == "file":
             widget = Gtk.FileChooserButton(
                 title=opt["label"], action=Gtk.FileChooserAction.OPEN)
             filename = self.get_string(opt["id"], "")
             widget.set_current_folder("~")
-            widget.set_filename(filename)
             widget.connect("selection-changed",
                            self.on_file_changed, opt["id"])
+            widget.set_filename(filename)
         elif opt["type"] == "folder":
             widget = Gtk.FileChooserButton(
                 title=opt["label"], action=Gtk.FileChooserAction.SELECT_FOLDER)
             folder = self.get_string(opt["id"], opt["default"])
             widget.set_current_folder(folder)
-            widget.set_filename(folder)
             widget.connect("selection-changed",
                            self.on_file_changed, opt["id"])
+            widget.set_filename(folder)
         elif opt["type"] == "select":
             self.lookup_table[opt["id"]] = {}
             widget = Gtk.ComboBoxText.new()
@@ -474,8 +474,8 @@ class ConfigurationWindow(Gtk.Window):
             else:
                 current = self.get_string(opt['id'], '')
 
-            widget.set_active_id(current)
             widget.connect("changed", self.on_select_changed, opt["id"])
+            widget.set_active_id(current)
         elif opt["type"] == "slider":
             prefs = get_slider_prefs([opt["default"], opt["low"], opt["high"]])
             adj = Gtk.Adjustment(value=opt["default"], lower=opt["low"], upper=opt["high"],
@@ -494,8 +494,8 @@ class ConfigurationWindow(Gtk.Window):
             else:
                 value = self.get_double(opt['id'], opt['default'])
 
-            adj.set_value(value)
             widget.connect("value-changed", self.on_double_changed, opt["id"])
+            adj.set_value(value)
         elif opt["type"] == "spinbutton":
             widget = Gtk.SpinButton.new_with_range(opt["low"], opt["high"], 1)
 
@@ -505,13 +505,13 @@ class ConfigurationWindow(Gtk.Window):
             else:
                 value = self.get_int(opt['id'], opt['default'])
 
-            widget.set_value(value)
             widget.connect("value-changed", self.on_int_changed, opt["id"])
+            widget.set_value(value)
         elif opt["type"] == "color":
             widget = Gtk.ColorButton.new()
             color = self.get_string(opt["id"], "#000000")
-            widget.set_rgba(hex_to_rgba(color))
             widget.connect("color-set", self.on_color_changed, opt["id"])
+            widget.set_rgba(hex_to_rgba(color))
         else:
             print("Unrecognized type: %s" % opt["type"], file=sys.stderr)
             sys.exit(1)
