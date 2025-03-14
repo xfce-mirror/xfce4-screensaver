@@ -359,7 +359,7 @@ process_new_pixbuf (GSTESlideshow *show,
     if (pixbuf != NULL) {
         start_fade (show, pixbuf);
     } else {
-        start_new_load (show, 10);
+        start_new_load (show, 100);
     }
 }
 
