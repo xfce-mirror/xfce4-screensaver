@@ -154,7 +154,7 @@ gs_lock_plug_style_set (GtkWidget *widget,
 
     plug = g_object_get_data (G_OBJECT (widget), "gs-lock-plug");
 
-    if (!plug->priv->vbox) {
+    if (plug == NULL || plug->priv->vbox == NULL) {
         return;
     }
 
