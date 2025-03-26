@@ -8,7 +8,7 @@
 # Xfce Bot <transifex@xfce.org>, 2023
 # Nick Schermer <nick@xfce.org>, 2024
 # Gábor P., 2024
-# Balázs Meskó <meskobalazs@mailbox.org>, 2024
+# Balázs Meskó <meskobalazs@mailbox.org>, 2025
 # 
 #, fuzzy
 msgid ""
@@ -17,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
 "POT-Creation-Date: 2024-12-22 00:50+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Balázs Meskó <meskobalazs@mailbox.org>, 2024\n"
+"Last-Translator: Balázs Meskó <meskobalazs@mailbox.org>, 2025\n"
 "Language-Team: Hungarian (https://app.transifex.com/xfce/teams/16840/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -120,7 +120,7 @@ msgstr "Képháttérként használandó szín"
 
 #: savers/slideshow.c:61
 msgid "\"#rrggbb\""
-msgstr "\"#rrggbb\""
+msgstr "„#rrggbb”"
 
 #: savers/slideshow.c:63
 msgid "Do not randomize pictures from location"
@@ -132,7 +132,7 @@ msgstr "Ne próbálja meg nyújtani a képeket a képernyőn"
 
 #: savers/slideshow.c:67
 msgid "Do not crop images to the screen size"
-msgstr ""
+msgstr "Ne vágja le a képeket képernyőméretűre"
 
 #: savers/xfce-floaters.desktop.in.in:3
 msgid "Floating Xfce"
@@ -330,7 +330,7 @@ msgstr "Ne legyenek nyújtva a képek"
 
 #: src/xfce4-screensaver-configure.py:197
 msgid "Do not crop images"
-msgstr ""
+msgstr "Ne legyenek levágva a képek"
 
 #: src/xfce4-screensaver-configure.py:389
 msgid "Restore Defaults"
