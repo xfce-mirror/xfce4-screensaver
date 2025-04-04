@@ -805,6 +805,11 @@ gs_lock_plug_show (GtkWidget *widget) {
     g_signal_chain_from_overridden_handler (widget);
     gs_profile_end ("parent");
 
+    if (plug == NULL) {
+        gs_profile_end (NULL);
+        return;
+    }
+
     if (plug->priv->auth_face_image) {
         set_face_image (plug);
     }
@@ -826,8 +831,10 @@ gs_lock_plug_key_release_event (GtkWidget *widget,
 
     if (key_event->keyval == GDK_KEY_Escape) {
         GSLockPlug *plug = g_object_get_data (G_OBJECT (widget), "gs-lock-plug");
-        gs_lock_plug_response (plug, GS_LOCK_PLUG_RESPONSE_CANCEL);
-        return TRUE;
+        if (plug != NULL) {
+            gs_lock_plug_response (plug, GS_LOCK_PLUG_RESPONSE_CANCEL);
+            return TRUE;
+        }
     }
 
     g_signal_chain_from_overridden_handler (widget, event, &ret);
