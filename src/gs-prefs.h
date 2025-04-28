@@ -74,7 +74,7 @@ G_BEGIN_DECLS
  * Set this to TRUE to inhibit the screensaver when the focused application is fullscreen.
  */
 #define KEY_FULLSCREEN_INHIBIT "/saver/fullscreen-inhibit"
-#define DEFAULT_KEY_FULLSCREEN_INHIBIT FALSE
+#define DEFAULT_KEY_FULLSCREEN_INHIBIT TRUE
 
 /**
  * Screensaver themes
