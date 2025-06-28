@@ -117,30 +117,6 @@ dnl and remove this and protocols/ext-idle-notify-v1.xml
 AM_CONDITIONAL([HAVE_IDLE_NOTIFY], [test -f "$WAYLAND_PROTOCOLS_PKGDATADIR/staging/ext-idle-notify/ext-idle-notify-v1.xml"])
 
 if test x"$ENABLE_X11" = x"yes"; then
-
-  # Check whether to use a xscreensaver hacks configuration directory
-  AC_MSG_CHECKING([whether to use xscreensaver hacks configuration])
-  AC_ARG_WITH(xscreensaverdir, AS_HELP_STRING([--with-xscreensaverdir=dir], [Use xscreensaver hack configs found in directory],))
-  xscreensaverdir=
-  if test "x$with_xscreensaverdir" = "xyes"; then
-    if test -d /usr/share/xscreensaver/config; then
-      xscreensaverdir=/usr/share/xscreensaver/config
-    elif test -d /etc/xscreensaver; then
-      xscreensaverdir=/etc/xscreensaver
-    fi
-  elif test "x$with_xscreensaverdir" = "x" -o "x$with_xscreensaverdir" = "xno"; then
-    xscreensaverdir=
-  else
-    xscreensaverdir="$with_xscreensaverdir"
-  fi
-
-  if test "x$xscreensaverdir" != "x" ; then
-    AC_DEFINE_UNQUOTED(XSCREENSAVER_CONFIG_DIR, "$xscreensaverdir", [Define to the directory containing XScreensaver configuration files])
-    AC_MSG_RESULT([$xscreensaverdir])
-  else
-    AC_MSG_RESULT([no])
-  fi
-
   # Path to xscreensaver hack executables
   AC_ARG_WITH(xscreensaverhackdir, AS_HELP_STRING([--with-xscreensaverhackdir=dir], [Look for xscreensaver hack executables in directory],))
   AC_MSG_CHECKING([for location of xscreensaver hack executables])
