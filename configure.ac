@@ -928,7 +928,6 @@ po/Makefile.in
 src/Makefile
 src/xfce4-screensaver.desktop.in
 data/Makefile
-data/xfce4-screensavers.menu
 data/org.xfce.ScreenSaver.service
 data/icons/Makefile
 data/icons/16x16/Makefile

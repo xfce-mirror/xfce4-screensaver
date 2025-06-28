@@ -47,7 +47,6 @@ POTFILES
 data/org.xfce.ScreenSaver.service
 data/xfce4-screensaver.directory
 data/xfce4-screensaver.pc
-data/xfce4-screensavers.menu
 doc/xfce4-screensaver.xml
 po/Makefile.in.in
 po/Makevars.template
