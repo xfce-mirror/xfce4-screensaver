@@ -57,7 +57,6 @@
 #include "gs-prefs.h"
 #include "xfce-bg.h"
 #include "xfce-desktop-utils.h"
-#include "xfce4-screensaver-dialog-ui.h"
 
 #define MDM_FLEXISERVER_COMMAND "mdmflexiserver"
 #define MDM_FLEXISERVER_ARGS "--startnew Standard"
@@ -1523,8 +1522,7 @@ gs_lock_plug_add_login_window (GSLockPlug *plug) {
     GError *error = NULL;
 
     builder = gtk_builder_new ();
-    if (!gtk_builder_add_from_string (builder, xfce4_screensaver_dialog_ui,
-                                      xfce4_screensaver_dialog_ui_length, &error)) {
+    if (!gtk_builder_add_from_resource (builder, "/org/xfce/screensaver/xfce4-screensaver-dialog.ui", &error)) {
         g_warning ("Error loading UI: %s", error->message);
         g_error_free (error);
         g_object_unref (builder);
