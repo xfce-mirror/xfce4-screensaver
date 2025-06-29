@@ -48,7 +48,6 @@
 #include "gs-debug.h"
 #include "gs-lock-plug.h"
 #include "setuid.h"
-#include "xfce4-screensaver-dialog-css.h"
 
 #define MAX_FAILURES 5
 
@@ -366,10 +365,8 @@ popup_dialog_idle (gpointer user_data) {
     g_signal_connect (plug_widget, "show", G_CALLBACK (show_cb), NULL);
 
     css_provider = gtk_css_provider_new ();
-    gtk_css_provider_load_from_data (css_provider,
-                                     xfce4_screensaver_dialog_css,
-                                     xfce4_screensaver_dialog_css_length,
-                                     NULL);
+    gtk_css_provider_load_from_resource (css_provider,
+                                         "/org/xfce/screensaver/xfce4-screensaver-dialog.css");
     gtk_style_context_add_provider_for_screen (gdk_screen_get_default (), GTK_STYLE_PROVIDER (css_provider),
                                                GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
 
