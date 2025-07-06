@@ -1,8 +1,9 @@
 dnl -*- mode: m4 -*-
 
+m4_define([copyright_year], [2025])
 XDT_VERSION_INIT([4.18.4], [git])
 
-AC_COPYRIGHT([Copyright (c) 2011-2024 The Xfce development team. All rights reserved.])
+AC_COPYRIGHT([Copyright (c) 2011-copyright_year() The Xfce development team. All rights reserved.])
 AC_PREREQ(2.69)
 AC_INIT([xfce4-screensaver],
         [xdt_version],
@@ -35,6 +36,9 @@ AC_SUBST(VERSION)
 GETTEXT_PACKAGE="$PACKAGE"
 AC_SUBST([GETTEXT_PACKAGE])
 AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [Name of default gettext domain])
+COPYRIGHT_YEAR=copyright_year()
+AC_DEFINE_UNQUOTED([COPYRIGHT_YEAR], ["$COPYRIGHT_YEAR"], [Copyright year])
+AC_SUBST([COPYRIGHT_YEAR])
 
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.19.8])
