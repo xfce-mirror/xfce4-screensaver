@@ -903,7 +903,6 @@ Makefile
 protocols/Makefile
 po/Makefile.in
 src/Makefile
-src/xfce4-screensaver.desktop.in
 data/Makefile
 data/org.xfce.ScreenSaver.service
 data/icons/Makefile
