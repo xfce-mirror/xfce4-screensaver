@@ -19,6 +19,7 @@ xfce4-screensaver.html : dbus-interface.xml
 endif # DOCBOOK_DOCS_ENABLED
 
 EXTRA_DIST = \
+	meson.build               \
 	xfce4-screensaver.xml.in  \
 	config.xsl                \
 	docbook.css               \
