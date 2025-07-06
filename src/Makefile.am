@@ -431,7 +431,6 @@ EXTRA_DIST = \
 
 CLEANFILES = \
 	$(desktop_DATA)               \
-	xfce4-screensaver.desktop.in  \
 	$(BUILT_SOURCES)
 
 MAINTAINERCLEANFILES = \
