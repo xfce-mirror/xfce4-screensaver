@@ -7,6 +7,7 @@ AM_DISTCHECK_CONFIGURE_FLAGS = \
 	--without-systemd
 
 SUBDIRS = \
+	build-aux      \
 	protocols      \
 	src      \
 	savers   \
@@ -16,6 +17,10 @@ SUBDIRS = \
 	$(NULL)
 
 EXTRA_DIST = \
+	meson.build          \
+	meson_options.txt    \
+	po/meson.build       \
+	xfce-revision.h.in   \
 	autogen.sh           \
 	COPYING              \
 	COPYING.LIB          \

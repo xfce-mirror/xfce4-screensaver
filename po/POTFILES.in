@@ -18,5 +18,5 @@ src/xfce4-screensaver-dialog.ui
 src/xfce4-screensaver-preferences.c
 src/xfce4-screensaver-preferences.ui
 src/xfce4-screensaver.c
-src/xfce4-screensaver.desktop.in.in
+src/xfce4-screensaver.desktop.in
 src/xfcekbd-indicator.c

@@ -1,0 +1,103 @@
+option(
+  'authentication-scheme',
+  type: 'combo',
+  choices: ['pam', 'helper', 'bsdauth', 'pwent'],
+  value: 'pam',
+  description: 'Authentication scheme',
+)
+
+option(
+  'session-manager',
+  type: 'combo',
+  choices: ['systemd', 'elogind', 'consolekit'],
+  value: 'systemd',
+  description: 'Session manager',
+)
+
+option(
+  'x11',
+  type: 'feature',
+  value: 'auto',
+  description: 'Support for the X11 windowing system',
+)
+
+option(
+  'wayland',
+  type: 'feature',
+  value: 'disabled',
+  description: 'Support for the Wayland windowing system',
+)
+
+option(
+  'xscreensaverhackdir',
+  type: 'string',
+  value: '',
+  description: 'Look for xscreensaver hack executables in directory (default: autodetect)',
+)
+
+option(
+  'kbd-layout-indicator',
+  type: 'boolean',
+  value: true,
+  description: 'Build keyboard layout indicator',
+)
+
+option(
+  'docs',
+  type: 'feature',
+  value: 'auto',
+  description: 'Build documentation (requires xmlto and docbook-xml)',
+)
+
+option(
+  'docdir',
+  type: 'string',
+  value: '',
+  description: 'Directory to install documentation (default: autodetect)',
+)
+
+option(
+  'locking',
+  type: 'boolean',
+  value: true,
+  description: 'Build support for locking the display',
+)
+
+# Options only useful for pam authentication scheme
+option(
+  'pam-prefix',
+  type: 'string',
+  value: '',
+  description: 'Specify where PAM files go (default: sysconfdir)',
+)
+
+option(
+  'pam-auth-type',
+  type: 'combo',
+  choices: ['auto', 'common', 'system'],
+  value: 'auto',
+  description: 'specify PAM auth type',
+)
+
+option(
+  'linux-pam-localedir',
+  type: 'string',
+  value: '',
+  description: 'Path to Linux-PAM localedir, used for auth message filtering (default: autodetect)',
+)
+
+# Options only useful for pwent authentication scheme
+option(
+  'shadow',
+  type: 'boolean',
+  value: true,
+  description: 'Include support for shadow password authentication',
+)
+
+# Options only useful for helper authentication scheme
+option(
+  'passwd-helper',
+  type: 'string',
+  value: '',
+  description: 'Full pathname of an external password verification helper program',
+)

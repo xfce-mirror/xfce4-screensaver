@@ -173,12 +173,12 @@ test_window_LDADD += \
 	$(NULL)
 endif
 
-xfce4_screensaver_dialog_built_sources = \
-	xfce4-screensaver-dialog-css.h  \
-	xfce4-screensaver-dialog-ui.h
+xfce4_screensaver_built_sources = \
+	xfce4-screensaver-resources.c  \
+	$(NULL)
 
 xfce4_screensaver_dialog_SOURCES = \
-	$(xfce4_screensaver_dialog_built_sources)  \
+	$(xfce4_screensaver_built_sources)  \
 	xfce4-screensaver-dialog.c                 \
 	gs-lock-plug.c                             \
 	gs-lock-plug.h                             \
@@ -362,11 +362,8 @@ endif
 
 xfce4_screensaver_LDFLAGS = -export-dynamic
 
-xfce4_screensaver_preferences_built_sources = \
-	xfce4-screensaver-preferences-ui.h
-
 xfce4_screensaver_preferences_SOURCES = \
-	$(xfce4_screensaver_preferences_built_sources)  \
+	$(xfce4_screensaver_built_sources)  \
 	xfce4-screensaver-preferences.c                 \
 	gs-theme-manager.c                              \
 	gs-theme-manager.h                              \
@@ -408,40 +405,33 @@ xfce4_screensaver_preferences_LDADD = \
 	$(LIBWLEMBED_GTK3_LIBS) \
 	$(NULL)
 
-if MAINTAINER_MODE
+xfce4_screensaver_resources_deps = $(shell $(GLIB_COMPILE_RESOURCES) --generate-dependencies --sourcedir $(srcdir) $(srcdir)/xfce4-screensaver.gresource.xml)
 
-xfce4-screensaver-dialog-css.h: $(srcdir)/xfce4-screensaver-dialog.css Makefile
-	$(AM_V_GEN) xdt-csource --static --name=xfce4_screensaver_dialog_css $< >$@
-
-xfce4-screensaver-dialog-ui.h: $(srcdir)/xfce4-screensaver-dialog.ui Makefile
-	$(AM_V_GEN) xdt-csource --static --strip-comments --strip-content --name=xfce4_screensaver_dialog_ui $< >$@
-
-xfce4-screensaver-preferences-ui.h: $(srcdir)/xfce4-screensaver-preferences.ui Makefile
-	$(AM_V_GEN) xdt-csource --static --strip-comments --strip-content --name=xfce4_screensaver_preferences_ui $< >$@
+xfce4-screensaver-resources.c: $(srcdir)/xfce4-screensaver.gresource.xml $(xfce4_screensaver_resources_deps) Makefile
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) --target=$@ --sourcedir=$(srcdir) --generate-source $<
 
 DISTCLEANFILES = \
-	$(xfce4_screensaver_dialog_built_sources)       \
-	$(xfce4_screensaver_preferences_built_sources)
+	$(xfce4_screensaver_built_sources)       \
+	$(NULL)
 
 BUILT_SOURCES += \
-	$(xfce4_screensaver_dialog_built_sources)       \
-	$(xfce4_screensaver_preferences_built_sources)
-
-endif
+	$(xfce4_screensaver_built_sources)       \
+	$(NULL)
 
 EXTRA_DIST = \
+	meson.build                       \
 	debug-screensaver.sh              \
 	gs-marshal.list                   \
 	xfce4-screensaver.desktop.in      \
 	xfce4-screensaver-configure.py    \
 	xfce4-screensaver-dialog.css      \
 	xfce4-screensaver-dialog.ui       \
+	xfce4-screensaver.gresource.xml   \
 	xfce4-screensaver-preferences.ui  \
 	$(NULL)
 
 CLEANFILES = \
 	$(desktop_DATA)               \
-	xfce4-screensaver.desktop.in  \
 	$(BUILT_SOURCES)
 
 MAINTAINERCLEANFILES = \

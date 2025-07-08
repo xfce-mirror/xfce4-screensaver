@@ -73,7 +73,8 @@ BUILT_SOURCES = \
 
 endif # ENABLE_WAYLAND
 
-EXTRA_DIST =
+EXTRA_DIST = \
+	meson.build
 
 if !HAVE_SESSION_LOCK
 EXTRA_DIST += \

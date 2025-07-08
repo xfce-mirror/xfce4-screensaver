@@ -8,7 +8,10 @@ SPEC_XML_FILES = \
 if DOCBOOK_DOCS_ENABLED
 
 htmldocdir = $(DOCDIR)
-htmldoc_DATA = xfce4-screensaver.html
+htmldoc_DATA = \
+	docbook.css \
+	xfce4-screensaver.html \
+	$(NULL)
 
 xfce4-screensaver.html : dbus-interface.xml
 	$(XMLTO) html-nochunks -m config.xsl xfce4-screensaver.xml
@@ -16,6 +19,7 @@ xfce4-screensaver.html : dbus-interface.xml
 endif # DOCBOOK_DOCS_ENABLED
 
 EXTRA_DIST = \
+	meson.build               \
 	xfce4-screensaver.xml.in  \
 	config.xsl                \
 	docbook.css               \

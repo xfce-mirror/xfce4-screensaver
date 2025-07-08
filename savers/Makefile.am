@@ -134,6 +134,7 @@ slideshow_LDADD = \
 	$(NULL)
 
 EXTRA_DIST = \
+	meson.build                   \
 	gs-theme-engine-marshal.list  \
 	$(DESKTOP_IN_IN_FILES)        \
 	$(themes_in_files)            \
