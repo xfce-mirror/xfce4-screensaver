@@ -419,6 +419,7 @@ BUILT_SOURCES += \
 	$(NULL)
 
 EXTRA_DIST = \
+	meson.build                       \
 	debug-screensaver.sh              \
 	gs-marshal.list                   \
 	xfce4-screensaver.desktop.in      \
