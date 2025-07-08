@@ -24,6 +24,9 @@
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
+#ifdef HAVE_XFCE_REVISION_H
+#include "xfce-revision.h"
+#endif
 
 #include <locale.h>
 #include <stdlib.h>
@@ -282,7 +285,7 @@ main (int argc,
     }
 
     if (do_version) {
-        g_print ("%s %s\n", argv[0], VERSION);
+        g_print ("%s %s\n", argv[0], VERSION_FULL);
         return EXIT_SUCCESS;
     }
 

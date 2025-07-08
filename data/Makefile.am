@@ -44,6 +44,7 @@ EXTRA_DIST = \
 	xfce4-screensaver.system-auth    \
 	xfce4-screensavers.menu          \
 	org.xfce.ScreenSaver.service.in  \
+	meson.build                      \
 	$(NULL)
 
 DISTCLEANFILES = \
