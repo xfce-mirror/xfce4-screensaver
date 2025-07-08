@@ -36,6 +36,7 @@ AC_SUBST(VERSION)
 GETTEXT_PACKAGE="$PACKAGE"
 AC_SUBST([GETTEXT_PACKAGE])
 AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [Name of default gettext domain])
+AC_DEFINE([VERSION_FULL], [PACKAGE_VERSION], [Alias for VERSION and PACKAGE_VERSION for meson compatibility])
 COPYRIGHT_YEAR=copyright_year()
 AC_DEFINE_UNQUOTED([COPYRIGHT_YEAR], ["$COPYRIGHT_YEAR"], [Copyright year])
 AC_SUBST([COPYRIGHT_YEAR])
@@ -904,6 +905,7 @@ AC_SUBST(themesdir)
 
 AC_CONFIG_FILES([
 Makefile
+build-aux/Makefile
 protocols/Makefile
 po/Makefile.in
 src/Makefile

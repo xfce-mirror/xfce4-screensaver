@@ -9,5 +9,6 @@ image_DATA = \
 	$(NULL)
 
 EXTRA_DIST = \
+	meson.build \
 	$(image_DATA)  \
 	$(NULL)
