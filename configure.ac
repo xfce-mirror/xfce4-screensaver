@@ -1,8 +1,9 @@
 dnl -*- mode: m4 -*-
 
+m4_define([copyright_year], [2025])
 XDT_VERSION_INIT([4.18.4], [git])
 
-AC_COPYRIGHT([Copyright (c) 2011-2024 The Xfce development team. All rights reserved.])
+AC_COPYRIGHT([Copyright (c) 2011-copyright_year() The Xfce development team. All rights reserved.])
 AC_PREREQ(2.69)
 AC_INIT([xfce4-screensaver],
         [xdt_version],
@@ -35,6 +36,10 @@ AC_SUBST(VERSION)
 GETTEXT_PACKAGE="$PACKAGE"
 AC_SUBST([GETTEXT_PACKAGE])
 AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"], [Name of default gettext domain])
+AC_DEFINE([VERSION_FULL], [PACKAGE_VERSION], [Alias for VERSION and PACKAGE_VERSION for meson compatibility])
+COPYRIGHT_YEAR=copyright_year()
+AC_DEFINE_UNQUOTED([COPYRIGHT_YEAR], ["$COPYRIGHT_YEAR"], [Copyright year])
+AC_SUBST([COPYRIGHT_YEAR])
 
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.19.8])
@@ -74,6 +79,7 @@ XDT_CHECK_PACKAGE([LIBXFCE4UI], [libxfce4ui-2], [libxfce4ui_min_version])
 XDT_CHECK_PACKAGE([LIBXFCE4UTIL], [libxfce4util-1.0], [libxfce4util_min_version])
 XDT_CHECK_PACKAGE([GARCON], [garcon-1], [garcon_min_version])
 XDT_CHECK_PACKAGE([GARCON_GTK3], [garcon-gtk3-1], [garcon_min_version])
+XDT_CHECK_PACKAGE_BINARY([GLIB_COMPILE_RESOURCES], [gio-2.0], [glib_compile_resources], [glib-compile-resources])
 
 XDT_CHECK_OPTIONAL_FEATURE([X11],
                            [x11],
@@ -117,30 +123,6 @@ dnl and remove this and protocols/ext-idle-notify-v1.xml
 AM_CONDITIONAL([HAVE_IDLE_NOTIFY], [test -f "$WAYLAND_PROTOCOLS_PKGDATADIR/staging/ext-idle-notify/ext-idle-notify-v1.xml"])
 
 if test x"$ENABLE_X11" = x"yes"; then
-
-  # Check whether to use a xscreensaver hacks configuration directory
-  AC_MSG_CHECKING([whether to use xscreensaver hacks configuration])
-  AC_ARG_WITH(xscreensaverdir, AS_HELP_STRING([--with-xscreensaverdir=dir], [Use xscreensaver hack configs found in directory],))
-  xscreensaverdir=
-  if test "x$with_xscreensaverdir" = "xyes"; then
-    if test -d /usr/share/xscreensaver/config; then
-      xscreensaverdir=/usr/share/xscreensaver/config
-    elif test -d /etc/xscreensaver; then
-      xscreensaverdir=/etc/xscreensaver
-    fi
-  elif test "x$with_xscreensaverdir" = "x" -o "x$with_xscreensaverdir" = "xno"; then
-    xscreensaverdir=
-  else
-    xscreensaverdir="$with_xscreensaverdir"
-  fi
-
-  if test "x$xscreensaverdir" != "x" ; then
-    AC_DEFINE_UNQUOTED(XSCREENSAVER_CONFIG_DIR, "$xscreensaverdir", [Define to the directory containing XScreensaver configuration files])
-    AC_MSG_RESULT([$xscreensaverdir])
-  else
-    AC_MSG_RESULT([no])
-  fi
-
   # Path to xscreensaver hack executables
   AC_ARG_WITH(xscreensaverhackdir, AS_HELP_STRING([--with-xscreensaverhackdir=dir], [Look for xscreensaver hack executables in directory],))
   AC_MSG_CHECKING([for location of xscreensaver hack executables])
@@ -923,12 +905,11 @@ AC_SUBST(themesdir)
 
 AC_CONFIG_FILES([
 Makefile
+build-aux/Makefile
 protocols/Makefile
 po/Makefile.in
 src/Makefile
-src/xfce4-screensaver.desktop.in
 data/Makefile
-data/xfce4-screensavers.menu
 data/org.xfce.ScreenSaver.service
 data/icons/Makefile
 data/icons/16x16/Makefile

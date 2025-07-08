@@ -22,7 +22,12 @@
  *
  */
 
+#ifdef HAVE_CONFIG_H
 #include "config.h"
+#endif
+#ifdef HAVE_XFCE_REVISION_H
+#include "xfce-revision.h"
+#endif
 
 #include <errno.h>
 #include <stdlib.h>
@@ -82,7 +87,7 @@ main (int argc,
     }
 
     if (show_version) {
-        g_print ("%s %s\n", argv[0], VERSION);
+        g_print ("%s %s\n", argv[0], VERSION_FULL);
         return EXIT_SUCCESS;
     }
 
@@ -107,7 +112,7 @@ main (int argc,
 
     /* debug to a file if in deamon mode */
     gs_debug_init (debug, FALSE);
-    gs_debug ("Initializing xfce4-screensaver %s", VERSION);
+    gs_debug ("Initializing xfce4-screensaver %s", VERSION_FULL);
 
     monitor = gs_monitor_new ();
 

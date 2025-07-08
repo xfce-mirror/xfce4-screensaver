@@ -42,9 +42,9 @@ EXTRA_DIST = \
 	$(man_MANS)                      \
 	xfce4-screensaver.common-auth    \
 	xfce4-screensaver.system-auth    \
+	xfce4-screensavers.menu          \
 	org.xfce.ScreenSaver.service.in  \
-	xscreensaver-config.xsl          \
-	migrate-xscreensaver-config.sh   \
+	meson.build                      \
 	$(NULL)
 
 DISTCLEANFILES = \
