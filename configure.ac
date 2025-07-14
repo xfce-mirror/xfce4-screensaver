@@ -1,7 +1,7 @@
 dnl -*- mode: m4 -*-
 
 m4_define([copyright_year], [2025])
-XDT_VERSION_INIT([4.20.0])
+XDT_VERSION_INIT([4.20.0], [git])
 
 AC_COPYRIGHT([Copyright (c) 2011-copyright_year() The Xfce development team. All rights reserved.])
 AC_PREREQ(2.69)
