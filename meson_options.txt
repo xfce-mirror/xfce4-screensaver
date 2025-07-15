@@ -9,7 +9,7 @@ option(
 option(
   'session-manager',
   type: 'combo',
-  choices: ['systemd', 'elogind', 'consolekit'],
+  choices: ['systemd', 'elogind', 'consolekit', 'none'],
   value: 'systemd',
   description: 'Session manager',
 )
