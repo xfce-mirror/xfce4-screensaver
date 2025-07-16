@@ -37,9 +37,13 @@ executable(
 )
 
 auth_sources = [
-  'gs-auth-@0@.c'.format(get_option('authentication-scheme')),
   'gs-auth.h',
 ]
+if get_option('authentication-scheme') != 'none'
+  auth_sources += [
+    'gs-auth-@0@.c'.format(get_option('authentication-scheme')),
+  ]
+endif
 
 test_passwd_sources = [
   'setuid.c',

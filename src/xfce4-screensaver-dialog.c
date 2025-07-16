@@ -272,7 +272,11 @@ do_auth_check (GSLockPlug *plug) {
 
     error = NULL;
 
+#ifndef NO_LOCKING
     res = gs_auth_verify_user (g_get_user_name (), g_getenv ("DISPLAY"), auth_message_handler, plug, &error);
+#else
+    res = TRUE;
+#endif /* NO_LOCKING */
 
     gs_debug ("Verify user returned: %s", res ? "TRUE" : "FALSE");
 

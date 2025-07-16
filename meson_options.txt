@@ -1,7 +1,7 @@
 option(
   'authentication-scheme',
   type: 'combo',
-  choices: ['pam', 'helper', 'bsdauth', 'pwent'],
+  choices: ['pam', 'helper', 'bsdauth', 'pwent', 'none'],
   value: 'pam',
   description: 'Authentication scheme',
 )
@@ -9,7 +9,7 @@ option(
 option(
   'session-manager',
   type: 'combo',
-  choices: ['systemd', 'elogind', 'consolekit'],
+  choices: ['systemd', 'elogind', 'consolekit', 'none'],
   value: 'systemd',
   description: 'Session manager',
 )
@@ -54,13 +54,6 @@ option(
   type: 'string',
   value: '',
   description: 'Directory to install documentation (default: autodetect)',
-)
-
-option(
-  'locking',
-  type: 'boolean',
-  value: true,
-  description: 'Build support for locking the display',
 )
 
 # Options only useful for pam authentication scheme
