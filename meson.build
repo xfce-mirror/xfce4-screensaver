@@ -142,9 +142,8 @@ if enable_x11
   endif
 endif
 
-# Build support for locking the display
-enable_locking = get_option('locking')
-if enable_locking == false
+# Disable support for locking the display
+if get_option('authentication-scheme') == 'none'
   feature_cflags += '-DNO_LOCKING=1'
 endif
 
@@ -238,15 +237,13 @@ if get_option('authentication-scheme') == 'pwent'
   endif
 
   # Check for other libraries needed for non-shadow passwords
-  if get_option('locking')
-    crypt = dependency('libcrypt', 'libxcrypt', required: false)
-    if not crypt.found()
-      crypt = cc.find_library('crypt')
-    endif
-    auth_deps += crypt
-    if cc.has_function('crypt', dependencies: crypt)
-      feature_cflags += '-DHAVE_LIBCRYPT=1'
-    endif
+  crypt = dependency('libcrypt', 'libxcrypt', required: false)
+  if not crypt.found()
+    crypt = cc.find_library('crypt')
+  endif
+  auth_deps += crypt
+  if cc.has_function('crypt', dependencies: crypt)
+    feature_cflags += '-DHAVE_LIBCRYPT=1'
   endif
 endif
 

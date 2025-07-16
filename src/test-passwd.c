@@ -60,9 +60,11 @@ privileged_initialization (void) {
     if (nolock_reason) {
         g_warning ("Locking disabled: %s", nolock_reason);
     }
+#ifndef NO_LOCKING
     if (uid_message && gs_auth_get_verbose ()) {
         g_print ("Modified UID: %s", uid_message);
     }
+#endif /* NO_LOCKING */
 
     g_free (nolock_reason);
     g_free (orig_uid);
@@ -205,7 +207,9 @@ main (int argc,
 
     xfce_textdomain (GETTEXT_PACKAGE, XFCELOCALEDIR, "UTF-8");
 
+#ifndef NO_LOCKING
     gs_auth_set_verbose (verbose);
+#endif /* NO_LOCKING */
     if (!privileged_initialization ()) {
         return EXIT_FAILURE;
     }
@@ -228,7 +232,11 @@ main (int argc,
 again:
     error = NULL;
 
+#ifndef NO_LOCKING
     if (gs_auth_verify_user (g_get_user_name (), g_getenv ("DISPLAY"), auth_message_handler, NULL, &error)) {
+#else
+    if (TRUE) {
+#endif /* NO_LOCKING */
         printf ("Correct!\n");
     } else {
         if (error != NULL) {

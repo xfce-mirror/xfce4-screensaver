@@ -47,6 +47,7 @@ typedef enum {
     GS_AUTH_ERROR_AUTH_DENIED
 } GSAuthError;
 
+#ifndef NO_LOCKING
 typedef gboolean (*GSAuthMessageFunc) (GSAuthMessageStyle style,
                                        const char *msg,
                                        char **response,
@@ -75,4 +76,5 @@ gs_auth_verify_user (const char *username,
 
 G_END_DECLS
 
+#endif /* NO_LOCKING */
 #endif /* SRC_GS_AUTH_H_ */
