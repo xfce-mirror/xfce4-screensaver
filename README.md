@@ -54,31 +54,27 @@ See the file 'INSTALL'
 From source code repository: 
 
     % cd xfce4-screensaver
-    % ./autogen.sh --prefix=/usr --sysconfdir=/etc
-    % make
-    % make install
+    % meson setup build
+    % meson compile -C build
+    % meson install -C build
 
 From release tarball:
 
-    % tar xf xfce4-screensaver-<version>.tar.bz2
+    % tar xf xfce4-screensaver-<version>.tar.xz
     % cd xfce4-screensaver-<version>
-    % ./configure
-    % make
-    % make install
+    % meson setup build
+    % meson compile -C build
+    % meson install -C build
 
 You may need to set your PAM auth type if it is not correctly detected.
 
-`--with-pam-auth-type=<auth-type>   specify pam auth type (common or system)`
+`-Dpam-auth-type=<auth-type>   specify pam auth type (common or system)`
 
 If you are using bsdauth or shadow auth, then you will need to make sure the
 following is done after installation:
 
     chown root:root $libexecdir/xfce4-screensaver-dialog
     chmod +s $libexecdir/xfce4-screensaver-dialog
-
-Example testing configuration:
-
-    ./autogen.sh --disable-static --with-mit-ext --with-console-kit --enable-locking --enable-debug --sysconfdir=/etc
 
 ### Reporting Bugs
 
