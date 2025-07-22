@@ -11,9 +11,6 @@ ColumnLimit: 0
 Cpp11BracedListStyle: false
 IncludeBlocks: Regroup
 IncludeCategories:
-  - Regex: '"config\.h"'
-    Priority: -3
-    CaseSensitive: true
   - Regex: '<.*>'
     Priority: -2
     CaseSensitive: true

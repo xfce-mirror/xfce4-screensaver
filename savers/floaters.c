@@ -26,10 +26,6 @@
  *                         Sean Davis <bluesabre@xfce.org>
  */
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
-
 #include <math.h>
 #include <stdlib.h>
 #include <sysexits.h>
