@@ -52,7 +52,6 @@
 #include "xfce-desktop-utils.h"
 
 #define GPM_COMMAND "xfce4-power-manager-settings"
-#define CONFIGURE_COMMAND "xfce4-screensaver-configure.py"
 
 enum {
     NAME_COLUMN = 0,
@@ -1761,7 +1760,6 @@ configure_capplet (void) {
     GtkWidget *root_warning_infobar;
     GtkWidget *preview_button;
     GtkWidget *gpm_button;
-    GtkWidget *configure_toolbar;
     GtkWidget *configure_button;
     GtkWidget *fullscreen_preview_window;
     GtkWidget *fullscreen_preview_area;
@@ -1807,7 +1805,6 @@ configure_capplet (void) {
     preview_button = GTK_WIDGET (gtk_builder_get_object (builder, "preview_button"));
     gpm_button = GTK_WIDGET (gtk_builder_get_object (builder, "power_management_button"));
     configure_button = GTK_WIDGET (gtk_builder_get_object (builder, "configure_button"));
-    configure_toolbar = GTK_WIDGET (gtk_builder_get_object (builder, "configure_toolbar"));
     fullscreen_preview_window = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_window"));
     fullscreen_preview_area = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_area"));
     fullscreen_preview_close = GTK_WIDGET (gtk_builder_get_object (builder, "fullscreen_preview_close"));
@@ -1854,15 +1851,10 @@ configure_capplet (void) {
                       G_CALLBACK (key_changed_cb),
                       NULL);
 
-    if (!is_program_in_path (CONFIGURE_COMMAND)) {
-        gtk_widget_set_no_show_all (configure_toolbar, TRUE);
-        gtk_widget_hide (configure_toolbar);
-    } else {
-        g_signal_connect (configure_button,
-                          "clicked",
-                          G_CALLBACK (configure_button_clicked_cb),
-                          screensaver_channel);
-    }
+    g_signal_connect (configure_button,
+                      "clicked",
+                      G_CALLBACK (configure_button_clicked_cb),
+                      screensaver_channel);
 
     /* Idle delay */
     widget = GTK_WIDGET (gtk_builder_get_object (builder, "saver_idle_activation_delay"));

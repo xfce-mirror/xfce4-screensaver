@@ -9,13 +9,14 @@ i18n.merge_file(
 
 install_data(
   'xfce4-screensaver-configure.py',
-  install_dir: get_option('prefix') / get_option('bindir'),
+  install_dir: get_option('prefix') / get_option('libexecdir'),
   install_mode: 'rwxr-xr-x',
 )
 
 c_args = [
   '-DSAVERDIR="@0@"'.format(get_option('prefix') / get_option('libexecdir') / 'xfce4-screensaver'),
   '-DPAM_SERVICE_NAME="@0@"'.format('xfce4-screensaver'),
+  '-DCONFIGURE_COMMAND="@0@"'.format(get_option('prefix') / get_option('libexecdir') / 'xfce4-screensaver-configure.py'),
 ]
 
 xfce4_screensaver_command_sources = [
