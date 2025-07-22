@@ -13,10 +13,6 @@
  * implied warranty.
  */
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
-
 #include <grp.h> /* for getgrgid() and struct group */
 #include <pwd.h> /* for getpwnam() and struct passwd */
 #include <stdio.h>

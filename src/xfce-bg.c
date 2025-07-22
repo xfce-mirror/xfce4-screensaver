@@ -30,10 +30,6 @@ Authors: Soren Sandmann <sandmann@redhat.com>
 
 */
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
-
 #include <fcntl.h>
 #include <math.h>
 #include <stdarg.h>

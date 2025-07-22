@@ -30,10 +30,6 @@
  *                         -- Olaf Kirch <okir@suse.de>, 16-Dec-2003
  */
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
-
 #include <errno.h>
 #include <pwd.h>
 #include <stdio.h>
