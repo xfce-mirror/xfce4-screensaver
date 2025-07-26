@@ -49,8 +49,6 @@ See [NEWS](https://gitlab.xfce.org/apps/xfce4-screensaver/-/blob/master/NEWS) fo
 
 ### Installation
 
-See the file 'INSTALL'
-
 From source code repository: 
 
     % cd xfce4-screensaver
