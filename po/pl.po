@@ -522,7 +522,7 @@ msgstr "Preferencje wygaszacza ekranu"
 
 #: src/xfce4-screensaver-preferences.ui:262
 msgid "Power _Management"
-msgstr "Zarządzanie _energią"
+msgstr "Zarządzanie zasilanie_m"
 
 #: src/xfce4-screensaver-preferences.ui:279
 #: src/xfce4-screensaver-preferences.ui:608
