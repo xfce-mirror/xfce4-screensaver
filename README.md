@@ -74,6 +74,10 @@ following is done after installation:
     chown root:root $libexecdir/xfce4-screensaver-dialog
     chmod +s $libexecdir/xfce4-screensaver-dialog
 
+### Uninstallation
+
+    % ninja uninstall -C build
+
 ### Reporting Bugs
 
 Visit the [reporting bugs](https://docs.xfce.org/apps/xfce4-screensaver/bugs) page to view currently open bug reports and instructions on reporting new bugs or submitting bugfixes.
