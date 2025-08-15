@@ -1,3 +1,18 @@
+4.20.1 (2025-08-15)
+======
+- configure.py: Quote only command line args
+- README.md: Add uninstall info
+- Remove reference to INSTALL file from README
+- Remove outdated INSTALL file
+- build: Install xfce4-screensaver-configure.py in libexecdir
+- build: Rename POTFILES.in to POTFILES
+- Remove autotools build
+- Update README after switchover to meson
+- meson-build: Add "none" to authentication-scheme combo
+- meson-build: Add "none" to session-manager combo
+- Translation Updates:
+  Occitan (post 1500), Polish
+
 4.20.0 (2025-07-14)
 ======
 Meson has been added as a build system in this release, and the
