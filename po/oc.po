@@ -52,15 +52,15 @@ msgstr "Tèma d’estalviador d'ecran"
 
 #: savers/floaters.c:93
 msgid "Show paths that images follow"
-msgstr ""
+msgstr "Afichar lo camin que seguisson los imatges"
 
 #: savers/floaters.c:96
 msgid "Occasionally rotate images as they move"
-msgstr ""
+msgstr "Far virar los imatges de temps en temps mentre que se desplaçan"
 
 #: savers/floaters.c:99
 msgid "Print out frame rate and other statistics"
-msgstr ""
+msgstr "Afichar la frequéncia d'imatges e d'autras estatisticas"
 
 #: savers/floaters.c:102
 msgid "The maximum number of images to keep on screen"
@@ -86,7 +86,7 @@ msgstr "L’imatge font d’utilizar"
 #. * represents a command line argument
 #: savers/floaters.c:1127
 msgid "image - floats images around the screen"
-msgstr ""
+msgstr "image - fa flotar los imatges a l'entorn de l'ecran"
 
 #: savers/floaters.c:1131 savers/popsquares.c:54
 #, c-format
@@ -95,7 +95,7 @@ msgstr "%s. Vejatz --help per informacions d’utilizacion.\n"
 
 #: savers/floaters.c:1137
 msgid "Failed to initialize the windowing system."
-msgstr ""
+msgstr "Fracàs de l'inicializacion del sistèma de fenèstras."
 
 #: savers/floaters.c:1142
 msgid "You must specify one image.  See --help for usage information.\n"
@@ -121,15 +121,15 @@ msgstr "« #rrggbb »"
 
 #: savers/slideshow.c:63
 msgid "Do not randomize pictures from location"
-msgstr ""
+msgstr "Metre pas a l’azard los imatges de l’emplaçament"
 
 #: savers/slideshow.c:65
 msgid "Do not try to stretch images on screen"
-msgstr ""
+msgstr "Estirar pas los imatges sus l'ecran"
 
 #: savers/slideshow.c:67
 msgid "Do not crop images to the screen size"
-msgstr ""
+msgstr "Talhar pas los imatges a la talha de l’ecran"
 
 #: savers/xfce-floaters.desktop.in.in:3
 msgid "Floating Xfce"
@@ -158,7 +158,7 @@ msgstr "Dessenha una grasilha de colors pulsadas que se sembla a de Pop art."
 #: src/gs-auth-pam.c:373
 #, c-format
 msgid "Unable to establish service %s: %s\n"
-msgstr ""
+msgstr "Se pòt pas establir lo servici %s : %s\n"
 
 #: src/gs-auth-pam.c:399
 #, c-format
@@ -175,7 +175,7 @@ msgstr "L'autentificacion a fracassat."
 
 #: src/gs-auth-pam.c:446
 msgid "Not permitted to gain access at this time."
-msgstr ""
+msgstr "Pas permés d'accedir a l'ora d'ara."
 
 #: src/gs-auth-pam.c:452
 msgid "No longer permitted to access the system."
@@ -187,11 +187,11 @@ msgstr "Nom d’utilizaire :"
 
 #: src/gs-listener-dbus.c:1968
 msgid "failed to register with the message bus"
-msgstr ""
+msgstr "fracàs de l'enregistrament amb lo bus de messatges"
 
 #: src/gs-listener-dbus.c:1978
 msgid "not connected to the message bus"
-msgstr ""
+msgstr "non connectat al bus de messatges"
 
 #: src/gs-listener-dbus.c:1987 src/gs-listener-dbus.c:2018
 msgid "screensaver already running in this session"
@@ -209,11 +209,11 @@ msgstr "Relambi expirat."
 
 #: src/xfce4-screensaver-command.c:53
 msgid "Causes the screensaver to exit gracefully"
-msgstr ""
+msgstr "Fa que l'estalviador d’ecran quite graciosament"
 
 #: src/xfce4-screensaver-command.c:55
 msgid "Query the state of the screensaver"
-msgstr ""
+msgstr "Demandar l’estat de l’estalviador d’ecran"
 
 #: src/xfce4-screensaver-command.c:57
 msgid "Query the length of time the screensaver has been active"
@@ -286,7 +286,7 @@ msgstr "L’estalviador es actiu dempuèi %d segondas.\n"
 
 #: src/xfce4-screensaver-configure.py:167
 msgid "Part of Xfce Screensaver"
-msgstr ""
+msgstr "Fa part de Xfce Screensaver"
 
 #: src/xfce4-screensaver-configure.py:178
 msgid "Max number of images"
@@ -314,15 +314,15 @@ msgstr "Color de rèire plan"
 
 #: src/xfce4-screensaver-configure.py:193
 msgid "Do not randomize images"
-msgstr ""
+msgstr "Afichar pas los imatges a l’azard"
 
 #: src/xfce4-screensaver-configure.py:195
 msgid "Do not stretch images"
-msgstr ""
+msgstr "Estirar pas los imatges"
 
 #: src/xfce4-screensaver-configure.py:197
 msgid "Do not crop images"
-msgstr ""
+msgstr "Talhar pas los imatges"
 
 #: src/xfce4-screensaver-configure.py:389
 msgid "Restore Defaults"
@@ -396,7 +396,7 @@ msgstr ""
 
 #: src/xfce4-screensaver-dialog.c:72
 msgid "Show the logout button"
-msgstr ""
+msgstr "Afichar lo boton de desconnexion"
 
 #: src/xfce4-screensaver-dialog.c:74
 msgid "Command to invoke from the logout button"
