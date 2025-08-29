@@ -217,41 +217,49 @@ msgstr "Demandar l’estat de l’estalviador d’ecran"
 
 #: src/xfce4-screensaver-command.c:57
 msgid "Query the length of time the screensaver has been active"
-msgstr ""
+msgstr "Consultar la durada pendent la qual es estat actiu"
 
 #: src/xfce4-screensaver-command.c:59
 msgid "Tells the running screensaver process to lock the screen immediately"
 msgstr ""
+"Ditz al processús d’estalviador d’ecran en execucion de verrolhar l’ecran "
+"immediatament"
 
 #: src/xfce4-screensaver-command.c:61
 msgid "If the screensaver is active then switch to another graphics demo"
 msgstr ""
+"Se l’estalviador d’ecran es actiu alara bascular a una autra demostracion "
+"grafica"
 
 #: src/xfce4-screensaver-command.c:63
 msgid "Turn the screensaver on (blank the screen)"
-msgstr ""
+msgstr "Alucar l’estalviador d’ecran (enfosquir l’ecran)"
 
 #: src/xfce4-screensaver-command.c:65
 msgid "If the screensaver is active then deactivate it (un-blank the screen)"
-msgstr ""
+msgstr "S'es actiu l'estalvidor d'ecran, desactiva-lo (desenfosquir l'ecran)"
 
 #: src/xfce4-screensaver-command.c:67
 msgid "Poke the running screensaver to simulate user activity"
 msgstr ""
+"Picar l'estalviador d'ecran en execucion per simular l'activitat de "
+"l'utilizaire"
 
 #: src/xfce4-screensaver-command.c:69
 msgid ""
 "Inhibit the screensaver from activating.  Command blocks while inhibit is "
 "active."
 msgstr ""
+"Inibir l'activacion de l'estalviador d’ecran. La comanda es blocada mentre "
+"que l'inibicion es activa."
 
 #: src/xfce4-screensaver-command.c:71
 msgid "The calling application that is inhibiting the screensaver"
-msgstr ""
+msgstr "L’aplicacion requerent l’inibicion de l’estalviador d’ecran"
 
 #: src/xfce4-screensaver-command.c:73
 msgid "The reason for inhibiting the screensaver"
-msgstr ""
+msgstr "La rason de l’inibicion de l’estalviador d’ecran"
 
 #: src/xfce4-screensaver-command.c:75 src/xfce4-screensaver-dialog.c:70
 #: src/xfce4-screensaver.c:58
@@ -273,11 +281,11 @@ msgstr "inactiu"
 
 #: src/xfce4-screensaver-command.c:193
 msgid "The screensaver is not inhibited\n"
-msgstr ""
+msgstr "L’estalviador d’ecran es pas inibit\n"
 
 #: src/xfce4-screensaver-command.c:195
 msgid "The screensaver is being inhibited by:\n"
-msgstr ""
+msgstr "L’estalviador d’ecran es inibit per :\n"
 
 #: src/xfce4-screensaver-command.c:211
 #, c-format
@@ -342,19 +350,19 @@ msgstr "Vidèo"
 
 #: src/xfce4-screensaver-configure.py:729
 msgid "Configure an individual screensaver"
-msgstr ""
+msgstr "Configurar un estalviador d’ecran individual"
 
 #: src/xfce4-screensaver-configure.py:731
 msgid "screensaver name to configure"
-msgstr ""
+msgstr "nom de l’estalviador d’ecran a configurar"
 
 #: src/xfce4-screensaver-configure.py:733
 msgid "check if screensaver is configurable"
-msgstr ""
+msgstr "verificar se l’estalviador d’ecran es configurable"
 
 #: src/xfce4-screensaver-configure.py:737
 msgid "Unable to configure screensaver"
-msgstr ""
+msgstr "Impossible de configurar l’estalviador d’ecran"
 
 #: src/xfce4-screensaver-configure.py:741
 msgid "Screensaver required."
@@ -368,31 +376,31 @@ msgstr "Fichièr pas trobat : %s"
 #: src/xfce4-screensaver-configure.py:757
 #, python-format
 msgid "Unrecognized file type: %s"
-msgstr ""
+msgstr "Tipe de fichièr non reconegut : %s"
 
 #: src/xfce4-screensaver-configure.py:761
 #, python-format
 msgid "Failed to process file: %s"
-msgstr ""
+msgstr "Tractament del fichièr impossible : %s"
 
 #: src/xfce4-screensaver-configure.py:766
 #, python-format
 msgid "Screensaver %s is configurable."
-msgstr ""
+msgstr "L’estalviador d’ecran %s es configurable."
 
 #: src/xfce4-screensaver-configure.py:768
 #, python-format
 msgid "Screensaver %s is not configurable."
-msgstr ""
+msgstr "L’estalviador d’ecran %s es pas configurable."
 
 #: src/xfce4-screensaver-configure.py:772
 #, python-format
 msgid "Screensaver %s has no configuration options."
-msgstr ""
+msgstr "L’estalviador d’ecran %s a pas cap d’opcions de configuracion."
 
 #: src/xfce4-screensaver-dialog.c:68
 msgid "Show debugging output"
-msgstr ""
+msgstr "Afichar la sortida de desbugatge"
 
 #: src/xfce4-screensaver-dialog.c:72
 msgid "Show the logout button"
@@ -400,7 +408,7 @@ msgstr "Afichar lo boton de desconnexion"
 
 #: src/xfce4-screensaver-dialog.c:74
 msgid "Command to invoke from the logout button"
-msgstr ""
+msgstr "Comanda de lançar a partir del boton de desconnexion"
 
 #: src/xfce4-screensaver-dialog.c:76
 msgid "Show the switch user button"
