@@ -412,7 +412,7 @@ msgstr "Comanda de lançar a partir del boton de desconnexion"
 
 #: src/xfce4-screensaver-dialog.c:76
 msgid "Show the switch user button"
-msgstr ""
+msgstr "Afichar lo boton de cambiament d'utilizaire"
 
 #: src/xfce4-screensaver-dialog.c:78
 msgid "Message to show in the dialog"
@@ -436,7 +436,7 @@ msgstr "Largor de l’ecran"
 
 #: src/xfce4-screensaver-dialog.c:86
 msgid "Monitor index"
-msgstr ""
+msgstr "Indèx del monitor"
 
 #: src/xfce4-screensaver-dialog.c:240
 msgid "Checking..."
@@ -497,7 +497,7 @@ msgstr "Aleaòri"
 
 #: src/xfce4-screensaver-preferences.c:1754
 msgid "Setting locked by administrator."
-msgstr ""
+msgstr "Paramètre verrolhat per l'administrator."
 
 #: src/xfce4-screensaver-preferences.c:1795
 msgid "Could not load the main interface"
@@ -543,6 +543,8 @@ msgstr "Resòlvre"
 #: src/xfce4-screensaver-preferences.ui:473
 msgid "Xfce Power Manager is not configured to handle laptop lid events"
 msgstr ""
+"Xfce Power Manager es pas configurat per gerir los eveniments del tapador de"
+" portatil"
 
 #: src/xfce4-screensaver-preferences.ui:489
 msgid "Your computer may not be locked when you close the lid."
@@ -577,15 +579,15 @@ msgstr "minutas"
 
 #: src/xfce4-screensaver-preferences.ui:767
 msgid "Activate screensaver when computer is idle"
-msgstr ""
+msgstr "Activar l'estalviador d'ecran quand l'ordenador es inactiu"
 
 #: src/xfce4-screensaver-preferences.ui:798
 msgid "Regard the computer as _idle after:"
-msgstr ""
+msgstr "Considerar l'ordenador coma _inactiu aprèp :"
 
 #: src/xfce4-screensaver-preferences.ui:837
 msgid "Inhibit screensaver for fullscreen applications"
-msgstr ""
+msgstr "Inibir l’estalviador d’ecran per las aplicacions en plen ecran"
 
 #: src/xfce4-screensaver-preferences.ui:896
 msgid "Enable Lock Screen"
@@ -598,6 +600,7 @@ msgstr "Verrolhar l’ecran amb l’estalviador d’ecran"
 #: src/xfce4-screensaver-preferences.ui:970
 msgid "Lock the screen after the screensaver is active for:"
 msgstr ""
+"Verrolhar l’ecran quand l’estalviador d’ecran es estat actiu pendent : "
 
 #: src/xfce4-screensaver-preferences.ui:1008
 msgid "On Screen Keyboard"
@@ -605,7 +608,7 @@ msgstr "Clavièr visual"
 
 #: src/xfce4-screensaver-preferences.ui:1038
 msgid "On screen keyboard command:"
-msgstr ""
+msgstr "Comanda del clavièr virtual :"
 
 #: src/xfce4-screensaver-preferences.ui:1063
 msgid "Session Status Messages"
@@ -629,7 +632,7 @@ msgstr "Cambiament d'utilizaire"
 
 #: src/xfce4-screensaver-preferences.ui:1215
 msgid "Lock Screen with System Sleep"
-msgstr ""
+msgstr "Verrolhar l’ecran amb la velha sistèma"
 
 #: src/xfce4-screensaver-preferences.ui:1256
 msgid "Lock Screen"
@@ -645,4 +648,4 @@ msgstr "Aviar l'estalviador d'ecran e lo programa de verrolhatge"
 
 #: src/xfcekbd-indicator.c:408
 msgid "XKB initialization error"
-msgstr ""
+msgstr "Error d’inicializacion XKB"
