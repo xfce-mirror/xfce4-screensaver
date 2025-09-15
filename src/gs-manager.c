@@ -48,8 +48,9 @@ gs_manager_finalize (GObject *object);
 struct GSManagerPrivate {
     GHashTable *windows;
     GHashTable *jobs;
-    GList *overlays;
-    guint n_overlay_signal_received;
+#ifdef ENABLE_X11
+    GtkWidget *overlay;
+#endif
 
     /* Policy */
     GSPrefs *prefs;
@@ -444,6 +445,23 @@ gs_manager_class_init (GSManagerClass *klass) {
                                                           G_PARAM_READWRITE));
 }
 
+#ifdef ENABLE_X11
+static void
+screen_size_changed (GdkScreen *screen,
+                     GSManager *manager) {
+    G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+    gint screen_width = gdk_screen_get_width (screen);
+    gint screen_height = gdk_screen_get_height (screen);
+    G_GNUC_END_IGNORE_DEPRECATIONS
+    gint window_width, window_height;
+
+    gtk_window_get_size (GTK_WINDOW (manager->priv->overlay), &window_width, &window_height);
+    if (screen_width > window_width || screen_height > window_height) {
+        gtk_window_resize (GTK_WINDOW (manager->priv->overlay), screen_width, screen_height);
+    }
+}
+#endif
+
 static void
 gs_manager_init (GSManager *manager) {
     manager->priv = gs_manager_get_instance_private (manager);
@@ -451,8 +469,26 @@ gs_manager_init (GSManager *manager) {
 #ifdef ENABLE_X11
     if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
         manager->priv->grab = gs_grab_new ();
+
+        manager->priv->overlay = gtk_window_new (GTK_WINDOW_POPUP);
+        GtkCssProvider *provider = gtk_css_provider_new ();
+        gtk_css_provider_load_from_data (provider, "* { background: black; }", -1, NULL);
+        gtk_style_context_add_provider (gtk_widget_get_style_context (manager->priv->overlay),
+                                        GTK_STYLE_PROVIDER (provider),
+                                        GTK_STYLE_PROVIDER_PRIORITY_APPLICATION);
+        g_object_unref (provider);
+
+        /*
+         * It is impossible to guarantee that the desktop will not appear when adding/removing a
+         * monitor if the overlay is resized. So we set a size that is both reasonable and large
+         * enough to avoid having to resize it in most cases, and if we do have to resize it, we
+         * only do so upwards.
+         */
+        gtk_window_resize (GTK_WINDOW (manager->priv->overlay), 7680, 4320);
+        g_signal_connect (gdk_screen_get_default (), "size-changed", G_CALLBACK (screen_size_changed), manager);
     }
 #endif
+
     manager->priv->prefs = gs_prefs_new ();
     manager->priv->jobs = g_hash_table_new_full (g_direct_hash, g_direct_equal,
                                                  NULL, (GDestroyNotify) remove_job);
@@ -813,7 +849,7 @@ connect_window_signals (GSManager *manager,
 }
 
 
-static GtkWidget *
+static void
 gs_manager_create_window_for_monitor (GSManager *manager,
                                       GdkMonitor *monitor) {
     GSWindow *window;
@@ -839,8 +875,6 @@ gs_manager_create_window_for_monitor (GSManager *manager,
     if (manager->priv->active) {
         gtk_widget_show (GTK_WIDGET (window));
     }
-
-    return GTK_WIDGET (window);
 }
 
 #ifdef ENABLE_WAYLAND
@@ -853,37 +887,10 @@ remove_window (gpointer monitor,
 }
 #endif
 
-static gboolean
-remove_overlays (GtkWidget *window,
-                 cairo_t *cr,
-                 GSManager *manager) {
+static void
+recreate_windows (GSManager *manager) {
     GdkDisplay *display = gdk_display_get_default ();
     guint n_monitors = gdk_display_get_n_monitors (display);
-
-    g_signal_handlers_disconnect_by_func (window, remove_overlays, manager);
-    if (++manager->priv->n_overlay_signal_received < n_monitors) {
-        return FALSE;
-    }
-
-    gs_debug ("Done reconfiguring monitors, removing overlays");
-
-    g_list_free_full (manager->priv->overlays, (GDestroyNotify) gtk_widget_destroy);
-    manager->priv->overlays = NULL;
-
-    return FALSE;
-}
-
-static gboolean
-recreate_windows (GtkWidget *overlay,
-                  cairo_t *cr,
-                  GSManager *manager) {
-    GdkDisplay *display = gdk_display_get_default ();
-    guint n_monitors = gdk_display_get_n_monitors (display);
-
-    g_signal_handlers_disconnect_by_func (overlay, recreate_windows, manager);
-    if (++manager->priv->n_overlay_signal_received < n_monitors) {
-        return FALSE;
-    }
 
     gs_debug ("Reconfiguring monitors, recreating windows");
 
@@ -894,48 +901,10 @@ recreate_windows (GtkWidget *overlay,
     }
 #endif
     g_hash_table_remove_all (manager->priv->windows);
-    manager->priv->n_overlay_signal_received = 0;
 
     for (guint n = 0; n < n_monitors; n++) {
         GdkMonitor *monitor = gdk_display_get_monitor (display, n);
-        GtkWidget *window = gs_manager_create_window_for_monitor (manager, monitor);
-        g_signal_connect_after (window, "draw", G_CALLBACK (remove_overlays), manager);
-    }
-
-    return FALSE;
-}
-
-static void
-add_overlays (GSManager *manager) {
-    GdkDisplay *display = gdk_display_get_default ();
-    gint n_monitors = gdk_display_get_n_monitors (display);
-    GHashTableIter iter;
-    gpointer window;
-
-    gs_debug ("Reconfiguring monitors, adding overlays");
-
-    g_list_free_full (manager->priv->overlays, (GDestroyNotify) gtk_widget_destroy);
-    manager->priv->overlays = NULL;
-    manager->priv->n_overlay_signal_received = 0;
-    g_hash_table_iter_init (&iter, manager->priv->windows);
-    while (g_hash_table_iter_next (&iter, NULL, &window)) {
-        g_signal_handlers_disconnect_by_func (window, remove_overlays, manager);
-        disconnect_window_signals (manager, window);
-    }
-
-    /* we need to disconnect_window_signals() right now above to avoid an X11 error that looks
-     * like a bug in GtkSocket/GtkPlug, so we also need to reset this flag just in case */
-    manager->priv->dialog_up = FALSE;
-
-    for (gint n = 0; n < n_monitors; n++) {
-        GdkRectangle rect;
-        GtkWidget *overlay = gtk_window_new (GTK_WINDOW_POPUP);
-        gdk_monitor_get_geometry (gdk_display_get_monitor (display, n), &rect);
-        gtk_window_move (GTK_WINDOW (overlay), rect.x, rect.y);
-        gtk_window_resize (GTK_WINDOW (overlay), rect.width, rect.height);
-        g_signal_connect_after (overlay, "draw", G_CALLBACK (recreate_windows), manager);
-        gtk_widget_show (overlay);
-        manager->priv->overlays = g_list_prepend (manager->priv->overlays, overlay);
+        gs_manager_create_window_for_monitor (manager, monitor);
     }
 }
 
@@ -946,7 +915,7 @@ on_display_monitor_added (GdkDisplay *display,
     gs_debug ("Monitor %s added on display %s, now there are %d",
               gdk_monitor_get_model (monitor), gdk_display_get_name (display), gdk_display_get_n_monitors (display));
 
-    add_overlays (manager);
+    recreate_windows (manager);
 }
 
 static void
@@ -956,7 +925,7 @@ on_display_monitor_removed (GdkDisplay *display,
     gs_debug ("Monitor %s removed on display %s, now there are %d",
               gdk_monitor_get_model (monitor), gdk_display_get_name (display), gdk_display_get_n_monitors (display));
 
-    add_overlays (manager);
+    recreate_windows (manager);
 }
 
 static void
@@ -978,8 +947,11 @@ gs_manager_destroy_windows (GSManager *manager) {
     }
 #endif
     g_hash_table_remove_all (manager->priv->windows);
-    g_list_free_full (manager->priv->overlays, (GDestroyNotify) gtk_widget_destroy);
-    manager->priv->overlays = NULL;
+#ifdef ENABLE_X11
+    if (manager->priv->overlay != NULL) {
+        gtk_widget_hide (manager->priv->overlay);
+    }
+#endif
 }
 
 static void
@@ -1003,6 +975,11 @@ gs_manager_finalize (GObject *object) {
     g_hash_table_destroy (manager->priv->jobs);
     gs_manager_destroy_windows (manager);
     g_hash_table_destroy (manager->priv->windows);
+#ifdef ENABLE_X11
+    if (manager->priv->overlay != NULL) {
+        gtk_widget_destroy (manager->priv->overlay);
+    }
+#endif
 
     manager->priv->active = FALSE;
 
@@ -1034,6 +1011,11 @@ gs_manager_create_windows (GSManager *manager) {
                       G_CALLBACK (on_display_monitor_removed),
                       manager);
 
+#ifdef ENABLE_X11
+    if (manager->priv->overlay != NULL) {
+        gtk_widget_show (manager->priv->overlay);
+    }
+#endif
     for (gint n = 0; n < n_monitors; n++) {
         GdkMonitor *monitor = gdk_display_get_monitor (display, n);
         gs_manager_create_window_for_monitor (manager, monitor);
