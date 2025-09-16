@@ -894,6 +894,19 @@ recreate_windows (GSManager *manager) {
 
     gs_debug ("Reconfiguring monitors, recreating windows");
 
+#ifdef ENABLE_X11
+    /*
+     * It doesn't prevent all leaks, but it's better than nothing. Preventing all leaks would
+     * probably require keeping the grab on the overlay permanently and passing events to the
+     * screensaver windows, which seems overly complicated given what's at stake.
+     */
+    if (manager->priv->grab != NULL) {
+        gs_grab_move_to_window (manager->priv->grab,
+                                gtk_widget_get_window (manager->priv->overlay),
+                                display, FALSE, FALSE);
+    }
+#endif
+
     g_hash_table_remove_all (manager->priv->jobs);
 #ifdef ENABLE_WAYLAND
     if (manager->priv->lock_manager != NULL) {
