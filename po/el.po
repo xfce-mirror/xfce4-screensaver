@@ -622,7 +622,7 @@ msgstr "Εντολή για αποσύνδεση:"
 
 #: src/xfce4-screensaver-preferences.ui:1147
 msgid "Enable logout after:"
-msgstr "Ενεργοποίηση αποσύνδεσης μετά από:"
+msgstr "Αποσύνδεση μετά από:"
 
 #: src/xfce4-screensaver-preferences.ui:1185
 msgid "User Switching"
