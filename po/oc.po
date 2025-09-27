@@ -145,7 +145,7 @@ msgstr "Diaporama"
 
 #: savers/xfce-personal-slideshow.desktop.in.in:4
 msgid "Display a slideshow from your Pictures folder"
-msgstr "Afichar un diaporama de vòstres dossièrs de fòtos"
+msgstr "Afichar un diaporama de vòstres dorsièrs de fòtos"
 
 #: savers/xfce-popsquares.desktop.in.in:3
 msgid "Pop art squares"
@@ -505,7 +505,7 @@ msgstr "Cargament impossible de l’interfàcia principala"
 
 #: src/xfce4-screensaver-preferences.c:1797
 msgid "Please make sure that the screensaver is properly installed"
-msgstr "Verificatz que l'estalviador d'ecran es installat corrèctament."
+msgstr "Verificatz que l'estalviador d'ecran es installat corrèctament"
 
 #: src/xfce4-screensaver-preferences.ui:38
 msgid "Screensaver Preview"
@@ -600,7 +600,7 @@ msgstr "Verrolhar l’ecran amb l’estalviador d’ecran"
 #: src/xfce4-screensaver-preferences.ui:970
 msgid "Lock the screen after the screensaver is active for:"
 msgstr ""
-"Verrolhar l’ecran quand l’estalviador d’ecran es estat actiu pendent : "
+"Verrolhar l’ecran quand l’estalviador d’ecran es estat actiu pendent :"
 
 #: src/xfce4-screensaver-preferences.ui:1008
 msgid "On Screen Keyboard"
