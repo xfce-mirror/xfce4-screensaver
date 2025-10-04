@@ -640,7 +640,7 @@ msgstr "Ecran de verrolhatge"
 
 #: src/xfce4-screensaver.c:59
 msgid "Enable debugging code"
-msgstr "Activar lo còde de desbugatge"
+msgstr "Activar lo còdi de desbugatge"
 
 #: src/xfce4-screensaver.desktop.in.in:5
 msgid "Launch screensaver and locker program"
