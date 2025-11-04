@@ -138,7 +138,7 @@ msgstr "Xfce flotant"
 
 #: savers/xfce-floaters.desktop.in.in:4
 msgid "Bubbles the Xfce logo around the screen"
-msgstr "Bombolles amb el logotip de Xfce per tota la pantalla"
+msgstr "Bombolles amb el logotip de l'Xfce per tota la pantalla"
 
 #: savers/xfce-personal-slideshow.desktop.in.in:3
 msgid "Slideshow"
@@ -295,7 +295,7 @@ msgstr "L'estalvi de pantalla ha estat actiu durant %d segons.\n"
 
 #: src/xfce4-screensaver-configure.py:167
 msgid "Part of Xfce Screensaver"
-msgstr "Part de l'estalvi de pantalla de Xfce"
+msgstr "Part de l'estalvi de pantalla de l'Xfce"
 
 #: src/xfce4-screensaver-configure.py:178
 msgid "Max number of images"
@@ -545,7 +545,7 @@ msgstr "Soluciona"
 #: src/xfce4-screensaver-preferences.ui:473
 msgid "Xfce Power Manager is not configured to handle laptop lid events"
 msgstr ""
-"El gestor d'energia de Xfce no està configurat per gestionar els "
+"El gestor d'energia de l'Xfce no està configurat per gestionar els "
 "esdeveniments de la tapa del portàtil"
 
 #: src/xfce4-screensaver-preferences.ui:489
