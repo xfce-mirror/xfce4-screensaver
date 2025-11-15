@@ -26,6 +26,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/utsname.h>
+#include <sys/wait.h>
 #include <time.h>
 #include <unistd.h>
 
@@ -179,20 +180,12 @@ toggle_infobar_visibility (GSLockPlug *plug) {
 
 static gboolean
 process_is_running (const char *name) {
-    int num_processes;
-    gchar *command = g_strdup_printf ("pidof %s | wc -l", name);
-    FILE *fp = popen (command, "r");
+    int rc;
+    gchar *command = g_strdup_printf ("pgrep %s", name);
+    rc = system (command);
     g_free (command);
 
-    if (fp == NULL)
-        return FALSE;
-
-    if (fscanf (fp, "%d", &num_processes) != 1)
-        num_processes = 0;
-
-    pclose (fp);
-
-    if (num_processes > 0) {
+    if (WIFEXITED (rc) && WEXITSTATUS (rc) == 0) {
         return TRUE;
     } else {
         return FALSE;
