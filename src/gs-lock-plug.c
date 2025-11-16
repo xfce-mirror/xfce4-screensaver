@@ -180,9 +180,8 @@ toggle_infobar_visibility (GSLockPlug *plug) {
 
 static gboolean
 process_is_running (const char *name) {
-    int rc;
     gchar *command = g_strdup_printf ("pgrep %s", name);
-    rc = system (command);
+    int rc = system (command);
     g_free (command);
 
     if (WIFEXITED (rc) && WEXITSTATUS (rc) == 0) {
