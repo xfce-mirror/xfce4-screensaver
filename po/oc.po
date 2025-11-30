@@ -222,7 +222,7 @@ msgstr "Consultar la durada pendent la qual es estat actiu"
 #: src/xfce4-screensaver-command.c:59
 msgid "Tells the running screensaver process to lock the screen immediately"
 msgstr ""
-"Ditz al processús d’estalviador d’ecran en execucion de verrolhar l’ecran "
+"Ditz al procèssus d’estalviador d’ecran en execucion de verrolhar l’ecran "
 "immediatament"
 
 #: src/xfce4-screensaver-command.c:61
