@@ -1,0 +1,646 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Xfce
+# This file is distributed under the same license as the xfce-apps.xfce4-screensaver package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Xfce Bot <transifex@xfce.org>, 2023
+# Nick Schermer <nick@xfce.org>, 2023
+# Loc Huynh, 2025
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: xfce-apps.xfce4-screensaver\n"
+"Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
+"POT-Creation-Date: 2024-12-22 00:50+0100\n"
+"PO-Revision-Date: 2018-10-16 16:27+0000\n"
+"Last-Translator: Loc Huynh, 2025\n"
+"Language-Team: Vietnamese (https://app.transifex.com/xfce/teams/16840/vi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: vi\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: data/xfce4-screensaver-preferences.desktop.in:3
+#: src/xfce4-screensaver.desktop.in.in:4
+msgid "Xfce Screensaver"
+msgstr "Trình bảo vệ màn hình Xfce"
+
+#: data/xfce4-screensaver-preferences.desktop.in:4
+msgid "Set your screensaver preferences"
+msgstr "Thiết lập tùy chọn trình bảo vệ màn hình"
+
+#: data/xfce4-screensaver-preferences.desktop.in:5
+#: src/xfce4-screensaver-preferences.ui:875
+#: src/xfce4-screensaver.desktop.in.in:6
+msgid "Screensaver"
+msgstr "Trình bảo vệ màn hình"
+
+#: data/xfce4-screensaver-preferences.desktop.in:11
+msgid "settings;preferences;screensaver;lock screen;"
+msgstr "cài đặt;tùy chọn;trình bảo vệ màn hình;khóa màn hình;"
+
+#: data/xfce4-screensaver.desktop.in:4
+msgid "Screensavers"
+msgstr "Các trình bảo vệ màn hình"
+
+#: data/xfce4-screensaver.desktop.in:5
+msgid "Screensaver themes"
+msgstr "Chủ đề trình bảo vệ màn hình"
+
+#: savers/floaters.c:93
+msgid "Show paths that images follow"
+msgstr "Hiển thị đường đi của ảnh"
+
+#: savers/floaters.c:96
+msgid "Occasionally rotate images as they move"
+msgstr "Thỉnh thoảng xoay ảnh khi di chuyển"
+
+#: savers/floaters.c:99
+msgid "Print out frame rate and other statistics"
+msgstr "In ra tốc độ khung hình và các thống kê khác"
+
+#: savers/floaters.c:102
+msgid "The maximum number of images to keep on screen"
+msgstr "Số ảnh tối đa hiển thị trên màn hình"
+
+#: savers/floaters.c:102
+msgid "MAX_IMAGES"
+msgstr "MAX_IMAGES"
+
+#: savers/floaters.c:105
+msgid "The initial size and position of window"
+msgstr "Kích thước và vị trí ban đầu của cửa sổ"
+
+#: savers/floaters.c:105
+msgid "WIDTHxHEIGHT+X+Y"
+msgstr "CHIỀURỘNGxCHIỀUCAO+X+Y"
+
+#: savers/floaters.c:108
+msgid "The source image to use"
+msgstr "Ảnh nguồn để sử dụng"
+
+#. translators: the word "image" here
+#. * represents a command line argument
+#: savers/floaters.c:1127
+msgid "image - floats images around the screen"
+msgstr "image – cho ảnh trôi nổi trên màn hình"
+
+#: savers/floaters.c:1131 savers/popsquares.c:54
+#, c-format
+msgid "%s. See --help for usage information.\n"
+msgstr "%s. Xem --help để biết cách dùng.\n"
+
+#: savers/floaters.c:1137
+msgid "Failed to initialize the windowing system."
+msgstr "Không khởi tạo được hệ thống cửa sổ."
+
+#: savers/floaters.c:1142
+msgid "You must specify one image.  See --help for usage information.\n"
+msgstr ""
+"Bạn phải chỉ định một hình ảnh. Xem --help để biết thông tin sử dụng.\n"
+"\n"
+
+#: savers/slideshow.c:59
+msgid "Location to get images from"
+msgstr "Vị trí lấy ảnh"
+
+#: savers/slideshow.c:59
+msgid "PATH"
+msgstr "ĐƯỜNG_DẪN"
+
+#: savers/slideshow.c:61
+msgid "Color to use for images background"
+msgstr "Màu nền cho ảnh"
+
+#: savers/slideshow.c:61
+msgid "\"#rrggbb\""
+msgstr "\"#rrggbb\""
+
+#: savers/slideshow.c:63
+msgid "Do not randomize pictures from location"
+msgstr "Không chọn ngẫu nhiên ảnh từ vị trí"
+
+#: savers/slideshow.c:65
+msgid "Do not try to stretch images on screen"
+msgstr "Không kéo giãn ảnh theo màn hình"
+
+#: savers/slideshow.c:67
+msgid "Do not crop images to the screen size"
+msgstr "Không cắt ảnh theo kích thước màn hình"
+
+#: savers/xfce-floaters.desktop.in.in:3
+msgid "Floating Xfce"
+msgstr "Logo Xfce trôi nổi"
+
+#: savers/xfce-floaters.desktop.in.in:4
+msgid "Bubbles the Xfce logo around the screen"
+msgstr "Logo Xfce trôi nổi khắp màn hình"
+
+#: savers/xfce-personal-slideshow.desktop.in.in:3
+msgid "Slideshow"
+msgstr "Trình chiếu"
+
+#: savers/xfce-personal-slideshow.desktop.in.in:4
+msgid "Display a slideshow from your Pictures folder"
+msgstr "Hiển thị trình chiếu từ thư mục Ảnh"
+
+#: savers/xfce-popsquares.desktop.in.in:3
+msgid "Pop art squares"
+msgstr "Ô vuông Pop art"
+
+#: savers/xfce-popsquares.desktop.in.in:4
+msgid "A pop-art-ish grid of pulsing colors."
+msgstr "Lưới ô vuông màu sắc nhấp nháy kiểu pop-art."
+
+#: src/gs-auth-pam.c:373
+#, c-format
+msgid "Unable to establish service %s: %s\n"
+msgstr "Không thiết lập được dịch vụ %s: %s\n"
+
+#: src/gs-auth-pam.c:399
+#, c-format
+msgid "Can't set PAM_TTY=%s"
+msgstr "Không đặt được PAM_TTY=%s"
+
+#: src/gs-auth-pam.c:430
+msgid "Incorrect password."
+msgstr "Mật khẩu sai."
+
+#: src/gs-auth-pam.c:432 src/xfce4-screensaver-dialog.c:280
+msgid "Authentication failed."
+msgstr "Xác thực thất bại."
+
+#: src/gs-auth-pam.c:446
+msgid "Not permitted to gain access at this time."
+msgstr "Hiện tại không được phép truy cập."
+
+#: src/gs-auth-pam.c:452
+msgid "No longer permitted to access the system."
+msgstr "Không còn được phép truy cập hệ thống."
+
+#: src/gs-auth-pam.c:660
+msgid "Username:"
+msgstr "Tên người dùng:"
+
+#: src/gs-listener-dbus.c:1968
+msgid "failed to register with the message bus"
+msgstr "không đăng ký được với bus tin nhắn"
+
+#: src/gs-listener-dbus.c:1978
+msgid "not connected to the message bus"
+msgstr "chưa kết nối tới bus tin nhắn"
+
+#: src/gs-listener-dbus.c:1987 src/gs-listener-dbus.c:2018
+msgid "screensaver already running in this session"
+msgstr "trình bảo vệ màn hình đã chạy trong phiên này"
+
+#. TRANSLATORS: adjust this accordingly for your locale format
+#: src/gs-lock-plug.c:308
+msgctxt "Date"
+msgid "%A, %B %e   %H:%M"
+msgstr "%A, %B %e   %H:%M"
+
+#: src/gs-lock-plug.c:398
+msgid "Time has expired."
+msgstr "Đã hết thời gian."
+
+#: src/xfce4-screensaver-command.c:53
+msgid "Causes the screensaver to exit gracefully"
+msgstr "Thoát trình bảo vệ màn hình một cách nhẹ nhàng"
+
+#: src/xfce4-screensaver-command.c:55
+msgid "Query the state of the screensaver"
+msgstr "Truy vấn trạng thái trình bảo vệ màn hình"
+
+#: src/xfce4-screensaver-command.c:57
+msgid "Query the length of time the screensaver has been active"
+msgstr "Truy vấn thời gian trình bảo vệ màn hình đã hoạt động"
+
+#: src/xfce4-screensaver-command.c:59
+msgid "Tells the running screensaver process to lock the screen immediately"
+msgstr "Yêu cầu trình bảo vệ màn hình đang chạy khóa màn hình ngay lập tức"
+
+#: src/xfce4-screensaver-command.c:61
+msgid "If the screensaver is active then switch to another graphics demo"
+msgstr ""
+"Nếu trình bảo vệ màn hình đang hoạt động thì chuyển sang hiệu ứng khác"
+
+#: src/xfce4-screensaver-command.c:63
+msgid "Turn the screensaver on (blank the screen)"
+msgstr "Bật trình bảo vệ màn hình (làm trống màn hình)"
+
+#: src/xfce4-screensaver-command.c:65
+msgid "If the screensaver is active then deactivate it (un-blank the screen)"
+msgstr ""
+"Nếu trình bảo vệ màn hình đang hoạt động thì tắt nó (hiện lại màn hình)"
+
+#: src/xfce4-screensaver-command.c:67
+msgid "Poke the running screensaver to simulate user activity"
+msgstr ""
+"Kích hoạt trình bảo vệ màn hình đang chạy để giả lập hoạt động người dùng"
+
+#: src/xfce4-screensaver-command.c:69
+msgid ""
+"Inhibit the screensaver from activating.  Command blocks while inhibit is "
+"active."
+msgstr ""
+"Ngăn chặn kích hoạt trình bảo vệ màn hình. Khối lệnh trong khi ức chế đang "
+"hoạt động."
+
+#: src/xfce4-screensaver-command.c:71
+msgid "The calling application that is inhibiting the screensaver"
+msgstr "Ứng dụng đang ngăn trình bảo vệ màn hình"
+
+#: src/xfce4-screensaver-command.c:73
+msgid "The reason for inhibiting the screensaver"
+msgstr "Lý do ngăn trình bảo vệ màn hình"
+
+#: src/xfce4-screensaver-command.c:75 src/xfce4-screensaver-dialog.c:70
+#: src/xfce4-screensaver.c:58
+msgid "Version of this application"
+msgstr "Phiên bản ứng dụng này"
+
+#: src/xfce4-screensaver-command.c:182
+#, c-format
+msgid "The screensaver is %s\n"
+msgstr "Trình bảo vệ màn hình đang %s\n"
+
+#: src/xfce4-screensaver-command.c:182
+msgid "active"
+msgstr "hoạt động"
+
+#: src/xfce4-screensaver-command.c:182
+msgid "inactive"
+msgstr "không hoạt động"
+
+#: src/xfce4-screensaver-command.c:193
+msgid "The screensaver is not inhibited\n"
+msgstr "Trình bảo vệ màn hình không bị ngăn\n"
+
+#: src/xfce4-screensaver-command.c:195
+msgid "The screensaver is being inhibited by:\n"
+msgstr "Trình bảo vệ màn hình đang bị ngăn bởi:\n"
+
+#: src/xfce4-screensaver-command.c:211
+#, c-format
+msgid "The screensaver has been active for %d seconds.\n"
+msgstr "Trình bảo vệ màn hình đã hoạt động được %d giây.\n"
+
+#: src/xfce4-screensaver-configure.py:167
+msgid "Part of Xfce Screensaver"
+msgstr "Thành phần của Trình bảo vệ màn hình Xfce"
+
+#: src/xfce4-screensaver-configure.py:178
+msgid "Max number of images"
+msgstr "Số ảnh tối đa"
+
+#: src/xfce4-screensaver-configure.py:181
+msgid "Show paths"
+msgstr "Hiển thị đường đi"
+
+#: src/xfce4-screensaver-configure.py:183
+msgid "Do rotations"
+msgstr "Xoay ảnh"
+
+#: src/xfce4-screensaver-configure.py:185
+msgid "Print stats"
+msgstr "In thống kê"
+
+#: src/xfce4-screensaver-configure.py:188
+msgid "Location"
+msgstr "Vị trí"
+
+#: src/xfce4-screensaver-configure.py:191
+msgid "Background color"
+msgstr "Màu nền"
+
+#: src/xfce4-screensaver-configure.py:193
+msgid "Do not randomize images"
+msgstr "Không chọn ngẫu nhiên ảnh"
+
+#: src/xfce4-screensaver-configure.py:195
+msgid "Do not stretch images"
+msgstr "Không kéo giãn ảnh"
+
+#: src/xfce4-screensaver-configure.py:197
+msgid "Do not crop images"
+msgstr "Không cắt ảnh"
+
+#: src/xfce4-screensaver-configure.py:389
+msgid "Restore Defaults"
+msgstr "Khôi phục mặc định"
+
+#: src/xfce4-screensaver-configure.py:402
+msgid "Preferences"
+msgstr "Tùy chọn"
+
+#: src/xfce4-screensaver-configure.py:408
+msgid "About"
+msgstr "Giới thiệu"
+
+#: src/xfce4-screensaver-configure.py:421
+msgid "Video"
+msgstr "Video"
+
+#: src/xfce4-screensaver-configure.py:729
+msgid "Configure an individual screensaver"
+msgstr "Cấu hình một trình bảo vệ màn hình riêng lẻ"
+
+#: src/xfce4-screensaver-configure.py:731
+msgid "screensaver name to configure"
+msgstr "tên trình bảo vệ màn hình cần cấu hình"
+
+#: src/xfce4-screensaver-configure.py:733
+msgid "check if screensaver is configurable"
+msgstr "kiểm tra xem trình bảo vệ màn hình có thể cấu hình không"
+
+#: src/xfce4-screensaver-configure.py:737
+msgid "Unable to configure screensaver"
+msgstr "Không thể cấu hình trình bảo vệ màn hình"
+
+#: src/xfce4-screensaver-configure.py:741
+msgid "Screensaver required."
+msgstr "Yêu cầu trình bảo vệ màn hình."
+
+#: src/xfce4-screensaver-configure.py:749
+#, python-format
+msgid "File not found: %s"
+msgstr "Không tìm thấy tập tin: %s"
+
+#: src/xfce4-screensaver-configure.py:757
+#, python-format
+msgid "Unrecognized file type: %s"
+msgstr "Loại tập tin không nhận diện: %s"
+
+#: src/xfce4-screensaver-configure.py:761
+#, python-format
+msgid "Failed to process file: %s"
+msgstr "Xử lý tập tin thất bại: %s"
+
+#: src/xfce4-screensaver-configure.py:766
+#, python-format
+msgid "Screensaver %s is configurable."
+msgstr "Trình bảo vệ màn hình %s có thể cấu hình."
+
+#: src/xfce4-screensaver-configure.py:768
+#, python-format
+msgid "Screensaver %s is not configurable."
+msgstr "Trình bảo vệ màn hình %s không thể cấu hình."
+
+#: src/xfce4-screensaver-configure.py:772
+#, python-format
+msgid "Screensaver %s has no configuration options."
+msgstr "Trình bảo vệ màn hình %s không có tùy chọn cấu hình."
+
+#: src/xfce4-screensaver-dialog.c:68
+msgid "Show debugging output"
+msgstr "Hiển thị thông tin gỡ lỗi"
+
+#: src/xfce4-screensaver-dialog.c:72
+msgid "Show the logout button"
+msgstr "Hiển thị nút đăng xuất"
+
+#: src/xfce4-screensaver-dialog.c:74
+msgid "Command to invoke from the logout button"
+msgstr "Lệnh thực thi từ nút đăng xuất"
+
+#: src/xfce4-screensaver-dialog.c:76
+msgid "Show the switch user button"
+msgstr "Hiển thị nút chuyển người dùng"
+
+#: src/xfce4-screensaver-dialog.c:78
+msgid "Message to show in the dialog"
+msgstr "Tin nhắn hiển thị trong hộp thoại"
+
+#: src/xfce4-screensaver-dialog.c:78 src/xfce4-screensaver-dialog.c:80
+msgid "MESSAGE"
+msgstr "TIN_NHẮN"
+
+#: src/xfce4-screensaver-dialog.c:80
+msgid "Not used"
+msgstr "Không dùng"
+
+#: src/xfce4-screensaver-dialog.c:82
+msgid "Monitor height"
+msgstr "Chiều cao màn hình"
+
+#: src/xfce4-screensaver-dialog.c:84
+msgid "Monitor width"
+msgstr "Chiều rộng màn hình"
+
+#: src/xfce4-screensaver-dialog.c:86
+msgid "Monitor index"
+msgstr "Chỉ số màn hình"
+
+#: src/xfce4-screensaver-dialog.c:240
+msgid "Checking..."
+msgstr "Đang kiểm tra…"
+
+#: src/xfce4-screensaver-dialog.ui:70
+msgid "%U"
+msgstr "%U"
+
+#: src/xfce4-screensaver-dialog.ui:98
+msgid "Enter your password"
+msgstr "Nhập mật khẩu"
+
+#: src/xfce4-screensaver-dialog.ui:211
+msgid "You have the Caps Lock key on."
+msgstr "Phím Caps Lock đang bật."
+
+#: src/xfce4-screensaver-dialog.ui:271
+msgid "_Switch User"
+msgstr "_Chuyển người dùng"
+
+#: src/xfce4-screensaver-dialog.ui:287
+msgid "_Log Out"
+msgstr "Đăn_g xuất"
+
+#: src/xfce4-screensaver-dialog.ui:303
+msgid "_Cancel"
+msgstr "_Hủy bỏ"
+
+#: src/xfce4-screensaver-dialog.ui:319
+msgid "_Unlock"
+msgstr "_Mở khóa"
+
+#: src/xfce4-screensaver-dialog.ui:377
+msgid "<b>%h</b>"
+msgstr "<b>%h</b>"
+
+#: src/xfce4-screensaver-dialog.ui:391
+#, c-format
+msgid "<b>%s</b>"
+msgstr "<b>%s</b>"
+
+#: src/xfce4-screensaver-preferences.c:91
+msgid "Settings manager socket"
+msgstr "Socket quản lý cài đặt"
+
+#: src/xfce4-screensaver-preferences.c:91
+msgid "SOCKET ID"
+msgstr "ID_SOCKET"
+
+#: src/xfce4-screensaver-preferences.c:730
+msgid "Blank screen"
+msgstr "Màn hình trống"
+
+#: src/xfce4-screensaver-preferences.c:736
+msgid "Random"
+msgstr "Ngẫu nhiên"
+
+#: src/xfce4-screensaver-preferences.c:1754
+msgid "Setting locked by administrator."
+msgstr "Cài đặt bị khóa bởi quản trị viên."
+
+#: src/xfce4-screensaver-preferences.c:1795
+msgid "Could not load the main interface"
+msgstr "Không tải được giao diện chính"
+
+#: src/xfce4-screensaver-preferences.c:1797
+msgid "Please make sure that the screensaver is properly installed"
+msgstr "Vui lòng đảm bảo trình bảo vệ màn hình đã được cài đặt đúng cách"
+
+#: src/xfce4-screensaver-preferences.ui:38
+msgid "Screensaver Preview"
+msgstr "Xem trước trình bảo vệ màn hình"
+
+#: src/xfce4-screensaver-preferences.ui:78
+msgid "<b>Screensaver preview</b>"
+msgstr "<b>Xem trước trình bảo vệ màn hình</b>"
+
+#: src/xfce4-screensaver-preferences.ui:227
+msgid "Screensaver Preferences"
+msgstr "Tùy chọn trình bảo vệ màn hình"
+
+#: src/xfce4-screensaver-preferences.ui:262
+msgid "Power _Management"
+msgstr "_Quản lý nguồn"
+
+#: src/xfce4-screensaver-preferences.ui:279
+#: src/xfce4-screensaver-preferences.ui:608
+msgid "Preview"
+msgstr "Xem trước"
+
+#: src/xfce4-screensaver-preferences.ui:370
+msgid "Running as root"
+msgstr "Đang chạy với quyền root"
+
+#: src/xfce4-screensaver-preferences.ui:386
+msgid "The screen will not be locked for the root user."
+msgstr "Màn hình sẽ không bị khóa đối với người dùng root."
+
+#: src/xfce4-screensaver-preferences.ui:427
+msgid "Resolve"
+msgstr "Khắc phục"
+
+#: src/xfce4-screensaver-preferences.ui:473
+msgid "Xfce Power Manager is not configured to handle laptop lid events"
+msgstr ""
+"Trình quản lý nguồn Xfce chưa được cấu hình để xử lý sự kiện đóng nắp laptop"
+
+#: src/xfce4-screensaver-preferences.ui:489
+msgid "Your computer may not be locked when you close the lid."
+msgstr "Máy tính có thể không bị khóa khi bạn đóng nắp."
+
+#: src/xfce4-screensaver-preferences.ui:538
+msgid "Enable Screensaver"
+msgstr "Bật trình bảo vệ màn hình"
+
+#: src/xfce4-screensaver-preferences.ui:592
+msgid "Theme"
+msgstr "Chủ đề"
+
+#: src/xfce4-screensaver-preferences.ui:688
+msgid "Configure screensaver"
+msgstr "Cấu hình trình bảo vệ màn hình"
+
+#: src/xfce4-screensaver-preferences.ui:689
+msgid "Configure..."
+msgstr "Cấu hình…"
+
+#: src/xfce4-screensaver-preferences.ui:729
+msgid "Change theme after:"
+msgstr "Đổi chủ đề sau:"
+
+#: src/xfce4-screensaver-preferences.ui:752
+#: src/xfce4-screensaver-preferences.ui:822
+#: src/xfce4-screensaver-preferences.ui:993
+#: src/xfce4-screensaver-preferences.ui:1170
+msgid "minutes"
+msgstr "phút"
+
+#: src/xfce4-screensaver-preferences.ui:767
+msgid "Activate screensaver when computer is idle"
+msgstr "Kích hoạt trình bảo vệ màn hình khi máy tính không hoạt động"
+
+#: src/xfce4-screensaver-preferences.ui:798
+msgid "Regard the computer as _idle after:"
+msgstr "Xem máy tính _không hoạt động sau:"
+
+#: src/xfce4-screensaver-preferences.ui:837
+msgid "Inhibit screensaver for fullscreen applications"
+msgstr "Ngăn trình bảo vệ màn hình khi ứng dụng toàn màn hình"
+
+#: src/xfce4-screensaver-preferences.ui:896
+msgid "Enable Lock Screen"
+msgstr "Bật khóa màn hình"
+
+#: src/xfce4-screensaver-preferences.ui:940
+msgid "Lock Screen with Screensaver"
+msgstr "Khóa màn hình cùng trình bảo vệ màn hình"
+
+#: src/xfce4-screensaver-preferences.ui:970
+msgid "Lock the screen after the screensaver is active for:"
+msgstr "Khóa màn hình sau khi trình bảo vệ màn hình hoạt động:"
+
+#: src/xfce4-screensaver-preferences.ui:1008
+msgid "On Screen Keyboard"
+msgstr "Bàn phím trên màn hình"
+
+#: src/xfce4-screensaver-preferences.ui:1038
+msgid "On screen keyboard command:"
+msgstr "Lệnh bàn phím trên màn hình:"
+
+#: src/xfce4-screensaver-preferences.ui:1063
+msgid "Session Status Messages"
+msgstr "Tin nhắn trạng thái phiên"
+
+#: src/xfce4-screensaver-preferences.ui:1093
+msgid "Logout"
+msgstr "Đăng xuất"
+
+#: src/xfce4-screensaver-preferences.ui:1123
+msgid "Logout command:"
+msgstr "Lệnh đăng xuất:"
+
+#: src/xfce4-screensaver-preferences.ui:1147
+msgid "Enable logout after:"
+msgstr "Bật đăng xuất sau:"
+
+#: src/xfce4-screensaver-preferences.ui:1185
+msgid "User Switching"
+msgstr "Chuyển người dùng"
+
+#: src/xfce4-screensaver-preferences.ui:1215
+msgid "Lock Screen with System Sleep"
+msgstr "Khóa màn hình khi hệ thống ngủ"
+
+#: src/xfce4-screensaver-preferences.ui:1256
+msgid "Lock Screen"
+msgstr "Khóa màn hình"
+
+#: src/xfce4-screensaver.c:59
+msgid "Enable debugging code"
+msgstr "Bật mã gỡ lỗi"
+
+#: src/xfce4-screensaver.desktop.in.in:5
+msgid "Launch screensaver and locker program"
+msgstr "Khởi chạy chương trình bảo vệ và khóa màn hình"
+
+#: src/xfcekbd-indicator.c:408
+msgid "XKB initialization error"
+msgstr "Lỗi khởi tạo XKB"
