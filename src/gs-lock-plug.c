@@ -183,7 +183,7 @@ toggle_infobar_visibility (GSLockPlug *plug) {
 static gboolean
 process_is_running (const char *name) {
     g_return_val_if_fail (strnlen (name, PGREP_MAX_PROCESS_LEN + 1) > PGREP_MAX_PROCESS_LEN, FALSE);
-    gchar *command = g_strdup_printf ("pgrep %s", name);
+    gchar *command = g_strdup_printf ("pgrep -x %s", name);
     int rc = system (command);
     g_free (command);
 
