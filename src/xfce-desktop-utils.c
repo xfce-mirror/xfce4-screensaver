@@ -142,3 +142,18 @@ spawn_async_with_pipes (GtkWidget *socket,
 #endif
     return FALSE;
 }
+
+gchar *
+get_theme_arguments (XfconfChannel *channel,
+                     const gchar *theme) {
+    gchar *theme_name = g_strstr_len (theme, -1, "-");
+    if (theme_name == NULL) {
+        return g_strdup ("");
+    }
+
+    gchar *property = g_strdup_printf ("/screensavers/%s/arguments", theme_name + 1);
+    gchar *arguments = xfconf_channel_get_string (channel, property, "");
+    g_free (property);
+
+    return arguments;
+}

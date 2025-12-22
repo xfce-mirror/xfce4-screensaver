@@ -559,22 +559,6 @@ config_set_logout_command (const gchar *command) {
     xfconf_channel_set_string (screensaver_channel, KEY_LOGOUT_COMMAND, command);
 }
 
-static gchar *
-config_get_theme_arguments (const gchar *theme) {
-    gchar *property;
-    gchar *arguments;
-    gchar *theme_name;
-
-    theme_name = g_utf8_substring (theme, 13, g_utf8_strlen (theme, -1));
-    property = g_strdup_printf ("/screensavers/%s/arguments", theme_name);
-    arguments = xfconf_channel_get_string (screensaver_channel, property, "");
-
-    g_free (theme_name);
-    g_free (property);
-
-    return arguments;
-}
-
 static void
 job_set_theme (GSJob *local_job,
                const char *theme) {
@@ -586,7 +570,7 @@ job_set_theme (GSJob *local_job,
 
     info = gs_theme_manager_lookup_theme_info (theme_manager, theme);
     if (info != NULL) {
-        arguments = config_get_theme_arguments (theme);
+        arguments = get_theme_arguments (screensaver_channel, theme);
         command = g_strdup_printf ("%s %s", gs_theme_info_get_exec (info), arguments);
     }
 

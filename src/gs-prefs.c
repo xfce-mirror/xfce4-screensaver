@@ -28,6 +28,7 @@
 #include <xfconf/xfconf.h>
 
 #include "gs-prefs.h"
+#include "xfce-desktop-utils.h"
 
 static void
 gs_prefs_finalize (GObject *object);
@@ -406,18 +407,7 @@ gs_prefs_load_from_settings (GSPrefs *prefs) {
 gchar *
 gs_prefs_get_theme_arguments (GSPrefs *prefs,
                               const gchar *theme) {
-    gchar *property;
-    gchar *arguments;
-    gchar *theme_name;
-
-    theme_name = g_utf8_substring (theme, 13, g_utf8_strlen (theme, -1));
-    property = g_strdup_printf ("/screensavers/%s/arguments", theme_name);
-    arguments = xfconf_channel_get_string (prefs->priv->channel, property, "");
-
-    g_free (theme_name);
-    g_free (property);
-
-    return arguments;
+    return get_theme_arguments (prefs->priv->channel, theme);
 }
 
 static void

@@ -27,6 +27,7 @@
 #define SRC_XFCE_DESKTOP_UTILS_H_
 
 #include <gtk/gtk.h>
+#include <xfconf/xfconf.h>
 
 G_BEGIN_DECLS
 
@@ -52,6 +53,9 @@ spawn_async_with_pipes (GtkWidget *socket,
                         gint *standard_output,
                         gint *standard_error,
                         GError **error);
+gchar *
+get_theme_arguments (XfconfChannel *channel,
+                     const gchar *theme);
 
 G_END_DECLS
 
