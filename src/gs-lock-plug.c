@@ -57,6 +57,8 @@
 #include "xfce-bg.h"
 #include "xfce-desktop-utils.h"
 
+#define PGREP_MAX_PROCESS_LEN 15
+
 #define MDM_FLEXISERVER_COMMAND "mdmflexiserver"
 #define MDM_FLEXISERVER_ARGS "--startnew Standard"
 
@@ -180,7 +182,12 @@ toggle_infobar_visibility (GSLockPlug *plug) {
 
 static gboolean
 process_is_running (const char *name) {
-    gchar *command = g_strdup_printf ("pgrep %s", name);
+    g_return_val_if_fail (strnlen (name, PGREP_MAX_PROCESS_LEN + 1) > PGREP_MAX_PROCESS_LEN, FALSE);
+#ifdef __FreeBSD__
+    gchar *command = g_strdup_printf ("pgrep -ax %s", name);
+#else
+    gchar *command = g_strdup_printf ("pgrep -x %s", name);
+#endif
     int rc = system (command);
     g_free (command);
 
