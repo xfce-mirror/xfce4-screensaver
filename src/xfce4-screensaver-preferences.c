@@ -1824,6 +1824,10 @@ configure_capplet (void) {
 
     gtk_widget_set_no_show_all (root_warning_infobar, TRUE);
 
+    /* necessary in the prefs dialog for some reason, see
+     * https://gitlab.xfce.org/apps/xfce4-screensaver/-/issues/183 */
+    gtk_widget_set_visual (preview, gdk_visual_get_best ());
+
     if (!is_program_in_path (GPM_COMMAND)) {
         gtk_widget_set_no_show_all (gpm_button, TRUE);
         gtk_widget_hide (gpm_button);
