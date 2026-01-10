@@ -1,0 +1,650 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Xfce
+# This file is distributed under the same license as the xfce-apps.xfce4-screensaver package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Xfce Bot <transifex@xfce.org>, 2023
+# Nick Schermer <nick@xfce.org>, 2024
+# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2026
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: xfce-apps.xfce4-screensaver\n"
+"Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
+"POT-Creation-Date: 2024-12-22 00:50+0100\n"
+"PO-Revision-Date: 2018-10-16 16:27+0000\n"
+"Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2026\n"
+"Language-Team: Kazakh (https://app.transifex.com/xfce/teams/16840/kk/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: kk\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: data/xfce4-screensaver-preferences.desktop.in:3
+#: src/xfce4-screensaver.desktop.in.in:4
+msgid "Xfce Screensaver"
+msgstr "Xfce экран сақтағышы"
+
+#: data/xfce4-screensaver-preferences.desktop.in:4
+msgid "Set your screensaver preferences"
+msgstr "Экран сақтағышының баптауларын орнату"
+
+#: data/xfce4-screensaver-preferences.desktop.in:5
+#: src/xfce4-screensaver-preferences.ui:875
+#: src/xfce4-screensaver.desktop.in.in:6
+msgid "Screensaver"
+msgstr "Экран қорғаушысы"
+
+#: data/xfce4-screensaver-preferences.desktop.in:11
+msgid "settings;preferences;screensaver;lock screen;"
+msgstr ""
+"settings;preferences;screensaver;lock screen;баптаулар;параметрлер;экран "
+"сақтағышы;экранды бұғаттау;"
+
+#: data/xfce4-screensaver.desktop.in:4
+msgid "Screensavers"
+msgstr "Экран сақтағыштары"
+
+#: data/xfce4-screensaver.desktop.in:5
+msgid "Screensaver themes"
+msgstr "Экран сақтағыштарының темалары"
+
+#: savers/floaters.c:93
+msgid "Show paths that images follow"
+msgstr "Суреттер жүретін жолдарды көрсету"
+
+#: savers/floaters.c:96
+msgid "Occasionally rotate images as they move"
+msgstr "Суреттер қозғалған кезде оларды кейде бұру"
+
+#: savers/floaters.c:99
+msgid "Print out frame rate and other statistics"
+msgstr "Кадр жиілігін және басқа статистиканы шығару"
+
+#: savers/floaters.c:102
+msgid "The maximum number of images to keep on screen"
+msgstr "Экранда көрсетілетін суреттердің максималды саны"
+
+#: savers/floaters.c:102
+msgid "MAX_IMAGES"
+msgstr "MAX_IMAGES"
+
+#: savers/floaters.c:105
+msgid "The initial size and position of window"
+msgstr "Терезенің бастапқы өлшемі мен орны"
+
+#: savers/floaters.c:105
+msgid "WIDTHxHEIGHT+X+Y"
+msgstr "WIDTHxHEIGHT+X+Y"
+
+#: savers/floaters.c:108
+msgid "The source image to use"
+msgstr "Қолданылатын бастапқы сурет"
+
+#. translators: the word "image" here
+#. * represents a command line argument
+#: savers/floaters.c:1127
+msgid "image - floats images around the screen"
+msgstr "image - суреттерді экран бойымен қозғалтады"
+
+#: savers/floaters.c:1131 savers/popsquares.c:54
+#, c-format
+msgid "%s. See --help for usage information.\n"
+msgstr "%s. Қолдану туралы ақпаратты --help арқылы қараңыз.\n"
+
+#: savers/floaters.c:1137
+msgid "Failed to initialize the windowing system."
+msgstr "Терезе жүйесін инициализациялау сәтсіз аяқталды."
+
+#: savers/floaters.c:1142
+msgid "You must specify one image.  See --help for usage information.\n"
+msgstr ""
+"Сіз бір суретті көрсетуіңіз керек.  Қолдану туралы ақпаратты --help арқылы "
+"қараңыз.\n"
+
+#: savers/slideshow.c:59
+msgid "Location to get images from"
+msgstr "Суреттер алынатын орын"
+
+#: savers/slideshow.c:59
+msgid "PATH"
+msgstr "ОРНАЛАСУ"
+
+#: savers/slideshow.c:61
+msgid "Color to use for images background"
+msgstr "Суреттер фоны үшін қолданылатын түс"
+
+#: savers/slideshow.c:61
+msgid "\"#rrggbb\""
+msgstr "\"#rrggbb\""
+
+#: savers/slideshow.c:63
+msgid "Do not randomize pictures from location"
+msgstr "Орналасудан суреттерді кездейсоқ таңдамау"
+
+#: savers/slideshow.c:65
+msgid "Do not try to stretch images on screen"
+msgstr "Суреттерді экранға созбау"
+
+#: savers/slideshow.c:67
+msgid "Do not crop images to the screen size"
+msgstr "Суреттерді экран өлшеміне дейін қиып алмау"
+
+#: savers/xfce-floaters.desktop.in.in:3
+msgid "Floating Xfce"
+msgstr "Қалқымалы Xfce"
+
+#: savers/xfce-floaters.desktop.in.in:4
+msgid "Bubbles the Xfce logo around the screen"
+msgstr "Экранда Xfce логотипін көпіршіктер түрінде жылжытады"
+
+#: savers/xfce-personal-slideshow.desktop.in.in:3
+msgid "Slideshow"
+msgstr "Слайдшоу"
+
+#: savers/xfce-personal-slideshow.desktop.in.in:4
+msgid "Display a slideshow from your Pictures folder"
+msgstr "Суреттер бумасынан слайдшоуды көрсету"
+
+#: savers/xfce-popsquares.desktop.in.in:3
+msgid "Pop art squares"
+msgstr "Поп-арт шаршылары"
+
+#: savers/xfce-popsquares.desktop.in.in:4
+msgid "A pop-art-ish grid of pulsing colors."
+msgstr "Соғып тұрған түстердің поп-арт стиліндегі торы."
+
+#: src/gs-auth-pam.c:373
+#, c-format
+msgid "Unable to establish service %s: %s\n"
+msgstr "%s қызметін орнату мүмкін емес: %s\n"
+
+#: src/gs-auth-pam.c:399
+#, c-format
+msgid "Can't set PAM_TTY=%s"
+msgstr "PAM_TTY=%s мәнін орнату мүмкін емес"
+
+#: src/gs-auth-pam.c:430
+msgid "Incorrect password."
+msgstr "Пароль қате."
+
+#: src/gs-auth-pam.c:432 src/xfce4-screensaver-dialog.c:280
+msgid "Authentication failed."
+msgstr "Аутентификация сәтсіз аяқталды."
+
+#: src/gs-auth-pam.c:446
+msgid "Not permitted to gain access at this time."
+msgstr "Қазіргі уақытта қол жеткізуге рұқсат берілмеген."
+
+#: src/gs-auth-pam.c:452
+msgid "No longer permitted to access the system."
+msgstr "Жүйеге қол жеткізуге енді рұқсат жоқ."
+
+#: src/gs-auth-pam.c:660
+msgid "Username:"
+msgstr "Пайдаланушы аты:"
+
+#: src/gs-listener-dbus.c:1968
+msgid "failed to register with the message bus"
+msgstr "хабарламалар шинасында тіркелу сәтсіз аяқталды"
+
+#: src/gs-listener-dbus.c:1978
+msgid "not connected to the message bus"
+msgstr "хабарламалар шинасына қосылмаған"
+
+#: src/gs-listener-dbus.c:1987 src/gs-listener-dbus.c:2018
+msgid "screensaver already running in this session"
+msgstr "экран сақтағышы бұл сессияда қазірдің өзінде қосулы тұр"
+
+#. TRANSLATORS: adjust this accordingly for your locale format
+#: src/gs-lock-plug.c:308
+msgctxt "Date"
+msgid "%A, %B %e   %H:%M"
+msgstr "%A, %B %e   %H:%M"
+
+#: src/gs-lock-plug.c:398
+msgid "Time has expired."
+msgstr "Уақыт аяқталды."
+
+#: src/xfce4-screensaver-command.c:53
+msgid "Causes the screensaver to exit gracefully"
+msgstr "Экран сақтағышының дұрыс аяқталуына мәжбүрлейді"
+
+#: src/xfce4-screensaver-command.c:55
+msgid "Query the state of the screensaver"
+msgstr "Экран сақтағышының күйін сұрау"
+
+#: src/xfce4-screensaver-command.c:57
+msgid "Query the length of time the screensaver has been active"
+msgstr "Экран сақтағышы белсенді болған уақыт ұзақтығын сұрау"
+
+#: src/xfce4-screensaver-command.c:59
+msgid "Tells the running screensaver process to lock the screen immediately"
+msgstr ""
+"Жұмыс істеп тұрған экран сақтағышы процесіне экранды дереу бұғаттауды "
+"бұйырады"
+
+#: src/xfce4-screensaver-command.c:61
+msgid "If the screensaver is active then switch to another graphics demo"
+msgstr "Егер экран сақтағышы белсенді болса, басқа графикалық демоға ауысу"
+
+#: src/xfce4-screensaver-command.c:63
+msgid "Turn the screensaver on (blank the screen)"
+msgstr "Экран сақтағышын қосу (экранды тазарту)"
+
+#: src/xfce4-screensaver-command.c:65
+msgid "If the screensaver is active then deactivate it (un-blank the screen)"
+msgstr ""
+"Егер экран сақтағышы белсенді болса, оны өшіру (экранды қалпына келтіру)"
+
+#: src/xfce4-screensaver-command.c:67
+msgid "Poke the running screensaver to simulate user activity"
+msgstr ""
+"Пайдаланушы әрекетін имитациялау үшін жұмыс істеп тұрған экран сақтағышына "
+"белгі беру"
+
+#: src/xfce4-screensaver-command.c:69
+msgid ""
+"Inhibit the screensaver from activating.  Command blocks while inhibit is "
+"active."
+msgstr ""
+"Экран сақтағышының белсендірілуіне тыйым салу. Тыйым салу белсенді болған "
+"кезде команда блокталады."
+
+#: src/xfce4-screensaver-command.c:71
+msgid "The calling application that is inhibiting the screensaver"
+msgstr "Экран сақтағышына тыйым салатын шақырушы қолданба"
+
+#: src/xfce4-screensaver-command.c:73
+msgid "The reason for inhibiting the screensaver"
+msgstr "Экран сақтағышын тежеу себебі"
+
+#: src/xfce4-screensaver-command.c:75 src/xfce4-screensaver-dialog.c:70
+#: src/xfce4-screensaver.c:58
+msgid "Version of this application"
+msgstr "Бұл қолданбаның нұсқасы"
+
+#: src/xfce4-screensaver-command.c:182
+#, c-format
+msgid "The screensaver is %s\n"
+msgstr "Экран сақтағышы: %s\n"
+
+#: src/xfce4-screensaver-command.c:182
+msgid "active"
+msgstr "белсенді"
+
+#: src/xfce4-screensaver-command.c:182
+msgid "inactive"
+msgstr "белсенді емес"
+
+#: src/xfce4-screensaver-command.c:193
+msgid "The screensaver is not inhibited\n"
+msgstr "Экран сақтағышы тежелмеген\n"
+
+#: src/xfce4-screensaver-command.c:195
+msgid "The screensaver is being inhibited by:\n"
+msgstr "Экран сақтағышын тежеп тұрған:\n"
+
+#: src/xfce4-screensaver-command.c:211
+#, c-format
+msgid "The screensaver has been active for %d seconds.\n"
+msgstr "Экран сақтағышы %d секунд бойы белсенді.\n"
+
+#: src/xfce4-screensaver-configure.py:167
+msgid "Part of Xfce Screensaver"
+msgstr "Xfce Screensaver бөлігі"
+
+#: src/xfce4-screensaver-configure.py:178
+msgid "Max number of images"
+msgstr "Суреттердің максималды саны"
+
+#: src/xfce4-screensaver-configure.py:181
+msgid "Show paths"
+msgstr "Жолдарды көрсету"
+
+#: src/xfce4-screensaver-configure.py:183
+msgid "Do rotations"
+msgstr "Бұруды орындау"
+
+#: src/xfce4-screensaver-configure.py:185
+msgid "Print stats"
+msgstr "Статистиканы шығару"
+
+#: src/xfce4-screensaver-configure.py:188
+msgid "Location"
+msgstr "Орналасуы"
+
+#: src/xfce4-screensaver-configure.py:191
+msgid "Background color"
+msgstr "Фон түсі"
+
+#: src/xfce4-screensaver-configure.py:193
+msgid "Do not randomize images"
+msgstr "Суреттерді кездейсоқ таңдамау"
+
+#: src/xfce4-screensaver-configure.py:195
+msgid "Do not stretch images"
+msgstr "Суреттерді созбау"
+
+#: src/xfce4-screensaver-configure.py:197
+msgid "Do not crop images"
+msgstr "Суреттерді қиып алмау"
+
+#: src/xfce4-screensaver-configure.py:389
+msgid "Restore Defaults"
+msgstr "Әдепкі қалпына келтіру"
+
+#: src/xfce4-screensaver-configure.py:402
+msgid "Preferences"
+msgstr "Баптаулар"
+
+#: src/xfce4-screensaver-configure.py:408
+msgid "About"
+msgstr "Осы туралы"
+
+#: src/xfce4-screensaver-configure.py:421
+msgid "Video"
+msgstr "Видео"
+
+#: src/xfce4-screensaver-configure.py:729
+msgid "Configure an individual screensaver"
+msgstr "Жеке экран сақтағышын баптау"
+
+#: src/xfce4-screensaver-configure.py:731
+msgid "screensaver name to configure"
+msgstr "бапталатын экран сақтағышының аты"
+
+#: src/xfce4-screensaver-configure.py:733
+msgid "check if screensaver is configurable"
+msgstr "экран сақтағышының бапталатынын тексеру"
+
+#: src/xfce4-screensaver-configure.py:737
+msgid "Unable to configure screensaver"
+msgstr "Экран сақтағышын баптау мүмкін емес"
+
+#: src/xfce4-screensaver-configure.py:741
+msgid "Screensaver required."
+msgstr "Экран сақтағышы қажет."
+
+#: src/xfce4-screensaver-configure.py:749
+#, python-format
+msgid "File not found: %s"
+msgstr "Файл табылмады: %s"
+
+#: src/xfce4-screensaver-configure.py:757
+#, python-format
+msgid "Unrecognized file type: %s"
+msgstr "Танылмаған файл түрі: %s"
+
+#: src/xfce4-screensaver-configure.py:761
+#, python-format
+msgid "Failed to process file: %s"
+msgstr "Файлды өңдеу сәтсіз аяқталды: %s"
+
+#: src/xfce4-screensaver-configure.py:766
+#, python-format
+msgid "Screensaver %s is configurable."
+msgstr "%s экран сақтағышын баптауға болады."
+
+#: src/xfce4-screensaver-configure.py:768
+#, python-format
+msgid "Screensaver %s is not configurable."
+msgstr "%s экран сақтағышын баптауға болмайды."
+
+#: src/xfce4-screensaver-configure.py:772
+#, python-format
+msgid "Screensaver %s has no configuration options."
+msgstr "%s экран сақтағышында баптау опциялары жоқ."
+
+#: src/xfce4-screensaver-dialog.c:68
+msgid "Show debugging output"
+msgstr "Жөндеу шығысын көрсету"
+
+#: src/xfce4-screensaver-dialog.c:72
+msgid "Show the logout button"
+msgstr "Шығу батырмасын көрсету"
+
+#: src/xfce4-screensaver-dialog.c:74
+msgid "Command to invoke from the logout button"
+msgstr "Шығу батырмасынан шақырылатын команда"
+
+#: src/xfce4-screensaver-dialog.c:76
+msgid "Show the switch user button"
+msgstr "Пайдаланушыны ауыстыру батырмасын көрсету"
+
+#: src/xfce4-screensaver-dialog.c:78
+msgid "Message to show in the dialog"
+msgstr "Сұхбат терезесінде көрсетілетін хабарлама"
+
+#: src/xfce4-screensaver-dialog.c:78 src/xfce4-screensaver-dialog.c:80
+msgid "MESSAGE"
+msgstr "ХАБАРЛАМА"
+
+#: src/xfce4-screensaver-dialog.c:80
+msgid "Not used"
+msgstr "Қолданылмайды"
+
+#: src/xfce4-screensaver-dialog.c:82
+msgid "Monitor height"
+msgstr "Монитор биіктігі"
+
+#: src/xfce4-screensaver-dialog.c:84
+msgid "Monitor width"
+msgstr "Монитор ені"
+
+#: src/xfce4-screensaver-dialog.c:86
+msgid "Monitor index"
+msgstr "Монитор нұсқағышы"
+
+#: src/xfce4-screensaver-dialog.c:240
+msgid "Checking..."
+msgstr "Тексеру..."
+
+#: src/xfce4-screensaver-dialog.ui:70
+msgid "%U"
+msgstr "%U"
+
+#: src/xfce4-screensaver-dialog.ui:98
+msgid "Enter your password"
+msgstr "Парольді енгізіңіз"
+
+#: src/xfce4-screensaver-dialog.ui:211
+msgid "You have the Caps Lock key on."
+msgstr "Caps Lock пернесі іске қосулы тұр."
+
+#: src/xfce4-screensaver-dialog.ui:271
+msgid "_Switch User"
+msgstr "_Пайдаланушыны ауыстыру"
+
+#: src/xfce4-screensaver-dialog.ui:287
+msgid "_Log Out"
+msgstr "_Шығу"
+
+#: src/xfce4-screensaver-dialog.ui:303
+msgid "_Cancel"
+msgstr "_Бас тарту"
+
+#: src/xfce4-screensaver-dialog.ui:319
+msgid "_Unlock"
+msgstr "_Блоктаудан босату"
+
+#: src/xfce4-screensaver-dialog.ui:377
+msgid "<b>%h</b>"
+msgstr "<b>%h</b>"
+
+#: src/xfce4-screensaver-dialog.ui:391
+#, c-format
+msgid "<b>%s</b>"
+msgstr "<b>%s</b>"
+
+#: src/xfce4-screensaver-preferences.c:91
+msgid "Settings manager socket"
+msgstr "Settings manager socket"
+
+#: src/xfce4-screensaver-preferences.c:91
+msgid "SOCKET ID"
+msgstr "SOCKET ID"
+
+#: src/xfce4-screensaver-preferences.c:730
+msgid "Blank screen"
+msgstr "Бос экран"
+
+#: src/xfce4-screensaver-preferences.c:736
+msgid "Random"
+msgstr "Кездейсоқ"
+
+#: src/xfce4-screensaver-preferences.c:1754
+msgid "Setting locked by administrator."
+msgstr "Баптауды әкімші бұғаттаған."
+
+#: src/xfce4-screensaver-preferences.c:1795
+msgid "Could not load the main interface"
+msgstr "Негізгі интерфейсті жүктеу мүмкін емес"
+
+#: src/xfce4-screensaver-preferences.c:1797
+msgid "Please make sure that the screensaver is properly installed"
+msgstr "Экран сақтағышының дұрыс орнатылғанына көз жеткізіңіз"
+
+#: src/xfce4-screensaver-preferences.ui:38
+msgid "Screensaver Preview"
+msgstr "Экран сақтағышын алдын ала қарау"
+
+#: src/xfce4-screensaver-preferences.ui:78
+msgid "<b>Screensaver preview</b>"
+msgstr "<b>Экран сақтағышын алдын ала қарау</b>"
+
+#: src/xfce4-screensaver-preferences.ui:227
+msgid "Screensaver Preferences"
+msgstr "Экран сақтағышының баптаулары"
+
+#: src/xfce4-screensaver-preferences.ui:262
+msgid "Power _Management"
+msgstr "Қуатты _басқару"
+
+#: src/xfce4-screensaver-preferences.ui:279
+#: src/xfce4-screensaver-preferences.ui:608
+msgid "Preview"
+msgstr "Алдын ала қарау"
+
+#: src/xfce4-screensaver-preferences.ui:370
+msgid "Running as root"
+msgstr "Root ретінде орындалуда"
+
+#: src/xfce4-screensaver-preferences.ui:386
+msgid "The screen will not be locked for the root user."
+msgstr "Root пайдаланушысы үшін экран бұғатталмайды."
+
+#: src/xfce4-screensaver-preferences.ui:427
+msgid "Resolve"
+msgstr "Шешу"
+
+#: src/xfce4-screensaver-preferences.ui:473
+msgid "Xfce Power Manager is not configured to handle laptop lid events"
+msgstr ""
+"Xfce қуат басқарушысы ноутбук қақпағының оқиғаларын өңдеуге бапталмаған"
+
+#: src/xfce4-screensaver-preferences.ui:489
+msgid "Your computer may not be locked when you close the lid."
+msgstr "Қақпақты жапқан кезде компьютер бұғатталмауы мүмкін."
+
+#: src/xfce4-screensaver-preferences.ui:538
+msgid "Enable Screensaver"
+msgstr "Экран сақтағышын іске қосу"
+
+#: src/xfce4-screensaver-preferences.ui:592
+msgid "Theme"
+msgstr "Тема"
+
+#: src/xfce4-screensaver-preferences.ui:688
+msgid "Configure screensaver"
+msgstr "Экран сақтағышын баптау"
+
+#: src/xfce4-screensaver-preferences.ui:689
+msgid "Configure..."
+msgstr "Баптау..."
+
+#: src/xfce4-screensaver-preferences.ui:729
+msgid "Change theme after:"
+msgstr "Теманы келесі уақыттан кейін өзгерту:"
+
+#: src/xfce4-screensaver-preferences.ui:752
+#: src/xfce4-screensaver-preferences.ui:822
+#: src/xfce4-screensaver-preferences.ui:993
+#: src/xfce4-screensaver-preferences.ui:1170
+msgid "minutes"
+msgstr "минут"
+
+#: src/xfce4-screensaver-preferences.ui:767
+msgid "Activate screensaver when computer is idle"
+msgstr "Компьютер әрекетсіз болғанда экран сақтағышын белсендіру"
+
+#: src/xfce4-screensaver-preferences.ui:798
+msgid "Regard the computer as _idle after:"
+msgstr "Компьютерді келесі уақыттан кейін ә_рекетсіз деп санау:"
+
+#: src/xfce4-screensaver-preferences.ui:837
+msgid "Inhibit screensaver for fullscreen applications"
+msgstr "Толық экранды қолданбалар үшін экран сақтағышын болдырмау"
+
+#: src/xfce4-screensaver-preferences.ui:896
+msgid "Enable Lock Screen"
+msgstr "Экранды бұғаттауды іске қосу"
+
+#: src/xfce4-screensaver-preferences.ui:940
+msgid "Lock Screen with Screensaver"
+msgstr "Экранды экран сақтағышымен бірге бұғаттау"
+
+#: src/xfce4-screensaver-preferences.ui:970
+msgid "Lock the screen after the screensaver is active for:"
+msgstr "Экран сақтағышы белсенді болғаннан кейін экранды бұғаттау уақыты:"
+
+#: src/xfce4-screensaver-preferences.ui:1008
+msgid "On Screen Keyboard"
+msgstr "Экрандағы пернетақта"
+
+#: src/xfce4-screensaver-preferences.ui:1038
+msgid "On screen keyboard command:"
+msgstr "Экрандағы пернетақта командасы:"
+
+#: src/xfce4-screensaver-preferences.ui:1063
+msgid "Session Status Messages"
+msgstr "Сеанс күйінің хабарламалары"
+
+#: src/xfce4-screensaver-preferences.ui:1093
+msgid "Logout"
+msgstr "Шығу"
+
+#: src/xfce4-screensaver-preferences.ui:1123
+msgid "Logout command:"
+msgstr "Шығу командасы:"
+
+#: src/xfce4-screensaver-preferences.ui:1147
+msgid "Enable logout after:"
+msgstr "Кейін жүйеден шығуды іске қосу:"
+
+#: src/xfce4-screensaver-preferences.ui:1185
+msgid "User Switching"
+msgstr "Пайдаланушыны ауыстыру"
+
+#: src/xfce4-screensaver-preferences.ui:1215
+msgid "Lock Screen with System Sleep"
+msgstr "Жүйе ұйқы режиміне өткенде экранды бұғаттау"
+
+#: src/xfce4-screensaver-preferences.ui:1256
+msgid "Lock Screen"
+msgstr "Экранды бұғаттау"
+
+#: src/xfce4-screensaver.c:59
+msgid "Enable debugging code"
+msgstr "Жөндеу кодын іске қосу"
+
+#: src/xfce4-screensaver.desktop.in.in:5
+msgid "Launch screensaver and locker program"
+msgstr "Экран сақтағышын және бұғаттау бағдарламасын жөнелту"
+
+#: src/xfcekbd-indicator.c:408
+msgid "XKB initialization error"
+msgstr "XKB инициализациялау қатесі"
