@@ -1,3 +1,22 @@
+4.20.2 (2026-03-02)
+======
+- lock-plug: Fix wrong conditional
+- I18n: Update po/LINGUAS list
+- prefs-dialog: Set best visual for theme preview
+- Avoid duplicated function get_theme_arguments()
+- Also use the -a option for FreeBSD pgrep
+- Use option to make pgrep return only exact matches
+- Do not check processes longer than 15 chars
+- I18n: Update po/LINGUAS list
+- build: Fix typo in optimization level
+- Use pgrep in place of pidof
+- manager: Grab devices on overlay when recreating windows
+- manager: Use only one permanent window as overlay
+- I18n: Update po/LINGUAS list
+- Translation Updates:
+  Catalan, Greek, Kabyle, Kazakh, Occitan (post 1500), Thai, Uyghur,
+  Vietnamese
+
 4.20.1 (2025-08-15)
 ======
 - configure.py: Quote only command line args
