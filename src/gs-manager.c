@@ -647,6 +647,13 @@ window_map_event_cb (GSWindow *window,
     gs_debug ("Handling window map_event event");
 #ifdef ENABLE_X11
     if (manager->priv->grab != NULL) {
+        /* be sure to restore focus first, if it was stolen in recreate_windows() */
+        GdkDisplay *display = gs_window_get_display (window);
+        GdkWindow *gdk_win = gs_window_get_gdk_window (window);
+        gdk_x11_display_error_trap_push (display);
+        XSetInputFocus (GDK_DISPLAY_XDISPLAY (display), GDK_WINDOW_XID (gdk_win), RevertToParent, CurrentTime);
+        gdk_x11_display_error_trap_pop_ignored (display);
+
         manager_maybe_grab_window (manager, window);
     }
 #endif
@@ -904,6 +911,9 @@ recreate_windows (GSManager *manager) {
         gs_grab_move_to_window (manager->priv->grab,
                                 gtk_widget_get_window (manager->priv->overlay),
                                 display, FALSE, FALSE);
+        gdk_x11_display_error_trap_push (display);
+        XSetInputFocus (GDK_DISPLAY_XDISPLAY (display), None, RevertToNone, CurrentTime);
+        gdk_x11_display_error_trap_pop_ignored (display);
     }
 #endif
 
