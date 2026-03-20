@@ -1722,7 +1722,7 @@ gs_lock_plug_init (GSLockPlug *plug) {
                           G_CALLBACK (logout_button_clicked), plug);
     }
 
-    g_signal_connect (plug->priv->plug_widget, "delete-event", G_CALLBACK (delete_handler), NULL);
+    g_signal_connect_swapped (plug->priv->plug_widget, "delete-event", G_CALLBACK (delete_handler), plug);
 
     gs_profile_end (NULL);
 }
