@@ -387,7 +387,7 @@ msgstr "Ohranjevalnik zaslona %s je nastavljiv."
 #: src/xfce4-screensaver-configure.py:768
 #, python-format
 msgid "Screensaver %s is not configurable."
-msgstr "Ohranjevalnik zaslona%s ni nastavljiv."
+msgstr "Ohranjevalnik zaslona %s ni nastavljiv."
 
 #: src/xfce4-screensaver-configure.py:772
 #, python-format
