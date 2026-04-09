@@ -637,7 +637,7 @@ msgstr "Vklopi razhroščevanje kode"
 
 #: src/xfce4-screensaver.desktop.in.in:5
 msgid "Launch screensaver and locker program"
-msgstr "Zaženi program ohranjevalnika zaslona in ključavnice"
+msgstr "Zaženi ohranjevalnik zaslona in program za zaklepanje zaslona"
 
 #: src/xfcekbd-indicator.c:408
 msgid "XKB initialization error"
