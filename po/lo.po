@@ -1,0 +1,640 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Xfce
+# This file is distributed under the same license as the xfce-apps.xfce4-screensaver package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# BoneNI, 2026
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: xfce-apps.xfce4-screensaver\n"
+"Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
+"POT-Creation-Date: 2024-12-22 00:50+0100\n"
+"PO-Revision-Date: 2018-10-16 16:27+0000\n"
+"Last-Translator: BoneNI, 2026\n"
+"Language-Team: Lao (https://app.transifex.com/xfce/teams/16840/lo/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lo\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: data/xfce4-screensaver-preferences.desktop.in:3
+#: src/xfce4-screensaver.desktop.in.in:4
+msgid "Xfce Screensaver"
+msgstr "ເຄື່ອງຮັກສາໜ້າຈໍ Xfce"
+
+#: data/xfce4-screensaver-preferences.desktop.in:4
+msgid "Set your screensaver preferences"
+msgstr "ຕັ້ງຄ່າການປັບແຕ່ງເຄື່ອງຮັກສາໜ້າຈໍຂອງທ່ານ"
+
+#: data/xfce4-screensaver-preferences.desktop.in:5
+#: src/xfce4-screensaver-preferences.ui:875
+#: src/xfce4-screensaver.desktop.in.in:6
+msgid "Screensaver"
+msgstr "ເຄື່ອງຮັກສາໜ້າຈໍ"
+
+#: data/xfce4-screensaver-preferences.desktop.in:11
+msgid "settings;preferences;screensaver;lock screen;"
+msgstr "ການຕັ້ງຄ່າ;ການປັບແຕ່ງ;ເຄື່ອງຮັກສາໜ້າຈໍ;ລັອກໜ້າຈໍ;"
+
+#: data/xfce4-screensaver.desktop.in:4
+msgid "Screensavers"
+msgstr "ເຄື່ອງຮັກສາໜ້າຈໍ"
+
+#: data/xfce4-screensaver.desktop.in:5
+msgid "Screensaver themes"
+msgstr "ຮູບແບບເຄື່ອງຮັກສາໜ້າຈໍ"
+
+#: savers/floaters.c:93
+msgid "Show paths that images follow"
+msgstr "ສະແດງເສັ້ນທາງທີ່ຮູບພາບເຄື່ອນທີ່ຕາມ"
+
+#: savers/floaters.c:96
+msgid "Occasionally rotate images as they move"
+msgstr "ໝຸນຮູບພາບເປັນບາງຄັ້ງຄາວໃນຂະນະທີ່ເຄື່ອນທີ່"
+
+#: savers/floaters.c:99
+msgid "Print out frame rate and other statistics"
+msgstr "ສະແດງອັດຕາເຟຣມ ແລະ ສະຖິຕິອື່ນໆ"
+
+#: savers/floaters.c:102
+msgid "The maximum number of images to keep on screen"
+msgstr "ຈຳນວນຮູບພາບສູງສຸດທີ່ຈະໃຫ້ສະແດງເທິງໜ້າຈໍ"
+
+#: savers/floaters.c:102
+msgid "MAX_IMAGES"
+msgstr "ຈຳນວນຮູບສູງສຸດ"
+
+#: savers/floaters.c:105
+msgid "The initial size and position of window"
+msgstr "ຂະໜາດ ແລະ ຕຳແໜ່ງເລີ່ມຕົ້ນຂອງໜ້າຕ່າງ"
+
+#: savers/floaters.c:105
+msgid "WIDTHxHEIGHT+X+Y"
+msgstr "ກວ້າງxສູງ+X+Y"
+
+#: savers/floaters.c:108
+msgid "The source image to use"
+msgstr "ແຫຼ່ງຮູບພາບທີ່ຈະນຳໃຊ້"
+
+#. translators: the word "image" here
+#. * represents a command line argument
+#: savers/floaters.c:1127
+msgid "image - floats images around the screen"
+msgstr "image - ໃຫ້ຮູບພາບລອຍໄປມາທົ່ວໜ້າຈໍ"
+
+#: savers/floaters.c:1131 savers/popsquares.c:54
+#, c-format
+msgid "%s. See --help for usage information.\n"
+msgstr "%s. ເບິ່ງ --help ສຳລັບຂໍ້ມູນການນຳໃຊ້.\n"
+
+#: savers/floaters.c:1137
+msgid "Failed to initialize the windowing system."
+msgstr "ບໍ່ສາມາດເລີ່ມຕົ້ນລະບົບໜ້າຕ່າງໄດ້."
+
+#: savers/floaters.c:1142
+msgid "You must specify one image.  See --help for usage information.\n"
+msgstr "ທ່ານຕ້ອງລະບຸຮູບພາບໜຶ່ງຮູບ. ເບິ່ງ --help ສຳລັບຂໍ້ມູນການນຳໃຊ້.\n"
+
+#: savers/slideshow.c:59
+msgid "Location to get images from"
+msgstr "ສະຖານທີ່ດຶງຮູບພາບມາ"
+
+#: savers/slideshow.c:59
+msgid "PATH"
+msgstr "ເສັ້ນທາງ"
+
+#: savers/slideshow.c:61
+msgid "Color to use for images background"
+msgstr "ສີທີ່ຈະໃຊ້ເປັນພື້ນຫຼັງຮູບພາບ"
+
+#: savers/slideshow.c:61
+msgid "\"#rrggbb\""
+msgstr "\"#rrggbb\""
+
+#: savers/slideshow.c:63
+msgid "Do not randomize pictures from location"
+msgstr "ບໍ່ຕ້ອງສຸ່ມຮູບພາບຈາກສະຖານທີ່"
+
+#: savers/slideshow.c:65
+msgid "Do not try to stretch images on screen"
+msgstr "ບໍ່ຕ້ອງພະຍາຍາມດຶງຮູບພາບໃຫ້ເຕັມໜ້າຈໍ"
+
+#: savers/slideshow.c:67
+msgid "Do not crop images to the screen size"
+msgstr "ບໍ່ຕ້ອງຕັດຮູບພາບໃຫ້ພໍດີກັບຂະໜາດໜ້າຈໍ"
+
+#: savers/xfce-floaters.desktop.in.in:3
+msgid "Floating Xfce"
+msgstr "Xfce ແບບລອຍໄປມາ"
+
+#: savers/xfce-floaters.desktop.in.in:4
+msgid "Bubbles the Xfce logo around the screen"
+msgstr "ໃຫ້ໂລໂກ້ Xfce ລອຍເປັນຟອງໄປມາທົ່ວໜ້າຈໍ"
+
+#: savers/xfce-personal-slideshow.desktop.in.in:3
+msgid "Slideshow"
+msgstr "ສະແດງສະໄລ້"
+
+#: savers/xfce-personal-slideshow.desktop.in.in:4
+msgid "Display a slideshow from your Pictures folder"
+msgstr "ສະແດງສະໄລ້ຈາກໂຟນເດີຮູບພາບຂອງທ່ານ"
+
+#: savers/xfce-popsquares.desktop.in.in:3
+msgid "Pop art squares"
+msgstr "ຮູບຈະຕຸລັດສິລະປະປ໊ອບອາດ"
+
+#: savers/xfce-popsquares.desktop.in.in:4
+msgid "A pop-art-ish grid of pulsing colors."
+msgstr "ຕາຕະລາງສີສັນທີ່ເຕັ້ນເປັນຈັງຫວະແບບສິລະປະປ໊ອບອາດ."
+
+#: src/gs-auth-pam.c:373
+#, c-format
+msgid "Unable to establish service %s: %s\n"
+msgstr "ບໍ່ສາມາດສ້າງການບໍລິການ %s: %s\n"
+
+#: src/gs-auth-pam.c:399
+#, c-format
+msgid "Can't set PAM_TTY=%s"
+msgstr "ບໍ່ສາມາດຕັ້ງຄ່າ PAM_TTY=%s"
+
+#: src/gs-auth-pam.c:430
+msgid "Incorrect password."
+msgstr "ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ."
+
+#: src/gs-auth-pam.c:432 src/xfce4-screensaver-dialog.c:280
+msgid "Authentication failed."
+msgstr "ການຢືນຢັນຕົວຕົນລົ້ມເຫຼວ."
+
+#: src/gs-auth-pam.c:446
+msgid "Not permitted to gain access at this time."
+msgstr "ບໍ່ໄດ້ຮັບອະນຸຍາດໃຫ້ເຂົ້າເຖິງໃນເວລານີ້."
+
+#: src/gs-auth-pam.c:452
+msgid "No longer permitted to access the system."
+msgstr "ບໍ່ໄດ້ຮັບອະນຸຍາດໃຫ້ເຂົ້າເຖິງລະບົບອີກຕໍ່ໄປ."
+
+#: src/gs-auth-pam.c:660
+msgid "Username:"
+msgstr "ຊື່ຜູ້ໃຊ້:"
+
+#: src/gs-listener-dbus.c:1968
+msgid "failed to register with the message bus"
+msgstr "ລົງທະບຽນກັບ message bus ບໍ່ສຳເລັດ"
+
+#: src/gs-listener-dbus.c:1978
+msgid "not connected to the message bus"
+msgstr "ບໍ່ໄດ້ເຊື່ອມຕໍ່ກັບ message bus"
+
+#: src/gs-listener-dbus.c:1987 src/gs-listener-dbus.c:2018
+msgid "screensaver already running in this session"
+msgstr "ເຄື່ອງຮັກສາໜ້າຈໍພວມເຮັດວຽກຢູ່ແລ້ວໃນເຊສຊັນນີ້"
+
+#. TRANSLATORS: adjust this accordingly for your locale format
+#: src/gs-lock-plug.c:308
+msgctxt "Date"
+msgid "%A, %B %e   %H:%M"
+msgstr "%A, %e %B   %H:%M"
+
+#: src/gs-lock-plug.c:398
+msgid "Time has expired."
+msgstr "ເວລາໝົດແລ້ວ."
+
+#: src/xfce4-screensaver-command.c:53
+msgid "Causes the screensaver to exit gracefully"
+msgstr "ເຮັດໃຫ້ເຄື່ອງຮັກສາໜ້າຈໍປິດການເຮັດວຽກຢ່າງຖືກຕ້ອງ"
+
+#: src/xfce4-screensaver-command.c:55
+msgid "Query the state of the screensaver"
+msgstr "ກວດສອບສະຖານະຂອງເຄື່ອງຮັກສາໜ້າຈໍ"
+
+#: src/xfce4-screensaver-command.c:57
+msgid "Query the length of time the screensaver has been active"
+msgstr "ກວດສອບໄລຍະເວລາທີ່ເຄື່ອງຮັກສາໜ້າຈໍເຮັດວຽກມາແລ້ວ"
+
+#: src/xfce4-screensaver-command.c:59
+msgid "Tells the running screensaver process to lock the screen immediately"
+msgstr "ສັ່ງໃຫ້ເຄື່ອງຮັກສາໜ້າຈໍທີ່ພວມເຮັດວຽກຢູ່ລັອກໜ້າຈໍທັນທີ"
+
+#: src/xfce4-screensaver-command.c:61
+msgid "If the screensaver is active then switch to another graphics demo"
+msgstr "ຖ້າເຄື່ອງຮັກສາໜ້າຈໍເຮັດວຽກຢູ່ ໃຫ້ປ່ຽນໄປສະແດງຕົວຢ່າງອື່ນ"
+
+#: src/xfce4-screensaver-command.c:63
+msgid "Turn the screensaver on (blank the screen)"
+msgstr "ເປີດເຄື່ອງຮັກສາໜ້າຈໍ (ເຮັດໃຫ້ໜ້າຈໍວ່າງເປົ່າ)"
+
+#: src/xfce4-screensaver-command.c:65
+msgid "If the screensaver is active then deactivate it (un-blank the screen)"
+msgstr "ຖ້າເຄື່ອງຮັກສາໜ້າຈໍເຮັດວຽກຢູ່ ໃຫ້ປິດມັນ (ໃຫ້ໜ້າຈໍກັບມາສະແດງຜົນ)"
+
+#: src/xfce4-screensaver-command.c:67
+msgid "Poke the running screensaver to simulate user activity"
+msgstr "ກະຕຸ້ນເຄື່ອງຮັກສາໜ້າຈໍເພື່ອຈຳລອງການເຄື່ອນໄຫວຂອງຜູ້ໃຊ້"
+
+#: src/xfce4-screensaver-command.c:69
+msgid ""
+"Inhibit the screensaver from activating.  Command blocks while inhibit is "
+"active."
+msgstr ""
+"ຍັບຍັ້ງບໍ່ໃຫ້ເຄື່ອງຮັກສາໜ້າຈໍເຮັດວຽກ. "
+"ຄຳສັ່ງຈະຖືກບລັອກໃນຂະນະທີ່ການຍັບຍັ້ງພວມເຮັດວຽກ."
+
+#: src/xfce4-screensaver-command.c:71
+msgid "The calling application that is inhibiting the screensaver"
+msgstr "ແອັບພລິເຄຊັນທີ່ຮ້ອງຂໍການຍັບຍັ້ງເຄື່ອງຮັກສາໜ້າຈໍ"
+
+#: src/xfce4-screensaver-command.c:73
+msgid "The reason for inhibiting the screensaver"
+msgstr "ເຫດຜົນໃນການຍັບຍັ້ງເຄື່ອງຮັກສາໜ້າຈໍ"
+
+#: src/xfce4-screensaver-command.c:75 src/xfce4-screensaver-dialog.c:70
+#: src/xfce4-screensaver.c:58
+msgid "Version of this application"
+msgstr "ເວີຊັນຂອງແອັບພລິເຄຊັນນີ້"
+
+#: src/xfce4-screensaver-command.c:182
+#, c-format
+msgid "The screensaver is %s\n"
+msgstr "ເຄື່ອງຮັກສາໜ້າຈໍແມ່ນ %s\n"
+
+#: src/xfce4-screensaver-command.c:182
+msgid "active"
+msgstr "ເປີດໃຊ້ງານ"
+
+#: src/xfce4-screensaver-command.c:182
+msgid "inactive"
+msgstr "ປິດໃຊ້ງານ"
+
+#: src/xfce4-screensaver-command.c:193
+msgid "The screensaver is not inhibited\n"
+msgstr "ເຄື່ອງຮັກສາໜ້າຈໍບໍ່ໄດ້ຖືກຍັບຍັ້ງ\n"
+
+#: src/xfce4-screensaver-command.c:195
+msgid "The screensaver is being inhibited by:\n"
+msgstr "ເຄື່ອງຮັກສາໜ້າຈໍພວມຖືກຍັບຍັ້ງໂດຍ:\n"
+
+#: src/xfce4-screensaver-command.c:211
+#, c-format
+msgid "The screensaver has been active for %d seconds.\n"
+msgstr "ເຄື່ອງຮັກສາໜ້າຈໍເຮັດວຽກມາແລ້ວ %d ວິນາທີ.\n"
+
+#: src/xfce4-screensaver-configure.py:167
+msgid "Part of Xfce Screensaver"
+msgstr "ສ່ວນໜຶ່ງຂອງເຄື່ອງຮັກສາໜ້າຈໍ Xfce"
+
+#: src/xfce4-screensaver-configure.py:178
+msgid "Max number of images"
+msgstr "ຈຳນວນຮູບພາບສູງສຸດ"
+
+#: src/xfce4-screensaver-configure.py:181
+msgid "Show paths"
+msgstr "ສະແດງເສັ້ນທາງ"
+
+#: src/xfce4-screensaver-configure.py:183
+msgid "Do rotations"
+msgstr "ໃຫ້ມີການໝຸນ"
+
+#: src/xfce4-screensaver-configure.py:185
+msgid "Print stats"
+msgstr "ສະແດງສະຖິຕິ"
+
+#: src/xfce4-screensaver-configure.py:188
+msgid "Location"
+msgstr "ສະຖານທີ່"
+
+#: src/xfce4-screensaver-configure.py:191
+msgid "Background color"
+msgstr "ສີພື້ນຫຼັງ"
+
+#: src/xfce4-screensaver-configure.py:193
+msgid "Do not randomize images"
+msgstr "ບໍ່ຕ້ອງສຸ່ມຮູບພາບ"
+
+#: src/xfce4-screensaver-configure.py:195
+msgid "Do not stretch images"
+msgstr "ບໍ່ຕ້ອງດຶງຮູບພາບ"
+
+#: src/xfce4-screensaver-configure.py:197
+msgid "Do not crop images"
+msgstr "ບໍ່ຕ້ອງຕັດຮູບພາບ"
+
+#: src/xfce4-screensaver-configure.py:389
+msgid "Restore Defaults"
+msgstr "ຄືນຄ່າເລີ່ມຕົ້ນ"
+
+#: src/xfce4-screensaver-configure.py:402
+msgid "Preferences"
+msgstr "ການປັບແຕ່ງ"
+
+#: src/xfce4-screensaver-configure.py:408
+msgid "About"
+msgstr "ກ່ຽວກັບ"
+
+#: src/xfce4-screensaver-configure.py:421
+msgid "Video"
+msgstr "ວິດີໂອ"
+
+#: src/xfce4-screensaver-configure.py:729
+msgid "Configure an individual screensaver"
+msgstr "ຕັ້ງຄ່າເຄື່ອງຮັກສາໜ້າຈໍແຕ່ລະອັນ"
+
+#: src/xfce4-screensaver-configure.py:731
+msgid "screensaver name to configure"
+msgstr "ຊື່ເຄື່ອງຮັກສາໜ້າຈໍທີ່ຈະຕັ້ງຄ່າ"
+
+#: src/xfce4-screensaver-configure.py:733
+msgid "check if screensaver is configurable"
+msgstr "ກວດສອບວ່າເຄື່ອງຮັກສາໜ້າຈໍສາມາດຕັ້ງຄ່າໄດ້ຫຼືບໍ່"
+
+#: src/xfce4-screensaver-configure.py:737
+msgid "Unable to configure screensaver"
+msgstr "ບໍ່ສາມາດຕັ້ງຄ່າເຄື່ອງຮັກສາໜ້າຈໍໄດ້"
+
+#: src/xfce4-screensaver-configure.py:741
+msgid "Screensaver required."
+msgstr "ຈຳເປັນຕ້ອງມີເຄື່ອງຮັກສາໜ້າຈໍ."
+
+#: src/xfce4-screensaver-configure.py:749
+#, python-format
+msgid "File not found: %s"
+msgstr "ບໍ່ພົບໄຟລ໌: %s"
+
+#: src/xfce4-screensaver-configure.py:757
+#, python-format
+msgid "Unrecognized file type: %s"
+msgstr "ບໍ່ຮູ້ຈັກປະເພດໄຟລ໌: %s"
+
+#: src/xfce4-screensaver-configure.py:761
+#, python-format
+msgid "Failed to process file: %s"
+msgstr "ປະມວນຜົນໄຟລ໌ບໍ່ສຳເລັດ: %s"
+
+#: src/xfce4-screensaver-configure.py:766
+#, python-format
+msgid "Screensaver %s is configurable."
+msgstr "ເຄື່ອງຮັກສາໜ້າຈໍ %s ສາມາດຕັ້ງຄ່າໄດ້."
+
+#: src/xfce4-screensaver-configure.py:768
+#, python-format
+msgid "Screensaver %s is not configurable."
+msgstr "ເຄື່ອງຮັກສາໜ້າຈໍ %s ບໍ່ສາມາດຕັ້ງຄ່າໄດ້."
+
+#: src/xfce4-screensaver-configure.py:772
+#, python-format
+msgid "Screensaver %s has no configuration options."
+msgstr "ເຄື່ອງຮັກສາໜ້າຈໍ %s ບໍ່ມີຕົວເລືອກການຕັ້ງຄ່າ."
+
+#: src/xfce4-screensaver-dialog.c:68
+msgid "Show debugging output"
+msgstr "ສະແດງຜົນການດີບັກ"
+
+#: src/xfce4-screensaver-dialog.c:72
+msgid "Show the logout button"
+msgstr "ສະແດງປຸ່ມອອກຈາກລະບົບ"
+
+#: src/xfce4-screensaver-dialog.c:74
+msgid "Command to invoke from the logout button"
+msgstr "ຄຳສັ່ງທີ່ຈະເອີ້ນໃຊ້ຈາກປຸ່ມອອກຈາກລະບົບ"
+
+#: src/xfce4-screensaver-dialog.c:76
+msgid "Show the switch user button"
+msgstr "ສະແດງປຸ່ມສະຫຼັບຜູ້ໃຊ້"
+
+#: src/xfce4-screensaver-dialog.c:78
+msgid "Message to show in the dialog"
+msgstr "ຂໍ້ຄວາມທີ່ຈະສະແດງໃນກ່ອງໂຕ້ຕອບ"
+
+#: src/xfce4-screensaver-dialog.c:78 src/xfce4-screensaver-dialog.c:80
+msgid "MESSAGE"
+msgstr "ຂໍ້ຄວາມ"
+
+#: src/xfce4-screensaver-dialog.c:80
+msgid "Not used"
+msgstr "ບໍ່ໄດ້ໃຊ້"
+
+#: src/xfce4-screensaver-dialog.c:82
+msgid "Monitor height"
+msgstr "ຄວາມສູງຂອງຈໍພາບ"
+
+#: src/xfce4-screensaver-dialog.c:84
+msgid "Monitor width"
+msgstr "ຄວາມກວ້າງຂອງຈໍພາບ"
+
+#: src/xfce4-screensaver-dialog.c:86
+msgid "Monitor index"
+msgstr "ດັດຊະນີຂອງຈໍພາບ"
+
+#: src/xfce4-screensaver-dialog.c:240
+msgid "Checking..."
+msgstr "ກຳລັງກວດສອບ..."
+
+#: src/xfce4-screensaver-dialog.ui:70
+msgid "%U"
+msgstr "%U"
+
+#: src/xfce4-screensaver-dialog.ui:98
+msgid "Enter your password"
+msgstr "ປ້ອນລະຫັດຜ່ານຂອງທ່ານ"
+
+#: src/xfce4-screensaver-dialog.ui:211
+msgid "You have the Caps Lock key on."
+msgstr "ທ່ານພວມເປີດປຸ່ມ Caps Lock ຄ້າງໄວ້."
+
+#: src/xfce4-screensaver-dialog.ui:271
+msgid "_Switch User"
+msgstr "_ສະຫຼັບຜູ້ໃຊ້"
+
+#: src/xfce4-screensaver-dialog.ui:287
+msgid "_Log Out"
+msgstr "_ອອກຈາກລະບົບ"
+
+#: src/xfce4-screensaver-dialog.ui:303
+msgid "_Cancel"
+msgstr "_ຍົກເລີກ"
+
+#: src/xfce4-screensaver-dialog.ui:319
+msgid "_Unlock"
+msgstr "_ປົດລັອກ"
+
+#: src/xfce4-screensaver-dialog.ui:377
+msgid "<b>%h</b>"
+msgstr "<b>%h</b>"
+
+#: src/xfce4-screensaver-dialog.ui:391
+#, c-format
+msgid "<b>%s</b>"
+msgstr "<b>%s</b>"
+
+#: src/xfce4-screensaver-preferences.c:91
+msgid "Settings manager socket"
+msgstr "ຊັອກເກັດຂອງຕົວຈັດການການຕັ້ງຄ່າ"
+
+#: src/xfce4-screensaver-preferences.c:91
+msgid "SOCKET ID"
+msgstr "ID ຊັອກເກັດ"
+
+#: src/xfce4-screensaver-preferences.c:730
+msgid "Blank screen"
+msgstr "ໜ້າຈໍວ່າງເປົ່າ"
+
+#: src/xfce4-screensaver-preferences.c:736
+msgid "Random"
+msgstr "ສຸ່ມ"
+
+#: src/xfce4-screensaver-preferences.c:1754
+msgid "Setting locked by administrator."
+msgstr "ການຕັ້ງຄ່າຖືກລັອກໂດຍຜູ້ດູແລລະບົບ."
+
+#: src/xfce4-screensaver-preferences.c:1795
+msgid "Could not load the main interface"
+msgstr "ບໍ່ສາມາດໂຫຼດອິນເຕີເຟດຫຼັກໄດ້"
+
+#: src/xfce4-screensaver-preferences.c:1797
+msgid "Please make sure that the screensaver is properly installed"
+msgstr "ກະລຸນາກວດສອບໃຫ້ແນ່ໃຈວ່າເຄື່ອງຮັກສາໜ້າຈໍຖືກຕິດຕັ້ງຢ່າງຖືກຕ້ອງແລ້ວ"
+
+#: src/xfce4-screensaver-preferences.ui:38
+msgid "Screensaver Preview"
+msgstr "ຕົວຢ່າງເຄື່ອງຮັກສາໜ້າຈໍ"
+
+#: src/xfce4-screensaver-preferences.ui:78
+msgid "<b>Screensaver preview</b>"
+msgstr "<b>ຕົວຢ່າງເຄື່ອງຮັກສາໜ້າຈໍ</b>"
+
+#: src/xfce4-screensaver-preferences.ui:227
+msgid "Screensaver Preferences"
+msgstr "ການປັບແຕ່ງເຄື່ອງຮັກສາໜ້າຈໍ"
+
+#: src/xfce4-screensaver-preferences.ui:262
+msgid "Power _Management"
+msgstr "ການ_ຈັດການພະລັງງານ"
+
+#: src/xfce4-screensaver-preferences.ui:279
+#: src/xfce4-screensaver-preferences.ui:608
+msgid "Preview"
+msgstr "ເບິ່ງຕົວຢ່າງ"
+
+#: src/xfce4-screensaver-preferences.ui:370
+msgid "Running as root"
+msgstr "ພວມເຮັດວຽກໃນຖານະ root"
+
+#: src/xfce4-screensaver-preferences.ui:386
+msgid "The screen will not be locked for the root user."
+msgstr "ໜ້າຈໍຈະບໍ່ຖືກລັອກສຳລັບຜູ້ໃຊ້ root."
+
+#: src/xfce4-screensaver-preferences.ui:427
+msgid "Resolve"
+msgstr "ແກ້ໄຂ"
+
+#: src/xfce4-screensaver-preferences.ui:473
+msgid "Xfce Power Manager is not configured to handle laptop lid events"
+msgstr ""
+"ຕົວຈັດການພະລັງງານ Xfce "
+"ບໍ່ໄດ້ຖືກຕັ້ງຄ່າໃຫ້ຈັດການກັບເຫດການປິດຝາຄອມພິວເຕີໂນດບຸກ"
+
+#: src/xfce4-screensaver-preferences.ui:489
+msgid "Your computer may not be locked when you close the lid."
+msgstr "ຄອມພິວເຕີຂອງທ່ານອາດຈະບໍ່ຖືກລັອກເມື່ອທ່ານປິດຝາລົງ."
+
+#: src/xfce4-screensaver-preferences.ui:538
+msgid "Enable Screensaver"
+msgstr "ເປີດໃຊ້ເຄື່ອງຮັກສາໜ້າຈໍ"
+
+#: src/xfce4-screensaver-preferences.ui:592
+msgid "Theme"
+msgstr "ທິມ"
+
+#: src/xfce4-screensaver-preferences.ui:688
+msgid "Configure screensaver"
+msgstr "ຕັ້ງຄ່າເຄື່ອງຮັກສາໜ້າຈໍ"
+
+#: src/xfce4-screensaver-preferences.ui:689
+msgid "Configure..."
+msgstr "ຕັ້ງຄ່າ..."
+
+#: src/xfce4-screensaver-preferences.ui:729
+msgid "Change theme after:"
+msgstr "ປ່ຽນຮູບແບບຫຼັງຈາກ:"
+
+#: src/xfce4-screensaver-preferences.ui:752
+#: src/xfce4-screensaver-preferences.ui:822
+#: src/xfce4-screensaver-preferences.ui:993
+#: src/xfce4-screensaver-preferences.ui:1170
+msgid "minutes"
+msgstr "ນາທີ"
+
+#: src/xfce4-screensaver-preferences.ui:767
+msgid "Activate screensaver when computer is idle"
+msgstr "ເປີດໃຊ້ເຄື່ອງຮັກສາໜ້າຈໍເມື່ອຄອມພິວເຕີບໍ່ໄດ້ໃຊ້ງານ"
+
+#: src/xfce4-screensaver-preferences.ui:798
+msgid "Regard the computer as _idle after:"
+msgstr "ຖືວ່າຄອມພິວເຕີ_ບໍ່ໄດ້ໃຊ້ງານຫຼັງຈາກ:"
+
+#: src/xfce4-screensaver-preferences.ui:837
+msgid "Inhibit screensaver for fullscreen applications"
+msgstr "ຍັບຍັ້ງເຄື່ອງຮັກສາໜ້າຈໍສຳລັບແອັບພລິເຄຊັນທີ່ສະແດງເຕັມໜ້າຈໍ"
+
+#: src/xfce4-screensaver-preferences.ui:896
+msgid "Enable Lock Screen"
+msgstr "ເປີດໃຊ້ການລັອກໜ້າຈໍ"
+
+#: src/xfce4-screensaver-preferences.ui:940
+msgid "Lock Screen with Screensaver"
+msgstr "ລັອກໜ້າຈໍດ້ວຍເຄື່ອງຮັກສາໜ້າຈໍ"
+
+#: src/xfce4-screensaver-preferences.ui:970
+msgid "Lock the screen after the screensaver is active for:"
+msgstr "ລັອກໜ້າຈໍຫຼັງຈາກເຄື່ອງຮັກສາໜ້າຈໍເຮັດວຽກໄປແລ້ວ:"
+
+#: src/xfce4-screensaver-preferences.ui:1008
+msgid "On Screen Keyboard"
+msgstr "ຄີບອດເທິງໜ້າຈໍ"
+
+#: src/xfce4-screensaver-preferences.ui:1038
+msgid "On screen keyboard command:"
+msgstr "ຄຳສັ່ງຄີບອດເທິງໜ້າຈໍ:"
+
+#: src/xfce4-screensaver-preferences.ui:1063
+msgid "Session Status Messages"
+msgstr "ຂໍ້ຄວາມສະຖານະເຊສຊັນ"
+
+#: src/xfce4-screensaver-preferences.ui:1093
+msgid "Logout"
+msgstr "ອອກຈາກລະບົບ"
+
+#: src/xfce4-screensaver-preferences.ui:1123
+msgid "Logout command:"
+msgstr "ຄຳສັ່ງອອກຈາກລະບົບ:"
+
+#: src/xfce4-screensaver-preferences.ui:1147
+msgid "Enable logout after:"
+msgstr "ເປີດໃຊ້ການອອກຈາກລະບົບຫຼັງຈາກ:"
+
+#: src/xfce4-screensaver-preferences.ui:1185
+msgid "User Switching"
+msgstr "ການສະຫຼັບຜູ້ໃຊ້"
+
+#: src/xfce4-screensaver-preferences.ui:1215
+msgid "Lock Screen with System Sleep"
+msgstr "ລັອກໜ້າຈໍເມື່ອລະບົບພັກຜ່ອນ (Sleep)"
+
+#: src/xfce4-screensaver-preferences.ui:1256
+msgid "Lock Screen"
+msgstr "ລັອກໜ້າຈໍ"
+
+#: src/xfce4-screensaver.c:59
+msgid "Enable debugging code"
+msgstr "ເປີດໃຊ້ງານລະຫັດດີບັກ"
+
+#: src/xfce4-screensaver.desktop.in.in:5
+msgid "Launch screensaver and locker program"
+msgstr "ເປີດໃຊ້ເຄື່ອງຮັກສາໜ້າຈໍ ແລະ ໂປຣແກຣມລັອກ"
+
+#: src/xfcekbd-indicator.c:408
+msgid "XKB initialization error"
+msgstr "ຂໍ້ຜິດພາດໃນການເລີ່ມຕົ້ນ XKB"
