@@ -629,7 +629,7 @@ msgstr "Zakleni zaslon ob spanju"
 
 #: src/xfce4-screensaver-preferences.ui:1256
 msgid "Lock Screen"
-msgstr "Zakleni zaslon"
+msgstr "Zaklenjen zaslon"
 
 #: src/xfce4-screensaver.c:59
 msgid "Enable debugging code"
