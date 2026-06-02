@@ -238,8 +238,8 @@ do_user_switch (GSLockPlug *plug) {
             gs_debug ("Unable to start GDM greeter: %s", error->message);
             g_error_free (error);
         }
-    } else if (process_is_running ("lightdm")) {
-        /* LightDM */
+    } else if (process_is_running ("lightdm") || process_is_running ("sddm")) {
+        /* LightDM / SDDM (FIXME: any DM maybe – detect DBUS not process?) */
         GDBusProxyFlags flags = G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START;
         GDBusProxy *proxy = NULL;
         const gchar *seat_path = g_getenv ("XDG_SEAT_PATH");
@@ -269,7 +269,7 @@ do_user_switch (GSLockPlug *plug) {
                 g_variant_unref (variant);
             }
         } else {
-            gs_debug ("Unable to start LightDM greeter: %s", error->message);
+            gs_debug ("No running greeter found: %s", error->message);
             g_error_free (error);
         }
     }
@@ -982,8 +982,13 @@ gs_lock_plug_set_switch_enabled (GSLockPlug *plug,
         } else if (process_is_running ("gdm") || process_is_running ("gdm3") || process_is_running ("gdm-binary")) {
             /* GDM */
             gtk_widget_show (plug->priv->auth_switch_button);
-        } else if (process_is_running ("lightdm")) {
-            /* LightDM */
+        } else if (process_is_running ("lightdm") || process_is_running("sddm")) {
+            /* LightDM / SDDM */
+            // FIXME: LightDM / SDDM in reality do DBus registration,
+            // and this is what screensaver is using. We can do more
+            // generic switching and DM detection based upon DBus
+            // endpoints / method calling, so even more obscure DM
+            // will have a chance of playing nice with the screensaver.
             gtk_widget_show (plug->priv->auth_switch_button);
         } else {
             gs_debug ("Warning: Unknown DM for switch button");
