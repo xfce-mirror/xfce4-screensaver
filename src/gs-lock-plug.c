@@ -982,7 +982,7 @@ gs_lock_plug_set_switch_enabled (GSLockPlug *plug,
         } else if (process_is_running ("gdm") || process_is_running ("gdm3") || process_is_running ("gdm-binary")) {
             /* GDM */
             gtk_widget_show (plug->priv->auth_switch_button);
-        } else if (process_is_running ("lightdm") || process_is_running("sddm")) {
+        } else if (process_is_running ("lightdm") || process_is_running ("sddm")) {
             /* LightDM / SDDM */
             // FIXME: LightDM / SDDM in reality do DBus registration,
             // and this is what screensaver is using. We can do more
