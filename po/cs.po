@@ -5,11 +5,10 @@
 # 
 # Translators:
 # Xfce Bot <transifex@xfce.org>, 2023
-# b537cbea55af75c3f49fe8b21c4cf8ea_f0ce149, 2023
 # Nick Schermer <nick@xfce.org>, 2024
 # Pavel Borecki <pavel.borecki@gmail.com>, 2024
 # Pythom1234, 2024
-# Michal Várady <miko.vaji@gmail.com>, 2024
+# Michal Várady <miko.vaji@gmail.com>, 2026
 # 
 #, fuzzy
 msgid ""
@@ -18,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
 "POT-Creation-Date: 2024-12-22 00:50+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Michal Várady <miko.vaji@gmail.com>, 2024\n"
+"Last-Translator: Michal Várady <miko.vaji@gmail.com>, 2026\n"
 "Language-Team: Czech (https://app.transifex.com/xfce/teams/16840/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,7 +32,7 @@ msgstr "Šetřič obrazovky Xfce"
 
 #: data/xfce4-screensaver-preferences.desktop.in:4
 msgid "Set your screensaver preferences"
-msgstr "Nastavte své předvolby pro šetřič obrazovky"
+msgstr "Nastavte předvolby šetřiče obrazovky"
 
 #: data/xfce4-screensaver-preferences.desktop.in:5
 #: src/xfce4-screensaver-preferences.ui:875
@@ -44,7 +43,8 @@ msgstr "Šetřič obrazovky"
 #: data/xfce4-screensaver-preferences.desktop.in:11
 msgid "settings;preferences;screensaver;lock screen;"
 msgstr ""
-"nastavení;předvolby,šetřič obrazovky;spořič obrazovky;uzamknout obrazovku;"
+"nastavení;předvolby;šetřič obrazovky;spořič obrazovky;zámek "
+"obrazovky;uzamknout obrazovku;"
 
 #: data/xfce4-screensaver.desktop.in:4
 msgid "Screensavers"
@@ -52,11 +52,11 @@ msgstr "Šetřiče obrazovky"
 
 #: data/xfce4-screensaver.desktop.in:5
 msgid "Screensaver themes"
-msgstr "Motivy vzhledu šetřiče obrazovky"
+msgstr "Motivy šetřiče obrazovky"
 
 #: savers/floaters.c:93
 msgid "Show paths that images follow"
-msgstr "Zobrazit cesty, které obrázky sledují"
+msgstr "Zobrazit dráhy pohybu, které obrázky sledují"
 
 #: savers/floaters.c:96
 msgid "Occasionally rotate images as they move"
@@ -64,7 +64,7 @@ msgstr "Příležitostně otáčet obrázky při pohybu"
 
 #: savers/floaters.c:99
 msgid "Print out frame rate and other statistics"
-msgstr "Zobrazit počet snímků za sekundu a jiné statistiky"
+msgstr "Vypsat snímkovou frekvenci a další statistiky"
 
 #: savers/floaters.c:102
 msgid "The maximum number of images to keep on screen"
@@ -90,7 +90,7 @@ msgstr "Použitý zdrojový obrázek"
 #. * represents a command line argument
 #: savers/floaters.c:1127
 msgid "image - floats images around the screen"
-msgstr "image - počet obrázků plujících po obrazovce"
+msgstr "image - nechá obrázky plout po obrazovce"
 
 #: savers/floaters.c:1131 savers/popsquares.c:54
 #, c-format
@@ -121,7 +121,7 @@ msgstr "Barva použitá jako pozadí obrázků"
 
 #: savers/slideshow.c:61
 msgid "\"#rrggbb\""
-msgstr "„#rrggbb“"
+msgstr "\"#rrggbb\""
 
 #: savers/slideshow.c:63
 msgid "Do not randomize pictures from location"
@@ -162,12 +162,12 @@ msgstr "Umělecká mřížka pulzujících barev."
 #: src/gs-auth-pam.c:373
 #, c-format
 msgid "Unable to establish service %s: %s\n"
-msgstr "Nedaří se ustanovit službu %s: %s\n"
+msgstr "Nepodařilo se inicializovat službu %s: %s\n"
 
 #: src/gs-auth-pam.c:399
 #, c-format
 msgid "Can't set PAM_TTY=%s"
-msgstr "Nedaří se nastavit PAM_TTY=%s"
+msgstr "Nepodařilo se nastavit PAM_TTY=%s"
 
 #: src/gs-auth-pam.c:430
 msgid "Incorrect password."
@@ -226,7 +226,7 @@ msgstr "Dotázat se na délku aktivity šetřiče obrazovky"
 #: src/xfce4-screensaver-command.c:59
 msgid "Tells the running screensaver process to lock the screen immediately"
 msgstr ""
-"Sdělí procesu spuštěného šetřiče obrazovky, aby okamžitě uzamkl obrazovku"
+"Nařídí běžícímu procesu šetřiče obrazovky okamžitě uzamknout obrazovku"
 
 #: src/xfce4-screensaver-command.c:61
 msgid "If the screensaver is active then switch to another graphics demo"
@@ -244,24 +244,23 @@ msgstr ""
 
 #: src/xfce4-screensaver-command.c:67
 msgid "Poke the running screensaver to simulate user activity"
-msgstr ""
-"Předstírat před šetřičem obrazovky aktivitu uživatele zasláním informace o "
-"pohybu myši nebo aktivity klávesnice."
+msgstr "Simulovat aktivitu uživatele pro běžící šetřič obrazovky"
 
 #: src/xfce4-screensaver-command.c:69
 msgid ""
 "Inhibit the screensaver from activating.  Command blocks while inhibit is "
 "active."
 msgstr ""
-"Zakázat šetřiči obrazovky aktivaci. Příkaz blokuje dokud je zákaz aktivní."
+"Potlačit aktivaci šetřiče obrazovky. Příkaz běží, dokud je potlačení "
+"aktivní."
 
 #: src/xfce4-screensaver-command.c:71
 msgid "The calling application that is inhibiting the screensaver"
-msgstr "Volání aplikace, která zakazuje spuštění šetřiče obrazovky"
+msgstr "Volající aplikace, která potlačuje šetřič obrazovky"
 
 #: src/xfce4-screensaver-command.c:73
 msgid "The reason for inhibiting the screensaver"
-msgstr "Důvod pro odstavení šetřiče"
+msgstr "Důvod potlačení šetřiče obrazovky"
 
 #: src/xfce4-screensaver-command.c:75 src/xfce4-screensaver-dialog.c:70
 #: src/xfce4-screensaver.c:58
@@ -283,11 +282,11 @@ msgstr "neaktivní"
 
 #: src/xfce4-screensaver-command.c:193
 msgid "The screensaver is not inhibited\n"
-msgstr "Šetřič není odstaven\n"
+msgstr "Aktivace šetřiče obrazovky není potlačena\n"
 
 #: src/xfce4-screensaver-command.c:195
 msgid "The screensaver is being inhibited by:\n"
-msgstr "Šetřič je odstaven na žádost:\n"
+msgstr "Aktivaci šetřiče obrazovky potlačuje:\n"
 
 #: src/xfce4-screensaver-command.c:211
 #, c-format
@@ -304,11 +303,11 @@ msgstr "Maximální počet obrázků"
 
 #: src/xfce4-screensaver-configure.py:181
 msgid "Show paths"
-msgstr "Ukázat cesty k souborům"
+msgstr "Zobrazit dráhy pohybu"
 
 #: src/xfce4-screensaver-configure.py:183
 msgid "Do rotations"
-msgstr "Točit obrázky"
+msgstr "Otáčet obrázky"
 
 #: src/xfce4-screensaver-configure.py:185
 msgid "Print stats"
@@ -336,7 +335,7 @@ msgstr "Neořezávat obrázky"
 
 #: src/xfce4-screensaver-configure.py:389
 msgid "Restore Defaults"
-msgstr "Obnovit výchozí"
+msgstr "Obnovit výchozí hodnoty"
 
 #: src/xfce4-screensaver-configure.py:402
 msgid "Preferences"
@@ -352,19 +351,19 @@ msgstr "Video"
 
 #: src/xfce4-screensaver-configure.py:729
 msgid "Configure an individual screensaver"
-msgstr "Nakonfigurovat individuální šetřič obrazovky"
+msgstr "Nastavit konkrétní šetřič obrazovky"
 
 #: src/xfce4-screensaver-configure.py:731
 msgid "screensaver name to configure"
-msgstr "název šetřiče obrazovky pro konfiguraci"
+msgstr "název šetřiče obrazovky pro nastavení"
 
 #: src/xfce4-screensaver-configure.py:733
 msgid "check if screensaver is configurable"
-msgstr "zjistit, zda je šetřič obrazovky konfigurovatelný"
+msgstr "zjistit, zda lze šetřič obrazovky nastavit"
 
 #: src/xfce4-screensaver-configure.py:737
 msgid "Unable to configure screensaver"
-msgstr "Nelze nakonfigurovat šetřič obrazovky"
+msgstr "Nelze nastavit šetřič obrazovky"
 
 #: src/xfce4-screensaver-configure.py:741
 msgid "Screensaver required."
@@ -466,7 +465,7 @@ msgstr "Odh_lásit"
 
 #: src/xfce4-screensaver-dialog.ui:303
 msgid "_Cancel"
-msgstr "_Storno"
+msgstr "_Zrušit"
 
 #: src/xfce4-screensaver-dialog.ui:319
 msgid "_Unlock"
@@ -532,21 +531,21 @@ msgstr "Náhled"
 
 #: src/xfce4-screensaver-preferences.ui:370
 msgid "Running as root"
-msgstr "Spuštěno s právy správce systému"
+msgstr "Spuštěno jako root"
 
 #: src/xfce4-screensaver-preferences.ui:386
 msgid "The screen will not be locked for the root user."
-msgstr "Tato obrazovka nebude pro správce systému uzamknuta."
+msgstr "Obrazovka se pro uživatele root nezamkne."
 
 #: src/xfce4-screensaver-preferences.ui:427
 msgid "Resolve"
-msgstr "Vyřešit"
+msgstr "Opravit"
 
 #: src/xfce4-screensaver-preferences.ui:473
 msgid "Xfce Power Manager is not configured to handle laptop lid events"
 msgstr ""
-"Správce napájení Xfce není nakonfigurován, aby reagoval na události spojené "
-"s otevřením notebooku"
+"Správce napájení Xfce není nastaven tak, aby zpracovával události víka "
+"notebooku"
 
 #: src/xfce4-screensaver-preferences.ui:489
 msgid "Your computer may not be locked when you close the lid."
@@ -562,11 +561,11 @@ msgstr "Motiv vzhledu"
 
 #: src/xfce4-screensaver-preferences.ui:688
 msgid "Configure screensaver"
-msgstr "Konfigurovat šetřič obrazovky"
+msgstr "Nastavit šetřič obrazovky"
 
 #: src/xfce4-screensaver-preferences.ui:689
 msgid "Configure..."
-msgstr "Konfigurovat..."
+msgstr "Nastavit..."
 
 #: src/xfce4-screensaver-preferences.ui:729
 msgid "Change theme after:"
@@ -589,16 +588,15 @@ msgstr "Považovat počítač za neč_inný po:"
 
 #: src/xfce4-screensaver-preferences.ui:837
 msgid "Inhibit screensaver for fullscreen applications"
-msgstr ""
-"Zakázat šetřič obrazovky při spuštění aplikací v režimu celé obrazovky."
+msgstr "Potlačit šetřič obrazovky pro aplikace na celou obrazovku"
 
 #: src/xfce4-screensaver-preferences.ui:896
 msgid "Enable Lock Screen"
-msgstr "Povolit uzamknutí obrazovky"
+msgstr "Povolit zámek obrazovky"
 
 #: src/xfce4-screensaver-preferences.ui:940
 msgid "Lock Screen with Screensaver"
-msgstr "Zámek obrazovky se šetřičem"
+msgstr "Uzamykat obrazovku spolu se šetřičem"
 
 #: src/xfce4-screensaver-preferences.ui:970
 msgid "Lock the screen after the screensaver is active for:"
@@ -614,11 +612,11 @@ msgstr "Příkaz pro spuštění klávesnice na obrazovce:"
 
 #: src/xfce4-screensaver-preferences.ui:1063
 msgid "Session Status Messages"
-msgstr "Zprávy stavu relace"
+msgstr "Stavové zprávy relace"
 
 #: src/xfce4-screensaver-preferences.ui:1093
 msgid "Logout"
-msgstr "Odhlásit"
+msgstr "Odhlášení"
 
 #: src/xfce4-screensaver-preferences.ui:1123
 msgid "Logout command:"
@@ -634,11 +632,11 @@ msgstr "Přepínání uživatelů"
 
 #: src/xfce4-screensaver-preferences.ui:1215
 msgid "Lock Screen with System Sleep"
-msgstr "Uzamknout obrazovku s uspáním systému"
+msgstr "Uzamykat obrazovku při uspání systému"
 
 #: src/xfce4-screensaver-preferences.ui:1256
 msgid "Lock Screen"
-msgstr "Uzamknout obrazovku"
+msgstr "Zámek obrazovky"
 
 #: src/xfce4-screensaver.c:59
 msgid "Enable debugging code"
@@ -646,7 +644,7 @@ msgstr "Povolit ladicí kód"
 
 #: src/xfce4-screensaver.desktop.in.in:5
 msgid "Launch screensaver and locker program"
-msgstr "Spouští šetřič a zámek obrazovky"
+msgstr "Spustí program šetřiče a zámku obrazovky"
 
 #: src/xfcekbd-indicator.c:408
 msgid "XKB initialization error"
