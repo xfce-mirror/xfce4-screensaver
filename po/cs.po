@@ -56,7 +56,7 @@ msgstr "Motivy šetřiče obrazovky"
 
 #: savers/floaters.c:93
 msgid "Show paths that images follow"
-msgstr "Zobrazit dráhy pohybu, které obrázky sledují"
+msgstr "Zobrazit dráhy pohybu obrázků"
 
 #: savers/floaters.c:96
 msgid "Occasionally rotate images as they move"
@@ -149,15 +149,15 @@ msgstr "Promítání snímků"
 
 #: savers/xfce-personal-slideshow.desktop.in.in:4
 msgid "Display a slideshow from your Pictures folder"
-msgstr "Zobrazovat prezentaci ze složky Obrázky"
+msgstr "Promítat snímky ze složky Obrázky"
 
 #: savers/xfce-popsquares.desktop.in.in:3
 msgid "Pop art squares"
-msgstr "Umělecké čtverce"
+msgstr "Popartové čtverce"
 
 #: savers/xfce-popsquares.desktop.in.in:4
 msgid "A pop-art-ish grid of pulsing colors."
-msgstr "Umělecká mřížka pulzujících barev."
+msgstr "Popartová mřížka pulzujících barev."
 
 #: src/gs-auth-pam.c:373
 #, c-format
@@ -387,17 +387,17 @@ msgstr "Nepodařilo se zpracovat soubor: %s"
 #: src/xfce4-screensaver-configure.py:766
 #, python-format
 msgid "Screensaver %s is configurable."
-msgstr "Šetřič obrazovky %s je nastavitelný."
+msgstr "Šetřič obrazovky %s lze nastavit."
 
 #: src/xfce4-screensaver-configure.py:768
 #, python-format
 msgid "Screensaver %s is not configurable."
-msgstr "Šetřič obrazovky %s není nastavitelný."
+msgstr "Šetřič obrazovky %s nelze nastavit."
 
 #: src/xfce4-screensaver-configure.py:772
 #, python-format
 msgid "Screensaver %s has no configuration options."
-msgstr "Šetřič obrazovky %s nemá žádné možnosti konfigurace."
+msgstr "Šetřič obrazovky %s nemá žádné možnosti nastavení."
 
 #: src/xfce4-screensaver-dialog.c:68
 msgid "Show debugging output"
@@ -405,11 +405,11 @@ msgstr "Zobrazit ladicí výstup"
 
 #: src/xfce4-screensaver-dialog.c:72
 msgid "Show the logout button"
-msgstr "Zobrazit tlačítko odhlásit"
+msgstr "Zobrazit tlačítko pro odhlášení"
 
 #: src/xfce4-screensaver-dialog.c:74
 msgid "Command to invoke from the logout button"
-msgstr "Příkaz ke spuštění vyvolaný tlačítkem odhlášení"
+msgstr "Příkaz spouštěný tlačítkem pro odhlášení"
 
 #: src/xfce4-screensaver-dialog.c:76
 msgid "Show the switch user button"
@@ -549,7 +549,7 @@ msgstr ""
 
 #: src/xfce4-screensaver-preferences.ui:489
 msgid "Your computer may not be locked when you close the lid."
-msgstr "Váš počítač nemusí být po zavření uzamčen."
+msgstr "Po zavření víka nemusí být počítač uzamčen."
 
 #: src/xfce4-screensaver-preferences.ui:538
 msgid "Enable Screensaver"
@@ -557,7 +557,7 @@ msgstr "Povolit šetřič obrazovky"
 
 #: src/xfce4-screensaver-preferences.ui:592
 msgid "Theme"
-msgstr "Motiv vzhledu"
+msgstr "Motiv"
 
 #: src/xfce4-screensaver-preferences.ui:688
 msgid "Configure screensaver"
@@ -569,7 +569,7 @@ msgstr "Nastavit..."
 
 #: src/xfce4-screensaver-preferences.ui:729
 msgid "Change theme after:"
-msgstr "Změnit motiv vzhledu po:"
+msgstr "Změnit motiv po:"
 
 #: src/xfce4-screensaver-preferences.ui:752
 #: src/xfce4-screensaver-preferences.ui:822
