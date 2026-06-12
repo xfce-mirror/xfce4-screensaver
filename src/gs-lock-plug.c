@@ -1180,6 +1180,9 @@ gs_lock_plug_enable_prompt (GSLockPlug *plug,
     toggle_infobar_visibility (plug);
 
     gtk_entry_set_visibility (GTK_ENTRY (plug->priv->auth_prompt_entry), visible);
+    if (!visible)
+        gtk_entry_set_icon_from_icon_name (GTK_ENTRY (plug->priv->auth_prompt_entry),
+            GTK_ENTRY_ICON_SECONDARY, "view-reveal-symbolic");
     gtk_widget_set_sensitive (plug->priv->auth_prompt_entry, TRUE);
     gtk_widget_show (plug->priv->auth_prompt_entry);
 
@@ -1209,6 +1212,19 @@ gs_lock_plug_show_message (GSLockPlug *plug,
     g_return_if_fail (GS_IS_LOCK_PLUG (plug));
 
     set_status_text (plug, message ? message : "");
+}
+
+static void
+entry_icon_press_cb (GtkEntry             *entry,
+                     GtkEntryIconPosition  pos,
+                     GdkEvent             *event,
+                     gpointer              user_data) {
+    if (pos != GTK_ENTRY_ICON_SECONDARY)
+        return;
+    gboolean visible = gtk_entry_get_visibility (entry);
+    gtk_entry_set_visibility (entry, !visible);
+    gtk_entry_set_icon_from_icon_name (entry, GTK_ENTRY_ICON_SECONDARY,
+        visible ? "view-reveal-symbolic" : "view-conceal-symbolic");
 }
 
 /* button press handler used to inhibit popup menu */
@@ -1658,6 +1674,8 @@ gs_lock_plug_init (GSLockPlug *plug) {
                       G_CALLBACK (entry_button_press), NULL);
     g_signal_connect (plug->priv->auth_prompt_entry, "activate",
                       G_CALLBACK (prompt_entry_activate), plug);
+    g_signal_connect (plug->priv->auth_prompt_entry, "icon-press",
+                      G_CALLBACK (entry_icon_press_cb), NULL);
     gtk_entry_set_visibility (GTK_ENTRY (plug->priv->auth_prompt_entry), FALSE);
 
     g_signal_connect (plug->priv->auth_unlock_button, "clicked",
