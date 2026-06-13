@@ -403,7 +403,6 @@ create_pam_handle (const char *username,
         goto out;
     }
 
-    ret = TRUE;
     g_cond_init (&message_handled_condition);
     g_mutex_init (&message_handler_mutex);
 
