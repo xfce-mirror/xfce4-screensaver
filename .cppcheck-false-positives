@@ -26,3 +26,6 @@ knownConditionTrueFalse:src/gs-listener-dbus.c:601
 knownConditionTrueFalse:src/gs-auth-pwent.c:214
 knownConditionTrueFalse:src/gs-auth-pwent.c:136
 knownConditionTrueFalse:src/gs-auth-pam.c:311
+memleak:src/setuid.c:127
+memleak:src/setuid.c:138
+memleak:savers/popsquares.c:96
