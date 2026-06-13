@@ -678,7 +678,7 @@ gste_slideshow_set_background_color (GSTESlideshow *show,
     if (background_color != NULL) {
         show->priv->background_color = g_slice_new (PangoColor);
 
-        if (pango_color_parse (show->priv->background_color, background_color) == FALSE) {
+        if (!pango_color_parse (show->priv->background_color, background_color)) {
             g_slice_free (PangoColor, show->priv->background_color);
             show->priv->background_color = NULL;
         }

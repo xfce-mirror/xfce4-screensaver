@@ -1966,11 +1966,10 @@ gs_listener_dbus_acquire (GSListenerDBus *listener,
 
     dbus_error_init (&buserror);
 
-    if (dbus_connection_register_object_path (listener->priv->connection,
-                                              GS_LISTENER_DBUS_PATH,
-                                              &gs_listener_dbus_vtable,
-                                              listener)
-        == FALSE) {
+    if (!dbus_connection_register_object_path (listener->priv->connection,
+                                               GS_LISTENER_DBUS_PATH,
+                                               &gs_listener_dbus_vtable,
+                                               listener)) {
         g_critical ("out of memory registering object path");
         return FALSE;
     }
@@ -2099,10 +2098,9 @@ query_session_id (GSListenerDBus *listener) {
             return NULL;
         }
 
-        if (dbus_message_append_args (message,
-                                      DBUS_TYPE_UINT32,
-                                      &pid, DBUS_TYPE_INVALID)
-            == FALSE) {
+        if (!dbus_message_append_args (message,
+                                       DBUS_TYPE_UINT32,
+                                       &pid, DBUS_TYPE_INVALID)) {
             gs_debug ("Couldn't add args to the dbus message");
             return NULL;
         }

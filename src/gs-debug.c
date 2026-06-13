@@ -52,7 +52,7 @@ gs_debug_real (const char *func,
     struct timeval tv;
 
 
-    if (debugging == FALSE)
+    if (!debugging)
         return;
 
     va_start (args, format);
@@ -91,7 +91,7 @@ void
 gs_debug_init (gboolean debug,
                gboolean to_file) {
     /* return if already initialized */
-    if (debugging == TRUE) {
+    if (debugging) {
         return;
     }
 

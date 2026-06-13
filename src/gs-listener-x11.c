@@ -117,7 +117,7 @@ lock_timer (gpointer user_data) {
     if (!listener->priv->enabled)
         return TRUE;
 
-    if (get_x11_idle_info (&idle_time, &state) == FALSE)
+    if (!get_x11_idle_info (&idle_time, &state))
         return TRUE;
 
     if (idle_time > listener->priv->timeout) {
