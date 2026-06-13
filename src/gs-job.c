@@ -278,7 +278,6 @@ nice_process (int pid,
 static GPtrArray *
 get_env_vars (GtkWidget *widget) {
     GPtrArray *env;
-    const gchar *display_name;
     gchar *str;
     static const char *allowed_env_vars[] = {
         "PATH",
@@ -295,15 +294,14 @@ get_env_vars (GtkWidget *widget) {
 
     env = g_ptr_array_new ();
 
-    display_name = gdk_display_get_name (gtk_widget_get_display (widget));
 #ifdef ENABLE_X11
     if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
-        g_ptr_array_add (env, g_strdup_printf ("DISPLAY=%s", display_name));
+        g_ptr_array_add (env, g_strdup_printf ("DISPLAY=%s", gdk_display_get_name (gdk_display_get_default ())));
     }
 #endif
 #ifdef ENABLE_WAYLAND
     if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
-        g_ptr_array_add (env, g_strdup_printf ("WAYLAND_DISPLAY=%s", display_name));
+        g_ptr_array_add (env, g_strdup_printf ("WAYLAND_DISPLAY=%s", gdk_display_get_name (gdk_display_get_default ())));
         g_ptr_array_add (env, g_strdup_printf ("DISPLAY=%s", g_getenv ("DISPLAY")));
     }
 #endif

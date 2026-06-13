@@ -1459,12 +1459,11 @@ listener_dbus_handle_system_message (DBusConnection *connection,
                                      DBusMessage *message,
                                      void *user_data,
                                      dbus_bool_t local_interface) {
-    GSListenerDBus *listener = GS_LISTENER_DBUS (user_data);
-
     g_return_val_if_fail (connection != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
     g_return_val_if_fail (message != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
 
 #if defined(WITH_SYSTEMD) || defined(WITH_ELOGIND)
+    GSListenerDBus *listener = GS_LISTENER_DBUS (user_data);
     if (listener->priv->have_logind) {
         if (dbus_message_is_signal (message, LOGIND_SESSION_INTERFACE, "Unlock")) {
             if (_listener_dbus_message_path_is_our_session (listener, message)) {

@@ -198,13 +198,12 @@ int
 main (int argc,
       char **argv) {
     GError *error = NULL;
-    gboolean verbose = TRUE;
     char *nolock_reason = NULL;
 
     xfce_textdomain (GETTEXT_PACKAGE, XFCELOCALEDIR, "UTF-8");
 
 #ifndef NO_LOCKING
-    gs_auth_set_verbose (verbose);
+    gs_auth_set_verbose (TRUE);
 #endif /* NO_LOCKING */
     if (!privileged_initialization ()) {
         return EXIT_FAILURE;

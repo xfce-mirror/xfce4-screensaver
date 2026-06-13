@@ -8,5 +8,6 @@ int
 main () {
     struct spwd *p = getspnam ("nobody");
     const char *pw = p->sp_pwdp;
+    (void) pw;
     return 0;
 }

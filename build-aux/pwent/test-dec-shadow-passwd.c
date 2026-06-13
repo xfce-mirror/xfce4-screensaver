@@ -13,5 +13,6 @@ main () {
     check_auth_parameters ();
     p = getprpwnam ("nobody");
     pw = p->ufld.fd_encrypt;
+    (void) pw;
     return 0;
 }

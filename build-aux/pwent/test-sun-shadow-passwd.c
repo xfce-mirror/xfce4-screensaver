@@ -9,5 +9,6 @@ int
 main () {
     struct passwd_adjunct *p = getpwanam ("nobody");
     const char *pw = p->pwa_passwd;
+    (void) pw;
     return 0;
 }
