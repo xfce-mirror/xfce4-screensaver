@@ -25,3 +25,6 @@ knownConditionTrueFalse:src/gs-manager.c:1171
 knownConditionTrueFalse:src/gs-auth-pwent.c:136
 knownConditionTrueFalse:src/gs-auth-pam.c:310
 knownConditionTrueFalse:src/gs-auth-pam.c:311
+memleak:src/setuid.c:127
+memleak:src/setuid.c:138
+memleak:savers/popsquares.c:96
