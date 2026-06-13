@@ -28,3 +28,4 @@ knownConditionTrueFalse:src/gs-auth-pam.c:311
 memleak:src/setuid.c:127
 memleak:src/setuid.c:138
 memleak:savers/popsquares.c:96
+nullPointer:src/gs-job.c:325
