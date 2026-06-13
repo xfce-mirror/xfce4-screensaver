@@ -158,8 +158,7 @@ GSSessionLockManager *
 gs_session_lock_manager_new (void) {
     GSSessionLockManager *manager = g_object_new (GS_TYPE_SESSION_LOCK_MANAGER, NULL);
     if (manager->wl_manager == NULL) {
-        g_object_unref (manager);
-        manager = NULL;
+        g_clear_object (&manager);
     }
     return manager;
 }

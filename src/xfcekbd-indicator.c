@@ -235,8 +235,7 @@ xfcekbd_indicator_prepare_drawing (XfcekbdIndicator *gki,
     gtk_label_set_angle (GTK_LABEL (label), gki->priv->angle);
 
     if (groupId + 1 == xkl_engine_get_num_groups (globals.engine)) {
-        g_hash_table_destroy (ln2cnt_map);
-        ln2cnt_map = NULL;
+        g_clear_pointer (&ln2cnt_map, g_hash_table_destroy);
     }
 
     gtk_container_add (GTK_CONTAINER (ebox), label);

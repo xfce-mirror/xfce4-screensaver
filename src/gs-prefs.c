@@ -172,18 +172,12 @@ gs_prefs_get_theme (GSPrefs *prefs) {
 static void
 _gs_prefs_set_themes (GSPrefs *prefs,
                       gchar **values) {
-    guint i;
-    if (prefs->themes) {
-        g_slist_free_full (prefs->themes, g_free);
-        prefs->themes = NULL;
-    }
-
+    g_clear_slist (&prefs->themes, g_free);
     if (values == NULL)
         return;
 
     /* take ownership of the list */
-    prefs->themes = NULL;
-    for (i = 0; values[i] != NULL; i++)
+    for (guint i = 0; values[i] != NULL; i++)
         prefs->themes = g_slist_append (prefs->themes, g_strdup (values[i]));
 }
 
@@ -232,8 +226,7 @@ _gs_prefs_set_keyboard_enabled (GSPrefs *prefs,
 static void
 _gs_prefs_set_keyboard_command (GSPrefs *prefs,
                                 const char *value) {
-    g_free (prefs->keyboard_command);
-    prefs->keyboard_command = NULL;
+    g_clear_pointer (&prefs->keyboard_command, g_free);
 
     if (value) {
         /* FIXME: check command */
@@ -263,8 +256,7 @@ _gs_prefs_set_logout_enabled (GSPrefs *prefs,
 static void
 _gs_prefs_set_logout_command (GSPrefs *prefs,
                               const char *value) {
-    g_free (prefs->logout_command);
-    prefs->logout_command = NULL;
+    g_clear_pointer (&prefs->logout_command, g_free);
 
     if (value) {
         /* FIXME: check command */

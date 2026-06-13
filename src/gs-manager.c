@@ -230,10 +230,7 @@ activate_lock_timeout (gpointer user_data) {
 
 static void
 remove_lock_timer (GSManager *manager) {
-    if (manager->priv->lock_timeout_id != 0) {
-        g_source_remove (manager->priv->lock_timeout_id);
-        manager->priv->lock_timeout_id = 0;
-    }
+    g_clear_handle_id (&manager->priv->lock_timeout_id, g_source_remove);
 }
 
 static void
@@ -311,10 +308,7 @@ cycle_timeout (gpointer user_data) {
 
 static void
 remove_cycle_timer (GSManager *manager) {
-    if (manager->priv->cycle_timeout_id != 0) {
-        g_source_remove (manager->priv->cycle_timeout_id);
-        manager->priv->cycle_timeout_id = 0;
-    }
+    g_clear_handle_id (&manager->priv->cycle_timeout_id, g_source_remove);
 }
 
 static void

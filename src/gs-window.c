@@ -415,10 +415,7 @@ watchdog_timer (gpointer user_data) {
 
 static void
 remove_watchdog_timer (GSWindow *window) {
-    if (window->priv->watchdog_timer_id != 0) {
-        g_source_remove (window->priv->watchdog_timer_id);
-        window->priv->watchdog_timer_id = 0;
-    }
+    g_clear_handle_id (&window->priv->watchdog_timer_id, g_source_remove);
 }
 
 static void
@@ -429,10 +426,7 @@ add_watchdog_timer (GSWindow *window,
 
 static void
 remove_popup_dialog_idle (GSWindow *window) {
-    if (window->priv->popup_dialog_idle_id != 0) {
-        g_source_remove (window->priv->popup_dialog_idle_id);
-        window->priv->popup_dialog_idle_id = 0;
-    }
+    g_clear_handle_id (&window->priv->popup_dialog_idle_id, g_source_remove);
 }
 
 static void
@@ -2067,14 +2061,8 @@ gs_window_init (GSWindow *window) {
 
 static void
 remove_command_watches (GSWindow *window) {
-    if (window->priv->lock_watch_id != 0) {
-        g_source_remove (window->priv->lock_watch_id);
-        window->priv->lock_watch_id = 0;
-    }
-    if (window->priv->keyboard_watch_id != 0) {
-        g_source_remove (window->priv->keyboard_watch_id);
-        window->priv->keyboard_watch_id = 0;
-    }
+    g_clear_handle_id (&window->priv->lock_watch_id, g_source_remove);
+    g_clear_handle_id (&window->priv->keyboard_watch_id, g_source_remove);
 }
 
 static void
@@ -2088,17 +2076,10 @@ gs_window_finalize (GObject *object) {
 
     g_return_if_fail (window->priv != NULL);
 
-    if (window->priv->info_bar_timer_id > 0) {
-        g_source_remove (window->priv->info_bar_timer_id);
-        window->priv->info_bar_timer_id = 0;
-    }
-
+    g_clear_handle_id (&window->priv->info_bar_timer_id, g_source_remove);
     remove_watchdog_timer (window);
     remove_popup_dialog_idle (window);
-    if (window->priv->deactivated_idle_id > 0) {
-        g_source_remove (window->priv->deactivated_idle_id);
-        window->priv->deactivated_idle_id = 0;
-    }
+    g_clear_handle_id (&window->priv->deactivated_idle_id, g_source_remove);
     if (window->priv->monitor != NULL) {
         g_object_remove_weak_pointer (G_OBJECT (window->priv->monitor), (gpointer *) &window->priv->monitor);
     }
@@ -2108,9 +2089,7 @@ gs_window_finalize (GObject *object) {
     }
 
     remove_key_events (window);
-
     remove_command_watches (window);
-
     gs_window_dialog_finish (window);
     g_object_unref (window->priv->prefs);
     g_object_unref (window->priv->manager);

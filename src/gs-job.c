@@ -170,9 +170,7 @@ gs_job_finalize (GObject *object) {
         gs_job_died (job);
     }
 
-    g_free (job->priv->command);
-    job->priv->command = NULL;
-
+    g_clear_pointer (&job->priv->command, g_free);
     g_object_unref (job->priv->prefs);
     g_object_unref (job->priv->theme_manager);
     G_OBJECT_CLASS (gs_job_parent_class)->finalize (object);
@@ -519,10 +517,7 @@ gs_job_start (GSJob *job) {
 
 static void
 remove_command_watch (GSJob *job) {
-    if (job->priv->watch_id != 0) {
-        g_source_remove (job->priv->watch_id);
-        job->priv->watch_id = 0;
-    }
+    g_clear_handle_id (&job->priv->watch_id, g_source_remove);
 }
 
 gboolean

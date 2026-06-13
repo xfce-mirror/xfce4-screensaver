@@ -278,14 +278,8 @@ static gboolean
 do_transitioned (gpointer user_data) {
     XfceBG *bg = user_data;
     bg->transitioned_id = 0;
-
-    if (bg->pixbuf_cache) {
-        g_object_unref (bg->pixbuf_cache);
-        bg->pixbuf_cache = NULL;
-    }
-
+    g_clear_object (&bg->pixbuf_cache);
     g_signal_emit (G_OBJECT (bg), signals[TRANSITIONED], 0);
-
     return FALSE;
 }
 
@@ -294,7 +288,6 @@ queue_transitioned (XfceBG *bg) {
     if (bg->transitioned_id > 0) {
         g_source_remove (bg->transitioned_id);
     }
-
     bg->transitioned_id = g_timeout_add_full (G_PRIORITY_LOW, 100, do_transitioned, bg, NULL);
 }
 
@@ -475,8 +468,7 @@ xfce_bg_load_from_xfconf (XfceBG *bg,
 
         /* Fallback to plain color if the filename set is non-existent */
         if (filename != NULL && !g_file_test (filename, G_FILE_TEST_EXISTS)) {
-            g_free (filename);
-            filename = NULL;
+            g_clear_pointer (&filename, g_free);
         }
     }
     g_free (tmp);
@@ -533,11 +525,7 @@ static void
 xfce_bg_dispose (GObject *object) {
     XfceBG *bg = XFCE_BG (object);
 
-    if (bg->file_monitor) {
-        g_object_unref (bg->file_monitor);
-        bg->file_monitor = NULL;
-    }
-
+    g_clear_object (&bg->file_monitor);
     clear_cache (bg);
 
     G_OBJECT_CLASS (xfce_bg_parent_class)->dispose (object);
@@ -547,23 +535,10 @@ static void
 xfce_bg_finalize (GObject *object) {
     XfceBG *bg = XFCE_BG (object);
 
-    if (bg->changed_id != 0) {
-        g_source_remove (bg->changed_id);
-        bg->changed_id = 0;
-    }
-
-    if (bg->transitioned_id != 0) {
-        g_source_remove (bg->transitioned_id);
-        bg->transitioned_id = 0;
-    }
-
-    if (bg->blow_caches_id != 0) {
-        g_source_remove (bg->blow_caches_id);
-        bg->blow_caches_id = 0;
-    }
-
-    g_free (bg->filename);
-    bg->filename = NULL;
+    g_clear_handle_id (&bg->changed_id, g_source_remove);
+    g_clear_handle_id (&bg->transitioned_id, g_source_remove);
+    g_clear_handle_id (&bg->blow_caches_id, g_source_remove);
+    g_clear_pointer (&bg->filename, g_free);
 
     G_OBJECT_CLASS (xfce_bg_parent_class)->finalize (object);
 }
@@ -780,14 +755,9 @@ xfce_bg_set_filename (XfceBG *bg,
 
     if (is_different (bg, filename)) {
         g_free (bg->filename);
-
         bg->filename = g_strdup (filename);
         bg->file_mtime = get_mtime (bg->filename);
-
-        if (bg->file_monitor) {
-            g_object_unref (bg->file_monitor);
-            bg->file_monitor = NULL;
-        }
+        g_clear_object (&bg->file_monitor);
 
         if (bg->filename) {
             GFile *f = g_file_new_for_path (bg->filename);
@@ -799,7 +769,6 @@ xfce_bg_set_filename (XfceBG *bg,
         }
 
         clear_cache (bg);
-
         queue_changed (bg);
     }
 }
@@ -1318,10 +1287,7 @@ blow_expensive_caches (gpointer data) {
         }
     }
 
-    if (bg->pixbuf_cache) {
-        g_object_unref (bg->pixbuf_cache);
-        bg->pixbuf_cache = NULL;
-    }
+    g_clear_object (&bg->pixbuf_cache);
 
     return FALSE;
 }
@@ -1466,8 +1432,7 @@ get_pixbuf_for_size (XfceBG *bg,
         height = gdk_pixbuf_get_height (bg->pixbuf_cache);
         hit_cache = 0.2 > fabs ((best_width / (double) best_height) - (width / (double) height));
         if (!hit_cache) {
-            g_object_unref (bg->pixbuf_cache);
-            bg->pixbuf_cache = NULL;
+            g_clear_object (&bg->pixbuf_cache);
         }
     }
 
@@ -1559,29 +1524,16 @@ is_different (XfceBG *bg,
 
 static void
 clear_cache (XfceBG *bg) {
-    GList *list;
-
     if (bg->file_cache) {
-        for (list = bg->file_cache; list != NULL; list = list->next) {
+        for (GList *list = bg->file_cache; list != NULL; list = list->next) {
             FileCacheEntry *ent = list->data;
-
             file_cache_entry_delete (ent);
         }
-        g_list_free (bg->file_cache);
-        bg->file_cache = NULL;
+        g_clear_list (&bg->file_cache, NULL);
     }
 
-    if (bg->pixbuf_cache) {
-        g_object_unref (bg->pixbuf_cache);
-
-        bg->pixbuf_cache = NULL;
-    }
-
-    if (bg->timeout_id) {
-        g_source_remove (bg->timeout_id);
-
-        bg->timeout_id = 0;
-    }
+    g_clear_object (&bg->pixbuf_cache);
+    g_clear_handle_id (&bg->timeout_id, g_source_remove);
 }
 
 static GdkPixbuf *

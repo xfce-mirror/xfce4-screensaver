@@ -331,26 +331,17 @@ gs_lock_plug_set_sensitive (GSLockPlug *plug,
 
 static void
 remove_datetime_timeout (GSLockPlug *plug) {
-    if (plug->priv->datetime_timeout_id > 0) {
-        g_source_remove (plug->priv->datetime_timeout_id);
-        plug->priv->datetime_timeout_id = 0;
-    }
+    g_clear_handle_id (&plug->priv->datetime_timeout_id, g_source_remove);
 }
 
 static void
 remove_cancel_timeout (GSLockPlug *plug) {
-    if (plug->priv->cancel_timeout_id > 0) {
-        g_source_remove (plug->priv->cancel_timeout_id);
-        plug->priv->cancel_timeout_id = 0;
-    }
+    g_clear_handle_id (&plug->priv->cancel_timeout_id, g_source_remove);
 }
 
 static void
 remove_response_idle (GSLockPlug *plug) {
-    if (plug->priv->response_idle_id > 0) {
-        g_source_remove (plug->priv->response_idle_id);
-        plug->priv->response_idle_id = 0;
-    }
+    g_clear_handle_id (&plug->priv->response_idle_id, g_source_remove);
 }
 
 static void
@@ -1771,10 +1762,7 @@ gs_lock_plug_finalize (GObject *object) {
     g_return_if_fail (plug->priv != NULL);
 
     g_free (plug->priv->logout_command);
-
-    g_object_unref (plug->priv->prefs);
-    plug->priv->prefs = NULL;
-
+    g_clear_object (&plug->priv->prefs);
     remove_response_idle (plug);
     remove_cancel_timeout (plug);
     remove_datetime_timeout (plug);

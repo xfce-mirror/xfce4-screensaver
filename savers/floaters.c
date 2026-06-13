@@ -842,21 +842,10 @@ screen_saver_free (ScreenSaver *screen_saver) {
         return;
 
     g_free (screen_saver->filename);
-
     g_hash_table_destroy (screen_saver->cached_sources);
-
-    if (screen_saver->state_update_timeout_id != 0) {
-        g_source_remove (screen_saver->state_update_timeout_id);
-        screen_saver->state_update_timeout_id = 0;
-    }
-
-    if (screen_saver->stats_update_timeout_id != 0) {
-        g_source_remove (screen_saver->stats_update_timeout_id);
-        screen_saver->stats_update_timeout_id = 0;
-    }
-
+    g_clear_handle_id (&screen_saver->state_update_timeout_id, g_source_remove);
+    g_clear_handle_id (&screen_saver->stats_update_timeout_id, g_source_remove);
     screen_saver_destroy_floaters (screen_saver);
-
     g_free (screen_saver);
 }
 
@@ -932,8 +921,7 @@ screen_saver_destroy_floaters (ScreenSaver *screen_saver) {
     if (screen_saver->floaters == NULL)
         return;
 
-    g_list_free_full (screen_saver->floaters, (GDestroyNotify) screen_saver_floater_free);
-    screen_saver->floaters = NULL;
+    g_clear_list (&screen_saver->floaters, (GDestroyNotify) screen_saver_floater_free);
 }
 
 static void

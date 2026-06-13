@@ -799,8 +799,7 @@ tree_selection_changed_cb (GtkTreeSelection *selection) {
     }
 
     if (active_theme != NULL) {
-        g_free (active_theme);
-        active_theme = NULL;
+        g_clear_pointer (&active_theme, g_free);
 
         configure_button = GTK_WIDGET (gtk_builder_get_object (builder, "configure_button"));
         gtk_widget_set_sensitive (configure_button, FALSE);

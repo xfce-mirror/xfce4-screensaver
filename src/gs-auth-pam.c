@@ -315,8 +315,7 @@ pam_conversation (int nmsgs,
                 for (i = 0; i <= replies; i++) {
                     g_free (reply[i].resp);
                 }
-                g_free (reply);
-                reply = NULL;
+                g_clear_pointer (&reply, g_free);
                 ret = PAM_CONV_ERR;
             }
         }

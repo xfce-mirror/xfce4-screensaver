@@ -931,15 +931,8 @@ gste_slideshow_finalize (GObject *object) {
         cairo_surface_destroy (show->priv->surf);
     }
 
-    if (show->priv->timeout_id > 0) {
-        g_source_remove (show->priv->timeout_id);
-        show->priv->timeout_id = 0;
-    }
-
-    if (show->priv->results_pull_id > 0) {
-        g_source_remove (show->priv->results_pull_id);
-        show->priv->results_pull_id = 0;
-    }
+    g_clear_handle_id (&show->priv->timeout_id, g_source_remove);
+    g_clear_handle_id (&show->priv->results_pull_id, g_source_remove);
 
     if (show->priv->results_q != NULL) {
         result = g_async_queue_try_pop (show->priv->results_q);
@@ -950,8 +943,7 @@ gste_slideshow_finalize (GObject *object) {
         g_async_queue_unref (show->priv->results_q);
     }
 
-    g_free (show->priv->images_location);
-    show->priv->images_location = NULL;
+    g_clear_pointer (&show->priv->images_location, g_free);
 
     if (show->priv->background_color) {
         g_slice_free (PangoColor, show->priv->background_color);
