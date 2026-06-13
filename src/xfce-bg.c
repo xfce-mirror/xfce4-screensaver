@@ -513,8 +513,7 @@ xfce_bg_load_from_xfconf (XfceBG *bg,
     xfce_bg_set_placement (bg, placement);
     xfce_bg_set_filename (bg, filename);
 
-    if (filename != NULL)
-        g_free (filename);
+    g_free (filename);
 }
 
 static void
@@ -1235,8 +1234,7 @@ get_as_pixbuf_for_size (XfceBG *bg,
                 pixbuf = gdk_pixbuf_new_from_file (filename, NULL);
             }
 
-            if (tmp != NULL)
-                g_free (tmp);
+            g_free (tmp);
         }
 
         if (pixbuf) {

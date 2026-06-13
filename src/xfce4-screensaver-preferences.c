@@ -566,8 +566,6 @@ job_set_theme (GSJob *local_job,
     gchar *command = NULL;
     gchar *arguments = NULL;
 
-    command = NULL;
-
     info = gs_theme_manager_lookup_theme_info (theme_manager, theme);
     if (info != NULL) {
         arguments = get_theme_arguments (screensaver_channel, theme);
@@ -576,11 +574,8 @@ job_set_theme (GSJob *local_job,
 
     gs_job_set_command (local_job, command);
 
-    if (arguments)
-        g_free (arguments);
-    if (command)
-        g_free (command);
-
+    g_free (arguments);
+    g_free (command);
     if (info != NULL) {
         gs_theme_info_unref (info);
     }
@@ -2023,8 +2018,7 @@ finalize_capplet (void) {
     if (screensaver_channel)
         g_signal_handlers_disconnect_by_func (screensaver_channel, key_changed_cb, NULL);
 
-    if (active_theme)
-        g_free (active_theme);
+    g_free (active_theme);
 
 #ifdef ENABLE_WAYLAND
     if (compositor)

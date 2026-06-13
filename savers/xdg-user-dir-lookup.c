@@ -117,9 +117,7 @@ xdg_user_dir_lookup_with_fallback (const char *type, const char *fallback) {
             continue;
         }
 
-        if (user_dir != NULL) {
-            g_free (user_dir);
-        }
+        g_free (user_dir);
 
         if (relative) {
             user_dir = g_strconcat (home_dir, "/", NULL);

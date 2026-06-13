@@ -215,11 +215,8 @@ gs_job_set_theme (GSJob *job) {
 
     gs_job_set_command (job, command);
 
-    if (arguments)
-        g_free (arguments);
-    if (command)
-        g_free (command);
-
+    g_free (arguments);
+    g_free (command);
     if (info != NULL) {
         gs_theme_info_unref (info);
     }
