@@ -2043,10 +2043,10 @@ main (int argc,
     if (!gtk_init_with_args (&argc, &argv, "", entries, NULL, &error)) {
         if (G_LIKELY (error)) {
             /* print error */
-            g_error ("%s\n", error->message);
+            g_critical ("%s\n", error->message);
             g_error_free (error);
         } else {
-            g_error ("Unable to open display.");
+            g_critical ("Unable to open display.");
         }
 
         return EXIT_FAILURE;
@@ -2069,7 +2069,7 @@ main (int argc,
         return EXIT_FAILURE;
 
     if (!xfconf_init (&error)) {
-        g_error ("Failed to connect to xfconf daemon: %s.", error->message);
+        g_critical ("Failed to connect to xfconf daemon: %s.", error->message);
         g_error_free (error);
 
         return EXIT_FAILURE;

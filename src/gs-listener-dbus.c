@@ -441,8 +441,8 @@ raise_error (DBusConnection *connection,
     reply = dbus_message_new_error (in_reply_to, error_name, buf);
     if (reply == NULL) {
         g_error ("No memory");
-    }
-    if (!dbus_connection_send (connection, reply, NULL)) {
+    } else if (!dbus_connection_send (connection, reply, NULL)) {
+        dbus_message_unref (reply);
         g_error ("No memory");
     }
 
@@ -793,6 +793,7 @@ listener_dbus_get_ref_entries (GSListenerDBus *listener,
     dbus_message_iter_close_container (&iter, &iter_array);
 
     if (!dbus_connection_send (connection, reply, NULL)) {
+        dbus_message_unref (reply);
         g_error ("No memory");
     }
 
@@ -842,9 +843,8 @@ listener_dbus_confirm (DBusConnection *connection,
     reply = dbus_message_new_method_return (message);
     if (reply == NULL) {
         g_error ("No memory");
-    }
-
-    if (!dbus_connection_send (connection, reply, NULL)) {
+    } else if (!dbus_connection_send (connection, reply, NULL)) {
+        dbus_message_unref (reply);
         g_error ("No memory");
     }
 
@@ -900,6 +900,7 @@ listener_dbus_add_ref_entry (GSListenerDBus *listener,
     dbus_message_iter_append_basic (&iter, DBUS_TYPE_UINT32, &entry->cookie);
 
     if (!dbus_connection_send (connection, reply, NULL)) {
+        dbus_message_unref (reply);
         g_error ("No memory");
     }
 
@@ -943,6 +944,7 @@ listener_dbus_remove_ref_entry (GSListenerDBus *listener,
 
     /* FIXME:  Pointless? */
     if (!dbus_connection_send (connection, reply, NULL)) {
+        dbus_message_unref (reply);
         g_error ("No memory");
     }
 
@@ -1031,8 +1033,8 @@ raise_property_type_error (DBusConnection *connection,
                                     buf);
     if (reply == NULL) {
         g_error ("No memory");
-    }
-    if (!dbus_connection_send (connection, reply, NULL)) {
+    } else if (!dbus_connection_send (connection, reply, NULL)) {
+        dbus_message_unref (reply);
         g_error ("No memory");
     }
 
@@ -1077,9 +1079,8 @@ listener_set_property (GSListenerDBus *listener,
 
     if (reply == NULL) {
         g_error ("No memory");
-    }
-
-    if (!dbus_connection_send (connection, reply, NULL)) {
+    } else if (!dbus_connection_send (connection, reply, NULL)) {
+        dbus_message_unref (reply);
         g_error ("No memory");
     }
 
@@ -1115,6 +1116,7 @@ listener_get_property (GSListenerDBus *listener,
     }
 
     if (!dbus_connection_send (connection, reply, NULL)) {
+        dbus_message_unref (reply);
         g_error ("No memory");
     }
 
@@ -1161,6 +1163,7 @@ listener_get_active_time (GSListenerDBus *listener,
     dbus_message_iter_append_basic (&iter, DBUS_TYPE_UINT32, &secs);
 
     if (!dbus_connection_send (connection, reply, NULL)) {
+        dbus_message_unref (reply);
         g_error ("No memory");
     }
 
@@ -1206,6 +1209,7 @@ listener_show_message (GSListenerDBus *listener,
     }
 
     if (!dbus_connection_send (connection, reply, NULL)) {
+        dbus_message_unref (reply);
         g_error ("No memory");
     }
 
@@ -1292,9 +1296,8 @@ do_introspect (DBusConnection *connection,
 
     if (reply == NULL) {
         g_error ("No memory");
-    }
-
-    if (!dbus_connection_send (connection, reply, NULL)) {
+    } else if (!dbus_connection_send (connection, reply, NULL)) {
+        dbus_message_unref (reply);
         g_error ("No memory");
     }
 
@@ -1639,9 +1642,8 @@ gs_listener_dbus_message_handler (DBusConnection *connection,
 
         if (reply == NULL) {
             g_error ("No memory");
-        }
-
-        if (!dbus_connection_send (connection, reply, NULL)) {
+        } else if (!dbus_connection_send (connection, reply, NULL)) {
+            dbus_message_unref (reply);
             g_error ("No memory");
         }
 
