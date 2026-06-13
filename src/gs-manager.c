@@ -841,7 +841,7 @@ connect_window_signals (GSManager *manager,
                              G_CALLBACK (window_deactivated_cb), manager, 0);
     g_signal_connect_object (window, "show",
                              G_CALLBACK (window_show_cb), manager, G_CONNECT_AFTER);
-    g_signal_connect_object (window, "map_event",
+    g_signal_connect_object (window, "map-event",
                              G_CALLBACK (window_map_event_cb), manager, G_CONNECT_AFTER);
     g_signal_connect_object (window, "notify::obscured",
                              G_CALLBACK (window_obscured_cb), manager, G_CONNECT_AFTER);

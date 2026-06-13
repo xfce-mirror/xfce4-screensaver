@@ -242,11 +242,11 @@ xfcekbd_indicator_prepare_drawing (XfcekbdIndicator *gki,
     gtk_container_add (GTK_CONTAINER (ebox), label);
 
     g_signal_connect (G_OBJECT (ebox),
-                      "button_press_event",
+                      "button-press-event",
                       G_CALLBACK (xfcekbd_indicator_button_pressed), gki);
 
     g_signal_connect (G_OBJECT (gki),
-                      "key_press_event",
+                      "key-press-event",
                       G_CALLBACK (xfcekbd_indicator_key_pressed), gki);
 
     /* We have everything prepared for that size */

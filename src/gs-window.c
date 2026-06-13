@@ -1041,9 +1041,9 @@ create_keyboard_socket (GSWindow *window,
 
     g_signal_connect (window->priv->keyboard_socket, "destroy",
                       G_CALLBACK (keyboard_socket_destroyed), window);
-    g_signal_connect_swapped (window->priv->keyboard_socket, "plug_added",
+    g_signal_connect_swapped (window->priv->keyboard_socket, "plug-added",
                               G_CALLBACK (keyboard_plug_added), window);
-    g_signal_connect_swapped (window->priv->keyboard_socket, "plug_removed",
+    g_signal_connect_swapped (window->priv->keyboard_socket, "plug-removed",
                               G_CALLBACK (keyboard_plug_removed), window);
 
     gtk_overlay_add_overlay (GTK_OVERLAY (window->priv->overlay), window->priv->keyboard_socket);
