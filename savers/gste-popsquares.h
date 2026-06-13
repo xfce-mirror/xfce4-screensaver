@@ -49,8 +49,6 @@ typedef struct
 
 GType
 gste_popsquares_get_type (void);
-GSThemeEngine *
-gste_popsquares_new (void);
 
 G_END_DECLS
 

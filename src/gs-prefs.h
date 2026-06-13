@@ -234,8 +234,6 @@ GType
 gs_prefs_get_type (void);
 GSPrefs *
 gs_prefs_new (void);
-void
-gs_prefs_load (GSPrefs *prefs);
 const char *
 gs_prefs_get_theme (GSPrefs *prefs);
 gchar *

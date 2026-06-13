@@ -49,8 +49,6 @@ typedef struct
 
 GType
 gste_slideshow_get_type (void);
-GSThemeEngine *
-gste_slideshow_new (void);
 
 void
 gste_slideshow_set_images_location (GSTESlideshow *show,
