@@ -55,12 +55,7 @@ gs_monitor_new (void);
 gboolean
 gs_monitor_start (GSMonitor *monitor,
                   GError **error);
-void
-gs_monitor_set_lock_enabled (GSMonitor *monitor,
-                             gboolean lock_enabled);
-void
-gs_monitor_set_lock_with_saver_enabled (GSMonitor *monitor,
-                                        gboolean lock_with_saver_enabled);
+
 G_END_DECLS
 
 #endif /* SRC_GS_MONITOR_H_ */

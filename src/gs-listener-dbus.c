@@ -89,14 +89,12 @@ struct GSListenerDBusPrivate {
     GHashTable *inhibitors;
     GHashTable *throttlers;
     time_t active_start;
-    time_t session_idle_start;
     char *session_id;
 
 #if defined(WITH_SYSTEMD) || defined(WITH_ELOGIND)
     gboolean have_logind;
 #endif
 
-    guint32 ck_throttle_cookie;
     int sleep_inhibitor;
 };
 
@@ -441,8 +439,8 @@ raise_error (DBusConnection *connection,
     reply = dbus_message_new_error (in_reply_to, error_name, buf);
     if (reply == NULL) {
         g_error ("No memory");
-    }
-    if (!dbus_connection_send (connection, reply, NULL)) {
+    } else if (!dbus_connection_send (connection, reply, NULL)) {
+        dbus_message_unref (reply);
         g_error ("No memory");
     }
 
@@ -793,6 +791,7 @@ listener_dbus_get_ref_entries (GSListenerDBus *listener,
     dbus_message_iter_close_container (&iter, &iter_array);
 
     if (!dbus_connection_send (connection, reply, NULL)) {
+        dbus_message_unref (reply);
         g_error ("No memory");
     }
 
@@ -842,9 +841,8 @@ listener_dbus_confirm (DBusConnection *connection,
     reply = dbus_message_new_method_return (message);
     if (reply == NULL) {
         g_error ("No memory");
-    }
-
-    if (!dbus_connection_send (connection, reply, NULL)) {
+    } else if (!dbus_connection_send (connection, reply, NULL)) {
+        dbus_message_unref (reply);
         g_error ("No memory");
     }
 
@@ -900,6 +898,7 @@ listener_dbus_add_ref_entry (GSListenerDBus *listener,
     dbus_message_iter_append_basic (&iter, DBUS_TYPE_UINT32, &entry->cookie);
 
     if (!dbus_connection_send (connection, reply, NULL)) {
+        dbus_message_unref (reply);
         g_error ("No memory");
     }
 
@@ -943,6 +942,7 @@ listener_dbus_remove_ref_entry (GSListenerDBus *listener,
 
     /* FIXME:  Pointless? */
     if (!dbus_connection_send (connection, reply, NULL)) {
+        dbus_message_unref (reply);
         g_error ("No memory");
     }
 
@@ -1031,8 +1031,8 @@ raise_property_type_error (DBusConnection *connection,
                                     buf);
     if (reply == NULL) {
         g_error ("No memory");
-    }
-    if (!dbus_connection_send (connection, reply, NULL)) {
+    } else if (!dbus_connection_send (connection, reply, NULL)) {
+        dbus_message_unref (reply);
         g_error ("No memory");
     }
 
@@ -1077,9 +1077,8 @@ listener_set_property (GSListenerDBus *listener,
 
     if (reply == NULL) {
         g_error ("No memory");
-    }
-
-    if (!dbus_connection_send (connection, reply, NULL)) {
+    } else if (!dbus_connection_send (connection, reply, NULL)) {
+        dbus_message_unref (reply);
         g_error ("No memory");
     }
 
@@ -1115,6 +1114,7 @@ listener_get_property (GSListenerDBus *listener,
     }
 
     if (!dbus_connection_send (connection, reply, NULL)) {
+        dbus_message_unref (reply);
         g_error ("No memory");
     }
 
@@ -1161,6 +1161,7 @@ listener_get_active_time (GSListenerDBus *listener,
     dbus_message_iter_append_basic (&iter, DBUS_TYPE_UINT32, &secs);
 
     if (!dbus_connection_send (connection, reply, NULL)) {
+        dbus_message_unref (reply);
         g_error ("No memory");
     }
 
@@ -1206,6 +1207,7 @@ listener_show_message (GSListenerDBus *listener,
     }
 
     if (!dbus_connection_send (connection, reply, NULL)) {
+        dbus_message_unref (reply);
         g_error ("No memory");
     }
 
@@ -1292,9 +1294,8 @@ do_introspect (DBusConnection *connection,
 
     if (reply == NULL) {
         g_error ("No memory");
-    }
-
-    if (!dbus_connection_send (connection, reply, NULL)) {
+    } else if (!dbus_connection_send (connection, reply, NULL)) {
+        dbus_message_unref (reply);
         g_error ("No memory");
     }
 
@@ -1309,14 +1310,6 @@ listener_dbus_handle_session_message (DBusConnection *connection,
                                       void *user_data,
                                       dbus_bool_t local_interface) {
     GSListenerDBus *listener = GS_LISTENER_DBUS (user_data);
-
-#if 0
-    g_message ("obj_path=%s interface=%s method=%s destination=%s",
-               dbus_message_get_path (message),
-               dbus_message_get_interface (message),
-               dbus_message_get_member (message),
-               dbus_message_get_destination (message));
-#endif
 
     g_return_val_if_fail (connection != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
     g_return_val_if_fail (message != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
@@ -1464,20 +1457,11 @@ listener_dbus_handle_system_message (DBusConnection *connection,
                                      DBusMessage *message,
                                      void *user_data,
                                      dbus_bool_t local_interface) {
-    GSListenerDBus *listener = GS_LISTENER_DBUS (user_data);
-
     g_return_val_if_fail (connection != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
     g_return_val_if_fail (message != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
 
-#if 0
-    gs_debug ("obj_path=%s interface=%s method=%s destination=%s",
-              dbus_message_get_path (message),
-              dbus_message_get_interface (message),
-              dbus_message_get_member (message),
-              dbus_message_get_destination (message));
-#endif
-
 #if defined(WITH_SYSTEMD) || defined(WITH_ELOGIND)
+    GSListenerDBus *listener = GS_LISTENER_DBUS (user_data);
     if (listener->priv->have_logind) {
         if (dbus_message_is_signal (message, LOGIND_SESSION_INTERFACE, "Unlock")) {
             if (_listener_dbus_message_path_is_our_session (listener, message)) {
@@ -1648,14 +1632,6 @@ gs_listener_dbus_message_handler (DBusConnection *connection,
     g_return_val_if_fail (connection != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
     g_return_val_if_fail (message != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
 
-#if 0
-    g_message ("obj_path=%s interface=%s method=%s destination=%s",
-               dbus_message_get_path (message),
-               dbus_message_get_interface (message),
-               dbus_message_get_member (message),
-               dbus_message_get_destination (message));
-#endif
-
     if (dbus_message_is_method_call (message, "org.freedesktop.DBus", "AddMatch")) {
         DBusMessage *reply;
 
@@ -1663,9 +1639,8 @@ gs_listener_dbus_message_handler (DBusConnection *connection,
 
         if (reply == NULL) {
             g_error ("No memory");
-        }
-
-        if (!dbus_connection_send (connection, reply, NULL)) {
+        } else if (!dbus_connection_send (connection, reply, NULL)) {
+            dbus_message_unref (reply);
             g_error ("No memory");
         }
 
@@ -1930,7 +1905,7 @@ gs_listener_dbus_class_init (GSListenerDBusClass *klass) {
                                                            NULL,
                                                            NULL,
                                                            FALSE,
-                                                           G_PARAM_READWRITE));
+                                                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 }
 
 static gboolean
@@ -1988,11 +1963,10 @@ gs_listener_dbus_acquire (GSListenerDBus *listener,
 
     dbus_error_init (&buserror);
 
-    if (dbus_connection_register_object_path (listener->priv->connection,
-                                              GS_LISTENER_DBUS_PATH,
-                                              &gs_listener_dbus_vtable,
-                                              listener)
-        == FALSE) {
+    if (!dbus_connection_register_object_path (listener->priv->connection,
+                                               GS_LISTENER_DBUS_PATH,
+                                               &gs_listener_dbus_vtable,
+                                               listener)) {
         g_critical ("out of memory registering object path");
         return FALSE;
     }
@@ -2093,18 +2067,12 @@ gs_listener_dbus_acquire (GSListenerDBus *listener,
 
 static char *
 query_session_id (GSListenerDBus *listener) {
-    DBusMessage *message;
-    DBusMessage *reply;
     DBusError error;
-    DBusMessageIter reply_iter;
-    char *ssid;
 
     if (listener->priv->system_connection == NULL) {
         gs_debug ("No connection to the system bus");
         return NULL;
     }
-
-    ssid = NULL;
 
     dbus_error_init (&error);
 
@@ -2112,27 +2080,26 @@ query_session_id (GSListenerDBus *listener) {
     if (listener->priv->have_logind) {
         dbus_uint32_t pid = getpid ();
 
-        message = dbus_message_new_method_call (LOGIND_SERVICE,
-                                                LOGIND_PATH,
-                                                LOGIND_INTERFACE,
-                                                "GetSessionByPID");
+        DBusMessage *message = dbus_message_new_method_call (LOGIND_SERVICE,
+                                                             LOGIND_PATH,
+                                                             LOGIND_INTERFACE,
+                                                             "GetSessionByPID");
         if (message == NULL) {
             gs_debug ("Couldn't allocate the dbus message");
             return NULL;
         }
 
-        if (dbus_message_append_args (message,
-                                      DBUS_TYPE_UINT32,
-                                      &pid, DBUS_TYPE_INVALID)
-            == FALSE) {
+        if (!dbus_message_append_args (message,
+                                       DBUS_TYPE_UINT32,
+                                       &pid, DBUS_TYPE_INVALID)) {
             gs_debug ("Couldn't add args to the dbus message");
             return NULL;
         }
 
         /* FIXME: use async? */
-        reply = dbus_connection_send_with_reply_and_block (listener->priv->system_connection,
-                                                           message,
-                                                           -1, &error);
+        DBusMessage *reply = dbus_connection_send_with_reply_and_block (listener->priv->system_connection,
+                                                                        message,
+                                                                        -1, &error);
         dbus_message_unref (message);
 
         if (dbus_error_is_set (&error)) {
@@ -2141,6 +2108,8 @@ query_session_id (GSListenerDBus *listener) {
             return NULL;
         }
 
+        DBusMessageIter reply_iter;
+        char *ssid;
         dbus_message_iter_init (reply, &reply_iter);
         dbus_message_iter_get_basic (&reply_iter, &ssid);
 
@@ -2151,16 +2120,16 @@ query_session_id (GSListenerDBus *listener) {
 #endif
 
 #ifdef WITH_CONSOLE_KIT
-    message = dbus_message_new_method_call (CK_NAME, CK_MANAGER_PATH, CK_MANAGER_INTERFACE, "GetCurrentSession");
+    DBusMessage *message = dbus_message_new_method_call (CK_NAME, CK_MANAGER_PATH, CK_MANAGER_INTERFACE, "GetCurrentSession");
     if (message == NULL) {
         gs_debug ("Couldn't allocate the dbus message");
         return NULL;
     }
 
     /* FIXME: use async? */
-    reply = dbus_connection_send_with_reply_and_block (listener->priv->system_connection,
-                                                       message,
-                                                       -1, &error);
+    DBusMessage *reply = dbus_connection_send_with_reply_and_block (listener->priv->system_connection,
+                                                                    message,
+                                                                    -1, &error);
     dbus_message_unref (message);
 
     if (dbus_error_is_set (&error)) {
@@ -2169,6 +2138,8 @@ query_session_id (GSListenerDBus *listener) {
         return NULL;
     }
 
+    DBusMessageIter reply_iter;
+    char *ssid;
     dbus_message_iter_init (reply, &reply_iter);
     dbus_message_iter_get_basic (&reply_iter, &ssid);
 

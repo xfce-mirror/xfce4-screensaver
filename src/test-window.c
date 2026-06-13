@@ -153,7 +153,7 @@ main (int argc,
     }
 
     if (!xfconf_init (&error)) {
-        g_error ("Failed to connect to xfconf daemon: %s.", error->message);
+        g_critical ("Failed to connect to xfconf daemon: %s.", error->message);
         g_error_free (error);
 
         return EXIT_FAILURE;

@@ -6,5 +6,6 @@
 int
 main () {
     int ok = auth_userokay ("x", 0, "x", "x");
+    (void) ok;
     return 0;
 }

@@ -191,7 +191,7 @@ gs_auth_queued_message_handler (gpointer user_data) {
                                   data->resp,
                                   data->closure->cb_data);
 
-    data->should_interrupt_stack = res == FALSE;
+    data->should_interrupt_stack = !res;
 
     g_cond_signal (&message_handled_condition);
     g_mutex_unlock (&message_handler_mutex);
@@ -236,7 +236,7 @@ gs_auth_run_message_handler (struct pam_closure *c,
         g_message ("Got respose to message style %d: interrupt:%d", style, data.should_interrupt_stack);
     }
 
-    return data.should_interrupt_stack == FALSE;
+    return !data.should_interrupt_stack;
 }
 
 static int
@@ -315,8 +315,7 @@ pam_conversation (int nmsgs,
                 for (i = 0; i <= replies; i++) {
                     g_free (reply[i].resp);
                 }
-                g_free (reply);
-                reply = NULL;
+                g_clear_pointer (&reply, g_free);
                 ret = PAM_CONV_ERR;
             }
         }
@@ -404,7 +403,6 @@ create_pam_handle (const char *username,
         goto out;
     }
 
-    ret = TRUE;
     g_cond_init (&message_handled_condition);
     g_mutex_init (&message_handler_mutex);
 

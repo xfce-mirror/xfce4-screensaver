@@ -505,11 +505,7 @@ gste_popsquares_finalize (GObject *object) {
 
     g_return_if_fail (pop->priv != NULL);
 
-    if (pop->priv->timeout_id > 0) {
-        g_source_remove (pop->priv->timeout_id);
-        pop->priv->timeout_id = 0;
-    }
-
+    g_clear_handle_id (&pop->priv->timeout_id, g_source_remove);
     g_free (pop->priv->squares);
     g_free (pop->priv->colors);
 

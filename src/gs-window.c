@@ -92,10 +92,6 @@ struct GSWindowPrivate {
     guint popup_dialog_idle_id;
     guint deactivated_idle_id;
 
-    guint dialog_map_signal_id;
-    guint dialog_unmap_signal_id;
-    guint dialog_response_signal_id;
-
     guint watchdog_timer_id;
     guint info_bar_timer_id;
 
@@ -113,7 +109,9 @@ struct GSWindowPrivate {
 
     GTimer *timer;
 
+#ifdef ENABLE_X11
     int shape_event_base;
+#endif
 };
 
 enum {
@@ -415,10 +413,7 @@ watchdog_timer (gpointer user_data) {
 
 static void
 remove_watchdog_timer (GSWindow *window) {
-    if (window->priv->watchdog_timer_id != 0) {
-        g_source_remove (window->priv->watchdog_timer_id);
-        window->priv->watchdog_timer_id = 0;
-    }
+    g_clear_handle_id (&window->priv->watchdog_timer_id, g_source_remove);
 }
 
 static void
@@ -429,10 +424,7 @@ add_watchdog_timer (GSWindow *window,
 
 static void
 remove_popup_dialog_idle (GSWindow *window) {
-    if (window->priv->popup_dialog_idle_id != 0) {
-        g_source_remove (window->priv->popup_dialog_idle_id);
-        window->priv->popup_dialog_idle_id = 0;
-    }
+    g_clear_handle_id (&window->priv->popup_dialog_idle_id, g_source_remove);
 }
 
 static void
@@ -1041,9 +1033,9 @@ create_keyboard_socket (GSWindow *window,
 
     g_signal_connect (window->priv->keyboard_socket, "destroy",
                       G_CALLBACK (keyboard_socket_destroyed), window);
-    g_signal_connect_swapped (window->priv->keyboard_socket, "plug_added",
+    g_signal_connect_swapped (window->priv->keyboard_socket, "plug-added",
                               G_CALLBACK (keyboard_plug_added), window);
-    g_signal_connect_swapped (window->priv->keyboard_socket, "plug_removed",
+    g_signal_connect_swapped (window->priv->keyboard_socket, "plug-removed",
                               G_CALLBACK (keyboard_plug_removed), window);
 
     gtk_overlay_add_overlay (GTK_OVERLAY (window->priv->overlay), window->priv->keyboard_socket);
@@ -1976,20 +1968,20 @@ gs_window_class_init (GSWindowClass *klass) {
                                                            NULL,
                                                            NULL,
                                                            FALSE,
-                                                           G_PARAM_READABLE));
+                                                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
     g_object_class_install_property (object_class,
                                      PROP_DIALOG_UP,
                                      g_param_spec_boolean ("dialog-up",
                                                            NULL,
                                                            NULL,
                                                            FALSE,
-                                                           G_PARAM_READABLE));
+                                                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
     g_object_class_install_property (object_class,
                                      PROP_MONITOR,
                                      g_param_spec_pointer ("monitor",
                                                            "Gdk monitor",
                                                            "The monitor (in terms of Gdk) which the window is on",
-                                                           G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
+                                                           G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
 }
 
 static void
@@ -2067,14 +2059,8 @@ gs_window_init (GSWindow *window) {
 
 static void
 remove_command_watches (GSWindow *window) {
-    if (window->priv->lock_watch_id != 0) {
-        g_source_remove (window->priv->lock_watch_id);
-        window->priv->lock_watch_id = 0;
-    }
-    if (window->priv->keyboard_watch_id != 0) {
-        g_source_remove (window->priv->keyboard_watch_id);
-        window->priv->keyboard_watch_id = 0;
-    }
+    g_clear_handle_id (&window->priv->lock_watch_id, g_source_remove);
+    g_clear_handle_id (&window->priv->keyboard_watch_id, g_source_remove);
 }
 
 static void
@@ -2088,17 +2074,10 @@ gs_window_finalize (GObject *object) {
 
     g_return_if_fail (window->priv != NULL);
 
-    if (window->priv->info_bar_timer_id > 0) {
-        g_source_remove (window->priv->info_bar_timer_id);
-        window->priv->info_bar_timer_id = 0;
-    }
-
+    g_clear_handle_id (&window->priv->info_bar_timer_id, g_source_remove);
     remove_watchdog_timer (window);
     remove_popup_dialog_idle (window);
-    if (window->priv->deactivated_idle_id > 0) {
-        g_source_remove (window->priv->deactivated_idle_id);
-        window->priv->deactivated_idle_id = 0;
-    }
+    g_clear_handle_id (&window->priv->deactivated_idle_id, g_source_remove);
     if (window->priv->monitor != NULL) {
         g_object_remove_weak_pointer (G_OBJECT (window->priv->monitor), (gpointer *) &window->priv->monitor);
     }
@@ -2108,9 +2087,7 @@ gs_window_finalize (GObject *object) {
     }
 
     remove_key_events (window);
-
     remove_command_watches (window);
-
     gs_window_dialog_finish (window);
     g_object_unref (window->priv->prefs);
     g_object_unref (window->priv->manager);

@@ -107,8 +107,7 @@ set_ids_by_number (uid_t uid,
                 errno = sgs_errno;
                 perror (reason);
             }
-            g_free (reason);
-            reason = NULL;
+            g_clear_pointer (&reason, g_free);
         }
 
         if (gid_errno) {
@@ -121,8 +120,7 @@ set_ids_by_number (uid_t uid,
                 errno = gid_errno;
                 perror (reason);
             }
-            g_free (reason);
-            reason = NULL;
+            g_clear_pointer (&reason, g_free);
         }
 
         if (uid_errno) {
@@ -135,8 +133,7 @@ set_ids_by_number (uid_t uid,
                 errno = uid_errno;
                 perror (reason);
             }
-            g_free (reason);
-            reason = NULL;
+            g_clear_pointer (&reason, g_free);
         }
         return FALSE;
     }

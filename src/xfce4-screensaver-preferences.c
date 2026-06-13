@@ -212,13 +212,8 @@ config_get_theme (gboolean *is_writable) {
     int mode;
 
     if (is_writable) {
-        gboolean can_write_theme = TRUE;
-        gboolean can_write_mode = TRUE;
-
-        can_write_theme = !xfconf_channel_is_property_locked (screensaver_channel,
-                                                              KEY_THEMES);
-        can_write_mode = !xfconf_channel_is_property_locked (screensaver_channel,
-                                                             KEY_MODE);
+        gboolean can_write_theme = !xfconf_channel_is_property_locked (screensaver_channel, KEY_THEMES);
+        gboolean can_write_mode = !xfconf_channel_is_property_locked (screensaver_channel, KEY_MODE);
         *is_writable = can_write_theme && can_write_mode;
     }
 
@@ -566,8 +561,6 @@ job_set_theme (GSJob *local_job,
     gchar *command = NULL;
     gchar *arguments = NULL;
 
-    command = NULL;
-
     info = gs_theme_manager_lookup_theme_info (theme_manager, theme);
     if (info != NULL) {
         arguments = get_theme_arguments (screensaver_channel, theme);
@@ -576,11 +569,8 @@ job_set_theme (GSJob *local_job,
 
     gs_job_set_command (local_job, command);
 
-    if (arguments)
-        g_free (arguments);
-    if (command)
-        g_free (command);
-
+    g_free (arguments);
+    g_free (command);
     if (info != NULL) {
         gs_theme_info_unref (info);
     }
@@ -799,8 +789,7 @@ tree_selection_changed_cb (GtkTreeSelection *selection) {
     }
 
     if (active_theme != NULL) {
-        g_free (active_theme);
-        active_theme = NULL;
+        g_clear_pointer (&active_theme, g_free);
 
         configure_button = GTK_WIDGET (gtk_builder_get_object (builder, "configure_button"));
         gtk_widget_set_sensitive (configure_button, FALSE);
@@ -1628,17 +1617,13 @@ setup_list_size_constraint (GtkWidget *widget,
 static gboolean
 check_is_root_user (void) {
 #ifndef G_OS_WIN32
+#ifdef HAVE_GETRESUID
     uid_t ruid, euid, suid; /* Real, effective and saved user ID's */
     gid_t rgid, egid, sgid; /* Real, effective and saved group ID's */
-
-#ifdef HAVE_GETRESUID
     if (getresuid (&ruid, &euid, &suid) != 0 || getresgid (&rgid, &egid, &sgid) != 0)
 #endif /* HAVE_GETRESUID */
     {
-        suid = ruid = getuid ();
-        sgid = rgid = getgid ();
-        euid = geteuid ();
-        egid = getegid ();
+        ruid = getuid ();
     }
 
     if (ruid == 0) {
@@ -2024,8 +2009,7 @@ finalize_capplet (void) {
     if (screensaver_channel)
         g_signal_handlers_disconnect_by_func (screensaver_channel, key_changed_cb, NULL);
 
-    if (active_theme)
-        g_free (active_theme);
+    g_free (active_theme);
 
 #ifdef ENABLE_WAYLAND
     if (compositor)
@@ -2043,10 +2027,10 @@ main (int argc,
     if (!gtk_init_with_args (&argc, &argv, "", entries, NULL, &error)) {
         if (G_LIKELY (error)) {
             /* print error */
-            g_error ("%s\n", error->message);
+            g_critical ("%s\n", error->message);
             g_error_free (error);
         } else {
-            g_error ("Unable to open display.");
+            g_critical ("Unable to open display.");
         }
 
         return EXIT_FAILURE;
@@ -2069,7 +2053,7 @@ main (int argc,
         return EXIT_FAILURE;
 
     if (!xfconf_init (&error)) {
-        g_error ("Failed to connect to xfconf daemon: %s.", error->message);
+        g_critical ("Failed to connect to xfconf daemon: %s.", error->message);
         g_error_free (error);
 
         return EXIT_FAILURE;

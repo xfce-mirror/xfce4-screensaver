@@ -117,7 +117,7 @@ lock_timer (gpointer user_data) {
     if (!listener->priv->enabled)
         return TRUE;
 
-    if (get_x11_idle_info (&idle_time, &state) == FALSE)
+    if (!get_x11_idle_info (&idle_time, &state))
         return TRUE;
 
     if (idle_time > listener->priv->timeout) {
@@ -183,10 +183,7 @@ lock_timer (gpointer user_data) {
 
 static void
 remove_lock_timer (GSListenerX11 *listener) {
-    if (listener->priv->timer_id != 0) {
-        g_source_remove (listener->priv->timer_id);
-        listener->priv->timer_id = 0;
-    }
+    g_clear_handle_id (&listener->priv->timer_id, g_source_remove);
 }
 
 static void

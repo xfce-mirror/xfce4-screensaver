@@ -206,9 +206,7 @@ gs_manager_enable_locker (GSManager *manager,
 
     g_return_if_fail (GS_IS_MANAGER (manager));
 
-    if (manager->priv->lock_active != lock_active) {
-        manager->priv->lock_active = lock_active;
-    }
+    manager->priv->lock_active = lock_active;
 
     g_hash_table_iter_init (&iter, manager->priv->windows);
     while (g_hash_table_iter_next (&iter, NULL, &window)) {
@@ -230,10 +228,7 @@ activate_lock_timeout (gpointer user_data) {
 
 static void
 remove_lock_timer (GSManager *manager) {
-    if (manager->priv->lock_timeout_id != 0) {
-        g_source_remove (manager->priv->lock_timeout_id);
-        manager->priv->lock_timeout_id = 0;
-    }
+    g_clear_handle_id (&manager->priv->lock_timeout_id, g_source_remove);
 }
 
 static void
@@ -311,10 +306,7 @@ cycle_timeout (gpointer user_data) {
 
 static void
 remove_cycle_timer (GSManager *manager) {
-    if (manager->priv->cycle_timeout_id != 0) {
-        g_source_remove (manager->priv->cycle_timeout_id);
-        manager->priv->cycle_timeout_id = 0;
-    }
+    g_clear_handle_id (&manager->priv->cycle_timeout_id, g_source_remove);
 }
 
 static void
@@ -428,21 +420,21 @@ gs_manager_class_init (GSManagerClass *klass) {
                                                            NULL,
                                                            NULL,
                                                            FALSE,
-                                                           G_PARAM_READABLE));
+                                                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
     g_object_class_install_property (object_class,
                                      PROP_THROTTLED,
                                      g_param_spec_boolean ("throttled",
                                                            NULL,
                                                            NULL,
                                                            TRUE,
-                                                           G_PARAM_READWRITE));
+                                                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
     g_object_class_install_property (object_class,
                                      PROP_STATUS_MESSAGE,
                                      g_param_spec_string ("status-message",
                                                           NULL,
                                                           NULL,
                                                           NULL,
-                                                          G_PARAM_READWRITE));
+                                                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 }
 
 #ifdef ENABLE_X11
@@ -841,7 +833,7 @@ connect_window_signals (GSManager *manager,
                              G_CALLBACK (window_deactivated_cb), manager, 0);
     g_signal_connect_object (window, "show",
                              G_CALLBACK (window_show_cb), manager, G_CONNECT_AFTER);
-    g_signal_connect_object (window, "map_event",
+    g_signal_connect_object (window, "map-event",
                              G_CALLBACK (window_map_event_cb), manager, G_CONNECT_AFTER);
     g_signal_connect_object (window, "notify::obscured",
                              G_CALLBACK (window_obscured_cb), manager, G_CONNECT_AFTER);

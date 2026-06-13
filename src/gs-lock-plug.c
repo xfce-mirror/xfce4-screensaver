@@ -110,7 +110,6 @@ struct GSLockPlugPrivate {
     guint datetime_timeout_id;
     guint cancel_timeout_id;
     guint grab_focus_timeout_id;
-    guint auth_check_idle_id;
     guint response_idle_id;
 
     gint monitor_index;
@@ -119,12 +118,6 @@ struct GSLockPlugPrivate {
 
     GSPrefs *prefs;
     XfconfChannel *channel;
-};
-
-typedef struct _ResponseData ResponseData;
-
-struct _ResponseData {
-    gint response_id;
 };
 
 enum {
@@ -331,26 +324,17 @@ gs_lock_plug_set_sensitive (GSLockPlug *plug,
 
 static void
 remove_datetime_timeout (GSLockPlug *plug) {
-    if (plug->priv->datetime_timeout_id > 0) {
-        g_source_remove (plug->priv->datetime_timeout_id);
-        plug->priv->datetime_timeout_id = 0;
-    }
+    g_clear_handle_id (&plug->priv->datetime_timeout_id, g_source_remove);
 }
 
 static void
 remove_cancel_timeout (GSLockPlug *plug) {
-    if (plug->priv->cancel_timeout_id > 0) {
-        g_source_remove (plug->priv->cancel_timeout_id);
-        plug->priv->cancel_timeout_id = 0;
-    }
+    g_clear_handle_id (&plug->priv->cancel_timeout_id, g_source_remove);
 }
 
 static void
 remove_response_idle (GSLockPlug *plug) {
-    if (plug->priv->response_idle_id > 0) {
-        g_source_remove (plug->priv->response_idle_id);
-        plug->priv->response_idle_id = 0;
-    }
+    g_clear_handle_id (&plug->priv->response_idle_id, g_source_remove);
 }
 
 static void
@@ -458,7 +442,6 @@ gs_lock_plug_get_text (GSLockPlug *plug,
 }
 
 typedef struct {
-    GSLockPlug *plug;
     gint response_id;
     GMainLoop *loop;
     gboolean destroyed;
@@ -520,7 +503,7 @@ run_keymap_handler (GdkKeymap *keymap,
 /* adapted from GTK+ gtkdialog.c */
 int
 gs_lock_plug_run (GSLockPlug *plug) {
-    RunInfo ri = { NULL, GTK_RESPONSE_NONE, NULL, FALSE };
+    RunInfo ri = { GTK_RESPONSE_NONE, NULL, FALSE };
     gboolean was_modal;
     gulong response_handler;
     gulong unmap_handler;
@@ -1058,28 +1041,28 @@ gs_lock_plug_class_init (GSLockPlugClass *klass) {
                                                            NULL,
                                                            NULL,
                                                            FALSE,
-                                                           G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+                                                           G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
     g_object_class_install_property (object_class,
                                      PROP_LOGOUT_COMMAND,
                                      g_param_spec_string ("logout-command",
                                                           NULL,
                                                           NULL,
                                                           NULL,
-                                                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+                                                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
     g_object_class_install_property (object_class,
                                      PROP_STATUS_MESSAGE,
                                      g_param_spec_string ("status-message",
                                                           NULL,
                                                           NULL,
                                                           NULL,
-                                                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+                                                          G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
     g_object_class_install_property (object_class,
                                      PROP_SWITCH_ENABLED,
                                      g_param_spec_boolean ("switch-enabled",
                                                            NULL,
                                                            NULL,
                                                            FALSE,
-                                                           G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+                                                           G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
     g_object_class_install_property (object_class,
                                      PROP_MONITOR_INDEX,
                                      g_param_spec_int ("monitor-index",
@@ -1088,7 +1071,7 @@ gs_lock_plug_class_init (GSLockPlugClass *klass) {
                                                        0,
                                                        200,
                                                        0,
-                                                       G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY));
+                                                       G_PARAM_READWRITE | G_PARAM_CONSTRUCT_ONLY | G_PARAM_STATIC_STRINGS));
 }
 
 static void
@@ -1771,10 +1754,7 @@ gs_lock_plug_finalize (GObject *object) {
     g_return_if_fail (plug->priv != NULL);
 
     g_free (plug->priv->logout_command);
-
-    g_object_unref (plug->priv->prefs);
-    plug->priv->prefs = NULL;
-
+    g_clear_object (&plug->priv->prefs);
     remove_response_idle (plug);
     remove_cancel_timeout (plug);
     remove_datetime_timeout (plug);

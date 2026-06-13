@@ -18,11 +18,11 @@ i18n = import('i18n')
 fs = import('fs')
 
 dependency_versions = {
-  'glib': '>= 2.50.0',
+  'glib': '>= 2.66.0',
   'gtk': '>= 3.24.0',
   'dbus': '>= 1.9.2',
   'dbus-glib': '>= 0.30',
-  'xfce4': '>= 4.16.0',
+  'xfce4': '>= 4.18.0',
   'libxfce4ui': '>= 4.18.4',
 
   'x11': '>= 1.6.7',

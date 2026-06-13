@@ -124,7 +124,7 @@ get_encrypted_passwd (const char *user) {
     char *result = NULL;
 
 #ifdef PWTYPE
-    if (user && *user && !result) {
+    if (user && *user) {
         /* First check the shadow passwords. */
         PWTYPE p = GETPW ((char *) user);
         if (p && passwd_known (p->PWPSLOT)) {
@@ -211,7 +211,7 @@ passwds_match (const char *cleartext,
     char *s = NULL; /* note that on some systems, crypt() may return null */
 
     s = (char *) crypt (cleartext, ciphertext);
-    if (s && !strcmp (s, ciphertext)) {
+    if (s && strcmp (s, ciphertext) == 0) {
         return TRUE;
     }
 
@@ -222,7 +222,7 @@ passwds_match (const char *cleartext,
        one works. */
 
     s = (char *) bigcrypt (cleartext, ciphertext);
-    if (s && !strcmp (s, ciphertext)) {
+    if (s && strcmp (s, ciphertext) == 0) {
         return TRUE;
     }
 

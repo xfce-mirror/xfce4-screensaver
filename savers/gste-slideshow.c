@@ -123,7 +123,7 @@ start_new_load (GSTESlideshow *show,
     gs_theme_engine_profile_msg ("Scheduling a new image load");
 
     /* queue a new load */
-    if (show->priv->update_image_id <= 0) {
+    if (show->priv->update_image_id == 0) {
         show->priv->update_image_id = g_timeout_add_full (G_PRIORITY_LOW, timeout,
                                                           push_load_image_func, show, NULL);
     }
@@ -203,8 +203,7 @@ finish_fade (GSTESlideshow *show) {
         cairo_pattern_destroy (show->priv->pat1);
     }
 
-    show->priv->pat1 = show->priv->pat2;
-    show->priv->pat2 = NULL;
+    show->priv->pat1 = g_steal_pointer (&show->priv->pat2);
 
     start_new_load (show, IMAGE_LOAD_TIMEOUT);
 
@@ -678,7 +677,7 @@ gste_slideshow_set_background_color (GSTESlideshow *show,
     if (background_color != NULL) {
         show->priv->background_color = g_slice_new (PangoColor);
 
-        if (pango_color_parse (show->priv->background_color, background_color) == FALSE) {
+        if (!pango_color_parse (show->priv->background_color, background_color)) {
             g_slice_free (PangoColor, show->priv->background_color);
             show->priv->background_color = NULL;
         }
@@ -849,35 +848,35 @@ gste_slideshow_class_init (GSTESlideshowClass *klass) {
                                                           NULL,
                                                           NULL,
                                                           NULL,
-                                                          G_PARAM_READWRITE));
+                                                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
     g_object_class_install_property (object_class,
                                      PROP_SORT_IMAGES,
                                      g_param_spec_boolean ("sort-images",
                                                            NULL,
                                                            NULL,
                                                            FALSE,
-                                                           G_PARAM_READWRITE));
+                                                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
     g_object_class_install_property (object_class,
                                      PROP_SOLID_BACKGROUND,
                                      g_param_spec_string ("background-color",
                                                           NULL,
                                                           NULL,
                                                           NULL,
-                                                          G_PARAM_READWRITE));
+                                                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
     g_object_class_install_property (object_class,
                                      PROP_NO_STRETCH_HINT,
                                      g_param_spec_boolean ("no-stretch",
                                                            NULL,
                                                            NULL,
                                                            FALSE,
-                                                           G_PARAM_READWRITE));
+                                                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
     g_object_class_install_property (object_class,
                                      PROP_NO_CROP_HINT,
                                      g_param_spec_boolean ("no-crop",
                                                            NULL,
                                                            NULL,
                                                            FALSE,
-                                                           G_PARAM_READWRITE));
+                                                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 }
 
 static void
@@ -897,7 +896,7 @@ set_visual (GtkWidget *widget) {
 static void
 size_allocate (GSTESlideshow *engine) {
     g_signal_handlers_disconnect_by_func (engine, size_allocate, NULL);
-    g_thread_new ("loadthread", (GThreadFunc) load_threadfunc, engine->priv->op_q);
+    g_thread_unref (g_thread_new ("loadthread", (GThreadFunc) load_threadfunc, engine->priv->op_q));
 }
 
 static void
@@ -931,15 +930,8 @@ gste_slideshow_finalize (GObject *object) {
         cairo_surface_destroy (show->priv->surf);
     }
 
-    if (show->priv->timeout_id > 0) {
-        g_source_remove (show->priv->timeout_id);
-        show->priv->timeout_id = 0;
-    }
-
-    if (show->priv->results_pull_id > 0) {
-        g_source_remove (show->priv->results_pull_id);
-        show->priv->results_pull_id = 0;
-    }
+    g_clear_handle_id (&show->priv->timeout_id, g_source_remove);
+    g_clear_handle_id (&show->priv->results_pull_id, g_source_remove);
 
     if (show->priv->results_q != NULL) {
         result = g_async_queue_try_pop (show->priv->results_q);
@@ -950,8 +942,7 @@ gste_slideshow_finalize (GObject *object) {
         g_async_queue_unref (show->priv->results_q);
     }
 
-    g_free (show->priv->images_location);
-    show->priv->images_location = NULL;
+    g_clear_pointer (&show->priv->images_location, g_free);
 
     if (show->priv->background_color) {
         g_slice_free (PangoColor, show->priv->background_color);

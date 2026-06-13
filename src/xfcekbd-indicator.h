@@ -39,6 +39,7 @@ typedef struct _XfcekbdIndicatorClass XfcekbdIndicatorClass;
 #define XFCEKBD_IS_INDICATOR_CLASS(obj) (G_TYPE_CHECK_CLASS_TYPE ((obj), XFCEKBD_TYPE_INDICATOR))
 #define XFCEKBD_INDICATOR_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), XFCEKBD_TYPE_INDICATOR, \
                                                                      XfcekbdIndicatorClass))
+G_DEFINE_AUTOPTR_CLEANUP_FUNC (XfcekbdIndicator, g_object_unref)
 
 struct _XfcekbdIndicator {
     GtkNotebook parent;
