@@ -206,9 +206,7 @@ gs_manager_enable_locker (GSManager *manager,
 
     g_return_if_fail (GS_IS_MANAGER (manager));
 
-    if (manager->priv->lock_active != lock_active) {
-        manager->priv->lock_active = lock_active;
-    }
+    manager->priv->lock_active = lock_active;
 
     g_hash_table_iter_init (&iter, manager->priv->windows);
     while (g_hash_table_iter_next (&iter, NULL, &window)) {
