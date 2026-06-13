@@ -2067,18 +2067,12 @@ gs_listener_dbus_acquire (GSListenerDBus *listener,
 
 static char *
 query_session_id (GSListenerDBus *listener) {
-    DBusMessage *message;
-    DBusMessage *reply;
     DBusError error;
-    DBusMessageIter reply_iter;
-    char *ssid;
 
     if (listener->priv->system_connection == NULL) {
         gs_debug ("No connection to the system bus");
         return NULL;
     }
-
-    ssid = NULL;
 
     dbus_error_init (&error);
 
@@ -2086,10 +2080,10 @@ query_session_id (GSListenerDBus *listener) {
     if (listener->priv->have_logind) {
         dbus_uint32_t pid = getpid ();
 
-        message = dbus_message_new_method_call (LOGIND_SERVICE,
-                                                LOGIND_PATH,
-                                                LOGIND_INTERFACE,
-                                                "GetSessionByPID");
+        DBusMessage *message = dbus_message_new_method_call (LOGIND_SERVICE,
+                                                             LOGIND_PATH,
+                                                             LOGIND_INTERFACE,
+                                                             "GetSessionByPID");
         if (message == NULL) {
             gs_debug ("Couldn't allocate the dbus message");
             return NULL;
@@ -2103,9 +2097,9 @@ query_session_id (GSListenerDBus *listener) {
         }
 
         /* FIXME: use async? */
-        reply = dbus_connection_send_with_reply_and_block (listener->priv->system_connection,
-                                                           message,
-                                                           -1, &error);
+        DBusMessage *reply = dbus_connection_send_with_reply_and_block (listener->priv->system_connection,
+                                                                        message,
+                                                                        -1, &error);
         dbus_message_unref (message);
 
         if (dbus_error_is_set (&error)) {
@@ -2114,6 +2108,8 @@ query_session_id (GSListenerDBus *listener) {
             return NULL;
         }
 
+        DBusMessageIter reply_iter;
+        char *ssid;
         dbus_message_iter_init (reply, &reply_iter);
         dbus_message_iter_get_basic (&reply_iter, &ssid);
 
@@ -2124,16 +2120,16 @@ query_session_id (GSListenerDBus *listener) {
 #endif
 
 #ifdef WITH_CONSOLE_KIT
-    message = dbus_message_new_method_call (CK_NAME, CK_MANAGER_PATH, CK_MANAGER_INTERFACE, "GetCurrentSession");
+    DBusMessage *message = dbus_message_new_method_call (CK_NAME, CK_MANAGER_PATH, CK_MANAGER_INTERFACE, "GetCurrentSession");
     if (message == NULL) {
         gs_debug ("Couldn't allocate the dbus message");
         return NULL;
     }
 
     /* FIXME: use async? */
-    reply = dbus_connection_send_with_reply_and_block (listener->priv->system_connection,
-                                                       message,
-                                                       -1, &error);
+    DBusMessage *reply = dbus_connection_send_with_reply_and_block (listener->priv->system_connection,
+                                                                    message,
+                                                                    -1, &error);
     dbus_message_unref (message);
 
     if (dbus_error_is_set (&error)) {
@@ -2142,6 +2138,8 @@ query_session_id (GSListenerDBus *listener) {
         return NULL;
     }
 
+    DBusMessageIter reply_iter;
+    char *ssid;
     dbus_message_iter_init (reply, &reply_iter);
     dbus_message_iter_get_basic (&reply_iter, &ssid);
 
