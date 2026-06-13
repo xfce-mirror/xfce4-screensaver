@@ -124,7 +124,7 @@ get_encrypted_passwd (const char *user) {
     char *result = NULL;
 
 #ifdef PWTYPE
-    if (user && *user && !result) {
+    if (user && *user) {
         /* First check the shadow passwords. */
         PWTYPE p = GETPW ((char *) user);
         if (p && passwd_known (p->PWPSLOT)) {
