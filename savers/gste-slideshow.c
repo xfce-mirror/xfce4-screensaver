@@ -896,7 +896,7 @@ set_visual (GtkWidget *widget) {
 static void
 size_allocate (GSTESlideshow *engine) {
     g_signal_handlers_disconnect_by_func (engine, size_allocate, NULL);
-    g_thread_new ("loadthread", (GThreadFunc) load_threadfunc, engine->priv->op_q);
+    g_thread_unref (g_thread_new ("loadthread", (GThreadFunc) load_threadfunc, engine->priv->op_q));
 }
 
 static void
