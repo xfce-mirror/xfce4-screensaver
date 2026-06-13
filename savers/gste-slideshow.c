@@ -123,7 +123,7 @@ start_new_load (GSTESlideshow *show,
     gs_theme_engine_profile_msg ("Scheduling a new image load");
 
     /* queue a new load */
-    if (show->priv->update_image_id <= 0) {
+    if (show->priv->update_image_id == 0) {
         show->priv->update_image_id = g_timeout_add_full (G_PRIORITY_LOW, timeout,
                                                           push_load_image_func, show, NULL);
     }
