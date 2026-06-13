@@ -92,10 +92,6 @@ struct GSWindowPrivate {
     guint popup_dialog_idle_id;
     guint deactivated_idle_id;
 
-    guint dialog_map_signal_id;
-    guint dialog_unmap_signal_id;
-    guint dialog_response_signal_id;
-
     guint watchdog_timer_id;
     guint info_bar_timer_id;
 
@@ -113,7 +109,9 @@ struct GSWindowPrivate {
 
     GTimer *timer;
 
+#ifdef ENABLE_X11
     int shape_event_base;
+#endif
 };
 
 enum {

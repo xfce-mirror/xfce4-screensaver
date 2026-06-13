@@ -110,7 +110,6 @@ struct GSLockPlugPrivate {
     guint datetime_timeout_id;
     guint cancel_timeout_id;
     guint grab_focus_timeout_id;
-    guint auth_check_idle_id;
     guint response_idle_id;
 
     gint monitor_index;
@@ -119,12 +118,6 @@ struct GSLockPlugPrivate {
 
     GSPrefs *prefs;
     XfconfChannel *channel;
-};
-
-typedef struct _ResponseData ResponseData;
-
-struct _ResponseData {
-    gint response_id;
 };
 
 enum {
@@ -449,7 +442,6 @@ gs_lock_plug_get_text (GSLockPlug *plug,
 }
 
 typedef struct {
-    GSLockPlug *plug;
     gint response_id;
     GMainLoop *loop;
     gboolean destroyed;
@@ -511,7 +503,7 @@ run_keymap_handler (GdkKeymap *keymap,
 /* adapted from GTK+ gtkdialog.c */
 int
 gs_lock_plug_run (GSLockPlug *plug) {
-    RunInfo ri = { NULL, GTK_RESPONSE_NONE, NULL, FALSE };
+    RunInfo ri = { GTK_RESPONSE_NONE, NULL, FALSE };
     gboolean was_modal;
     gulong response_handler;
     gulong unmap_handler;

@@ -89,14 +89,12 @@ struct GSListenerDBusPrivate {
     GHashTable *inhibitors;
     GHashTable *throttlers;
     time_t active_start;
-    time_t session_idle_start;
     char *session_id;
 
 #if defined(WITH_SYSTEMD) || defined(WITH_ELOGIND)
     gboolean have_logind;
 #endif
 
-    guint32 ck_throttle_cookie;
     int sleep_inhibitor;
 };
 
