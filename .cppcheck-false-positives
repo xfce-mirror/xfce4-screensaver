@@ -2,3 +2,4 @@ unreadVariable:src/xfce-desktop-utils.c:85
 unreadVariable:src/xfce-desktop-utils.c:87
 deallocuse:src/xfce4-screensaver-preferences.c:997
 deallocuse:src/xfce4-screensaver-preferences.c:1001
+unusedStructMember:savers/gs-theme-engine.c:34

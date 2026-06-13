@@ -101,7 +101,6 @@ struct _XfceBG {
     guint blow_caches_id;
 
     /* Cached information, only access through cache accessor functions */
-    SlideShow *slideshow;
     time_t file_mtime;
     GdkPixbuf *pixbuf_cache;
     int timeout_id;

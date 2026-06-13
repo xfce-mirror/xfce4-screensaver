@@ -96,7 +96,6 @@ struct GSListenerDBusPrivate {
     gboolean have_logind;
 #endif
 
-    guint32 ck_throttle_cookie;
     int sleep_inhibitor;
 };
 
