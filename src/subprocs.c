@@ -74,7 +74,6 @@ int
 signal_pid (int pid,
             int signal) {
     int status = -1;
-    gboolean verbose = TRUE;
 
     if (block_sigchld_handler)
         /* This function should not be called from the signal handler. */
@@ -84,7 +83,7 @@ signal_pid (int pid,
 
     status = kill (pid, signal);
 
-    if (verbose && status < 0) {
+    if (status < 0) {
         if (errno == ESRCH) {
             g_message ("Child process %lu was already dead.",
                        (unsigned long) pid);
