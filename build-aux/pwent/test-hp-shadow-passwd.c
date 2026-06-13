@@ -9,5 +9,6 @@ int
 main () {
     struct s_passwd *p = getspwnam ("nobody");
     const char *pw = p->pw_passwd;
+    (void) pw;
     return 0;
 }

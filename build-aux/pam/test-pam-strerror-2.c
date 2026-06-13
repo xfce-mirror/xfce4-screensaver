@@ -6,5 +6,6 @@ int
 main () {
     pam_handle_t *pamh = 0;
     const char *s = pam_strerror (pamh, PAM_SUCCESS);
+    (void) s;
     return 0;
 }
