@@ -32,11 +32,7 @@
 G_BEGIN_DECLS
 
 #define XFCE_TYPE_BG (xfce_bg_get_type ())
-#define XFCE_BG(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), XFCE_TYPE_BG, XfceBG))
-#define XFCE_BG_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), XFCE_TYPE_BG, XfceBGClass))
-#define XFCE_IS_BG(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), XFCE_TYPE_BG))
-#define XFCE_IS_BG_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), XFCE_TYPE_BG))
-#define XFCE_BG_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), XFCE_TYPE_BG, XfceBGClass))
+G_DECLARE_FINAL_TYPE (XfceBG, xfce_bg, XFCE, BG, GObject)
 
 /* whether to draw the desktop bg */
 #define XFCE_BG_KEY_DRAW_BACKGROUND "draw-background"
@@ -53,9 +49,6 @@ G_BEGIN_DECLS
 #define XFCE_BG_KEY_PICTURE_PLACEMENT "picture-options"
 #define XFCE_BG_KEY_PICTURE_OPACITY "picture-opacity"
 #define XFCE_BG_KEY_PICTURE_FILENAME "picture-filename"
-
-typedef struct _XfceBG XfceBG;
-typedef struct _XfceBGClass XfceBGClass;
 
 typedef enum {
     XFCE_BG_COLOR_SOLID,
@@ -74,8 +67,6 @@ typedef enum {
     XFCE_BG_PLACEMENT_SPANNED
 } XfceBGPlacement;
 
-GType
-xfce_bg_get_type (void);
 XfceBG *
 xfce_bg_new (void);
 void

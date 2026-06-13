@@ -109,10 +109,6 @@ struct _XfceBG {
     GList *file_cache;
 };
 
-struct _XfceBGClass {
-    GObjectClass parent_class;
-};
-
 enum {
     CHANGED,
     TRANSITIONED,
