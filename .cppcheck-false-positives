@@ -18,3 +18,11 @@ varFuncNullUB:src/xfce-bg.c:1873
 varFuncNullUB:src/xfce-bg.c:1874
 varFuncNullUB:src/xfce-bg.c:1881
 varFuncNullUB:src/xfce-bg.c:1897
+knownConditionTrueFalse:src/xfce4-screensaver-dialog.c:280
+knownConditionTrueFalse:src/xfce4-screensaver-dialog.c:330
+knownConditionTrueFalse:src/gs-manager.c:575
+knownConditionTrueFalse:src/gs-manager.c:1171
+knownConditionTrueFalse:src/gs-listener-dbus.c:601
+knownConditionTrueFalse:src/gs-auth-pwent.c:214
+knownConditionTrueFalse:src/gs-auth-pwent.c:136
+knownConditionTrueFalse:src/gs-auth-pam.c:311
