@@ -212,13 +212,8 @@ config_get_theme (gboolean *is_writable) {
     int mode;
 
     if (is_writable) {
-        gboolean can_write_theme = TRUE;
-        gboolean can_write_mode = TRUE;
-
-        can_write_theme = !xfconf_channel_is_property_locked (screensaver_channel,
-                                                              KEY_THEMES);
-        can_write_mode = !xfconf_channel_is_property_locked (screensaver_channel,
-                                                             KEY_MODE);
+        gboolean can_write_theme = !xfconf_channel_is_property_locked (screensaver_channel, KEY_THEMES);
+        gboolean can_write_mode = !xfconf_channel_is_property_locked (screensaver_channel, KEY_MODE);
         *is_writable = can_write_theme && can_write_mode;
     }
 
