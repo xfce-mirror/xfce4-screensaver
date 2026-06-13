@@ -1310,14 +1310,6 @@ listener_dbus_handle_session_message (DBusConnection *connection,
                                       dbus_bool_t local_interface) {
     GSListenerDBus *listener = GS_LISTENER_DBUS (user_data);
 
-#if 0
-    g_message ("obj_path=%s interface=%s method=%s destination=%s",
-               dbus_message_get_path (message),
-               dbus_message_get_interface (message),
-               dbus_message_get_member (message),
-               dbus_message_get_destination (message));
-#endif
-
     g_return_val_if_fail (connection != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
     g_return_val_if_fail (message != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
 
@@ -1468,14 +1460,6 @@ listener_dbus_handle_system_message (DBusConnection *connection,
 
     g_return_val_if_fail (connection != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
     g_return_val_if_fail (message != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
-
-#if 0
-    gs_debug ("obj_path=%s interface=%s method=%s destination=%s",
-              dbus_message_get_path (message),
-              dbus_message_get_interface (message),
-              dbus_message_get_member (message),
-              dbus_message_get_destination (message));
-#endif
 
 #if defined(WITH_SYSTEMD) || defined(WITH_ELOGIND)
     if (listener->priv->have_logind) {
@@ -1647,14 +1631,6 @@ gs_listener_dbus_message_handler (DBusConnection *connection,
                                   void *user_data) {
     g_return_val_if_fail (connection != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
     g_return_val_if_fail (message != NULL, DBUS_HANDLER_RESULT_NOT_YET_HANDLED);
-
-#if 0
-    g_message ("obj_path=%s interface=%s method=%s destination=%s",
-               dbus_message_get_path (message),
-               dbus_message_get_interface (message),
-               dbus_message_get_member (message),
-               dbus_message_get_destination (message));
-#endif
 
     if (dbus_message_is_method_call (message, "org.freedesktop.DBus", "AddMatch")) {
         DBusMessage *reply;

@@ -901,12 +901,6 @@ get_scaled_pixbuf (XfceBGPlacement placement,
                    int *h) {
     GdkPixbuf *new;
 
-#if 0
-    g_print ("original_width: %d %d\n",
-         gdk_pixbuf_get_width (pixbuf),
-         gdk_pixbuf_get_height (pixbuf));
-#endif
-
     switch (placement) {
         case XFCE_BG_PLACEMENT_SPANNED:
             new = pixbuf_scale_to_fit (pixbuf, width, height);
@@ -2006,33 +2000,6 @@ slideshow_unref (SlideShow *show) {
 }
 
 static void
-dump_bg (SlideShow *show) {
-#if 0
-    GList  *list;
-    GSList *slist;
-
-    for (list = show->slides->head; list != NULL; list = list->next) {
-        Slide *slide = list->data;
-
-        g_print ("\nSlide: %s\n", slide->fixed? "fixed" : "transition");
-        g_print ("duration: %f\n", slide->duration);
-        g_print ("File1:\n");
-        for (slist = slide->file1; slist != NULL; slist = slist->next) {
-            FileSize *size = slist->data;
-            g_print ("\t%s (%dx%d)\n",
-                 size->file, size->width, size->height);
-        }
-        g_print ("File2:\n");
-        for (slist = slide->file2; slist != NULL; slist = slist->next) {
-            FileSize *size = slist->data;
-            g_print ("\t%s (%dx%d)\n",
-                 size->file, size->width, size->height);
-        }
-    }
-#endif
-}
-
-static void
 threadsafe_localtime (time_t time,
                       struct tm *tm) {
     struct tm *res;
@@ -2106,8 +2073,6 @@ read_slideshow_file (const char *filename,
         t = mktime (&show->start_tm);
 
         show->start_time = (double) t;
-
-        dump_bg (show);
 
         qlen = g_queue_get_length (show->slides);
 
