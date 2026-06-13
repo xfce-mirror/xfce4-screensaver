@@ -203,8 +203,7 @@ finish_fade (GSTESlideshow *show) {
         cairo_pattern_destroy (show->priv->pat1);
     }
 
-    show->priv->pat1 = show->priv->pat2;
-    show->priv->pat2 = NULL;
+    show->priv->pat1 = g_steal_pointer (&show->priv->pat2);
 
     start_new_load (show, IMAGE_LOAD_TIMEOUT);
 
