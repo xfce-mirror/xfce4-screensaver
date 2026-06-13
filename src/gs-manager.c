@@ -422,21 +422,21 @@ gs_manager_class_init (GSManagerClass *klass) {
                                                            NULL,
                                                            NULL,
                                                            FALSE,
-                                                           G_PARAM_READABLE));
+                                                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
     g_object_class_install_property (object_class,
                                      PROP_THROTTLED,
                                      g_param_spec_boolean ("throttled",
                                                            NULL,
                                                            NULL,
                                                            TRUE,
-                                                           G_PARAM_READWRITE));
+                                                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
     g_object_class_install_property (object_class,
                                      PROP_STATUS_MESSAGE,
                                      g_param_spec_string ("status-message",
                                                           NULL,
                                                           NULL,
                                                           NULL,
-                                                          G_PARAM_READWRITE));
+                                                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 }
 
 #ifdef ENABLE_X11

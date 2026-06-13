@@ -849,35 +849,35 @@ gste_slideshow_class_init (GSTESlideshowClass *klass) {
                                                           NULL,
                                                           NULL,
                                                           NULL,
-                                                          G_PARAM_READWRITE));
+                                                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
     g_object_class_install_property (object_class,
                                      PROP_SORT_IMAGES,
                                      g_param_spec_boolean ("sort-images",
                                                            NULL,
                                                            NULL,
                                                            FALSE,
-                                                           G_PARAM_READWRITE));
+                                                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
     g_object_class_install_property (object_class,
                                      PROP_SOLID_BACKGROUND,
                                      g_param_spec_string ("background-color",
                                                           NULL,
                                                           NULL,
                                                           NULL,
-                                                          G_PARAM_READWRITE));
+                                                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
     g_object_class_install_property (object_class,
                                      PROP_NO_STRETCH_HINT,
                                      g_param_spec_boolean ("no-stretch",
                                                            NULL,
                                                            NULL,
                                                            FALSE,
-                                                           G_PARAM_READWRITE));
+                                                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
     g_object_class_install_property (object_class,
                                      PROP_NO_CROP_HINT,
                                      g_param_spec_boolean ("no-crop",
                                                            NULL,
                                                            NULL,
                                                            FALSE,
-                                                           G_PARAM_READWRITE));
+                                                           G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 }
 
 static void

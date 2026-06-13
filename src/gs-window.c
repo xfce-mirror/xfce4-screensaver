@@ -1970,20 +1970,20 @@ gs_window_class_init (GSWindowClass *klass) {
                                                            NULL,
                                                            NULL,
                                                            FALSE,
-                                                           G_PARAM_READABLE));
+                                                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
     g_object_class_install_property (object_class,
                                      PROP_DIALOG_UP,
                                      g_param_spec_boolean ("dialog-up",
                                                            NULL,
                                                            NULL,
                                                            FALSE,
-                                                           G_PARAM_READABLE));
+                                                           G_PARAM_READABLE | G_PARAM_STATIC_STRINGS));
     g_object_class_install_property (object_class,
                                      PROP_MONITOR,
                                      g_param_spec_pointer ("monitor",
                                                            "Gdk monitor",
                                                            "The monitor (in terms of Gdk) which the window is on",
-                                                           G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
+                                                           G_PARAM_READWRITE | G_PARAM_CONSTRUCT | G_PARAM_STATIC_STRINGS));
 }
 
 static void
