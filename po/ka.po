@@ -1,0 +1,649 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Xfce
+# This file is distributed under the same license as the xfce-apps.xfce4-screensaver package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# ზურაბი დავითაშვილი <zurabi@tuta.io>, 2024
+# Temuri Doghonadze <temuri.doghonadze@gmail.com>, 2026
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: xfce-apps.xfce4-screensaver\n"
+"Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
+"POT-Creation-Date: 2024-12-22 00:50+0100\n"
+"PO-Revision-Date: 2018-10-16 16:27+0000\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>, 2026\n"
+"Language-Team: Georgian (https://app.transifex.com/xfce/teams/16840/ka/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ka\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: data/xfce4-screensaver-preferences.desktop.in:3
+#: src/xfce4-screensaver.desktop.in.in:4
+msgid "Xfce Screensaver"
+msgstr "Xfce-ის ეკრანმზოგი"
+
+#: data/xfce4-screensaver-preferences.desktop.in:4
+msgid "Set your screensaver preferences"
+msgstr "მოირგეთ თქვენი ეკრანმზოგი"
+
+#: data/xfce4-screensaver-preferences.desktop.in:5
+#: src/xfce4-screensaver-preferences.ui:875
+#: src/xfce4-screensaver.desktop.in.in:6
+msgid "Screensaver"
+msgstr "ეკრანის დამცველი"
+
+#: data/xfce4-screensaver-preferences.desktop.in:11
+msgid "settings;preferences;screensaver;lock screen;"
+msgstr ""
+"settings;preferences;screensaver;lock screen;პარამეტრები;მორგება;ეკრანის "
+"ჩაკეტვა;ეკრანმზოგი;"
+
+#: data/xfce4-screensaver.desktop.in:4
+msgid "Screensavers"
+msgstr "ეკრანმზოგები"
+
+#: data/xfce4-screensaver.desktop.in:5
+msgid "Screensaver themes"
+msgstr "ეკრანმზოგის თემები"
+
+#: savers/floaters.c:93
+msgid "Show paths that images follow"
+msgstr "ბილიკების ჩვენება, რომლებსაც გამოსახულებები მიყვებიან"
+
+#: savers/floaters.c:96
+msgid "Occasionally rotate images as they move"
+msgstr "გამოსახულებების ხანდახან შებრუნება მათი მოძრაობისას"
+
+#: savers/floaters.c:99
+msgid "Print out frame rate and other statistics"
+msgstr "კადრების სიხშირისა და სხვა სტატისტიკის გამოტანა"
+
+#: savers/floaters.c:102
+msgid "The maximum number of images to keep on screen"
+msgstr "ეკრანზე დასატოვებელი გამოსახულებების მაქს. რაოდენობა"
+
+#: savers/floaters.c:102
+msgid "MAX_IMAGES"
+msgstr "MAX_IMAGES"
+
+#: savers/floaters.c:105
+msgid "The initial size and position of window"
+msgstr "ფანჯრის საწყისი ზომა და მდებარეობა"
+
+#: savers/floaters.c:105
+msgid "WIDTHxHEIGHT+X+Y"
+msgstr "WIDTHxHEIGHT+X+Y"
+
+#: savers/floaters.c:108
+msgid "The source image to use"
+msgstr "წყარო გამოსახულება გამოსაყენებლად"
+
+#. translators: the word "image" here
+#. * represents a command line argument
+#: savers/floaters.c:1127
+msgid "image - floats images around the screen"
+msgstr "image - ატივტივებს გამოსახულებებს ეკრანზე"
+
+#: savers/floaters.c:1131 savers/popsquares.c:54
+#, c-format
+msgid "%s. See --help for usage information.\n"
+msgstr "%s. გამოყენების სანახავად იხილეთ --help.\n"
+
+#: savers/floaters.c:1137
+msgid "Failed to initialize the windowing system."
+msgstr "ფანჯრული სისტემის ინიციალიზაციის შეცდომა."
+
+#: savers/floaters.c:1142
+msgid "You must specify one image.  See --help for usage information.\n"
+msgstr ""
+"უნდა მიუთითოთ ერთი გამოსახულება.  გამოყენების ინფორმაციისთვის იხილეთ "
+"--help.\n"
+
+#: savers/slideshow.c:59
+msgid "Location to get images from"
+msgstr "მდებარეობა გამოსახულებების ასაღებად"
+
+#: savers/slideshow.c:59
+msgid "PATH"
+msgstr "ბილიკი"
+
+#: savers/slideshow.c:61
+msgid "Color to use for images background"
+msgstr "ფერი გამოსახულების ფონისთვის"
+
+#: savers/slideshow.c:61
+msgid "\"#rrggbb\""
+msgstr "\"#rrggbb\""
+
+#: savers/slideshow.c:63
+msgid "Do not randomize pictures from location"
+msgstr "მდებარეობიდან სურათები არ არევა"
+
+#: savers/slideshow.c:65
+msgid "Do not try to stretch images on screen"
+msgstr "ეკრანზე გამოსახულებების გაწელვის არცდა"
+
+#: savers/slideshow.c:67
+msgid "Do not crop images to the screen size"
+msgstr "გამოსახულებების ეკრანის ზომაზე არ ამოჭრა"
+
+#: savers/xfce-floaters.desktop.in.in:3
+msgid "Floating Xfce"
+msgstr "მოტივტივე Xfce"
+
+#: savers/xfce-floaters.desktop.in.in:4
+msgid "Bubbles the Xfce logo around the screen"
+msgstr "Xfce-ის ლოგოს ბუშტები ეკრანზე"
+
+#: savers/xfce-personal-slideshow.desktop.in.in:3
+msgid "Slideshow"
+msgstr "სლაიდშოუ"
+
+#: savers/xfce-personal-slideshow.desktop.in.in:4
+msgid "Display a slideshow from your Pictures folder"
+msgstr "სლაიდშოუს ჩვენება თქვენი სურათების საქაღალდიდან"
+
+#: savers/xfce-popsquares.desktop.in.in:3
+msgid "Pop art squares"
+msgstr "ფერადი კვადრატები"
+
+#: savers/xfce-popsquares.desktop.in.in:4
+msgid "A pop-art-ish grid of pulsing colors."
+msgstr "მოციმციმე ფერების ბადე."
+
+#: src/gs-auth-pam.c:373
+#, c-format
+msgid "Unable to establish service %s: %s\n"
+msgstr "დაყენება შეუძლებელია სერვისისთვის %s: %s\n"
+
+#: src/gs-auth-pam.c:399
+#, c-format
+msgid "Can't set PAM_TTY=%s"
+msgstr "დაყენების შეცდომა PAM_TTY=%s"
+
+#: src/gs-auth-pam.c:430
+msgid "Incorrect password."
+msgstr "არასწორი პაროლი."
+
+#: src/gs-auth-pam.c:432 src/xfce4-screensaver-dialog.c:280
+msgid "Authentication failed."
+msgstr "ავთენტიკაცია წარუმატებელია."
+
+#: src/gs-auth-pam.c:446
+msgid "Not permitted to gain access at this time."
+msgstr "ამჟამად წვდომის მიღება დაშვებული არაა."
+
+#: src/gs-auth-pam.c:452
+msgid "No longer permitted to access the system."
+msgstr "სისტემასთან წვდომა ხელმისაწვდომი აღარაა."
+
+#: src/gs-auth-pam.c:660
+msgid "Username:"
+msgstr "მომხმარებელი:"
+
+#: src/gs-listener-dbus.c:1968
+msgid "failed to register with the message bus"
+msgstr "შეტყობინებების მატარებელთან რეგისტრაციის პრობლემა"
+
+#: src/gs-listener-dbus.c:1978
+msgid "not connected to the message bus"
+msgstr "შეტყობინებების მატარებელთან მიერთებული არაა"
+
+#: src/gs-listener-dbus.c:1987 src/gs-listener-dbus.c:2018
+msgid "screensaver already running in this session"
+msgstr "ამ სესიაში ეკრანის დამცველი უკვე გაშვებულია"
+
+#. TRANSLATORS: adjust this accordingly for your locale format
+#: src/gs-lock-plug.c:308
+msgctxt "Date"
+msgid "%A, %B %e   %H:%M"
+msgstr "%A, %B %e   %H:%M"
+
+#: src/gs-lock-plug.c:398
+msgid "Time has expired."
+msgstr "დრო ამოიწურა."
+
+#: src/xfce4-screensaver-command.c:53
+msgid "Causes the screensaver to exit gracefully"
+msgstr "ეკრანის დამცველის წესების დაცვით გამორთვა"
+
+#: src/xfce4-screensaver-command.c:55
+msgid "Query the state of the screensaver"
+msgstr "ეკრანის დამცველის მდგომარეობის გამოთხოვა"
+
+#: src/xfce4-screensaver-command.c:57
+msgid "Query the length of time the screensaver has been active"
+msgstr ""
+"დროის იმ პერიოდის მოთხოვნა, რომლის განმავლობაში ეკრანმზოგი იყო აქტიური"
+
+#: src/xfce4-screensaver-command.c:59
+msgid "Tells the running screensaver process to lock the screen immediately"
+msgstr "ეკრანის დამცველის მიერ ეკრანის დაუყოვნებლივი დაბლოკვა"
+
+#: src/xfce4-screensaver-command.c:61
+msgid "If the screensaver is active then switch to another graphics demo"
+msgstr "თუ ეკრანმზოგი აქტიურია, მაშინ გადართვა სხვა გრაფიკულ დემოზე"
+
+#: src/xfce4-screensaver-command.c:63
+msgid "Turn the screensaver on (blank the screen)"
+msgstr "ეკრანის დამცველის ჩართვა (ეკრანის გასუფთავება)"
+
+#: src/xfce4-screensaver-command.c:65
+msgid "If the screensaver is active then deactivate it (un-blank the screen)"
+msgstr "ეკრანის დამცველის დახურვა (ეკრანის აღდგენა)"
+
+#: src/xfce4-screensaver-command.c:67
+msgid "Poke the running screensaver to simulate user activity"
+msgstr ""
+"გაშვებული ეკრანმზოგის შეჩხიკინება მომხმარებლის აქტივობის სიმულაციისთვის"
+
+#: src/xfce4-screensaver-command.c:69
+msgid ""
+"Inhibit the screensaver from activating.  Command blocks while inhibit is "
+"active."
+msgstr ""
+"ეკრანმზოგის გააქტიურების ხელის შეშლა.  ბრძანება არ დასრულდება, სანამ ხელის "
+"შეშლა აქტიურია."
+
+#: src/xfce4-screensaver-command.c:71
+msgid "The calling application that is inhibiting the screensaver"
+msgstr "გამომძახებელი აპლიკაცია, რომელიც ხელს უშლის ეკრანმზოგის გაშვებას"
+
+#: src/xfce4-screensaver-command.c:73
+msgid "The reason for inhibiting the screensaver"
+msgstr "ეკრანმზოგისთვის ხელის შეშლის მიზეზი"
+
+#: src/xfce4-screensaver-command.c:75 src/xfce4-screensaver-dialog.c:70
+#: src/xfce4-screensaver.c:58
+msgid "Version of this application"
+msgstr "ამ პროგრამის ვერსია"
+
+#: src/xfce4-screensaver-command.c:182
+#, c-format
+msgid "The screensaver is %s\n"
+msgstr "ეკრანმზოგი არის %s\n"
+
+#: src/xfce4-screensaver-command.c:182
+msgid "active"
+msgstr "აქტიური"
+
+#: src/xfce4-screensaver-command.c:182
+msgid "inactive"
+msgstr "არააქტიური"
+
+#: src/xfce4-screensaver-command.c:193
+msgid "The screensaver is not inhibited\n"
+msgstr "ეკრანმზოგი გადაფარული არაა\n"
+
+#: src/xfce4-screensaver-command.c:195
+msgid "The screensaver is being inhibited by:\n"
+msgstr ""
+"მიმდინარეობს ეკრანმზოგის გადაფარვა პროგრამით:\n"
+"\n"
+
+#: src/xfce4-screensaver-command.c:211
+#, c-format
+msgid "The screensaver has been active for %d seconds.\n"
+msgstr "ეკრანმზოგი აქტიური იყო %d წამის განმავლობაში.\n"
+
+#: src/xfce4-screensaver-configure.py:167
+msgid "Part of Xfce Screensaver"
+msgstr "Xfce-ის ეკრანმზოგის ნაწილი"
+
+#: src/xfce4-screensaver-configure.py:178
+msgid "Max number of images"
+msgstr "გამოსახულებების მაქს. რაოდენობა"
+
+#: src/xfce4-screensaver-configure.py:181
+msgid "Show paths"
+msgstr "ბილიკების ჩვენება"
+
+#: src/xfce4-screensaver-configure.py:183
+msgid "Do rotations"
+msgstr "ბრუნვები"
+
+#: src/xfce4-screensaver-configure.py:185
+msgid "Print stats"
+msgstr "სტატისტიკის გამოტანა"
+
+#: src/xfce4-screensaver-configure.py:188
+msgid "Location"
+msgstr "მდებარეობა"
+
+#: src/xfce4-screensaver-configure.py:191
+msgid "Background color"
+msgstr "ფონის ფერი"
+
+#: src/xfce4-screensaver-configure.py:193
+msgid "Do not randomize images"
+msgstr "არ აურიო გამოსახულებები"
+
+#: src/xfce4-screensaver-configure.py:195
+msgid "Do not stretch images"
+msgstr "გამოსახულებების არგაწელვა"
+
+#: src/xfce4-screensaver-configure.py:197
+msgid "Do not crop images"
+msgstr "გამოსახულებების არამოჭრა"
+
+#: src/xfce4-screensaver-configure.py:389
+msgid "Restore Defaults"
+msgstr "&ნაგულისხმევი პარამეტრების აღდგენა"
+
+#: src/xfce4-screensaver-configure.py:402
+msgid "Preferences"
+msgstr "პარამეტრები"
+
+#: src/xfce4-screensaver-configure.py:408
+msgid "About"
+msgstr "შესახებ"
+
+#: src/xfce4-screensaver-configure.py:421
+msgid "Video"
+msgstr "ვიდეო"
+
+#: src/xfce4-screensaver-configure.py:729
+msgid "Configure an individual screensaver"
+msgstr "ინდივიდუალური ეკრანმზოგის მორგება"
+
+#: src/xfce4-screensaver-configure.py:731
+msgid "screensaver name to configure"
+msgstr "მოსარგები ეკრანმზოგის სახელი"
+
+#: src/xfce4-screensaver-configure.py:733
+msgid "check if screensaver is configurable"
+msgstr "შემოწმება, მორგებადია, თუ არა ეკრანმზოგი"
+
+#: src/xfce4-screensaver-configure.py:737
+msgid "Unable to configure screensaver"
+msgstr "ეკრანმზოგის მორგება შეუძლებელია"
+
+#: src/xfce4-screensaver-configure.py:741
+msgid "Screensaver required."
+msgstr "ეკრანმზოგი აუცილებელია."
+
+#: src/xfce4-screensaver-configure.py:749
+#, python-format
+msgid "File not found: %s"
+msgstr "ფაილი აღმოჩენილი არაა: %s"
+
+#: src/xfce4-screensaver-configure.py:757
+#, python-format
+msgid "Unrecognized file type: %s"
+msgstr "მხარდაუჭერელი ფაილის ტიპი: %s"
+
+#: src/xfce4-screensaver-configure.py:761
+#, python-format
+msgid "Failed to process file: %s"
+msgstr "ფაილის დამუშავების შეცდომა: %s"
+
+#: src/xfce4-screensaver-configure.py:766
+#, python-format
+msgid "Screensaver %s is configurable."
+msgstr "ეკრანმზოგი %s მორგებადია."
+
+#: src/xfce4-screensaver-configure.py:768
+#, python-format
+msgid "Screensaver %s is not configurable."
+msgstr "ეკრანმზოგი %s მორგებადი არაა."
+
+#: src/xfce4-screensaver-configure.py:772
+#, python-format
+msgid "Screensaver %s has no configuration options."
+msgstr "ეკრანმზიდს %s მორგებადი პარამეტრები არ გააჩნია."
+
+#: src/xfce4-screensaver-dialog.c:68
+msgid "Show debugging output"
+msgstr "გამართვის გამონატანის ჩვენება"
+
+#: src/xfce4-screensaver-dialog.c:72
+msgid "Show the logout button"
+msgstr "გასვლის ღილაკის ჩვენება"
+
+#: src/xfce4-screensaver-dialog.c:74
+msgid "Command to invoke from the logout button"
+msgstr "ბრძანება, რომელიც გაიშვება დახურვის ღილაკით"
+
+#: src/xfce4-screensaver-dialog.c:76
+msgid "Show the switch user button"
+msgstr "მომხმარებლის გადართვის ღილაკის ჩვენება"
+
+#: src/xfce4-screensaver-dialog.c:78
+msgid "Message to show in the dialog"
+msgstr "ფანჯარაში საჩვენებელი შეტყობინება"
+
+#: src/xfce4-screensaver-dialog.c:78 src/xfce4-screensaver-dialog.c:80
+msgid "MESSAGE"
+msgstr "შეტყობინება"
+
+#: src/xfce4-screensaver-dialog.c:80
+msgid "Not used"
+msgstr "არ გამოიყენება"
+
+#: src/xfce4-screensaver-dialog.c:82
+msgid "Monitor height"
+msgstr "ეკრანის სიმაღლე"
+
+#: src/xfce4-screensaver-dialog.c:84
+msgid "Monitor width"
+msgstr "ეკრანის სიგანე"
+
+#: src/xfce4-screensaver-dialog.c:86
+msgid "Monitor index"
+msgstr "ეკრანის ინდექსი"
+
+#: src/xfce4-screensaver-dialog.c:240
+msgid "Checking..."
+msgstr "შემოწმება…"
+
+#: src/xfce4-screensaver-dialog.ui:70
+msgid "%U"
+msgstr "%U"
+
+#: src/xfce4-screensaver-dialog.ui:98
+msgid "Enter your password"
+msgstr "შეიყვანეთ თქვენი პაროლი"
+
+#: src/xfce4-screensaver-dialog.ui:211
+msgid "You have the Caps Lock key on."
+msgstr "Caps Lock ჩართულია."
+
+#: src/xfce4-screensaver-dialog.ui:271
+msgid "_Switch User"
+msgstr "მომხმარებლის შეცვლა"
+
+#: src/xfce4-screensaver-dialog.ui:287
+msgid "_Log Out"
+msgstr "_გასვლა"
+
+#: src/xfce4-screensaver-dialog.ui:303
+msgid "_Cancel"
+msgstr "გაუქმება"
+
+#: src/xfce4-screensaver-dialog.ui:319
+msgid "_Unlock"
+msgstr "_განბლოკვა"
+
+#: src/xfce4-screensaver-dialog.ui:377
+msgid "<b>%h</b>"
+msgstr "<b>%h</b>"
+
+#: src/xfce4-screensaver-dialog.ui:391
+#, c-format
+msgid "<b>%s</b>"
+msgstr "<b>%s</b>"
+
+#: src/xfce4-screensaver-preferences.c:91
+msgid "Settings manager socket"
+msgstr "პარამეტრების მმართველის სოკეტი"
+
+#: src/xfce4-screensaver-preferences.c:91
+msgid "SOCKET ID"
+msgstr "სოკეტის ID"
+
+#: src/xfce4-screensaver-preferences.c:730
+msgid "Blank screen"
+msgstr "ეკრანის გასუფთავება"
+
+#: src/xfce4-screensaver-preferences.c:736
+msgid "Random"
+msgstr "შემთხვევითი"
+
+#: src/xfce4-screensaver-preferences.c:1754
+msgid "Setting locked by administrator."
+msgstr "პარამეტრები დაბლოკილია ადმინისტრატორის მიერ."
+
+#: src/xfce4-screensaver-preferences.c:1795
+msgid "Could not load the main interface"
+msgstr "შეუძლებელია ძირითადი ინტერფეისის გამოყენება"
+
+#: src/xfce4-screensaver-preferences.c:1797
+msgid "Please make sure that the screensaver is properly installed"
+msgstr "დარწმუნდით, რომ ის ეკრანმზოგი სწორად აყენია"
+
+#: src/xfce4-screensaver-preferences.ui:38
+msgid "Screensaver Preview"
+msgstr "ეკრანმზოგის გადახედვა"
+
+#: src/xfce4-screensaver-preferences.ui:78
+msgid "<b>Screensaver preview</b>"
+msgstr "<b>ეკრანმზოგის გადახედვა</b>"
+
+#: src/xfce4-screensaver-preferences.ui:227
+msgid "Screensaver Preferences"
+msgstr "ეკრანმზოგის მორგება"
+
+#: src/xfce4-screensaver-preferences.ui:262
+msgid "Power _Management"
+msgstr "კვების _მართვა"
+
+#: src/xfce4-screensaver-preferences.ui:279
+#: src/xfce4-screensaver-preferences.ui:608
+msgid "Preview"
+msgstr "მინიატურა"
+
+#: src/xfce4-screensaver-preferences.ui:370
+msgid "Running as root"
+msgstr "გაშვებულია root-ით"
+
+#: src/xfce4-screensaver-preferences.ui:386
+msgid "The screen will not be locked for the root user."
+msgstr "მომხმარებლისთვის root ეკრანი არ დაიბლოკება."
+
+#: src/xfce4-screensaver-preferences.ui:427
+msgid "Resolve"
+msgstr "გადაჭრა"
+
+#: src/xfce4-screensaver-preferences.ui:473
+msgid "Xfce Power Manager is not configured to handle laptop lid events"
+msgstr ""
+"Xfce-ის კვების მმართველი არაა მორგებული, რომ ნოუთბუქის დახურვის მოვლენები "
+"მართოს"
+
+#: src/xfce4-screensaver-preferences.ui:489
+msgid "Your computer may not be locked when you close the lid."
+msgstr "თქვენი კომპიუტერი, შეიძლება, არ დაიბლოკოს, როცა დახურავთ."
+
+#: src/xfce4-screensaver-preferences.ui:538
+msgid "Enable Screensaver"
+msgstr "ეკრანმზოგის ჩართვა"
+
+#: src/xfce4-screensaver-preferences.ui:592
+msgid "Theme"
+msgstr "თემა"
+
+#: src/xfce4-screensaver-preferences.ui:688
+msgid "Configure screensaver"
+msgstr "ეკრანმზოგის მორგება"
+
+#: src/xfce4-screensaver-preferences.ui:689
+msgid "Configure..."
+msgstr "მორგება..."
+
+#: src/xfce4-screensaver-preferences.ui:729
+msgid "Change theme after:"
+msgstr "თემის შეცვლის დრო:"
+
+#: src/xfce4-screensaver-preferences.ui:752
+#: src/xfce4-screensaver-preferences.ui:822
+#: src/xfce4-screensaver-preferences.ui:993
+#: src/xfce4-screensaver-preferences.ui:1170
+msgid "minutes"
+msgstr "წუთი"
+
+#: src/xfce4-screensaver-preferences.ui:767
+msgid "Activate screensaver when computer is idle"
+msgstr "ეკრანმზოგის გააქტიურება, როცა კომპიუტერი უქმედაა"
+
+#: src/xfce4-screensaver-preferences.ui:798
+msgid "Regard the computer as _idle after:"
+msgstr "კომპიუტერის ჩათვლა უქმედ ამ დრო_ის შემდეგ:"
+
+#: src/xfce4-screensaver-preferences.ui:837
+msgid "Inhibit screensaver for fullscreen applications"
+msgstr "ეკრანმზოგის გამორთვა სრულეკრანიანი აპლიკაციებისთვის"
+
+#: src/xfce4-screensaver-preferences.ui:896
+msgid "Enable Lock Screen"
+msgstr "ეკრანის ჩაკეტვის ჩართვა"
+
+#: src/xfce4-screensaver-preferences.ui:940
+msgid "Lock Screen with Screensaver"
+msgstr "ეკრანის დაბლოკვა ეკრანმზოგთან ერთად"
+
+#: src/xfce4-screensaver-preferences.ui:970
+msgid "Lock the screen after the screensaver is active for:"
+msgstr "ეკრანის დაბლოკვა, როცა ეკრანმზოგი აქტიურია ამ დროით:"
+
+#: src/xfce4-screensaver-preferences.ui:1008
+msgid "On Screen Keyboard"
+msgstr "ეკრანის კლავიატურა"
+
+#: src/xfce4-screensaver-preferences.ui:1038
+msgid "On screen keyboard command:"
+msgstr "ეკრანის კლავიატურის გაშვების ბრძანება:"
+
+#: src/xfce4-screensaver-preferences.ui:1063
+msgid "Session Status Messages"
+msgstr "სესიის სტატუსის შეტყობინებები"
+
+#: src/xfce4-screensaver-preferences.ui:1093
+msgid "Logout"
+msgstr "გასვლა"
+
+#: src/xfce4-screensaver-preferences.ui:1123
+msgid "Logout command:"
+msgstr "გასვლის ბრძანება:"
+
+#: src/xfce4-screensaver-preferences.ui:1147
+msgid "Enable logout after:"
+msgstr "გასვლის ჩართვა დროის შემდეგ:"
+
+#: src/xfce4-screensaver-preferences.ui:1185
+msgid "User Switching"
+msgstr "მომხმარებლის გადართვა"
+
+#: src/xfce4-screensaver-preferences.ui:1215
+msgid "Lock Screen with System Sleep"
+msgstr "ეკრანის დაბლოკვა სისტემის დაძინებასთან ერთად"
+
+#: src/xfce4-screensaver-preferences.ui:1256
+msgid "Lock Screen"
+msgstr "ეკრანის დაბლოკვა"
+
+#: src/xfce4-screensaver.c:59
+msgid "Enable debugging code"
+msgstr "გამართვის გამონატანი კოდის ჩართვა"
+
+#: src/xfce4-screensaver.desktop.in.in:5
+msgid "Launch screensaver and locker program"
+msgstr "ეკრანის დამზოგი და ჩამკეტავი პროგრამის გაშვება"
+
+#: src/xfcekbd-indicator.c:408
+msgid "XKB initialization error"
+msgstr "XKB-ის ინიცალიზაციის შეცდომა"
