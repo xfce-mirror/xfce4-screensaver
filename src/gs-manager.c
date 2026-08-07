@@ -544,7 +544,7 @@ find_window_at_pointer (GSManager *manager) {
 #ifdef ENABLE_WAYLAND
     if (GDK_IS_WAYLAND_DISPLAY (gdk_display_get_default ())) {
         GHashTableIter iter;
-        gpointer window;
+        gpointer window = NULL;
 
         g_hash_table_iter_init (&iter, manager->priv->windows);
         while (g_hash_table_iter_next (&iter, NULL, &window)) {
