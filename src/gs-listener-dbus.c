@@ -92,6 +92,7 @@ struct GSListenerDBusPrivate {
     char *session_id;
 
 #if defined(WITH_SYSTEMD) || defined(WITH_ELOGIND)
+    char *session_path;
     gboolean have_logind;
 #endif
 
@@ -1367,17 +1368,18 @@ listener_dbus_handle_session_message (DBusConnection *connection,
 static gboolean
 _listener_dbus_message_path_is_our_session (GSListenerDBus *listener,
                                             DBusMessage *message) {
-    const char *ssid;
+    const char *path = dbus_message_get_path (message);
+    const char *str_to_compare = NULL;
+#if defined(WITH_SYSTEMD) || defined(WITH_ELOGIND)
+    str_to_compare = listener->priv->session_path;
+#else
+    str_to_compare = listener->priv->session_id;
+#endif
 
-    ssid = dbus_message_get_path (message);
-
-    if (ssid == NULL)
+    if (path == NULL || str_to_compare == NULL)
         return FALSE;
 
-    if (listener->priv->session_id == NULL)
-        return FALSE;
-
-    if (strcmp (ssid, listener->priv->session_id) == 0)
+    if (strcmp (path, str_to_compare) == 0)
         return TRUE;
 
     return FALSE;
@@ -1516,7 +1518,7 @@ listener_dbus_handle_system_message (DBusConnection *connection,
 
                     /* Instead of going via the bus to read the new property state, let's
                      * shortcut this and ask directly the low-level information */
-                    new_active = sd_session_is_active (listener->priv->session_id) != 0;
+                    new_active = sd_session_is_active (listener->priv->session_id) > 0;
                     if (new_active)
                         g_signal_emit (listener, signals[SIMULATE_USER_ACTIVITY], 0);
                 }
@@ -2109,13 +2111,60 @@ query_session_id (GSListenerDBus *listener) {
         }
 
         DBusMessageIter reply_iter;
-        char *ssid;
+        const gchar *object_path;
         dbus_message_iter_init (reply, &reply_iter);
-        dbus_message_iter_get_basic (&reply_iter, &ssid);
+        dbus_message_iter_get_basic (&reply_iter, &object_path);
+        g_free (listener->priv->session_path);
+        listener->priv->session_path = g_strdup (object_path);
+        message = dbus_message_new_method_call (LOGIND_SERVICE,
+                                                object_path,
+                                                "org.freedesktop.DBus.Properties",
+                                                "Get");
+        dbus_message_unref (reply);
+        if (message == NULL) {
+            gs_debug ("Couldn't allocate the dbus message");
+            return NULL;
+        }
 
+        const gchar *interface_name = "org.freedesktop.login1.Session";
+        const gchar *property_name = "Id";
+        if (!dbus_message_append_args (message,
+                                       DBUS_TYPE_STRING, &interface_name,
+                                       DBUS_TYPE_STRING, &property_name,
+                                       DBUS_TYPE_INVALID)) {
+            gs_debug ("Couldn't add args to the dbus message");
+            return NULL;
+        }
+
+        reply = dbus_connection_send_with_reply_and_block (listener->priv->system_connection,
+                                                           message,
+                                                           -1, &error);
+        dbus_message_unref (message);
+        if (dbus_error_is_set (&error)) {
+            gs_debug ("%s raised:\n %s\n\n", error.name, error.message);
+            dbus_error_free (&error);
+            return NULL;
+        }
+
+        if (!dbus_message_iter_init (reply, &reply_iter)
+            || dbus_message_iter_get_arg_type (&reply_iter) != DBUS_TYPE_VARIANT) {
+            gs_debug ("Couldn't iter in dbus reply");
+            return NULL;
+        }
+
+        DBusMessageIter variant;
+        dbus_message_iter_recurse (&reply_iter, &variant);
+        if (dbus_message_iter_get_arg_type (&variant) != DBUS_TYPE_STRING) {
+            gs_debug ("Couldn't recurse in dbus reply");
+            return NULL;
+        }
+
+        gchar *ssid;
+        dbus_message_iter_get_basic (&variant, &ssid);
+        ssid = g_strdup (ssid);
         dbus_message_unref (reply);
 
-        return g_strdup (ssid);
+        return ssid;
     }
 #endif
 
@@ -2205,6 +2254,9 @@ gs_listener_dbus_finalize (GObject *object) {
     }
 
     g_free (listener->priv->session_id);
+#if defined(WITH_SYSTEMD) || defined(WITH_ELOGIND)
+    g_free (listener->priv->session_path);
+#endif
     remove_sleep_inhibit (listener);
     g_object_unref (listener->priv->prefs);
 
