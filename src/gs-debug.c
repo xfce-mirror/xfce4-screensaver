@@ -120,10 +120,7 @@ gs_debug_shutdown (void) {
 
     debugging = FALSE;
 
-    if (debug_out != NULL) {
-        fclose (debug_out);
-        debug_out = NULL;
-    }
+    g_clear_pointer (&debug_out, fclose);
 }
 
 void

@@ -614,9 +614,8 @@ screen_saver_floater_update_state (ScreenSaver *screen_saver,
 
         floater->opacity = pow (floater->scale, 1.0 / GAMMA);
     } else {
-        path_free (floater->path);
+        g_clear_pointer (&floater->path, path_free);
 
-        floater->path = NULL;
         floater->path_start_time = 0.0;
     }
 }

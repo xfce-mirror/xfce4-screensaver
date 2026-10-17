@@ -561,9 +561,8 @@ gs_lock_plug_run (GSLockPlug *plug) {
 
     g_main_loop_run (ri.loop);
 
-    g_main_loop_unref (ri.loop);
+    g_clear_pointer (&ri.loop, g_main_loop_unref);
 
-    ri.loop = NULL;
 
     if (!ri.destroyed) {
         if (!was_modal) {

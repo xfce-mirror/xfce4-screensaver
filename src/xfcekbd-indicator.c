@@ -443,8 +443,7 @@ xfcekbd_indicator_global_term (void) {
     gs_debug ("*** Last  XfcekbdIndicator instance ***\n");
     xfcekbd_indicator_stop_listen ();
 
-    g_object_unref (G_OBJECT (globals.engine));
-    globals.engine = NULL;
+    g_clear_object (&globals.engine);
     gs_debug ("*** Terminated globals *** \n");
 }
 

@@ -1997,15 +1997,13 @@ read_slideshow_file (const char *filename,
     context = g_markup_parse_context_new (&parser, 0, show, NULL);
 
     if (!g_markup_parse_context_parse (context, contents, len, err)) {
-        slideshow_unref (show);
-        show = NULL;
+        g_clear_pointer (&show, slideshow_unref);
     }
 
 
     if (show) {
         if (!g_markup_parse_context_end_parse (context, err)) {
-            slideshow_unref (show);
-            show = NULL;
+            g_clear_pointer (&show, slideshow_unref);
         }
     }
 
@@ -2023,8 +2021,7 @@ read_slideshow_file (const char *filename,
 
         /* no slides, that's not a slideshow */
         if (qlen == 0) {
-            slideshow_unref (show);
-            show = NULL;
+            g_clear_pointer (&show, slideshow_unref);
             /* one slide, there's no transition */
         } else if (qlen == 1) {
             Slide *slide = show->slides->head->data;
