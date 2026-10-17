@@ -318,9 +318,7 @@ setup_squares (GSTEPopsquares *pop) {
     gh = pop->priv->subdivision;
     nsquares = gw * gh;
 
-    if (pop->priv->squares) {
-        g_free (pop->priv->squares);
-    }
+    g_free (pop->priv->squares);
     pop->priv->squares = g_new0 (square, nsquares);
 
     for (y = 0; y < gh; y++) {
@@ -351,9 +349,7 @@ setup_colors (GSTEPopsquares *pop) {
 
     set_colors (GTK_WIDGET (pop), &fg, &bg);
 
-    if (pop->priv->colors) {
-        g_free (pop->priv->colors);
-    }
+    g_free (pop->priv->colors);
     pop->priv->colors = g_new0 (GdkRGBA, pop->priv->ncolors);
 
     rgb_to_hsv (fg.red, fg.green, fg.blue, &h1, &s1, &v1);
