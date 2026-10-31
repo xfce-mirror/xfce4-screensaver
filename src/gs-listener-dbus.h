@@ -58,6 +58,7 @@ typedef struct
                           const char *summary,
                           const char *body,
                           const char *icon);
+    void (*request_password_prompt) (GSListenerDBus *listener);
 } GSListenerDBusClass;
 
 typedef enum {

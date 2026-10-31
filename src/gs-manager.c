@@ -573,7 +573,14 @@ gs_manager_show_message (GSManager *manager,
     if (window == NULL)
         return;
 
-    gs_window_show_message (window, summary, body, icon);
+    summary = summary != NULL && *summary != '\0' ? summary : NULL;
+    body = body != NULL && *body != '\0' ? body : NULL;
+    icon = icon != NULL && *icon != '\0' ? icon : NULL;
+
+    /* Show an information bar only when at least one field contains content.
+     * Empty notification requests must still request the password prompt. */
+    if (summary != NULL || body != NULL || icon != NULL)
+        gs_window_show_message (window, summary, body, icon);
     gs_manager_request_unlock (manager);
 }
 
