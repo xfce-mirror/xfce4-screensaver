@@ -6,14 +6,14 @@
 # Translators:
 # Urien Desterres <urien.desterres@gmail.com>, 2019
 # Xfce Bot <transifex@xfce.org>, 2023
-# Gaël Bonithon <gael@xfce.org>, 2024
 # Charles Monzat <c.monzat@laposte.net>, 2024
 # Nick Schermer <nick@xfce.org>, 2024
 # David D, 2024
 # nodiscc <nodiscc@gmail.com>, 2024
 # David MARMONT <it@marmont.fr>, 2024
 # Yannick Le Guen <leguen.yannick@gmail.com>, 2024
-# Wallon Wallon, 2024
+# Wallon <wallon@ik.me>, 2024
+# Gaël Bonithon <gael@xfce.org>, 2026
 # 
 #, fuzzy
 msgid ""
@@ -22,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
 "POT-Creation-Date: 2024-12-22 00:50+0100\n"
 "PO-Revision-Date: 2018-10-16 16:27+0000\n"
-"Last-Translator: Wallon Wallon, 2024\n"
+"Last-Translator: Gaël Bonithon <gael@xfce.org>, 2026\n"
 "Language-Team: French (https://app.transifex.com/xfce/teams/16840/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -210,7 +210,7 @@ msgstr "économiseur d’écran déjà lancé dans cette session"
 #: src/gs-lock-plug.c:308
 msgctxt "Date"
 msgid "%A, %B %e   %H:%M"
-msgstr "%A, %B %e   %H:%M"
+msgstr "%A %e %B   %H:%M"
 
 #: src/gs-lock-plug.c:398
 msgid "Time has expired."
