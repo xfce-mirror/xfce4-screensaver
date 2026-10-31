@@ -50,6 +50,23 @@
 #include "gs-monitor.h"
 #include "xfce4-screensaver.h"
 
+#ifdef ENABLE_X11
+static int
+screensaver_x_error_handler (Display *display,
+                             XErrorEvent *error) {
+    if (error->error_code == BadWindow ||
+        error->error_code == BadMatch ||
+        error->error_code == BadDrawable) {
+        gs_debug ("Trapped transient X11 error: code=%d, request=%d, minor=%d",
+                  error->error_code, error->request_code, error->minor_code);
+        return 0;
+    }
+    gs_debug ("X11 error: code=%d, request=%d, minor=%d",
+              error->error_code, error->request_code, error->minor_code);
+    return 0;
+}
+#endif
+
 void
 xfce4_screensaver_quit (void) {
     gtk_main_quit ();
@@ -82,6 +99,12 @@ main (int argc,
 
         return EXIT_FAILURE;
     }
+
+#ifdef ENABLE_X11
+    if (GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        XSetErrorHandler (screensaver_x_error_handler);
+    }
+#endif
 
     if (show_version) {
         g_print ("%s %s\n", argv[0], VERSION_FULL);

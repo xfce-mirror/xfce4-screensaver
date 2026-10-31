@@ -105,6 +105,8 @@ gs_grab_get (GSGrab *grab,
     else
         caps = GDK_SEAT_CAPABILITY_KEYBOARD;
 
+    gdk_x11_display_error_trap_push (display);
+
     status = gdk_seat_grab (seat, window,
                             caps, TRUE,
                             (hide_cursor ? cursor : NULL),
@@ -125,6 +127,8 @@ gs_grab_get (GSGrab *grab,
                                 (hide_cursor ? cursor : NULL),
                                 NULL, NULL, NULL);
     }
+
+    gdk_x11_display_error_trap_pop_ignored (display);
 
     if (status == GDK_GRAB_SUCCESS) {
         if (grab->priv->grab_window != NULL) {
@@ -208,6 +212,8 @@ gs_grab_move (GSGrab *grab,
     gs_debug ("*** Doing X server grab");
     gdk_x11_display_grab (display);
 
+    gdk_x11_display_error_trap_push (display);
+
     old_window = grab->priv->grab_window;
     old_display = grab->priv->grab_display;
     old_hide_cursor = grab->priv->hide_cursor;
@@ -238,6 +244,8 @@ gs_grab_move (GSGrab *grab,
     gs_debug ("*** Releasing X server grab");
     gdk_x11_display_ungrab (display);
     gdk_display_flush (display);
+
+    gdk_x11_display_error_trap_pop_ignored (display);
 
     return (result == GDK_GRAB_SUCCESS);
 }
