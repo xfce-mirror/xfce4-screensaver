@@ -230,8 +230,15 @@ xroot_filter (GdkXEvent *xevent,
                             gs_debug ("Fullscreen inhibit: ScreenSaver timer reset");
                             reset_timer (listener, listener->priv->timeout);
                         } else {
-                            gs_debug ("Activating screensaver on ScreenSaverOn");
-                            g_signal_emit_by_name (listener, "activate");
+                            if (listener->priv->prefs->lock_enabled
+                                && listener->priv->prefs->lock_with_saver_enabled
+                                && listener->priv->lock_timeout == 0) {
+                                gs_debug ("Locking on ScreenSaverOn");
+                                g_signal_emit_by_name (listener, "lock");
+                            } else {
+                                gs_debug ("Activating screensaver on ScreenSaverOn");
+                                g_signal_emit_by_name (listener, "activate");
+                            }
                         }
                         break;
                 }
