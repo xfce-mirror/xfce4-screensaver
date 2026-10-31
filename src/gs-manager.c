@@ -241,6 +241,12 @@ add_lock_timer (GSManager *manager,
     if (manager->priv->lock_active)
         return;
 
+    if (seconds == 0) {
+        gs_debug ("Locking screen immediately with saver");
+        gs_manager_enable_locker (manager, TRUE);
+        return;
+    }
+
     gs_debug ("Scheduling screen lock after screensaver is idling for %u sec", seconds * 60);
     manager->priv->lock_timeout_id = g_timeout_add_seconds (seconds * 60, activate_lock_timeout, manager);
 }
@@ -1086,6 +1092,13 @@ gs_manager_activate (GSManager *manager) {
         }
     }
 #endif
+
+    if (manager->priv->prefs->lock_enabled
+        && manager->priv->prefs->lock_with_saver_enabled
+        && manager->priv->prefs->lock_timeout == 0) {
+        gs_debug ("Enabling locker synchronously upon activation");
+        manager->priv->lock_active = TRUE;
+    }
 
     gs_manager_create_windows (GS_MANAGER (manager));
 
