@@ -127,6 +127,14 @@ listener_dbus_cycle_cb (GSListenerDBus *listener, GSMonitor *monitor) {
 }
 
 static void
+listener_dbus_request_password_prompt_cb (GSListenerDBus *listener, GSMonitor *monitor) {
+    if (!monitor->priv->prefs->lock_enabled)
+        return;
+
+    gs_manager_request_unlock (monitor->priv->manager);
+}
+
+static void
 listener_dbus_show_message_cb (GSListenerDBus *listener,
                                const char *summary,
                                const char *body,
@@ -169,6 +177,7 @@ disconnect_listener_signals (GSMonitor *monitor) {
     g_signal_handlers_disconnect_by_func (monitor->priv->listener_dbus, listener_dbus_throttle_changed_cb, monitor);
     g_signal_handlers_disconnect_by_func (monitor->priv->listener_dbus, listener_dbus_simulate_user_activity_cb, monitor);
     g_signal_handlers_disconnect_by_func (monitor->priv->listener_dbus, listener_dbus_show_message_cb, monitor);
+    g_signal_handlers_disconnect_by_func (monitor->priv->listener_dbus, listener_dbus_request_password_prompt_cb, monitor);
 
     g_signal_handlers_disconnect_by_func (monitor->priv->listener, listener_activate_cb, monitor);
     g_signal_handlers_disconnect_by_func (monitor->priv->listener, listener_lock_cb, monitor);
@@ -191,6 +200,8 @@ connect_listener_signals (GSMonitor *monitor) {
                       G_CALLBACK (listener_dbus_simulate_user_activity_cb), monitor);
     g_signal_connect (monitor->priv->listener_dbus, "show-message",
                       G_CALLBACK (listener_dbus_show_message_cb), monitor);
+    g_signal_connect (monitor->priv->listener_dbus, "request-password-prompt",
+                      G_CALLBACK (listener_dbus_request_password_prompt_cb), monitor);
 
     g_signal_connect (monitor->priv->listener, "activate",
                       G_CALLBACK (listener_activate_cb), monitor);
