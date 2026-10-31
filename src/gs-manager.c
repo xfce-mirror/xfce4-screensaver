@@ -760,10 +760,13 @@ handle_window_dialog_down (GSManager *manager,
 #ifdef ENABLE_X11
     if (manager->priv->grab != NULL) {
         /* regrab pointer */
+        GdkDisplay *display = gs_window_get_display (window);
+        gdk_x11_display_error_trap_push (display);
         gs_grab_move_to_window (manager->priv->grab,
                                 gs_window_get_gdk_window (window),
-                                gs_window_get_display (window),
+                                display,
                                 FALSE, FALSE);
+        gdk_x11_display_error_trap_pop_ignored (display);
     }
 #endif
 
