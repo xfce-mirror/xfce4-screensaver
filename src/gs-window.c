@@ -625,44 +625,44 @@ set_info_text_and_icon (GSWindow *window,
                         const char *secondary_text) {
     GtkWidget *content_area;
     GtkWidget *hbox_content;
-    GtkWidget *image;
-    GtkWidget *vbox;
-    gchar *primary_markup;
-    GtkWidget *primary_label;
 
     hbox_content = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 8);
     gtk_widget_show (hbox_content);
 
-    image = gtk_image_new_from_icon_name (icon_name, GTK_ICON_SIZE_DIALOG);
-    gtk_widget_show (image);
-    gtk_box_pack_start (GTK_BOX (hbox_content), image, FALSE, FALSE, 0);
-    gtk_widget_set_valign (image, GTK_ALIGN_START);
+    if (icon_name != NULL) {
+        GtkWidget *image = gtk_image_new_from_icon_name (icon_name, GTK_ICON_SIZE_DIALOG);
+        gtk_widget_show (image);
+        gtk_box_pack_start (GTK_BOX (hbox_content), image, FALSE, FALSE, 0);
+        gtk_widget_set_valign (image, GTK_ALIGN_START);
+    }
 
-    vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
-    gtk_widget_show (vbox);
-    gtk_box_pack_start (GTK_BOX (hbox_content), vbox, FALSE, FALSE, 0);
+    if (primary_text != NULL || secondary_text != NULL) {
+        GtkWidget *vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
+        gtk_widget_show (vbox);
+        gtk_box_pack_start (GTK_BOX (hbox_content), vbox, FALSE, FALSE, 0);
 
-    primary_markup = g_strdup_printf ("<b>%s</b>", primary_text);
-    primary_label = gtk_label_new (primary_markup);
-    g_free (primary_markup);
-    gtk_widget_show (primary_label);
-    gtk_box_pack_start (GTK_BOX (vbox), primary_label, TRUE, TRUE, 0);
-    gtk_label_set_use_markup (GTK_LABEL (primary_label), TRUE);
-    gtk_label_set_line_wrap (GTK_LABEL (primary_label), TRUE);
-    gtk_widget_set_halign (primary_label, GTK_ALIGN_START);
+        if (primary_text != NULL) {
+            gchar *primary_markup = g_strdup_printf ("<b>%s</b>", primary_text);
+            GtkWidget *primary_label = gtk_label_new (primary_markup);
+            g_free (primary_markup);
+            gtk_widget_show (primary_label);
+            gtk_box_pack_start (GTK_BOX (vbox), primary_label, TRUE, TRUE, 0);
+            gtk_label_set_use_markup (GTK_LABEL (primary_label), TRUE);
+            gtk_label_set_line_wrap (GTK_LABEL (primary_label), TRUE);
+            gtk_widget_set_halign (primary_label, GTK_ALIGN_START);
+        }
 
-    if (secondary_text != NULL) {
-        gchar *secondary_markup;
-        GtkWidget *secondary_label;
-        secondary_markup = g_strdup_printf ("<small>%s</small>",
-                                            secondary_text);
-        secondary_label = gtk_label_new (secondary_markup);
-        g_free (secondary_markup);
-        gtk_widget_show (secondary_label);
-        gtk_box_pack_start (GTK_BOX (vbox), secondary_label, TRUE, TRUE, 0);
-        gtk_label_set_use_markup (GTK_LABEL (secondary_label), TRUE);
-        gtk_label_set_line_wrap (GTK_LABEL (secondary_label), TRUE);
-        gtk_widget_set_halign (secondary_label, GTK_ALIGN_START);
+        if (secondary_text != NULL) {
+            gchar *secondary_markup = g_strdup_printf ("<small>%s</small>",
+                                                       secondary_text);
+            GtkWidget *secondary_label = gtk_label_new (secondary_markup);
+            g_free (secondary_markup);
+            gtk_widget_show (secondary_label);
+            gtk_box_pack_start (GTK_BOX (vbox), secondary_label, TRUE, TRUE, 0);
+            gtk_label_set_use_markup (GTK_LABEL (secondary_label), TRUE);
+            gtk_label_set_line_wrap (GTK_LABEL (secondary_label), TRUE);
+            gtk_widget_set_halign (secondary_label, GTK_ALIGN_START);
+        }
     }
 
     /* remove old content */

@@ -36,6 +36,7 @@
 
 #include <gdk/gdk.h>
 #include <gio/gio.h>
+#include <libxfce4util/libxfce4util.h>
 
 #include "gs-debug.h"
 #include "gs-job.h"
@@ -579,7 +580,14 @@ gs_manager_show_message (GSManager *manager,
     if (window == NULL)
         return;
 
-    gs_window_show_message (window, summary, body, icon);
+    summary = xfce_str_is_empty (summary) ? NULL : summary;
+    body = xfce_str_is_empty (body) ? NULL : body;
+    icon = xfce_str_is_empty (icon) ? NULL : icon;
+
+    /* Show an information bar only when at least one field contains content.
+     * Empty notification requests must still request the password prompt. */
+    if (summary != NULL || body != NULL || icon != NULL)
+        gs_window_show_message (window, summary, body, icon);
     gs_manager_request_unlock (manager);
 }
 

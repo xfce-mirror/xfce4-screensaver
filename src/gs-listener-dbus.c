@@ -117,6 +117,7 @@ enum {
     ACTIVE_CHANGED,
     THROTTLE_CHANGED,
     SHOW_MESSAGE,
+    REQUEST_PASSWORD_PROMPT,
     LAST_SIGNAL
 };
 
@@ -1501,9 +1502,9 @@ listener_dbus_handle_system_message (DBusConnection *connection,
                 gs_debug ("Reinstating logind sleep inhibitor lock");
                 add_sleep_inhibit (listener);
 
-                gs_debug ("Logind requested session unlock");
-                // FIXME: there is no signal to request password prompt
-                g_signal_emit (listener, signals[SHOW_MESSAGE], 0, NULL, NULL, NULL);
+                gs_debug ("Logind requested password prompt");
+                /* Present authentication without displaying a notification. */
+                g_signal_emit (listener, signals[REQUEST_PASSWORD_PROMPT], 0);
             }
 
             if (dbus_error_is_set (&error)) {
@@ -1900,6 +1901,17 @@ gs_listener_dbus_class_init (GSListenerDBusClass *klass) {
                       G_TYPE_STRING,
                       G_TYPE_STRING,
                       G_TYPE_STRING);
+
+    signals[REQUEST_PASSWORD_PROMPT] =
+        g_signal_new ("request-password-prompt",
+                      G_TYPE_FROM_CLASS (object_class),
+                      G_SIGNAL_RUN_LAST,
+                      G_STRUCT_OFFSET (GSListenerDBusClass, request_password_prompt),
+                      NULL,
+                      NULL,
+                      g_cclosure_marshal_VOID__VOID,
+                      G_TYPE_NONE,
+                      0);
 
     g_object_class_install_property (object_class,
                                      PROP_ACTIVE,
