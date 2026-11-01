@@ -642,7 +642,7 @@ set_info_text_and_icon (GSWindow *window,
 
     vbox = NULL;
     if (primary_text != NULL || secondary_text != NULL) {
-        vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
+        GtkWidget *vbox = gtk_box_new (GTK_ORIENTATION_VERTICAL, 6);
         gtk_widget_show (vbox);
         gtk_box_pack_start (GTK_BOX (hbox_content), vbox, FALSE, FALSE, 0);
     }
