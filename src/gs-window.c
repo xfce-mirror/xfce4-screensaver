@@ -634,7 +634,7 @@ set_info_text_and_icon (GSWindow *window,
     gtk_widget_show (hbox_content);
 
     if (icon_name != NULL) {
-        image = gtk_image_new_from_icon_name (icon_name, GTK_ICON_SIZE_DIALOG);
+        GtkWidget *image = gtk_image_new_from_icon_name (icon_name, GTK_ICON_SIZE_DIALOG);
         gtk_widget_show (image);
         gtk_box_pack_start (GTK_BOX (hbox_content), image, FALSE, FALSE, 0);
         gtk_widget_set_valign (image, GTK_ALIGN_START);
