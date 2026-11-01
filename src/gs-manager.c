@@ -580,8 +580,8 @@ gs_manager_show_message (GSManager *manager,
         return;
 
     summary = xfce_str_is_empty (summary) ? NULL : summary;
-    body = body != NULL && *body != '\0' ? body : NULL;
-    icon = icon != NULL && *icon != '\0' ? icon : NULL;
+    body = xfce_str_is_empty (body) ? NULL : body;
+    icon = xfce_str_is_empty (icon) ? NULL : icon;
 
     /* Show an information bar only when at least one field contains content.
      * Empty notification requests must still request the password prompt. */
