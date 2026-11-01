@@ -68,6 +68,25 @@ executable(
   install: false,
 )
 
+test_xss_config = executable(
+  'test-xss-config',
+  [
+    'gs-debug.c',
+    'gs-debug.h',
+    'gs-xss-config.c',
+    'gs-xss-config.h',
+    'test-xss-config.c',
+  ],
+  c_args: c_args,
+  dependencies: [
+    glib,
+    libm,
+  ],
+  install: false,
+)
+
+test('xss-config', test_xss_config)
+
 gs_marshal = gnome.genmarshal(
   'gs-marshal',
   sources: 'gs-marshal.list',
@@ -89,6 +108,8 @@ test_window_sources = [
   'gs-theme-manager.h',
   'gs-window.c',
   'gs-window.h',
+  'gs-xss-config.c',
+  'gs-xss-config.h',
   'subprocs.c',
   'subprocs.h',
   'test-window.c',
@@ -207,6 +228,8 @@ xfce4_screensaver_sources = [
   'gs-theme-manager.h',
   'gs-window.c',
   'gs-window.h',
+  'gs-xss-config.c',
+  'gs-xss-config.h',
   'subprocs.c',
   'subprocs.h',
   'xfce4-screensaver.c',
@@ -270,6 +293,8 @@ xfce4_screensaver_preferences_sources = [
   'gs-prefs.h',
   'gs-theme-manager.c',
   'gs-theme-manager.h',
+  'gs-xss-config.c',
+  'gs-xss-config.h',
   'subprocs.c',
   'subprocs.h',
   'xfce4-screensaver-preferences.c',
