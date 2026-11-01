@@ -36,6 +36,7 @@
 
 #include <gdk/gdk.h>
 #include <gio/gio.h>
+#include <libxfce4util/libxfce4util.h>
 
 #include "gs-debug.h"
 #include "gs-job.h"
