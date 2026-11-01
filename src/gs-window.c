@@ -648,8 +648,8 @@ set_info_text_and_icon (GSWindow *window,
     }
 
     if (primary_text != NULL) {
-        primary_markup = g_strdup_printf ("<b>%s</b>", primary_text);
-        primary_label = gtk_label_new (primary_markup);
+        gchar *primary_markup = g_strdup_printf ("<b>%s</b>", primary_text);
+        GtkWidget *primary_label = gtk_label_new (primary_markup);
         g_free (primary_markup);
         gtk_widget_show (primary_label);
         gtk_box_pack_start (GTK_BOX (vbox), primary_label, TRUE, TRUE, 0);
