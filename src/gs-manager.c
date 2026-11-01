@@ -573,7 +573,7 @@ gs_manager_show_message (GSManager *manager,
     if (window == NULL)
         return;
 
-    summary = summary != NULL && *summary != '\0' ? summary : NULL;
+    summary = xfce_str_is_empty (summary) ? NULL : summary;
     body = body != NULL && *body != '\0' ? body : NULL;
     icon = icon != NULL && *icon != '\0' ? icon : NULL;
 
