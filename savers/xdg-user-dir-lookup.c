@@ -120,7 +120,9 @@ xdg_user_dir_lookup_with_fallback (const char *type, const char *fallback) {
         g_free (user_dir);
 
         if (relative) {
-            user_dir = g_strconcat (home_dir, "/", NULL);
+            user_dir = g_new0 (gchar, strlen (home_dir) + 1 + strlen (p) + 1);
+            strcpy (user_dir, home_dir);
+            strcat (user_dir, "/");
         } else {
             user_dir = g_new0 (gchar, strlen (p) + 1);
         }
