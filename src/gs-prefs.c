@@ -152,7 +152,9 @@ const char *
 gs_prefs_get_theme (GSPrefs *prefs) {
     const char *theme = NULL;
 
-    if (!prefs->saver_enabled || prefs->mode == GS_MODE_BLANK_ONLY) {
+    if (!prefs->saver_enabled
+        || prefs->mode == GS_MODE_BLANK_ONLY
+        || prefs->mode == GS_MODE_XSCREENSAVER) {
         return NULL;
     }
 

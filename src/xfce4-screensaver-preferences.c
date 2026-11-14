@@ -49,9 +49,11 @@
 #include "gs-job.h"
 #include "gs-prefs.h" /* for GS_MODE enum */
 #include "gs-theme-manager.h"
+#include "gs-xss-config.h"
 #include "xfce-desktop-utils.h"
 
 #define GPM_COMMAND "xfce4-power-manager-settings"
+#define XSS_THEME_ID "__xscreensaver"
 
 enum {
     NAME_COLUMN = 0,
@@ -196,14 +198,16 @@ config_get_mode (gboolean *is_writable) {
 
 static void
 config_set_mode (int mode) {
+    gboolean cycles = mode == GS_MODE_RANDOM || mode == GS_MODE_XSCREENSAVER;
+
     xfconf_channel_set_int (screensaver_channel, KEY_MODE, mode);
 
     gtk_widget_set_visible (GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_cycle_delay_label_left")),
-                            mode == GS_MODE_RANDOM);
+                            cycles);
     gtk_widget_set_visible (GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_cycle_delay")),
-                            mode == GS_MODE_RANDOM);
+                            cycles);
     gtk_widget_set_visible (GTK_WIDGET (gtk_builder_get_object (builder, "saver_themes_cycle_delay_label_right")),
-                            mode == GS_MODE_RANDOM);
+                            cycles);
 }
 
 static char *
@@ -224,6 +228,8 @@ config_get_theme (gboolean *is_writable) {
         name = g_strdup ("__blank-only");
     } else if (mode == GS_MODE_RANDOM) {
         name = g_strdup ("__random");
+    } else if (mode == GS_MODE_XSCREENSAVER) {
+        name = g_strdup (XSS_THEME_ID);
     } else {
         gchar **strv;
         strv = xfconf_channel_get_string_list (screensaver_channel,
@@ -275,6 +281,10 @@ config_set_theme (const char *theme_id) {
 
         /* set the themes key to contain all available screensavers */
         strv = get_all_theme_ids (theme_manager);
+    } else if (theme_id && strcmp (theme_id, XSS_THEME_ID) == 0) {
+        /* the hack list lives in ~/.xscreensaver, leave the themes key alone */
+        config_set_mode (GS_MODE_XSCREENSAVER);
+        return;
     } else {
         mode = GS_MODE_SINGLE;
         strv = g_strsplit (theme_id, "%%%", 1);
@@ -631,6 +641,14 @@ preview_set_theme (const char *theme,
 
             gs_job_start (job);
         }
+    } else if (theme && strcmp (theme, XSS_THEME_ID) == 0) {
+        gchar *command = gs_xss_config_get_command ();
+
+        gs_job_set_command (job, command);
+        if (command != NULL) {
+            gs_job_start (job);
+        }
+        g_free (command);
     } else {
         job_set_theme (job, theme);
         gs_job_start (job);
@@ -692,6 +710,7 @@ get_theme_info_list (void) {
 static void
 populate_model (GtkTreeStore *store) {
     GtkTreeIter iter;
+    GSXssConfig *xss_config;
     GSList *themes = NULL;
     GSList *l;
 
@@ -706,6 +725,16 @@ populate_model (GtkTreeStore *store) {
                         NAME_COLUMN, _("Random"),
                         ID_COLUMN, "__random",
                         -1);
+
+    xss_config = gs_xss_config_load ();
+    if (xss_config != NULL) {
+        gtk_tree_store_append (store, &iter, NULL);
+        gtk_tree_store_set (store, &iter,
+                            NAME_COLUMN, _("XScreenSaver selection"),
+                            ID_COLUMN, XSS_THEME_ID,
+                            -1);
+        gs_xss_config_free (xss_config);
+    }
 
     gtk_tree_store_append (store, &iter, NULL);
     gtk_tree_store_set (store, &iter,
@@ -901,6 +930,10 @@ compare_theme_names (char *name_a,
     } else if (strcmp (id_a, "__random") == 0) {
         return -1;
     } else if (strcmp (id_b, "__random") == 0) {
+        return 1;
+    } else if (strcmp (id_a, XSS_THEME_ID) == 0) {
+        return -1;
+    } else if (strcmp (id_b, XSS_THEME_ID) == 0) {
         return 1;
     } else if (strcmp (id_a, "__separator") == 0) {
         return -1;

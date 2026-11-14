@@ -49,8 +49,9 @@ G_BEGIN_DECLS
  * Screensaver theme selection mode
  * The selection mode used by screensaver. May be "blank-only" to enable the screensaver
  * without using any theme on activation, "single" to enable screensaver using only one
- * theme on activation (specified in "themes" key), and "random" to enable the screensaver
- * using a random theme on activation.
+ * theme on activation (specified in "themes" key), "random" to enable the screensaver
+ * using a random theme on activation, and "xscreensaver" to run a hack picked from the
+ * user's xscreensaver configuration (~/.xscreensaver).
  */
 #define KEY_MODE "/saver/mode"
 #define DEFAULT_KEY_MODE 0
@@ -188,7 +189,8 @@ G_BEGIN_DECLS
 typedef enum {
     GS_MODE_BLANK_ONLY,
     GS_MODE_RANDOM,
-    GS_MODE_SINGLE
+    GS_MODE_SINGLE,
+    GS_MODE_XSCREENSAVER
 } GSSaverMode;
 
 typedef struct GSPrefsPrivate GSPrefsPrivate;

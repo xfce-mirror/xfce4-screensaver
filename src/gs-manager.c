@@ -679,7 +679,8 @@ manager_show_window (GSManager *manager,
     remove_lock_timer (manager);
     add_lock_timer (manager, manager->priv->prefs->lock_timeout);
 
-    if (manager->priv->prefs->mode == GS_MODE_RANDOM) {
+    if (manager->priv->prefs->mode == GS_MODE_RANDOM
+        || manager->priv->prefs->mode == GS_MODE_XSCREENSAVER) {
         remove_cycle_timer (manager);
         add_cycle_timer (manager, manager->priv->prefs->cycle);
     }
