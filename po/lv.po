@@ -1,0 +1,645 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Xfce
+# This file is distributed under the same license as the xfce-apps.xfce4-screensaver package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Xfce Bot <transifex@xfce.org>, 2023
+# Nick Schermer <nick@xfce.org>, 2024
+# Rihards Priedītis <rprieditis@gmail.com>, 2026
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: xfce-apps.xfce4-screensaver\n"
+"Report-Msgid-Bugs-To: https://gitlab.xfce.org/\n"
+"POT-Creation-Date: 2024-12-22 00:50+0100\n"
+"PO-Revision-Date: 2018-10-16 16:27+0000\n"
+"Last-Translator: Rihards Priedītis <rprieditis@gmail.com>, 2026\n"
+"Language-Team: Latvian (https://app.transifex.com/xfce/teams/16840/lv/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lv\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
+
+#: data/xfce4-screensaver-preferences.desktop.in:3
+#: src/xfce4-screensaver.desktop.in.in:4
+msgid "Xfce Screensaver"
+msgstr "Xfce ekrānsaudzētājs"
+
+#: data/xfce4-screensaver-preferences.desktop.in:4
+msgid "Set your screensaver preferences"
+msgstr "Iestatiet ekrānsaudzētāja iestatījumus"
+
+#: data/xfce4-screensaver-preferences.desktop.in:5
+#: src/xfce4-screensaver-preferences.ui:875
+#: src/xfce4-screensaver.desktop.in.in:6
+msgid "Screensaver"
+msgstr "Ekrānsaudzētājs"
+
+#: data/xfce4-screensaver-preferences.desktop.in:11
+msgid "settings;preferences;screensaver;lock screen;"
+msgstr ""
+"iestatījumi;ekrānsaudzētājs;bloķēt "
+"ekrānu;settings;preferences;screensaver;lock screen;"
+
+#: data/xfce4-screensaver.desktop.in:4
+msgid "Screensavers"
+msgstr "Ekrānsaudzētāji"
+
+#: data/xfce4-screensaver.desktop.in:5
+msgid "Screensaver themes"
+msgstr "Ekrānsaudzētāju motīvi"
+
+#: savers/floaters.c:93
+msgid "Show paths that images follow"
+msgstr "Rādīt ceļus, pa kuriem pārvietojas attēli"
+
+#: savers/floaters.c:96
+msgid "Occasionally rotate images as they move"
+msgstr "Kustībā reizēm pagriezt attēlus"
+
+#: savers/floaters.c:99
+msgid "Print out frame rate and other statistics"
+msgstr "Izdrukāt kadru frekvenci un citu statistiku"
+
+#: savers/floaters.c:102
+msgid "The maximum number of images to keep on screen"
+msgstr "Maksimālais ekrānā vienlaikus rādāmo attēlu skaits"
+
+#: savers/floaters.c:102
+msgid "MAX_IMAGES"
+msgstr "MAKS_ATTĒLI"
+
+#: savers/floaters.c:105
+msgid "The initial size and position of window"
+msgstr "Loga sākotnējais izmērs un novietojums"
+
+#: savers/floaters.c:105
+msgid "WIDTHxHEIGHT+X+Y"
+msgstr "PLATUMSxAUGSTUMS+X+Y"
+
+#: savers/floaters.c:108
+msgid "The source image to use"
+msgstr "Izmantojamais avota attēls"
+
+#. translators: the word "image" here
+#. * represents a command line argument
+#: savers/floaters.c:1127
+msgid "image - floats images around the screen"
+msgstr "image - pārvieto attēlus pa ekrānu"
+
+#: savers/floaters.c:1131 savers/popsquares.c:54
+#, c-format
+msgid "%s. See --help for usage information.\n"
+msgstr "%s. Lietošanas informāciju skatiet --help.\n"
+
+#: savers/floaters.c:1137
+msgid "Failed to initialize the windowing system."
+msgstr "Neizdevās inicializēt logu sistēmu."
+
+#: savers/floaters.c:1142
+msgid "You must specify one image.  See --help for usage information.\n"
+msgstr "Jānorāda viens attēls.  Lietošanas informāciju skatiet --help.\n"
+
+#: savers/slideshow.c:59
+msgid "Location to get images from"
+msgstr "Vieta, no kuras ņemt attēlus"
+
+#: savers/slideshow.c:59
+msgid "PATH"
+msgstr "CEĻŠ"
+
+#: savers/slideshow.c:61
+msgid "Color to use for images background"
+msgstr "Attēlu fona krāsa"
+
+#: savers/slideshow.c:61
+msgid "\"#rrggbb\""
+msgstr "„#rrggbb”"
+
+#: savers/slideshow.c:63
+msgid "Do not randomize pictures from location"
+msgstr "Nejaukt attēlu secību no atrašanās vietas"
+
+#: savers/slideshow.c:65
+msgid "Do not try to stretch images on screen"
+msgstr "Nemēģināt izstiept attēlus pa ekrānu"
+
+#: savers/slideshow.c:67
+msgid "Do not crop images to the screen size"
+msgstr "Neapgriezt attēlus līdz ekrāna izmēram"
+
+#: savers/xfce-floaters.desktop.in.in:3
+msgid "Floating Xfce"
+msgstr "Peldošais Xfce"
+
+#: savers/xfce-floaters.desktop.in.in:4
+msgid "Bubbles the Xfce logo around the screen"
+msgstr "Pārvieto Xfce logotipu pa ekrānu kā burbuli"
+
+#: savers/xfce-personal-slideshow.desktop.in.in:3
+msgid "Slideshow"
+msgstr "Slīdrāde"
+
+#: savers/xfce-personal-slideshow.desktop.in.in:4
+msgid "Display a slideshow from your Pictures folder"
+msgstr "Rādīt slīdrādi no jūsu mapes „Attēli”"
+
+#: savers/xfce-popsquares.desktop.in.in:3
+msgid "Pop art squares"
+msgstr "Popārta kvadrāti"
+
+#: savers/xfce-popsquares.desktop.in.in:4
+msgid "A pop-art-ish grid of pulsing colors."
+msgstr "Popārta stila pulsējošu krāsu režģis."
+
+#: src/gs-auth-pam.c:373
+#, c-format
+msgid "Unable to establish service %s: %s\n"
+msgstr "Neizdevās izveidot pakalpojumu %s: %s\n"
+
+#: src/gs-auth-pam.c:399
+#, c-format
+msgid "Can't set PAM_TTY=%s"
+msgstr "Neizdevās iestatīt PAM_TTY=%s"
+
+#: src/gs-auth-pam.c:430
+msgid "Incorrect password."
+msgstr "Nepareiza parole."
+
+#: src/gs-auth-pam.c:432 src/xfce4-screensaver-dialog.c:280
+msgid "Authentication failed."
+msgstr "Autentificēšana neizdevās."
+
+#: src/gs-auth-pam.c:446
+msgid "Not permitted to gain access at this time."
+msgstr "Pašlaik piekļuve nav atļauta."
+
+#: src/gs-auth-pam.c:452
+msgid "No longer permitted to access the system."
+msgstr "Piekļuve sistēmai vairs nav atļauta."
+
+#: src/gs-auth-pam.c:660
+msgid "Username:"
+msgstr "Lietotājvārds:"
+
+#: src/gs-listener-dbus.c:1968
+msgid "failed to register with the message bus"
+msgstr "neizdevās reģistrēties ziņojumu kopnē"
+
+#: src/gs-listener-dbus.c:1978
+msgid "not connected to the message bus"
+msgstr "nav savienojuma ar ziņojumu kopni"
+
+#: src/gs-listener-dbus.c:1987 src/gs-listener-dbus.c:2018
+msgid "screensaver already running in this session"
+msgstr "ekrānsaudzētājs šajā sesijā jau darbojas"
+
+#. TRANSLATORS: adjust this accordingly for your locale format
+#: src/gs-lock-plug.c:308
+msgctxt "Date"
+msgid "%A, %B %e   %H:%M"
+msgstr "%A, %e. %B   %H:%M"
+
+#: src/gs-lock-plug.c:398
+msgid "Time has expired."
+msgstr "Laiks ir beidzies."
+
+#: src/xfce4-screensaver-command.c:53
+msgid "Causes the screensaver to exit gracefully"
+msgstr "Liek ekrānsaudzētājam korekti beigt darbu"
+
+#: src/xfce4-screensaver-command.c:55
+msgid "Query the state of the screensaver"
+msgstr "Noskaidrot ekrānsaudzētāja stāvokli"
+
+#: src/xfce4-screensaver-command.c:57
+msgid "Query the length of time the screensaver has been active"
+msgstr "Noskaidrot, cik ilgi ekrānsaudzētājs ir bijis aktīvs"
+
+#: src/xfce4-screensaver-command.c:59
+msgid "Tells the running screensaver process to lock the screen immediately"
+msgstr "Liek darbojošajam ekrānsaudzētāja procesam nekavējoties bloķēt ekrānu"
+
+#: src/xfce4-screensaver-command.c:61
+msgid "If the screensaver is active then switch to another graphics demo"
+msgstr "Ja ekrānsaudzētājs ir aktīvs, pārslēgt uz citu grafikas demonstrāciju"
+
+#: src/xfce4-screensaver-command.c:63
+msgid "Turn the screensaver on (blank the screen)"
+msgstr "Ieslēgt ekrānsaudzētāju (padarīt ekrānu tukšu)"
+
+#: src/xfce4-screensaver-command.c:65
+msgid "If the screensaver is active then deactivate it (un-blank the screen)"
+msgstr "Ja ekrānsaudzētājs ir aktīvs, deaktivizēt to (atjaunot ekrānu)"
+
+#: src/xfce4-screensaver-command.c:67
+msgid "Poke the running screensaver to simulate user activity"
+msgstr ""
+"Pabikstīt darbojošos ekrānsaudzētāju, lai imitētu lietotāja aktivitāti"
+
+#: src/xfce4-screensaver-command.c:69
+msgid ""
+"Inhibit the screensaver from activating.  Command blocks while inhibit is "
+"active."
+msgstr ""
+"Neļaut ekrānsaudzētājam aktivizēties.  Kamēr aizliegums ir spēkā, komanda "
+"neatgriežas."
+
+#: src/xfce4-screensaver-command.c:71
+msgid "The calling application that is inhibiting the screensaver"
+msgstr "Izsaucošā lietotne, kas neļauj ekrānsaudzētājam aktivizēties"
+
+#: src/xfce4-screensaver-command.c:73
+msgid "The reason for inhibiting the screensaver"
+msgstr "Iemesls, kāpēc ekrānsaudzētājam neļauj aktivizēties"
+
+#: src/xfce4-screensaver-command.c:75 src/xfce4-screensaver-dialog.c:70
+#: src/xfce4-screensaver.c:58
+msgid "Version of this application"
+msgstr "Šīs lietotnes versija"
+
+#: src/xfce4-screensaver-command.c:182
+#, c-format
+msgid "The screensaver is %s\n"
+msgstr "Ekrānsaudzētājs ir %s\n"
+
+#: src/xfce4-screensaver-command.c:182
+msgid "active"
+msgstr "aktīvs"
+
+#: src/xfce4-screensaver-command.c:182
+msgid "inactive"
+msgstr "neaktīvs"
+
+#: src/xfce4-screensaver-command.c:193
+msgid "The screensaver is not inhibited\n"
+msgstr "Ekrānsaudzētājam aktivizēties netiek liegts\n"
+
+#: src/xfce4-screensaver-command.c:195
+msgid "The screensaver is being inhibited by:\n"
+msgstr "Ekrānsaudzētājam aktivizēties neļauj:\n"
+
+#: src/xfce4-screensaver-command.c:211
+#, c-format
+msgid "The screensaver has been active for %d seconds.\n"
+msgstr "Ekrānsaudzētājs ir aktīvs (sekundes: %d).\n"
+
+#: src/xfce4-screensaver-configure.py:167
+msgid "Part of Xfce Screensaver"
+msgstr "Xfce ekrānsaudzētāja daļa"
+
+#: src/xfce4-screensaver-configure.py:178
+msgid "Max number of images"
+msgstr "Maks. attēlu skaits"
+
+#: src/xfce4-screensaver-configure.py:181
+msgid "Show paths"
+msgstr "Rādīt ceļus"
+
+#: src/xfce4-screensaver-configure.py:183
+msgid "Do rotations"
+msgstr "Pagriezt"
+
+#: src/xfce4-screensaver-configure.py:185
+msgid "Print stats"
+msgstr "Drukāt statistiku"
+
+#: src/xfce4-screensaver-configure.py:188
+msgid "Location"
+msgstr "Atrašanās vieta"
+
+#: src/xfce4-screensaver-configure.py:191
+msgid "Background color"
+msgstr "Fona krāsa"
+
+#: src/xfce4-screensaver-configure.py:193
+msgid "Do not randomize images"
+msgstr "Nejaukt attēlu secību"
+
+#: src/xfce4-screensaver-configure.py:195
+msgid "Do not stretch images"
+msgstr "Neizstiept attēlus"
+
+#: src/xfce4-screensaver-configure.py:197
+msgid "Do not crop images"
+msgstr "Neapgriezt attēlus"
+
+#: src/xfce4-screensaver-configure.py:389
+msgid "Restore Defaults"
+msgstr "Atjaunot noklusējumus"
+
+#: src/xfce4-screensaver-configure.py:402
+msgid "Preferences"
+msgstr "Iestatījumi"
+
+#: src/xfce4-screensaver-configure.py:408
+msgid "About"
+msgstr "Par"
+
+#: src/xfce4-screensaver-configure.py:421
+msgid "Video"
+msgstr "Video"
+
+#: src/xfce4-screensaver-configure.py:729
+msgid "Configure an individual screensaver"
+msgstr "Konfigurēt atsevišķu ekrānsaudzētāju"
+
+#: src/xfce4-screensaver-configure.py:731
+msgid "screensaver name to configure"
+msgstr "konfigurējamā ekrānsaudzētāja nosaukums"
+
+#: src/xfce4-screensaver-configure.py:733
+msgid "check if screensaver is configurable"
+msgstr "pārbaudīt, vai ekrānsaudzētājs ir konfigurējams"
+
+#: src/xfce4-screensaver-configure.py:737
+msgid "Unable to configure screensaver"
+msgstr "Neizdevās konfigurēt ekrānsaudzētāju"
+
+#: src/xfce4-screensaver-configure.py:741
+msgid "Screensaver required."
+msgstr "Jānorāda ekrānsaudzētājs."
+
+#: src/xfce4-screensaver-configure.py:749
+#, python-format
+msgid "File not found: %s"
+msgstr "Fails nav atrasts: %s"
+
+#: src/xfce4-screensaver-configure.py:757
+#, python-format
+msgid "Unrecognized file type: %s"
+msgstr "Neatpazīts faila tips: %s"
+
+#: src/xfce4-screensaver-configure.py:761
+#, python-format
+msgid "Failed to process file: %s"
+msgstr "Neizdevās apstrādāt failu: %s"
+
+#: src/xfce4-screensaver-configure.py:766
+#, python-format
+msgid "Screensaver %s is configurable."
+msgstr "Ekrānsaudzētājs %s ir konfigurējams."
+
+#: src/xfce4-screensaver-configure.py:768
+#, python-format
+msgid "Screensaver %s is not configurable."
+msgstr "Ekrānsaudzētājs %s nav konfigurējams."
+
+#: src/xfce4-screensaver-configure.py:772
+#, python-format
+msgid "Screensaver %s has no configuration options."
+msgstr "Ekrānsaudzētājam %s nav konfigurācijas opciju."
+
+#: src/xfce4-screensaver-dialog.c:68
+msgid "Show debugging output"
+msgstr "Rādīt atkļūdošanas izvadi"
+
+#: src/xfce4-screensaver-dialog.c:72
+msgid "Show the logout button"
+msgstr "Rādīt atteikšanās pogu"
+
+#: src/xfce4-screensaver-dialog.c:74
+msgid "Command to invoke from the logout button"
+msgstr "Ar atteikšanās pogu izsaucamā komanda"
+
+#: src/xfce4-screensaver-dialog.c:76
+msgid "Show the switch user button"
+msgstr "Rādīt lietotāja nomaiņas pogu"
+
+#: src/xfce4-screensaver-dialog.c:78
+msgid "Message to show in the dialog"
+msgstr "Dialoglodziņā rādāmais ziņojums"
+
+#: src/xfce4-screensaver-dialog.c:78 src/xfce4-screensaver-dialog.c:80
+msgid "MESSAGE"
+msgstr "ZIŅOJUMS"
+
+#: src/xfce4-screensaver-dialog.c:80
+msgid "Not used"
+msgstr "Netiek izmantots"
+
+#: src/xfce4-screensaver-dialog.c:82
+msgid "Monitor height"
+msgstr "Monitora augstums"
+
+#: src/xfce4-screensaver-dialog.c:84
+msgid "Monitor width"
+msgstr "Monitora platums"
+
+#: src/xfce4-screensaver-dialog.c:86
+msgid "Monitor index"
+msgstr "Monitora indekss"
+
+#: src/xfce4-screensaver-dialog.c:240
+msgid "Checking..."
+msgstr "Pārbauda..."
+
+#: src/xfce4-screensaver-dialog.ui:70
+msgid "%U"
+msgstr "%U"
+
+#: src/xfce4-screensaver-dialog.ui:98
+msgid "Enter your password"
+msgstr "Ievadiet paroli"
+
+#: src/xfce4-screensaver-dialog.ui:211
+msgid "You have the Caps Lock key on."
+msgstr "Ir ieslēgts taustiņš Caps Lock."
+
+#: src/xfce4-screensaver-dialog.ui:271
+msgid "_Switch User"
+msgstr "_Nomainīt lietotāju"
+
+#: src/xfce4-screensaver-dialog.ui:287
+msgid "_Log Out"
+msgstr "_Atteikties"
+
+#: src/xfce4-screensaver-dialog.ui:303
+msgid "_Cancel"
+msgstr "A_tcelt"
+
+#: src/xfce4-screensaver-dialog.ui:319
+msgid "_Unlock"
+msgstr "_Atbloķēt"
+
+#: src/xfce4-screensaver-dialog.ui:377
+msgid "<b>%h</b>"
+msgstr "<b>%h</b>"
+
+#: src/xfce4-screensaver-dialog.ui:391
+#, c-format
+msgid "<b>%s</b>"
+msgstr "<b>%s</b>"
+
+#: src/xfce4-screensaver-preferences.c:91
+msgid "Settings manager socket"
+msgstr "Iestatījumu pārvaldnieka ligzda"
+
+#: src/xfce4-screensaver-preferences.c:91
+msgid "SOCKET ID"
+msgstr "LIGZDAS ID"
+
+#: src/xfce4-screensaver-preferences.c:730
+msgid "Blank screen"
+msgstr "Tukšs ekrāns"
+
+#: src/xfce4-screensaver-preferences.c:736
+msgid "Random"
+msgstr "Nejauši"
+
+#: src/xfce4-screensaver-preferences.c:1754
+msgid "Setting locked by administrator."
+msgstr "Iestatījumu bloķējis administrators."
+
+#: src/xfce4-screensaver-preferences.c:1795
+msgid "Could not load the main interface"
+msgstr "Neizdevās ielādēt galveno saskarni"
+
+#: src/xfce4-screensaver-preferences.c:1797
+msgid "Please make sure that the screensaver is properly installed"
+msgstr "Lūdzu, pārliecinieties, ka ekrānsaudzētājs ir pareizi instalēts"
+
+#: src/xfce4-screensaver-preferences.ui:38
+msgid "Screensaver Preview"
+msgstr "Ekrānsaudzētāja priekšskatījums"
+
+#: src/xfce4-screensaver-preferences.ui:78
+msgid "<b>Screensaver preview</b>"
+msgstr "<b>Ekrānsaudzētāja priekšskatījums</b>"
+
+#: src/xfce4-screensaver-preferences.ui:227
+msgid "Screensaver Preferences"
+msgstr "Ekrānsaudzētāja iestatījumi"
+
+#: src/xfce4-screensaver-preferences.ui:262
+msgid "Power _Management"
+msgstr "Barošanas _pārvaldība"
+
+#: src/xfce4-screensaver-preferences.ui:279
+#: src/xfce4-screensaver-preferences.ui:608
+msgid "Preview"
+msgstr "Priekšskatījums"
+
+#: src/xfce4-screensaver-preferences.ui:370
+msgid "Running as root"
+msgstr "Darbojas kā root"
+
+#: src/xfce4-screensaver-preferences.ui:386
+msgid "The screen will not be locked for the root user."
+msgstr "Root lietotājam ekrāns netiks bloķēts."
+
+#: src/xfce4-screensaver-preferences.ui:427
+msgid "Resolve"
+msgstr "Novērst"
+
+#: src/xfce4-screensaver-preferences.ui:473
+msgid "Xfce Power Manager is not configured to handle laptop lid events"
+msgstr ""
+"Xfce barošanas pārvaldnieks nav konfigurēts apstrādāt klēpjdatora vāka "
+"notikumus"
+
+#: src/xfce4-screensaver-preferences.ui:489
+msgid "Your computer may not be locked when you close the lid."
+msgstr "Aizverot vāku, dators var netikt bloķēts."
+
+#: src/xfce4-screensaver-preferences.ui:538
+msgid "Enable Screensaver"
+msgstr "Iespējot ekrānsaudzētāju"
+
+#: src/xfce4-screensaver-preferences.ui:592
+msgid "Theme"
+msgstr "Motīvs"
+
+#: src/xfce4-screensaver-preferences.ui:688
+msgid "Configure screensaver"
+msgstr "Konfigurēt ekrānsaudzētāju"
+
+#: src/xfce4-screensaver-preferences.ui:689
+msgid "Configure..."
+msgstr "Iestatīt..."
+
+#: src/xfce4-screensaver-preferences.ui:729
+msgid "Change theme after:"
+msgstr "Mainīt motīvu pēc:"
+
+#: src/xfce4-screensaver-preferences.ui:752
+#: src/xfce4-screensaver-preferences.ui:822
+#: src/xfce4-screensaver-preferences.ui:993
+#: src/xfce4-screensaver-preferences.ui:1170
+msgid "minutes"
+msgstr "minūtes"
+
+#: src/xfce4-screensaver-preferences.ui:767
+msgid "Activate screensaver when computer is idle"
+msgstr "Aktivizēt ekrānsaudzētāju, kad dators ir dīkstāvē"
+
+#: src/xfce4-screensaver-preferences.ui:798
+msgid "Regard the computer as _idle after:"
+msgstr "Uzskatīt datoru par _dīkstāvē esošu pēc:"
+
+#: src/xfce4-screensaver-preferences.ui:837
+msgid "Inhibit screensaver for fullscreen applications"
+msgstr "Pilnekrāna lietotnēm neļaut ekrānsaudzētājam aktivizēties"
+
+#: src/xfce4-screensaver-preferences.ui:896
+msgid "Enable Lock Screen"
+msgstr "Iespējot ekrāna bloķēšanu"
+
+#: src/xfce4-screensaver-preferences.ui:940
+msgid "Lock Screen with Screensaver"
+msgstr "Bloķēt ekrānu kopā ar ekrānsaudzētāju"
+
+#: src/xfce4-screensaver-preferences.ui:970
+msgid "Lock the screen after the screensaver is active for:"
+msgstr "Bloķēt ekrānu, kad ekrānsaudzētājs aktīvs jau:"
+
+#: src/xfce4-screensaver-preferences.ui:1008
+msgid "On Screen Keyboard"
+msgstr "Ekrāna tastatūra"
+
+#: src/xfce4-screensaver-preferences.ui:1038
+msgid "On screen keyboard command:"
+msgstr "Ekrāna tastatūras komanda:"
+
+#: src/xfce4-screensaver-preferences.ui:1063
+msgid "Session Status Messages"
+msgstr "Sesijas statusa ziņojumi"
+
+#: src/xfce4-screensaver-preferences.ui:1093
+msgid "Logout"
+msgstr "Atteikšanās"
+
+#: src/xfce4-screensaver-preferences.ui:1123
+msgid "Logout command:"
+msgstr "Atteikšanās komanda:"
+
+#: src/xfce4-screensaver-preferences.ui:1147
+msgid "Enable logout after:"
+msgstr "Ļaut atteikties pēc:"
+
+#: src/xfce4-screensaver-preferences.ui:1185
+msgid "User Switching"
+msgstr "Lietotāja nomaiņa"
+
+#: src/xfce4-screensaver-preferences.ui:1215
+msgid "Lock Screen with System Sleep"
+msgstr "Bloķēt ekrānu, sistēmai pārejot miega režīmā"
+
+#: src/xfce4-screensaver-preferences.ui:1256
+msgid "Lock Screen"
+msgstr "Bloķēt ekrānu"
+
+#: src/xfce4-screensaver.c:59
+msgid "Enable debugging code"
+msgstr "Iespējot atkļūdošanas kodu"
+
+#: src/xfce4-screensaver.desktop.in.in:5
+msgid "Launch screensaver and locker program"
+msgstr "Palaist ekrānsaudzētāja un bloķēšanas programmu"
+
+#: src/xfcekbd-indicator.c:408
+msgid "XKB initialization error"
+msgstr "XKB inicializēšanas kļūda"
