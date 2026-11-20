@@ -24,6 +24,8 @@
 #ifdef ENABLE_X11
 #include <gdk/gdkx.h>
 
+#include <X11/extensions/dpms.h>
+
 #include "gs-grab.h"
 #endif
 
@@ -63,9 +65,11 @@ struct GSManagerPrivate {
     guint lock_active : 1;
 
     guint dialog_up : 1;
+    guint dpms_off : 1;
 
     guint lock_timeout_id;
     guint cycle_timeout_id;
+    guint dpms_timeout_id;
 
 #ifdef ENABLE_X11
     GSGrab *grab;
@@ -131,6 +135,10 @@ manager_maybe_start_job_for_window (GSManager *manager,
         gs_debug ("Not starting job because throttled");
         return;
     }
+    if (manager->priv->dpms_off) {
+        gs_debug ("Not starting job because monitor is powered down");
+        return;
+    }
     if (gs_job_is_running (job)) {
         gs_debug ("Not starting job because job is running");
         return;
@@ -172,6 +180,81 @@ suspend_job (GSWindow *window,
     gs_job_suspend (job, TRUE);
 }
 
+#ifdef ENABLE_X11
+#define DPMS_POLL_SECONDS 5
+
+static gboolean
+dpms_monitor_is_off (void) {
+    Display *xdisplay = gdk_x11_display_get_xdisplay (gdk_display_get_default ());
+    CARD16 level;
+    BOOL enabled;
+
+    if (!DPMSInfo (xdisplay, &level, &enabled)) {
+        return FALSE;
+    }
+
+    return enabled && level != DPMSModeOn;
+}
+
+static gboolean
+dpms_timeout (gpointer user_data) {
+    GSManager *manager = user_data;
+    gboolean off;
+
+    /* the dialog and throttle paths own the jobs while they apply */
+    if (manager->priv->dialog_up || manager->priv->throttled) {
+        return G_SOURCE_CONTINUE;
+    }
+
+    off = dpms_monitor_is_off ();
+    if (off == manager->priv->dpms_off) {
+        return G_SOURCE_CONTINUE;
+    }
+
+    manager->priv->dpms_off = off;
+    if (off) {
+        gs_debug ("Monitor powered down, suspending jobs");
+        g_hash_table_foreach (manager->priv->jobs, (GHFunc) suspend_job, manager);
+    } else {
+        gs_debug ("Monitor powered up, resuming jobs");
+        g_hash_table_foreach (manager->priv->jobs, (GHFunc) resume_job, manager);
+    }
+
+    return G_SOURCE_CONTINUE;
+}
+
+static void
+add_dpms_timer (GSManager *manager) {
+    Display *xdisplay;
+    int event_base;
+    int error_base;
+
+    if (!GDK_IS_X11_DISPLAY (gdk_display_get_default ())) {
+        return;
+    }
+
+    xdisplay = gdk_x11_display_get_xdisplay (gdk_display_get_default ());
+    if (!DPMSQueryExtension (xdisplay, &event_base, &error_base) || !DPMSCapable (xdisplay)) {
+        gs_debug ("DPMS not available, not watching monitor power state");
+        return;
+    }
+
+    manager->priv->dpms_off = dpms_monitor_is_off ();
+    manager->priv->dpms_timeout_id = g_timeout_add_seconds (DPMS_POLL_SECONDS, dpms_timeout, manager);
+}
+#endif
+
+/* The poll skips while the dialog is up or jobs are throttled, so dpms_off
+ * can be stale when either ends; re-query before acting on it. */
+static void
+refresh_dpms_state (GSManager *manager) {
+#ifdef ENABLE_X11
+    if (manager->priv->dpms_timeout_id != 0) {
+        manager->priv->dpms_off = dpms_monitor_is_off ();
+    }
+#endif
+}
+
 static void
 remove_job (GSJob *job) {
     gs_job_stop (job);
@@ -185,6 +268,10 @@ gs_manager_set_throttled (GSManager *manager,
 
     if (manager->priv->throttled != throttled) {
         manager->priv->throttled = throttled;
+
+        if (!throttled) {
+            refresh_dpms_state (manager);
+        }
 
         if (!manager->priv->dialog_up) {
             GHashTableIter iter;
@@ -284,6 +371,9 @@ gs_manager_cycle (GSManager *manager) {
         return FALSE;
     }
     if (manager->priv->throttled) {
+        return FALSE;
+    }
+    if (manager->priv->dpms_off) {
         return FALSE;
     }
     gs_debug ("Cycling jobs");
@@ -512,6 +602,7 @@ static void
 remove_timers (GSManager *manager) {
     remove_lock_timer (manager);
     remove_cycle_timer (manager);
+    g_clear_handle_id (&manager->priv->dpms_timeout_id, g_source_remove);
 }
 
 static gboolean
@@ -786,7 +877,9 @@ handle_window_dialog_down (GSManager *manager,
 
     manager->priv->dialog_up = FALSE;
 
-    if (!manager->priv->throttled) {
+    refresh_dpms_state (manager);
+
+    if (!manager->priv->throttled && !manager->priv->dpms_off) {
         g_hash_table_foreach (manager->priv->jobs, (GHFunc) resume_job, manager);
     }
 
@@ -1111,6 +1204,10 @@ gs_manager_activate (GSManager *manager) {
         manager->priv->lock_active = TRUE;
     }
 
+#ifdef ENABLE_X11
+    add_dpms_timer (manager);
+#endif
+
     gs_manager_create_windows (GS_MANAGER (manager));
 
     manager->priv->active = TRUE;
@@ -1149,6 +1246,7 @@ gs_manager_deactivate (GSManager *manager) {
     /* reset state */
     manager->priv->active = FALSE;
     manager->priv->dialog_up = FALSE;
+    manager->priv->dpms_off = FALSE;
 
     gs_manager_enable_locker (manager, FALSE);
 
