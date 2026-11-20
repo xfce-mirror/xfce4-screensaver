@@ -51,6 +51,7 @@
 #include "gs-job.h"
 #include "gs-prefs.h"
 #include "gs-theme-manager.h"
+#include "gs-xss-config.h"
 #include "subprocs.h"
 #include "xfce-desktop-utils.h"
 
@@ -199,6 +200,13 @@ gs_job_set_theme (GSJob *job) {
     const char *theme;
     gchar *command = NULL;
     gchar *arguments = NULL;
+
+    if (job->priv->prefs->saver_enabled && job->priv->prefs->mode == GS_MODE_XSCREENSAVER) {
+        command = gs_xss_config_get_command ();
+        gs_job_set_command (job, command);
+        g_free (command);
+        return;
+    }
 
     theme = gs_prefs_get_theme (job->priv->prefs);
     if (!theme) {
