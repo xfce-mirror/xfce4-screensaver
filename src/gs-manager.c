@@ -22,9 +22,8 @@
  */
 
 #ifdef ENABLE_X11
-#include <gdk/gdkx.h>
-
 #include <X11/extensions/dpms.h>
+#include <gdk/gdkx.h>
 
 #include "gs-grab.h"
 #endif
