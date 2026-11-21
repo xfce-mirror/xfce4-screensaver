@@ -22,6 +22,7 @@
  */
 
 #ifdef ENABLE_X11
+#include <X11/Xlib.h>
 #include <X11/extensions/dpms.h>
 #include <gdk/gdkx.h>
 
