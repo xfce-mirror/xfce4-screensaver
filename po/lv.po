@@ -399,11 +399,11 @@ msgstr "Rādīt atkļūdošanas izvadi"
 
 #: src/xfce4-screensaver-dialog.c:72
 msgid "Show the logout button"
-msgstr "Rādīt atteikšanās pogu"
+msgstr "Rādīt izrakstīšanās pogu"
 
 #: src/xfce4-screensaver-dialog.c:74
 msgid "Command to invoke from the logout button"
-msgstr "Ar atteikšanās pogu izsaucamā komanda"
+msgstr "Ar izrakstīšanās pogu izsaucamā komanda"
 
 #: src/xfce4-screensaver-dialog.c:76
 msgid "Show the switch user button"
@@ -455,7 +455,7 @@ msgstr "_Nomainīt lietotāju"
 
 #: src/xfce4-screensaver-dialog.ui:287
 msgid "_Log Out"
-msgstr "_Atteikties"
+msgstr "_Izrakstīties"
 
 #: src/xfce4-screensaver-dialog.ui:303
 msgid "_Cancel"
@@ -610,15 +610,15 @@ msgstr "Sesijas statusa ziņojumi"
 
 #: src/xfce4-screensaver-preferences.ui:1093
 msgid "Logout"
-msgstr "Atteikšanās"
+msgstr "Izrakstīšanās"
 
 #: src/xfce4-screensaver-preferences.ui:1123
 msgid "Logout command:"
-msgstr "Atteikšanās komanda:"
+msgstr "Izrakstīšanās komanda:"
 
 #: src/xfce4-screensaver-preferences.ui:1147
 msgid "Enable logout after:"
-msgstr "Ļaut atteikties pēc:"
+msgstr "Ļaut izrakstīties pēc:"
 
 #: src/xfce4-screensaver-preferences.ui:1185
 msgid "User Switching"
